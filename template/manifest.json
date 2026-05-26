@@ -1,0 +1,14 @@
+{
+  "schema": "rapp-static-api/1.0",
+  "name": "my-static-api",
+  "raw_base": "https://raw.githubusercontent.com/OWNER/REPO/main",
+  "entries": [
+    {
+      "name": "example.md",
+      "sources": [
+        { "label": "primary", "url": "https://raw.githubusercontent.com/OWNER/REPO/main/example.md" },
+        { "label": "mirror",  "url": "https://raw.githubusercontent.com/OWNER/OTHER/main/example.md" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>static api</title>
+<style>
+ body{font-family:-apple-system,system-ui,Segoe UI,sans-serif;max-width:840px;margin:40px auto;padding:0 16px;background:#0d1117;color:#e6edf3;line-height:1.6}
+ a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
+ .e{border:1px solid #30363d;border-radius:10px;padding:12px 14px;margin:10px 0;background:#161b22}
+ .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}
+ .drift{color:#79c0ff;font-weight:700}.ok{color:#3fb950;font-weight:700}
+ code{background:#010409;border:1px solid #30363d;padding:1px 6px;border-radius:5px;font-size:12px}
+ summary{cursor:pointer;color:#8b949e;font-size:13px;margin-top:6px}
+</style></head><body>
+<h1>🗿 <span id="name">static api</span></h1>
+<p id="sum">loading…</p>
+<div id="entries"></div>
+<p style="color:#8b949e;font-size:13px;margin-top:30px;border-top:1px solid #30363d;padding-top:14px">
+ A <a href="https://github.com/kody-w/rapp-static-apis"><code>rapp-static-api/1.0</code></a> — served
+ entirely off raw.githubusercontent.com. Pin any version forever via its <code>versions/&lt;name&gt;/&lt;sha8&gt;</code> URL.</p>
+<script>
+(async()=>{
+  const r = await (await fetch('registry.json',{cache:'no-store'})).json();
+  document.getElementById('name').textContent = r.name;
+  document.getElementById('sum').innerHTML =
+    `${r.summary.entries} entries · ${r.summary.versions} versions held · ${r.summary.drift} forked ·
+     <a href="api/v1/status.json">status.json</a> · <a href="api/v1/badge.json">badge.json</a>`;
+  document.getElementById('entries').innerHTML = r.entries.map(e=>
+    `<div class="e"><b class="mono">${e.name}</b>
+       <span class="${e.drift?'drift':'ok'}">${e.drift?'⑂ forked':'= in sync'}</span> · ${e.version_count} versions
+       <div style="margin-top:6px">`+
+       e.sources.map(s=>`<div class="mono">${s.label}: ${s.sha8||'—'} ${s.on_primary?'<span class="ok">✓</span>':'<span class="drift">▲ other</span>'}</div>`).join('')+
+       `</div><details><summary>versions — pinnable fallbacks</summary>`+
+       e.versions.map(v=>`<div class="mono"><a href="${v.url}">${v.sha8}</a> · ${v.bytes}b · ${v.first_captured.slice(0,10)}</div>`).join('')+
+       `</details></div>`).join('');
+})();
+</script></body></html>
