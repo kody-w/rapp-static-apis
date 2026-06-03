@@ -28,8 +28,8 @@ cached by GitHub's CDN, and CORS-open.
 | 1 | **Input** | `manifest.json` | ✅ — the *only* hand-authored file. Declares what the API serves/tracks. |
 | 2 | **Build step** | one command (e.g. `build.py`) | ✅ — the *only* build. A pure, idempotent function of input + fetched sources. |
 | 3 | **Index** | `registry.json` / `index.json` | ✅ — **generated, never hand-edited.** Machine-readable; carries `schema`, `generated`, `summary`, entries. |
-| 4 | **Versioned endpoints** | `api/v<major>/*.json` | ✅ — e.g. `status.json`; `badge.json` (shields.io format) optional. |
-| 5 | **Content store** | `<collection>/<sha8>[.ext]` | ⬜ recommended — content-addressed, immutable, append-only blobs. Each version stored once; its raw URL is a permanent fallback. |
+| 4 | **Versioned endpoints** | `api/v<major>/*.json` | ✅ — e.g. `status.json` (carries its own `<name>-status/<major>.<minor>` schema id); `badge.json` (shields.io format) optional. |
+| 5 | **Content store** | `versions/<name>/<sha8><ext>` | ⬜ recommended — content-addressed, immutable, append-only blobs. Each version stored once; its raw URL is a permanent fallback. |
 | 6 | **`.nojekyll`** | `.nojekyll` | ✅ if using Pages — disables Jekyll so every file (incl. front-matter `.md`) serves byte-exact. |
 | 7 | **Dashboard** | `index.html` | ⬜ — single file, zero dependencies. Fetches the index + raw files and computes/renders in-browser. The page is the proof. |
 | 8 | **CI** | a workflow | ⬜ — rebuild on push + schedule; commit *only* real changes; publish. |
@@ -45,10 +45,14 @@ cached by GitHub's CDN, and CORS-open.
 - **Append-only content.** A build MUST NOT delete or mutate a previously published
   content-addressed blob. The store only grows. This is what makes every version a load-bearing
   fallback.
-- **Hashing.** SHA-256. The short form is the first 12 hex chars (call it `sha8`, keep the name).
-  Content-addressed paths use the short form: `<collection>/<sha8>[.ext]`.
+- **Hashing.** SHA-256. The short form is the first 12 hex chars (call it `sha8`, keep the name —
+  the value is 12 chars, not 8).
+  Content-addressed paths use the short form under a fixed `versions/` prefix plus the full entry
+  `<name>`: `versions/<name>/<sha8><ext>` (the `<name>` may itself contain slashes).
 - **Schema strings.** `"<name>/<major>.<minor>"` on every generated document (e.g.
-  `"rapp-static-api/1.0"`, `"rapp-god-registry/1.0"`).
+  `"rapp-static-api/1.0"`, `"rapp-god-registry/1.0"`). Each generated endpoint carries its own
+  schema id — the status endpoint uses `"<name>-status/<major>.<minor>"` (e.g.
+  `"rapp-static-api-status/1.0"`).
 - **Endpoint versioning.** Live under `api/v<major>/`. Bump the major on a breaking change; keep
   old majors alive — they're static, so they cost nothing.
 - **Timestamps.** ISO-8601 UTC with `Z`.
@@ -76,8 +80,13 @@ CUR=$(curl -s $RAW/registry.json | jq -r '.entries[]|select(.name=="thing").sha8
 [ "$MINE" = "$CUR" ] || echo "an update is waiting (current $CUR)"
 
 # pin a fallback — an exact, immutable version, forever
-curl -O $RAW/<collection>/<sha8>
+curl -O $RAW/versions/<name>/<sha8><ext>
 ```
+
+**MCP clients are first-class consumers.** An MCP host (Claude Desktop, the Copilot CLI, Cursor) is
+a **Layer-2 caller** of a static API: it fetches the index, pins a `sha8` frame, and
+verifies-before-exec — identical to the `curl` flow above. MCP is transport realizing *Chat Is The
+Only Wire*, not a new unit or kind. See `rapp-static-mcp/1.0` in §6.
 
 ## 5. Conformance
 
@@ -88,7 +97,8 @@ An implementation is **rapp-static-api/1.0 conformant** if:
 - [ ] The build is idempotent and stable-write (no timestamp-only diffs).
 - [ ] It ships `.nojekyll` if served via GitHub Pages.
 - [ ] Versioned JSON endpoints live under `api/v<major>/`.
-- [ ] If it versions content, blobs are content-addressed (`sha8`) and append-only — never deleted.
+- [ ] If it versions content, blobs are content-addressed (`sha8` = the first **12** hex chars of
+      the SHA-256) and append-only — never deleted.
 - [ ] The generated index is itself fetchable over `raw.githubusercontent.com` and names its raw
       base URL.
 
@@ -100,6 +110,10 @@ An implementation is **rapp-static-api/1.0 conformant** if:
 - **[RAR](https://github.com/kody-w/RAR)** — the agent registry: agent files are the input,
   `build_registry.py` is the build, `registry.json` is the index. The reference for the
   index-without-content-store variant.
+- **[rapp-mcp](https://github.com/kody-w/rapp-mcp)** — `rapp-static-mcp/1.0`, a static MCP catalog
+  of content-addressed agent frames built *on* `rapp-static-api/1.0`: an MCP client fetches the
+  index, pins a `sha8` frame, and verifies-before-exec. The reference for the MCP-profile variant —
+  transport realizing *Chat Is The Only Wire*; the MCP host is a Layer-2 caller, not a new unit.
 
 See [`template/`](template/) for a minimal, copyable starting point.
 

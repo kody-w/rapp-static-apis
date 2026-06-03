@@ -49,5 +49,8 @@ Enable GitHub Pages, and your API is live at
 |------|---------|
 | [rapp-god](https://github.com/kody-w/rapp-god) | full — index **+ every version** as content-addressed fallback frames |
 | [RAR](https://github.com/kody-w/RAR) | index only — agent files in, `registry.json` out |
+| [rapp-mcp](https://github.com/kody-w/rapp-mcp) | `rapp-static-mcp/1.0` — a static MCP catalog of content-addressed agent frames; pin a `sha8`, verify-before-exec. A profile *of* `rapp-static-api/1.0`. |
+
+MCP clients (Claude Desktop, Copilot CLI, Cursor) are **Layer-2 callers** that consume a static API exactly like the `curl` flow above — they fetch the index and pin a `sha8` frame. MCP is transport realizing *Chat Is The Only Wire*, not a new unit.
 
 MIT © Kody Wildfeuer. Part of the RAPP ecosystem — see the [map](https://github.com/kody-w/rapp-map).
