@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAPP static Dataverse — OOTB digital twin</title>
+<style>
+:root{--blue:#0078d4;--dark:#1b1b1b;--bg:#f3f2f1;--card:#fff;--border:#edebe9;--text:#323130;--muted:#605e5c;--green:#107c10;}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',-apple-system,sans-serif;background:var(--bg);color:var(--text)}
+.nav{background:var(--dark);color:#fff;padding:0 16px;height:48px;display:flex;align-items:center;gap:12px}
+.nav .logo{font-weight:600;font-size:14px}.nav .badge{background:var(--blue);padding:2px 8px;border-radius:2px;font-size:11px;font-weight:600}
+.nav .ootb{background:var(--green)}.nav .org{color:#a19f9d;font-size:13px;margin-left:auto}
+.layout{display:flex;height:calc(100vh - 48px)}
+.sidebar{width:230px;background:var(--card);border-right:1px solid var(--border);padding:8px 0;overflow-y:auto;flex-shrink:0}
+.sidebar h3{font-size:11px;text-transform:uppercase;color:var(--muted);padding:12px 16px 4px;letter-spacing:.5px}
+.sidebar a{display:flex;align-items:center;gap:8px;padding:8px 16px;color:var(--text);text-decoration:none;font-size:13px;cursor:pointer}
+.sidebar a:hover,.sidebar a.active{background:#e1dfdd;color:var(--blue)}.sidebar .count{color:var(--muted);font-size:11px;margin-left:auto}
+.main{flex:1;overflow-y:auto;padding:20px 24px}
+h1{font-size:20px;font-weight:600;margin-bottom:2px}.sub{color:var(--muted);font-size:13px;margin-bottom:16px}
+.api-info{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:12px 16px;margin-bottom:16px;font-size:12px}
+.api-info code{background:#f3f2f1;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace}
+.grid{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--border);border-radius:4px}
+.grid th{background:#faf9f8;font-size:11px;font-weight:600;text-transform:uppercase;color:var(--muted);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.grid td{padding:8px 12px;font-size:13px;border-bottom:1px solid var(--border);max-width:420px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:top}
+.card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:16px;margin-bottom:14px}
+.card h2{font-size:14px;margin-bottom:8px}.pill{display:inline-block;background:#eff6fc;color:var(--blue);border:1px solid #c7e0f4;border-radius:10px;padding:1px 8px;font-size:11px;margin:2px 4px 2px 0}
+pre{background:#1b1b1b;color:#d4d4d4;border-radius:4px;padding:12px;overflow-x:auto;font-size:12px;font-family:Consolas,monospace}
+.k{color:var(--muted)}.mono{font-family:Consolas,monospace;font-size:12px}
+</style>
+</head>
+<body>
+<div class="nav">
+  <span class="logo">🗿 RAPP · Dataverse</span>
+  <span class="badge ootb">OOTB ONLY</span>
+  <span class="badge">DIGITAL TWIN</span>
+  <span class="org" id="org">loading…</span>
+</div>
+<div class="layout">
+  <div class="sidebar">
+    <h3>RAPP (decoded)</h3>
+    <a data-view="twin" class="active">🧠 Twin overview</a>
+    <a data-view="agents">🤖 Agents <span class="count" id="c-agents"></span></a>
+    <a data-view="memory">📓 Memory <span class="count" id="c-mem"></span></a>
+    <a data-view="history">💬 Messages <span class="count" id="c-msg"></span></a>
+    <h3>OOTB tables (raw OData)</h3>
+    <a data-view="accounts">accounts <span class="count" id="c-acc"></span></a>
+    <a data-view="contacts">contacts <span class="count" id="c-con"></span></a>
+    <a data-view="annotations">annotations <span class="count" id="c-ann"></span></a>
+  </div>
+  <div class="main" id="main">Loading the twin…</div>
+</div>
+<script>
+const API = "api/data/v9.2";
+const state = {};
+const J = s => { try { return JSON.parse(s); } catch { return {}; } };
+const esc = s => (s==null?"":String(s)).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+
+async function load(){
+  const [acc,con,ann,reg] = await Promise.all([
+    fetch(`${API}/accounts.json`).then(r=>r.json()),
+    fetch(`${API}/contacts.json`).then(r=>r.json()),
+    fetch(`${API}/annotations.json`).then(r=>r.json()),
+    fetch(`registry.json`).then(r=>r.json()).catch(()=>({})),
+  ]);
+  state.acc=acc.value; state.con=con.value; state.ann=ann.value; state.reg=reg;
+  state.rappAcct=(acc.value.find(a=>a.name==="RAPP System")||{});
+  state.agents=ann.value.filter(n=>n.subject==="rapp.agent").map(n=>({...J(n.notetext),_id:n.annotationid}));
+  state.mem=ann.value.filter(n=>n.subject==="rapp.memory").map(n=>({...J(n.notetext),scope:n.objecttypecode==="account"?"shared":"user",regarding:n["_objectid_value@OData.Community.Display.V1.FormattedValue"]}));
+  state.msgs=ann.value.filter(n=>n.subject==="rapp.message").map(n=>J(n.notetext)).sort((a,b)=>a.sequence-b.sequence);
+  document.getElementById("org").textContent=(reg.org_url||"")+"  ·  "+(reg.summary?reg.summary.rows+" rows":"");
+  document.getElementById("c-agents").textContent=state.agents.length;
+  document.getElementById("c-mem").textContent=state.mem.length;
+  document.getElementById("c-msg").textContent=state.msgs.length;
+  document.getElementById("c-acc").textContent=state.acc.length;
+  document.getElementById("c-con").textContent=state.con.length;
+  document.getElementById("c-ann").textContent=state.ann.length;
+  render("twin");
+}
+
+function rawGrid(rows){
+  if(!rows.length) return "<p>No rows.</p>";
+  const cols=Object.keys(rows[0]).filter(k=>!k.includes("@")).slice(0,7);
+  return `<table class="grid"><thead><tr>${cols.map(c=>`<th>${c}</th>`).join("")}</tr></thead><tbody>${
+    rows.map(r=>`<tr>${cols.map(c=>`<td class="mono">${esc(typeof r[c]==="object"?JSON.stringify(r[c]):r[c])}</td>`).join("")}</tr>`).join("")
+  }</tbody></table>`;
+}
+
+function render(view){
+  document.querySelectorAll(".sidebar a").forEach(a=>a.classList.toggle("active",a.dataset.view===view));
+  const m=document.getElementById("main");
+  if(view==="twin"){
+    m.innerHTML=`<h1>Digital twin overview</h1>
+      <div class="sub">RAPP encoded entirely on out-of-the-box Dataverse — account + contact + annotation. No custom tables, no solution import.</div>
+      <div class="api-info">Raw base: <code>${esc(state.reg.raw_base||"")}</code> · 1:1 with a real OOTB Dataverse (see SYNC.md)</div>
+      <div class="card"><h2>🧠 Soul (account "RAPP System" · description)</h2><div>${esc(state.rappAcct.description||"")}</div></div>
+      <div class="card"><h2>🤖 Agents (${state.agents.length})</h2>${state.agents.map(a=>`<span class="pill">${esc(a.name)} · ${esc(a.kind)}</span>`).join("")}</div>
+      <div class="card"><h2>📓 Memory (${state.mem.length})</h2>${state.mem.map(x=>`<span class="pill">${esc(x.scope)}${x.scope==="user"?" · "+esc(x.regarding):""}</span>`).join("")}</div>
+      <div class="card"><h2>💬 Latest conversation</h2>${state.msgs.map(x=>`<div><span class="k">${esc(x.role)}${x.agent_name?" ("+esc(x.agent_name)+")":""}:</span> ${esc(x.content)}</div>`).join("")}</div>`;
+  } else if(view==="agents"){
+    m.innerHTML=`<h1>Agents</h1><div class="sub">The full agent.py is stored in Dataverse (notetext.sourcecode) — the single-file agent is never lost.</div>`+
+      state.agents.map(a=>`<div class="card"><h2>${esc(a.name)} <span class="pill">${esc(a.kind)}</span></h2><div class="sub">${esc(a.description)}</div><pre>${esc(a.sourcecode||"")}</pre></div>`).join("");
+  } else if(view==="memory"){
+    m.innerHTML=`<h1>Memory</h1><div class="sub">scope = the note's regarding object: account = shared, contact = user.</div>`+rawGrid(state.mem);
+  } else if(view==="history"){
+    m.innerHTML=`<h1>Messages (history + audit)</h1><div class="sub">Every turn — including tool/agent calls — is an annotation row.</div>`+rawGrid(state.msgs);
+  } else {
+    const rows=state[{accounts:"acc",contacts:"con",annotations:"ann"}[view]];
+    m.innerHTML=`<h1>${view}</h1><div class="sub">Raw OOTB OData — shaped exactly like a live <code>GET /api/data/v9.2/${view}</code>.</div>`+rawGrid(rows);
+  }
+}
+document.querySelectorAll(".sidebar a").forEach(a=>a.addEventListener("click",()=>render(a.dataset.view)));
+load().catch(e=>document.getElementById("main").innerHTML="<p>Failed to load: "+esc(e.message)+"</p>");
+</script>
+</body>
+</html>

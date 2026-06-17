@@ -1,0 +1,39 @@
+{
+  "schema": "rapp-static-api/1.0",
+  "name": "rapp-static-dataverse",
+  "generated": "2026-06-17T01:44:43Z",
+  "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataverse",
+  "pages_base": "https://kody-w.github.io/rapp-static-apis/dataverse",
+  "org_url": "https://rapp.crm.dynamics.com",
+  "ootb_only": true,
+  "summary": {
+    "entitysets": 3,
+    "rows": 12
+  },
+  "entries": [
+    {
+      "name": "accounts",
+      "logicalname": "account",
+      "count": 1,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataverse/api/data/v9.2/accounts.json",
+      "pages_url": "https://kody-w.github.io/rapp-static-apis/dataverse/api/data/v9.2/accounts.json",
+      "sha8": "28f0ebfd8a33"
+    },
+    {
+      "name": "contacts",
+      "logicalname": "contact",
+      "count": 1,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataverse/api/data/v9.2/contacts.json",
+      "pages_url": "https://kody-w.github.io/rapp-static-apis/dataverse/api/data/v9.2/contacts.json",
+      "sha8": "179720c039f1"
+    },
+    {
+      "name": "annotations",
+      "logicalname": "annotation",
+      "count": 10,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataverse/api/data/v9.2/annotations.json",
+      "pages_url": "https://kody-w.github.io/rapp-static-apis/dataverse/api/data/v9.2/annotations.json",
+      "sha8": "9be4386f5512"
+    }
+  ]
+}

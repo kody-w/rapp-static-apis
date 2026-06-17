@@ -1,0 +1,29 @@
+{
+  "schema": "rapp-static-api/1.0",
+  "name": "rapp-static-dataverse",
+  "kind": "dataverse-digital-twin",
+  "ootb_only": true,
+  "org_url": "https://rapp.crm.dynamics.com",
+  "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataverse",
+  "pages_base": "https://kody-w.github.io/rapp-static-apis/dataverse",
+  "twin": {
+    "direction": "bidirectional",
+    "identity": "primary-key-guid",
+    "comment": "The deterministic GUIDs are the SHARED identity across the vTwin and the real OOTB Dataverse. Sync upserts by these ids (Dataverse accepts client-specified GUIDs on create), so both sides stay 1:1.",
+    "delta_fields": ["modifiedon", "versionnumber"],
+    "entitysets": {
+      "accounts":    { "entity": "account",    "key": "accountid" },
+      "contacts":    { "entity": "contact",     "key": "contactid" },
+      "annotations": { "entity": "annotation",  "key": "annotationid", "regarding_lookup": "objectid" }
+    }
+  },
+  "rapp_encoding": {
+    "config": "annotation subject='rapp.config' regarding the RAPP System account; soul also on account.description",
+    "agent": "annotation subject='rapp.agent'; notetext={name,description,manifest,parameters,sourcecode,kind,enabled}",
+    "memory_shared": "annotation subject='rapp.memory' regarding the account",
+    "memory_user": "annotation subject='rapp.memory' regarding the user's contact",
+    "conversation": "annotation subject='rapp.conversation'",
+    "message": "annotation subject='rapp.message'; notetext={session_id,sequence,role,content,agent_name}"
+  },
+  "seeds": ["seed/accounts.json", "seed/contacts.json", "seed/annotations.json"]
+}

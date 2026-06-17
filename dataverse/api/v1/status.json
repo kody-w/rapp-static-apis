@@ -1,0 +1,25 @@
+{
+  "schema": "rapp-static-dataverse-status/1.0",
+  "generated": "2026-06-17T01:44:43Z",
+  "summary": {
+    "entitysets": 3,
+    "rows": 12
+  },
+  "entitysets": [
+    {
+      "name": "accounts",
+      "count": 1,
+      "sha8": "28f0ebfd8a33"
+    },
+    {
+      "name": "contacts",
+      "count": 1,
+      "sha8": "179720c039f1"
+    },
+    {
+      "name": "annotations",
+      "count": 10,
+      "sha8": "9be4386f5512"
+    }
+  ]
+}

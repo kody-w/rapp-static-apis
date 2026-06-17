@@ -1,0 +1,35 @@
+name: Build RAPP static Dataverse
+
+# Rebuilds the OOTB Dataverse digital twin (rapp-static-api/1.0) on seed change.
+# Idempotent + stable-write, so it only commits real changes.
+
+on:
+  push:
+    paths:
+      - 'dataverse/seed/**'
+      - 'dataverse/build.py'
+      - 'dataverse/manifest.json'
+      - '.github/workflows/dataverse.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Build the twin
+        run: python dataverse/build.py
+      - name: Commit only real changes
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "RAPP Twin Bot"
+          git config user.email "rapp-bot@users.noreply.github.com"
+          git add dataverse/api dataverse/registry.json
+          git diff --cached --quiet || git commit -m "Rebuild static Dataverse twin [skip ci]"
+          git push

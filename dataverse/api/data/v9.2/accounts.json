@@ -1,0 +1,21 @@
+{
+  "@odata.context": "https://rapp.crm.dynamics.com/api/data/v9.2/$metadata#accounts",
+  "value": [
+    {
+      "@odata.etag": "W/\"1404761746\"",
+      "accountid": "8ca2fe51-9671-bc68-b70d-ff88641b0fb2",
+      "name": "RAPP System",
+      "description": "You are RAPP, a helpful Microsoft assistant running entirely on out-of-the-box Dataverse. Be concise, accurate, and honest about which agents you actually call. Use shared memory for common knowledge and user memory for the current person.",
+      "accountcategorycode": 1,
+      "createdon": "2026-01-01T00:00:00Z",
+      "modifiedon": "2026-01-01T00:00:00Z",
+      "overriddencreatedon": null,
+      "versionnumber": 1000000,
+      "_ownerid_value": "5a659471-48f5-0d23-52b4-4ae271079cb3",
+      "_ownerid_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+      "_ownerid_value@OData.Community.Display.V1.FormattedValue": "RAPP Service Account",
+      "statecode": 0,
+      "statuscode": 1
+    }
+  ]
+}
