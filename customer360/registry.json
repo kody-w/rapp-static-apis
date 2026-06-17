@@ -1,0 +1,43 @@
+{
+  "schema": "rapp-static-api/1.0",
+  "name": "rapp-static-customer360",
+  "generated": "2026-06-17T00:00:00Z",
+  "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360",
+  "pages_base": "https://kody-w.github.io/rapp-static-apis/customer360",
+  "org_url": "https://rapp.crm.dynamics.com",
+  "ootb_only": true,
+  "summary": {
+    "entitysets": 4,
+    "rows": 16
+  },
+  "entries": [
+    {
+      "name": "accounts",
+      "logicalname": "account",
+      "count": 3,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/accounts.json",
+      "sha8": "1e75db926595"
+    },
+    {
+      "name": "contacts",
+      "logicalname": "contact",
+      "count": 4,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/contacts.json",
+      "sha8": "246b74bd5d04"
+    },
+    {
+      "name": "opportunities",
+      "logicalname": "opportunity",
+      "count": 5,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/opportunities.json",
+      "sha8": "0938c146e2cc"
+    },
+    {
+      "name": "incidents",
+      "logicalname": "incident",
+      "count": 4,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/incidents.json",
+      "sha8": "5dac5d3be5dc"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+[
+  { "_seedkey": "dwight", "account": "contoso", "firstname": "Dwight", "lastname": "Powell", "fullname": "Dwight Powell", "emailaddress1": "dwight.powell@contoso.com", "jobtitle": "VP Operations", "telephone1": "+1-206-555-0143" },
+  { "_seedkey": "mei",    "account": "contoso", "firstname": "Mei",    "lastname": "Tanaka", "fullname": "Mei Tanaka",  "emailaddress1": "mei.tanaka@contoso.com",  "jobtitle": "Director of Procurement", "telephone1": "+1-206-555-0144" },
+  { "_seedkey": "raj",    "account": "fabrikam", "firstname": "Raj",   "lastname": "Patel",  "fullname": "Raj Patel",   "emailaddress1": "raj.patel@fabrikam.com",   "jobtitle": "Head of Digital", "telephone1": "+1-312-555-0191" },
+  { "_seedkey": "sofia",  "account": "northwind","firstname": "Sofia", "lastname": "Garcia", "fullname": "Sofia Garcia", "emailaddress1": "sofia.garcia@northwindtraders.com", "jobtitle": "COO", "telephone1": "+1-617-555-0178" }
+]

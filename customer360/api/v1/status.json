@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-customer360-status/1.0",
+  "generated": "2026-06-17T00:00:00Z",
+  "summary": {
+    "entitysets": 4,
+    "rows": 16
+  },
+  "entitysets": [
+    {
+      "name": "accounts",
+      "count": 3,
+      "sha8": "1e75db926595"
+    },
+    {
+      "name": "contacts",
+      "count": 4,
+      "sha8": "246b74bd5d04"
+    },
+    {
+      "name": "opportunities",
+      "count": 5,
+      "sha8": "0938c146e2cc"
+    },
+    {
+      "name": "incidents",
+      "count": 4,
+      "sha8": "5dac5d3be5dc"
+    }
+  ]
+}

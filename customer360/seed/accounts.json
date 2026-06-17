@@ -1,0 +1,41 @@
+[
+  {
+    "_seedkey": "contoso",
+    "name": "Contoso Ltd",
+    "industry": "Manufacturing",
+    "revenue": 480000000,
+    "numberofemployees": 3200,
+    "telephone1": "+1-206-555-0142",
+    "websiteurl": "https://contoso.com",
+    "address1_city": "Seattle",
+    "address1_stateorprovince": "WA",
+    "accountcategorycode": 1,
+    "description": "Strategic manufacturing account; multi-year ERP + field service footprint."
+  },
+  {
+    "_seedkey": "fabrikam",
+    "name": "Fabrikam, Inc.",
+    "industry": "Retail",
+    "revenue": 125000000,
+    "numberofemployees": 850,
+    "telephone1": "+1-312-555-0190",
+    "websiteurl": "https://fabrikam.com",
+    "address1_city": "Chicago",
+    "address1_stateorprovince": "IL",
+    "accountcategorycode": 2,
+    "description": "Mid-market retailer; omnichannel expansion in progress."
+  },
+  {
+    "_seedkey": "northwind",
+    "name": "Northwind Traders",
+    "industry": "Distribution",
+    "revenue": 62000000,
+    "numberofemployees": 410,
+    "telephone1": "+1-617-555-0177",
+    "websiteurl": "https://northwindtraders.com",
+    "address1_city": "Boston",
+    "address1_stateorprovince": "MA",
+    "accountcategorycode": 1,
+    "description": "Wholesale distributor; renewal at risk, two open escalations."
+  }
+]

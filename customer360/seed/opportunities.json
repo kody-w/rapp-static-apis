@@ -1,0 +1,7 @@
+[
+  { "_seedkey": "contoso-erp",   "account": "contoso",  "name": "ERP modernization — Phase 2", "estimatedvalue": 1200000, "salesstage": "Propose",  "statecode": 0, "statuscode": 1, "estimatedclosedate": "2026-09-30" },
+  { "_seedkey": "contoso-fs",    "account": "contoso",  "name": "Field Service expansion",    "estimatedvalue": 340000,  "salesstage": "Develop",  "statecode": 0, "statuscode": 1, "estimatedclosedate": "2026-08-15" },
+  { "_seedkey": "fabrikam-omni", "account": "fabrikam", "name": "Omnichannel commerce rollout","estimatedvalue": 560000,  "salesstage": "Qualify",  "statecode": 0, "statuscode": 1, "estimatedclosedate": "2026-11-01" },
+  { "_seedkey": "northwind-ren", "account": "northwind","name": "Annual renewal FY27",         "estimatedvalue": 210000,  "salesstage": "Propose",  "statecode": 0, "statuscode": 1, "estimatedclosedate": "2026-07-31" },
+  { "_seedkey": "northwind-won", "account": "northwind","name": "Warehouse analytics add-on",  "estimatedvalue": 95000,   "salesstage": "Closed Won","statecode": 1, "statuscode": 3, "estimatedclosedate": "2026-03-12" }
+]

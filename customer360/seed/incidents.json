@@ -1,0 +1,6 @@
+[
+  { "_seedkey": "contoso-c1",  "account": "contoso",  "title": "Production line integration latency", "ticketnumber": "CAS-10231", "prioritycode": 2, "casetypecode": 2, "statecode": 0, "statuscode": 1 },
+  { "_seedkey": "northwind-c1","account": "northwind","title": "Invoice discrepancy on Q1 orders",  "ticketnumber": "CAS-10288", "prioritycode": 1, "casetypecode": 3, "statecode": 0, "statuscode": 1 },
+  { "_seedkey": "northwind-c2","account": "northwind","title": "Portal login failures (SSO)",       "ticketnumber": "CAS-10291", "prioritycode": 1, "casetypecode": 1, "statecode": 0, "statuscode": 1 },
+  { "_seedkey": "fabrikam-c1", "account": "fabrikam", "title": "POS sync delay at 3 stores",        "ticketnumber": "CAS-10275", "prioritycode": 2, "casetypecode": 2, "statecode": 1, "statuscode": 5 }
+]
