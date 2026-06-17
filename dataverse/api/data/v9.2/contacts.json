@@ -1,0 +1,22 @@
+{
+  "@odata.context": "https://rapp.crm.dynamics.com/api/data/v9.2/$metadata#contacts",
+  "value": [
+    {
+      "@odata.etag": "W/\"1082547245\"",
+      "contactid": "aa0f247b-07e9-82d3-6893-1a90c8b2903a",
+      "fullname": "Ada Lovelace",
+      "firstname": "Ada",
+      "lastname": "Lovelace",
+      "emailaddress1": "ada@contoso.com",
+      "createdon": "2026-01-01T01:40:00Z",
+      "modifiedon": "2026-01-01T01:40:00Z",
+      "overriddencreatedon": null,
+      "versionnumber": 1100000,
+      "_ownerid_value": "5a659471-48f5-0d23-52b4-4ae271079cb3",
+      "_ownerid_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+      "_ownerid_value@OData.Community.Display.V1.FormattedValue": "RAPP Service Account",
+      "statecode": 0,
+      "statuscode": 1
+    }
+  ]
+}

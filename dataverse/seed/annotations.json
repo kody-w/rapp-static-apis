@@ -1,0 +1,83 @@
+[
+  {
+    "_seedkey": "config",
+    "subject": "rapp.config",
+    "regarding": "account:rapp-system",
+    "notetext": { "maxrounds": 3, "voice_enabled": false, "model": "AI Builder GPT prompt" }
+  },
+
+  {
+    "_seedkey": "agent-echo",
+    "subject": "rapp.agent",
+    "regarding": "account:rapp-system",
+    "notetext": {
+      "name": "EchoAgent",
+      "description": "Echo back the provided text. Useful for testing the agent dispatch path.",
+      "manifest": { "schema": "rapp-agent/1.0", "name": "@rapp/echo", "version": "1.0.0" },
+      "parameters": { "type": "object", "properties": { "text": { "type": "string", "description": "Text to echo" } }, "required": ["text"] },
+      "kind": "python",
+      "enabled": true,
+      "sourcecode": "from basic_agent import BasicAgent\n\nclass EchoAgent(BasicAgent):\n    def __init__(self):\n        self.name = \"EchoAgent\"\n        self.metadata = {\n            \"name\": self.name,\n            \"description\": \"Echo back the provided text.\",\n            \"parameters\": {\"type\": \"object\", \"properties\": {\"text\": {\"type\": \"string\"}}, \"required\": [\"text\"]},\n        }\n        super().__init__()\n\n    def perform(self, text=\"\", **kwargs):\n        return f\"Echo: {text}\"\n"
+    }
+  },
+
+  {
+    "_seedkey": "agent-calculator",
+    "subject": "rapp.agent",
+    "regarding": "account:rapp-system",
+    "notetext": {
+      "name": "CalculatorAgent",
+      "description": "Evaluate a basic arithmetic expression (e.g. '2 + 2 * 3') and return the result.",
+      "manifest": { "schema": "rapp-agent/1.0", "name": "@rapp/calculator", "version": "1.0.0" },
+      "parameters": { "type": "object", "properties": { "expression": { "type": "string", "description": "Arithmetic expression" } }, "required": ["expression"] },
+      "kind": "python",
+      "enabled": true,
+      "sourcecode": "import ast, operator\nfrom basic_agent import BasicAgent\n\n_OPS = {ast.Add: operator.add, ast.Sub: operator.sub, ast.Mult: operator.mul, ast.Div: operator.truediv}\n\ndef _ev(node):\n    if isinstance(node, ast.Constant):\n        return node.value\n    if isinstance(node, ast.BinOp):\n        return _OPS[type(node.op)](_ev(node.left), _ev(node.right))\n    raise ValueError(\"unsupported\")\n\nclass CalculatorAgent(BasicAgent):\n    def __init__(self):\n        self.name = \"CalculatorAgent\"\n        self.metadata = {\"name\": self.name, \"description\": \"Evaluate arithmetic.\", \"parameters\": {\"type\": \"object\", \"properties\": {\"expression\": {\"type\": \"string\"}}, \"required\": [\"expression\"]}}\n        super().__init__()\n\n    def perform(self, expression=\"\", **kwargs):\n        try:\n            return str(_ev(ast.parse(expression, mode=\"eval\").body))\n        except Exception as e:\n            return f\"Error: {e}\"\n"
+    }
+  },
+
+  {
+    "_seedkey": "memory-shared-1",
+    "subject": "rapp.memory",
+    "regarding": "account:rapp-system",
+    "notetext": { "memory_type": "fact", "content": "RAPP runs on out-of-the-box Dataverse with no custom tables or solution import." }
+  },
+  {
+    "_seedkey": "memory-shared-2",
+    "subject": "rapp.memory",
+    "regarding": "account:rapp-system",
+    "notetext": { "memory_type": "fact", "content": "Shared memory is stored as annotations regarding the 'RAPP System' account." }
+  },
+  {
+    "_seedkey": "memory-user-ada-1",
+    "subject": "rapp.memory",
+    "regarding": "contact:ada",
+    "notetext": { "memory_type": "preference", "content": "Ada prefers concise answers and British spelling." }
+  },
+
+  {
+    "_seedkey": "conversation-1",
+    "subject": "rapp.conversation",
+    "regarding": "contact:ada",
+    "notetext": { "session_id": "sess-0001", "title": "OOTB Dataverse RAPP test" }
+  },
+
+  {
+    "_seedkey": "message-1",
+    "subject": "rapp.message",
+    "regarding": "contact:ada",
+    "notetext": { "session_id": "sess-0001", "sequence": 1, "role": "user", "content": "What is 6 times 7?" }
+  },
+  {
+    "_seedkey": "message-2",
+    "subject": "rapp.message",
+    "regarding": "contact:ada",
+    "notetext": { "session_id": "sess-0001", "sequence": 2, "role": "tool", "agent_name": "CalculatorAgent", "content": "42" }
+  },
+  {
+    "_seedkey": "message-3",
+    "subject": "rapp.message",
+    "regarding": "contact:ada",
+    "notetext": { "session_id": "sess-0001", "sequence": 3, "role": "assistant", "content": "6 times 7 is 42." }
+  }
+]

@@ -1,0 +1,50 @@
+{
+  "schema": "rapp-static-dataverse/1.0",
+  "note": "Out-of-the-box Dataverse tables only. RAPP needs no custom tables/fields/solution.",
+  "entitysets": [
+    {
+      "name": "accounts",
+      "entity": "account",
+      "key": "accountid",
+      "fields": [
+        "name",
+        "description",
+        "accountcategorycode",
+        "createdon"
+      ]
+    },
+    {
+      "name": "contacts",
+      "entity": "contact",
+      "key": "contactid",
+      "fields": [
+        "fullname",
+        "firstname",
+        "lastname",
+        "emailaddress1",
+        "createdon"
+      ]
+    },
+    {
+      "name": "annotations",
+      "entity": "annotation",
+      "key": "annotationid",
+      "fields": [
+        "subject",
+        "notetext",
+        "isdocument",
+        "_objectid_value",
+        "objecttypecode",
+        "createdon"
+      ]
+    }
+  ],
+  "rapp_encoding": {
+    "config": "annotation subject='rapp.config' regarding RAPP System account; soul also on account.description",
+    "agent": "annotation subject='rapp.agent'; notetext = {name, description, manifest, parameters, sourcecode, kind, enabled}",
+    "memory_shared": "annotation subject='rapp.memory' regarding the account",
+    "memory_user": "annotation subject='rapp.memory' regarding the user's contact",
+    "conversation": "annotation subject='rapp.conversation'",
+    "message": "annotation subject='rapp.message'; notetext = {session_id, sequence, role, content, agent_name}"
+  }
+}
