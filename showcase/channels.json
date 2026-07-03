@@ -5,14 +5,14 @@
       "emoji": "🌍",
       "title": "Physical World",
       "blurb": "QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.",
-      "count": 4
+      "count": 5
     },
     {
       "slug": "verify",
       "emoji": "🔒",
       "title": "Verify-Before-Exec",
       "blurb": "Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.",
-      "count": 3
+      "count": 4
     },
     {
       "slug": "ai-to-ai",

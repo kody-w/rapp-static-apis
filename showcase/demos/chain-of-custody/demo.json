@@ -1,0 +1,17 @@
+{
+  "slug": "chain-of-custody",
+  "channel": "verify",
+  "rank": 4,
+  "emoji": "⛓️",
+  "title": "Chain of Custody",
+  "tagline": "Prove an entire document lineage: every version hash links to the parent, and one changed byte snaps the history.",
+  "holy_shit": "From just the genesis hash, your browser can re-hash every custody link and prove the full history is intact — or name the exact link where tampering starts.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["verify", "provenance", "history", "hash-chain"],
+  "primitives": ["/track", "crypto.subtle"],
+  "powered_by": "runVerifiedCell() verifies the extract cell before execution, while crypto.subtle re-hashes every content node and parent pointer in a content-addressed custody chain",
+  "agent_scenario": "When you need to prove the complete history of a document or artifact (not just current bytes): validate each version's hash and parent link from a trusted genesis hash, and fail loudly at the first broken hop.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

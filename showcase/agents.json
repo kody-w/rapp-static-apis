@@ -16,13 +16,13 @@
       "slug": "physical",
       "title": "Physical World",
       "blurb": "QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.",
-      "count": 4
+      "count": 5
     },
     {
       "slug": "verify",
       "title": "Verify-Before-Exec",
       "blurb": "Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.",
-      "count": 3
+      "count": 4
     },
     {
       "slug": "ai-to-ai",
@@ -207,6 +207,19 @@
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-unbreakable-promise/"
     },
     {
+      "slug": "chain-of-custody",
+      "channel": "verify",
+      "title": "Chain of Custody",
+      "when_to_use": "When you need to prove the complete history of a document or artifact (not just current bytes): validate each version's hash and parent link from a trusted genesis hash, and fail loudly at the first broken hop.",
+      "primitives": [
+        "/track",
+        "crypto.subtle"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/chain-of-custody/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/chain-of-custody/"
+    },
+    {
       "slug": "living-leaderboard",
       "channel": "physical",
       "title": "Living Leaderboard",
@@ -218,6 +231,19 @@
       "status": "live",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/living-leaderboard/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/living-leaderboard/"
+    },
+    {
+      "slug": "the-menu-that-knows-the-kitchen",
+      "channel": "physical",
+      "title": "The Menu That Knows the Kitchen",
+      "when_to_use": "When you need a physical artifact to reflect live operational state without a backend: treat GitHub Issues as the CRUD store and map labels to state, while still verifying compute bytes before exec in the client.",
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-menu-that-knows-the-kitchen/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-menu-that-knows-the-kitchen/"
     },
     {
       "slug": "only-in-the-same-frame",

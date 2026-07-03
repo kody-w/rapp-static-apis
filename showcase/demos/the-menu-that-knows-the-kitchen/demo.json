@@ -1,0 +1,17 @@
+{
+  "slug": "the-menu-that-knows-the-kitchen",
+  "channel": "physical",
+  "rank": 5,
+  "emoji": "🍽️",
+  "title": "The Menu That Knows the Kitchen",
+  "tagline": "A printed QR menu where each dish is live-marked available or sold out from GitHub Issues labels.",
+  "holy_shit": "A dead paper menu updates itself from the kitchen's issue tracker: label an issue `sold-out:<item>` and every phone that scans the QR immediately sees it gone.",
+  "status": "live",
+  "difficulty": "easy",
+  "tags": ["qr", "issues", "inventory", "physical", "live-data"],
+  "primitives": ["/track", "/fn"],
+  "powered_by": "showcase/lib/issues-db.mjs reads open issues as the menu backend, while a pinned /track extract cell is re-verified at runtime before pulling live repo metadata",
+  "agent_scenario": "When you need a physical artifact to reflect live operational state without a backend: treat GitHub Issues as the CRUD store and map labels to state, while still verifying compute bytes before exec in the client.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}
