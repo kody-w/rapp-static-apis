@@ -1,0 +1,146 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Unbreakable Promise — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">✍️</div>
+    <h1 id="title">The Unbreakable Promise</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Type a promise. Your browser fetches a pinned cell from <code>/track</code> and verifies its hash before running, then generates a fresh ECDSA P-256 keypair, signs your exact text with <code>crypto.subtle</code>, and re-verifies that signature immediately. No server stores or decides anything.</p>
+    <label class="mono" for="promise" style="font-size:12px;color:var(--faint)">Your promise</label>
+    <textarea id="promise" rows="3" style="width:100%;margin:6px 0 12px;background:var(--bg2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px">I promise to do one meaningful thing today.</textarea>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px">
+      <button class="run" id="go">🔏 Seal this promise</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">ECDSA P-256 · SHA-256 · browser-native</span>
+    </div>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>This is a vow with cryptographic teeth. The private key never leaves your browser, yet anyone can later check the shared payload and prove whether the exact message was signed by the exact public key. You cannot "take it back" by editing words after the fact: one character changes the bytes, and verification fails. It's receipts for promises.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Open this page, type a commitment, and press <b>Seal this promise</b>.</li>
+      <li>Copy the generated JSON receipt (message + JWK public key + signature).</li>
+      <li>Share it anywhere. Anyone can paste it into their own browser console and verify with <code>crypto.subtle.verify</code>.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in repo root, then open <code>localhost:8000/showcase/demos/the-unbreakable-promise/</code> (WebCrypto requires secure context: localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const out = document.getElementById('out');
+const stepsEl = document.getElementById('steps');
+const narrate = mkNarrator(stepsEl);
+const encoder = new TextEncoder();
+
+function b64url(bytes) {
+  const raw = String.fromCharCode(...bytes);
+  return btoa(raw).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
+
+document.getElementById('go').onclick = async () => {
+  stepsEl.innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">running…</span>';
+
+  const message = document.getElementById('promise').value.trim();
+  if (!message) {
+    out.innerHTML = '<span class="mono" style="color:var(--bad)">type a promise first</span>';
+    return;
+  }
+
+  try {
+    const gate = await runVerifiedCell({
+      base: '../../../track',
+      cell: 'extract',
+      fn: 'echo',
+      args: message,
+      onStep: narrate,
+    });
+
+    narrate('keygen', 'active', 'generate ECDSA P-256 keypair in your browser', 'crypto.subtle.generateKey');
+    const kp = await crypto.subtle.generateKey(
+      { name: 'ECDSA', namedCurve: 'P-256' },
+      true,
+      ['sign', 'verify']
+    );
+    narrate('keygen', 'ok', 'generated keypair', 'private key stayed local');
+
+    const canonical = String(gate.echo ?? message);
+    const payload = encoder.encode(canonical);
+
+    narrate('sign', 'active', 'sign the exact message bytes', canonical);
+    const sig = new Uint8Array(await crypto.subtle.sign(
+      { name: 'ECDSA', hash: 'SHA-256' },
+      kp.privateKey,
+      payload
+    ));
+    narrate('sign', 'ok', 'signature produced', `${sig.byteLength} bytes`);
+
+    narrate('verify-local', 'active', 'verify signature with public key', 'crypto.subtle.verify');
+    const valid = await crypto.subtle.verify(
+      { name: 'ECDSA', hash: 'SHA-256' },
+      kp.publicKey,
+      sig,
+      payload
+    );
+    if (!valid) throw new Error('signature verify failed');
+    narrate('verify-local', 'ok', 'signature verified', 'this key made this exact promise');
+
+    const jwk = await crypto.subtle.exportKey('jwk', kp.publicKey);
+    const receipt = {
+      algo: 'ECDSA-P-256-SHA256',
+      message: canonical,
+      publicKeyJwk: jwk,
+      signatureB64url: b64url(sig),
+      verifiedNow: valid,
+      at: new Date().toISOString(),
+    };
+
+    out.innerHTML =
+      `<div><span class="big">✅ Sealed</span> <span style="color:var(--muted)">publish this receipt</span></div>` +
+      `<pre class="mono" style="margin-top:10px;white-space:pre-wrap;word-break:break-word;background:var(--bg);padding:10px;border:1px solid var(--line);border-radius:8px">${JSON.stringify(receipt, null, 2)}</pre>`;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : (e.message || e)}</span>`;
+  }
+};
+</script>
+</body></html>

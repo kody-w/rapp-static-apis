@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 16,
+  "count": 19,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -216,6 +216,72 @@
       ],
       "url": "demos/the-paper-that-boots-python/",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-paper-that-boots-python/demo.json"
+    },
+    {
+      "slug": "proof-of-freshness",
+      "channel": "verify",
+      "rank": 3,
+      "emoji": "🧊",
+      "title": "Proof of Freshness",
+      "tagline": "Show a live number with a browser-computed SHA-256 proof of the exact bytes fetched right now.",
+      "status": "live",
+      "difficulty": "easy",
+      "tags": [
+        "verify",
+        "freshness",
+        "crypto",
+        "live-data"
+      ],
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "url": "demos/proof-of-freshness/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/proof-of-freshness/demo.json"
+    },
+    {
+      "slug": "the-unbreakable-promise",
+      "channel": "human",
+      "rank": 3,
+      "emoji": "✍️",
+      "title": "The Unbreakable Promise",
+      "tagline": "A typed vow signed in your browser so anyone can verify exactly who promised exactly what.",
+      "status": "live",
+      "difficulty": "easy",
+      "tags": [
+        "promise",
+        "signature",
+        "webcrypto",
+        "human"
+      ],
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "url": "demos/the-unbreakable-promise/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-unbreakable-promise/demo.json"
+    },
+    {
+      "slug": "living-leaderboard",
+      "channel": "physical",
+      "rank": 4,
+      "emoji": "🏁",
+      "title": "Living Leaderboard",
+      "tagline": "A printed QR re-ranks the top JavaScript repos every time someone scans it.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "qr",
+        "leaderboard",
+        "live-data",
+        "github-stars"
+      ],
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "url": "demos/living-leaderboard/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/living-leaderboard/demo.json"
     },
     {
       "slug": "only-in-the-same-frame",

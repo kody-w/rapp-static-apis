@@ -16,13 +16,13 @@
       "slug": "physical",
       "title": "Physical World",
       "blurb": "QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.",
-      "count": 3
+      "count": 4
     },
     {
       "slug": "verify",
       "title": "Verify-Before-Exec",
       "blurb": "Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.",
-      "count": 2
+      "count": 3
     },
     {
       "slug": "ai-to-ai",
@@ -34,7 +34,7 @@
       "slug": "human",
       "title": "Human & Personal",
       "blurb": "Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.",
-      "count": 2
+      "count": 3
     },
     {
       "slug": "self-building",
@@ -179,6 +179,45 @@
       "status": "live",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-paper-that-boots-python/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-paper-that-boots-python/"
+    },
+    {
+      "slug": "proof-of-freshness",
+      "channel": "verify",
+      "title": "Proof of Freshness",
+      "when_to_use": "When you need to prove a displayed live value was fetched now (not staged) and bind it to a browser-verifiable hash of the exact response bytes.",
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/proof-of-freshness/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/proof-of-freshness/"
+    },
+    {
+      "slug": "the-unbreakable-promise",
+      "channel": "human",
+      "title": "The Unbreakable Promise",
+      "when_to_use": "When you need: a tamper-evident personal commitment that anyone can re-verify offline from shared text + key + signature.",
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-unbreakable-promise/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-unbreakable-promise/"
+    },
+    {
+      "slug": "living-leaderboard",
+      "channel": "physical",
+      "title": "Living Leaderboard",
+      "when_to_use": "When you need: a physical trigger that always resolves to a fresh ranked list by fetching public data in-browser with verify-before-exec.",
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/living-leaderboard/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/living-leaderboard/"
     },
     {
       "slug": "only-in-the-same-frame",

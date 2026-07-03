@@ -1,0 +1,17 @@
+{
+  "slug": "the-unbreakable-promise",
+  "channel": "human",
+  "rank": 3,
+  "emoji": "✍️",
+  "title": "The Unbreakable Promise",
+  "tagline": "A typed vow signed in your browser so anyone can verify exactly who promised exactly what.",
+  "holy_shit": "You can publish one line and a signature, and any stranger can prove your browser key made that exact promise — with no server and no trust in a host.",
+  "status": "live",
+  "difficulty": "easy",
+  "tags": ["promise", "signature", "webcrypto", "human"],
+  "primitives": ["/track", "/fn"],
+  "powered_by": "Pinned verify-before-exec runtime plus browser-native WebCrypto ECDSA P-256 sign/verify",
+  "agent_scenario": "When you need: a tamper-evident personal commitment that anyone can re-verify offline from shared text + key + signature.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

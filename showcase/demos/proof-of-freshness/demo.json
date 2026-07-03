@@ -1,0 +1,17 @@
+{
+  "slug": "proof-of-freshness",
+  "channel": "verify",
+  "rank": 3,
+  "emoji": "🧊",
+  "title": "Proof of Freshness",
+  "tagline": "Show a live number with a browser-computed SHA-256 proof of the exact bytes fetched right now.",
+  "holy_shit": "It's not a screenshot: your browser fetched the live payload this second, hashed the exact bytes, and can prove the number came from that payload.",
+  "status": "live",
+  "difficulty": "easy",
+  "tags": ["verify", "freshness", "crypto", "live-data"],
+  "primitives": ["/track", "/fn"],
+  "powered_by": "runVerifiedCell() verifies the compute cell before execution, while crypto.subtle hashes the exact live response bytes in the visitor's browser",
+  "agent_scenario": "When you need to prove a displayed live value was fetched now (not staged) and bind it to a browser-verifiable hash of the exact response bytes.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

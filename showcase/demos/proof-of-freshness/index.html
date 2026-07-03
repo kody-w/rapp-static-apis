@@ -1,0 +1,129 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Proof of Freshness — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🧊</div>
+    <h1 id="title">Proof of Freshness</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Press run: your browser fetches a live payload, records the fetch timestamp, recomputes the SHA-256 of the exact response bytes with <code>crypto.subtle</code>, and extracts the number from those bytes. Then it runs <code>runVerifiedCell()</code> to verify the compute cell itself before execution and cross-check the same value path.</p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+      <button class="run" id="go">🧊 Prove freshness now</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">raw.githubusercontent.com · verify channel count</span>
+    </div>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>A stale screenshot can fake a "live" number. This cannot. The proof includes two cryptographic anchors from your own browser: <b>when</b> the bytes were fetched and <b>what exact bytes</b> were fetched (SHA-256). Anyone can rerun it and compare. If the host ever serves different bytes, the hash changes instantly.</p>
+    <p style="margin:10px 0 0">And the compute step is verified too: <code>runVerifiedCell()</code> re-hashes the pinned module bytes before importing. So both the <i>data proof</i> and the <i>code proof</i> happen client-side, with no trusted server in the middle.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Open DevTools Network and click <b>🧊 Prove freshness now</b>.</li>
+      <li>Copy the shown timestamp + SHA-256. Click again: timestamp always advances, and hash changes whenever payload bytes change.</li>
+      <li>Inspect the narrated steps: <code>cell: ✓ ... matches the pin</code> confirms the compute cell was verify-before-exec checked too.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/proof-of-freshness/</code> (crypto.subtle needs a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Pair a browser-side byte hash proof (<code>fetch</code> + <code>arrayBuffer</code> + <code>crypto.subtle.digest</code>) with <code>runVerifiedCell()</code> so the displayed value and the code that processes it are both independently tamper-evident.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const TRACK = '../../../track';
+const SRC = 'https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/channels.json';
+const PATH = 'channels.1.count';
+
+const out = document.getElementById('out');
+const stepsEl = document.getElementById('steps');
+const narrate = mkNarrator(stepsEl);
+
+function dig(obj, path) {
+  if (!path) return obj;
+  return String(path).split('.').reduce((cur, key) => (cur == null ? undefined : cur[key]), obj);
+}
+
+async function sha256Hex(bytes) {
+  const digest = await crypto.subtle.digest('SHA-256', bytes);
+  return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+document.getElementById('go').onclick = async () => {
+  stepsEl.innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">running…</span>';
+
+  try {
+    narrate('live-fetch', 'active', 'fetch live response bytes', SRC);
+    const res = await fetch(SRC, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`fetch ${SRC} -> ${res.status}`);
+    const fetchedAt = new Date().toISOString();
+    const bytes = await res.arrayBuffer();
+    narrate('live-fetch', 'ok', 'fetched live response bytes', `${bytes.byteLength} bytes @ ${fetchedAt}`);
+
+    narrate('live-hash', 'active', 'recompute SHA-256 in your browser (crypto.subtle)…', '');
+    const payloadSha256 = await sha256Hex(bytes);
+    narrate('live-hash', 'ok', `✓ SHA-256 ${payloadSha256.slice(0, 12)}…`, payloadSha256);
+
+    narrate('live-parse', 'active', 'extract value from the hashed bytes', PATH);
+    const text = new TextDecoder().decode(bytes);
+    const json = JSON.parse(text);
+    const freshValue = dig(json, PATH);
+    narrate('live-parse', 'ok', 'value extracted from hashed payload', `${freshValue} posts`);
+
+    const cellValue = await runVerifiedCell({
+      base: TRACK,
+      cell: 'extract',
+      fn: 'extract',
+      args: { src: SRC, path: PATH },
+      onStep: (k, s, t, d = '') => narrate(`cell-${k}`, s, `cell: ${t}`, d),
+    });
+
+    const agreed = String(cellValue.value) === String(freshValue);
+    out.innerHTML =
+      `<div><span class="big">${freshValue}</span> <span style="color:var(--muted)">verify-channel posts on main</span></div>` +
+      `<div class="mono" style="margin-top:8px;color:var(--muted)">fetched_at: ${fetchedAt}</div>` +
+      `<div class="mono" style="margin-top:4px;color:var(--muted);word-break:break-all">sha256(response_bytes): ${payloadSha256}</div>` +
+      `<div class="mono" style="margin-top:6px;color:${agreed ? 'var(--good)' : 'var(--accent)'}">${agreed ? '✓' : '⚠'} hashed payload value ${agreed ? 'matches' : 'differs from'} verify-before-exec cell output (${cellValue.value})</div>`;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : (e.message || e)}</span>`;
+  }
+};
+</script>
+</body></html>
