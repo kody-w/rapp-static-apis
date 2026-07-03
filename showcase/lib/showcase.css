@@ -88,6 +88,8 @@ footer.site{border-top:1px solid var(--line);margin-top:40px;padding:20px 0 60px
 .post-row .pr-tag{margin:0 0 8px;color:var(--muted);font-size:14px}
 .post-row .pr-foot{display:flex;gap:12px;flex-wrap:wrap}
 .post-row .pr-tags{color:var(--faint);font-size:11px}
+.post-row .pr-weld{margin-top:6px;font-size:11px;color:var(--accent-2)}
+.post-row .pr-weld code{background:transparent;border:0;color:var(--accent-2);padding:0}
 .subs{border:1px dashed var(--line-2);border-radius:12px;padding:12px 14px;background:var(--panel-2);margin-bottom:8px}
 .subs h2{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
 .subs .s{font-size:13px;padding:3px 0;color:var(--muted)}

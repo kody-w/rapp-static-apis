@@ -23,7 +23,9 @@
         "/fn"
       ],
       "url": "demos/broadcast-the-secret/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/broadcast-the-secret/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/broadcast-the-secret/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "kill-the-host",
@@ -44,7 +46,9 @@
         "/track"
       ],
       "url": "demos/kill-the-host/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/kill-the-host/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/kill-the-host/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "one-string-two-universes",
@@ -67,7 +71,9 @@
         "/track"
       ],
       "url": "demos/one-string-two-universes/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/one-string-two-universes/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/one-string-two-universes/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "taste-the-weather",
@@ -89,7 +95,9 @@
         "/fn"
       ],
       "url": "demos/taste-the-weather/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/taste-the-weather/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/taste-the-weather/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "the-byte-trap",
@@ -110,7 +118,9 @@
         "/fn"
       ],
       "url": "demos/the-byte-trap/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-byte-trap/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-byte-trap/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "the-quine-ratchet",
@@ -131,7 +141,9 @@
         "rapp-loop.prompt.md"
       ],
       "url": "demos/the-quine-ratchet/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-quine-ratchet/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-quine-ratchet/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "the-reunion",
@@ -152,7 +164,9 @@
         "/fn"
       ],
       "url": "demos/the-reunion/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-reunion/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-reunion/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "photosynthesis",
@@ -172,7 +186,9 @@
         "/track"
       ],
       "url": "demos/photosynthesis/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/photosynthesis/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/photosynthesis/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "the-immortal-committer",
@@ -193,7 +209,9 @@
         "/track"
       ],
       "url": "demos/the-immortal-committer/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-immortal-committer/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-immortal-committer/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "the-paper-that-boots-python",
@@ -215,7 +233,9 @@
         "/track"
       ],
       "url": "demos/the-paper-that-boots-python/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-paper-that-boots-python/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-paper-that-boots-python/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "proof-of-freshness",
@@ -237,7 +257,9 @@
         "/fn"
       ],
       "url": "demos/proof-of-freshness/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/proof-of-freshness/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/proof-of-freshness/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "the-unbreakable-promise",
@@ -259,7 +281,9 @@
         "/fn"
       ],
       "url": "demos/the-unbreakable-promise/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-unbreakable-promise/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-unbreakable-promise/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "chain-of-custody",
@@ -281,7 +305,9 @@
         "crypto.subtle"
       ],
       "url": "demos/chain-of-custody/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/chain-of-custody/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/chain-of-custody/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "living-leaderboard",
@@ -303,7 +329,9 @@
         "/fn"
       ],
       "url": "demos/living-leaderboard/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/living-leaderboard/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/living-leaderboard/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "the-menu-that-knows-the-kitchen",
@@ -326,7 +354,9 @@
         "/fn"
       ],
       "url": "demos/the-menu-that-knows-the-kitchen/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-menu-that-knows-the-kitchen/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-menu-that-knows-the-kitchen/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "only-in-the-same-frame",
@@ -350,7 +380,9 @@
         "/track"
       ],
       "url": "demos/only-in-the-same-frame/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/only-in-the-same-frame/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/only-in-the-same-frame/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "the-artifact-with-a-signed-bloodline",
@@ -373,7 +405,9 @@
         "loop.prompt.md"
       ],
       "url": "demos/the-artifact-with-a-signed-bloodline/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-artifact-with-a-signed-bloodline/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-artifact-with-a-signed-bloodline/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "the-brainstem-baton",
@@ -398,7 +432,9 @@
         "/fn"
       ],
       "url": "demos/the-brainstem-baton/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-brainstem-baton/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-brainstem-baton/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "the-fast-forward-parliament",
@@ -421,7 +457,9 @@
         "/resolver"
       ],
       "url": "demos/the-fast-forward-parliament/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-fast-forward-parliament/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-fast-forward-parliament/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "the-test-that-breeds",
@@ -444,7 +482,9 @@
         "/track"
       ],
       "url": "demos/the-test-that-breeds/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-test-that-breeds/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-test-that-breeds/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "the-unriggable-ticket",
@@ -467,7 +507,9 @@
         "/fn"
       ],
       "url": "demos/the-unriggable-ticket/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-unriggable-ticket/demo.json"
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-unriggable-ticket/demo.json",
+      "builds_on": [],
+      "weld": ""
     }
   ]
 }

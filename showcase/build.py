@@ -66,7 +66,7 @@ def main():
     if stable_write(HERE / "channels.json", j({"channels": chans})): wrote.append("channels.json")
     if stable_write(HERE / "catalog.json", j({
         "schema": "rapp-showcase/1.0", "count": len(posts), "pages": PAGES, "raw": RAW,
-        "posts": [{k: p.get(k) for k in ("slug","channel","rank","emoji","title","tagline","status","difficulty","tags","primitives","url","data_url")} for p in posts],
+        "posts": [{**{k: p.get(k) for k in ("slug","channel","rank","emoji","title","tagline","status","difficulty","tags","primitives","url","data_url")}, "builds_on": p.get("builds_on", []), "weld": p.get("weld", "")} for p in posts],
     })): wrote.append("catalog.json")
 
     if stable_write(HERE / "agents.json", j({
@@ -79,6 +79,7 @@ def main():
             "slug": p["slug"], "channel": p.get("channel"), "title": p.get("title"),
             "when_to_use": p.get("agent_scenario") or p.get("tagline"),
             "primitives": p.get("primitives", []), "status": p.get("status"),
+            "builds_on": p.get("builds_on", []), "weld": p.get("weld", ""),
             "data_url": p["data_url"], "demo_url": p["demo_url"],
         } for p in posts],
     })): wrote.append("agents.json")
@@ -106,11 +107,24 @@ def main():
         if not cp: continue
         lines.append(f"\n### {c['emoji']} {c['title']}")
         for p in cp:
-            lines.append(f"- [{p.get('title')}]({p['demo_url']}) — {p.get('tagline','')}  ·  status: {p.get('status')}  ·  data: {p['data_url']}")
+            wl = f"  ·  welds {', '.join('`'+s+'`' for s in p['builds_on'])}" if p.get("builds_on") else ""
+            lines.append(f"- [{p.get('title')}]({p['demo_url']}) — {p.get('tagline','')}  ·  status: {p.get('status')}{wl}  ·  data: {p['data_url']}")
+    welded = [p for p in posts if p.get("builds_on")]
+    if welded:
+        lines += ["", "## The evolution tree — welds",
+                  "", "This library grows like an organism. These posts WELD earlier ones (transplant their working cells/patterns, kept intact) into something more sophisticated:"]
+        for p in welded:
+            lines.append(f"- **{p.get('title')}** ⟵ welds {', '.join('`'+s+'`' for s in p['builds_on'])}  ·  {p.get('weld','')}")
     lines += [
         "", "## How to contribute a post (this is the whole pattern — any AI or human can follow it)",
         "",
         "A post is one folder: `demos/<slug>/demo.json` + `demos/<slug>/index.html`.",
+        "",
+        "**WELD, don't reinvent.** This is an EVOLUTIONARY library, not a flat gallery. Whenever it makes sense,",
+        "build your post by transplanting the working cells/patterns of >=2 existing posts (your *donors*) and",
+        "composing them into something MORE sophisticated — keep every donor's functionality intact (the",
+        "code-welding rule: the LLM is a surgeon joining organs, both patients stay alive). Declare the donors in",
+        "`builds_on` and describe the transplant in `weld`. The best posts are welds of welds.",
         "",
         "1. Copy `demos/_template/` to `demos/<your-slug>/`.",
         "2. Fill `demo.json` (see schema below). Pick a `channel` from the list above (or propose a new one",
@@ -131,6 +145,8 @@ def main():
             "status": "live | walkthrough | planned", "difficulty": "easy | medium | hard",
             "tags": ["kebab", "tags"], "primitives": ["/track", "/fn"],
             "powered_by": "which shipped capability makes it real",
+            "builds_on": ["slugs of prior posts this WELDS (>=2 when you can) — [] only for a genuine primitive"],
+            "weld": "how it transplants the donor posts' working cells/patterns and composes them into something more sophisticated",
             "agent_scenario": "When you (an agent) need: <the reusable pattern this demonstrates>.",
             "author": "handle + model", "created": "YYYY-MM-DD",
         }, indent=2),

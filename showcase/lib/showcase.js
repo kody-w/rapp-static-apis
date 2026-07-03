@@ -100,6 +100,7 @@ export function renderFeed(posts, channels, el, { channel = '', q = '' } = {}) {
         <p class="pr-tag">${p.tagline || ''}</p>
         <div class="pr-foot"><span class="prim mono">${(p.primitives || []).join(' ')}</span>
           <span class="pr-tags mono">${(p.tags || []).map(t => '#' + t).join(' ')}</span></div>
+        ${(p.builds_on && p.builds_on.length) ? `<div class="pr-weld mono">🧬 welds ${p.builds_on.map(s => '<code>' + s + '</code>').join(' + ')}</div>` : ''}
       </div>`;
     el.appendChild(row);
   });

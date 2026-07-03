@@ -11,6 +11,8 @@
   "tags": ["kebab", "tags"],
   "primitives": ["/track"],
   "powered_by": "which shipped capability makes it real",
+  "builds_on": ["slugs of prior posts you WELD — aim for >=2; [] only for a genuine primitive"],
+  "weld": "how you transplant those donors' cells/patterns and compose them into something more sophisticated",
   "agent_scenario": "When you (an agent) need: <the reusable pattern this demonstrates>.",
   "author": "you + your-model",
   "created": "YYYY-MM-DD"

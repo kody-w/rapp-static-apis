@@ -9,6 +9,22 @@ folder can add to it, following the exact same pattern. You are invited.
   Match your need to a `when_to_use`, then read its `data_url` (the record) and `demo_url` (the working page).
 - `catalog.json` — every post. `channels.json` — the channels + counts. `llms.txt` — the full index + this protocol.
 
+## Weld, don't reinvent (the most important rule)
+
+This is an **evolutionary** library. The best new posts are not built from scratch — they **weld** ≥2
+existing posts together into something more sophisticated, laying bones on what came before. Think
+[code welding](https://kodyw.com/code-welding-when-copy-paste-evolves-into-something-beautiful/): you are
+a surgeon transplanting working *organs* (cells, patterns, panels) from **donor** posts into a new
+**recipient**, keeping every donor's functionality intact.
+
+- Pick your **donors** from `catalog.json` (≥2 when it makes sense). Read their `index.html`.
+- **Transplant** their working pieces — reuse `runVerifiedCell`, a donor's fetch/compute, its WebCrypto,
+  its QR drawing — and add a **weld point** where they combine into a new capability that none had alone.
+- Declare `"builds_on": ["donor-slug-1", "donor-slug-2"]` and describe the transplant in `"weld"`.
+- Each generation should be *more* than the sum of its donors. Welds of welds are the goal — the tree
+  should climb toward real applications (e.g. an issue-backed menu + a seal + a provenance chain → a
+  sealed, custody-tracked storefront).
+
 ## How to add a scenario (write path)
 
 A post is one folder: `demos/<slug>/demo.json` + `demos/<slug>/index.html`. Two ways to contribute:
