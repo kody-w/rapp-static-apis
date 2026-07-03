@@ -1,0 +1,418 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Sealed Storefront — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  .menu-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;padding:10px 12px;background:var(--panel-2,#1a1a2e);border-radius:10px;border:1px solid var(--line)}
+  .menu-item input[type=checkbox]{width:16px;height:16px;margin-top:3px;flex-shrink:0;cursor:pointer;accent-color:var(--accent,#7ee8a2)}
+  .menu-item label{cursor:pointer;flex:1;line-height:1.4}
+  .menu-item.sold-out-item label{opacity:.45;text-decoration:line-through;cursor:not-allowed}
+  .badge{display:inline-block;padding:1px 7px;border-radius:6px;font-size:11px;font-family:var(--mono)}
+  .badge.avail{background:rgba(0,200,100,.15);color:#0c6}
+  .badge.sold{background:rgba(200,100,0,.15);color:var(--accent,#f5a623)}
+  .field{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
+  .field label{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-family:var(--mono)}
+  .field input,.field textarea{width:100%;background:var(--panel-2,#1a1a2e);border:1px solid var(--line);border-radius:9px;color:var(--ink);padding:10px 12px;font:inherit;font-size:14px;font-family:var(--mono)}
+  .field textarea{min-height:56px;resize:vertical}
+  .cipher{font-family:var(--mono);font-size:12px;word-break:break-all;overflow-wrap:anywhere;color:var(--accent-2,#7ee8a2);line-height:1.5}
+  .weld-arrow{text-align:center;font-size:18px;margin:8px 0 14px;color:var(--muted)}
+  #orderSection,#custodySection{display:none}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🏪</div>
+    <h1 id="title">The Sealed Storefront</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <!-- ① LIVE MENU — donor: the-menu-that-knows-the-kitchen -->
+  <div class="panel">
+    <h2>① Live menu — check availability</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">No inventory database. Your browser reads live GitHub Issues via <code>IssuesDB</code>: any open issue with a <code>sold-out:&lt;item&gt;</code> label marks that item gone — instantly, no backend needed. A pinned <code>extract</code> cell is re-verified before the fetch runs (donor: <b>the-menu-that-knows-the-kitchen</b>).</p>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap">
+      <button class="run" id="goMenu">🍳 Check what's available</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">repo: kody-w/rapp-static-apis</span>
+    </div>
+    <div class="live-out" id="menuOut"><span class="mono" style="color:var(--faint)">— press the button to load the live menu —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="menuSteps"></ul>
+  </div>
+
+  <!-- ② ORDER + SEAL — donor: broadcast-the-secret -->
+  <div class="panel" id="orderSection">
+    <div class="weld-arrow">🔗 <b>weld point ①→②</b>: selected available items become the plaintext order payload</div>
+    <h2>② Place &amp; seal your order</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Your cart is sealed with <code>AES-256-GCM</code> (RSL1 envelope). The seller's passphrase is the only key that can open it — the sealed order can be published anywhere and leaks nothing. Change one character of the passphrase and the auth tag refuses (donor: <b>broadcast-the-secret</b>).</p>
+    <div id="cartItems" style="margin-bottom:14px"></div>
+    <div class="field">
+      <label for="buyerNote">buyer note (optional)</label>
+      <textarea id="buyerNote" spellcheck="false" placeholder="e.g. Table 7 · no onions please"></textarea>
+    </div>
+    <div class="field">
+      <label for="sellerKey">seller's seal passphrase — the one key that opens this order</label>
+      <input id="sellerKey" type="text" value="sealed-storefront-demo-2026" spellcheck="false">
+    </div>
+    <button class="run" id="goSeal">🔐 Seal &amp; submit order</button>
+    <div class="live-out" id="sealOut" style="margin-top:14px"><span class="mono" style="color:var(--faint)">— select items above and press Seal —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="sealSteps"></ul>
+  </div>
+
+  <!-- ③ CUSTODY CHAIN — donor: chain-of-custody -->
+  <div class="panel" id="custodySection">
+    <div class="weld-arrow">🔗 <b>weld point ②→③</b>: the RSL1 sealed envelope becomes the content of a custody chain link</div>
+    <h2>③ Custody stamp — tamper-evident trail</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">The sealed order envelope is <code>SHA-256</code> content-addressed. If any byte of the ciphertext changes in transit the hash won't match and tampering is immediately provable from the genesis anchor — no server required (donor: <b>chain-of-custody</b>).</p>
+    <div class="live-out" id="custodyOut"><span class="mono" style="color:var(--faint)">— seal an order first —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="custodySteps"></ul>
+    <div style="margin-top:14px">
+      <button class="run" id="goVerify" style="display:none">🔍 Verify full custody chain</button>
+    </div>
+    <div class="live-out" id="verifyOut" style="margin-top:10px;display:none"></div>
+    <ul class="steps" id="verifySteps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>Each donor solves one slice of the problem. Welding them creates something none had alone: a <b>zero-backend storefront</b> where live inventory is always fresh (Issues labels), orders are <b>mathematically sealed</b> (AES-256-GCM — only the seller's passphrase can open them, the math says no to everyone else), and the sealed envelope is <b>content-addressed</b> into a custody chain so any in-transit tampering is instantly provable. Three planes of trust — freshness, confidentiality, and provenance — all running in the buyer's browser with nothing to deploy and nothing to breach.</p>
+    <p style="margin:12px 0 0">The <b>weld point</b> is what makes this more than the sum of three demos: the RSL1 base64 blob (the sealed order) is exactly the content that gets SHA-256 stamped into the custody chain. A seller verifies the custody chain to confirm the sealed order wasn't altered between submission and receipt, then decrypts with their key. Two independent cryptographic checks on the same bytes — integrity and confidentiality together — and the only thing that runs them is your own browser.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0 0 10px;padding-left:20px;color:var(--muted)">
+      <li>Press <b>Check what's available</b> — the live menu loads from GitHub Issues labels in real time.</li>
+      <li>Select at least one available item, optionally add a buyer note, then press <b>Seal &amp; submit order</b>.</li>
+      <li>Watch the RSL1 envelope form byte-by-byte, then see it SHA-256 stamped into a custody link.</li>
+      <li>Press <b>Verify full custody chain</b> — the browser replays every hash link from the genesis anchor.</li>
+      <li>To mark an item sold out: open a GitHub Issue on <code>kody-w/rapp-static-apis</code> and add a label <code>sold-out:&lt;item-key&gt;</code>. Refresh the menu to see it disappear.</li>
+    </ol>
+    <ul class="mono" style="margin:0 0 10px;padding-left:20px;color:var(--muted);font-size:12px">
+      <li><code>sold-out:margherita-pizza</code></li>
+      <li><code>sold-out:mushroom-ramen</code></li>
+      <li><code>sold-out:halloumi-tacos</code></li>
+      <li><code>sold-out:charred-broccolini</code></li>
+      <li><code>sold-out:citrus-tonic</code></li>
+    </ul>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-sealed-storefront/</code> (<code>crypto.subtle</code> needs HTTPS or localhost, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">The weld pattern: <code>IssuesDB availability gate → AES-256-GCM seal payload → SHA-256 custody link</code>. Compose any live-data source with any sealing primitive and content-address the output into a verifiable chain. Each donor's code is transplanted intact; the weld point is the data pipe between them.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+import { IssuesDB } from '../../lib/issues-db.mjs';
+
+// ── header hydration (single source of truth: demo.json) ─────────────────
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+// ── constants ─────────────────────────────────────────────────────────────
+const OWNER = 'kody-w';
+const REPO  = 'rapp-static-apis';
+const TRACK = '../../../track';
+const SOLD_OUT_PREFIX = 'sold-out:';
+const MENU = [
+  { key: 'margherita-pizza',   name: 'Margherita Pizza',   note: 'wood-fired · basil · fior di latte', price: '$14' },
+  { key: 'mushroom-ramen',     name: 'Mushroom Ramen',     note: 'miso broth · smoked shiitake',       price: '$13' },
+  { key: 'halloumi-tacos',     name: 'Halloumi Tacos',     note: 'charred pineapple salsa',            price: '$12' },
+  { key: 'charred-broccolini', name: 'Charred Broccolini', note: 'lemon chili oil',                    price: '$9'  },
+  { key: 'citrus-tonic',       name: 'Citrus Tonic',       note: 'grapefruit · rosemary',              price: '$6'  },
+];
+
+// ── RSL1 seal implementation (transplanted from broadcast-the-secret) ─────
+const enc = new TextEncoder();
+const MAGIC = 'RSL1', ITER = 250000;
+const HEADER = 4 + 16 + 12;   // magic(4) + salt(16) + nonce(12)
+
+const b64 = (bytes) => {
+  let s = '';
+  for (let i = 0; i < bytes.length; i += 0x8000)
+    s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(s);
+};
+
+async function deriveKey(passphrase, salt) {
+  const base = await crypto.subtle.importKey('raw', enc.encode(passphrase), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt, iterations: ITER, hash: 'SHA-256' },
+    base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+}
+
+async function sealRSL1(plaintext, passphrase, onStep) {
+  onStep('salt',  'active', 'roll a random 16-byte salt (crypto.getRandomValues)…', '');
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  onStep('salt',  'ok',     'random salt',                      b64(salt).slice(0, 16) + '…');
+  onStep('key',   'active', `stretch passphrase → 256-bit key (PBKDF2·SHA-256·${ITER.toLocaleString()} rounds)…`, '');
+  const key = await deriveKey(passphrase, salt);
+  onStep('key',   'ok',     'AES-256 key derived — never leaves this tab', 'key-possession is the only gate');
+  onStep('nonce', 'active', 'roll a random 12-byte nonce…', '');
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  onStep('nonce', 'ok',     'random nonce',                     b64(iv));
+  onStep('enc',   'active', 'AES-256-GCM encrypt (+128-bit auth tag)…', '');
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, enc.encode(plaintext)));
+  onStep('enc',   'ok',     'sealed — ciphertext + auth tag',   ct.length + ' bytes');
+  onStep('pack',  'active', 'pack RSL1 envelope → base64…', '');
+  const env = new Uint8Array(HEADER + ct.length);
+  env.set(enc.encode(MAGIC), 0); env.set(salt, 4); env.set(iv, 20); env.set(ct, 32);
+  const file = b64(env);
+  onStep('pack',  'ok',     'RSL1 sealed order ready',          file.length + ' chars · safe to publish anywhere');
+  return file;
+}
+
+// ── SHA-256 chain helpers (transplanted from chain-of-custody) ────────────
+async function sha256Hex(text) {
+  const digest = await crypto.subtle.digest('SHA-256', enc.encode(text));
+  return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+function short(h) { return `${String(h).slice(0, 10)}…`; }
+
+// ── IssuesDB sold-out helper (transplanted from the-menu-that-knows) ──────
+function toSoldOutMap(records) {
+  const byKey = new Map();
+  for (const issue of records) {
+    for (const label of issue.labels || []) {
+      if (!label.startsWith(SOLD_OUT_PREFIX)) continue;
+      const key = label.slice(SOLD_OUT_PREFIX.length).trim().toLowerCase();
+      if (!key || byKey.has(key)) continue;
+      byKey.set(key, issue);
+    }
+  }
+  return byKey;
+}
+
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+// ── session state ─────────────────────────────────────────────────────────
+const db = new IssuesDB({ owner: OWNER, repo: REPO });
+let soldOut = new Map();
+let custodyChain = null;   // { genesis, versions: [] }
+
+// ── narrators ─────────────────────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+const menuNarrate    = mkNarrator($('menuSteps'));
+const sealNarrate    = mkNarrator($('sealSteps'));
+const custodyNarrate = mkNarrator($('custodySteps'));
+const verifyNarrate  = mkNarrator($('verifySteps'));
+
+// helper: render a menu row (shared between ① display and ② cart)
+function menuRow(item) {
+  const so = soldOut.get(item.key);
+  const avail = !so;
+  const badge  = avail
+    ? '<span class="badge avail">available</span>'
+    : '<span class="badge sold">sold out</span>';
+  const link = so
+    ? ` <a class="mono" style="font-size:11px" href="${so.url}" target="_blank" rel="noopener noreferrer">issue #${so.number}</a>`
+    : '';
+  return `<div class="menu-item${avail ? '' : ' sold-out-item'}">` +
+    `<input type="checkbox" id="chk-${esc(item.key)}" value="${esc(item.key)}"${avail ? '' : ' disabled'}>` +
+    `<label for="chk-${esc(item.key)}">` +
+    `<div><b>${esc(item.name)}</b> ${badge} <span class="mono" style="font-size:12px;color:var(--muted)">${esc(item.price)}</span>${link}</div>` +
+    `<div class="mono" style="font-size:12px;color:var(--muted)">${esc(item.note)}</div>` +
+    `</label></div>`;
+}
+
+// ── ① LIVE MENU: check availability (donor: the-menu-that-knows-the-kitchen)
+$('goMenu').onclick = async () => {
+  $('menuSteps').innerHTML = '';
+  $('menuOut').innerHTML = '<span class="mono" style="color:var(--faint)">reading kitchen board…</span>';
+  $('orderSection').style.display = 'none';
+  $('custodySection').style.display = 'none';
+
+  try {
+    // verify compute path first — same runVerifiedCell pattern as donor 1
+    const probe = await runVerifiedCell({
+      base: TRACK, cell: 'extract', fn: 'extract',
+      args: { src: `https://api.github.com/repos/${OWNER}/${REPO}`, path: 'open_issues_count' },
+      onStep: menuNarrate,
+    });
+    menuNarrate('probe', 'ok', 'verified compute path', `repo open issues: ${probe.value}`);
+
+    menuNarrate('issues', 'active', 'read open issues via IssuesDB', 'scan labels for sold-out:* markers');
+    const records = await db.list({ state: 'open', per_page: 100 });
+    soldOut = toSoldOutMap(records);
+    menuNarrate('issues', 'ok', `loaded ${records.length} open issues`, `${soldOut.size} sold-out label(s) found`);
+
+    const sold = soldOut.size;
+    const rows = MENU.map(menuRow).join('');
+    $('menuOut').innerHTML =
+      `<div style="margin-bottom:10px"><span class="big">${MENU.length - sold}/${MENU.length}</span> <span style="color:var(--muted)">items available right now</span></div>` +
+      rows +
+      `<div class="mono" style="font-size:12px;color:var(--faint);margin-top:8px">live from GitHub Issues · ${new Date().toLocaleTimeString()}</div>`;
+
+    // mirror rows into the order section cart
+    $('cartItems').innerHTML = rows;
+    $('orderSection').style.display = 'block';
+  } catch (e) {
+    $('menuOut').innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : esc(e.message || String(e))}</span>`;
+  }
+};
+
+// ── ② SEAL ORDER: AES-256-GCM (donor: broadcast-the-secret) ──────────────
+$('goSeal').onclick = async () => {
+  $('sealSteps').innerHTML = '';
+  $('sealOut').innerHTML = '<span class="mono" style="color:var(--faint)">building order…</span>';
+  $('custodySection').style.display = 'none';
+
+  const selected = MENU.filter(item => {
+    const el = $(`chk-${item.key}`);
+    return el && el.checked;
+  });
+  if (!selected.length) {
+    $('sealOut').innerHTML = '<span class="mono" style="color:var(--warn)">select at least one available item first.</span>';
+    return;
+  }
+
+  const passphrase = $('sellerKey').value.trim();
+  if (!passphrase) {
+    $('sealOut').innerHTML = '<span class="mono" style="color:var(--warn)">a seal needs a passphrase — it becomes the only key.</span>';
+    return;
+  }
+
+  const order = {
+    version: 'sealed-storefront/1.0',
+    items: selected.map(i => ({ key: i.key, name: i.name, price: i.price })),
+    note: $('buyerNote').value.trim() || null,
+    submitted_at: new Date().toISOString(),
+  };
+
+  sealNarrate('order', 'ok', 'order payload assembled',
+    `${selected.length} item(s): ${selected.map(i => i.name).join(', ')}`);
+
+  try {
+    const sealedEnvelope = await sealRSL1(JSON.stringify(order), passphrase, sealNarrate);
+
+    $('sealOut').innerHTML =
+      '<div class="mono" style="font-size:12px;color:var(--muted);margin-bottom:8px">RSL1 sealed order — only the seller\'s key reads this:</div>' +
+      `<div class="cipher">${esc(sealedEnvelope)}</div>` +
+      '<p class="mono" style="font-size:12px;color:var(--faint);margin-top:8px">Publish it anywhere — it leaks nothing. ↓ Stamping into custody chain…</p>';
+
+    // weld point ②→③: sealed envelope IS the content that gets custody-tracked
+    $('custodySection').style.display = 'block';
+    await stampCustody(sealedEnvelope);
+  } catch (e) {
+    $('sealOut').innerHTML = `<span class="mono" style="color:var(--bad)">${esc(e.message || String(e))}</span>`;
+  }
+};
+
+// ── ③ CUSTODY STAMP: SHA-256 chain (donor: chain-of-custody) ─────────────
+async function stampCustody(sealedEnvelope) {
+  $('custodySteps').innerHTML = '';
+  $('custodyOut').innerHTML = '<span class="mono" style="color:var(--faint)">stamping custody…</span>';
+  $('verifyOut').style.display = 'none';
+  $('verifySteps').innerHTML = '';
+
+  custodyNarrate('hash', 'active', 'SHA-256 hash the RSL1 sealed envelope…',
+    'the envelope bytes ARE the content link');
+  const contentHash = await sha256Hex(sealedEnvelope);
+  custodyNarrate('hash', 'ok', 'content hash computed', short(contentHash));
+
+  if (!custodyChain) {
+    // genesis: content-address a fixed session descriptor (no secret needed)
+    const genesisContent = `sealed-storefront:genesis:${new Date().toISOString().slice(0, 10)}`;
+    const genesisHash = await sha256Hex(genesisContent);
+    custodyNarrate('genesis', 'ok', 'genesis anchor created for this session', short(genesisHash));
+    custodyChain = { genesis: genesisHash, versions: [] };
+  }
+
+  const versionId = `order-${custodyChain.versions.length + 1}`;
+  const parent = custodyChain.versions.length === 0
+    ? custodyChain.genesis
+    : custodyChain.versions[custodyChain.versions.length - 1].hash;
+
+  custodyChain.versions.push({ id: versionId, parent, content: sealedEnvelope, hash: contentHash });
+  custodyNarrate('link', 'ok',
+    `custody link ${versionId} added`,
+    `parent: ${short(parent)} → head: ${short(contentHash)}`);
+
+  $('custodyOut').innerHTML =
+    `<div><span class="big">✓ stamped</span> <span style="color:var(--muted)">${versionId} in custody chain</span></div>` +
+    `<div class="mono" style="margin-top:8px;color:var(--muted)">genesis: ${custodyChain.genesis}</div>` +
+    `<div class="mono" style="margin-top:4px;color:var(--muted)">head:    ${contentHash}</div>` +
+    `<div class="mono" style="margin-top:6px;color:var(--faint);font-size:11px">Chain: ${custodyChain.versions.length} sealed order(s) this session.</div>`;
+
+  $('goVerify').style.display = '';
+}
+
+// ── verify full custody chain (donor: chain-of-custody) ──────────────────
+$('goVerify').onclick = async () => {
+  $('verifySteps').innerHTML = '';
+  $('verifyOut').style.display = 'block';
+  $('verifyOut').innerHTML = '<span class="mono" style="color:var(--faint)">replaying chain…</span>';
+
+  try {
+    if (!custodyChain) throw new Error('no custody chain in session');
+
+    verifyNarrate('parse', 'ok', 'custody chain loaded',
+      `${custodyChain.versions.length} version(s)`);
+
+    // double-check chain shape with runVerifiedCell (same as chain-of-custody donor)
+    const src = `data:application/json,${encodeURIComponent(JSON.stringify(custodyChain))}`;
+    const length = await runVerifiedCell({
+      base: TRACK, cell: 'extract', fn: 'extract',
+      args: { src, path: 'versions.length' },
+      onStep: (k, s, t, d = '') => verifyNarrate(`cell-${k}`, s, `cell: ${t}`, d),
+    });
+    verifyNarrate('shape', 'ok', 'verified cell confirms chain shape',
+      `versions.length = ${length.value}`);
+
+    let prev = String(custodyChain.genesis);
+    verifyNarrate('genesis', 'ok', 'trusted genesis anchor', short(prev));
+
+    for (let i = 0; i < custodyChain.versions.length; i++) {
+      const node = custodyChain.versions[i];
+      verifyNarrate(`link-${i}`, 'active',
+        `verify ${node.id}: parent pointer + content hash`, '');
+      const computed = await sha256Hex(String(node.content || ''));
+      if (String(node.parent) !== prev) {
+        verifyNarrate(`link-${i}`, 'bad', `✗ ${node.id} parent mismatch`,
+          `expected ${short(prev)}, got ${short(node.parent || '')}`);
+        throw new Error(`Broken lineage at ${node.id}`);
+      }
+      if (String(node.hash) !== computed) {
+        verifyNarrate(`link-${i}`, 'bad', `✗ ${node.id} content hash mismatch`,
+          `declared ${short(node.hash || '')}, computed ${short(computed)}`);
+        throw new Error(`Tamper detected at ${node.id}`);
+      }
+      prev = computed;
+      verifyNarrate(`link-${i}`, 'ok', `✓ ${node.id} verified`, `head now ${short(prev)}`);
+    }
+
+    $('verifyOut').innerHTML =
+      `<div><span class="big">✓ custody intact</span> <span style="color:var(--muted)">${custodyChain.versions.length} sealed order(s) verified</span></div>` +
+      `<div class="mono" style="margin-top:8px;color:var(--muted)">genesis: ${custodyChain.genesis}</div>` +
+      `<div class="mono" style="margin-top:4px;color:var(--muted)">head:    ${prev}</div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--good)">All sealed orders intact — no tampering detected from genesis to head.</div>`;
+  } catch (e) {
+    $('verifyOut').innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : esc(e.message || String(e))}</span>`;
+  }
+};
+</script>
+</body></html>

@@ -1,0 +1,19 @@
+{
+  "slug": "the-sealed-storefront",
+  "channel": "wildcard",
+  "rank": null,
+  "emoji": "🏪",
+  "title": "The Sealed Storefront",
+  "tagline": "A real storefront with no backend: live availability from Issues, AES-sealed orders, and tamper-evident custody — all in your browser.",
+  "holy_shit": "Three live capabilities weld into one: the menu reads live sold-out labels from GitHub Issues, your order is AES-256-GCM sealed so only the seller's key can open it, and the sealed envelope is SHA-256 stamped into a custody chain so any tamper is instantly provable — no server, no backend, no cloud.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["encryption", "sealed", "issues", "inventory", "hash-chain", "provenance", "weld"],
+  "primitives": ["/track", "rapp-sealed/1.0", "crypto.subtle"],
+  "powered_by": "IssuesDB reads live sold-out labels (donor: the-menu-that-knows-the-kitchen); rapp-sealed/1.0 AES-256-GCM seals the order (donor: broadcast-the-secret); SHA-256 content-addresses the sealed envelope into a custody chain (donor: chain-of-custody)",
+  "builds_on": ["the-menu-that-knows-the-kitchen", "broadcast-the-secret", "chain-of-custody"],
+  "weld": "IssuesDB availability gate → AES-256-GCM seals the order payload into an RSL1 envelope → SHA-256 content-addresses that envelope into a custody chain link, so the order's journey is both confidential and tamper-evident end-to-end",
+  "agent_scenario": "When you need a zero-backend storefront with live inventory gating, sealed orders readable only by the seller, and tamper-evident custody of the sealed order envelope from submission through delivery.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}
