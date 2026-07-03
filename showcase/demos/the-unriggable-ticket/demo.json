@@ -1,0 +1,17 @@
+{
+  "slug": "the-unriggable-ticket",
+  "channel": "wildcard",
+  "rank": null,
+  "emoji": "🎟️",
+  "title": "The Unriggable Ticket",
+  "tagline": "A scratch-off printed today, whose winner is chosen by a number nobody on Earth knows yet.",
+  "holy_shit": "The ticket is printed BEFORE the deciding number exists — a global randomness beacon flips it next round — so the printer literally cannot know the outcome, cannot bias it, and cannot pre-print only losers. No house, no server, no RNG to seed. You scan after the round drops and your own phone recomputes the result byte-for-byte, catching any cheat. Provably-fair gambling with nobody in the middle.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["qr", "provably-fair", "drand", "randomness", "crypto"],
+  "primitives": ["/track", "/fn"],
+  "powered_by": "/track carries a committed seed + a future drand round + the pinned oracle cell; a verify-before-exec compute cell fetches the CORS-open drand League-of-Entropy beacon and computes outcome = SHA-256(seed ':' round-randomness) mod n — all in the scanner's browser via native crypto.subtle.",
+  "agent_scenario": "When you need a tamper-proof outcome that no party can bias or predict and no server hosts: commit the inputs up front (printed / in a link), bind the result to a FUTURE public randomness beacon (drand League of Entropy), and let the verifier recompute it byte-for-byte in their own browser through a hash-pinned cell. Reusable for provably-fair draws, unriggable raffles, commit-reveal, fair coin-flips, and any 'trust me' that should be 'verify me instead'.",
+  "author": "kody-w + Claude",
+  "created": "2026-07-03"
+}

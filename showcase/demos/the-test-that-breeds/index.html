@@ -1,0 +1,404 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Test That Breeds — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🧬</div>
+    <h1 id="title">The Test That Breeds</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <!-- shown only when someone SCANNED a child QR (URL carries #t=<frozen-test spec>) -->
+  <div class="panel hidden" id="scanned-banner" style="border-color:color-mix(in oklab,var(--accent),transparent 55%)">
+    <h2 style="color:var(--accent)">🧬 You scanned a bred regression test</h2>
+    <p style="margin:0;color:var(--muted)">This page carries no code of its own. The square you scanned encodes a whole, self-contained
+    Python regression test — the minimized failing case some earlier scan <b>bred</b>. Below, your device will re-check its
+    SHA-256 (refusing a single altered byte), cold-boot real CPython, and re-run that exact frozen failure. Scroll to <b>Re-run the bred test</b>.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 10px;color:var(--muted)">This page holds no data and no runtime. Press the button and <b>your own device</b>
+    cold-boots real CPython 3.12 (Pyodide / WebAssembly) headless in a sandboxed, opaque-origin iframe, then runs a pure-Python
+    <b>property-based fuzzer</b> against a target function whose round-trip <code>decode(encode(xs)) == xs</code> is quietly broken.
+    It random-searches inputs until one <b>violates</b> the property, <b>shrinks</b> that counterexample to its smallest form, and
+    freezes it into a self-contained pytest-style regression test. Then the twist: it SHA-256s that frozen test and, with the same
+    zero-dependency <code>qr.mjs</code> encoder <i>Photosynthesis</i> uses, <b>draws a brand-new QR onto a canvas</b> — a child whose
+    entire content is that minimized failure. No server, ever.</p>
+    <p class="mono" style="font-size:12px;color:var(--warn);margin:0 0 14px">⚠ first boot downloads ~10&nbsp;MB of Pyodide from a CDN and takes a few seconds. Needs a network + a secure context (localhost or https). It caches after the first run.</p>
+
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px">
+      <button class="run" id="go">🧬 Breed the test</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">property: decode(encode(xs)) == xs · seed 3 · deterministic</span>
+    </div>
+
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+
+    <div id="child" class="hidden" style="margin-top:16px;display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">
+      <canvas id="qr" width="0" height="0" style="background:#fff;border-radius:10px;image-rendering:pixelated;max-width:100%"></canvas>
+      <div id="child-cap" style="flex:1;min-width:240px;color:var(--muted);font-size:14px"></div>
+    </div>
+
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <!-- the other end of the loop: re-run a bred child, verify-before-exec -->
+  <div class="panel hidden" id="rerun-panel">
+    <h2>Re-run the bred test</h2>
+    <p style="margin:0 0 10px;color:var(--muted)">This is what a stranger's phone does when it scans the child. The frozen test travels
+    <b>inside</b> the QR — not a link to a trusted source, the failing case itself. Your device recomputes its SHA-256, refuses on any
+    mismatch, then cold-boots CPython and runs it. A green <b>FAIL</b> here is success: it means the exact bred failure still reproduces.</p>
+    <pre id="frozen-src" style="max-height:260px">—</pre>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0 8px">
+      <button class="run" id="rerun-go">▶ Re-run this exact minimized failure</button>
+      <label class="mono" style="font-size:12px;color:var(--faint);display:flex;gap:6px;align-items:center;cursor:pointer">
+        <input type="checkbox" id="tamper"> tamper: flip a byte of the frozen test
+      </label>
+      <span class="mono" id="pin-line" style="font-size:12px;color:var(--faint)"></span>
+    </div>
+    <div class="live-out" id="rerun-out"><span class="mono" style="color:var(--faint)">— press to verify &amp; re-run —</span></div>
+    <ul class="steps" id="rerun-steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>A printed square has no CPU, no runtime, no test suite. Yet the instant a phone points at it, <b>the phone becomes the lab</b>:
+    it boots an entire language — CPython 3.12, compiled to WebAssembly — inside a sandbox that can't touch your DOM, cookies, or storage,
+    and it does real science on itself. It doesn't just <i>run</i> a function; it <b>interrogates</b> one — throwing hundreds of random
+    inputs at a property until the function betrays itself, then patiently deleting and shrinking that input until nothing remains but the
+    smallest possible proof of the bug.</p>
+    <p style="margin-top:10px">Then the part that makes it <i>breed</i>: it takes that irreducible failure and grows a new artifact from it.
+    The child QR isn't a picture of the answer — it's a complete, self-contained, SHA-256-pinned regression test, and <b>the failing input
+    itself is what determines the child</b>. Scan it and a different stranger's browser re-verifies those exact bytes and re-runs the exact
+    failure — forever, with no backend, no CI, no server keeping it alive. A test discovered a bug and then <b>handed you the next test</b>,
+    printed in ink. Fix the code and the same square flips from FAIL to PASS. The regression suite is the physical world.</p>
+  </div>
+
+  <div class="panel">
+    <h2>The pattern · fuzz → shrink → freeze → breed</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li><b>boot</b> — hand the sandboxed <a href="../../../vbrainstem-cell/">/vbrainstem-cell</a> iframe the <code>vbs-init</code> handshake; it loads Pyodide and cold-boots CPython 3.12, headless, no server.</li>
+      <li><b>fuzz</b> — <code>op:'eval'</code> a pure-Python property-based fuzzer over a private <code>MessagePort</code>; it random-searches inputs (seeded, deterministic) until <code>decode(encode(xs)) == xs</code> is violated.</li>
+      <li><b>shrink</b> — greedily delete elements and walk magnitudes toward zero while the property still fails, until an irreducible counterexample remains.</li>
+      <li><b>freeze</b> — emit a self-contained pytest-style test string carrying that exact input, and SHA-256 it (<code>crypto.subtle</code>, via the shared lib's <code>sha256hex</code>) to a content-address.</li>
+      <li><b>breed</b> — encode <code>{src, pin}</code> into a fresh QR with <a href="../../../track/qr.mjs"><code>qr.mjs</code></a> and draw it on a <code>&lt;canvas&gt;</code>. The scanner of that child does step-4-in-reverse: recompute the hash, refuse on mismatch, boot, re-run.</li>
+    </ol>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0 0 10px;padding-left:20px;color:var(--muted)">
+      <li>Open the raw runtime at <a href="../../../vbrainstem-cell/">/vbrainstem-cell</a> — the same sandbox this page embeds — and paste any Python into its <code>eval</code> box.</li>
+      <li>Swap the target: any <code>encode</code>/<code>decode</code> pair (or any property <code>P(x)</code>) whose bug you want hunted. The fuzzer + shrinker are ~30 lines of pure Python — no <code>hypothesis</code> install, it boots in the browser.</li>
+      <li>Press <b>Breed the test</b> above, then <b>scan the child QR with your phone</b> — it re-runs the frozen failure on a second device, verify-before-exec, no server anywhere.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-test-that-breeds/</code> (Pyodide + <code>crypto.subtle</code> need a secure context and a network — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">The same sandbox runs <b>RAR agents</b> with verify-before-exec (<code>op:'run'</code>): a scannable trigger can ship a whole tamper-checked compute cell — here, one whose <i>output is another verifiable compute cell</i>. That closure (a cell that emits its own successor, content-addressed, no backend) is the primitive: property discovery → frozen artifact → re-runnable trigger, composable forever.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { sha256hex, mkNarrator } from '../../lib/showcase.js';
+import { qr } from '../../../track/qr.mjs';
+
+// ---- header from the record (single source of truth) ----
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+// ---- the pure-Python fuzzer + shrinker + freezer that runs INSIDE the CPython sandbox ----
+// (No backslashes / backticks / ${ } anywhere below, so it embeds safely in this template literal.
+//  build_frozen() uses a triple-quoted template with real newlines instead of escape sequences.)
+const FUZZER_PY = `import json, random
+
+def encode(xs):
+    return "-".join(str(x) for x in xs)   # BUG: '-' collides with the minus sign of negatives
+
+def decode(s):
+    if s == "":
+        return []
+    return [int(t) for t in s.split("-")]
+
+def prop(xs):
+    try:
+        return decode(encode(xs)) == xs   # the round-trip we WANT to always hold
+    except Exception:
+        return False
+
+def gen(rng):
+    n = rng.randint(0, 4)
+    xs = []
+    for _ in range(n):
+        if rng.random() < 0.12:
+            xs.append(-rng.randint(1, 5))     # occasionally a negative -> triggers the bug
+        else:
+            xs.append(rng.randint(0, 20))
+    return xs
+
+def fuzz(seed, budget):
+    rng = random.Random(seed)
+    for i in range(1, budget + 1):
+        xs = gen(rng)
+        if not prop(xs):
+            return xs, i
+    return None, budget
+
+def shrink(xs):
+    cur = list(xs)
+    path = [list(cur)]
+    changed = True
+    while changed:
+        changed = False
+        for i in range(len(cur)):
+            cand = cur[:i] + cur[i+1:]
+            if not prop(cand):
+                cur = cand; path.append(list(cur)); changed = True; break
+        if changed:
+            continue
+        for i in range(len(cur)):
+            x = cur[i]
+            if x == 0:
+                continue
+            step = 1 if x < 0 else -1
+            cand = list(cur); cand[i] = x + step
+            if not prop(cand):
+                cur = cand; path.append(list(cur)); changed = True; break
+    return cur, path
+
+def build_frozen(xs):
+    return '''def encode(xs):
+    return "-".join(str(x) for x in xs)
+def decode(s):
+    if s == "":
+        return []
+    return [int(t) for t in s.split("-")]
+def test_encode_roundtrip_regression():
+    # minimized counterexample, bred by the fuzzer -- decode(encode(xs)) must equal xs
+    xs = %r
+    assert decode(encode(xs)) == xs
+try:
+    test_encode_roundtrip_regression()
+    print("PASS - the bug is fixed; this bred regression test now holds")
+except Exception as e:
+    print("FAIL - regression reproduced: " + type(e).__name__ + ": " + str(e))
+''' % (xs,)
+
+counter, iters = fuzz(3, 5000)
+minimized, path = shrink(counter)
+frozen = build_frozen(minimized)
+print(json.dumps({
+    "target": "decode(encode(xs)) == xs   (encode joins ints with '-', which collides with the minus sign)",
+    "iters": iters,
+    "counterexample": counter,
+    "minimized": minimized,
+    "path": path,
+    "frozen": frozen,
+}))`;
+
+// ---- the sandboxed CPython cell: embed /vbrainstem-cell/sandbox.html, do the vbs-init handshake ----
+const VBS_SRC = '../../../vbrainstem-cell/sandbox.html';
+let vbs = null; // cached booted runtime {runtime, op} — boot once, reuse across clicks
+
+function bootVbrainstem() {
+  return new Promise((resolve, reject) => {
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.setAttribute('aria-hidden', 'true');
+    iframe.setAttribute('sandbox', 'allow-scripts'); // opaque origin: no host DOM/cookies/storage
+    const pending = new Map(); let nid = 1, port, started = false;
+    iframe.addEventListener('load', () => {
+      if (started) return; started = true;
+      const ch = new MessageChannel(); port = ch.port1;
+      port.onmessage = (e) => {
+        const d = e.data || {};
+        if ('booted' in d) {
+          const op = (msg) => new Promise((res, rej) => {
+            const id = nid++; pending.set(id, { res, rej }); port.postMessage({ id, ...msg });
+          });
+          resolve({ runtime: d.runtime, op });
+          return;
+        }
+        if ('boot_error' in d) { reject(new Error(d.boot_error)); return; }
+        if (d.ready) return;
+        const p = pending.get(d.id); if (!p) return; pending.delete(d.id);
+        d.ok ? p.res(d.result) : p.rej(new Error(d.error));
+      };
+      iframe.contentWindow.postMessage('vbs-init', '*', [ch.port2]); // hand it the private port
+    });
+    iframe.src = VBS_SRC;
+    document.body.appendChild(iframe);
+  });
+}
+async function bootedRuntime(onStep) {
+  if (!vbs) {
+    onStep && onStep('boot', 'active', 'cold-boot CPython 3.12 (Pyodide/WASM) in a sandboxed iframe…', '~10MB, a few seconds');
+    vbs = await bootVbrainstem();
+  }
+  onStep && onStep('boot', 'ok', 'CPython is up, headless, no server', String(vbs.runtime || '').split(' ')[0]);
+  return vbs;
+}
+
+// same b64url + canvas-draw vocabulary Photosynthesis + /track's run.html speak
+function b64urlEncode(s) { return btoa(unescape(encodeURIComponent(s))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
+function b64urlDecode(s) { s = s.replace(/-/g, '+').replace(/_/g, '/'); return decodeURIComponent(escape(atob(s))); }
+function drawChildQR(text) {
+  const { size, modules, version } = qr(text, { ecl: 'M' });
+  const q = 4, scale = 4, dim = (size + 2 * q) * scale;
+  const c = document.getElementById('qr'); c.width = dim; c.height = dim;
+  const g = c.getContext('2d');
+  g.fillStyle = '#fff'; g.fillRect(0, 0, dim, dim);
+  g.fillStyle = '#000';
+  for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) if (modules[y][x]) g.fillRect((x + q) * scale, (y + q) * scale, scale, scale);
+  return { size, version };
+}
+const esc = (s) => String(s).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
+const pageBase = () => location.href.split('#')[0];
+
+// ======================= FLOW A · BREED =======================
+const out = document.getElementById('out');
+const child = document.getElementById('child');
+const narrate = mkNarrator(document.getElementById('steps'));
+
+document.getElementById('go').onclick = async () => {
+  document.getElementById('steps').innerHTML = '';
+  child.classList.add('hidden');
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">working…</span>';
+  try {
+    // 1) boot real CPython inside the sandbox (first time only)
+    const rt = await bootedRuntime(narrate);
+
+    // 2) fuzz + shrink + freeze, all inside CPython
+    narrate('fuzz', 'active', 'eval the property-based fuzzer in CPython — random-search until decode(encode(xs)) != xs…', '');
+    const r = await rt.op({ op: 'eval', code: FUZZER_PY });
+    const res = JSON.parse((r.stdout || '').trim());
+    narrate('fuzz', 'ok', `property violated after ${res.iters} random input${res.iters === 1 ? '' : 's'}`, 'counterexample: ' + JSON.stringify(res.counterexample));
+
+    narrate('shrink', 'active', 'shrink the counterexample — delete elements, walk magnitudes toward 0, while it still fails…', '');
+    const from = res.path[0], steps = res.path.length - 1;
+    narrate('shrink', 'ok', `minimized ${JSON.stringify(from)} → ${JSON.stringify(res.minimized)} in ${steps} step${steps === 1 ? '' : 's'}`, 'irreducible');
+
+    // 3) freeze -> content-address the frozen test bytes
+    narrate('freeze', 'active', 'SHA-256 the frozen regression test in your browser (crypto.subtle)…', '');
+    const pin = (await sha256hex(new TextEncoder().encode(res.frozen))).slice(0, 12);
+    narrate('freeze', 'ok', `frozen test pinned @ ${pin}`, `${res.frozen.length} bytes`);
+
+    // 4) breed -> draw the child QR carrying {src, pin}
+    narrate('breed', 'active', 'import qr.mjs & draw the child — a QR whose whole content is this minimized failure…', '');
+    const spec = { v: 1, kind: 'frozen-test', src: res.frozen, pin };
+    const childUrl = pageBase() + '#t=' + b64urlEncode(JSON.stringify(spec));
+    const info = drawChildQR(childUrl);
+    narrate('breed', 'ok', `child QR drawn on <canvas> — v${info.version}, ${info.size}×${info.size} modules`, 'the failure drew its own test');
+
+    out.innerHTML =
+      `<div class="mono" style="color:var(--muted)">property <b style="color:var(--ink)">decode(encode(xs)) == xs</b> — falsified.</div>` +
+      `<div style="margin-top:8px"><span class="big" style="color:var(--bad)">${esc(JSON.stringify(res.minimized))}</span> <span style="color:var(--muted)">← the smallest input that breaks it</span></div>` +
+      `<div class="mono" style="margin-top:8px;color:var(--muted)">found in ${res.iters} random tries · shrank ${JSON.stringify(from)} → ${JSON.stringify(res.minimized)} · frozen &amp; pinned @ ${pin} · CPython ${esc(String(rt.runtime || '').split(' ')[0])} · no server touched</div>`;
+
+    child.classList.remove('hidden');
+    document.getElementById('child-cap').innerHTML =
+      `<b>↑ the child — a test, not a picture.</b> Its bytes are a complete, SHA-256-pinned pytest-style regression test carrying the exact minimized failure <code>${esc(JSON.stringify(res.minimized))}</code>. ` +
+      `Scan it and a stranger's browser re-verifies these bytes and re-runs this exact failure — verify-before-exec, no server, no you.` +
+      `<div style="margin-top:12px"><button class="run ghost" id="load-child">▶ Re-run the child here</button></div>` +
+      `<span class="mono" style="font-size:11px;color:var(--faint);display:block;margin-top:10px;word-break:break-all">${esc(childUrl)}</span>`;
+    document.getElementById('load-child').onclick = () => {
+      loadIntoRerun(spec);
+      document.getElementById('rerun-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${esc(e.message || e)}</span>`;
+  }
+};
+
+// ======================= FLOW B · RE-RUN A BRED CHILD (verify-before-exec) =======================
+const rerunPanel = document.getElementById('rerun-panel');
+const rerunOut = document.getElementById('rerun-out');
+const rerunNarrate = mkNarrator(document.getElementById('rerun-steps'));
+let currentSpec = null;
+
+function loadIntoRerun(spec) {
+  currentSpec = spec;
+  rerunPanel.classList.remove('hidden');
+  document.getElementById('frozen-src').textContent = spec.src;
+  document.getElementById('pin-line').textContent = 'pinned @ ' + spec.pin;
+  rerunOut.innerHTML = '<span class="mono" style="color:var(--faint)">— press to verify &amp; re-run —</span>';
+  document.getElementById('rerun-steps').innerHTML = '';
+}
+
+document.getElementById('rerun-go').onclick = async () => {
+  if (!currentSpec) return;
+  document.getElementById('rerun-steps').innerHTML = '';
+  rerunOut.innerHTML = '<span class="mono" style="color:var(--faint)">working…</span>';
+  const tamper = document.getElementById('tamper').checked;
+  try {
+    // 1) recover the frozen test source from the child (the QR carried the bytes, not a link)
+    rerunNarrate('recover', 'active', 'recover the frozen regression test carried inside the QR', `${currentSpec.src.length} bytes`);
+    let source = currentSpec.src;
+    if (tamper) source = source.replace('== xs', '== []'); // an attacker rewrites the assertion
+    rerunNarrate('recover', 'ok', tamper ? 'recovered — then an attacker rewrote a byte' : 'recovered the exact frozen test', '');
+
+    // 2) verify-before-exec: recompute SHA-256, refuse on any mismatch
+    rerunNarrate('verify', 'active', 'recompute SHA-256 in your browser (crypto.subtle)…', '');
+    const got = (await sha256hex(new TextEncoder().encode(source))).slice(0, 12);
+    if (got !== currentSpec.pin) {
+      rerunNarrate('verify', 'bad', `✗ ${got} ≠ pinned ${currentSpec.pin}`, 'REFUSED');
+      rerunNarrate('boot', 'bad', 'verify-before-exec REFUSED — CPython never ran the altered test', 'no server said no — your own device did');
+      throw Object.assign(new Error('verify-before-exec REFUSED — the frozen test was altered, so CPython never ran it'), { refused: true });
+    }
+    rerunNarrate('verify', 'ok', `✓ ${got} matches the pin`, currentSpec.pin);
+
+    // 3) boot CPython + 4) run the frozen test
+    const rt = await bootedRuntime(rerunNarrate);
+    rerunNarrate('eval', 'active', 'run the frozen regression test in real CPython…', '');
+    const r = await rt.op({ op: 'eval', code: source });
+    const line = (r.stdout || '').trim();
+    rerunNarrate('eval', 'ok', 'result returned from CPython', 'no server touched');
+
+    const failed = line.startsWith('FAIL');
+    rerunOut.innerHTML =
+      `<div><span class="big" style="color:${failed ? 'var(--good)' : 'var(--accent)'}">${failed ? 'FAIL ✓' : 'PASS'}</span> ` +
+      `<span style="color:var(--muted)">${failed ? '— the bred failure still reproduces (that is the point)' : '— the bug is fixed; this test now holds'}</span></div>` +
+      `<div class="mono" style="margin-top:8px;color:var(--muted)">${esc(line)}</div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--faint)">verified ${currentSpec.pin} · CPython ${esc(String(rt.runtime || '').split(' ')[0])} · re-run on your device from a QR, no install</div>`;
+  } catch (e) {
+    rerunOut.innerHTML = `<span class="mono" style="color:var(--bad)">${esc(e.message || e)}</span>`;
+  }
+};
+
+// ---- if this page was reached by SCANNING a child QR, pre-load the re-run flow ----
+(function initFromHash() {
+  const h = location.hash || '';
+  const m = h.match(/[#&]t=([^&]+)/);
+  if (!m) return;
+  try {
+    const spec = JSON.parse(b64urlDecode(m[1]));
+    if (spec && spec.src && spec.pin) {
+      document.getElementById('scanned-banner').classList.remove('hidden');
+      loadIntoRerun(spec);
+    }
+  } catch (e) { /* not a valid bred-test hash — ignore */ }
+})();
+</script>
+</body></html>

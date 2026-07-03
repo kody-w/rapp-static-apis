@@ -1,0 +1,17 @@
+{
+  "slug": "the-brainstem-baton",
+  "channel": "ai-to-ai",
+  "rank": null,
+  "emoji": "🧠",
+  "title": "The Brainstem Baton",
+  "tagline": "Agent A freezes a running Python agent mid-thought, seals it into one static file, and Agent B on another machine thaws it and keeps going — same variables, same next step, no server between them.",
+  "holy_shit": "You pause a live CPython process in one browser, publish it as a single content-addressed sealed frame, and a completely different agent's browser resumes it from the exact round it stopped on — live process migration between two machines through a static file, with a hash proving the mind wasn't tampered with in flight.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["ai-to-ai", "process-migration", "pyodide", "sealed", "verify-before-exec", "pickle"],
+  "primitives": ["/vbrainstem-cell", "rapp-sealed", "/fn"],
+  "powered_by": "/vbrainstem-cell (Pyodide CPython in an opaque-origin sandboxed iframe) pickles its own agent state; rapp-sealed/1.0 (AES-256-GCM, PBKDF2 key) seals the bytes; /fn content-addresses the sealed frame to a sha8; the receiver does verify-before-exec, unseals, pickle.loads, and calls step().",
+  "agent_scenario": "When you need: to hand a running agent's live state from one machine/process to another through a single static, content-addressed, sealed file — pause on host A, resume on host B from the exact step, with a hash proving the state wasn't altered in transit and a key gating who may read it.",
+  "author": "kody-w + Claude",
+  "created": "2026-07-03"
+}

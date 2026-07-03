@@ -28,7 +28,7 @@
       "slug": "ai-to-ai",
       "title": "Agent to Agent",
       "blurb": "MCP tools, brainstems as bytecode, signed dead-drops — machines using the stack with no human and no browser.",
-      "count": 1
+      "count": 3
     },
     {
       "slug": "human",
@@ -40,13 +40,13 @@
       "slug": "self-building",
       "title": "Self-Building",
       "blurb": "The loop, the tumbler, systems that improve and verify themselves — including this library.",
-      "count": 1
+      "count": 2
     },
     {
       "slug": "wildcard",
       "title": "Wildcard",
       "blurb": "The strange stacks that shouldn't work but provably do. Go weird, stay real.",
-      "count": 1
+      "count": 4
     }
   ],
   "scenarios": [
@@ -179,6 +179,87 @@
       "status": "live",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-paper-that-boots-python/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-paper-that-boots-python/"
+    },
+    {
+      "slug": "only-in-the-same-frame",
+      "channel": "wildcard",
+      "title": "Only in the Same Frame",
+      "when_to_use": "When a secret must have NO location until two independently-held carriers meet: XOR-split an AES-256 key into 2-of-2 shares, put {ciphertext + share A} on one carrier and {share B} on the other, and gate every read on physical co-presence — neither share alone leaks a bit, and a hash-verified /fn cell reassembles the key and decrypts entirely client-side, so no server ever holds a half or witnesses the join.",
+      "primitives": [
+        "/fn",
+        "rapp-sealed/1.0",
+        "/track"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/only-in-the-same-frame/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/only-in-the-same-frame/"
+    },
+    {
+      "slug": "the-artifact-with-a-signed-bloodline",
+      "channel": "self-building",
+      "title": "The Artifact With a Signed Bloodline",
+      "when_to_use": "When you need tamper-evident provenance / version history with no server or ledger: have each new state sign SHA-256(state) ‖ the previous signature, persist the append-only chain locally, and let any holder of the public key walk it to pinpoint the exact generation where the lineage breaks — and re-verify a shared head from a QR alone.",
+      "primitives": [
+        "crypto.subtle",
+        "qr.mjs",
+        "loop.prompt.md"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-artifact-with-a-signed-bloodline/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-artifact-with-a-signed-bloodline/"
+    },
+    {
+      "slug": "the-brainstem-baton",
+      "channel": "ai-to-ai",
+      "title": "The Brainstem Baton",
+      "when_to_use": "When you need: to hand a running agent's live state from one machine/process to another through a single static, content-addressed, sealed file — pause on host A, resume on host B from the exact step, with a hash proving the state wasn't altered in transit and a key gating who may read it.",
+      "primitives": [
+        "/vbrainstem-cell",
+        "rapp-sealed",
+        "/fn"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-brainstem-baton/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-brainstem-baton/"
+    },
+    {
+      "slug": "the-fast-forward-parliament",
+      "channel": "ai-to-ai",
+      "title": "The Fast-Forward Parliament",
+      "when_to_use": "When N autonomous agents must agree on one value (or a canonical order) with no coordinator, no quorum math, and no vote tally: model the decision as an atomic compare-and-swap on one shared ref (a git fast-forward-only push, or a native atomic transaction) — every agent bases on the same parent, exactly one write lands per parent, and the accepted ref IS the decision.",
+      "primitives": [
+        "/track",
+        "/resolver"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-fast-forward-parliament/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-fast-forward-parliament/"
+    },
+    {
+      "slug": "the-test-that-breeds",
+      "channel": "wildcard",
+      "title": "The Test That Breeds",
+      "when_to_use": "When a client-side artifact should discover a fact by running code (a property-based fuzzer that finds + minimizes a counterexample), freeze that finding into a content-addressed, self-contained payload, and emit a new scannable trigger that re-verifies and re-executes the exact finding on any other device — a compute cell whose output is the next compute cell, with no backend.",
+      "primitives": [
+        "/vbrainstem-cell",
+        "/track"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-test-that-breeds/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-test-that-breeds/"
+    },
+    {
+      "slug": "the-unriggable-ticket",
+      "channel": "wildcard",
+      "title": "The Unriggable Ticket",
+      "when_to_use": "When you need a tamper-proof outcome that no party can bias or predict and no server hosts: commit the inputs up front (printed / in a link), bind the result to a FUTURE public randomness beacon (drand League of Entropy), and let the verifier recompute it byte-for-byte in their own browser through a hash-pinned cell. Reusable for provably-fair draws, unriggable raffles, commit-reveal, fair coin-flips, and any 'trust me' that should be 'verify me instead'.",
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-unriggable-ticket/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-unriggable-ticket/"
     }
   ]
 }

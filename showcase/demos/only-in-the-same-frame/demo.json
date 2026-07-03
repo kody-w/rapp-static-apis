@@ -1,0 +1,17 @@
+{
+  "slug": "only-in-the-same-frame",
+  "channel": "wildcard",
+  "rank": null,
+  "emoji": "🎞️",
+  "title": "Only in the Same Frame",
+  "tagline": "Split a secret across two objects on opposite sides of the planet; it exists only while both sit in one camera view.",
+  "holy_shit": "Either object alone is pure noise — photograph it, steal it, subpoena it, brute-force it: nothing. The message does not exist anywhere, not even encrypted-and-guessable, because half the key is simply somewhere else. Bring the two into a single camera frame and an AES-256 key reassembles in your browser and the words exist for the first time since they were split — and no server, ever, held either half or watched it happen.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["encryption", "secret-sharing", "2-of-2", "qr", "physical"],
+  "primitives": ["/fn", "rapp-sealed/1.0", "/track"],
+  "powered_by": "rapp-sealed/1.0 (AES-256-GCM) with the key XOR-split into two shares; /track QRs carry {ciphertext + share A} and {share B}; a /fn verify-before-exec cell reassembles the key from both shares and decrypts — entirely in the browser via native crypto.subtle. A true 2-of-2 physical secret.",
+  "agent_scenario": "When a secret must have NO location until two independently-held carriers meet: XOR-split an AES-256 key into 2-of-2 shares, put {ciphertext + share A} on one carrier and {share B} on the other, and gate every read on physical co-presence — neither share alone leaks a bit, and a hash-verified /fn cell reassembles the key and decrypts entirely client-side, so no server ever holds a half or witnesses the join.",
+  "author": "kody-w + Claude",
+  "created": "2026-07-03"
+}

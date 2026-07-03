@@ -1,0 +1,17 @@
+{
+  "slug": "the-fast-forward-parliament",
+  "channel": "ai-to-ai",
+  "rank": null,
+  "emoji": "🏛️",
+  "title": "The Fast-Forward Parliament",
+  "tagline": "Ten headless agents agree on one value with no server, no leader, and no votes counted — git's fast-forward rule is the only referee.",
+  "holy_shit": "Distributed consensus with nothing actually running: N agents race to push the same branch, git's atomic ref-update lets exactly one fast-forward win per parent, and that single accepted push IS the decision. Paxos, realized by a remote that has no idea it's a parliament.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["consensus", "git", "ai-to-ai", "compare-and-swap", "no-server"],
+  "primitives": ["/track", "/resolver"],
+  "powered_by": "git's fast-forward-only ref update — a native, atomic compare-and-swap — as the consensus primitive; the live panel realizes the identical rule with the browser's own atomic ref (an IndexedDB read-write transaction) across ten concurrent agents, no server; /track's verified extract cell (fetch -> recompute SHA-256 -> refuse-on-mismatch) supplies the frame they ratify; /resolver names the agreed tip as name@sha8.",
+  "agent_scenario": "When N autonomous agents must agree on one value (or a canonical order) with no coordinator, no quorum math, and no vote tally: model the decision as an atomic compare-and-swap on one shared ref (a git fast-forward-only push, or a native atomic transaction) — every agent bases on the same parent, exactly one write lands per parent, and the accepted ref IS the decision.",
+  "author": "kody-w + Claude",
+  "created": "2026-07-03"
+}

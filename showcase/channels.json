@@ -19,7 +19,7 @@
       "emoji": "🤖",
       "title": "Agent to Agent",
       "blurb": "MCP tools, brainstems as bytecode, signed dead-drops — machines using the stack with no human and no browser.",
-      "count": 1
+      "count": 3
     },
     {
       "slug": "human",
@@ -33,14 +33,14 @@
       "emoji": "♾️",
       "title": "Self-Building",
       "blurb": "The loop, the tumbler, systems that improve and verify themselves — including this library.",
-      "count": 1
+      "count": 2
     },
     {
       "slug": "wildcard",
       "emoji": "🎲",
       "title": "Wildcard",
       "blurb": "The strange stacks that shouldn't work but provably do. Go weird, stay real.",
-      "count": 1
+      "count": 4
     }
   ]
 }

@@ -1,0 +1,192 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Unriggable Ticket — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🎟️</div>
+    <h1 id="title">The Unriggable Ticket</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">This page holds no result. The ticket below was "printed" with a fixed
+    <b>seed</b> and a committed <b>drand round</b> — but the number that decides it was produced by a planet-wide randomness
+    network <i>after</i> printing. Press the button: your browser fetches the pinned <code>oracle</code> cell, re-checks its
+    SHA-256, refuses it on any mismatch, then fetches that round from the CORS-open <a href="https://drand.love" target="_blank" rel="noopener">drand League of Entropy</a>
+    beacon and recomputes the winner byte-for-byte — all on your device, no server, no house.</p>
+
+    <div class="live-out" id="ticket" style="margin-bottom:14px">
+      <div>🎟️ <b>PRINTED TICKET</b></div>
+      <div style="margin-top:6px">seed <code id="t-seed"></code> · committed round <code id="t-round"></code> · odds <code id="t-odds"></code></div>
+      <div class="mono" style="font-size:12px;color:var(--faint);margin-top:6px">rule: pick = SHA-256(seed ":" round-randomness) mod n · win iff pick == 0</div>
+    </div>
+
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+      <button class="run" id="go">🎟️ Reveal the result</button>
+      <label class="mono" style="font-size:12px;color:var(--muted);cursor:pointer;user-select:none">
+        <input type="checkbox" id="tamper"> simulate a tampered oracle (flip one byte)
+      </label>
+    </div>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+
+    <div style="border-top:1px solid var(--line);margin:18px 0 0;padding-top:16px">
+      <p style="margin:0 0 10px;color:var(--muted)"><b>The part a printer can't fake.</b> Mint a brand-new ticket right now — a fresh
+      random seed bound to a round that <i>has not dropped yet</i>. The oracle will tell you its winner does not exist. Then watch the
+      beacon reach that round a few seconds later and reveal it — the same value for everyone, decided by nobody.</p>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px">
+        <button class="run ghost" id="mint">🔮 Mint one for the next round</button>
+      </div>
+      <div class="live-out" id="mintout"><span class="mono" style="color:var(--faint)">— nothing minted yet —</span></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>Every "provably fair" gambling site still asks you to trust a server: it seeds the RNG, it holds the result, it decides when
+    to reveal. Here there is <b>no server and no RNG to seed</b>. The seed is committed on the paper (the issuer can't swap it), the
+    deciding number is a <b>public randomness beacon</b> that thousands of independent nodes co-produce every three seconds (the issuer
+    can't buy it, predict it, or bias it), and the math is a <b>hash-pinned cell</b> your own phone re-verifies before it runs (the
+    issuer can't rebind it). Because the ticket is printed <i>before</i> the round exists, the printer cannot know the outcome and cannot
+    pre-print only losers. Anyone who scans after the round drops recomputes the exact same byte — so a cheat is caught by physics and
+    arithmetic, not by a referee. Provably-fair anything, with nobody in the middle.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <p style="margin:0 0 10px;color:var(--muted)">The printed ticket resolves to a <b>win</b>, and you can prove that by hand — the
+    inputs are all public:</p>
+    <pre id="repro">loading…</pre>
+    <p style="margin:0 0 10px;color:var(--muted)">Print your own: open <a href="../../../track/">/track</a>, encode a QR whose spec carries
+    a <code>seed</code>, a <b>future</b> drand round, and this pinned <code>oracle</code> cell. Anyone who scans it <i>after</i> that
+    round drops runs the same verify-before-exec cell in their own browser and gets the same result — free, global, forever, refereeless.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:6px">Local: <code>python3 -m http.server</code> in the repo root, then open
+    <code>localhost:8000/showcase/demos/the-unriggable-ticket/</code> (crypto.subtle needs a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+
+// ---- header from the record (single source of truth) ----
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+// ---- the printed ticket: seed + committed round + odds are fixed (as if inked on paper) ----
+const ORACLE = '.';                 // local pinned registry: ./registry.json pins the oracle cell
+const SEED = 'unriggable-777';      // committed on the paper ticket
+const ROUND = 30000000;             // committed drand (quicknet) round — long since drawn
+const N = 29;                       // odds: 1 in 29
+const CHAIN = '52db9ba70e0cc0f6eaf7803dd07447a1f5477735fd3f661792ba94600c84e971';
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+document.getElementById('t-seed').textContent = SEED;
+document.getElementById('t-round').textContent = ROUND.toLocaleString();
+document.getElementById('t-odds').textContent = '1 in ' + N;
+document.getElementById('repro').textContent =
+`# 1. pull the SAME public randomness the beacon published for the ticket's round
+curl -s https://api.drand.sh/${CHAIN}/public/${ROUND}
+#    -> {"round":${ROUND},"randomness":"<64 hex>", ...}
+
+# 2. recompute the winning byte on your own machine (paste the randomness in)
+python3 -c "import hashlib; r='<randomness>'; \\
+  print(int(hashlib.sha256(f'${SEED}:{r}'.encode()).hexdigest(),16) % ${N})"
+#    -> 0   (0 == win — the ticket is a jackpot, and you just proved it, refereeless)`;
+
+const out = document.getElementById('out');
+const narrate = mkNarrator(document.getElementById('steps'));
+
+// ---- hero: resolve the printed ticket through the verified oracle cell ----
+document.getElementById('go').onclick = async () => {
+  document.getElementById('steps').innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">running…</span>';
+  const tamper = document.getElementById('tamper').checked;
+  try {
+    const r = await runVerifiedCell({ base: ORACLE, cell: 'oracle', fn: 'draw',
+      args: { seed: SEED, round: ROUND, n: N }, onStep: narrate, forceMismatch: tamper });
+    const drew = new Date(r.drawAt).toUTCString();
+    out.innerHTML =
+      `<div><span class="big" style="color:${r.win ? 'var(--accent-2)' : 'var(--muted)'}">${r.win ? '🎉 WINNER' : '— no win —'}</span> ` +
+        `<span style="color:var(--muted)">${r.win ? 'jackpot · 1 in ' + r.n : 'better luck next round'}</span></div>` +
+      `<div class="mono" style="margin-top:8px">pick = SHA-256("${SEED}" ":" randomness) mod ${r.n} = <b>${r.pick}</b>${r.win ? ' → 0 = win' : ''}</div>` +
+      `<div class="mono" style="font-size:12px;color:var(--muted);margin-top:4px">round ${r.round.toLocaleString()} · drawn by the network ${drew} · beacon is now at round ${r.latestRound.toLocaleString()}</div>` +
+      `<div class="mono" style="font-size:12px;color:var(--faint);margin-top:4px">randomness ${r.randomness.slice(0,28)}… · digest ${r.digest.slice(0,16)}… · verified &amp; recomputed on your device, no server touched</div>`;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused
+      ? 'verify-before-exec REFUSED — the oracle bytes did not match the pin, so your browser would not run them (no server said no — your own phone did)'
+      : (e.message || e)}</span>`;
+  }
+};
+
+// ---- the twist: mint a fresh ticket for a round that does not exist yet, then watch it resolve ----
+document.getElementById('mint').onclick = async () => {
+  const btn = document.getElementById('mint');
+  const mo = document.getElementById('mintout');
+  btn.disabled = true;
+  mo.innerHTML = '<span class="mono" style="color:var(--faint)">reading the beacon head…</span>';
+  try {
+    const seed = 'mint-' + [...crypto.getRandomValues(new Uint8Array(4))].map(b => b.toString(16).padStart(2,'0')).join('');
+    // learn how far the public beacon has advanced (this run also verifies the cell against its pin)
+    const head = await runVerifiedCell({ base: ORACLE, cell: 'oracle', fn: 'draw', args: { seed, round: 'latest', n: N } });
+    const target = head.latestRound + 3;                       // ~9s into the future — undrawn for everyone
+    // ask the oracle for the not-yet-existing outcome: it must refuse to invent one
+    const future = await runVerifiedCell({ base: ORACLE, cell: 'oracle', fn: 'draw', args: { seed, round: target, n: N } });
+    const dropAt = new Date(future.drawAt);
+    mo.innerHTML =
+      `<div>🔮 <b>FRESH TICKET</b> seed <code>${seed}</code></div>` +
+      `<div class="mono" style="margin-top:6px">committed to round ${target.toLocaleString()} — <b style="color:var(--warn)">winner does not exist yet</b></div>` +
+      `<div class="mono" id="cd" style="font-size:12px;color:var(--muted);margin-top:4px"></div>`;
+    const cd = document.getElementById('cd');
+    // live countdown: the outcome is genuinely undetermined until the network reaches this round
+    for (;;) {
+      const s = Math.ceil((dropAt.getTime() - Date.now()) / 1000);
+      if (s <= 0) break;
+      cd.textContent = `drops at ${dropAt.toLocaleTimeString()} · ~${s}s away · nobody on Earth (issuer included) can compute it`;
+      await sleep(500);
+    }
+    cd.textContent = 'round reached — pulling the fresh randomness…';
+    // now the number exists: resolve it (retry briefly while the beacon publishes)
+    let done = null;
+    for (let i = 0; i < 8 && !done; i++) {
+      const r = await runVerifiedCell({ base: ORACLE, cell: 'oracle', fn: 'draw', args: { seed, round: target, n: N } });
+      if (r.resolved) done = r; else await sleep(1200);
+    }
+    if (!done) throw new Error('beacon has not published this round yet — try again');
+    mo.innerHTML =
+      `<div>🔮 <b>FRESH TICKET</b> seed <code>${seed}</code> · round ${done.round.toLocaleString()}</div>` +
+      `<div style="margin-top:6px"><span class="big" style="font-size:26px;color:${done.win ? 'var(--accent-2)' : 'var(--muted)'}">${done.win ? '🎉 WINNER' : '— no win —'}</span> ` +
+        `<span class="mono" style="color:var(--muted)">pick = ${done.pick} (of 0..${done.n - 1})</span></div>` +
+      `<div class="mono" style="font-size:12px;color:var(--faint);margin-top:4px">The value that did not exist 9 seconds ago now does — randomness ${done.randomness.slice(0,24)}… — and every phone on Earth computes the same result. That is the whole trick.</div>`;
+  } catch (e) {
+    mo.innerHTML = `<span class="mono" style="color:var(--bad)">${e.message || e}</span>`;
+  } finally {
+    btn.disabled = false;
+  }
+};
+</script>
+</body></html>

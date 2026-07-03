@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 10,
+  "count": 16,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -216,6 +216,147 @@
       ],
       "url": "demos/the-paper-that-boots-python/",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-paper-that-boots-python/demo.json"
+    },
+    {
+      "slug": "only-in-the-same-frame",
+      "channel": "wildcard",
+      "rank": null,
+      "emoji": "🎞️",
+      "title": "Only in the Same Frame",
+      "tagline": "Split a secret across two objects on opposite sides of the planet; it exists only while both sit in one camera view.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "encryption",
+        "secret-sharing",
+        "2-of-2",
+        "qr",
+        "physical"
+      ],
+      "primitives": [
+        "/fn",
+        "rapp-sealed/1.0",
+        "/track"
+      ],
+      "url": "demos/only-in-the-same-frame/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/only-in-the-same-frame/demo.json"
+    },
+    {
+      "slug": "the-artifact-with-a-signed-bloodline",
+      "channel": "self-building",
+      "rank": null,
+      "emoji": "🩸",
+      "title": "The Artifact With a Signed Bloodline",
+      "tagline": "Every version of the artifact cryptographically signs the one before it; snap the chain anywhere and the page names the exact generation where the bloodline breaks.",
+      "status": "live",
+      "difficulty": "hard",
+      "tags": [
+        "ecdsa",
+        "provenance",
+        "self-improving",
+        "indexeddb"
+      ],
+      "primitives": [
+        "crypto.subtle",
+        "qr.mjs",
+        "loop.prompt.md"
+      ],
+      "url": "demos/the-artifact-with-a-signed-bloodline/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-artifact-with-a-signed-bloodline/demo.json"
+    },
+    {
+      "slug": "the-brainstem-baton",
+      "channel": "ai-to-ai",
+      "rank": null,
+      "emoji": "🧠",
+      "title": "The Brainstem Baton",
+      "tagline": "Agent A freezes a running Python agent mid-thought, seals it into one static file, and Agent B on another machine thaws it and keeps going — same variables, same next step, no server between them.",
+      "status": "live",
+      "difficulty": "hard",
+      "tags": [
+        "ai-to-ai",
+        "process-migration",
+        "pyodide",
+        "sealed",
+        "verify-before-exec",
+        "pickle"
+      ],
+      "primitives": [
+        "/vbrainstem-cell",
+        "rapp-sealed",
+        "/fn"
+      ],
+      "url": "demos/the-brainstem-baton/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-brainstem-baton/demo.json"
+    },
+    {
+      "slug": "the-fast-forward-parliament",
+      "channel": "ai-to-ai",
+      "rank": null,
+      "emoji": "🏛️",
+      "title": "The Fast-Forward Parliament",
+      "tagline": "Ten headless agents agree on one value with no server, no leader, and no votes counted — git's fast-forward rule is the only referee.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "consensus",
+        "git",
+        "ai-to-ai",
+        "compare-and-swap",
+        "no-server"
+      ],
+      "primitives": [
+        "/track",
+        "/resolver"
+      ],
+      "url": "demos/the-fast-forward-parliament/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-fast-forward-parliament/demo.json"
+    },
+    {
+      "slug": "the-test-that-breeds",
+      "channel": "wildcard",
+      "rank": null,
+      "emoji": "🧬",
+      "title": "The Test That Breeds",
+      "tagline": "A printed square boots Python, hunts down a bug, shrinks it to its smallest form, and breeds a new QR that is the regression test for that exact bug.",
+      "status": "live",
+      "difficulty": "hard",
+      "tags": [
+        "pyodide",
+        "fuzzing",
+        "shrinking",
+        "qr",
+        "self-replicating"
+      ],
+      "primitives": [
+        "/vbrainstem-cell",
+        "/track"
+      ],
+      "url": "demos/the-test-that-breeds/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-test-that-breeds/demo.json"
+    },
+    {
+      "slug": "the-unriggable-ticket",
+      "channel": "wildcard",
+      "rank": null,
+      "emoji": "🎟️",
+      "title": "The Unriggable Ticket",
+      "tagline": "A scratch-off printed today, whose winner is chosen by a number nobody on Earth knows yet.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "qr",
+        "provably-fair",
+        "drand",
+        "randomness",
+        "crypto"
+      ],
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "url": "demos/the-unriggable-ticket/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-unriggable-ticket/demo.json"
     }
   ]
 }

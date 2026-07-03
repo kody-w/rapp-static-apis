@@ -1,0 +1,36 @@
+{
+  "schema": "rapp-static-api/1.0",
+  "name": "the-unriggable-ticket",
+  "kind": "compute-cell",
+  "generated": "2026-07-03T20:51:33Z",
+  "note": "Local pinned oracle for the showcase demo. Verify-before-exec via the shared runVerifiedCell.",
+  "summary": {
+    "cells": 1,
+    "versions": 1
+  },
+  "entries": [
+    {
+      "name": "oracle",
+      "lang": "esm",
+      "ext": ".mjs",
+      "sha256": "07bf730d7ed4bacdfd50eb087a8c0285f7fae833db6ff1add1727198d1e9780d",
+      "sha8": "07bf730d7ed4",
+      "bytes": 4005,
+      "exports": [
+        "draw",
+        "echo"
+      ],
+      "description": "Resolve a provably-fair ticket against the drand League-of-Entropy beacon.",
+      "pin_path": "versions/oracle/07bf730d7ed4.mjs",
+      "src_path": "cells/oracle.mjs",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "07bf730d7ed4",
+          "path": "versions/oracle/07bf730d7ed4.mjs",
+          "first_captured": "2026-07-03T20:51:33Z"
+        }
+      ]
+    }
+  ]
+}

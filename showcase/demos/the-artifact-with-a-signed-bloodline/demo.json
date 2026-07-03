@@ -1,0 +1,17 @@
+{
+  "slug": "the-artifact-with-a-signed-bloodline",
+  "channel": "self-building",
+  "rank": null,
+  "emoji": "🩸",
+  "title": "The Artifact With a Signed Bloodline",
+  "tagline": "Every version of the artifact cryptographically signs the one before it; snap the chain anywhere and the page names the exact generation where the bloodline breaks.",
+  "holy_shit": "A one-file git with signatures and no server: each improvement pass signs the hash of the state before it, forming an append-only lineage the page re-verifies live — edit any ancestor and it points at the precise link that no longer signs, and hands that proof to a stranger as a QR.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["ecdsa", "provenance", "self-improving", "indexeddb"],
+  "primitives": ["crypto.subtle", "qr.mjs", "loop.prompt.md"],
+  "powered_by": "native crypto.subtle ECDSA P-256 (generateKey / sign / verify — a primitive no existing post uses) + SHA-256 + IndexedDB for the append-only chain + qr.mjs to re-emit the independently-verifiable head",
+  "agent_scenario": "When you need tamper-evident provenance / version history with no server or ledger: have each new state sign SHA-256(state) ‖ the previous signature, persist the append-only chain locally, and let any holder of the public key walk it to pinpoint the exact generation where the lineage breaks — and re-verify a shared head from a QR alone.",
+  "author": "kody-w + Claude",
+  "created": "2026-07-03"
+}

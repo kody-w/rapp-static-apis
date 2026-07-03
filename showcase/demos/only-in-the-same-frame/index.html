@@ -1,0 +1,282 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Only in the Same Frame — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  .field{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
+  .field label{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-family:var(--mono)}
+  .field textarea,.field input{width:100%;background:var(--panel-2);border:1px solid var(--line);border-radius:9px;color:var(--ink);padding:10px 12px;font:inherit;font-size:14px}
+  .field textarea{min-height:64px;resize:vertical;font-family:var(--mono)}
+  .field input{font-family:var(--mono)}
+  .objects{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 2px}
+  @media(max-width:620px){.objects{grid-template-columns:1fr}}
+  .obj{border:1px solid var(--line);border-radius:11px;background:var(--panel-2);padding:12px 13px}
+  .obj .oh{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:7px}
+  .obj .oh b{color:var(--ink)}
+  .share{font-family:var(--mono);font-size:11.5px;word-break:break-all;overflow-wrap:anywhere;color:var(--accent-2);line-height:1.55;max-height:132px;overflow:auto}
+  .obj.b .share{color:var(--warn)}
+  .note{font-family:var(--mono);font-size:12px;color:var(--faint);margin:10px 0 0}
+  .plain{white-space:pre-wrap;word-break:break-word;font-size:15px}
+  .btnrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:2px}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🎞️</div>
+    <h1 id="title">Only in the Same Frame</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>① Live — split a secret across two objects</h2>
+    <p style="margin:0 0 14px;color:var(--muted)">No server, no upload. Your browser rolls a random <b>256-bit AES key</b>,
+    seals the message with <code>AES-256-GCM</code>, then <b>XOR-splits the key into two shares</b>. <b>Object A</b>
+    carries the ciphertext + share&nbsp;A; <b>Object B</b> carries share&nbsp;B — nothing else. Print each as a QR and mail
+    them to opposite ends of the earth. Neither square contains the words; neither contains the key.</p>
+    <div class="field">
+      <label for="secret">the secret (plaintext — never leaves this tab)</label>
+      <textarea id="secret" spellcheck="false">Vault: 8-19-77. Grandma — the letters are behind the third brick, left of the fireplace. Sell nothing. I love you.</textarea>
+    </div>
+    <button class="run" id="split">🎞️ Split into two objects</button>
+    <div class="live-out" id="splitOut" style="margin-top:14px"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="splitSteps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>② Live — one object alone is pure noise</h2>
+    <p style="margin:0 0 14px;color:var(--muted)">Here is <b>Object A by itself</b> — the ciphertext and half the key. To read
+    it, a thief must supply all 256 bits of the <b>other</b> half. Below we try one guess (all-zeros). The
+    <code>AES-GCM</code> auth tag <b>refuses</b> — and so does every one of the 2<sup>256</sup> other guesses. The one share
+    that opens it is on an object somewhere else on the planet.</p>
+    <div class="field">
+      <label for="aOnly">Object A (auto-filled from ① — the only piece a thief has)</label>
+      <textarea id="aOnly" spellcheck="false" placeholder="split something in ① first…"></textarea>
+    </div>
+    <button class="run" id="alone">🔍 Try to read Object A alone</button>
+    <div class="live-out" id="aloneOut" style="margin-top:14px"><span class="mono" style="color:var(--faint)">— split something first, then try —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="aloneSteps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>③ Live — bring both into the same frame</h2>
+    <p style="margin:0 0 14px;color:var(--muted)">Now both objects sit in one camera view. Your browser fetches the pinned
+    <code>reframe</code> cell from <code>/fn</code>, <b>recomputes its SHA-256</b>, refuses on any mismatch, imports the exact
+    verified bytes, and runs it: it XORs the two shares back into the key and <code>AES-256-GCM</code>-decrypts. The words
+    exist for the first time since they were split — computed on your device, no server touched.</p>
+    <div class="objects">
+      <div class="field" style="margin:0"><label for="frA">Object A</label><textarea id="frA" spellcheck="false" placeholder="from ①…"></textarea></div>
+      <div class="field" style="margin:0"><label for="frB">Object B</label><textarea id="frB" spellcheck="false" placeholder="from ①…"></textarea></div>
+    </div>
+    <div class="btnrow" style="margin-top:12px">
+      <button class="run" id="reframe">🎞️ Bring them into one frame</button>
+      <button class="run ghost" id="tamper">🧪 Tamper with the cell</button>
+    </div>
+    <div class="live-out" id="reframeOut" style="margin-top:14px"><span class="mono" style="color:var(--faint)">— fill both objects (they auto-fill from ①), then press —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="reframeSteps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>Every "secret" you own has an <b>address</b> — a server, a login, a vault, a keyring — a place that can be
+    photographed, breached, or subpoenaed. This one has <b>no address at all</b>. Split the key with XOR and each share is a
+    perfect <b>one-time pad</b> over the other: given Object A, all 2<sup>256</sup> keys are exactly equally likely, so the
+    plaintext carries <i>zero</i> information — not encrypted-and-guessable, genuinely absent. The message does not live in
+    Object A, does not live in Object B, and never lived on any server, because no server ever held a whole key or watched
+    the two meet.</p>
+    <p style="margin:12px 0 0">Distinct from a single-key dead-man's switch (where the ciphertext is one guessable
+    passphrase away): here <b>neither half is ever sufficient</b>, so the words have no location in space until two physical
+    objects share one camera frame. And the reassembly rides two independent, browser-enforced planes at once —
+    <b>confidentiality</b> (only <code>shareA ⊕ shareB</code> reads the ciphertext) and <b>integrity</b> (the
+    <code>/fn</code> cell that does the reassembly refuses to run unless its own bytes hash to the pin). Flip one byte of the
+    cell with <b>🧪 Tamper</b> above and verify-before-exec says no — no host did; your own browser did.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0 0 10px;padding-left:20px;color:var(--muted)">
+      <li>Type a real secret in ① and hit <b>Split</b>. Copy the two base64 blobs — <b>Object A</b> (ciphertext + share A) and
+      <b>Object B</b> (share B). Each is safe to print, mail, or post <i>on its own</i>; together they are the secret.</li>
+      <li>Encode each blob as a QR (the repo's zero-dependency <a href="../../../track/">/track</a> encoder does this) and put them on two
+      different carriers — a coffee mug, a keyring, two people. Read one QR into a scan page, then the other; the join happens
+      only in that browser.</li>
+      <li>In ③, keep both auto-filled objects and press <b>Bring them into one frame</b> to run the pinned <code>reframe</code>
+      cell live. Then press <b>🧪 Tamper</b> to watch verify-before-exec refuse a byte-flipped cell.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/only-in-the-same-frame/</code> (crypto.subtle needs a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Compose it: XOR-split any <code>rapp-sealed</code> key into an <i>n</i>-of-<i>n</i>
+    set of shares, distribute one share per carrier (QR, agent, device, jurisdiction), and reassemble+decrypt inside a
+    hash-pinned <code>/fn</code> cell. Confidentiality (secret-sharing) and integrity (verify-before-exec) are orthogonal
+    planes: either can refuse independently, both in the client, with no key or plaintext ever touching a server.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+
+// header from the record (single source of truth) — same pattern as demos/taste-the-weather/
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+// --- the FRM1 envelope, packed with native crypto.subtle (nothing shipped but the browser) ---
+// Object A: magic(4) 0x0A(1) nonce(12) shareA(32) ciphertext+tag(rest)
+// Object B: magic(4) 0x0B(1) shareB(32)   — read back by the pinned /fn reframe cell.
+const FN = '../../../fn';
+const enc = new TextEncoder(), dec = new TextDecoder();
+const MAGIC = 'FRM1';
+const $ = (id) => document.getElementById(id);
+const esc = (s) => s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+
+const b64 = (bytes) => {
+  let s = '';
+  for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(s);
+};
+const unb64 = (str) => {
+  const s = atob(String(str).replace(/\s+/g, ''));
+  const out = new Uint8Array(s.length);
+  for (let i = 0; i < s.length; i++) out[i] = s.charCodeAt(i);
+  return out;
+};
+
+let payloadA = '', payloadB = '';
+
+// --- ① split ---
+const splitNarrate = mkNarrator($('splitSteps'));
+async function splitSecret(message, onStep) {
+  onStep('key', 'active', 'roll a random 256-bit AES key (crypto.getRandomValues)…', '');
+  const keyBytes = crypto.getRandomValues(new Uint8Array(32));
+  const key = await crypto.subtle.importKey('raw', keyBytes, { name: 'AES-GCM' }, false, ['encrypt']);
+  onStep('key', 'ok', 'AES-256 key minted — it will never be stored whole', '');
+  onStep('enc', 'active', 'AES-256-GCM seal the message (+128-bit auth tag)…', '');
+  const nonce = crypto.getRandomValues(new Uint8Array(12));
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv: nonce }, key, enc.encode(message)));
+  onStep('enc', 'ok', 'sealed — ciphertext + auth tag', ct.length + ' bytes');
+  onStep('split', 'active', 'XOR-split the key: roll share A, derive share B = key ⊕ A…', '');
+  const shareA = crypto.getRandomValues(new Uint8Array(32));
+  const shareB = new Uint8Array(32);
+  for (let i = 0; i < 32; i++) shareB[i] = keyBytes[i] ^ shareA[i];
+  onStep('split', 'ok', 'two shares — each alone is a one-time pad over the key', 'the whole key now exists nowhere');
+  onStep('pack', 'active', 'pack Object A {ct + share A} and Object B {share B}…', '');
+  const A = new Uint8Array(4 + 1 + 12 + 32 + ct.length);
+  A.set(enc.encode(MAGIC), 0); A[4] = 0x0a; A.set(nonce, 5); A.set(shareA, 17); A.set(ct, 49);
+  const B = new Uint8Array(4 + 1 + 32);
+  B.set(enc.encode(MAGIC), 0); B[4] = 0x0b; B.set(shareB, 5);
+  onStep('pack', 'ok', 'two objects ready to print as QRs', 'neither holds the words or the key');
+  return { a: b64(A), b: b64(B) };
+}
+
+$('split').onclick = async () => {
+  const secret = $('secret').value;
+  $('splitSteps').innerHTML = '';
+  if (!secret) { $('splitOut').innerHTML = '<span class="mono" style="color:var(--warn)">type a secret to split first.</span>'; return; }
+  $('splitOut').innerHTML = '<span class="mono" style="color:var(--faint)">splitting…</span>';
+  try {
+    const { a, b } = await splitSecret(secret, splitNarrate);
+    payloadA = a; payloadB = b;
+    $('splitOut').innerHTML =
+      '<div class="objects">' +
+        `<div class="obj a"><div class="oh">🏺 <b>Object A</b> · Tokyo <span style="margin-left:auto">ct + share A</span></div><div class="share">${a}</div></div>` +
+        `<div class="obj b"><div class="oh">🔑 <b>Object B</b> · Lisbon <span style="margin-left:auto">share B</span></div><div class="share">${b}</div></div>` +
+      '</div>' +
+      '<p class="note">Split the same secret again and every byte changes (fresh key, nonce, share). ↓ Object A is loaded into ② and both into ③.</p>';
+    // hand off to the other two panels
+    $('aOnly').value = a;
+    $('frA').value = a; $('frB').value = b;
+    $('aloneOut').innerHTML = '<span class="mono" style="color:var(--faint)">↑ Object A loaded — press "Try to read Object A alone" —</span>';
+    $('reframeOut').innerHTML = '<span class="mono" style="color:var(--faint)">↑ both objects loaded — press "Bring them into one frame" —</span>';
+    $('aloneSteps').innerHTML = ''; $('reframeSteps').innerHTML = '';
+  } catch (e) {
+    $('splitOut').innerHTML = `<span class="mono" style="color:var(--bad)">${e.message || e}</span>`;
+  }
+};
+
+// --- ② one object alone: try to open Object A with a guessed share B (all-zeros) ---
+const aloneNarrate = mkNarrator($('aloneSteps'));
+$('alone').onclick = async () => {
+  const a = $('aOnly').value.trim();
+  $('aloneSteps').innerHTML = '';
+  if (!a) { $('aloneOut').innerHTML = '<span class="mono" style="color:var(--warn)">split something in ① first (or paste an Object A).</span>'; return; }
+  $('aloneOut').innerHTML = '<span class="mono" style="color:var(--faint)">trying…</span>';
+  try {
+    aloneNarrate('parse', 'active', 'read Object A: nonce, share A, ciphertext…', '');
+    const A = unb64(a);
+    if (A.length < 49 || String.fromCharCode.apply(null, A.subarray(0, 4)) !== MAGIC || A[4] !== 0x0a)
+      throw new Error('that is not an Object A payload');
+    const nonce = A.subarray(5, 17), shareA = A.subarray(17, 49), ct = A.subarray(49);
+    aloneNarrate('parse', 'ok', 'Object A parsed — but share B is elsewhere on the planet', ct.length + ' bytes ciphertext');
+    aloneNarrate('guess', 'active', 'a thief must supply all 256 bits of share B — try one guess (all-zeros)…', '');
+    const guessB = new Uint8Array(32); // one of 2^256 equally-likely guesses
+    aloneNarrate('guess', 'ok', 'guessed share B = 000…000', 'probability of being right: 1 / 2^256');
+    aloneNarrate('key', 'active', 'form candidate key = share A ⊕ guess…', '');
+    const keyBytes = new Uint8Array(32);
+    for (let i = 0; i < 32; i++) keyBytes[i] = shareA[i] ^ guessB[i];
+    const key = await crypto.subtle.importKey('raw', keyBytes, { name: 'AES-GCM' }, false, ['decrypt']);
+    aloneNarrate('key', 'ok', 'candidate key formed', '');
+    aloneNarrate('dec', 'active', 'AES-256-GCM decrypt + verify auth tag…', '');
+    try {
+      await crypto.subtle.decrypt({ name: 'AES-GCM', iv: nonce }, key, ct);
+      aloneNarrate('dec', 'bad', 'the impossible happened', ''); // astronomically unreachable
+      $('aloneOut').innerHTML = '<span class="mono" style="color:var(--warn)">you guessed a 256-bit key — buy a lottery ticket.</span>';
+    } catch (e) {
+      aloneNarrate('dec', 'bad', '✗ auth tag refused — the words are not here', 'and every other guess refuses too');
+      $('aloneOut').innerHTML =
+        '<div class="mono" style="color:var(--bad)">🔒 NOISE — Object A alone opens nothing.</div>' +
+        '<p class="note">Photograph it, steal it, subpoena it: with only share A the plaintext is genuinely absent — all 2<sup>256</sup> keys are equally likely. The single share that opens it lives on Object B, somewhere else.</p>';
+    }
+  } catch (e) {
+    $('aloneOut').innerHTML = `<span class="mono" style="color:var(--bad)">${e.message || e}</span>`;
+  }
+};
+
+// --- ③ both in one frame: run the pinned, hash-verified /fn reframe cell (verify-before-exec) ---
+const reframeNarrate = mkNarrator($('reframeSteps'));
+async function runReframe(forceMismatch) {
+  const a = $('frA').value.trim(), b = $('frB').value.trim();
+  $('reframeSteps').innerHTML = '';
+  if (!a || !b) { $('reframeOut').innerHTML = '<span class="mono" style="color:var(--warn)">both objects are required — that is the whole point. Split in ① first.</span>'; return; }
+  $('reframeOut').innerHTML = '<span class="mono" style="color:var(--faint)">reassembling…</span>';
+  try {
+    const r = await runVerifiedCell({ base: FN, cell: 'reframe', fn: 'reassemble',
+      args: { a, b }, onStep: reframeNarrate, forceMismatch });
+    $('reframeOut').innerHTML =
+      '<div class="mono" style="font-size:12px;color:var(--good);margin-bottom:8px">✓ shares reassembled the key (fingerprint ' + esc(r.key_fingerprint) + ') · decrypted on your device — no server touched:</div>' +
+      `<div class="plain">${esc(r.plaintext)}</div>` +
+      '<p class="note">This is the first time the words have existed since ① split them. Move either object out of frame and they are gone again.</p>';
+  } catch (e) {
+    if (e.refused && e.want) { // verify-before-exec integrity refusal (tampered cell bytes)
+      $('reframeOut').innerHTML = '<span class="mono" style="color:var(--bad)">🧪 VERIFY-BEFORE-EXEC REFUSED — the cell\'s bytes no longer hash to the pin. Your browser refused to run tampered code; no host did.</span>';
+    } else if (e.refused) { // AES-GCM auth-tag refusal (shares are not a pair)
+      $('reframeOut').innerHTML = '<span class="mono" style="color:var(--bad)">🔒 SEAL REFUSED — these two shares do not reassemble the key. Wrong pair, or tampered bytes; the AES-GCM tag said no.</span>';
+    } else {
+      $('reframeOut').innerHTML = `<span class="mono" style="color:var(--bad)">${e.message || e}</span>`;
+    }
+  }
+}
+$('reframe').onclick = () => runReframe(false);
+$('tamper').onclick = () => runReframe(true);
+</script>
+</body></html>

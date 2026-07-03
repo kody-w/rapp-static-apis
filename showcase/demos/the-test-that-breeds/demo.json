@@ -1,0 +1,17 @@
+{
+  "slug": "the-test-that-breeds",
+  "channel": "wildcard",
+  "rank": null,
+  "emoji": "🧬",
+  "title": "The Test That Breeds",
+  "tagline": "A printed square boots Python, hunts down a bug, shrinks it to its smallest form, and breeds a new QR that is the regression test for that exact bug.",
+  "holy_shit": "You scan a square of ink; it cold-boots real CPython, fuzzes a function until it finds a failing case, minimizes it, and then draws you a brand-new QR — scan the child and a stranger's phone re-runs that exact minimized failure forever. A test that literally writes and hands you the next test.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["pyodide", "fuzzing", "shrinking", "qr", "self-replicating"],
+  "primitives": ["/vbrainstem-cell", "/track"],
+  "powered_by": "/vbrainstem-cell (headless CPython 3.12 / Pyodide in an opaque-origin sandboxed iframe) + SHA-256 content-addressing + the /track qr.mjs encoder drawing the child straight onto a <canvas>",
+  "agent_scenario": "When a client-side artifact should discover a fact by running code (a property-based fuzzer that finds + minimizes a counterexample), freeze that finding into a content-addressed, self-contained payload, and emit a new scannable trigger that re-verifies and re-executes the exact finding on any other device — a compute cell whose output is the next compute cell, with no backend.",
+  "author": "kody-w + Claude",
+  "created": "2026-07-03"
+}

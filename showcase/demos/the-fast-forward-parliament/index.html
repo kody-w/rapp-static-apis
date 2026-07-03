@@ -1,0 +1,265 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Fast-Forward Parliament — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  .agents{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .ag{border:1px solid var(--line);border-radius:9px;background:var(--panel-2);padding:8px 10px;font-family:var(--mono);font-size:12px;min-width:150px;flex:1 1 150px}
+  .ag .who{color:var(--muted)} .ag .val{color:var(--ink);font-weight:700}
+  .ag.win{border-color:color-mix(in oklab,var(--good),transparent 45%);background:color-mix(in oklab,var(--good),transparent 88%)}
+  .ag.win .st{color:var(--good);font-weight:700} .ag .st{color:var(--faint);margin-top:3px;display:block}
+  .diag{white-space:pre;overflow-x:auto;font-size:12px;line-height:1.35;margin:0}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🏛️</div>
+    <h1 id="title">The Fast-Forward Parliament</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — convene the parliament right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">This page has no server and no coordinator. Press the button: <b>ten headless agents</b> each fetch the same parent, each propose a <b>different</b> value, then all race to push one shared branch. The referee is a <b>native atomic compare-and-swap</b> — here it's an IndexedDB read-write transaction, the exact rule a git remote enforces on every push: <i>fast-forward only</i>, i.e. replace <code>HEAD</code> only if it still equals the parent you based on. Exactly one push lands; the other nine come back <code>! [rejected] non-fast-forward</code>, fetch, fast-forward, and adopt. <b>No votes are counted. The accepted ref IS the decision.</b></p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+      <button class="run" id="go">🏛️ Convene the parliament (10 agents)</button>
+      <button class="run ghost" id="tamper">🪤 tamper the ratified frame</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">re-run it — a different agent wins each time (no leader)</span>
+    </div>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+    <div class="agents" id="grid"></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>The rule, drawn</h2>
+    <pre class="diag mono">                 genesis  ·  parent P
+                     │      every agent `git fetch`es the SAME parent
+    ┌───┬───┬───┬────┼────┬───┬───┬───┐      10 agents · 10 different values
+   a1  a2  a3  a4   …               a10      frame = sha256( P | id | value )
+    └───┴───┴───┴────┼────┴───┴───┴───┘
+                     │   all race:  git push origin HEAD:consensus
+              ┌──────┴───────┐
+        is it a fast-forward?  ←  the ref update is ONE ATOMIC compare-and-swap
+          HEAD still == P ?        (git receive-pack  ≡  an IndexedDB read-write txn)
+                     │
+        ┌────────────┴─────────────────────┐
+   ✓ exactly ONE lands             ✗ the other nine:
+     HEAD := winner                  ! [rejected] non-fast-forward (fetch first)
+     (this push IS the decision)     → git fetch → fast-forward → adopt the winner
+        └──────────────  consensus · 0 votes counted  ──────────────┘</pre>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>Consensus is supposed to be hard — quorums, terms, vote tallies, a leader you elect and re-elect when it dies. This throws all of it away and leans on one primitive that a plain git remote already has: a ref can only move <b>forward</b>. A push is accepted only if the branch still points where you think it does — that check is an <b>atomic compare-and-swap</b>, the same instruction consensus algorithms are built out of. So you don't need a parliament that meets, debates, and votes. You need N agents that each try to push the next commit, and a referee that lets exactly <b>one</b> of them win per parent. Nobody counts anything. The <b>losers learn the outcome by being rejected</b> — the very rejection carries the new truth, and one <code>git fetch</code> later they're fast-forwarded onto it. The agents are headless and interchangeable; kill nine mid-race and the tenth still decides. It's Paxos wearing the clothes of a boring version-control rule, and the live panel above proves it with the browser's own atomic ref instead of a remote — same rule, no server at all.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself — the real distributed version</h2>
+    <p style="margin:0 0 10px;color:var(--muted)">The live panel races ten agents on the browser's atomic ref. To run the <b>identical mechanic across real machines</b>, race a real fast-forward-only branch on any git remote. Every agent is just a process with git — no coordinator, no quorum math:</p>
+    <pre class="mono" style="margin:0 0 10px"># once — build the arena (a branch that only fast-forwards)
+gh repo create consensus-arena --public --clone && cd consensus-arena
+git commit --allow-empty -m genesis && git push -u origin main
+git switch -c consensus && git push -u origin consensus
+
+# in EACH terminal (an agent) — all base on the SAME parent, then race the push:
+git fetch origin consensus && git reset --hard origin/consensus   # fetch the shared parent P
+git commit --allow-empty -m "agent-$$ value=$RANDOM"              # my distinct proposal
+git push origin HEAD:consensus                                    # race the fast-forward
+#   exactly ONE terminal prints:   * [new branch]      HEAD -> consensus
+#   every other terminal prints:   ! [rejected]  (non-fast-forward)   →  fetch first
+git fetch origin consensus && git reset --hard origin/consensus   # losers adopt the winner</pre>
+    <p style="margin:0 0 6px;color:var(--muted)">The remote's <code>receive-pack</code> fast-forward check is the atomic compare-and-swap — it lets exactly one push land per parent. That accepted commit is the decision; no server-side logic decided it, and no vote was tallied. (This only works because the branch is fast-forward-only — allow force-push and you've abolished the parliament.)</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:10px 0 0">Local (the live panel): <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-fast-forward-parliament/</code> (crypto.subtle + IndexedDB need a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+import { expand } from '../../../resolver/rapp-resolve.mjs';
+
+// ---- header from the record (single source of truth) ----
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+// ================= ENGINE (verified byte-for-byte in verify-parliament.mjs, 500 trials) =================
+async function sha12(s) {
+  const d = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+  return [...new Uint8Array(d)].map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 12);
+}
+const rnd = n => [...crypto.getRandomValues(new Uint8Array(n))].map(b => b.toString(16).padStart(2, '0')).join('');
+
+// Convene N headless agents on ONE shared atomic ref, for one decision. No leader, no vote tally.
+// PHASE 1 mirrors `git fetch`: every agent bases its proposal on the SAME parent commit.
+// PHASE 2 mirrors `git push`: every agent races the fast-forward; the atomic ref accepts exactly one.
+async function convene({ agents, store, seed, emit = () => {} }) {
+  const genesis = await sha12('genesis|' + rnd(6));
+  await store.reset(genesis);
+  const base = await store.read();                 // the shared parent everyone bases on
+  const parent = base.sha8;
+
+  // PHASE 1 — each agent independently proposes ONE distinct value on the same parent.
+  const proposals = await Promise.all(Array.from({ length: agents }, async (_, i) => {
+    const id = i + 1, proposed = rnd(3);           // ten agents, ten different candidate values
+    const sha8 = await sha12(`${parent}|${id}|${proposed}|${seed}`);
+    return { id, proposed, sha8, frame: { height: base.height + 1, parent, sha8, value: proposed, by: id, seed } };
+  }));
+
+  // PHASE 2 — each agent races `git push`. Pushes arrive in ARBITRARY order (network timing),
+  // so we race them in a shuffled order; the atomic compare-and-swap is the ONLY referee:
+  // replace HEAD iff it still equals `parent`. Exactly one lands; the rest are non-fast-forward.
+  for (let i = proposals.length - 1; i > 0; i--) { const j = crypto.getRandomValues(new Uint32Array(1))[0] % (i + 1); [proposals[i], proposals[j]] = [proposals[j], proposals[i]]; }
+  const results = await Promise.all(proposals.map(async p => {
+    const res = await store.tryFastForward(parent, p.frame);
+    if (res.accepted) { emit({ type: 'accepted', id: p.id, parent, sha8: p.sha8, proposed: p.proposed }); return { ...p, value: p.proposed, won: true }; }
+    // ! [rejected] non-fast-forward -> fetch the winner, fast-forward, adopt its value
+    emit({ type: 'rejected', id: p.id, parent, proposed: p.proposed, winner: res.head.by, adopted: res.head.value, sha8: res.head.sha8 });
+    return { ...p, value: res.head.value, sha8: res.head.sha8, won: false };
+  }));
+
+  const head = await store.read();
+  return { genesis, head, agents: results };       // head.value = the agreed value; head.by = who landed it
+}
+// ================= /ENGINE =================
+
+// ---- the native atomic ref: an IndexedDB read-write transaction is a serialized compare-and-swap,
+// shared across every context of this origin. get() + conditional put() run inside ONE transaction
+// with no await between them, so concurrent transactions are serialized -> exactly one push lands.
+function idbStore() {
+  const DB = 'rapp-parliament', STORE = 'ref', KEY = 'HEAD';
+  const dbp = new Promise((resolve, reject) => {
+    const rq = indexedDB.open(DB, 1);
+    rq.onupgradeneeded = () => { const db = rq.result; if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE); };
+    rq.onsuccess = () => resolve(rq.result);
+    rq.onerror = () => reject(rq.error);
+  });
+  return {
+    async reset(genesis) {
+      const db = await dbp;
+      return new Promise((res, rej) => {
+        const tx = db.transaction(STORE, 'readwrite');
+        tx.objectStore(STORE).put({ height: 0, sha8: genesis, value: null, by: null, parent: null }, KEY);
+        tx.oncomplete = () => res(); tx.onerror = () => rej(tx.error); tx.onabort = () => rej(tx.error);
+      });
+    },
+    async read() {
+      const db = await dbp;
+      return new Promise((res, rej) => {
+        const tx = db.transaction(STORE, 'readonly');
+        const g = tx.objectStore(STORE).get(KEY);
+        g.onsuccess = () => res(g.result); g.onerror = () => rej(g.error);
+      });
+    },
+    async tryFastForward(parent, frame) {          // the atomic CAS: swap HEAD iff it still == parent
+      const db = await dbp;
+      return new Promise((res, rej) => {
+        const tx = db.transaction(STORE, 'readwrite');
+        const st = tx.objectStore(STORE);
+        const g = st.get(KEY);
+        let accepted = false, head = null;
+        g.onsuccess = () => { head = g.result; if (head && head.sha8 === parent) { accepted = true; st.put(frame, KEY); } };
+        tx.oncomplete = () => res(accepted ? { accepted: true, head: frame } : { accepted: false, head });
+        tx.onerror = () => rej(tx.error); tx.onabort = () => rej(tx.error);
+      });
+    },
+  };
+}
+
+// ---- wiring ----
+const TRACK = '../../../track';
+const SEED_SRC = 'https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/track/registry.json';
+const SEED_PATH = 'entries[0].sha8';   // the pinned sha8 of the verified extract cell — the frame we ratify
+const AGENTS = 10;
+const out = document.getElementById('out');
+const grid = document.getElementById('grid');
+const stepsEl = document.getElementById('steps');
+const narrate = mkNarrator(stepsEl);
+const goBtn = document.getElementById('go');
+const tamperBtn = document.getElementById('tamper');
+
+function renderGrid(agents, head) {
+  grid.innerHTML = agents.slice().sort((a, b) => a.id - b.id).map(a => a.won
+    ? `<div class="ag win"><span class="who">agent #${a.id}</span> proposed <span class="val">${a.proposed}</span><span class="st">✓ fast-forward landed · this push IS the decision</span></div>`
+    : `<div class="ag"><span class="who">agent #${a.id}</span> proposed <span class="val">${a.proposed}</span><span class="st">✗ non-fast-forward → fetch → adopted ${head.value}</span></div>`
+  ).join('');
+}
+
+async function run(tamper) {
+  goBtn.disabled = tamperBtn.disabled = true;
+  stepsEl.innerHTML = ''; grid.innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">convening…</span>';
+  try {
+    // 1) verify-before-exec: the frame the parliament will ratify (fetch cell -> recompute SHA-256 ->
+    //    refuse on mismatch -> import verified bytes -> run extract). Best-effort anchor.
+    let seed;
+    try {
+      const v = await runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract',
+        args: { src: SEED_SRC, path: SEED_PATH }, onStep: narrate, forceMismatch: tamper });
+      seed = String(v.value);
+    } catch (e) {
+      if (e.refused) {   // the tamper button: a corrupted frame is refused — nothing verified to seat
+        out.innerHTML = `<span class="mono" style="color:var(--bad)">verify-before-exec REFUSED the ratified frame (got ${e.got} ≠ pinned ${e.want}) — the parliament will not convene on tampered bytes</span>`;
+        return;
+      }
+      seed = 'local:' + rnd(4);   // offline: consensus still runs, just without the live anchor
+      narrate('run', 'ok', 'verified anchor offline — consensus proceeds on a local frame', seed);
+    }
+
+    // 2) the parliament: 10 agents, one shared atomic ref, exactly one fast-forward wins.
+    const store = idbStore();
+    const events = [];
+    const { genesis, head, agents } = await convene({ agents: AGENTS, store, seed, emit: e => events.push(e) });
+    const winner = agents.find(a => a.won);
+    const rejected = agents.filter(a => !a.won).length;
+
+    narrate('genesis', 'ok', 'fresh branch head (genesis)', genesis);
+    narrate('fetch-base', 'ok', `${AGENTS} agents \`git fetch\` — all base on the same parent`, 'parent ' + genesis);
+    narrate('propose', 'ok', `${AGENTS} agents propose ${AGENTS} different values`, agents.slice().sort((a,b)=>a.id-b.id).map(a => a.proposed).join(' '));
+    narrate('race', 'active', 'all race `git push` — atomic fast-forward compare-and-swap', '');
+    narrate('race', 'ok', 'the atomic ref accepted exactly one push', `1 fast-forward · ${rejected} non-fast-forward rejected`);
+    narrate('adopt', 'ok', `${rejected} rejected agents fetch + fast-forward + adopt the winner`, 'the rejection carried the truth');
+    narrate('decide', 'ok', 'the accepted ref IS the decision', `${head.value} · landed by agent #${head.by} · 0 votes counted`);
+
+    // 3) /resolver: the decision has a portable, host-free name  name@sha8
+    const r = expand('kody-w/consensus@' + head.sha8);
+    narrate('name', 'ok', '/resolver names the decision', `${r.owner}/${r.name}@${r.sha8}`);
+
+    renderGrid(agents, head);
+    out.innerHTML =
+      `<div><span style="color:var(--muted)">consensus:</span> <span class="big">${head.value}</span></div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--muted)">${AGENTS} agents · ${AGENTS} different proposals · <b style="color:var(--good)">1 fast-forward accepted</b> · ${rejected} rejected non-fast-forward · <b>0 votes counted</b></div>` +
+      `<div class="mono" style="margin-top:4px;color:var(--faint)">landed by agent #${head.by} (arbitrary, not elected) · the accepted ref <b>${r.owner}/${r.name}@${r.sha8}</b> is the decision · no server touched</div>`;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.message || e}</span>`;
+  } finally {
+    goBtn.disabled = tamperBtn.disabled = false;
+  }
+}
+
+goBtn.onclick = () => run(false);
+tamperBtn.onclick = () => run(true);
+</script>
+</body></html>

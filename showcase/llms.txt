@@ -18,10 +18,10 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 ## Channels
 - **🌍 Physical World** (`physical`, 3) — QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.
 - **🔒 Verify-Before-Exec** (`verify`, 2) — Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.
-- **🤖 Agent to Agent** (`ai-to-ai`, 1) — MCP tools, brainstems as bytecode, signed dead-drops — machines using the stack with no human and no browser.
+- **🤖 Agent to Agent** (`ai-to-ai`, 3) — MCP tools, brainstems as bytecode, signed dead-drops — machines using the stack with no human and no browser.
 - **💛 Human & Personal** (`human`, 2) — Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.
-- **♾️ Self-Building** (`self-building`, 1) — The loop, the tumbler, systems that improve and verify themselves — including this library.
-- **🎲 Wildcard** (`wildcard`, 1) — The strange stacks that shouldn't work but provably do. Go weird, stay real.
+- **♾️ Self-Building** (`self-building`, 2) — The loop, the tumbler, systems that improve and verify themselves — including this library.
+- **🎲 Wildcard** (`wildcard`, 4) — The strange stacks that shouldn't work but provably do. Go weird, stay real.
 
 ## Posts
 
@@ -36,6 +36,8 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 
 ### 🤖 Agent to Agent
 - [One String, Two Universes](https://kody-w.github.io/rapp-static-apis/showcase/demos/one-string-two-universes/) — The same short-id an AI calls as an MCP tool is the bytes a phone runs from a QR.  ·  status: walkthrough  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/one-string-two-universes/demo.json
+- [The Brainstem Baton](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-brainstem-baton/) — Agent A freezes a running Python agent mid-thought, seals it into one static file, and Agent B on another machine thaws it and keeps going — same variables, same next step, no server between them.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-brainstem-baton/demo.json
+- [The Fast-Forward Parliament](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-fast-forward-parliament/) — Ten headless agents agree on one value with no server, no leader, and no votes counted — git's fast-forward rule is the only referee.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-fast-forward-parliament/demo.json
 
 ### 💛 Human & Personal
 - [Broadcast the Secret](https://kody-w.github.io/rapp-static-apis/showcase/demos/broadcast-the-secret/) — Publish an immortal secret to 8 billion people and still keep it perfectly secret.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/broadcast-the-secret/demo.json
@@ -43,9 +45,13 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 
 ### ♾️ Self-Building
 - [The Quine Ratchet](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-quine-ratchet/) — A prompt that improves the exact file defining how prompts improve files.  ·  status: walkthrough  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-quine-ratchet/demo.json
+- [The Artifact With a Signed Bloodline](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-artifact-with-a-signed-bloodline/) — Every version of the artifact cryptographically signs the one before it; snap the chain anywhere and the page names the exact generation where the bloodline breaks.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-artifact-with-a-signed-bloodline/demo.json
 
 ### 🎲 Wildcard
 - [The Paper That Boots Python](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-paper-that-boots-python/) — A printed square makes any phone cold-boot real Python in two seconds.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-paper-that-boots-python/demo.json
+- [Only in the Same Frame](https://kody-w.github.io/rapp-static-apis/showcase/demos/only-in-the-same-frame/) — Split a secret across two objects on opposite sides of the planet; it exists only while both sit in one camera view.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/only-in-the-same-frame/demo.json
+- [The Test That Breeds](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-test-that-breeds/) — A printed square boots Python, hunts down a bug, shrinks it to its smallest form, and breeds a new QR that is the regression test for that exact bug.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-test-that-breeds/demo.json
+- [The Unriggable Ticket](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-unriggable-ticket/) — A scratch-off printed today, whose winner is chosen by a number nobody on Earth knows yet.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-unriggable-ticket/demo.json
 
 ## How to contribute a post (this is the whole pattern — any AI or human can follow it)
 
@@ -88,4 +94,4 @@ record in the body). The site shows open submissions live; the tumbler loop prom
 }
 ```
 
-Generated by build.py from 10 posts across 6 active channels. Do not hand-edit.
+Generated by build.py from 16 posts across 6 active channels. Do not hand-edit.

@@ -1,0 +1,382 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Artifact With a Signed Bloodline — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  .chain{display:flex;flex-direction:column;gap:8px;margin:2px 0 0}
+  .gen{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:11px;background:var(--panel-2);padding:11px 13px}
+  .gen .g-n{font-family:var(--mono);font-size:12px;color:var(--faint);min-width:52px;padding-top:2px}
+  .gen .g-body{min-width:0;flex:1}
+  .gen .g-pass{font-size:14px;color:var(--ink)}
+  .gen .g-meta{font-family:var(--mono);font-size:11px;color:var(--faint);word-break:break-all;margin-top:3px}
+  .gen .g-badge{font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--muted);white-space:nowrap;align-self:center}
+  .gen.ok{border-color:color-mix(in oklab,var(--good),transparent 60%)}
+  .gen.ok .g-badge{color:var(--good);border-color:color-mix(in oklab,var(--good),transparent 55%)}
+  .gen.broken{border-color:color-mix(in oklab,var(--bad),transparent 45%);background:color-mix(in oklab,var(--bad),transparent 90%)}
+  .gen.broken .g-badge{color:var(--bad);border-color:color-mix(in oklab,var(--bad),transparent 45%)}
+  .gen.orphan{opacity:.6}
+  .gen.orphan .g-badge{color:var(--warn);border-color:color-mix(in oklab,var(--warn),transparent 55%)}
+  .qrwrap{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-top:12px}
+  .qrwrap canvas{background:#fff;border-radius:10px;image-rendering:pixelated;max-width:100%}
+  .qrcap{min-width:180px;flex:1}
+  .ctl{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+  select.snap{font:inherit;font-size:14px;background:var(--panel-2);border:1px solid var(--line);border-radius:9px;color:var(--ink);padding:8px 10px}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🩸</div>
+    <h1 id="title">The Artifact With a Signed Bloodline</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>① Live — grow the signed bloodline (run it right now)</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">No server, no ledger. Your browser mints a one-time <b>ECDSA P-256</b>
+    keypair with native <code>crypto.subtle</code>. Each press runs one self-improvement pass — the <code><a
+    href="../../../loop.prompt.md">loop.prompt.md</a></code> <i>measure → keep-if-better</i> discipline, as code — and records
+    <span class="mono">state<sub>n</sub> = sign( SHA-256(state) ‖ sig<sub>n-1</sub> )</span>. The signature of each generation
+    <b>covers the signature of the one before it</b>, so the chain is append-only and self-witnessing. It persists in
+    <b>IndexedDB</b>, so your bloodline survives a reload.</p>
+    <div class="ctl">
+      <button class="run" id="grow">▶ Run an improvement pass</button>
+      <button class="run ghost" id="reset">↺ Reset lineage</button>
+      <span class="mono" id="keyline" style="font-size:12px;color:var(--faint)"></span>
+    </div>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press “Run an improvement pass” to seed generation 0 —</span></div>
+    <div class="chain" id="chain" style="margin-top:12px"></div>
+    <h2 style="margin-top:18px">The head, re-emitted as an independently-verifiable QR</h2>
+    <p style="margin:0 0 6px;color:var(--muted)">The current tip — <span class="mono">{ pubkey (raw P-256 point), head hash, head signature }</span> — drawn with the inlined
+    <code><a href="../../../track/qr.mjs">qr.mjs</a></code>. A stranger scans it, imports the raw key, and re-verifies this exact head with <code>crypto.subtle.verify</code> — no server, no you.</p>
+    <div class="qrwrap">
+      <canvas id="qr" width="0" height="0"></canvas>
+      <div class="qrcap mono" id="qrcap" style="font-size:11px;color:var(--faint)">— grow the bloodline first —</div>
+    </div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="growSteps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>② Live — snap the chain anywhere</h2>
+    <p style="margin:0 0 14px;color:var(--muted)">Now edit an <b>ancestor</b>. Pick any generation and flip one field of its
+    recorded state. Nothing else changes — not its stored signature, not any child. Then <b>Verify</b> walks the whole bloodline
+    with <code>crypto.subtle.verify</code>. Because that generation's signature was taken over the <i>old</i> bytes, it no longer
+    signs — and the page names the <b>exact generation where the bloodline breaks</b>. Every descendant is orphaned: its own
+    signature is still valid, but its provenance now traces through an ancestor that can't prove itself.</p>
+    <div class="ctl">
+      <label class="mono" for="target" style="font-size:12px;color:var(--muted)">edit ancestor:</label>
+      <select class="snap" id="target" disabled></select>
+      <button class="run" id="verify" disabled>🔎 Verify the bloodline</button>
+      <button class="run ghost" id="snap" disabled>✂️ Snap it &amp; re-verify</button>
+      <button class="run ghost" id="heal" disabled>↩︎ Restore &amp; verify clean</button>
+    </div>
+    <div class="live-out" id="vout"><span class="mono" style="color:var(--faint)">— grow at least two generations in ① first —</span></div>
+    <div class="chain" id="vchain" style="margin-top:12px"></div>
+    <h2 style="margin-top:18px">Watch the walk</h2>
+    <ul class="steps" id="verifySteps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>Version history is usually a story a server tells you. Git gives you tamper-<i>evident</i> history via parent hashes —
+    but nothing stops whoever hosts it from rewriting the past and handing you a clean-looking tree. This is that idea with a
+    <b>signature</b> welded to every link, and <b>no host at all</b>. Each generation signs <code>SHA-256(state) ‖ sig<sub>n-1</sub></code>,
+    so the head signature is transitively a commitment to the entire ancestry: change any state, anywhere in the past, and the
+    signature over <i>that</i> generation stops verifying. The page doesn't just say "something's wrong" — it points at the precise
+    generation where the bloodline was cut, because that's the first link whose signature no longer covers its bytes.</p>
+    <p style="margin:10px 0 0">And it's <b>self-building</b> in the honest sense: the thing keeping the record is the same discipline
+    that produces the improvements. Run a pass, and the win is only kept if it's signed into the lineage — an append-only ratchet
+    (<code><a href="../../../loop.prompt.md">loop.prompt.md</a></code>) where every prior version of the artifact carries cryptographic
+    proof it existed and in what order. The proof is portable: the QR above is the whole trust root — a public key and a signed head —
+    small enough to print, mail, or tattoo. A doubter doesn't take your word for the lineage; they scan it and re-verify it themselves,
+    with their own <code>crypto.subtle</code>, offline.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0 0 10px;padding-left:20px;color:var(--muted)">
+      <li>In ①, press <b>Run an improvement pass</b> a few times — watch the score climb and each generation sign the one before it. Reload the page: the bloodline is still there (it lives in IndexedDB, keyed by the same P-256 key).</li>
+      <li>In ②, hit <b>Verify</b> — the whole chain goes green. Then pick an <b>ancestor</b> generation and press <b>Snap it &amp; re-verify</b>: that link turns red (<code>signature ✗</code>) and everything after it is marked <b>orphaned</b>. Press <b>Restore</b> to prove it heals back to all-green.</li>
+      <li>Scan the QR with any phone. The payload is <span class="mono" style="font-size:12px">{ v:"bloodline/1", gens, pub, head, sig }</span> — enough for any WebCrypto (browser, agent, CLI) to import the raw key and confirm this exact head was signed by it.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-artifact-with-a-signed-bloodline/</code> (crypto.subtle + IndexedDB need a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Compose it: make your state transitions <b>self-witnessing</b>. Each new state signs <code>SHA-256(state) ‖ prev_signature</code> under one ECDSA P-256 key; append the link to a local store (IndexedDB, a file, a content-store). Any party with the public key walks the chain and, on a mutated ancestor, gets the exact index that stops verifying — tamper-evident provenance with no server, ledger, or blockchain. It's the signing twin of <code>/fn</code> verify-before-exec: that proves <i>these bytes are the pinned bytes</i>; this proves <i>these bytes descend, in this order, from a state signed by this key</i>.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { mkNarrator } from '../../lib/showcase.js';
+import { qr } from '../../../track/qr.mjs';
+
+// header from the record (single source of truth) — same pattern as demos/taste-the-weather/
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+// ---------- native WebCrypto helpers (nothing shipped but the browser) ----------
+const subtle = crypto.subtle, enc = new TextEncoder();
+const concat = (...arrs) => {
+  const out = new Uint8Array(arrs.reduce((s, a) => s + a.length, 0));
+  let o = 0; for (const a of arrs) { out.set(a, o); o += a.length; } return out;
+};
+const eqBytes = (a, b) => a.length === b.length && a.every((v, i) => v === b[i]);
+const b64 = (bytes) => { let s = ''; for (const b of bytes) s += String.fromCharCode(b); return btoa(s); };
+const sha256 = async (bytes) => new Uint8Array(await subtle.digest('SHA-256', bytes));
+const hex = (bytes) => [...bytes].map(b => b.toString(16).padStart(2, '0')).join('');
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+
+async function signState(priv, content, prevSig) {
+  const h = await sha256(enc.encode(content));
+  const sig = new Uint8Array(await subtle.sign({ name: 'ECDSA', hash: 'SHA-256' }, priv, concat(h, prevSig)));
+  return { hash: hex(h), sig };
+}
+async function verifyState(pub, content, prevSig, sig) {
+  const h = await sha256(enc.encode(content));
+  return subtle.verify({ name: 'ECDSA', hash: 'SHA-256' }, pub, sig, concat(h, prevSig));
+}
+
+// ---------- IndexedDB: the append-only store (degrades to in-memory if unavailable) ----------
+function openDB() {
+  return new Promise((res, rej) => {
+    const r = indexedDB.open('rapp-bloodline', 1);
+    r.onupgradeneeded = () => r.result.createObjectStore('kv');
+    r.onsuccess = () => res(r.result);
+    r.onerror = () => rej(r.error);
+  });
+}
+async function idbGet(k) {
+  try { const db = await openDB(); return await new Promise((res, rej) => { const t = db.transaction('kv').objectStore('kv').get(k); t.onsuccess = () => res(t.result); t.onerror = () => rej(t.error); }); }
+  catch (e) { return undefined; }
+}
+async function idbSet(k, v) {
+  try { const db = await openDB(); return await new Promise((res, rej) => { const t = db.transaction('kv', 'readwrite').objectStore('kv').put(v, k); t.onsuccess = () => res(true); t.onerror = () => rej(t.error); }); }
+  catch (e) { return false; }
+}
+async function idbDel(k) {
+  try { const db = await openDB(); return await new Promise((res, rej) => { const t = db.transaction('kv', 'readwrite').objectStore('kv').delete(k); t.onsuccess = () => res(true); t.onerror = () => rej(t.error); }); }
+  catch (e) { return false; }
+}
+
+// ---------- the self-improvement script (loop.prompt.md: measure → keep-if-better) ----------
+const SCRIPT = [
+  { pass: 'seed the artifact', measure: 61 },
+  { pass: 'tighten the tagline', measure: 74 },
+  { pass: 'add the live verify panel', measure: 83 },
+  { pass: 'inline the qr encoder (no CDN)', measure: 91 },
+  { pass: 'pin the head + emit the QR', measure: 96 },
+];
+function nextPass(gen, chain) {
+  if (gen < SCRIPT.length) return SCRIPT[gen];
+  const prev = chain.length ? (JSON.parse(chain[chain.length - 1].content).measure || 96) : 96;
+  return { pass: 'refine pass #' + gen, measure: Math.min(99, prev + 1) };
+}
+
+// ---------- app state ----------
+const state = { priv: null, pub: null, raw: null, chain: [] };
+const $ = (id) => document.getElementById(id);
+const growNarrate = mkNarrator($('growSteps'));
+const verifyNarrate = mkNarrator($('verifySteps'));
+
+async function ensureKey(fresh) {
+  if (!fresh) {
+    const saved = await idbGet('keypair');
+    if (saved && saved.privateKey) {
+      state.priv = saved.privateKey; state.pub = saved.publicKey;
+      state.raw = new Uint8Array(await subtle.exportKey('raw', state.pub));
+      return false; // reused
+    }
+  }
+  const kp = await subtle.generateKey({ name: 'ECDSA', namedCurve: 'P-256' }, true, ['sign', 'verify']);
+  state.priv = kp.privateKey; state.pub = kp.publicKey;
+  state.raw = new Uint8Array(await subtle.exportKey('raw', state.pub));
+  await idbSet('keypair', { privateKey: kp.privateKey, publicKey: kp.publicKey }); // CryptoKey is structured-cloneable
+  return true; // minted
+}
+
+function keyLine() {
+  $('keyline').textContent = state.raw ? ('key ' + hex(state.raw.slice(1, 6)) + '… · ' + state.chain.length + ' gen' + (state.chain.length === 1 ? '' : 's')) : '';
+}
+
+function renderChain(el, marks) {
+  el.innerHTML = '';
+  state.chain.forEach((link, i) => {
+    const info = JSON.parse(link.content);
+    const m = marks ? marks[i] : { cls: 'ok', badge: 'signed' };
+    const row = document.createElement('div');
+    row.className = 'gen ' + (m.cls || '');
+    row.innerHTML =
+      `<div class="g-n">gen ${i}</div>` +
+      `<div class="g-body"><div class="g-pass">${info.pass}${m.edited ? ' <span style="color:var(--bad)">· edited</span>' : ''} <span style="color:var(--faint)">· measure ${info.measure}${m.edited ? '→' + m.editedMeasure : ''}</span></div>` +
+      `<div class="g-meta">sha256(state) ${link.hash.slice(0, 12)}… · sig ${b64(link.sig).slice(0, 14)}…</div></div>` +
+      `<div class="g-badge">${m.badge || 'signed'}</div>`;
+    el.appendChild(row);
+  });
+}
+
+function drawQR(text) {
+  const { size, modules, version } = qr(text, { ecl: 'M' });
+  const q = 4, scale = 4, dim = (size + 2 * q) * scale;
+  const c = $('qr'); c.width = dim; c.height = dim;
+  const g = c.getContext('2d');
+  g.fillStyle = '#fff'; g.fillRect(0, 0, dim, dim);
+  g.fillStyle = '#000';
+  for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) if (modules[y][x]) g.fillRect((x + q) * scale, (y + q) * scale, scale, scale);
+  return { size, version };
+}
+
+function refreshHeadQR() {
+  if (!state.chain.length) { $('qr').width = 0; $('qr').height = 0; $('qrcap').textContent = '— grow the bloodline first —'; return; }
+  const head = state.chain[state.chain.length - 1];
+  const payload = JSON.stringify({ v: 'bloodline/1', gens: state.chain.length, pub: b64(state.raw), head: head.hash.slice(0, 12), sig: b64(head.sig) });
+  const info = drawQR(payload);
+  $('qrcap').innerHTML =
+    `<b>the head</b> — generation ${state.chain.length - 1}, v${info.version} · ${info.size}×${info.size} modules.` +
+    `<div style="margin-top:8px;word-break:break-all;color:var(--muted)">${payload}</div>`;
+}
+
+function syncControls() {
+  const n = state.chain.length;
+  const sel = $('target');
+  const cur = sel.value;
+  sel.innerHTML = '';
+  for (let i = 0; i < n; i++) { const o = document.createElement('option'); o.value = i; o.textContent = 'generation ' + i; sel.appendChild(o); }
+  if (cur && Number(cur) < n) sel.value = cur;
+  const ready = n >= 2;
+  sel.disabled = !ready;
+  $('verify').disabled = !ready;
+  $('snap').disabled = !ready;
+  $('heal').disabled = !ready;
+  keyLine();
+}
+
+// ---------- ① grow a generation ----------
+async function growPass() {
+  $('grow').disabled = true;
+  $('growSteps').innerHTML = '';
+  try {
+    const minted = await ensureKey(false);
+    growNarrate('key', 'ok', minted ? 'minted a fresh ECDSA P-256 keypair (crypto.subtle.generateKey)' : 'loaded your P-256 key from IndexedDB', 'private key never leaves this tab');
+    const gen = state.chain.length;
+    const p = nextPass(gen, state.chain);
+    const content = JSON.stringify({ gen, pass: p.pass, measure: p.measure, kept: true });
+    growNarrate('measure', 'ok', `MEASURE → keep-if-better · pass "${p.pass}"`, `score ${p.measure}`);
+    const prevSig = gen === 0 ? new Uint8Array(0) : state.chain[gen - 1].sig;
+    growNarrate('hash', 'active', 'SHA-256 the new state…', '');
+    const { hash, sig } = await signState(state.priv, content, prevSig);
+    growNarrate('hash', 'ok', `state hash ${hash.slice(0, 12)}…`, gen === 0 ? 'genesis' : 'chained to gen ' + (gen - 1));
+    growNarrate('sign', 'ok', `sign( SHA-256(state) ‖ sig${gen === 0 ? '∅' : 'ₙ₋₁'} )`, 'sig ' + b64(sig).slice(0, 14) + '…');
+    state.chain.push({ content, hash, prevSig, sig });
+    await idbSet('chain', state.chain.map(l => ({ content: l.content, hash: l.hash, prevSig: l.prevSig, sig: l.sig })));
+    growNarrate('store', 'ok', 'appended to the IndexedDB bloodline (append-only)', state.chain.length + ' generation' + (state.chain.length === 1 ? '' : 's'));
+    renderChain($('chain'), state.chain.map(() => ({ cls: 'ok', badge: 'signed' })));
+    refreshHeadQR();
+    syncControls();
+    $('out').innerHTML =
+      `<div><span class="big">${state.chain.length}</span> <span style="color:var(--muted)">generations, each signing its ancestor</span></div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--good)">head signed on your device · verify it below or scan the QR</div>`;
+  } catch (e) {
+    $('out').innerHTML = `<span class="mono" style="color:var(--bad)">${e.message || e}</span>`;
+  } finally {
+    $('grow').disabled = false;
+  }
+}
+
+async function resetLineage() {
+  await idbDel('chain'); await idbDel('keypair');
+  state.chain = []; state.priv = state.pub = state.raw = null;
+  $('growSteps').innerHTML = ''; $('verifySteps').innerHTML = '';
+  $('chain').innerHTML = ''; $('vchain').innerHTML = '';
+  refreshHeadQR(); syncControls();
+  $('out').innerHTML = '<span class="mono" style="color:var(--faint)">— lineage cleared — press “Run an improvement pass” to seed generation 0 —</span>';
+  $('vout').innerHTML = '<span class="mono" style="color:var(--faint)">— grow at least two generations in ① first —</span>';
+}
+
+// ---------- ② walk / snap ----------
+async function walk({ editIndex = -1 } = {}) {
+  $('verifySteps').innerHTML = '';
+  const marks = state.chain.map(() => ({ cls: '', badge: '' }));
+  let broken = -1;
+  for (let i = 0; i < state.chain.length; i++) {
+    const link = state.chain[i];
+    const edited = i === editIndex;
+    // the on-the-wire state a verifier would be handed (flip one field of the ancestor)
+    let content = link.content, editedMeasure;
+    if (edited) { const o = JSON.parse(content); editedMeasure = (o.measure || 0) + 7; o.measure = editedMeasure; o.kept = false; content = JSON.stringify(o); }
+    const prevSig = i === 0 ? new Uint8Array(0) : state.chain[i - 1].sig;
+    verifyNarrate('g' + i, 'active', `gen ${i} · verify sig over SHA-256(state)${i === 0 ? '' : ' ‖ sigₙ₋₁'}…`, edited ? 'ancestor was edited' : '');
+    await sleep(180);
+    if (broken >= 0) { // already snapped upstream — descendants are orphaned regardless of their own sig
+      marks[i] = { cls: 'orphan', badge: 'orphaned', edited, editedMeasure };
+      verifyNarrate('g' + i, 'bad', `gen ${i} · orphaned — its ancestry runs through a broken link`, 'provenance void');
+      continue;
+    }
+    const linkageOk = i === 0 || eqBytes(link.prevSig, prevSig);
+    const sigOk = linkageOk && await verifyState(state.pub, content, link.prevSig, link.sig);
+    if (sigOk) {
+      marks[i] = { cls: 'ok', badge: 'signed ✓', edited, editedMeasure };
+      verifyNarrate('g' + i, 'ok', `gen ${i} · signature verifies`, 'signs its ancestor');
+    } else {
+      broken = i;
+      marks[i] = { cls: 'broken', badge: 'signature ✗', edited, editedMeasure };
+      verifyNarrate('g' + i, 'bad', `gen ${i} · SIGNATURE FAILS — bloodline snapped here`, edited ? 'state was edited after signing' : 'linkage broken');
+    }
+  }
+  renderChain($('vchain'), marks);
+  if (broken < 0) {
+    $('vout').innerHTML =
+      `<div><span class="big" style="color:var(--good)">✓ intact</span></div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--good)">all ${state.chain.length} generations sign their ancestor · the whole bloodline verifies on your device</div>`;
+  } else {
+    const orphans = state.chain.length - broken - 1;
+    $('vout').innerHTML =
+      `<div><span class="big" style="color:var(--bad)">snapped @ gen ${broken}</span></div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--bad)">generation ${broken}'s signature no longer covers its (edited) state — ${orphans} descendant${orphans === 1 ? '' : 's'} orphaned. No server found the break; crypto.subtle.verify did.</div>`;
+  }
+  return broken;
+}
+
+// ---------- wire it up ----------
+$('grow').onclick = growPass;
+$('reset').onclick = resetLineage;
+$('verify').onclick = () => walk({ editIndex: -1 });
+$('snap').onclick = () => walk({ editIndex: Number($('target').value) });
+$('heal').onclick = () => walk({ editIndex: -1 });
+
+// restore any existing bloodline from IndexedDB on load (append-only, survives reload)
+(async () => {
+  const savedChain = await idbGet('chain');
+  if (savedChain && savedChain.length) {
+    const reused = !(await ensureKey(false)); // reuse the stored key if present
+    state.chain = savedChain.map(l => ({ content: l.content, hash: l.hash, prevSig: new Uint8Array(l.prevSig), sig: new Uint8Array(l.sig) }));
+    // safety: if the restored key can't verify genesis (e.g. key persistence hiccup), start clean rather than show a false break
+    const g0 = state.chain[0];
+    if (!(await verifyState(state.pub, g0.content, g0.prevSig, g0.sig))) { await resetLineage(); return; }
+    renderChain($('chain'), state.chain.map(() => ({ cls: 'ok', badge: 'signed' })));
+    refreshHeadQR(); syncControls();
+    $('out').innerHTML =
+      `<div><span class="big">${state.chain.length}</span> <span style="color:var(--muted)">generations restored from IndexedDB</span></div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--muted)">${reused ? 'same P-256 key' : 'key re-minted'} · grow more, or verify below</div>`;
+  }
+})();
+</script>
+</body></html>

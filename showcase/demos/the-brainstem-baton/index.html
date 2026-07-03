@@ -1,0 +1,366 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Brainstem Baton — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  /* post-local styles for the two-machine baton pass — themed off showcase.css vars */
+  .machines{display:grid;grid-template-columns:1fr;gap:12px;margin:4px 0}
+  .m{border:1px solid var(--line);border-radius:11px;background:var(--panel-2);padding:12px 14px}
+  .m .who{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+  .m .who b{font-size:13px;color:var(--accent)}
+  .m .who .st{font-family:var(--mono);font-size:11px;color:var(--faint)}
+  .m .body{font-family:var(--mono);font-size:13px;color:var(--muted);min-height:24px;line-height:1.55;word-break:break-word}
+  .m .trail{color:var(--ink)}
+  .m.hot{border-color:color-mix(in oklab,var(--accent),transparent 55%)}
+  .frame{border:1px dashed var(--line-2);border-radius:11px;background:var(--panel);padding:12px 14px;margin:2px 0}
+  .frame .who{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+  .frame .who b{font-size:12px;color:var(--accent-2);text-transform:uppercase;letter-spacing:.5px}
+  .frame .who .sha{font-family:var(--mono);font-size:12px;color:var(--warn)}
+  .frame .b64{font-family:var(--mono);font-size:11.5px;color:var(--faint);word-break:break-all;overflow-wrap:anywhere;line-height:1.5}
+  .wire{text-align:center;color:var(--faint);font-family:var(--mono);font-size:12px;margin:2px 0}
+  .cont{color:var(--accent-2);font-weight:700}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🧠</div>
+    <h1 id="title">The Brainstem Baton</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 10px;color:var(--muted)">Two <b>separate</b> CPython runtimes boot in two sandboxed, opaque-origin
+    iframes on this page — call them <b>Machine A</b> and <b>Machine B</b>. Press the button: Machine A runs a resumable
+    agent for a few rounds and <b>freezes it mid-thought</b> (<code>pickle.dumps</code> of its live state). Your browser
+    <b>seals</b> those bytes with <code>AES-256-GCM</code> and gives the sealed frame a <b>content address</b> (its
+    SHA-256). Machine B — a completely different runtime — recomputes that hash (<b>refusing on any mismatch</b>),
+    unseals with the shared key, <code>pickle.loads</code>, and <b>continues from the exact round A stopped on</b>.
+    No server ever sees the mind in flight.</p>
+    <p class="mono" style="font-size:12px;color:var(--warn);margin:0 0 14px">⚠ first run cold-boots Pyodide/CPython twice
+    (~10&nbsp;MB from a CDN, a few seconds; the second boot is served from browser cache). Needs a network + a secure
+    context (localhost or https, not file://). It caches after the first run.</p>
+
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px">
+      <button class="run" id="go">🧠 Pass the baton</button>
+      <label class="mono" style="font-size:12px;color:var(--faint);display:flex;gap:6px;align-items:center;cursor:pointer">
+        <input type="checkbox" id="tamper"> tamper: flip a byte of the sealed frame in flight
+      </label>
+    </div>
+
+    <div class="machines">
+      <div class="m" id="mA">
+        <div class="who"><b>Machine A · runtime 1</b><span class="st" id="stA">idle</span></div>
+        <div class="body" id="bodyA"><span style="color:var(--faint)">— press the button —</span></div>
+      </div>
+
+      <div class="wire">⇩ &nbsp;pickle → seal → content-address → publish one static file → &nbsp;⇩</div>
+
+      <div class="frame" id="frameBox" style="opacity:.45">
+        <div class="who"><b>the sealed frame · rapp-sealed/1.0</b><span class="sha" id="frameSha">sha8 —</span></div>
+        <div class="b64" id="frameB64">— nothing published yet —</div>
+      </div>
+
+      <div class="wire">⇩ &nbsp;recompute SHA-256 (refuse-on-mismatch) → unseal → pickle.loads → step() &nbsp;⇩</div>
+
+      <div class="m" id="mB">
+        <div class="who"><b>Machine B · runtime 2</b><span class="st" id="stB">idle</span></div>
+        <div class="body" id="bodyB"><span style="color:var(--faint)">— resumes only after the baton is passed —</span></div>
+      </div>
+    </div>
+
+    <div class="live-out" id="out" style="margin-top:14px"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>Every "resume where you left off" you've ever used goes back to a <b>server</b>: the state lives in someone's
+    database, and you reconnect to <i>their</i> machine. This doesn't. Machine A's running agent — its counter, its
+    accumulator variables <code>a</code> and <code>b</code>, its whole trail of thought — is frozen into a handful of
+    bytes, sealed, given a name that <b>is</b> its own hash, and dropped as a single static file. Machine B is a
+    different CPython process that has never talked to A. It picks up that file, <b>proves it wasn't altered in flight</b>
+    (the recomputed SHA-256 must equal the address, or it refuses before touching it), opens the seal with the shared
+    key, and the agent keeps thinking — <b>round&nbsp;5 follows A's round&nbsp;4</b>, computed from A's exact variables.
+    That's live process migration between two machines with <b>nothing but a static file between them</b>.</p>
+    <p style="margin-bottom:0">Flip the <b>tamper</b> box and watch the handoff die: change one byte of the sealed frame
+    and Machine B's recomputed hash no longer matches the address, so it <b>never thaws the mind</b>. The hash guards the
+    handoff; the seal gates who may read it; both refuse in the receiver's own browser, with no host to ask. <b>Honest
+    scope:</b> "the process" here is a <i>serializable continuation</i> — an explicit state dict plus a <code>step()</code>
+    function that both machines already hold — not a raw C stack snapshot. But that is precisely the shape a resumable
+    agent already has: state is data, the next move is code. Migrate the data, and the mind moves.</p>
+  </div>
+
+  <div class="panel">
+    <h2>The pattern · pickle → seal → address → verify → resume</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li><b>freeze</b> — Machine A's <a href="../../../vbrainstem-cell/">/vbrainstem-cell</a> (Pyodide CPython in a
+        sandboxed iframe) runs the agent a few rounds, then <code>pickle.dumps(state)</code> → base64.</li>
+      <li><b>seal</b> — your browser derives a 256-bit key (<code>PBKDF2·SHA-256</code>) and seals the pickle bytes with
+        <code>AES-256-GCM</code> — the <code>rapp-sealed/1.0</code> (RSL1) envelope, native <code>crypto.subtle</code>.</li>
+      <li><b>address</b> — content-address the sealed frame by its <b>SHA-256</b> (a <a href="../../../fn/">/fn</a>-shaped
+        sha8): the file's name is its own fingerprint.</li>
+      <li><b>verify</b> — Machine B recomputes that SHA-256 with the shared lib's <code>sha256hex</code> (the exact
+        integrity primitive <a href="../../../track/">/track</a>'s <code>runVerifiedCell</code> uses) and <b>refuses on
+        any mismatch</b> — verify-before-exec, over live state instead of code bytes.</li>
+      <li><b>resume</b> — B unseals, <code>pickle.loads</code>, and calls the same <code>step()</code> it already holds,
+        continuing from A's exact round.</li>
+    </ol>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0 0 10px;padding-left:20px;color:var(--muted)">
+      <li>Open this page over <code>localhost</code> or <code>https</code> (Pyodide + <code>crypto.subtle</code> need a
+        secure context and a network — not <code>file://</code>), then press <b>Pass the baton</b>.</li>
+      <li>Read Machine A's frozen trail, then watch Machine B's first term continue it exactly — same counter, same
+        <code>a</code>/<code>b</code>. Then tick <b>tamper</b> and run again: B refuses before it thaws anything.</li>
+      <li>Make it real: replace the toy agent's <code>state</code> + <code>step()</code> with your own resumable agent,
+        publish the sealed frame to any static store (a gist, a repo, a content-store), and let any second runtime pull
+        it, verify, unseal, and continue. The frame is inert data; the two runtimes never touch.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">Local: <code>python3 -m http.server</code> in the
+    repo root, then open <code>localhost:8000/showcase/demos/the-brainstem-baton/</code>.</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">The mechanism, generalized: <span class="mono" style="font-size:13px">serialize the agent's live state (data, not the C stack) → seal it (<code>rapp-sealed/1.0</code>, key gates reads) → content-address it (sha8, the frame's own name) → the receiver recomputes the hash and refuses on mismatch (verify-before-exec) → unseal → <code>loads</code> → <code>step()</code>.</span> Integrity (the hash) and confidentiality (the seal) are two independent planes, each enforced in the receiver's own runtime — no coordinating server. The same <code>/vbrainstem-cell</code> also runs pinned RAR agents with verify-before-exec (<code>op:'run'</code>), so a migrated state and the code that advances it can each be hash-checked before anything executes.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { sha256hex, mkNarrator } from '../../lib/showcase.js';
+
+// ---- header from the record (single source of truth) — same pattern as the exemplar ----
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+// ---- the resumable agent: an explicit state dict + a step() BOTH machines hold. Only the state travels. ----
+const AGENT_LIB = `
+import pickle, base64, json
+def step(s):
+    # one "thought": extend the reasoning by exactly one round.
+    a, b = s["b"], s["a"] + s["b"]
+    r = s["round"] + 1
+    out = dict(s)
+    out["a"] = a; out["b"] = b; out["round"] = r
+    out["trail"] = s["trail"] + [b]
+    out["last"] = "round %d: next term = %d" % (r, b)
+    return out
+def dump_state(s):
+    return base64.b64encode(pickle.dumps(s)).decode()
+def load_state(frame_b64):
+    return pickle.loads(base64.b64decode(frame_b64))
+def summary(s, machine):
+    return json.dumps({"machine": machine, "round": s["round"], "a": s["a"], "b": s["b"], "trail": s["trail"], "last": s["last"]})
+`;
+// Machine A: cold state -> run 4 rounds -> freeze. Emits ONE json line to stdout carrying the frame
+// (base64 pickle) + a summary — no reliance on the runPython return-value channel.
+const A_INIT_RUN = `
+STATE = {"round": 0, "a": 1, "b": 1, "trail": [1, 1],
+         "goal": "extend the Fibonacci reasoning, one term per round", "last": "seed: 1, 1"}
+for _ in range(4):
+    STATE = step(STATE)
+print(json.dumps({"machine": "A", "round": STATE["round"], "a": STATE["a"], "b": STATE["b"],
+                  "trail": STATE["trail"], "last": STATE["last"], "frame": dump_state(STATE)}))
+`;
+// Machine B: load the migrated state -> continue with the SAME step() to round 8. prints summary (stdout).
+const B_RESUME = (frameB64) => `
+STATE = load_state("${frameB64}")
+while STATE["round"] < 8:
+    STATE = step(STATE)
+print(summary(STATE, "B"))
+`;
+
+// ---- /vbrainstem-cell boot: embed sandbox.html, vbs-init handshake (same shape as the shipped demo) ----
+const VBS_SRC = '../../../vbrainstem-cell/sandbox.html';
+function bootVbrainstem() {
+  return new Promise((resolve, reject) => {
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.setAttribute('aria-hidden', 'true');
+    iframe.setAttribute('sandbox', 'allow-scripts'); // opaque origin: no host DOM/cookies/storage
+    const pending = new Map(); let nid = 1, port, started = false;
+    iframe.addEventListener('load', () => {
+      if (started) return; started = true;
+      const ch = new MessageChannel(); port = ch.port1;
+      port.onmessage = (e) => {
+        const d = e.data || {};
+        if ('booted' in d) {
+          const op = (msg) => new Promise((res, rej) => {
+            const id = nid++; pending.set(id, { res, rej }); port.postMessage({ id, ...msg });
+          });
+          resolve({ runtime: d.runtime, op });
+          return;
+        }
+        if ('boot_error' in d) { reject(new Error(d.boot_error)); return; }
+        if (d.ready) return;
+        const p = pending.get(d.id); if (!p) return; pending.delete(d.id);
+        d.ok ? p.res(d.result) : p.rej(new Error(d.error));
+      };
+      iframe.contentWindow.postMessage('vbs-init', '*', [ch.port2]);
+    });
+    iframe.src = VBS_SRC;
+    document.body.appendChild(iframe);
+  });
+}
+let agentA = null, agentB = null; // two separate cached CPython runtimes
+
+// ---- rapp-sealed/1.0 (RSL1) over RAW BYTES — native crypto.subtle, nothing shipped but the browser ----
+const enc = new TextEncoder();
+const MAGIC = 'RSL1', ITER = 250000, HEADER = 4 + 16 + 12;
+const KEY = 'brainstem-baton-shared-key';            // the one shared key both agents hold
+const b64 = (u8) => { let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); };
+const unb64 = (str) => { const s = atob(str.replace(/\s+/g, '')); const o = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) o[i] = s.charCodeAt(i); return o; };
+async function deriveKey(passphrase, salt) {
+  const base = await crypto.subtle.importKey('raw', enc.encode(passphrase), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations: ITER, hash: 'SHA-256' },
+    base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+}
+async function sealBytes(dataU8, passphrase) {                 // -> RSL1 envelope (Uint8Array)
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const key = await deriveKey(passphrase, salt);
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, dataU8));
+  const env = new Uint8Array(HEADER + ct.length);
+  env.set(enc.encode(MAGIC), 0); env.set(salt, 4); env.set(iv, 20); env.set(ct, 32);
+  return env;
+}
+async function unsealBytes(env, passphrase) {                  // -> plaintext (Uint8Array); throws on wrong key/tamper
+  if (env.length < HEADER || String.fromCharCode.apply(null, env.subarray(0, 4)) !== MAGIC) throw new Error('not an RSL1 sealed frame');
+  const salt = env.subarray(4, 20), iv = env.subarray(20, 32), ct = env.subarray(32);
+  const key = await deriveKey(passphrase, salt);
+  return new Uint8Array(await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, ct));
+}
+const flipByte = (u8) => { const c = u8.slice(); const i = HEADER + Math.floor((c.length - HEADER) / 2); c[i] ^= 0x01; return c; };
+
+// ---- wire the live baton pass ----
+const $ = (id) => document.getElementById(id);
+const out = $('out');
+const narrate = mkNarrator($('steps'));
+const setA = (h) => { $('bodyA').innerHTML = h; };
+const setB = (h) => { $('bodyB').innerHTML = h; };
+const stA = (t) => { $('stA').textContent = t; };
+const stB = (t) => { $('stB').textContent = t; };
+const trailStr = (t, from = 0) => t.map((n, i) => i >= from ? `<span class="cont">${n}</span>` : n).join(', ');
+
+$('go').onclick = async () => {
+  $('steps').innerHTML = '';
+  $('mA').classList.remove('hot'); $('mB').classList.remove('hot');
+  $('frameBox').style.opacity = '.45'; $('frameSha').textContent = 'sha8 —'; $('frameB64').textContent = '— publishing… —';
+  setA('<span style="color:var(--faint)">booting…</span>'); stA('booting');
+  setB('<span style="color:var(--faint)">waiting for the baton…</span>'); stB('idle');
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">working…</span>';
+  const tamper = $('tamper').checked;
+  try {
+    // 1) Machine A cold-boots CPython (once), then loads the agent code
+    $('mA').classList.add('hot');
+    if (!agentA) {
+      narrate('bootA', 'active', 'Machine A: cold-boot CPython 3.12 (Pyodide/WASM) in a sandboxed iframe…', 'runtime 1 · ~10MB');
+      agentA = await bootVbrainstem();
+    }
+    stA('CPython ' + String(agentA.runtime || '').split(' ')[0]);
+    narrate('bootA', 'ok', 'Machine A is up — runtime 1, headless, no server', String(agentA.runtime || '').split(' ')[0]);
+    await agentA.op({ op: 'eval', code: AGENT_LIB });   // define state-shape + step() on A
+
+    // 2) A runs the agent a few rounds, then freezes it mid-thought (pickle.dumps)
+    narrate('runA', 'active', 'Machine A: run the agent 4 rounds, then pickle.dumps its live state…', '');
+    const rA = await agentA.op({ op: 'eval', code: A_INIT_RUN });
+    const sumA = JSON.parse(rA.stdout);                 // {machine,round,a,b,trail,last,frame}
+    const pB64A = sumA.frame;                            // base64 of the pickle bytes
+    stA('frozen · round ' + sumA.round);
+    setA(`<div>froze mid-thought at <b class="trail">round ${sumA.round}</b> · carried vars <b class="trail">a=${sumA.a}, b=${sumA.b}</b></div>` +
+         `<div style="margin-top:4px">trail: <span class="trail">${trailStr(sumA.trail)}</span></div>`);
+    narrate('runA', 'ok', `Machine A froze at round ${sumA.round}`, `${pB64A.length}-char pickle · trail ends ${sumA.trail[sumA.trail.length - 1]}`);
+
+    // 3) seal the pickle bytes (rapp-sealed/1.0)
+    narrate('seal', 'active', `rapp-sealed/1.0: PBKDF2·SHA-256 key + AES-256-GCM seal the pickle bytes…`, `${ITER.toLocaleString()} rounds`);
+    const pickleBytes = unb64(pB64A);
+    const env = await sealBytes(pickleBytes, KEY);
+    narrate('seal', 'ok', 'sealed — reveals nothing without the shared key', `${env.length} bytes`);
+
+    // 4) content-address the sealed frame (its SHA-256 IS its name)
+    narrate('address', 'active', 'content-address the sealed frame → sha8 (its own fingerprint)…', '');
+    const sha8 = (await sha256hex(env)).slice(0, 12);
+    const sealedB64 = b64(env);
+    $('frameBox').style.opacity = '1';
+    $('frameSha').textContent = 'sha8 ' + sha8;
+    $('frameB64').textContent = 'RSL1…' + sealedB64.slice(4, 68) + '…  (' + sealedB64.length + ' chars · publish anywhere)';
+    narrate('address', 'ok', 'the frame is one static, content-addressed file', 'sha8 ' + sha8);
+
+    // 5) ship it to Machine B (optionally flip a byte in flight)
+    narrate('ship', tamper ? 'active' : 'active', tamper ? 'publish the frame — but an attacker flips one byte in transit…' : 'publish the frame; Machine B receives the exact bytes…', '');
+    const received = tamper ? flipByte(env) : env;
+    narrate('ship', 'ok', tamper ? 'Machine B received a frame with one byte altered' : 'Machine B received the frame', tamper ? '⚠ tampered' : 'intact');
+
+    // 6) verify-before-exec: B recomputes the hash and REFUSES on mismatch (before it thaws anything)
+    stB('verifying');
+    narrate('verify', 'active', 'Machine B: recompute SHA-256 of the received frame (crypto.subtle)…', '');
+    const got = (await sha256hex(received)).slice(0, 12);
+    if (got !== sha8) {
+      narrate('verify', 'bad', `✗ ${got} ≠ address ${sha8}`, 'REFUSED');
+      narrate('resume', 'bad', 'Machine B refused to thaw a tampered mind — it never unsealed', 'no server said no — B did');
+      stB('refused');
+      setB('<span style="color:var(--bad)">🔒 verify-before-exec REFUSED — the frame was altered in flight, so B never unsealed or resumed.</span>');
+      throw Object.assign(new Error('verify-before-exec failed'), { refused: true });
+    }
+    narrate('verify', 'ok', `✓ ${got} matches the address`, 'the mind wasn’t touched in flight');
+
+    // 7) Machine B cold-boots its OWN CPython (once) — a genuinely separate runtime
+    $('mB').classList.add('hot'); stB('booting');
+    if (!agentB) {
+      narrate('bootB', 'active', 'Machine B: cold-boot a SECOND, separate CPython in its own sandboxed iframe…', 'runtime 2');
+      agentB = await bootVbrainstem();
+    }
+    stB('CPython ' + String(agentB.runtime || '').split(' ')[0]);
+    narrate('bootB', 'ok', 'Machine B is up — runtime 2, never talked to A', String(agentB.runtime || '').split(' ')[0]);
+    await agentB.op({ op: 'eval', code: AGENT_LIB });   // same step() code, present on B too
+
+    // 8) unseal with the shared key -> raw pickle bytes
+    narrate('unseal', 'active', 'Machine B: AES-256-GCM unseal with the shared key…', '');
+    const plainBytes = await unsealBytes(received, KEY);
+    const pB64B = b64(plainBytes);
+    narrate('unseal', 'ok', '✓ auth tag valid — seal opened', 'only a key-holder reaches here');
+
+    // 9) pickle.loads on B, then continue with the SAME step() from A's exact round
+    narrate('resume', 'active', `Machine B: pickle.loads → continue from round ${sumA.round} with the same step()…`, '');
+    const rB = await agentB.op({ op: 'eval', code: B_RESUME(pB64B) });
+    const sumB = JSON.parse(rB.stdout);
+    stB('resumed · round ' + sumB.round);
+    const contFrom = sumA.trail.length;                 // where B's new terms begin
+    setB(`<div>thawed at <b class="trail">round ${sumA.round}</b> → ran on to <b class="trail">round ${sumB.round}</b> · vars now <b class="trail">a=${sumB.a}, b=${sumB.b}</b></div>` +
+         `<div style="margin-top:4px">trail: ${trailStr(sumB.trail, contFrom)}  <span style="color:var(--faint)">(green = computed on Machine B)</span></div>`);
+    narrate('resume', 'ok', `Machine B resumed A’s exact thought — round ${sumA.round} → ${sumB.round}`, 'no server between them');
+
+    const firstB = sumB.trail[contFrom];
+    out.innerHTML =
+      `<div><span class="big">${sumB.trail[sumB.trail.length - 1]}</span> <span style="color:var(--muted)">← Machine B computed this, continuing A’s frozen agent</span></div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--muted)">A stopped after ${sumA.trail[sumA.trail.length - 1]} at round ${sumA.round}; B’s next term was <span class="cont">${firstB}</span> and it ran to round ${sumB.round} — same counter, same a/b, migrated through one sealed file (sha8 ${sha8}).</div>` +
+      `<div class="mono" style="margin-top:4px;color:var(--faint)">two CPython runtimes · verify-before-exec + AES-256-GCM · no server touched</div>`;
+  } catch (e) {
+    if (!e.refused) setB(`<span style="color:var(--bad)">${e.message || e}</span>`);
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED — the sealed frame was altered in flight, so Machine B never resumed the agent.' : (e.message || e)}</span>`;
+  }
+};
+</script>
+</body></html>
