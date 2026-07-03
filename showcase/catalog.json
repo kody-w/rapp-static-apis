@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 10,
+  "count": 11,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -216,6 +216,28 @@
       ],
       "url": "demos/the-paper-that-boots-python/",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-paper-that-boots-python/demo.json"
+    },
+    {
+      "slug": "proof-of-freshness",
+      "channel": "verify",
+      "rank": 3,
+      "emoji": "🧊",
+      "title": "Proof of Freshness",
+      "tagline": "Show a live number with a browser-computed SHA-256 proof of the exact bytes fetched right now.",
+      "status": "live",
+      "difficulty": "easy",
+      "tags": [
+        "verify",
+        "freshness",
+        "crypto",
+        "live-data"
+      ],
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "url": "demos/proof-of-freshness/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/proof-of-freshness/demo.json"
     }
   ]
 }

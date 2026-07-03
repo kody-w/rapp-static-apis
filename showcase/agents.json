@@ -22,7 +22,7 @@
       "slug": "verify",
       "title": "Verify-Before-Exec",
       "blurb": "Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.",
-      "count": 2
+      "count": 3
     },
     {
       "slug": "ai-to-ai",
@@ -179,6 +179,19 @@
       "status": "live",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-paper-that-boots-python/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-paper-that-boots-python/"
+    },
+    {
+      "slug": "proof-of-freshness",
+      "channel": "verify",
+      "title": "Proof of Freshness",
+      "when_to_use": "When you need to prove a displayed live value was fetched now (not staged) and bind it to a browser-verifiable hash of the exact response bytes.",
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/proof-of-freshness/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/proof-of-freshness/"
     }
   ]
 }
