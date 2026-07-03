@@ -2,9 +2,13 @@
 
 > A digital twin re-expressed entirely in RAPP canon. It **composes** existing specs and invents
 > nothing: no new protocol, no new endpoint, no engine edit. It does **not** regress the already-frozen
-> **Digital Twin Spec v2.0** (`rapp-rappid-spec/2.0`) — it is published as a **§-profile** and registered
-> as an agent/cartridge in **RAR**, per the prime directive ("only new agents, cartridges, or §-profiles
-> on top of existing specs").
+> **Digital Twin Spec v2.0** (`rapp-rappid-spec/2.0`) — it is published as a **§-profile** (per the prime
+> directive, "only new agents, cartridges, or §-profiles on top of existing specs"). Because it composes
+> only already-registered canon, it mints **no new schema/agent/repo**; its canonical registration is a
+> **discoverability pointer** in the ecosystem map, hosted from the already-registered `kody-w/rapp-static-apis`.
+
+> ⚠️ **Not to be confused with `rapp-twin/1.0`** — the mobile-side twin-egg *client schema* (ECOSYSTEM_MAP §5).
+> This is a §-profile that happens to share the base name "rapp-twin"; it is **not** that schema and claims no `/N.M` id.
 
 *Derived from a rapp-spine drift audit (2026-07-03). Verdict: assimilates at the mechanism level,
 drifts at the naming/model level — fixed here.*
