@@ -224,7 +224,7 @@ document.getElementById('scenario').textContent = meta.agent_scenario;
 document.getElementById('prim').textContent = meta.primitives.join(' ');
 
 const enc = new TextEncoder();
-const MAGIC = 'RSL1', ITER = 250_000;
+const RSL1_MAGIC = 'RSL1', ITER = 250_000;
 const HEADER = 4 + 16 + 12;
 const OWNER = 'kody-w', REPO = 'rapp-static-apis';
 const TRACK = '../../../track';
@@ -275,7 +275,7 @@ async function sealRSL1(plaintext, passphrase, onStep) {
   onStep('enc', 'ok', 'sealed — ciphertext + auth tag', `${ct.length} bytes`);
   onStep('pack', 'active', 'pack RSL1 envelope → base64…', '');
   const env = new Uint8Array(HEADER + ct.length);
-  env.set(enc.encode(MAGIC), 0); env.set(salt, 4); env.set(iv, 20); env.set(ct, 32);
+  env.set(enc.encode(RSL1_MAGIC), 0); env.set(salt, 4); env.set(iv, 20); env.set(ct, 32);
   const file = b64(env);
   onStep('pack', 'ok', 'RSL1 sealed order ready', `${file.length} chars`);
   return file;
@@ -505,15 +505,15 @@ async function stageHop({ letter, label, inFrame, verifyKey, forceMismatch, narr
   return frame;
 }
 
-const $ = id => document.getElementById(id);
-const centerNarrate  = mkNarrator($('centerSteps'));
-const menuNarrate    = mkNarrator($('menuSteps'));
-const sealNarrate    = mkNarrator($('sealSteps'));
-const custodyNarrate = mkNarrator($('custodySteps'));
-const receiptNarrate = mkNarrator($('receiptSteps'));
-const rankNarrate    = mkNarrator($('rankSteps'));
-const weldNarrate    = mkNarrator($('weldSteps'));
-const relayNarrate   = mkNarrator($('relaySteps'));
+const getEl = id => document.getElementById(id);
+const centerNarrate  = mkNarrator(getEl('centerSteps'));
+const menuNarrate    = mkNarrator(getEl('menuSteps'));
+const sealNarrate    = mkNarrator(getEl('sealSteps'));
+const custodyNarrate = mkNarrator(getEl('custodySteps'));
+const receiptNarrate = mkNarrator(getEl('receiptSteps'));
+const rankNarrate    = mkNarrator(getEl('rankSteps'));
+const weldNarrate    = mkNarrator(getEl('weldSteps'));
+const relayNarrate   = mkNarrator(getEl('relaySteps'));
 
 function resetEconomyTiles() {
   renderTile('tile-order', '<div class="kicker">incoming signed order</div><div class="mono" style="color:var(--faint)">waiting for a sealed order…</div>');
@@ -583,28 +583,28 @@ async function loadMenu() {
   const sold = soldOut.size;
   const rows = MENU.map(menuRow).join('');
   const cartRows = MENU.map(item => menuRow(item, 'cart')).join('');
-  $('menuOut').innerHTML =
+  getEl('menuOut').innerHTML =
     `<div style="margin-bottom:10px"><span class="big">${MENU.length - sold}/${MENU.length}</span> <span style="color:var(--muted)">items available right now</span></div>` +
     rows +
     `<div class="mono" style="font-size:12px;color:var(--faint);margin-top:8px">live from GitHub Issues · ${new Date().toLocaleTimeString()}</div>`;
-  $('cartItems').innerHTML = cartRows;
-  $('menuSection').style.display = 'block';
-  $('orderSection').style.display = 'block';
+  getEl('cartItems').innerHTML = cartRows;
+  getEl('menuSection').style.display = 'block';
+  getEl('orderSection').style.display = 'block';
 }
 
-$('goCenter').onclick = async () => {
-  $('centerSteps').innerHTML = '';
-  $('menuSteps').innerHTML = '';
-  $('menuOut').innerHTML = '<span class="mono" style="color:var(--faint)">reading command-center intake and outside feeds…</span>';
+getEl('goCenter').onclick = async () => {
+  getEl('centerSteps').innerHTML = '';
+  getEl('menuSteps').innerHTML = '';
+  getEl('menuOut').innerHTML = '<span class="mono" style="color:var(--faint)">reading command-center intake and outside feeds…</span>';
   ['custodySection','receiptSection','reputationSection','weldSection','relaySection']
-    .forEach(id => $(id).style.display = 'none');
+    .forEach(id => getEl(id).style.display = 'none');
   resetEconomyTiles();
   setFeedWaiting();
-  $('outcome').innerHTML = '<span class="mono" style="color:var(--faint)">— refresh complete to start the live economy —</span>';
+  getEl('outcome').innerHTML = '<span class="mono" style="color:var(--faint)">— refresh complete to start the live economy —</span>';
 
-  const weather = $('tile-weather');
-  const repo = $('tile-repo');
-  const board = $('tile-board');
+  const weather = getEl('tile-weather');
+  const repo = getEl('tile-repo');
+  const board = getEl('tile-board');
 
   const jobs = await Promise.allSettled([
     loadMenu(),
@@ -623,40 +623,40 @@ $('goCenter').onclick = async () => {
     const err = result.reason || new Error('unknown failure');
     const msg = err.refused ? 'verify-before-exec REFUSED (hash mismatch)' : esc(err.message || String(err));
     if (id === 'menuOut') {
-      $('menuOut').innerHTML = `<span class="mono" style="color:var(--bad)">${msg}</span>`;
+      getEl('menuOut').innerHTML = `<span class="mono" style="color:var(--bad)">${msg}</span>`;
       centerNarrate('stock', 'bad', 'economy intake unavailable in this browser session', msg);
     } else {
-      $(id).innerHTML = `<div class="kicker">${$(id).querySelector('.kicker')?.textContent || 'external feed'}</div><div class="mono" style="color:var(--bad)">${msg}</div>`;
-      centerNarrate(id, 'bad', `${$(id).querySelector('.kicker')?.textContent || 'feed'} failed`, msg);
+      getEl(id).innerHTML = `<div class="kicker">${getEl(id).querySelector('.kicker')?.textContent || 'external feed'}</div><div class="mono" style="color:var(--bad)">${msg}</div>`;
+      centerNarrate(id, 'bad', `${getEl(id).querySelector('.kicker')?.textContent || 'feed'} failed`, msg);
     }
   }
 };
 
-$('goSeal').onclick = async () => {
-  $('sealSteps').innerHTML = '';
-  $('sealOut').innerHTML = '<span class="mono" style="color:var(--faint)">building order…</span>';
+getEl('goSeal').onclick = async () => {
+  getEl('sealSteps').innerHTML = '';
+  getEl('sealOut').innerHTML = '<span class="mono" style="color:var(--faint)">building order…</span>';
   ['custodySection','receiptSection','reputationSection','weldSection','relaySection']
-    .forEach(id => $(id).style.display = 'none');
-  $('outcome').innerHTML = '<span class="mono" style="color:var(--faint)">— running… —</span>';
+    .forEach(id => getEl(id).style.display = 'none');
+  getEl('outcome').innerHTML = '<span class="mono" style="color:var(--faint)">— running… —</span>';
 
-  const selected = MENU.filter(item => { const el = $(`cart-${item.key}`); return el && el.checked; });
+  const selected = MENU.filter(item => { const el = getEl(`cart-${item.key}`); return el && el.checked; });
   if (!selected.length) {
-    $('sealOut').innerHTML = '<span class="mono" style="color:var(--warn)">select at least one available item first.</span>';
+    getEl('sealOut').innerHTML = '<span class="mono" style="color:var(--warn)">select at least one available item first.</span>';
     return;
   }
-  const passphrase = $('sellerKey').value.trim();
+  const passphrase = getEl('sellerKey').value.trim();
   if (!passphrase) {
-    $('sealOut').innerHTML = '<span class="mono" style="color:var(--warn)">a seal needs a passphrase.</span>';
+    getEl('sealOut').innerHTML = '<span class="mono" style="color:var(--warn)">a seal needs a passphrase.</span>';
     return;
   }
-  const seller = ($('sellerName').value || 'Command Center Seller').trim().slice(0, 48);
-  const corruptFrame = $('corrupt').checked;
-  const forceMismatch = $('tamper').checked;
+  const seller = (getEl('sellerName').value || 'Command Center Seller').trim().slice(0, 48);
+  const corruptFrame = getEl('corrupt').checked;
+  const forceMismatch = getEl('tamper').checked;
 
   const order = {
     version: 'command-center-order/1.0',
     items: selected.map(i => ({ key: i.key, name: i.name, price: i.price })),
-    note: $('buyerNote').value.trim() || null,
+    note: getEl('buyerNote').value.trim() || null,
     submitted_at: new Date().toISOString()
   };
   sealNarrate('order', 'ok', 'order payload assembled', `${selected.length} item(s): ${selected.map(i => i.name).join(', ')}`);
@@ -666,7 +666,7 @@ $('goSeal').onclick = async () => {
   try {
     const sealedEnvelope = await sealRSL1(JSON.stringify(order), passphrase, sealNarrate);
     const orderHash = await sha256Hex(sealedEnvelope);
-    $('sealOut').innerHTML =
+    getEl('sealOut').innerHTML =
       '<div class="mono" style="font-size:12px;color:var(--muted);margin-bottom:8px">RSL1 sealed order — only the seller\'s key reads this:</div>' +
       `<div class="cipher">${esc(sealedEnvelope)}</div>` +
       '<p class="mono" style="font-size:12px;color:var(--faint);margin-top:8px">Publish it anywhere — it leaks nothing. ↓ Stamping into custody chain…</p>';
@@ -675,11 +675,11 @@ $('goSeal').onclick = async () => {
       `<div><span class="big">sealed</span> <span style="color:var(--muted)">${selected.map(i => esc(i.name)).join(' · ')}</span></div>` +
       `<div class="proof">RSL1 envelope SHA-256: ${orderHash.slice(0,16)}…</div>`);
 
-    $('custodySection').style.display = 'block';
-    $('custodyOut').innerHTML = '<span class="mono" style="color:var(--faint)">stamping custody…</span>';
-    $('custodySteps').innerHTML = '';
+    getEl('custodySection').style.display = 'block';
+    getEl('custodyOut').innerHTML = '<span class="mono" style="color:var(--faint)">stamping custody…</span>';
+    getEl('custodySteps').innerHTML = '';
     const stamp = await stampCustody(sealedEnvelope, custodyNarrate);
-    $('custodyOut').innerHTML =
+    getEl('custodyOut').innerHTML =
       `<div><span class="big">✓ stamped</span> <span style="color:var(--muted)">${stamp.versionId} in custody chain</span></div>` +
       `<div class="mono" style="margin-top:8px;color:var(--muted)">genesis: ${custodyChain.genesis}</div>` +
       `<div class="mono" style="margin-top:4px;color:var(--muted)">head:    ${stamp.contentHash}</div>`;
@@ -688,11 +688,11 @@ $('goSeal').onclick = async () => {
       `<div><span class="big">${esc(stamp.versionId)}</span> <span style="color:var(--muted)">custody link</span></div>` +
       `<div class="proof">genesis ${custodyChain.genesis.slice(0,12)}… → head ${stamp.contentHash.slice(0,12)}…</div>`);
 
-    $('receiptSection').style.display = 'block';
-    $('receiptOut').innerHTML = '<span class="mono" style="color:var(--faint)">issuing notarized receipt…</span>';
-    $('receiptSteps').innerHTML = '';
+    getEl('receiptSection').style.display = 'block';
+    getEl('receiptOut').innerHTML = '<span class="mono" style="color:var(--faint)">issuing notarized receipt…</span>';
+    getEl('receiptSteps').innerHTML = '';
     const receipt = await emitReceipt(order, sealedEnvelope, stamp, receiptNarrate);
-    $('receiptOut').innerHTML =
+    getEl('receiptOut').innerHTML =
       `<div><span class="big">🧾 Notarized receipt emitted</span> <span style="color:var(--muted)">buyer can verify independently</span></div>` +
       `<div class="mono" style="margin-top:8px;color:var(--muted)">seller key kid: ${(receipt.sellerPublicKeyJwk.x || '').slice(0,12)}…</div>` +
       `<div class="mono" style="margin-top:4px;color:var(--muted)">signature verified: ${receipt.verifiedNow}</div>`;
@@ -703,9 +703,9 @@ $('goSeal').onclick = async () => {
 
     completedOrders += 1;
     totalItemsSold += selected.length;
-    $('reputationSection').style.display = 'block';
-    $('rankOut').innerHTML = '<span class="mono" style="color:var(--faint)">updating trust board…</span>';
-    $('rankSteps').innerHTML = '';
+    getEl('reputationSection').style.display = 'block';
+    getEl('rankOut').innerHTML = '<span class="mono" style="color:var(--faint)">updating trust board…</span>';
+    getEl('rankSteps').innerHTML = '';
     const repReceipt = await buildReputationReceipt(receipt, seller, rankNarrate);
     const boardRows = (repReceipt.top5 || []).map(row =>
       `<li style="margin-bottom:6px"><a href="${row.url}" target="_blank" rel="noopener noreferrer">${esc(row.name)}</a>` +
@@ -716,7 +716,7 @@ $('goSeal').onclick = async () => {
       `<span style="font-weight:600">${esc(seller)}</span>` +
       `<span class="mono" style="font-size:12px;color:var(--muted)"> · rep ${esc(String(repReceipt.reputationScore))}</span>` +
       `<span style="font-size:11px;color:var(--good)"> 🔏 signed</span></li>`;
-    $('rankOut').innerHTML =
+    getEl('rankOut').innerHTML =
       `<div style="margin-bottom:10px"><span class="big">🏅 Reputation Board</span> <span class="mono" style="font-size:12px;color:var(--muted)">board SHA-256: ${repReceipt.boardFreshnessProof.sha256.slice(0,16)}…</span></div>` +
       `<ol style="margin:0 0 10px;padding-left:20px;color:var(--fg)">${boardRows}${sellerRow}</ol>` +
       `<div style="color:var(--good);font-weight:600">✅ Signed reputation receipt</div>`;
@@ -725,9 +725,9 @@ $('goSeal').onclick = async () => {
       `<div><span class="big">${repReceipt.reputationScore}</span> <span style="color:var(--muted)">${esc(seller)}</span></div>` +
       `<div class="proof">signed: ${repReceipt.signatureVerified} · board ${repReceipt.boardFreshnessProof.sha256.slice(0,16)}…</div>`);
 
-    $('weldSection').style.display = 'block';
-    $('weldSteps').innerHTML = '';
-    $('weldOut').innerHTML = '<span class="mono" style="color:var(--faint)">packaging economic packet for relay…</span>';
+    getEl('weldSection').style.display = 'block';
+    getEl('weldSteps').innerHTML = '';
+    getEl('weldOut').innerHTML = '<span class="mono" style="color:var(--faint)">packaging economic packet for relay…</span>';
     weldNarrate('pack', 'active', 'assemble complete notarized economic packet', 'seal + custody + receipt + reputation');
     const economyPacket = {
       version: 'command-center/1.0',
@@ -752,14 +752,14 @@ $('goSeal').onclick = async () => {
     weldNarrate('pack', 'ok', 'economic packet assembled', `seal+custody+receipt+reputation — ${JSON.stringify(economyPacket).length} bytes`);
     const genesisFrame = await makeFrame({ stage: 'GENESIS', economyPacket, note: 'complete notarized economic object minted', at: new Date().toISOString() });
     weldNarrate('frame', 'ok', 'genesis frame created from economic packet', `sha8 ${genesisFrame.sha8}`);
-    $('weldOut').innerHTML =
+    getEl('weldOut').innerHTML =
       `<div><span class="big">🧬 Weld point reached</span></div>` +
       `<div class="mono" style="margin-top:8px;color:var(--muted)">genesis frame sha8: ${genesisFrame.sha8}</div>` +
       `<div class="mono" style="margin-top:4px;color:var(--muted)">payload: seal · custody · receipt · reputation · all in one content-addressed object</div>` +
       `<div class="mono" style="margin-top:6px;color:var(--good)">Command center hands the economy to the sovereign relay…</div>`;
 
-    $('relaySection').style.display = 'block';
-    $('relaySteps').innerHTML = '';
+    getEl('relaySection').style.display = 'block';
+    getEl('relaySteps').innerHTML = '';
     ['A','B','C'].forEach(l => setStage(l, '', 'idle', '<span style="color:var(--faint)">—</span>', ''));
     setVtag('vtAB', '', 'B verifies A before forwarding');
     setVtag('vtBC', '', 'C verifies B before final custody');
@@ -825,7 +825,7 @@ $('goSeal').onclick = async () => {
       `<div class="kicker">custody status</div>` +
       `<div><span class="big">relay ok</span> <span style="color:var(--muted)">C accepted packet</span></div>` +
       `<div class="proof">${(finalProof.custody_head || '').slice(0,16)}… · C frame ${frameC.sha8}</div>`);
-    $('outcome').innerHTML =
+    getEl('outcome').innerHTML =
       `<div><span class="big" style="font-size:22px">🧬 Command Center complete</span></div>` +
       `<div class="mono" style="margin-top:8px;color:var(--good)">genesis(${genesisFrame.sha8}) → A(${frameA.sha8}) → B(${frameB.sha8}) → C(${frameC.sha8})</div>` +
       `<div class="mono" style="margin-top:4px;color:var(--muted)">custody head: ${stamp.contentHash.slice(0,20)}… · receipt verified: ${receipt.verifiedNow} · reputation signed: ${repReceipt.signatureVerified}</div>` +
@@ -839,11 +839,11 @@ $('goSeal').onclick = async () => {
           setStage(l, 'bad-stage', 'did not run', '<span style="color:var(--bad)">Relay stopped before this stage.</span>', 'upstream refused'));
       }
       renderTile('tile-custody', '<div class="kicker">custody status</div><div><span class="big" style="color:var(--bad)">REFUSED</span></div><div class="proof">tamper detected before downstream custody could advance</div>');
-      $('outcome').innerHTML =
+      getEl('outcome').innerHTML =
         `<div><span class="big" style="color:var(--bad)">REFUSED</span></div>` +
         `<div class="mono" style="margin-top:6px;color:var(--bad)">${e.got ? `${e.got} ≠ pinned ${e.want}` : 'verify-before-exec refused'} · command-center relay halted before propagation.</div>`;
     } else {
-      $('outcome').innerHTML = `<span class="mono" style="color:var(--bad)">${esc(e.message || String(e))}</span>`;
+      getEl('outcome').innerHTML = `<span class="mono" style="color:var(--bad)">${esc(e.message || String(e))}</span>`;
     }
   }
 };
