@@ -34,7 +34,7 @@
       "slug": "human",
       "title": "Human & Personal",
       "blurb": "Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.",
-      "count": 2
+      "count": 3
     },
     {
       "slug": "self-building",
@@ -179,6 +179,19 @@
       "status": "live",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-paper-that-boots-python/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-paper-that-boots-python/"
+    },
+    {
+      "slug": "the-unbreakable-promise",
+      "channel": "human",
+      "title": "The Unbreakable Promise",
+      "when_to_use": "When you need: a tamper-evident personal commitment that anyone can re-verify offline from shared text + key + signature.",
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-unbreakable-promise/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-unbreakable-promise/"
     }
   ]
 }
