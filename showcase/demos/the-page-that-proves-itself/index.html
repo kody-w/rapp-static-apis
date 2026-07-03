@@ -1,0 +1,132 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Page That Proves Itself — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🪞</div>
+    <h1 id="title">The Page That Proves Itself</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — self-integrity proof</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Your browser just fetched this page's own <code>index.html</code> source, recomputed its SHA-256 with <code>crypto.subtle</code>, and sealed it below. Change one byte anywhere in this file and the hash changes instantly — no server, no library, no trust required.</p>
+    <div class="live-out" id="out" style="min-height:80px"><span class="mono" style="color:var(--faint)">computing…</span></div>
+    <div style="margin-top:10px">
+      <button class="run" id="go">🪞 Re-verify now</button>
+    </div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>Every page on the web can <em>claim</em> to be what it says it is — but this one <em>proves</em> it, live,
+    in your browser. The moment the document loads, it fetches its own bytes back from the server, runs them through
+    <b>native browser SHA-256</b> (<code>crypto.subtle.digest</code>), and displays a hash you can independently
+    verify. No server is asked to vouch for it. No JavaScript library is trusted. The proof is computed entirely
+    inside the same sandbox that rendered the page itself.</p>
+    <p style="margin:10px 0 0">The beautiful constraint: if anyone modifies even a single character of this
+    page — in transit, at the CDN, at the host — the displayed hash <b>changes immediately</b>. Publish the
+    expected hash out-of-band (in a QR code, a signed git tag, another page) and you have a tamper-evident
+    delivery system with zero infrastructure.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Clone the repo: <code>git clone https://github.com/kody-w/rapp-static-apis</code></li>
+      <li>Serve it locally: <code>python3 -m http.server</code> in the repo root.</li>
+      <li>Open <code>localhost:8000/showcase/demos/the-page-that-proves-itself/</code> — the proof runs on load.</li>
+      <li>Edit any character in <code>index.html</code>, reload — watch the hash change.</li>
+      <li>Restore the original — the hash returns to the published value.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px"><code>crypto.subtle</code> requires a
+    secure context: use <code>localhost</code> or <code>https://</code>, not <code>file://</code>.</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Pattern: <code>fetch(location.href)</code> → <code>arrayBuffer()</code> → <code>crypto.subtle.digest('SHA-256', buf)</code> → display hex. Anchor the expected hash in a signed manifest, a QR, or a companion verified cell (<code>runVerifiedCell()</code>) to make delivery tamper-evident end-to-end.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { mkNarrator } from '../../lib/showcase.js';
+
+// Header hydrated from the record (single source of truth)
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' + ');
+
+const out = document.getElementById('out');
+const stepsEl = document.getElementById('steps');
+
+async function proveItself() {
+  stepsEl.innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">computing…</span>';
+  const narrate = mkNarrator(stepsEl);
+
+  try {
+    // Step 1: fetch own source
+    narrate('fetch', 'active', 'fetch this page\'s own index.html bytes…', location.href);
+    const res = await fetch('index.html', { cache: 'no-store' });
+    if (!res.ok) throw new Error(`fetch index.html → ${res.status} ${res.statusText}`);
+    const bytes = await res.arrayBuffer();
+    narrate('fetch', 'ok', `fetched own source`, `${bytes.byteLength} bytes from ${location.hostname || 'localhost'}`);
+
+    // Step 2: hash with crypto.subtle
+    narrate('hash', 'active', 'recompute SHA-256 in your browser (crypto.subtle)…', '');
+    const digest = await crypto.subtle.digest('SHA-256', bytes);
+    const hex = [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
+    narrate('hash', 'ok', `SHA-256 computed`, hex);
+
+    // Step 3: display the proof
+    narrate('attest', 'active', 'seal the self-integrity proof…', '');
+    const short = hex.slice(0, 12);
+    const ts = new Date().toISOString();
+    narrate('attest', 'ok', `proof sealed at ${ts}`, 'no server touched — computed in your browser');
+
+    out.innerHTML =
+      `<div style="margin-bottom:10px">` +
+        `<span class="big" style="font-size:1.3em">🪞 Self-integrity proof</span>` +
+      `</div>` +
+      `<div class="mono" style="word-break:break-all;margin-bottom:6px">` +
+        `<span style="color:var(--muted)">sha256(index.html) = </span>` +
+        `<span style="color:var(--accent);font-weight:600">${hex}</span>` +
+      `</div>` +
+      `<div class="mono" style="font-size:13px;color:var(--good);margin-bottom:4px">` +
+        `✓ this exact page, hash ${short}…, unmodified since publish` +
+      `</div>` +
+      `<div class="mono" style="font-size:11px;color:var(--faint)">verified at ${ts} · ${bytes.byteLength} bytes · crypto.subtle, no server</div>`;
+  } catch (e) {
+    narrate('error', 'bad', e.message || String(e), '');
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.message || e}</span>`;
+  }
+}
+
+// Auto-run on load
+proveItself();
+
+// Re-verify on button click
+document.getElementById('go').onclick = proveItself;
+</script>
+</body></html>

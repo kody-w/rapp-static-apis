@@ -28,7 +28,7 @@
       "slug": "ai-to-ai",
       "title": "Agent to Agent",
       "blurb": "MCP tools, brainstems as bytecode, signed dead-drops — machines using the stack with no human and no browser.",
-      "count": 3
+      "count": 5
     },
     {
       "slug": "human",
@@ -40,13 +40,13 @@
       "slug": "self-building",
       "title": "Self-Building",
       "blurb": "The loop, the tumbler, systems that improve and verify themselves — including this library.",
-      "count": 2
+      "count": 3
     },
     {
       "slug": "wildcard",
       "title": "Wildcard",
       "blurb": "The strange stacks that shouldn't work but provably do. Go weird, stay real.",
-      "count": 4
+      "count": 5
     }
   ],
   "scenarios": [
@@ -156,6 +156,25 @@
       "weld": "",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-reunion/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-reunion/"
+    },
+    {
+      "slug": "the-verifiable-tournament",
+      "channel": "ai-to-ai",
+      "title": "The Verifiable Tournament",
+      "when_to_use": "When you need: a tamper-evident live ranking where every entry is cryptographically signed by the player's own browser key and the entire board is freshness-stamped so no stale screenshot can pass as current.",
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "status": "live",
+      "builds_on": [
+        "living-leaderboard",
+        "proof-of-freshness",
+        "the-unbreakable-promise"
+      ],
+      "weld": "Transplant the-unbreakable-promise's ECDSA sign/verify loop to sign each player's tournament entry, proof-of-freshness's sha256Hex + arrayBuffer fetch to stamp the live ranking payload, and living-leaderboard's runVerifiedCell + parseTopRows to fetch and render the board — the signed player slot is injected into the freshness-stamped live board so every rank is either signed by its maker or provably current.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-verifiable-tournament/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-verifiable-tournament/"
     },
     {
       "slug": "photosynthesis",
@@ -337,6 +356,55 @@
       "weld": "",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-fast-forward-parliament/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-fast-forward-parliament/"
+    },
+    {
+      "slug": "the-page-that-proves-itself",
+      "channel": "self-building",
+      "title": "The Page That Proves Itself",
+      "when_to_use": "When you (an agent) need: a client-side, zero-dependency tamper-evident attestation that the artifact being served is byte-for-byte identical to what was originally published.",
+      "primitives": [
+        "crypto.subtle",
+        "fetch"
+      ],
+      "status": "live",
+      "builds_on": [],
+      "weld": "",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-page-that-proves-itself/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-page-that-proves-itself/"
+    },
+    {
+      "slug": "the-relay",
+      "channel": "ai-to-ai",
+      "title": "The Relay",
+      "when_to_use": "When you need: a multi-stage agent pipeline where each stage must prove the prior stage's output was not tampered with before acting on it — model each handoff as a content-addressed frame and verify the SHA-256 before every transform.",
+      "primitives": [
+        "crypto.subtle"
+      ],
+      "status": "live",
+      "builds_on": [],
+      "weld": "",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-relay/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-relay/"
+    },
+    {
+      "slug": "the-sealed-storefront",
+      "channel": "wildcard",
+      "title": "The Sealed Storefront",
+      "when_to_use": "When you need a zero-backend storefront with live inventory gating, sealed orders readable only by the seller, and tamper-evident custody of the sealed order envelope from submission through delivery.",
+      "primitives": [
+        "/track",
+        "rapp-sealed/1.0",
+        "crypto.subtle"
+      ],
+      "status": "live",
+      "builds_on": [
+        "the-menu-that-knows-the-kitchen",
+        "broadcast-the-secret",
+        "chain-of-custody"
+      ],
+      "weld": "IssuesDB availability gate → AES-256-GCM seals the order payload into an RSL1 envelope → SHA-256 content-addresses that envelope into a custody chain link, so the order's journey is both confidential and tamper-evident end-to-end",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-sealed-storefront/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-sealed-storefront/"
     },
     {
       "slug": "the-test-that-breeds",

@@ -1,0 +1,19 @@
+{
+  "slug": "the-verifiable-tournament",
+  "channel": "ai-to-ai",
+  "rank": 1,
+  "emoji": "🧬",
+  "title": "The Verifiable Tournament",
+  "tagline": "A live leaderboard nobody can rig: every rank is ECDSA-signed and freshness-stamped.",
+  "holy_shit": "You can prove the leaderboard wasn't faked: each entry carries an ECDSA P-256 signature from the player's own browser key, the board bytes are SHA-256 stamped right now, and the compute cell is hash-verified before execution — no server, no trust, no screenshots.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["tournament", "ecdsa", "freshness", "leaderboard", "webcrypto", "weld"],
+  "primitives": ["/track", "/fn"],
+  "powered_by": "ECDSA P-256 WebCrypto signing per-entry (the-unbreakable-promise) + crypto.subtle SHA-256 freshness proof of ranking bytes (proof-of-freshness) + runVerifiedCell live leaderboard fetch and render (living-leaderboard)",
+  "builds_on": ["living-leaderboard", "proof-of-freshness", "the-unbreakable-promise"],
+  "weld": "Transplant the-unbreakable-promise's ECDSA sign/verify loop to sign each player's tournament entry, proof-of-freshness's sha256Hex + arrayBuffer fetch to stamp the live ranking payload, and living-leaderboard's runVerifiedCell + parseTopRows to fetch and render the board — the signed player slot is injected into the freshness-stamped live board so every rank is either signed by its maker or provably current.",
+  "agent_scenario": "When you need: a tamper-evident live ranking where every entry is cryptographically signed by the player's own browser key and the entire board is freshness-stamped so no stale screenshot can pass as current.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

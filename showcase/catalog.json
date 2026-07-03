@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 21,
+  "count": 25,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -167,6 +167,36 @@
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-reunion/demo.json",
       "builds_on": [],
       "weld": ""
+    },
+    {
+      "slug": "the-verifiable-tournament",
+      "channel": "ai-to-ai",
+      "rank": 1,
+      "emoji": "🧬",
+      "title": "The Verifiable Tournament",
+      "tagline": "A live leaderboard nobody can rig: every rank is ECDSA-signed and freshness-stamped.",
+      "status": "live",
+      "difficulty": "hard",
+      "tags": [
+        "tournament",
+        "ecdsa",
+        "freshness",
+        "leaderboard",
+        "webcrypto",
+        "weld"
+      ],
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "url": "demos/the-verifiable-tournament/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-verifiable-tournament/demo.json",
+      "builds_on": [
+        "living-leaderboard",
+        "proof-of-freshness",
+        "the-unbreakable-promise"
+      ],
+      "weld": "Transplant the-unbreakable-promise's ECDSA sign/verify loop to sign each player's tournament entry, proof-of-freshness's sha256Hex + arrayBuffer fetch to stamp the live ranking payload, and living-leaderboard's runVerifiedCell + parseTopRows to fetch and render the board — the signed player slot is injected into the freshness-stamped live board so every rank is either signed by its maker or provably current."
     },
     {
       "slug": "photosynthesis",
@@ -460,6 +490,88 @@
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-fast-forward-parliament/demo.json",
       "builds_on": [],
       "weld": ""
+    },
+    {
+      "slug": "the-page-that-proves-itself",
+      "channel": "self-building",
+      "rank": null,
+      "emoji": "🪞",
+      "title": "The Page That Proves Itself",
+      "tagline": "A page that fetches its own source, hashes it live in your browser, and attests to its own integrity.",
+      "status": "live",
+      "difficulty": "easy",
+      "tags": [
+        "self-hash",
+        "crypto",
+        "integrity",
+        "self-building",
+        "crypto.subtle"
+      ],
+      "primitives": [
+        "crypto.subtle",
+        "fetch"
+      ],
+      "url": "demos/the-page-that-proves-itself/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-page-that-proves-itself/demo.json",
+      "builds_on": [],
+      "weld": ""
+    },
+    {
+      "slug": "the-relay",
+      "channel": "ai-to-ai",
+      "rank": null,
+      "emoji": "🔗",
+      "title": "The Relay",
+      "tagline": "Three agents hand off work through content-addressed frames — every stage verifies the prior stage's SHA-256 before it acts. Corrupt one frame and the next stage refuses cold.",
+      "status": "live",
+      "difficulty": "easy",
+      "tags": [
+        "ai-to-ai",
+        "verify-before-exec",
+        "content-addressed",
+        "pipeline",
+        "hash",
+        "chain"
+      ],
+      "primitives": [
+        "crypto.subtle"
+      ],
+      "url": "demos/the-relay/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-relay/demo.json",
+      "builds_on": [],
+      "weld": ""
+    },
+    {
+      "slug": "the-sealed-storefront",
+      "channel": "wildcard",
+      "rank": null,
+      "emoji": "🏪",
+      "title": "The Sealed Storefront",
+      "tagline": "A real storefront with no backend: live availability from Issues, AES-sealed orders, and tamper-evident custody — all in your browser.",
+      "status": "live",
+      "difficulty": "hard",
+      "tags": [
+        "encryption",
+        "sealed",
+        "issues",
+        "inventory",
+        "hash-chain",
+        "provenance",
+        "weld"
+      ],
+      "primitives": [
+        "/track",
+        "rapp-sealed/1.0",
+        "crypto.subtle"
+      ],
+      "url": "demos/the-sealed-storefront/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-sealed-storefront/demo.json",
+      "builds_on": [
+        "the-menu-that-knows-the-kitchen",
+        "broadcast-the-secret",
+        "chain-of-custody"
+      ],
+      "weld": "IssuesDB availability gate → AES-256-GCM seals the order payload into an RSL1 envelope → SHA-256 content-addresses that envelope into a custody chain link, so the order's journey is both confidential and tamper-evident end-to-end"
     },
     {
       "slug": "the-test-that-breeds",

@@ -1,0 +1,296 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Relay — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  /* relay: 3-stage pipeline layout */
+  .relay{display:flex;flex-direction:column;gap:0;margin:4px 0}
+  .stage{border:1px solid var(--line);border-radius:11px;background:var(--panel-2);padding:12px 14px}
+  .stage .who{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+  .stage .who b{font-size:13px;color:var(--accent)}
+  .stage .who .role{font-family:var(--mono);font-size:11px;color:var(--faint)}
+  .stage .body{font-family:var(--mono);font-size:13px;color:var(--muted);min-height:24px;line-height:1.55;word-break:break-word}
+  .stage .frame-hash{font-family:var(--mono);font-size:11px;color:var(--warn);margin-top:6px}
+  .stage.ok-stage{border-color:color-mix(in oklab,var(--good),transparent 55%)}
+  .stage.bad-stage{border-color:color-mix(in oklab,var(--bad),transparent 55%)}
+  .stage.active-stage{border-color:color-mix(in oklab,var(--accent),transparent 55%)}
+  .wire{text-align:center;color:var(--faint);font-family:var(--mono);font-size:12px;padding:6px 0;line-height:1.5}
+  .vtag{display:inline-block;padding:2px 8px;border-radius:6px;background:var(--panel);border:1px solid var(--line);font-size:11px}
+  .vtag.vok{color:var(--good);border-color:color-mix(in oklab,var(--good),transparent 55%)}
+  .vtag.vbad{color:var(--bad);border-color:color-mix(in oklab,var(--bad),transparent 55%)}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🔗</div>
+    <h1 id="title">The Relay</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 10px;color:var(--muted)">Three simulated agents run inline in your browser. Each one
+    <b>serializes its output to bytes</b>, hashes those bytes with <code>crypto.subtle</code> SHA-256, and
+    passes the frame forward. The receiver <b>recomputes the hash from the raw bytes</b> — if they don't
+    match the pinned <code>sha8</code>, it <b>refuses to act</b>. The same verify-before-act gate that
+    <code>runVerifiedCell</code> uses for code cells, applied here to data frames between agents.</p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px">
+      <button class="run" id="go">🔗 Run the relay</button>
+      <label class="mono" style="font-size:12px;color:var(--faint);display:flex;gap:6px;align-items:center;cursor:pointer">
+        <input type="checkbox" id="corrupt"> corrupt: flip a byte of Stage B's frame
+      </label>
+    </div>
+
+    <div class="relay">
+      <div class="stage" id="stageA">
+        <div class="who"><b>Agent A · Collector</b><span class="role" id="roleA">idle</span></div>
+        <div class="body" id="bodyA"><span style="color:var(--faint)">— press the button —</span></div>
+        <div class="frame-hash" id="hashA"></div>
+      </div>
+
+      <div class="wire">
+        ⇩ &nbsp;serialize → SHA-256 → emit frame A&nbsp; ⇩<br>
+        <span class="vtag" id="vtAB">B will verify A's hash before acting</span>
+      </div>
+
+      <div class="stage" id="stageB">
+        <div class="who"><b>Agent B · Transformer</b><span class="role" id="roleB">idle</span></div>
+        <div class="body" id="bodyB"><span style="color:var(--faint)">— resumes after A emits —</span></div>
+        <div class="frame-hash" id="hashB"></div>
+      </div>
+
+      <div class="wire">
+        ⇩ &nbsp;serialize → SHA-256 → emit frame B&nbsp; ⇩<br>
+        <span class="vtag" id="vtBC">C will verify B's hash before acting</span>
+      </div>
+
+      <div class="stage" id="stageC">
+        <div class="who"><b>Agent C · Publisher</b><span class="role" id="roleC">idle</span></div>
+        <div class="body" id="bodyC"><span style="color:var(--faint)">— resumes after B emits —</span></div>
+        <div class="frame-hash" id="hashC"></div>
+      </div>
+    </div>
+
+    <div class="live-out" id="out" style="margin-top:14px"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>In most agent pipelines the downstream stage <i>trusts</i> the upstream stage — it just reads the
+    payload and acts. That trust is invisible and uncheckable. The Relay makes it explicit and
+    <b>cryptographically enforced</b>: every frame is content-addressed by its SHA-256. Before Stage B
+    touches Stage A's output, it recomputes that hash from the raw bytes. If a single bit changed
+    — a MITM rewrite, a storage glitch, a compromised cache — the hashes diverge and B
+    <b>refuses to act, cold</b>. No quorum, no leader, no certificate authority. Just math.</p>
+    <p style="margin:10px 0 0">This is the same primitive <code>runVerifiedCell</code> uses to gate code
+    execution, applied to <b>data handoffs between agents</b>. A relay of N stages is an integrity chain:
+    you can audit any link by recomputing one hash. The chain is only as strong as its weakest frame —
+    and every frame is verifiable.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Click <b>🔗 Run the relay</b>: watch Agents A → B → C each verify the prior hash (green ✓) and emit their own frame.</li>
+      <li>Check <b>corrupt: flip a byte of Stage B's frame</b> and run again: Agent C recomputes B's hash, finds a mismatch, and <b>refuses</b> — the bad-stage border turns red and the relay stops there.</li>
+      <li>To use this pattern in your own agent: serialize your output with <code>JSON.stringify</code>, hash the bytes with <code>sha256hex</code> (exported from <code>../../lib/showcase.js</code>), and send <code>{ payload, bytes, sha8 }</code>. The receiver re-hashes and refuses on any mismatch before acting.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-relay/</code> (crypto.subtle needs a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Frame schema: <code>{ payload, bytes, sha8 }</code>. Build with <code>makeFrame(obj)</code>; receive with <code>verifyFrame(frame, key)</code> — throws <code>{ refused:true }</code> on mismatch, same contract as <code>runVerifiedCell</code>. Chain any number of stages; audit any link by recomputing one hash.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { sha256hex, mkNarrator } from '../../lib/showcase.js';
+
+// header hydrated from demo.json (single source of truth)
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const out = document.getElementById('out');
+const stepsEl = document.getElementById('steps');
+const goBtn = document.getElementById('go');
+const corruptChk = document.getElementById('corrupt');
+const narrate = mkNarrator(stepsEl);
+
+// ── core relay primitives (reusable pattern) ─────────────────────────────────
+
+// Serialize obj → bytes → SHA-256 → content-addressed frame
+async function makeFrame(obj) {
+  const bytes = new TextEncoder().encode(JSON.stringify(obj));
+  const sha8 = (await sha256hex(bytes)).slice(0, 12);
+  return { payload: obj, bytes, sha8 };
+}
+
+// Verify a received frame: recompute SHA-256 from raw bytes, refuse on any mismatch.
+// `key` is the narrator step key for live narration. Same contract as runVerifiedCell.
+async function verifyFrame(frame, key) {
+  narrate(key, 'active', 'recomputing SHA-256 from raw bytes (crypto.subtle)…', '');
+  const got = (await sha256hex(frame.bytes)).slice(0, 12);
+  if (got !== frame.sha8) {
+    narrate(key, 'bad', `✗ ${got} ≠ pinned ${frame.sha8}`, 'REFUSED — frame corrupted');
+    throw Object.assign(new Error('verify-before-act failed'), { refused: true, got, want: frame.sha8 });
+  }
+  narrate(key, 'ok', `✓ ${got} matches the pin`, frame.sha8);
+  return frame.payload;
+}
+
+// ── stage / wire UI helpers ───────────────────────────────────────────────────
+
+function setStage(letter, cls, role, body, hash) {
+  const el = document.getElementById('stage' + letter);
+  el.className = 'stage' + (cls ? ' ' + cls : '');
+  document.getElementById('role' + letter).textContent = role;
+  document.getElementById('body' + letter).innerHTML = body;
+  document.getElementById('hash' + letter).textContent = hash || '';
+}
+
+function setVtag(id, cls, label) {
+  const el = document.getElementById(id);
+  el.className = 'vtag' + (cls ? ' ' + cls : '');
+  if (label) el.textContent = label;
+}
+
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ── main relay run ────────────────────────────────────────────────────────────
+
+async function runRelay(corruptB) {
+  stepsEl.innerHTML = '';
+  goBtn.disabled = true;
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">running…</span>';
+
+  // reset stage UI
+  ['A', 'B', 'C'].forEach(l => setStage(l, '', 'idle', '<span style="color:var(--faint)">—</span>', ''));
+  setVtag('vtAB', '', "B will verify A's hash before acting");
+  setVtag('vtBC', '', "C will verify B's hash before acting");
+
+  try {
+    // ── Agent A: Collector ───────────────────────────────────────────────────
+    setStage('A', 'active-stage', 'collecting…', 'gathering sensor data…', '');
+    narrate('a-collect', 'active', 'Agent A: collecting observation data', '');
+    await delay(350);
+
+    const observation = {
+      stage: 'A', role: 'collector',
+      data: { temp_c: 22.4, humidity_pct: 68, wind_kmh: 15, condition: 'partly cloudy', bearing: 'NE' },
+      timestamp: new Date().toISOString(),
+    };
+    const frameA = await makeFrame(observation);
+    narrate('a-collect', 'ok', 'Agent A: observation ready', `sha8 ${frameA.sha8}`);
+    narrate('a-emit', 'ok', 'Agent A: frame A content-addressed + emitted', `${frameA.bytes.byteLength} bytes · sha8 ${frameA.sha8}`);
+
+    const obs = observation.data;
+    setStage('A', 'ok-stage', 'emitted frame A',
+      `<b>Observation</b><br>🌤 ${obs.temp_c}°C · ${obs.humidity_pct}% humidity · ${obs.wind_kmh} km/h ${obs.bearing} · ${obs.condition}`,
+      `frame sha8 → ${frameA.sha8}`);
+    await delay(300);
+
+    // ── Agent B: Transformer (verify A, transform, emit B) ────────────────────
+    setStage('B', 'active-stage', 'verifying frame A…', 'recomputing SHA-256…', '');
+    await verifyFrame(frameA, 'b-verify-a');    // refuses if A's bytes were tampered
+    setVtag('vtAB', 'vok', `✓ A's sha8 ${frameA.sha8} verified`);
+
+    narrate('b-transform', 'active', 'Agent B: transforming observation into summary', '');
+    await delay(350);
+
+    const d = observation.data;
+    const feel = d.temp_c >= 25 ? 'warm' : d.temp_c >= 15 ? 'mild' : 'cool';
+    const summary = {
+      stage: 'B', role: 'transformer',
+      input_sha8: frameA.sha8,
+      summary: `${feel} and ${d.condition} with ${d.humidity_pct}% humidity`,
+      alert: d.wind_kmh > 20 ? 'high wind advisory' : null,
+      processed_at: new Date().toISOString(),
+    };
+    let frameB = await makeFrame(summary);
+    narrate('b-transform', 'ok', 'Agent B: summary built', '');
+
+    if (corruptB) {
+      // flip one byte in the serialized bytes — the sha8 stays the original,
+      // so the next verifyFrame call will catch the mismatch
+      const corrupted = frameB.bytes.slice(0); // Uint8Array.slice() returns a full independent copy
+      corrupted[4] ^= 0xff;
+      frameB = { payload: frameB.payload, bytes: corrupted.buffer, sha8: frameB.sha8 };
+      narrate('b-corrupt', 'bad', '⚠ byte flipped in frame B (simulated transit corruption)',
+        'sha8 unchanged — mismatch incoming for Agent C');
+    }
+
+    narrate('b-emit', 'ok', 'Agent B: frame B content-addressed + emitted', `sha8 ${frameB.sha8}`);
+    setStage('B', corruptB ? 'bad-stage' : 'ok-stage',
+      corruptB ? 'emitted (corrupted!) frame B' : 'emitted frame B',
+      `<b>Summary</b><br>${summary.summary}${summary.alert ? ' · ⚠ ' + summary.alert : ''}` +
+      (corruptB ? '<br><span style="color:var(--bad)">⚠ byte flipped in transit</span>' : ''),
+      `frame sha8 → ${frameB.sha8}${corruptB ? ' (corrupted bytes!)' : ''}`);
+    await delay(300);
+
+    // ── Agent C: Publisher (verify B, finalize, emit C) ───────────────────────
+    setStage('C', 'active-stage', 'verifying frame B…', 'recomputing SHA-256…', '');
+    await verifyFrame(frameB, 'c-verify-b');    // REFUSES here if corruptB is true
+    setVtag('vtBC', 'vok', `✓ B's sha8 ${frameB.sha8} verified`);
+
+    narrate('c-publish', 'active', 'Agent C: publishing final report', '');
+    await delay(350);
+
+    const report = {
+      stage: 'C', role: 'publisher',
+      input_sha8: frameB.sha8,
+      headline: `Weather brief: ${summary.summary}.`,
+      integrity_chain: [frameA.sha8, frameB.sha8],
+      published_at: new Date().toISOString(),
+    };
+    const frameC = await makeFrame(report);
+    narrate('c-publish', 'ok', 'Agent C: report published + content-addressed', `sha8 ${frameC.sha8}`);
+
+    setStage('C', 'ok-stage', 'published',
+      `<b>Report</b><br>${report.headline}<br>integrity chain: ${report.integrity_chain.join(' → ')}`,
+      `frame sha8 → ${frameC.sha8}`);
+
+    out.innerHTML =
+      `<div><span class="big" style="font-size:22px">🔗 Relay complete</span></div>` +
+      `<div class="mono" style="margin-top:8px;color:var(--good)">A(${frameA.sha8}) → B(${frameB.sha8}) → C(${frameC.sha8})</div>` +
+      `<div class="mono" style="margin-top:4px;color:var(--muted)">3 stages · 3 verified handoffs · no server touched · your browser did the math</div>`;
+
+  } catch (err) {
+    if (err.refused) {
+      setVtag('vtBC', 'vbad', `✗ ${err.got} ≠ pinned ${err.want} — REFUSED`);
+      setStage('C', 'bad-stage', 'refused',
+        '<span style="color:var(--bad)">verify-before-act REFUSED — frame B was corrupted in transit. Agent C did not act.</span>', '');
+      out.innerHTML =
+        `<div><span class="big" style="color:var(--bad)">REFUSED</span></div>` +
+        `<div class="mono" style="margin-top:6px;color:var(--bad)">Agent C caught the corruption: ${err.got} ≠ pinned ${err.want}. The relay stopped at that link. No server said no — the math did.</div>`;
+    } else {
+      out.innerHTML = `<span class="mono" style="color:var(--bad)">${err.message || err}</span>`;
+    }
+  } finally {
+    goBtn.disabled = false;
+  }
+}
+
+goBtn.onclick = () => runRelay(corruptChk.checked);
+</script>
+</body></html>

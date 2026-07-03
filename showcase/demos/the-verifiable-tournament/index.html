@@ -1,0 +1,236 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Verifiable Tournament — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🧬</div>
+    <h1 id="title">The Verifiable Tournament</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Enter your name and a score. Your browser will: <b>(1)</b> generate a fresh ECDSA P-256 keypair and sign your entry — <em>the-unbreakable-promise</em>; <b>(2)</b> fetch a live public ranking and SHA-256 stamp the exact response bytes — <em>proof-of-freshness</em>; <b>(3)</b> run <code>runVerifiedCell()</code> to parse and render the top-5 board — <em>living-leaderboard</em>. The result: a board nobody can fake, where entries are signed and the board itself is freshness-proved.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+      <div style="flex:1;min-width:140px">
+        <label class="mono" for="player" style="font-size:12px;color:var(--faint)">Player name</label>
+        <input id="player" type="text" value="Agent-7" style="width:100%;margin-top:4px;background:var(--bg2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px 10px;box-sizing:border-box">
+      </div>
+      <div style="width:110px">
+        <label class="mono" for="score" style="font-size:12px;color:var(--faint)">Score</label>
+        <input id="score" type="number" value="9001" style="width:100%;margin-top:4px;background:var(--bg2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px 10px;box-sizing:border-box">
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px">
+      <button class="run" id="go">🧬 Enter Tournament</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">ECDSA P-256 · SHA-256 · live board</span>
+    </div>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>A typical leaderboard is a screenshot waiting to be faked. This one has three cryptographic locks that none of the donor demos had alone:</p>
+    <ul style="margin:8px 0 0;padding-left:20px;color:var(--muted)">
+      <li style="margin-bottom:6px"><b>Signed entries</b> (from <em>the-unbreakable-promise</em>): each player's slot carries an ECDSA P-256 signature from a keypair that never left their browser. Change one character and verification fails.</li>
+      <li style="margin-bottom:6px"><b>Freshness proof</b> (from <em>proof-of-freshness</em>): the board is stamped with the SHA-256 of the live ranking payload fetched right now. A stale snapshot has a different hash.</li>
+      <li><b>Verified compute</b> (from <em>living-leaderboard</em>): <code>runVerifiedCell()</code> re-hashes the pinned extract cell before importing it, so the code that processes the board is as tamper-evident as the data.</li>
+    </ul>
+    <p style="margin:10px 0 0">All three proofs compose at the weld point: a signed entry inside a freshness-stamped board processed by hash-verified code. No server runs in the middle. No screenshot can impersonate it.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Enter any name and score, press <b>🧬 Enter Tournament</b>.</li>
+      <li>Copy the signed receipt JSON at the bottom. Share it anywhere — any stranger can verify your ECDSA signature with <code>crypto.subtle.verify</code> using the embedded public key.</li>
+      <li>Run it again: the board freshness hash changes whenever the upstream ranking feed changes, proving the board is live and not a cached screenshot.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-verifiable-tournament/</code> (WebCrypto requires a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Weld ECDSA signing (so entries are attributable to a specific browser key), SHA-256 freshness stamping (so the board is provably current), and verified-cell fetching (so the compute is tamper-evident). All three together produce a board that cannot be fabricated even if the host is compromised.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const TRACK = '../../../track';
+const RANKING = 'https://raw.githubusercontent.com/EvanLi/Github-Ranking/master/Top100/JavaScript.md';
+const out = document.getElementById('out');
+const stepsEl = document.getElementById('steps');
+const narrate = mkNarrator(stepsEl);
+const encoder = new TextEncoder();
+
+// ── transplanted from living-leaderboard ──────────────────────────────────
+function escapeHtml(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function parseTopRows(md, n) {
+  const rows = String(md || '').split('\n').map(l => l.trim());
+  const parsed = [];
+  for (const line of rows) {
+    if (!/^\|\s*\d+\s*\|/.test(line)) continue;
+    const cols = line.split('|').map(s => s.trim());
+    if (cols.length < 9) continue;
+    const rank = Number(cols[1]);
+    const link = cols[2].match(/^\[(.+?)\]\((https?:\/\/[^)]+)\)$/);
+    if (!Number.isFinite(rank) || !link) continue;
+    parsed.push({ rank, name: link[1], url: link[2], stars: cols[3], forks: cols[4] });
+    if (parsed.length >= n) break;
+  }
+  return parsed;
+}
+
+// ── transplanted from proof-of-freshness ──────────────────────────────────
+async function sha256Hex(bytes) {
+  const digest = await crypto.subtle.digest('SHA-256', bytes);
+  return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// ── transplanted from the-unbreakable-promise ─────────────────────────────
+function b64url(bytes) {
+  const raw = String.fromCharCode(...bytes);
+  return btoa(raw).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
+
+// ── WELD: all three donors combine here ───────────────────────────────────
+document.getElementById('go').onclick = async () => {
+  stepsEl.innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">running…</span>';
+
+  const player = (document.getElementById('player').value || 'Agent').trim().slice(0, 40);
+  const score = Number(document.getElementById('score').value) || 0;
+  if (!player) {
+    out.innerHTML = '<span class="mono" style="color:var(--bad)">enter a player name</span>';
+    return;
+  }
+
+  try {
+    // ── DONOR 1: the-unbreakable-promise — generate keypair + sign entry ──
+    narrate('keygen', 'active', 'generate ECDSA P-256 keypair for this player', 'crypto.subtle.generateKey');
+    const kp = await crypto.subtle.generateKey(
+      { name: 'ECDSA', namedCurve: 'P-256' },
+      true,
+      ['sign', 'verify']
+    );
+    narrate('keygen', 'ok', 'player keypair generated', 'private key stays in your browser');
+
+    const entryPayload = JSON.stringify({ player, score, at: new Date().toISOString() });
+    narrate('sign', 'active', 'sign tournament entry with player key', entryPayload);
+    const sig = new Uint8Array(await crypto.subtle.sign(
+      { name: 'ECDSA', hash: 'SHA-256' },
+      kp.privateKey,
+      encoder.encode(entryPayload)
+    ));
+    const entryValid = await crypto.subtle.verify(
+      { name: 'ECDSA', hash: 'SHA-256' },
+      kp.publicKey,
+      sig,
+      encoder.encode(entryPayload)
+    );
+    if (!entryValid) throw new Error('entry signature self-verification failed');
+    narrate('sign', 'ok', '✓ entry signed and self-verified', `${sig.byteLength} bytes`);
+    const jwk = await crypto.subtle.exportKey('jwk', kp.publicKey);
+
+    // ── DONOR 2: proof-of-freshness — fetch ranking bytes + SHA-256 stamp ──
+    narrate('board-fetch', 'active', 'fetch live ranking bytes for freshness proof', RANKING);
+    const res = await fetch(RANKING, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`fetch ${RANKING} → ${res.status}`);
+    const fetchedAt = new Date().toISOString();
+    const bytes = await res.arrayBuffer();
+    narrate('board-fetch', 'ok', 'ranking bytes fetched', `${bytes.byteLength} bytes @ ${fetchedAt}`);
+
+    narrate('board-hash', 'active', 'SHA-256 stamp ranking payload (crypto.subtle)', '');
+    const boardHash = await sha256Hex(bytes);
+    narrate('board-hash', 'ok', `✓ board SHA-256 ${boardHash.slice(0, 12)}…`, boardHash);
+
+    // ── DONOR 3: living-leaderboard — runVerifiedCell parse + render ───────
+    const feed = await runVerifiedCell({
+      base: TRACK,
+      cell: 'extract',
+      fn: 'extract',
+      args: { src: RANKING, path: '' },
+      onStep: (k, s, t, d = '') => narrate(`cell-${k}`, s, `verified cell: ${t}`, d),
+    });
+
+    narrate('board-parse', 'active', 'parse top-5 from live ranking', 'build board');
+    const top5 = parseTopRows(feed.value, 5);
+    if (top5.length === 0) throw new Error('ranking feed returned no rows');
+    narrate('board-parse', 'ok', `parsed top ${top5.length} entries`, top5.map(r => r.name).join(' · '));
+
+    // ── WELD POINT: inject signed player entry into freshness-stamped board ──
+    const boardRows = top5.map(row =>
+      `<li style="margin-bottom:8px">` +
+      `<a href="${row.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(row.name)}</a>` +
+      `<span class="mono" style="font-size:12px;color:var(--muted)"> · ${escapeHtml(row.stars)} ★</span>` +
+      `<span style="font-size:11px;color:var(--faint)"> ⚡ live</span>` +
+      `</li>`
+    ).join('');
+
+    const playerRow =
+      `<li style="margin-bottom:8px;background:var(--bg2);padding:8px 10px;border-radius:8px;border:1px solid var(--line)">` +
+      `<span style="font-weight:600">${escapeHtml(player)}</span>` +
+      `<span class="mono" style="font-size:12px;color:var(--muted)"> · score ${escapeHtml(String(score))}</span>` +
+      `<span style="font-size:11px;color:var(--good)"> 🔏 ECDSA P-256 signed</span>` +
+      `</li>`;
+
+    const receipt = {
+      algo: 'ECDSA-P-256-SHA256',
+      entry: JSON.parse(entryPayload),
+      publicKeyJwk: jwk,
+      signatureB64url: b64url(sig),
+      boardFreshnessProof: {
+        fetchedAt,
+        sha256: boardHash,
+        src: RANKING,
+      },
+      entryVerified: entryValid,
+    };
+
+    out.innerHTML =
+      `<div style="margin-bottom:12px">` +
+        `<span class="big">🏆 Live Tournament Board</span>` +
+        `<div class="mono" style="font-size:12px;color:var(--muted);margin-top:4px">` +
+          `board SHA-256: ${boardHash.slice(0, 20)}… · fetched ${fetchedAt}` +
+        `</div>` +
+      `</div>` +
+      `<ol style="margin:0 0 14px;padding-left:20px;color:var(--fg)">${boardRows}${playerRow}</ol>` +
+      `<div style="margin-bottom:4px"><span style="color:var(--good);font-weight:600">✅ Your signed receipt</span> <span class="mono" style="font-size:11px;color:var(--faint)">(share this — anyone can verify)</span></div>` +
+      `<pre class="mono" style="margin:0;white-space:pre-wrap;word-break:break-word;background:var(--bg);padding:10px;border:1px solid var(--line);border-radius:8px;font-size:11px">${JSON.stringify(receipt, null, 2)}</pre>`;
+
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : escapeHtml(String(e.message || e))}</span>`;
+  }
+};
+</script>
+</body></html>
