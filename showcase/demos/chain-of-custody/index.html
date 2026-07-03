@@ -1,0 +1,178 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chain of Custody — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">⛓️</div>
+    <h1 id="title">Chain of Custody</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel" id="live-panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Paste a chain record. This page first uses <code>runVerifiedCell()</code> to verify-before-exec the <code>extract</code> cell, then your browser recomputes every SHA-256 link using <code>crypto.subtle</code>. One changed byte anywhere breaks the lineage.</p>
+    <textarea id="chain" class="mono" style="width:100%;min-height:190px;resize:vertical;padding:10px;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:10px"></textarea>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0 14px">
+      <button class="run" id="go">🔍 Verify full custody chain</button>
+      <button class="run" id="tamper" style="background:var(--panel);color:var(--text);border:1px solid var(--line)">✂️ Flip one byte in v2</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">genesis-only trust anchor · no backend</span>
+    </div>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press verify to prove history —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>Most integrity demos prove only the current file. This proves the <b>whole timeline</b>. Each version stores its own content hash and the parent hash it claims to descend from. Starting from one trusted genesis hash, a stranger can replay the full lineage in their browser. If any old byte is edited, descendants no longer connect and the verifier points to the first broken hop.</p>
+    <p style="margin:10px 0 0">That distinction matters: freshness says “this is current”; chain of custody says “this came through these exact historical states.”</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Click <b>Verify full custody chain</b> on the sample record. You should get a green proof and a head hash.</li>
+      <li>Click <b>Flip one byte in v2</b>, then verify again. The chain should fail exactly at version 2.</li>
+      <li>Paste your own chain JSON with <code>genesis</code> and <code>versions[]</code> links; the page replays everything client-side.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/chain-of-custody/</code> (crypto.subtle needs a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Use a single trusted genesis hash, then verify each link as: <code>sha256(content) == hash</code> and <code>parent == previous hash</code>. Stop at first mismatch and report the exact broken generation.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const TRACK = '../../../track';
+const out = document.getElementById('out');
+const stepsEl = document.getElementById('steps');
+const narrate = mkNarrator(stepsEl);
+const chainEl = document.getElementById('chain');
+const enc = new TextEncoder();
+
+const SAMPLE = {
+  genesis: '8d4034bc541399b78713a056cae6b77c4f38c9b3def235906644ecacb8c0c3be',
+  versions: [
+    {
+      id: 'v1',
+      parent: '8d4034bc541399b78713a056cae6b77c4f38c9b3def235906644ecacb8c0c3be',
+      content: 'Version 1: Intake at dock 3 by operator Lina.',
+      hash: '396eb038ea445a49df3744ed687074e2418006ab408b95de3773751909bc7257'
+    },
+    {
+      id: 'v2',
+      parent: '396eb038ea445a49df3744ed687074e2418006ab408b95de3773751909bc7257',
+      content: 'Version 2: Transfer to cold vault shelf B-12.',
+      hash: '40d578bde27547d463c067c2ab459e05e8ba4507175dae4d6d5c7ad76e9929d0'
+    },
+    {
+      id: 'v3',
+      parent: '40d578bde27547d463c067c2ab459e05e8ba4507175dae4d6d5c7ad76e9929d0',
+      content: 'Version 3: Released to courier route ZX-9.',
+      hash: '1eaa0b04dad8559dea32f16c66202594cd0a0404a3c33da4b2409686247fffb9'
+    }
+  ]
+};
+chainEl.value = JSON.stringify(SAMPLE, null, 2);
+
+async function sha256Hex(text) {
+  const digest = await crypto.subtle.digest('SHA-256', enc.encode(text));
+  return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function short(h) {
+  return `${String(h).slice(0, 10)}…`;
+}
+
+document.getElementById('tamper').onclick = () => {
+  try {
+    const chain = JSON.parse(chainEl.value);
+    if (!chain.versions || !chain.versions[1]) throw new Error('Need at least two versions to tamper with v2');
+    chain.versions[1].content = chain.versions[1].content.replace('cold', 'gold');
+    chainEl.value = JSON.stringify(chain, null, 2);
+    out.innerHTML = '<span class="mono" style="color:var(--accent)">tampered v2 content (hash left unchanged). click verify.</span>';
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.message || e}</span>`;
+  }
+};
+
+document.getElementById('go').onclick = async () => {
+  stepsEl.innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">running…</span>';
+
+  try {
+    narrate('parse', 'active', 'parse chain JSON', '');
+    const chain = JSON.parse(chainEl.value);
+    if (!chain || typeof chain !== 'object') throw new Error('Input must be a JSON object');
+    if (!chain.genesis || !Array.isArray(chain.versions)) throw new Error('Expected { genesis, versions[] }');
+    narrate('parse', 'ok', 'parsed chain JSON', `${chain.versions.length} versions`);
+
+    const src = `data:application/json,${encodeURIComponent(JSON.stringify(chain))}`;
+    const length = await runVerifiedCell({
+      base: TRACK,
+      cell: 'extract',
+      fn: 'extract',
+      args: { src, path: 'versions.length' },
+      onStep: (k, s, t, d = '') => narrate(`cell-${k}`, s, `cell: ${t}`, d),
+    });
+    narrate('shape', 'ok', 'verified parser confirms chain shape', `versions.length = ${length.value}`);
+
+    let prev = String(chain.genesis);
+    narrate('genesis', 'ok', 'trusted genesis hash anchor', short(prev));
+
+    for (let i = 0; i < chain.versions.length; i += 1) {
+      const node = chain.versions[i] || {};
+      const label = node.id || `v${i + 1}`;
+      narrate(`link-${i}`, 'active', `verify ${label}: parent pointer + content hash`, '');
+
+      const computed = await sha256Hex(String(node.content || ''));
+      if (String(node.parent) !== prev) {
+        narrate(`link-${i}`, 'bad', `✗ ${label} parent mismatch`, `expected ${short(prev)}, got ${short(node.parent || '')}`);
+        throw new Error(`Broken lineage at ${label}: parent does not match previous hash`);
+      }
+      if (String(node.hash) !== computed) {
+        narrate(`link-${i}`, 'bad', `✗ ${label} content hash mismatch`, `declared ${short(node.hash || '')}, computed ${short(computed)}`);
+        throw new Error(`Tamper detected at ${label}: content hash mismatch`);
+      }
+
+      prev = computed;
+      narrate(`link-${i}`, 'ok', `✓ ${label} linked`, `head now ${short(prev)}`);
+    }
+
+    out.innerHTML =
+      `<div><span class="big">✓ custody intact</span> <span style="color:var(--muted)">${chain.versions.length} links verified</span></div>` +
+      `<div class="mono" style="margin-top:8px;color:var(--muted)">genesis: ${chain.genesis}</div>` +
+      `<div class="mono" style="margin-top:4px;color:var(--muted)">head: ${prev}</div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--good)">history proof complete: every version descends from the genesis hash.</div>`;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : (e.message || e)}</span>`;
+  }
+};
+</script>
+</body></html>
