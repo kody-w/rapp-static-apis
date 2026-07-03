@@ -1,0 +1,39 @@
+{
+  "schema": "rapp-static-api/1.0",
+  "name": "rapp-static-track",
+  "kind": "compute-cell",
+  "generated": "2026-07-03T18:14:19Z",
+  "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/track",
+  "pages_base": "https://kody-w.github.io/rapp-static-apis/track",
+  "summary": {
+    "cells": 1,
+    "versions": 1
+  },
+  "entries": [
+    {
+      "name": "extract",
+      "lang": "esm",
+      "ext": ".mjs",
+      "sha256": "3fe23f859268cbcb2efe6ac4bc35cf43fc95d67e82e0195173e28ee806198a79",
+      "sha8": "3fe23f859268",
+      "bytes": 1784,
+      "exports": [
+        "extract",
+        "echo"
+      ],
+      "description": "Fetch a CORS-open source and pull one value by dotted path.",
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/track/cells/extract.mjs",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/track/versions/extract/3fe23f859268.mjs",
+      "pin_path": "versions/extract/3fe23f859268.mjs",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "3fe23f859268",
+          "path": "versions/extract/3fe23f859268.mjs",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/track/versions/extract/3fe23f859268.mjs",
+          "first_captured": "2026-07-03T18:14:19Z"
+        }
+      ]
+    }
+  ]
+}

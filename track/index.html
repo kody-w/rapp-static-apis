@@ -1,0 +1,90 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>rapp-static-track — build a browser-native data tracker</title>
+<style>
+ body{font-family:-apple-system,system-ui,Segoe UI,sans-serif;max-width:860px;margin:40px auto;padding:0 16px;background:#0d1117;color:#e6edf3;line-height:1.5}
+ a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline} h1{margin:0 0 4px}
+ .muted{color:#8b949e;font-size:13px} .mono{font-family:ui-monospace,Menlo,monospace}
+ .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:18px} @media(max-width:640px){.grid{grid-template-columns:1fr}}
+ .card{border:1px solid #30363d;border-radius:12px;padding:16px;background:#161b22}
+ label{display:block;font-size:12px;color:#8b949e;margin:8px 0 3px} input,select{width:100%;box-sizing:border-box;background:#010409;border:1px solid #30363d;border-radius:7px;color:#e6edf3;padding:7px 9px;font:inherit;font-size:13px}
+ button{font:inherit;font-size:13px;cursor:pointer;background:#238636;color:#fff;border:0;border-radius:8px;padding:8px 14px;margin-top:12px}
+ button.alt{background:#21262d;border:1px solid #30363d;color:#e6edf3}
+ .val{font-size:2.2rem;font-weight:800;margin:4px 0} .ok{color:#3fb950;font-weight:700}.err{color:#f85149}
+ canvas{background:#fff;border-radius:10px;image-rendering:pixelated;display:block;margin:10px auto}
+ .share{word-break:break-all;font-size:11.5px} code{background:#010409;border:1px solid #30363d;padding:1px 6px;border-radius:5px;font-size:12px}
+</style></head><body>
+<h1>📡 build a data tracker</h1>
+<p class="muted">Pick a free source, get a <b>QR</b>. Anyone who scans it runs a hash-verified cell <b>in their own browser</b> that fetches the live value — no server, no install, no account. <span class="mono" id="pin"></span></p>
+
+<div class="grid">
+ <div class="card">
+  <b>1 · Source</b>
+  <label>Preset</label>
+  <select id="preset"></select>
+  <label>Source URL (CORS-open, keyless)</label>
+  <input id="src" placeholder="https://api.…">
+  <label>Path (dotted, e.g. <code>bitcoin.usd</code>)</label>
+  <input id="path" placeholder="a.b.c">
+  <label>Title / Unit</label>
+  <div style="display:flex;gap:8px"><input id="title" placeholder="BTC / USD"><input id="unit" placeholder="$" style="max-width:80px"></div>
+  <button id="preview" class="alt">Preview live →</button>
+  <div id="pv" class="muted" style="margin-top:8px"></div>
+ </div>
+
+ <div class="card" style="text-align:center">
+  <b style="display:block;text-align:left">2 · Share</b>
+  <button id="make">Make QR + link</button>
+  <canvas id="qr" width="0" height="0"></canvas>
+  <div class="share muted" id="link"></div>
+  <button id="copy" class="alt" style="display:none">copy link</button>
+ </div>
+</div>
+
+<p class="muted" style="border-top:1px solid #30363d;padding-top:14px;margin-top:22px">
+ The QR encodes <code>run.html#&lt;spec&gt;</code>. The <a href="run.html">runner</a> verifies the <span class="mono">extract</span> cell's <span class="mono">sha8</span> before executing it in a sandboxed iframe. Zero-dependency QR encoder (<a href="qr.mjs">qr.mjs</a>) — runs from a fork or offline. A <a href="https://github.com/kody-w/rapp-static-apis"><code>rapp-static-api/1.0</code></a>.
+</p>
+
+<iframe id="cell" src="sandbox.html" sandbox="allow-scripts" style="display:none" aria-hidden="true"></iframe>
+<script type="module">
+import { qr } from './qr.mjs';
+const $=id=>document.getElementById(id);
+
+// ---- sandbox RPC (same verify-before-act path the runner uses) ----
+const iframe=$('cell'); let port,ready; const readyP=new Promise(r=>ready=r); const pending=new Map(); let nid=1;
+iframe.addEventListener('load',()=>{ const ch=new MessageChannel(); port=ch.port1;
+  port.onmessage=e=>{const d=e.data; if(d.ready){ready();return;} if('booted' in d||'boot_error' in d)return; const p=pending.get(d.id); if(!p)return; pending.delete(d.id); d.ok?p.resolve(d):p.reject(new Error(d.error));};
+  iframe.contentWindow.postMessage('rapp-fn-init','*',[ch.port2]); });
+let REG; const bc=new Map();
+async function bytesFor(p){ if(!bc.has(p)) bc.set(p, await (await fetch(new URL(p,location.href))).arrayBuffer()); return bc.get(p).slice(0); }
+async function callX(args){ await readyP; const e=REG.entries.find(x=>x.name==='extract'); const bytes=await bytesFor(e.pin_path); const id=nid++;
+  const res=await new Promise((resolve,reject)=>{ pending.set(id,{resolve,reject}); port.postMessage({id,bytes,sha8:e.sha8,fn:'extract',args}); });
+  return { ...res, sha8:e.sha8 }; }
+
+function spec(){ return { src:$('src').value.trim(), path:$('path').value.trim(), title:$('title').value.trim()||undefined, unit:$('unit').value.trim()||undefined }; }
+function b64url(s){ return btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''); }
+function shareUrl(){ return new URL('run.html#'+b64url(JSON.stringify(spec())), location.href).href; }
+
+$('preview').onclick=async()=>{ $('pv').innerHTML='…running in the sandbox…';
+  try{ const s=spec(); const r=await callX(s); const v=r.result?.value; $('pv').innerHTML=`<span class="val">${v==null?'—':v} ${s.unit||''}</span><br>verified <span class="ok">${r.sha8} ✓</span> · live`; }
+  catch(e){ $('pv').innerHTML='<span class="err">'+(e.message||e)+'</span>'; } };
+
+function drawQR(text){ const {size,modules}=qr(text,{ecl:'M'}); const q=4, scale=Math.max(2,Math.floor(240/(size+2*q))), dim=(size+2*q)*scale;
+  const c=$('qr'); c.width=dim; c.height=dim; const x=c.getContext('2d'); x.fillStyle='#fff'; x.fillRect(0,0,dim,dim); x.fillStyle='#000';
+  for(let y=0;y<size;y++)for(let X=0;X<size;X++) if(modules[y][X]) x.fillRect((X+q)*scale,(y+q)*scale,scale,scale);
+  return {size,dim}; }
+
+$('make').onclick=()=>{ const url=shareUrl(); const info=drawQR(url);
+  $('link').innerHTML='<span class="mono">'+url+'</span>'; $('copy').style.display='inline-block';
+  $('copy').onclick=()=>navigator.clipboard?.writeText(url).then(()=>{$('copy').textContent='copied ✓';setTimeout(()=>$('copy').textContent='copy link',1200);});
+  window.__lastQR={url, size:info.size}; };
+
+(async()=>{
+  REG=await (await fetch('registry.json',{cache:'no-store'})).json();
+  const e=REG.entries[0]||{}; $('pin').textContent='cell '+(e.sha8||'?');
+  const m=await (await fetch('manifest.json')).json();
+  const sel=$('preset'); sel.innerHTML='<option value="">— custom —</option>'+(m.presets||[]).map((p,i)=>`<option value="${i}">${p.title}</option>`).join('');
+  sel.onchange=()=>{ const p=(m.presets||[])[sel.value]; if(!p)return; $('src').value=p.src; $('path').value=p.path; $('title').value=p.title; $('unit').value=p.unit||''; };
+  sel.value='0'; sel.onchange();
+})();
+</script></body></html>

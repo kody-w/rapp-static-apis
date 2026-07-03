@@ -1,0 +1,19 @@
+{
+  "schema": "rapp-static-track-status/1.0",
+  "generated": "2026-07-03T18:14:19Z",
+  "summary": {
+    "cells": 1,
+    "versions": 1
+  },
+  "cells": [
+    {
+      "name": "extract",
+      "sha8": "3fe23f859268",
+      "exports": [
+        "extract",
+        "echo"
+      ],
+      "bytes": 1784
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-api/1.0",
+  "name": "rapp-static-track",
+  "kind": "browser-data-tracker",
+  "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/track",
+  "pages_base": "https://kody-w.github.io/rapp-static-apis/track",
+  "note": "Scan a QR (or open a link) → a hash-verified `extract` cell runs in a sandboxed iframe, fetches a free CORS-open source, and renders one live value. The API runs in the viewer's browser; no server, no install, no account. Share custom trackers as a QR — free, globally.",
+  "cells": [
+    { "name": "extract", "file": "cells/extract.mjs", "exports": ["extract", "echo"],
+      "description": "Fetch a CORS-open source and pull one value by dotted path." }
+  ],
+  "presets": [
+    { "title": "BTC / USD", "unit": "$", "src": "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd", "path": "bitcoin.usd" },
+    { "title": "USD → EUR", "unit": "€", "src": "https://api.frankfurter.app/latest?from=USD&to=EUR", "path": "rates.EUR" },
+    { "title": "⭐ rapp-static-apis", "unit": "stars", "src": "https://api.github.com/repos/kody-w/rapp-static-apis", "path": "stargazers_count" },
+    { "title": "Seattle temp", "unit": "°C", "src": "https://api.open-meteo.com/v1/forecast?latitude=47.6&longitude=-122.3&current=temperature_2m", "path": "current.temperature_2m" }
+  ]
+}

@@ -1,0 +1,35 @@
+name: Build RAPP static track
+
+# Content-addresses the tracker cell (rapp-static-api/1.0) when it changes.
+# Idempotent + stable-write; append-only — a published versions/ frame is never rewritten.
+
+on:
+  push:
+    paths:
+      - 'track/cells/**'
+      - 'track/manifest.json'
+      - 'track/build.py'
+      - '.github/workflows/track.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Build the tracker cell
+        run: python track/build.py
+      - name: Commit only real changes
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "RAPP Track Bot"
+          git config user.email "rapp-bot@users.noreply.github.com"
+          git add track/versions track/api track/registry.json
+          git diff --cached --quiet || git commit -m "Rebuild static track cell [skip ci]"
+          git push
