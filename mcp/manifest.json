@@ -1,0 +1,34 @@
+{
+  "schema": "rapp-static-api/1.0",
+  "name": "rapp-static-mcp",
+  "kind": "mcp-catalog",
+  "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/mcp",
+  "pages_base": "https://kody-w.github.io/rapp-static-apis/mcp",
+  "api_registry": "../fn/registry.json",
+  "api_base": "https://kody-w.github.io/rapp-static-apis/fn",
+  "note": "A static MCP catalog (rapp-static-mcp/1.0). Each tool's implementation is a pinned /api compute-cell frame. A host resolves the tool, verifies the frame's sha8, and runs it in a sandbox — the same verify-before-exec the spec describes, applied to code. The one non-static piece is the generic transport shim (shim.mjs) that speaks MCP JSON-RPC; it carries zero per-tool logic.",
+  "tools": [
+    {
+      "name": "dataverse_search",
+      "description": "Search the live static Dataverse twin for accounts matching a query. Runs a content-addressed compute cell in a sandbox — no server.",
+      "cell": "twin",
+      "export": "live",
+      "inputSchema": {
+        "type": "object",
+        "properties": { "q": { "type": "string", "description": "Text to match against live rows." } },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "ping",
+      "description": "Echo a message back through the sandboxed compute cell — proves the verify-before-exec round trip end to end.",
+      "cell": "twin",
+      "export": "echo",
+      "inputSchema": {
+        "type": "object",
+        "properties": { "message": { "type": "string", "description": "Anything; it comes back verbatim." } },
+        "additionalProperties": false
+      }
+    }
+  ]
+}

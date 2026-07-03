@@ -1,0 +1,9 @@
+[
+  { "slug": "spec", "url": "https://github.com/kody-w/rapp-static-apis/blob/main/SPEC.md", "title": "rapp-static-api/1.0 — the spec", "tags": ["docs", "spec"] },
+  { "slug": "home", "url": "https://github.com/kody-w/rapp-static-apis", "title": "rapp-static-apis", "tags": ["docs"] },
+  { "slug": "god",  "url": "https://github.com/kody-w/rapp-god", "title": "rapp-god — versioned registry", "tags": ["ecosystem"] },
+  { "slug": "map",  "url": "https://github.com/kody-w/rapp-map", "title": "rapp-map — the ecosystem map", "tags": ["ecosystem"] },
+  { "slug": "rar",  "url": "https://github.com/kody-w/RAR", "title": "RAR — the RAPP Agent Registry", "tags": ["ecosystem", "agents"] },
+  { "slug": "mcp",  "url": "https://github.com/kody-w/rapp-mcp", "title": "rapp-static-mcp/1.0 — static MCP catalog", "tags": ["ecosystem", "mcp"] },
+  { "slug": "dv",   "url": "https://kody-w.github.io/rapp-static-apis/dataverse/", "title": "Static Dataverse digital twin", "tags": ["demo"] }
+]

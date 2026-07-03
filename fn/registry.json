@@ -1,0 +1,41 @@
+{
+  "schema": "rapp-static-api/1.0",
+  "name": "rapp-static-fn",
+  "kind": "compute-cell",
+  "generated": "2026-07-03T03:13:09Z",
+  "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fn",
+  "pages_base": "https://kody-w.github.io/rapp-static-apis/fn",
+  "summary": {
+    "cells": 1,
+    "versions": 1
+  },
+  "entries": [
+    {
+      "name": "twin",
+      "lang": "esm",
+      "ext": ".mjs",
+      "sha256": "ce06d037946273efd2929feaa4af4f66bd6ed4580192669f6f584c71a1152368",
+      "sha8": "ce06d0379462",
+      "bytes": 2417,
+      "exports": [
+        "echo",
+        "search",
+        "stats",
+        "live"
+      ],
+      "description": "Pure compute over caller-supplied rows, plus live() which fetches a CORS-open static API from inside the sandbox and computes over it.",
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fn/cells/twin.mjs",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fn/versions/twin/ce06d0379462.mjs",
+      "pin_path": "versions/twin/ce06d0379462.mjs",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "ce06d0379462",
+          "path": "versions/twin/ce06d0379462.mjs",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fn/versions/twin/ce06d0379462.mjs",
+          "first_captured": "2026-07-03T03:13:09Z"
+        }
+      ]
+    }
+  ]
+}

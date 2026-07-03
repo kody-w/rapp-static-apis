@@ -1,0 +1,17 @@
+{
+  "schema": "rapp-static-shortener-link/1.0",
+  "generated": "2026-07-03T03:28:26Z",
+  "slug": "spec",
+  "url": "https://github.com/kody-w/rapp-static-apis/blob/main/SPEC.md",
+  "title": "rapp-static-api/1.0 — the spec",
+  "tags": [
+    "docs",
+    "spec"
+  ],
+  "short_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/spec/",
+  "resolve_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/api/v1/links/spec.json",
+  "frame_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/versions/spec/39ad31b1a524.json",
+  "sha8": "39ad31b1a524",
+  "version_count": 1,
+  "repointed": false
+}

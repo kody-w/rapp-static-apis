@@ -1,0 +1,17 @@
+{
+  "schema": "rapp-static-shortener-link/1.0",
+  "generated": "2026-07-03T03:28:26Z",
+  "slug": "rar",
+  "url": "https://github.com/kody-w/RAR",
+  "title": "RAR — the RAPP Agent Registry",
+  "tags": [
+    "ecosystem",
+    "agents"
+  ],
+  "short_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/rar/",
+  "resolve_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/api/v1/links/rar.json",
+  "frame_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/versions/rar/619b6b990f44.json",
+  "sha8": "619b6b990f44",
+  "version_count": 1,
+  "repointed": false
+}

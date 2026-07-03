@@ -1,0 +1,53 @@
+{
+  "schema": "rapp-static-mcp/1.0",
+  "name": "rapp-static-mcp",
+  "generated": "2026-07-03T03:32:15Z",
+  "protocolVersion": "2025-06-18",
+  "api_base": "https://kody-w.github.io/rapp-static-apis/fn",
+  "tools": [
+    {
+      "name": "dataverse_search",
+      "description": "Search the live static Dataverse twin for accounts matching a query. Runs a content-addressed compute cell in a sandbox — no server.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "q": {
+            "type": "string",
+            "description": "Text to match against live rows."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "ping",
+      "description": "Echo a message back through the sandboxed compute cell — proves the verify-before-exec round trip end to end.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Anything; it comes back verbatim."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  ],
+  "bindings": {
+    "dataverse_search": {
+      "cell": "twin",
+      "export": "live",
+      "sha8": "ce06d0379462",
+      "pin_path": "versions/twin/ce06d0379462.mjs",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fn/versions/twin/ce06d0379462.mjs"
+    },
+    "ping": {
+      "cell": "twin",
+      "export": "echo",
+      "sha8": "ce06d0379462",
+      "pin_path": "versions/twin/ce06d0379462.mjs",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fn/versions/twin/ce06d0379462.mjs"
+    }
+  }
+}

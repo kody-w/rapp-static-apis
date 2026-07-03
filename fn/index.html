@@ -1,0 +1,106 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>rapp-static-fn</title>
+<style>
+ body{font-family:-apple-system,system-ui,Segoe UI,sans-serif;max-width:860px;margin:40px auto;padding:0 16px;background:#0d1117;color:#e6edf3;line-height:1.55}
+ a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
+ h1{margin:0 0 4px}
+ .muted{color:#8b949e;font-size:13px}
+ .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+ .card{border:1px solid #30363d;border-radius:11px;padding:14px;margin:12px 0;background:#161b22}
+ button{font:inherit;font-size:13px;cursor:pointer;background:#238636;color:#fff;border:0;border-radius:7px;padding:6px 12px;margin:3px 4px 3px 0}
+ button:hover{filter:brightness(1.1)} button.alt{background:#21262d;border:1px solid #30363d}
+ input{background:#010409;border:1px solid #30363d;border-radius:7px;color:#e6edf3;padding:6px 10px;font:inherit;font-size:13px}
+ pre{background:#010409;border:1px solid #30363d;border-radius:8px;padding:10px 12px;overflow:auto;font-size:12.5px;white-space:pre-wrap;word-break:break-word}
+ .ok{color:#3fb950;font-weight:700}.err{color:#f85149;font-weight:700}
+ code{background:#010409;border:1px solid #30363d;padding:1px 6px;border-radius:5px;font-size:12px}
+ .chip{font-size:11px;color:#8b949e;border:1px solid #30363d;border-radius:20px;padding:1px 9px}
+</style></head><body>
+<h1>🧠 <span id="name">rapp-static-fn</span></h1>
+<p class="muted" id="sub">a static file that runs — loading the compute cell…</p>
+
+<div class="card">
+ <b>Call the cell</b> — the code below runs headlessly in an offscreen, sandboxed iframe after the
+ host verifies its bytes against the pinned <span class="mono">sha8</span>. No server.
+ <div style="margin-top:10px">
+  <button id="b-echo">echo({hi:'world'})</button>
+  <button id="b-live" class="alt">live() — fetch live Dataverse inside the sandbox</button>
+ </div>
+ <div style="margin-top:8px">
+  <input id="q" placeholder="search live rows… e.g. RAPP" size="22">
+  <button id="b-search" class="alt">live({ q })</button>
+ </div>
+</div>
+
+<div class="card"><b>Result</b> <span id="verstat" class="muted"></span><pre id="out">—</pre></div>
+
+<p class="muted" style="border-top:1px solid #30363d;padding-top:14px">
+ A <a href="https://github.com/kody-w/rapp-static-apis"><code>rapp-static-api/1.0</code></a> compute cell.
+ The logic is a content-addressed frame under <code>versions/&lt;name&gt;/&lt;sha8&gt;.mjs</code>; the host
+ pins it, verifies it, and runs it in a sandbox. Swap the frame for <code>.wasm</code> and it's literal bytecode.
+</p>
+
+<!-- the headless compute cell: offscreen + sandboxed (no allow-same-origin => opaque origin) -->
+<iframe id="cell" src="sandbox.html" sandbox="allow-scripts" style="display:none" aria-hidden="true"></iframe>
+
+<script>
+const out = document.getElementById('out'), verstat = document.getElementById('verstat');
+const show = (obj, ver) => { out.textContent = JSON.stringify(obj, null, 2);
+  verstat.innerHTML = ver ? `· verified <span class="mono">${ver}</span> <span class="ok">✓</span> before exec` : ''; };
+const fail = (e) => { out.textContent = String(e); verstat.innerHTML = '<span class="err">✗ failed</span>'; };
+
+// ---- host <-> sandbox RPC over a private MessageChannel ----
+const iframe = document.getElementById('cell');
+let port, ready, nextId = 1; const pending = new Map();
+const readyP = new Promise(r => ready = r);
+iframe.addEventListener('load', () => {
+  const ch = new MessageChannel();
+  port = ch.port1;
+  port.onmessage = e => {
+    const d = e.data;
+    if (d.ready) return ready();
+    const p = pending.get(d.id); if (!p) return; pending.delete(d.id);
+    d.ok ? p.resolve(d) : p.reject(new Error(d.error));
+  };
+  iframe.contentWindow.postMessage('rapp-fn-init', '*', [ch.port2]);
+});
+
+// ---- registry: where each cell's pinned frame + sha8 live ----
+let REG; const bytesCache = new Map();
+async function bytesFor(entry) {
+  if (!bytesCache.has(entry.pin_path))
+    bytesCache.set(entry.pin_path, await (await fetch(new URL(entry.pin_path, location.href))).arrayBuffer());
+  return bytesCache.get(entry.pin_path).slice(0);   // copy so structured-clone can't neuter the cache
+}
+async function call(cellName, fn, args) {
+  await readyP;
+  const entry = REG.entries.find(e => e.name === cellName);
+  if (!entry) throw new Error('no cell: ' + cellName);
+  const bytes = await bytesFor(entry);
+  const id = nextId++;
+  const res = await new Promise((resolve, reject) => {
+    pending.set(id, { resolve, reject });
+    port.postMessage({ id, bytes, sha8: entry.sha8, fn, args });
+  });
+  return res;
+}
+
+async function run(fn, args) {
+  out.textContent = '…running in the sandbox…'; verstat.textContent = '';
+  try { const r = await call('twin', fn, args); show(r.result, r.sha8); }
+  catch (e) { fail(e); }
+}
+
+(async () => {
+  REG = await (await fetch('registry.json', { cache: 'no-store' })).json();
+  document.getElementById('name').textContent = REG.name;
+  const cell = REG.entries[0] || {};
+  document.getElementById('sub').innerHTML =
+    `${REG.summary.cells} cell(s) · pinned <span class="mono">${cell.sha8||'?'}</span> ·
+     exports <span class="mono">${(cell.exports||[]).join(', ')}</span> ·
+     <a href="registry.json">registry.json</a> · <a href="api/v1/status.json">status.json</a>`;
+  document.getElementById('b-echo').onclick   = () => run('echo', { hi: 'world' });
+  document.getElementById('b-live').onclick   = () => run('live', {});
+  document.getElementById('b-search').onclick = () => run('live', { q: document.getElementById('q').value });
+})();
+</script></body></html>

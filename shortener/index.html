@@ -1,0 +1,79 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>rapp-static-shortener</title>
+<style>
+ :root{--bg:#0d1117;--card:#161b22;--line:#30363d;--fg:#e6edf3;--mut:#8b949e;--blue:#58a6ff;--ok:#3fb950}
+ *{box-sizing:border-box}
+ body{font-family:-apple-system,system-ui,Segoe UI,sans-serif;max-width:860px;margin:40px auto;padding:0 16px;background:var(--bg);color:var(--fg);line-height:1.55}
+ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+ h1{margin:0 0 4px}
+ .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+ .muted{color:var(--mut);font-size:13px}
+ #q{width:100%;margin:16px 0 6px;padding:9px 12px;background:#010409;border:1px solid var(--line);border-radius:9px;color:var(--fg);font-size:14px}
+ .card{border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin:10px 0;background:var(--card)}
+ .slug{font-family:ui-monospace,Menlo,monospace;font-size:15px;font-weight:700}
+ .slug a{color:var(--fg)}
+ .dest{font-size:13px;word-break:break-all}
+ .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+ .chip{font-size:11px;color:var(--mut);border:1px solid var(--line);border-radius:20px;padding:1px 9px}
+ .repoint{color:#d29922;border-color:#493c14}
+ button{font:inherit;font-size:12px;cursor:pointer;background:#21262d;color:var(--fg);border:1px solid var(--line);border-radius:7px;padding:4px 10px}
+ button:hover{border-color:var(--blue)}
+ summary{cursor:pointer;color:var(--mut);font-size:12px;margin-top:8px}
+ details .v{font-family:ui-monospace,Menlo,monospace;font-size:12px;margin:3px 0;color:var(--mut)}
+ footer{color:var(--mut);font-size:12px;margin-top:30px;border-top:1px solid var(--line);padding-top:14px}
+ code{background:#010409;border:1px solid var(--line);padding:1px 6px;border-radius:5px;font-size:12px}
+</style></head><body>
+<h1>🔗 <span id="name">rapp-static-shortener</span></h1>
+<p id="sum" class="muted">loading…</p>
+<input id="q" placeholder="filter by slug, title, tag, or destination…" autocomplete="off">
+<div id="list"></div>
+<footer>
+ A <a href="https://github.com/kody-w/rapp-static-apis"><code>rapp-static-api/1.0</code></a> URL shortener —
+ no server, no redirect service, no click tracking. Each short link is a static page that redirects client-side.
+ Every destination a slug has ever had is kept as an append-only, content-addressed frame you can pin forever.
+</footer>
+<script>
+const esc = s => (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let ALL = [];
+function copy(t, btn){ navigator.clipboard?.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='copied ✓';setTimeout(()=>btn.textContent=o,1200);}); }
+function card(e){
+  const hist = e.versions && e.versions.length ? e.versions : [];
+  return `<div class="card">
+    <div class="slug">/<a href="${esc(e.redirect_url)}" target="_blank" rel="noopener">${esc(e.slug)}</a>
+      ${e.repointed?'<span class="chip repoint">↻ repointed</span>':''}</div>
+    ${e.title?`<div style="margin:2px 0 4px">${esc(e.title)}</div>`:''}
+    <div class="dest muted">→ <a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.url)}</a></div>
+    <div class="row">
+      ${(e.tags||[]).map(t=>`<span class="chip">${esc(t)}</span>`).join('')}
+      <button data-copy="${esc(e.short_url)}">copy short link</button>
+      <a class="chip" href="${esc(e.resolve_url)}" target="_blank" rel="noopener">resolve JSON</a>
+      <span class="chip mono">${esc(e.sha8)}</span>
+    </div>
+    ${hist.length>1?`<details><summary>history — ${hist.length} destinations, each pinnable forever</summary>
+      ${hist.map(v=>`<div class="v"><a href="${esc(v.frame_url)}" target="_blank" rel="noopener">${esc(v.sha8)}</a>
+        · ${esc((v.first_captured||'').slice(0,10))} · ${esc(v.url)}</div>`).join('')}
+    </details>`:''}
+  </div>`;
+}
+function render(q){
+  q = (q||'').toLowerCase();
+  const rows = ALL.filter(e => !q ||
+    (e.slug+' '+(e.title||'')+' '+(e.tags||[]).join(' ')+' '+e.url).toLowerCase().includes(q));
+  document.getElementById('list').innerHTML =
+    rows.length ? rows.map(card).join('') : `<p class="muted">no links match “${esc(q)}”.</p>`;
+  document.querySelectorAll('[data-copy]').forEach(b => b.onclick = () => copy(b.dataset.copy, b));
+}
+(async () => {
+  const r = await (await fetch('registry.json', {cache:'no-store'})).json();
+  ALL = (r.entries||[]).slice().sort((a,b)=>a.slug.localeCompare(b.slug));
+  document.getElementById('name').textContent = r.name;
+  const s = r.summary||{};
+  document.getElementById('sum').innerHTML =
+    `${s.links||0} links · ${s.versions||0} frames held · ${s.repointed||0} repointed ·
+     <a href="api/v1/links.json">links.json</a> · <a href="api/v1/status.json">status.json</a> ·
+     <a href="api/v1/badge.json">badge.json</a>`;
+  document.getElementById('q').oninput = e => render(e.target.value);
+  render('');
+})();
+</script></body></html>

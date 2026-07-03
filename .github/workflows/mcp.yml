@@ -1,0 +1,35 @@
+name: Build RAPP static MCP catalog
+
+# Rebuilds the static MCP catalog (rapp-static-api/1.0, rapp-static-mcp/1.0 profile) when the tool
+# manifest or the /api cell pins change. Idempotent + stable-write, so it only commits real changes.
+
+on:
+  push:
+    paths:
+      - 'mcp/manifest.json'
+      - 'mcp/build.py'
+      - 'fn/registry.json'
+      - '.github/workflows/mcp.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Build the catalog
+        run: python mcp/build.py
+      - name: Commit only real changes
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "RAPP MCP Bot"
+          git config user.email "rapp-bot@users.noreply.github.com"
+          git add mcp/tools.json mcp/registry.json mcp/api
+          git diff --cached --quiet || git commit -m "Rebuild static MCP catalog [skip ci]"
+          git push

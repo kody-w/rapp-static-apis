@@ -1,0 +1,21 @@
+{
+  "schema": "rapp-static-api/1.0",
+  "name": "rapp-static-shortener",
+  "kind": "url-shortener",
+  "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener",
+  "pages_base": "https://kody-w.github.io/rapp-static-apis/shortener",
+  "short_base": "https://kody-w.github.io/rapp-static-apis/shortener/u",
+  "redirect": {
+    "mechanism": "client-side (no server, no 302)",
+    "layers": [
+      "meta-refresh — works with JavaScript off",
+      "location.replace — instant, and history-safe so Back doesn't trap the visitor",
+      "canonical + og: tags — the short page attributes to the destination when shared/indexed",
+      "noscript fallback link"
+    ],
+    "passthrough": "the JS layer forwards any inbound ?query and #hash onto the destination (campaign/UTM links keep working)",
+    "privacy": "no server means no click logging — every redirect is private by construction"
+  },
+  "content_store": "versions/<slug>/<sha8>.json — append-only, content-addressed. Every destination a slug has EVER pointed at is kept and is pinnable forever.",
+  "seeds": ["seed/links.json"]
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "rapp-static-shortener-link/1.0",
+  "generated": "2026-07-03T03:28:26Z",
+  "slug": "mcp",
+  "url": "https://github.com/kody-w/rapp-mcp",
+  "title": "rapp-static-mcp/1.0 — static MCP catalog",
+  "tags": [
+    "ecosystem",
+    "mcp"
+  ],
+  "short_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/mcp/",
+  "resolve_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/api/v1/links/mcp.json",
+  "frame_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/versions/mcp/2e88e0b183d7.json",
+  "sha8": "2e88e0b183d7",
+  "version_count": 1,
+  "repointed": false
+}

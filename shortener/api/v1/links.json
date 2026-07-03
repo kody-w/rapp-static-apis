@@ -1,0 +1,81 @@
+{
+  "schema": "rapp-static-shortener-links/1.0",
+  "generated": "2026-07-03T02:56:39Z",
+  "short_base": "https://kody-w.github.io/rapp-static-apis/shortener/u",
+  "count": 7,
+  "links": [
+    {
+      "slug": "dv",
+      "url": "https://kody-w.github.io/rapp-static-apis/dataverse/",
+      "title": "Static Dataverse digital twin",
+      "tags": [
+        "demo"
+      ],
+      "short_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/dv/",
+      "sha8": "7c26eb234747"
+    },
+    {
+      "slug": "god",
+      "url": "https://github.com/kody-w/rapp-god",
+      "title": "rapp-god — versioned registry",
+      "tags": [
+        "ecosystem"
+      ],
+      "short_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/god/",
+      "sha8": "ea10e74b4887"
+    },
+    {
+      "slug": "home",
+      "url": "https://github.com/kody-w/rapp-static-apis",
+      "title": "rapp-static-apis",
+      "tags": [
+        "docs"
+      ],
+      "short_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/home/",
+      "sha8": "3a756e2803d0"
+    },
+    {
+      "slug": "map",
+      "url": "https://github.com/kody-w/rapp-map",
+      "title": "rapp-map — the ecosystem map",
+      "tags": [
+        "ecosystem"
+      ],
+      "short_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/map/",
+      "sha8": "5fa3e7da4387"
+    },
+    {
+      "slug": "mcp",
+      "url": "https://github.com/kody-w/rapp-mcp",
+      "title": "rapp-static-mcp/1.0 — static MCP catalog",
+      "tags": [
+        "ecosystem",
+        "mcp"
+      ],
+      "short_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/mcp/",
+      "sha8": "2e88e0b183d7"
+    },
+    {
+      "slug": "rar",
+      "url": "https://github.com/kody-w/RAR",
+      "title": "RAR — the RAPP Agent Registry",
+      "tags": [
+        "ecosystem",
+        "agents"
+      ],
+      "short_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/rar/",
+      "sha8": "619b6b990f44"
+    },
+    {
+      "slug": "spec",
+      "url": "https://github.com/kody-w/rapp-static-apis/blob/main/SPEC.md",
+      "title": "rapp-static-api/1.0 — the spec",
+      "tags": [
+        "docs",
+        "spec"
+      ],
+      "short_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/spec/",
+      "sha8": "39ad31b1a524"
+    }
+  ]
+}

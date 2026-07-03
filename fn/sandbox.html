@@ -1,0 +1,49 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>rapp-fn sandbox</title></head><body>
+<script type="module">
+/* The headless compute cell. This document runs inside a sandboxed iframe
+   (sandbox="allow-scripts", NO allow-same-origin) so it has an opaque origin and cannot touch the
+   host's DOM, cookies, or storage. It talks to the host ONLY over a private MessagePort handed to
+   it in the init handshake, and it executes code ONLY after independently recomputing SHA-256 of
+   the bytes and matching it to the sha8 the host asked for. That is verify-before-exec. */
+const cache = new Map();                     // sha8 -> evaluated module
+
+async function sha8(bytes) {
+  const d = await crypto.subtle.digest("SHA-256", bytes);
+  return [...new Uint8Array(d)].map(b => b.toString(16).padStart(2, "0")).join("").slice(0, 12);
+}
+
+async function loadVerified(bytes, want) {
+  if (cache.has(want)) return cache.get(want);
+  const got = await sha8(bytes);
+  if (got !== want) throw new Error(`verify-before-exec FAILED — bytes hash ${got} ≠ pinned ${want}`);
+  const url = URL.createObjectURL(new Blob([bytes], { type: "text/javascript" }));
+  try {
+    const mod = await import(url);           // run the EXACT verified bytes (blob), no re-fetch
+    cache.set(want, mod);
+    return mod;
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
+
+async function handle(msg, port) {
+  const { id, bytes, sha8: want, fn, args } = msg;
+  try {
+    const mod = await loadVerified(new Uint8Array(bytes), want);
+    if (typeof mod[fn] !== "function") throw new Error(`cell has no export '${fn}'`);
+    const result = await mod[fn](args);
+    port.postMessage({ id, ok: true, sha8: want, result });
+  } catch (e) {
+    port.postMessage({ id, ok: false, error: String((e && e.message) || e) });
+  }
+}
+
+// Trust is established once, via the port handed over in the init handshake — not ambient postMessage.
+window.addEventListener("message", function onInit(e) {
+  if (e.data !== "rapp-fn-init" || !e.ports || !e.ports[0]) return;
+  window.removeEventListener("message", onInit);
+  const port = e.ports[0];
+  port.onmessage = ev => handle(ev.data, port);
+  port.postMessage({ ready: true });
+});
+</script></body></html>

@@ -1,0 +1,53 @@
+{
+  "schema": "rapp-static-shortener-status/1.0",
+  "generated": "2026-07-03T02:56:39Z",
+  "summary": {
+    "links": 7,
+    "versions": 7,
+    "repointed": 0
+  },
+  "links": [
+    {
+      "slug": "dv",
+      "sha8": "7c26eb234747",
+      "versions": 1,
+      "repointed": false
+    },
+    {
+      "slug": "god",
+      "sha8": "ea10e74b4887",
+      "versions": 1,
+      "repointed": false
+    },
+    {
+      "slug": "home",
+      "sha8": "3a756e2803d0",
+      "versions": 1,
+      "repointed": false
+    },
+    {
+      "slug": "map",
+      "sha8": "5fa3e7da4387",
+      "versions": 1,
+      "repointed": false
+    },
+    {
+      "slug": "mcp",
+      "sha8": "2e88e0b183d7",
+      "versions": 1,
+      "repointed": false
+    },
+    {
+      "slug": "rar",
+      "sha8": "619b6b990f44",
+      "versions": 1,
+      "repointed": false
+    },
+    {
+      "slug": "spec",
+      "sha8": "39ad31b1a524",
+      "versions": 1,
+      "repointed": false
+    }
+  ]
+}

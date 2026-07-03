@@ -1,0 +1,62 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>rapp-static-mcp</title>
+<style>
+ body{font-family:-apple-system,system-ui,Segoe UI,sans-serif;max-width:860px;margin:40px auto;padding:0 16px;background:#0d1117;color:#e6edf3;line-height:1.55}
+ a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
+ h1{margin:0 0 4px} .muted{color:#8b949e;font-size:13px}
+ .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+ .card{border:1px solid #30363d;border-radius:11px;padding:14px 16px;margin:12px 0;background:#161b22}
+ .name{font-family:ui-monospace,Menlo,monospace;font-weight:700;font-size:1.02rem}
+ .chip{font-size:11px;color:#8b949e;border:1px solid #30363d;border-radius:20px;padding:1px 9px}
+ pre{background:#010409;border:1px solid #30363d;border-radius:8px;padding:10px 12px;overflow:auto;font-size:12.5px}
+ code{background:#010409;border:1px solid #30363d;padding:1px 6px;border-radius:5px;font-size:12px}
+ .ok{color:#3fb950;font-weight:700}
+</style></head><body>
+<h1>🔌 <span id="name">rapp-static-mcp</span></h1>
+<p class="muted" id="sum">loading…</p>
+
+<div class="card">
+ <b>Connect it</b> — a static catalog + a generic shim. Point an MCP host at the shim; it verifies
+ each tool's pinned cell before running it.
+ <pre class="mono">{
+  "mcpServers": {
+    "rapp": {
+      "command": "node",
+      "args": ["shim.mjs", "--catalog",
+        "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/mcp/tools.json"]
+    }
+  }
+}</pre>
+ <span class="muted">The only non-static piece. Zero per-tool logic — every tool's behavior is a
+ content-addressed <a href="../fn/">/api</a> cell frame it verifies by <span class="mono">sha8</span> before exec.</span>
+</div>
+
+<div id="tools"></div>
+
+<p class="muted" style="border-top:1px solid #30363d;padding-top:14px">
+ A <a href="https://github.com/kody-w/rapp-static-apis"><code>rapp-static-api/1.0</code></a> ·
+ <code>rapp-static-mcp/1.0</code> — <a href="tools.json">tools.json</a> · <a href="registry.json">registry.json</a> ·
+ <a href="api/v1/status.json">status.json</a>. A live MCP endpoint speaks JSON-RPC, so the catalog is
+ consumed by the shim (or a host that reads it natively) — the transport is the one moving part.
+</p>
+
+<script>
+const esc = s => (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+(async () => {
+  const r = await (await fetch('registry.json', {cache:'no-store'})).json();
+  document.getElementById('name').textContent = r.name;
+  document.getElementById('sum').innerHTML =
+    `${r.summary.tools} tools · ${r.summary.cells} compute cell(s) · verify-before-exec · no server`;
+  document.getElementById('tools').innerHTML = (r.entries||[]).map(e => {
+    const b = e.binding || {};
+    const props = Object.keys(e.inputSchema?.properties || {});
+    return `<div class="card">
+      <div class="name">${esc(e.name)}(${props.map(esc).join(', ')})</div>
+      <div style="margin:4px 0 8px">${esc(e.description)}</div>
+      <div><span class="chip">impl → /api/${esc(b.cell)}.${esc(b.export)}</span>
+        <span class="chip mono">pinned ${esc(b.sha8)} <span class="ok">✓ verified before exec</span></span></div>
+    </div>`;
+  }).join('');
+})();
+</script></body></html>

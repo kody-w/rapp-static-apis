@@ -1,0 +1,21 @@
+{
+  "schema": "rapp-static-fn-status/1.0",
+  "generated": "2026-07-03T03:13:09Z",
+  "summary": {
+    "cells": 1,
+    "versions": 1
+  },
+  "cells": [
+    {
+      "name": "twin",
+      "sha8": "ce06d0379462",
+      "exports": [
+        "echo",
+        "search",
+        "stats",
+        "live"
+      ],
+      "bytes": 2417
+    }
+  ]
+}

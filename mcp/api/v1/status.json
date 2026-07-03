@@ -1,0 +1,22 @@
+{
+  "schema": "rapp-static-mcp-status/1.0",
+  "generated": "2026-07-03T03:32:15Z",
+  "summary": {
+    "tools": 2,
+    "cells": 1
+  },
+  "tools": [
+    {
+      "name": "dataverse_search",
+      "cell": "twin",
+      "export": "live",
+      "sha8": "ce06d0379462"
+    },
+    {
+      "name": "ping",
+      "cell": "twin",
+      "export": "echo",
+      "sha8": "ce06d0379462"
+    }
+  ]
+}

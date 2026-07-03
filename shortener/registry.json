@@ -1,0 +1,195 @@
+{
+  "schema": "rapp-static-api/1.0",
+  "name": "rapp-static-shortener",
+  "kind": "url-shortener",
+  "generated": "2026-07-03T03:28:26Z",
+  "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener",
+  "pages_base": "https://kody-w.github.io/rapp-static-apis/shortener",
+  "short_base": "https://kody-w.github.io/rapp-static-apis/shortener/u",
+  "redirect_dir": "u",
+  "summary": {
+    "links": 7,
+    "versions": 7,
+    "repointed": 0
+  },
+  "entries": [
+    {
+      "slug": "dv",
+      "url": "https://kody-w.github.io/rapp-static-apis/dataverse/",
+      "title": "Static Dataverse digital twin",
+      "tags": [
+        "demo"
+      ],
+      "short_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/dv/",
+      "redirect_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/dv/",
+      "resolve_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/api/v1/links/dv.json",
+      "frame_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/versions/dv/7c26eb234747.json",
+      "sha8": "7c26eb234747",
+      "version_count": 1,
+      "repointed": false,
+      "first_seen": "2026-07-03T02:56:39Z",
+      "versions": [
+        {
+          "sha8": "7c26eb234747",
+          "url": "https://kody-w.github.io/rapp-static-apis/dataverse/",
+          "first_captured": "2026-07-03T02:56:39Z",
+          "path": "versions/dv/7c26eb234747.json",
+          "frame_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/versions/dv/7c26eb234747.json"
+        }
+      ]
+    },
+    {
+      "slug": "god",
+      "url": "https://github.com/kody-w/rapp-god",
+      "title": "rapp-god — versioned registry",
+      "tags": [
+        "ecosystem"
+      ],
+      "short_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/god/",
+      "redirect_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/god/",
+      "resolve_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/api/v1/links/god.json",
+      "frame_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/versions/god/ea10e74b4887.json",
+      "sha8": "ea10e74b4887",
+      "version_count": 1,
+      "repointed": false,
+      "first_seen": "2026-07-03T02:56:39Z",
+      "versions": [
+        {
+          "sha8": "ea10e74b4887",
+          "url": "https://github.com/kody-w/rapp-god",
+          "first_captured": "2026-07-03T02:56:39Z",
+          "path": "versions/god/ea10e74b4887.json",
+          "frame_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/versions/god/ea10e74b4887.json"
+        }
+      ]
+    },
+    {
+      "slug": "home",
+      "url": "https://github.com/kody-w/rapp-static-apis",
+      "title": "rapp-static-apis",
+      "tags": [
+        "docs"
+      ],
+      "short_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/home/",
+      "redirect_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/home/",
+      "resolve_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/api/v1/links/home.json",
+      "frame_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/versions/home/3a756e2803d0.json",
+      "sha8": "3a756e2803d0",
+      "version_count": 1,
+      "repointed": false,
+      "first_seen": "2026-07-03T02:56:39Z",
+      "versions": [
+        {
+          "sha8": "3a756e2803d0",
+          "url": "https://github.com/kody-w/rapp-static-apis",
+          "first_captured": "2026-07-03T02:56:39Z",
+          "path": "versions/home/3a756e2803d0.json",
+          "frame_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/versions/home/3a756e2803d0.json"
+        }
+      ]
+    },
+    {
+      "slug": "map",
+      "url": "https://github.com/kody-w/rapp-map",
+      "title": "rapp-map — the ecosystem map",
+      "tags": [
+        "ecosystem"
+      ],
+      "short_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/map/",
+      "redirect_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/map/",
+      "resolve_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/api/v1/links/map.json",
+      "frame_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/versions/map/5fa3e7da4387.json",
+      "sha8": "5fa3e7da4387",
+      "version_count": 1,
+      "repointed": false,
+      "first_seen": "2026-07-03T02:56:39Z",
+      "versions": [
+        {
+          "sha8": "5fa3e7da4387",
+          "url": "https://github.com/kody-w/rapp-map",
+          "first_captured": "2026-07-03T02:56:39Z",
+          "path": "versions/map/5fa3e7da4387.json",
+          "frame_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/versions/map/5fa3e7da4387.json"
+        }
+      ]
+    },
+    {
+      "slug": "mcp",
+      "url": "https://github.com/kody-w/rapp-mcp",
+      "title": "rapp-static-mcp/1.0 — static MCP catalog",
+      "tags": [
+        "ecosystem",
+        "mcp"
+      ],
+      "short_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/mcp/",
+      "redirect_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/mcp/",
+      "resolve_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/api/v1/links/mcp.json",
+      "frame_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/versions/mcp/2e88e0b183d7.json",
+      "sha8": "2e88e0b183d7",
+      "version_count": 1,
+      "repointed": false,
+      "first_seen": "2026-07-03T02:56:39Z",
+      "versions": [
+        {
+          "sha8": "2e88e0b183d7",
+          "url": "https://github.com/kody-w/rapp-mcp",
+          "first_captured": "2026-07-03T02:56:39Z",
+          "path": "versions/mcp/2e88e0b183d7.json",
+          "frame_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/versions/mcp/2e88e0b183d7.json"
+        }
+      ]
+    },
+    {
+      "slug": "rar",
+      "url": "https://github.com/kody-w/RAR",
+      "title": "RAR — the RAPP Agent Registry",
+      "tags": [
+        "ecosystem",
+        "agents"
+      ],
+      "short_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/rar/",
+      "redirect_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/rar/",
+      "resolve_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/api/v1/links/rar.json",
+      "frame_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/versions/rar/619b6b990f44.json",
+      "sha8": "619b6b990f44",
+      "version_count": 1,
+      "repointed": false,
+      "first_seen": "2026-07-03T02:56:39Z",
+      "versions": [
+        {
+          "sha8": "619b6b990f44",
+          "url": "https://github.com/kody-w/RAR",
+          "first_captured": "2026-07-03T02:56:39Z",
+          "path": "versions/rar/619b6b990f44.json",
+          "frame_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/versions/rar/619b6b990f44.json"
+        }
+      ]
+    },
+    {
+      "slug": "spec",
+      "url": "https://github.com/kody-w/rapp-static-apis/blob/main/SPEC.md",
+      "title": "rapp-static-api/1.0 — the spec",
+      "tags": [
+        "docs",
+        "spec"
+      ],
+      "short_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/spec/",
+      "redirect_url": "https://kody-w.github.io/rapp-static-apis/shortener/u/spec/",
+      "resolve_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/api/v1/links/spec.json",
+      "frame_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/versions/spec/39ad31b1a524.json",
+      "sha8": "39ad31b1a524",
+      "version_count": 1,
+      "repointed": false,
+      "first_seen": "2026-07-03T02:56:39Z",
+      "versions": [
+        {
+          "sha8": "39ad31b1a524",
+          "url": "https://github.com/kody-w/rapp-static-apis/blob/main/SPEC.md",
+          "first_captured": "2026-07-03T02:56:39Z",
+          "path": "versions/spec/39ad31b1a524.json",
+          "frame_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/versions/spec/39ad31b1a524.json"
+        }
+      ]
+    }
+  ]
+}

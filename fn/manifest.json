@@ -1,0 +1,22 @@
+{
+  "schema": "rapp-static-api/1.0",
+  "name": "rapp-static-fn",
+  "kind": "compute-cell",
+  "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fn",
+  "pages_base": "https://kody-w.github.io/rapp-static-apis/fn",
+  "model": {
+    "idea": "A static file that RUNS. The repo ships the logic (an ES module — or WASM bytecode) as a content-addressed, pinnable frame. A caller loads it into a sandboxed, offscreen (headless) iframe and calls it over a private MessagePort to get real/live computed data. No server: the compute runs on the caller's CPU.",
+    "verify_before_exec": "The caller recomputes SHA-256 of the bytes and checks it against the pinned sha8 BEFORE executing — the same Layer-2 verify-before-exec an MCP host does, except the frame is code.",
+    "isolation": "iframe sandbox='allow-scripts' (no allow-same-origin) => opaque origin, no access to the host DOM/cookies/storage; talks only over a private channel.",
+    "live_data": "The cell may fetch() any CORS-open source from inside the sandbox (e.g. the already-published static Dataverse API) and compute over it — live, still with no server you run.",
+    "wasm": "Swap a .mjs frame for a .wasm frame and the build is identical (it content-addresses bytes); only the loader changes (WebAssembly.instantiate instead of import). That is the literal-'bytecode' variant."
+  },
+  "cells": [
+    {
+      "name": "twin",
+      "file": "cells/twin.mjs",
+      "exports": ["echo", "search", "stats", "live"],
+      "description": "Pure compute over caller-supplied rows, plus live() which fetches a CORS-open static API from inside the sandbox and computes over it."
+    }
+  ]
+}
