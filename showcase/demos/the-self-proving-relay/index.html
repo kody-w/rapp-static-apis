@@ -210,6 +210,7 @@ async function runRelay({ corruptFrame, forceMismatch }) {
   ['A', 'B', 'C'].forEach(l => setStage(l, '', 'idle', '<span style="color:var(--faint)">—</span>', ''));
   setVtag('vtAB', '', 'B verifies A before acting');
   setVtag('vtBC', '', 'C verifies B before acting');
+  let activeStage = 'A';
 
   try {
     const genesis = await makeFrame({
@@ -237,6 +238,7 @@ async function runRelay({ corruptFrame, forceMismatch }) {
 
     setVtag('vtAB', 'vok', `✓ A verified+attested · frame ${frameA.sha8}`);
 
+    activeStage = 'B';
     const frameB = await stageHop({
       letter: 'B',
       label: 'Stage B · Transformer',
@@ -260,11 +262,12 @@ async function runRelay({ corruptFrame, forceMismatch }) {
     if (corruptFrame) {
       const tampered = frameB.bytes.slice(0);
       tampered[3] ^= 0xff;
-      inboundC = { payload: frameB.payload, bytes: tampered.buffer, sha8: frameB.sha8 };
+      inboundC = { payload: frameB.payload, bytes: tampered, sha8: frameB.sha8 };
       narrate('c-tamper', 'bad', '⚠ one byte flipped in B→C transit', 'mismatch will be caught at C verify');
       setVtag('vtBC', 'vbad', '⚠ B→C transit byte flipped');
     }
 
+    activeStage = 'C';
     const frameC = await stageHop({
       letter: 'C',
       label: 'Stage C · Publisher',
@@ -289,8 +292,8 @@ async function runRelay({ corruptFrame, forceMismatch }) {
       `<div class="mono" style="margin-top:4px;color:var(--muted)">every stage: verified inbound frame + attested own source + passed verify-before-exec gate</div>`;
   } catch (e) {
     if (e.refused) {
-      setStage('B', 'bad-stage', 'refused', '<span style="color:var(--bad)">REFUSED — tampered byte detected before continuing.</span>', 'relay halted');
-      setStage('C', 'bad-stage', 'did not run', '<span style="color:var(--bad)">Relay stopped before this stage.</span>', 'upstream refused');
+      setStage(activeStage, 'bad-stage', 'refused', '<span style="color:var(--bad)">REFUSED — tampered byte detected before continuing.</span>', 'relay halted');
+      if (activeStage !== 'C') setStage('C', 'bad-stage', 'did not run', '<span style="color:var(--bad)">Relay stopped before this stage.</span>', 'upstream refused');
       out.innerHTML =
         `<div><span class="big" style="color:var(--bad)">REFUSED</span></div>` +
         `<div class="mono" style="margin-top:6px;color:var(--bad)">${e.got ? `${e.got} ≠ pinned ${e.want}` : 'verify-before-exec refused'} · the relay halted before propagating tampered bytes.</div>`;
