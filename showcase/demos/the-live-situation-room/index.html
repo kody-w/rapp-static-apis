@@ -1,0 +1,149 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WELD: The Live Situation Room — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🧬</div>
+    <h1 id="title">WELD: The Live Situation Room</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run the welded room now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">One tap runs three transplanted donor flows. Every tile fetches the pinned <code>extract</code> cell from <code>/track</code>, re-hashes it, refuses on mismatch, then pulls live public data directly in your browser. No server dashboard in the middle.</p>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap">
+      <button class="run" id="go">🛰️ Refresh situation room</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">Huila weather · rapp-static-apis heartbeat · JS top-N board</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-bottom:10px">
+      <div class="live-out" id="tile-weather"><span class="mono" style="color:var(--faint)">weather tile waiting…</span></div>
+      <div class="live-out" id="tile-repo"><span class="mono" style="color:var(--faint)">repo tile waiting…</span></div>
+      <div class="live-out" id="tile-board"><span class="mono" style="color:var(--faint)">leaderboard tile waiting…</span></div>
+    </div>
+
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Transplant A — Taste the Weather</h2>
+    <p>The weather tile is the donor's full live flow: verify <code>extract</code>, fetch Open-Meteo for Huila, read <code>current.temperature_2m</code> and <code>current.precipitation</code>, then render wet/dry status for the farm right now.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Transplant B — The Immortal Committer</h2>
+    <p>The repo heartbeat tile keeps the donor logic intact: verify <code>extract</code>, fetch <code>https://api.github.com/repos/kody-w/rapp-static-apis</code>, then render live stars and forks so the wall tracks a project's pulse in real time.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Transplant C — Living Leaderboard</h2>
+    <p>The ranking tile keeps the donor parser path: verify <code>extract</code>, fetch the public GitHub-Ranking markdown, parse rows in-page, and render a live top-N list every refresh.</p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+
+const TRACK = '../../../track';
+const FARM = 'https://api.open-meteo.com/v1/forecast?latitude=2.53&longitude=-75.53&current=temperature_2m,precipitation';
+const REPO = 'https://api.github.com/repos/kody-w/rapp-static-apis';
+const RANKING = 'https://raw.githubusercontent.com/EvanLi/Github-Ranking/master/Top100/JavaScript.md';
+const narrate = mkNarrator(document.getElementById('steps'));
+
+function escapeHtml(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function parseTopRows(md) {
+  const rows = String(md || '').split('\n').map(line => line.trim());
+  const parsed = [];
+  for (const line of rows) {
+    if (!/^\|\s*\d+\s*\|/.test(line)) continue;
+    const cols = line.split('|').map(s => s.trim());
+    if (cols.length < 9) continue;
+    const rank = Number(cols[1]);
+    const link = cols[2].match(/^\[(.+?)\]\((https?:\/\/[^)]+)\)$/);
+    if (!Number.isFinite(rank) || !link) continue;
+    parsed.push({ rank, name: link[1], url: link[2], stars: cols[3], forks: cols[4] });
+    if (parsed.length >= 5) break;
+  }
+  return parsed;
+}
+
+async function refreshWeather(tile) {
+  const temp = await runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract',
+    args: { src: FARM, path: 'current.temperature_2m' }, onStep: narrate });
+  const rain = await runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract',
+    args: { src: FARM, path: 'current.precipitation' }, onStep: () => {} });
+  const wet = Number(rain.value) > 0;
+  tile.innerHTML = `<div><span class="big">${temp.value}°C</span> <span style="color:var(--muted)">farm weather</span></div>` +
+    `<div class="mono" style="margin-top:6px;color:${wet ? 'var(--accent)' : 'var(--muted)'}">${wet ? '🌧️ rain now (' + rain.value + ' mm)' : '☀️ dry now'} · verified</div>`;
+}
+
+async function refreshRepo(tile) {
+  const stars = await runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract',
+    args: { src: REPO, path: 'stargazers_count' }, onStep: narrate });
+  const forks = await runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract',
+    args: { src: REPO, path: 'forks_count' }, onStep: () => {} });
+  tile.innerHTML = `<div><span class="big">${Number(stars.value).toLocaleString()}★</span> <span style="color:var(--muted)">repo pulse</span></div>` +
+    `<div class="mono" style="margin-top:6px;color:var(--accent)">${Number(forks.value).toLocaleString()} forks · verified</div>`;
+}
+
+async function refreshBoard(tile) {
+  const feed = await runVerifiedCell({
+    base: TRACK,
+    cell: 'extract',
+    fn: 'extract',
+    args: { src: RANKING, path: '' },
+    onStep: narrate
+  });
+  narrate('parse', 'active', 'parse ranking rows from markdown', 'build live top N in-page');
+  const top = parseTopRows(feed.value);
+  if (!top.length) throw new Error('ranking feed returned no rows');
+  narrate('parse', 'ok', 'parsed live leaderboard rows', top.map(r => `#${r.rank} ${r.name}`).join(' · '));
+  const rows = top.map(row => `<li style="margin-bottom:8px"><a href="${row.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(row.name)}</a><div class="mono" style="font-size:12px;color:var(--muted)">#${row.rank} · ${escapeHtml(row.stars)} ★</div></li>`).join('');
+  tile.innerHTML = `<div style="margin-bottom:8px"><span class="big">Top ${top.length}</span> <span style="color:var(--muted)">JS repos</span></div><ol style="margin:0;padding-left:20px">${rows}</ol>`;
+}
+
+document.getElementById('go').onclick = async () => {
+  const steps = document.getElementById('steps');
+  const weather = document.getElementById('tile-weather');
+  const repo = document.getElementById('tile-repo');
+  const board = document.getElementById('tile-board');
+  steps.innerHTML = '';
+  weather.innerHTML = '<span class="mono" style="color:var(--faint)">refreshing weather…</span>';
+  repo.innerHTML = '<span class="mono" style="color:var(--faint)">refreshing repo pulse…</span>';
+  board.innerHTML = '<span class="mono" style="color:var(--faint)">refreshing ranking…</span>';
+
+  try {
+    await refreshWeather(weather);
+    await refreshRepo(repo);
+    await refreshBoard(board);
+  } catch (e) {
+    const msg = e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : (e.message || e);
+    weather.innerHTML = weather.innerHTML.includes('refreshing') ? `<span class="mono" style="color:var(--bad)">${msg}</span>` : weather.innerHTML;
+    repo.innerHTML = repo.innerHTML.includes('refreshing') ? `<span class="mono" style="color:var(--bad)">${msg}</span>` : repo.innerHTML;
+    board.innerHTML = board.innerHTML.includes('refreshing') ? `<span class="mono" style="color:var(--bad)">${msg}</span>` : board.innerHTML;
+  }
+};
+</script>
+</body></html>

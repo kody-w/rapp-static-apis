@@ -1,0 +1,18 @@
+{
+  "slug": "the-live-situation-room",
+  "channel": "physical",
+  "emoji": "🧬",
+  "title": "WELD: The Live Situation Room",
+  "tagline": "One wall display welding live weather, repo heartbeat, and top-N rankings into a verify-before-exec command view.",
+  "holy_shit": "Any screen becomes a tamper-proof situation room: every tile hash-verifies its cell before fetching live public data in the viewer's own browser.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["qr", "dashboard", "live-data", "leaderboard", "github"],
+  "primitives": ["/track", "/fn"],
+  "powered_by": "Transplanted /track extract-cell verify-before-exec flows from the donor demos, composed into a single in-browser wall dashboard.",
+  "builds_on": ["taste-the-weather", "the-immortal-committer", "living-leaderboard"],
+  "weld": "Transplants the donors' full weather, repo-star heartbeat, and markdown leaderboard verify-before-exec flows into one live triage wall where each tile verifies before it fetches.",
+  "agent_scenario": "When you need one scannable physical dashboard that fuses multiple live public signals into a single tamper-evident operational view.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

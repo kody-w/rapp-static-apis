@@ -16,12 +16,12 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 - `loop.prompt.md` — a paste-over-anything improvement ratchet that discovers its own score and keeps only verified wins.
 
 ## Channels
-- **🌍 Physical World** (`physical`, 5) — QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.
+- **🌍 Physical World** (`physical`, 6) — QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.
 - **🔒 Verify-Before-Exec** (`verify`, 4) — Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.
 - **🤖 Agent to Agent** (`ai-to-ai`, 7) — MCP tools, brainstems as bytecode, signed dead-drops — machines using the stack with no human and no browser.
 - **💛 Human & Personal** (`human`, 3) — Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.
 - **♾️ Self-Building** (`self-building`, 3) — The loop, the tumbler, systems that improve and verify themselves — including this library.
-- **🎲 Wildcard** (`wildcard`, 7) — The strange stacks that shouldn't work but provably do. Go weird, stay real.
+- **🎲 Wildcard** (`wildcard`, 8) — The strange stacks that shouldn't work but provably do. Go weird, stay real.
 
 ## Posts
 
@@ -31,6 +31,7 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 - [The Immortal Committer](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-immortal-committer/) — A headstone whose star count keeps rising while you stand there.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-immortal-committer/demo.json
 - [Living Leaderboard](https://kody-w.github.io/rapp-static-apis/showcase/demos/living-leaderboard/) — A printed QR re-ranks the top JavaScript repos every time someone scans it.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/living-leaderboard/demo.json
 - [The Menu That Knows the Kitchen](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-menu-that-knows-the-kitchen/) — A printed QR menu where each dish is live-marked available or sold out from GitHub Issues labels.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-menu-that-knows-the-kitchen/demo.json
+- [WELD: The Live Situation Room](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-live-situation-room/) — One wall display welding live weather, repo heartbeat, and top-N rankings into a verify-before-exec command view.  ·  status: live  ·  welds `taste-the-weather`, `the-immortal-committer`, `living-leaderboard`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-live-situation-room/demo.json
 
 ### 🔒 Verify-Before-Exec
 - [Kill the Host](https://kody-w.github.io/rapp-static-apis/showcase/demos/kill-the-host/) — Delete the repo the API lives in; it keeps answering from a fork.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/kill-the-host/demo.json
@@ -60,6 +61,7 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 ### 🎲 Wildcard
 - [The Paper That Boots Python](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-paper-that-boots-python/) — A printed square makes any phone cold-boot real Python in two seconds.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-paper-that-boots-python/demo.json
 - [Only in the Same Frame](https://kody-w.github.io/rapp-static-apis/showcase/demos/only-in-the-same-frame/) — Split a secret across two objects on opposite sides of the planet; it exists only while both sit in one camera view.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/only-in-the-same-frame/demo.json
+- [WELD: The Autonomous Economy](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-autonomous-economy/) — A complete no-backend economy: browse ranked-by-verified-reputation sellers, place a sealed+signed order, watch it survive a tamper-refusing autonomous agent relay — reputation, custody, seal, and signature provable end to end.  ·  status: live  ·  welds `the-trusted-exchange`, `the-sovereign-handoff`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-autonomous-economy/demo.json
 - [WELD: The Notarized Marketplace](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-notarized-marketplace/) — A welded storefront where each completed sealed order emits a seller-signed receipt anyone can verify.  ·  status: live  ·  welds `the-sealed-storefront`, `the-unbreakable-promise`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-notarized-marketplace/demo.json
 - [The Sealed Storefront](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-sealed-storefront/) — A real storefront with no backend: live availability from Issues, AES-sealed orders, and tamper-evident custody — all in your browser.  ·  status: live  ·  welds `the-menu-that-knows-the-kitchen`, `broadcast-the-secret`, `chain-of-custody`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-sealed-storefront/demo.json
 - [The Test That Breeds](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-test-that-breeds/) — A printed square boots Python, hunts down a bug, shrinks it to its smallest form, and breeds a new QR that is the regression test for that exact bug.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-test-that-breeds/demo.json
@@ -70,6 +72,8 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 
 This library grows like an organism. These posts WELD earlier ones (transplant their working cells/patterns, kept intact) into something more sophisticated:
 - **The Verifiable Tournament** ⟵ welds `living-leaderboard`, `proof-of-freshness`, `the-unbreakable-promise`  ·  Transplant the-unbreakable-promise's ECDSA sign/verify loop to sign each player's tournament entry, proof-of-freshness's sha256Hex + arrayBuffer fetch to stamp the live ranking payload, and living-leaderboard's runVerifiedCell + parseTopRows to fetch and render the board — the signed player slot is injected into the freshness-stamped live board so every rank is either signed by its maker or provably current.
+- **WELD: The Autonomous Economy** ⟵ welds `the-trusted-exchange`, `the-sovereign-handoff`  ·  Run the full Trusted Exchange pipeline (live availability → AES-sealed order → SHA-256 custody → ECDSA receipt → signed reputation), then inject the complete notarized economic packet as the Sovereign Handoff relay genesis so every autonomous hop verifies custody and signature before forwarding.
+- **WELD: The Live Situation Room** ⟵ welds `taste-the-weather`, `the-immortal-committer`, `living-leaderboard`  ·  Transplants the donors' full weather, repo-star heartbeat, and markdown leaderboard verify-before-exec flows into one live triage wall where each tile verifies before it fetches.
 - **WELD: The Notarized Marketplace** ⟵ welds `the-sealed-storefront`, `the-unbreakable-promise`  ·  Keep the Sealed Storefront flow intact, then sign each completed custody-stamped order with an ECDSA seller key so every buyer gets a cryptographically verifiable receipt bound to the exact sealed envelope and custody head.
 - **The Sealed Storefront** ⟵ welds `the-menu-that-knows-the-kitchen`, `broadcast-the-secret`, `chain-of-custody`  ·  IssuesDB availability gate → AES-256-GCM seals the order payload into an RSL1 envelope → SHA-256 content-addresses that envelope into a custody chain link, so the order's journey is both confidential and tamper-evident end-to-end
 - **The Self-Proving Relay** ⟵ welds `the-relay`, `the-page-that-proves-itself`, `the-byte-trap`  ·  Each stage first verifies the prior content-addressed frame, then fetches+hashes this page to attest self-integrity, then runs through a verify-before-exec code gate that refuses cold on any byte mismatch before emitting the next frame.
@@ -127,4 +131,4 @@ record in the body). The site shows open submissions live; the tumbler loop prom
 }
 ```
 
-Generated by build.py from 29 posts across 6 active channels. Do not hand-edit.
+Generated by build.py from 31 posts across 6 active channels. Do not hand-edit.

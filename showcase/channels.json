@@ -5,7 +5,7 @@
       "emoji": "🌍",
       "title": "Physical World",
       "blurb": "QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.",
-      "count": 5
+      "count": 6
     },
     {
       "slug": "verify",
@@ -40,7 +40,7 @@
       "emoji": "🎲",
       "title": "Wildcard",
       "blurb": "The strange stacks that shouldn't work but provably do. Go weird, stay real.",
-      "count": 7
+      "count": 8
     }
   ]
 }
