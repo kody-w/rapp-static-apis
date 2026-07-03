@@ -1,0 +1,17 @@
+{
+  "slug": "the-relay",
+  "channel": "ai-to-ai",
+  "rank": null,
+  "emoji": "🔗",
+  "title": "The Relay",
+  "tagline": "Three agents hand off work through content-addressed frames — every stage verifies the prior stage's SHA-256 before it acts. Corrupt one frame and the next stage refuses cold.",
+  "holy_shit": "Each agent in the chain never trusts the frame it receives — it recomputes the SHA-256 on the raw bytes and refuses on any mismatch before doing anything. One flipped byte anywhere and the relay stops at exactly that link.",
+  "status": "live",
+  "difficulty": "easy",
+  "tags": ["ai-to-ai", "verify-before-exec", "content-addressed", "pipeline", "hash", "chain"],
+  "primitives": ["crypto.subtle"],
+  "powered_by": "browser-native crypto.subtle SHA-256 — the same hash primitive runVerifiedCell uses for code cells, applied here to data frames; no server, no dependencies; the relay runs entirely in your browser.",
+  "agent_scenario": "When you need: a multi-stage agent pipeline where each stage must prove the prior stage's output was not tampered with before acting on it — model each handoff as a content-addressed frame and verify the SHA-256 before every transform.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}
