@@ -28,7 +28,7 @@
       "slug": "ai-to-ai",
       "title": "Agent to Agent",
       "blurb": "MCP tools, brainstems as bytecode, signed dead-drops — machines using the stack with no human and no browser.",
-      "count": 5
+      "count": 6
     },
     {
       "slug": "human",
@@ -46,7 +46,7 @@
       "slug": "wildcard",
       "title": "Wildcard",
       "blurb": "The strange stacks that shouldn't work but provably do. Go weird, stay real.",
-      "count": 5
+      "count": 6
     }
   ],
   "scenarios": [
@@ -358,6 +358,25 @@
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-fast-forward-parliament/"
     },
     {
+      "slug": "the-notarized-marketplace",
+      "channel": "wildcard",
+      "title": "WELD: The Notarized Marketplace",
+      "when_to_use": "When you need: a zero-backend marketplace where inventory is live, orders stay sealed, custody is tamper-evident, and every completion emits a seller-signed receipt buyers can verify independently.",
+      "primitives": [
+        "/track",
+        "rapp-sealed/1.0",
+        "crypto.subtle"
+      ],
+      "status": "live",
+      "builds_on": [
+        "the-sealed-storefront",
+        "the-unbreakable-promise"
+      ],
+      "weld": "Keep the Sealed Storefront flow intact, then sign each completed custody-stamped order with an ECDSA seller key so every buyer gets a cryptographically verifiable receipt bound to the exact sealed envelope and custody head.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-notarized-marketplace/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-notarized-marketplace/"
+    },
+    {
       "slug": "the-page-that-proves-itself",
       "channel": "self-building",
       "title": "The Page That Proves Itself",
@@ -405,6 +424,26 @@
       "weld": "IssuesDB availability gate → AES-256-GCM seals the order payload into an RSL1 envelope → SHA-256 content-addresses that envelope into a custody chain link, so the order's journey is both confidential and tamper-evident end-to-end",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-sealed-storefront/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-sealed-storefront/"
+    },
+    {
+      "slug": "the-self-proving-relay",
+      "channel": "ai-to-ai",
+      "title": "The Self-Proving Relay",
+      "when_to_use": "When you need a relay where every hop must prove both inbound integrity and local runtime integrity, and must halt immediately if either proof fails.",
+      "primitives": [
+        "/track",
+        "crypto.subtle",
+        "fetch"
+      ],
+      "status": "live",
+      "builds_on": [
+        "the-relay",
+        "the-page-that-proves-itself",
+        "the-byte-trap"
+      ],
+      "weld": "Each stage first verifies the prior content-addressed frame, then fetches+hashes this page to attest self-integrity, then runs through a verify-before-exec code gate that refuses cold on any byte mismatch before emitting the next frame.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-self-proving-relay/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-self-proving-relay/"
     },
     {
       "slug": "the-test-that-breeds",

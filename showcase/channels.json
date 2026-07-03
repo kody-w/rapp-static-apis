@@ -19,7 +19,7 @@
       "emoji": "🤖",
       "title": "Agent to Agent",
       "blurb": "MCP tools, brainstems as bytecode, signed dead-drops — machines using the stack with no human and no browser.",
-      "count": 5
+      "count": 6
     },
     {
       "slug": "human",
@@ -40,7 +40,7 @@
       "emoji": "🎲",
       "title": "Wildcard",
       "blurb": "The strange stacks that shouldn't work but provably do. Go weird, stay real.",
-      "count": 5
+      "count": 6
     }
   ]
 }

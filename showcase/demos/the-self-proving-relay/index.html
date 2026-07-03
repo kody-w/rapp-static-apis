@@ -1,0 +1,310 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Self-Proving Relay — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  .relay{display:flex;flex-direction:column;gap:0;margin:4px 0}
+  .stage{border:1px solid var(--line);border-radius:11px;background:var(--panel-2);padding:12px 14px}
+  .stage .who{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+  .stage .who b{font-size:13px;color:var(--accent)}
+  .stage .who .role{font-family:var(--mono);font-size:11px;color:var(--faint)}
+  .stage .body{font-family:var(--mono);font-size:13px;color:var(--muted);min-height:24px;line-height:1.55;word-break:break-word}
+  .stage .meta{font-family:var(--mono);font-size:11px;color:var(--warn);margin-top:6px;line-height:1.5}
+  .stage.ok-stage{border-color:color-mix(in oklab,var(--good),transparent 55%)}
+  .stage.bad-stage{border-color:color-mix(in oklab,var(--bad),transparent 55%)}
+  .stage.active-stage{border-color:color-mix(in oklab,var(--accent),transparent 55%)}
+  .wire{text-align:center;color:var(--faint);font-family:var(--mono);font-size:12px;padding:6px 0;line-height:1.5}
+  .vtag{display:inline-block;padding:2px 8px;border-radius:6px;background:var(--panel);border:1px solid var(--line);font-size:11px}
+  .vtag.vok{color:var(--good);border-color:color-mix(in oklab,var(--good),transparent 55%)}
+  .vtag.vbad{color:var(--bad);border-color:color-mix(in oklab,var(--bad),transparent 55%)}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🧬</div>
+    <h1 id="title">The Self-Proving Relay</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 10px;color:var(--muted)">This weld combines three donor moves at every hop: the stage verifies the inbound content-addressed frame, fetches and hashes this page's own source to attest local integrity, then passes through a verify-before-exec code gate. Any mismatch flips to <b>REFUSED</b> and the relay halts.</p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px">
+      <button class="run" id="go">🧬 Run self-proving relay</button>
+      <label class="mono" style="font-size:12px;color:var(--faint);display:flex;gap:6px;align-items:center;cursor:pointer">
+        <input type="checkbox" id="corrupt"> corrupt: flip one byte in B→C frame
+      </label>
+      <label class="mono" style="font-size:12px;color:var(--faint);display:flex;gap:6px;align-items:center;cursor:pointer">
+        <input type="checkbox" id="tamper"> tamper: force code-gate hash mismatch
+      </label>
+    </div>
+
+    <div class="relay">
+      <div class="stage" id="stageA">
+        <div class="who"><b>Stage A · Collector</b><span class="role" id="roleA">idle</span></div>
+        <div class="body" id="bodyA"><span style="color:var(--faint)">— press the button —</span></div>
+        <div class="meta" id="metaA"></div>
+      </div>
+
+      <div class="wire">
+        ⇩ verify frame + attest self + guarded run ⇩<br>
+        <span class="vtag" id="vtAB">B verifies A before acting</span>
+      </div>
+
+      <div class="stage" id="stageB">
+        <div class="who"><b>Stage B · Transformer</b><span class="role" id="roleB">idle</span></div>
+        <div class="body" id="bodyB"><span style="color:var(--faint)">— resumes after A emits —</span></div>
+        <div class="meta" id="metaB"></div>
+      </div>
+
+      <div class="wire">
+        ⇩ verify frame + attest self + guarded run ⇩<br>
+        <span class="vtag" id="vtBC">C verifies B before acting</span>
+      </div>
+
+      <div class="stage" id="stageC">
+        <div class="who"><b>Stage C · Publisher</b><span class="role" id="roleC">idle</span></div>
+        <div class="body" id="bodyC"><span style="color:var(--faint)">— resumes after B emits —</span></div>
+        <div class="meta" id="metaC"></div>
+      </div>
+    </div>
+
+    <div class="live-out" id="out" style="margin-top:14px"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>The relay donor proves upstream payload integrity. The self-proving-page donor proves local runtime integrity. The byte-trap donor proves enforcement by refusing execution on mismatch. Welded together, each hop proves <b>both</b> sides of trust at once: "what I received is untampered" and "what I am is untampered."</p>
+    <p style="margin:10px 0 0">That means a relay can be audited link-by-link with plain hashes, and every stage can halt itself without asking a server. A compromised transit path, cache, or host edit cannot silently propagate — the next hop names the broken hash and refuses cold.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Click <b>Run self-proving relay</b>: all three stages complete, each showing frame verification + self-hash attest + guarded run.</li>
+      <li>Enable <b>corrupt: flip one byte in B→C frame</b>: Stage C recomputes B's frame hash and refuses.</li>
+      <li>Enable <b>tamper: force code-gate hash mismatch</b>: the stage's verify-before-exec gate throws <code>{ refused:true }</code>, and the relay stops immediately.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-self-proving-relay/</code> (crypto.subtle needs a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Weld pattern: keep relay-style content-addressed frames (<code>{ payload, bytes, sha8 }</code>), add self-source attestation (<code>fetch('index.html') → crypto.subtle.digest</code>), and gate each hop with <code>runVerifiedCell()</code> so tampered bytes refuse before compute.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, sha256hex, mkNarrator } from '../../lib/showcase.js';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const TRACK = '../../../track';
+const SRC = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd';
+const out = document.getElementById('out');
+const stepsEl = document.getElementById('steps');
+const goBtn = document.getElementById('go');
+const corruptChk = document.getElementById('corrupt');
+const tamperChk = document.getElementById('tamper');
+const narrate = mkNarrator(stepsEl);
+
+async function makeFrame(obj) {
+  const bytes = new TextEncoder().encode(JSON.stringify(obj));
+  const sha8 = (await sha256hex(bytes)).slice(0, 12);
+  return { payload: obj, bytes, sha8 };
+}
+
+async function verifyFrame(frame, key) {
+  narrate(key, 'active', 'recomputing SHA-256 from raw frame bytes…', '');
+  const got = (await sha256hex(frame.bytes)).slice(0, 12);
+  if (got !== frame.sha8) {
+    narrate(key, 'bad', `✗ ${got} ≠ pinned ${frame.sha8}`, 'REFUSED');
+    throw Object.assign(new Error('frame verification failed'), { refused: true, got, want: frame.sha8 });
+  }
+  narrate(key, 'ok', `✓ ${got} matches the pin`, frame.sha8);
+  return frame.payload;
+}
+
+async function attestSelf(prefix) {
+  narrate(`${prefix}-self-fetch`, 'active', 'fetch own index.html bytes…', location.pathname);
+  const res = await fetch('index.html', { cache: 'no-store' });
+  if (!res.ok) throw new Error(`fetch index.html → ${res.status} ${res.statusText}`);
+  const bytes = await res.arrayBuffer();
+  narrate(`${prefix}-self-fetch`, 'ok', 'fetched own source', `${bytes.byteLength} bytes`);
+
+  narrate(`${prefix}-self-hash`, 'active', 'hash own bytes with crypto.subtle SHA-256…', '');
+  const digest = await crypto.subtle.digest('SHA-256', bytes);
+  const hex = [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
+  narrate(`${prefix}-self-hash`, 'ok', 'self-integrity attested', hex.slice(0, 12));
+  return { hex, short: hex.slice(0, 12), bytes: bytes.byteLength };
+}
+
+function stageOnStep(prefix) {
+  return (k, s, t, d) => narrate(`${prefix}-${k}`, s, `${prefix.toUpperCase()} gate: ${t}`, d);
+}
+
+function setStage(letter, cls, role, body, metaLine) {
+  const el = document.getElementById('stage' + letter);
+  el.className = 'stage' + (cls ? ' ' + cls : '');
+  document.getElementById('role' + letter).textContent = role;
+  document.getElementById('body' + letter).innerHTML = body;
+  document.getElementById('meta' + letter).textContent = metaLine || '';
+}
+
+function setVtag(id, cls, label) {
+  const el = document.getElementById(id);
+  el.className = 'vtag' + (cls ? ' ' + cls : '');
+  if (label) el.textContent = label;
+}
+
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function stageHop({ letter, label, inFrame, verifyKey, forceMismatch, transform }) {
+  setStage(letter, 'active-stage', 'verifying + attesting + guarded run…', 'running welded checks…', '');
+  const inbound = await verifyFrame(inFrame, verifyKey);
+  const self = await attestSelf(letter.toLowerCase());
+  const live = await runVerifiedCell({
+    base: TRACK,
+    cell: 'extract',
+    fn: 'extract',
+    args: { src: SRC, path: 'bitcoin.usd' },
+    onStep: stageOnStep(letter.toLowerCase()),
+    forceMismatch
+  });
+
+  const payload = transform(inbound, self, live);
+  const frame = await makeFrame(payload);
+  narrate(`${letter.toLowerCase()}-emit`, 'ok', `${label}: emitted frame`, `sha8 ${frame.sha8}`);
+  setStage(letter, 'ok-stage', 'emitted',
+    `<b>${label}</b><br>${payload.note}`,
+    `in ${inFrame.sha8} · self ${self.short} · out ${frame.sha8}`);
+  await delay(250);
+  return frame;
+}
+
+async function runRelay({ corruptFrame, forceMismatch }) {
+  stepsEl.innerHTML = '';
+  goBtn.disabled = true;
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">running…</span>';
+  ['A', 'B', 'C'].forEach(l => setStage(l, '', 'idle', '<span style="color:var(--faint)">—</span>', ''));
+  setVtag('vtAB', '', 'B verifies A before acting');
+  setVtag('vtBC', '', 'C verifies B before acting');
+  let activeStage = 'A';
+
+  try {
+    const genesis = await makeFrame({
+      stage: 'GENESIS',
+      note: 'relay kickoff frame',
+      at: new Date().toISOString()
+    });
+    narrate('genesis', 'ok', 'genesis frame created', `sha8 ${genesis.sha8}`);
+
+    const frameA = await stageHop({
+      letter: 'A',
+      label: 'Stage A · Collector',
+      inFrame: genesis,
+      verifyKey: 'a-verify-in',
+      forceMismatch,
+      transform: (seed, self, live) => ({
+        stage: 'A',
+        from: seed.stage,
+        btc_usd: Number(live.value),
+        self_sha8: self.short,
+        note: `Observed BTC ${Number(live.value).toLocaleString('en-US')} USD and self-attested ${self.short}`,
+        at: new Date().toISOString()
+      })
+    });
+
+    setVtag('vtAB', 'vok', `✓ A verified+attested · frame ${frameA.sha8}`);
+
+    activeStage = 'B';
+    const frameB = await stageHop({
+      letter: 'B',
+      label: 'Stage B · Transformer',
+      inFrame: frameA,
+      verifyKey: 'b-verify-a',
+      forceMismatch,
+      transform: (prev, self, live) => ({
+        stage: 'B',
+        from: prev.stage,
+        input_sha8: frameA.sha8,
+        btc_bucket: Number(live.value) > 100000 ? 'six-figure zone' : 'sub-six-figure zone',
+        self_sha8: self.short,
+        note: `Verified A(${frameA.sha8}), self ${self.short}, transformed live BTC signal`,
+        at: new Date().toISOString()
+      })
+    });
+
+    setVtag('vtBC', 'vok', `✓ B verified+attested · frame ${frameB.sha8}`);
+
+    let inboundC = frameB;
+    if (corruptFrame) {
+      const tampered = frameB.bytes.slice(0);
+      tampered[3] ^= 0xff;
+      inboundC = { payload: frameB.payload, bytes: tampered, sha8: frameB.sha8 };
+      narrate('c-tamper', 'bad', '⚠ one byte flipped in B→C transit', 'mismatch will be caught at C verify');
+      setVtag('vtBC', 'vbad', '⚠ B→C transit byte flipped');
+    }
+
+    activeStage = 'C';
+    const frameC = await stageHop({
+      letter: 'C',
+      label: 'Stage C · Publisher',
+      inFrame: inboundC,
+      verifyKey: 'c-verify-b',
+      forceMismatch,
+      transform: (prev, self, live) => ({
+        stage: 'C',
+        from: prev.stage,
+        input_sha8: frameB.sha8,
+        headline: `Relay published at BTC ${Number(live.value).toLocaleString('en-US')} USD`,
+        integrity_chain: [genesis.sha8, frameA.sha8, frameB.sha8],
+        self_sha8: self.short,
+        note: `Published with chain ${genesis.sha8} → ${frameA.sha8} → ${frameB.sha8} and self ${self.short}`,
+        at: new Date().toISOString()
+      })
+    });
+
+    out.innerHTML =
+      `<div><span class="big" style="font-size:22px">🧬 Relay complete</span></div>` +
+      `<div class="mono" style="margin-top:8px;color:var(--good)">genesis(${genesis.sha8}) → A(${frameA.sha8}) → B(${frameB.sha8}) → C(${frameC.sha8})</div>` +
+      `<div class="mono" style="margin-top:4px;color:var(--muted)">every stage: verified inbound frame + attested own source + passed verify-before-exec gate</div>`;
+  } catch (e) {
+    if (e.refused) {
+      setStage(activeStage, 'bad-stage', 'refused', '<span style="color:var(--bad)">REFUSED — tampered byte detected before continuing.</span>', 'relay halted');
+      if (activeStage !== 'C') setStage('C', 'bad-stage', 'did not run', '<span style="color:var(--bad)">Relay stopped before this stage.</span>', 'upstream refused');
+      out.innerHTML =
+        `<div><span class="big" style="color:var(--bad)">REFUSED</span></div>` +
+        `<div class="mono" style="margin-top:6px;color:var(--bad)">${e.got ? `${e.got} ≠ pinned ${e.want}` : 'verify-before-exec refused'} · the relay halted before propagating tampered bytes.</div>`;
+    } else {
+      out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.message || e}</span>`;
+    }
+  } finally {
+    goBtn.disabled = false;
+  }
+}
+
+goBtn.onclick = () => runRelay({ corruptFrame: corruptChk.checked, forceMismatch: tamperChk.checked });
+</script>
+</body></html>

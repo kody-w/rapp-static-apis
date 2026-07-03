@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 25,
+  "count": 27,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -492,6 +492,37 @@
       "weld": ""
     },
     {
+      "slug": "the-notarized-marketplace",
+      "channel": "wildcard",
+      "rank": null,
+      "emoji": "🧬",
+      "title": "WELD: The Notarized Marketplace",
+      "tagline": "A welded storefront where each completed sealed order emits a seller-signed receipt anyone can verify.",
+      "status": "live",
+      "difficulty": "hard",
+      "tags": [
+        "weld",
+        "storefront",
+        "ecdsa",
+        "receipt",
+        "notarized",
+        "custody",
+        "webcrypto"
+      ],
+      "primitives": [
+        "/track",
+        "rapp-sealed/1.0",
+        "crypto.subtle"
+      ],
+      "url": "demos/the-notarized-marketplace/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-notarized-marketplace/demo.json",
+      "builds_on": [
+        "the-sealed-storefront",
+        "the-unbreakable-promise"
+      ],
+      "weld": "Keep the Sealed Storefront flow intact, then sign each completed custody-stamped order with an ECDSA seller key so every buyer gets a cryptographically verifiable receipt bound to the exact sealed envelope and custody head."
+    },
+    {
       "slug": "the-page-that-proves-itself",
       "channel": "self-building",
       "rank": null,
@@ -572,6 +603,37 @@
         "chain-of-custody"
       ],
       "weld": "IssuesDB availability gate → AES-256-GCM seals the order payload into an RSL1 envelope → SHA-256 content-addresses that envelope into a custody chain link, so the order's journey is both confidential and tamper-evident end-to-end"
+    },
+    {
+      "slug": "the-self-proving-relay",
+      "channel": "ai-to-ai",
+      "rank": null,
+      "emoji": "🧬",
+      "title": "The Self-Proving Relay",
+      "tagline": "A multi-stage relay where each hop verifies inbound frames, attests its own source hash, and refuses on any tampered byte.",
+      "status": "live",
+      "difficulty": "hard",
+      "tags": [
+        "ai-to-ai",
+        "relay",
+        "self-attestation",
+        "verify-before-exec",
+        "tamper-evident",
+        "weld"
+      ],
+      "primitives": [
+        "/track",
+        "crypto.subtle",
+        "fetch"
+      ],
+      "url": "demos/the-self-proving-relay/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-self-proving-relay/demo.json",
+      "builds_on": [
+        "the-relay",
+        "the-page-that-proves-itself",
+        "the-byte-trap"
+      ],
+      "weld": "Each stage first verifies the prior content-addressed frame, then fetches+hashes this page to attest self-integrity, then runs through a verify-before-exec code gate that refuses cold on any byte mismatch before emitting the next frame."
     },
     {
       "slug": "the-test-that-breeds",

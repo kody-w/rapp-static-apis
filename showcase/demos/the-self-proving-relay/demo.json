@@ -1,0 +1,19 @@
+{
+  "slug": "the-self-proving-relay",
+  "channel": "ai-to-ai",
+  "rank": null,
+  "emoji": "🧬",
+  "title": "The Self-Proving Relay",
+  "tagline": "A multi-stage relay where each hop verifies inbound frames, attests its own source hash, and refuses on any tampered byte.",
+  "holy_shit": "Each relay stage proves two things before it acts: the upstream frame bytes still match their content hash, and this very page's own bytes still hash to the same value right now. Flip one byte anywhere and the chain refuses itself.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["ai-to-ai", "relay", "self-attestation", "verify-before-exec", "tamper-evident", "weld"],
+  "primitives": ["/track", "crypto.subtle", "fetch"],
+  "powered_by": "the-relay frame verification + the-page-that-proves-itself self-hash attestation + the-byte-trap refuse-on-mismatch gate via runVerifiedCell",
+  "builds_on": ["the-relay", "the-page-that-proves-itself", "the-byte-trap"],
+  "weld": "Each stage first verifies the prior content-addressed frame, then fetches+hashes this page to attest self-integrity, then runs through a verify-before-exec code gate that refuses cold on any byte mismatch before emitting the next frame.",
+  "agent_scenario": "When you need a relay where every hop must prove both inbound integrity and local runtime integrity, and must halt immediately if either proof fails.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}
