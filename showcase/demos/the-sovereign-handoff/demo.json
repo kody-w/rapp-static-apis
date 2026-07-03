@@ -1,0 +1,19 @@
+{
+  "slug": "the-sovereign-handoff",
+  "channel": "ai-to-ai",
+  "rank": null,
+  "emoji": "🧬",
+  "title": "WELD: The Sovereign Handoff",
+  "tagline": "A notarized sealed order survives an untrusted multi-agent relay where every hop verifies inbound bytes, attests self-integrity, and refuses on tamper.",
+  "holy_shit": "What crosses the relay is not just data but a sealed, custody-stamped, ECDSA-signed order — and every autonomous hop proves both upstream integrity and local integrity before it dares forward one byte.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["weld", "ai-to-ai", "relay", "notarized", "sealed-order", "custody", "ecdsa", "tamper-evident"],
+  "primitives": ["/track", "rapp-sealed/1.0", "crypto.subtle", "fetch"],
+  "powered_by": "The Notarized Marketplace sealed+custody+ECDSA order flow routed through The Self-Proving Relay per-hop verify + self-attest + verify-before-exec gate",
+  "builds_on": ["the-self-proving-relay", "the-notarized-marketplace"],
+  "weld": "Transplant the full notarized marketplace order pipeline as the relay payload, then force each self-proving relay hop to verify inbound frame bytes, attest its own source, and halt on any mismatch before forwarding custody-stamped signed bytes.",
+  "agent_scenario": "When you need a chain of autonomous agents to hand off a high-value order through untrusted hops while preserving and proving seal confidentiality, custody continuity, and seller signature authenticity end-to-end.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

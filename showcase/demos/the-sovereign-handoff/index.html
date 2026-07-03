@@ -1,0 +1,502 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WELD: The Sovereign Handoff — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  .grid{display:grid;grid-template-columns:1fr;gap:10px}
+  @media(min-width:980px){.grid{grid-template-columns:1fr 1fr}}
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field label{font-size:12px;font-family:var(--mono);color:var(--faint)}
+  .field input,.field textarea,.field select{background:var(--panel-2);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:10px;font:14px/1.3 var(--sans)}
+  .field textarea{min-height:88px;resize:vertical}
+  .order-box{border:1px solid var(--line);background:var(--panel-2);border-radius:10px;padding:10px;margin-top:10px}
+  .line{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:12px;color:var(--muted);margin:2px 0}
+  .line .val{color:var(--text);text-align:right;word-break:break-all}
+  .receipt{white-space:pre-wrap;font-family:var(--mono);font-size:12px;background:var(--bg);border:1px dashed var(--line);border-radius:10px;padding:10px;color:var(--muted);margin-top:10px}
+  .relay{display:flex;flex-direction:column;gap:0;margin:12px 0 0}
+  .stage{border:1px solid var(--line);border-radius:11px;background:var(--panel-2);padding:12px 14px}
+  .stage .who{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+  .stage .who b{font-size:13px;color:var(--accent)}
+  .stage .who .role{font-family:var(--mono);font-size:11px;color:var(--faint)}
+  .stage .body{font-family:var(--mono);font-size:13px;color:var(--muted);min-height:24px;line-height:1.55;word-break:break-word}
+  .stage .meta{font-family:var(--mono);font-size:11px;color:var(--warn);margin-top:6px;line-height:1.5}
+  .stage.ok-stage{border-color:color-mix(in oklab,var(--good),transparent 55%)}
+  .stage.bad-stage{border-color:color-mix(in oklab,var(--bad),transparent 55%)}
+  .stage.active-stage{border-color:color-mix(in oklab,var(--accent),transparent 55%)}
+  .wire{text-align:center;color:var(--faint);font-family:var(--mono);font-size:12px;padding:6px 0;line-height:1.5}
+  .vtag{display:inline-block;padding:2px 8px;border-radius:6px;background:var(--panel);border:1px solid var(--line);font-size:11px}
+  .vtag.vok{color:var(--good);border-color:color-mix(in oklab,var(--good),transparent 55%)}
+  .vtag.vbad{color:var(--bad);border-color:color-mix(in oklab,var(--bad),transparent 55%)}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🧬</div>
+    <h1 id="title">WELD: The Sovereign Handoff</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 10px;color:var(--muted)">Step 1 runs the full notarized marketplace order flow (availability gate → AES-sealed envelope → custody stamp → ECDSA receipt). Step 2 routes that exact notarized payload through a self-proving relay where every hop verifies inbound bytes, attests self-integrity, and refuses on tamper.</p>
+
+    <div class="grid">
+      <div class="field">
+        <label>Catalog item (live from Issues deltas)</label>
+        <select id="item"></select>
+      </div>
+      <div class="field">
+        <label>Qty</label>
+        <input id="qty" type="number" min="1" value="1">
+      </div>
+      <div class="field" style="grid-column:1/-1">
+        <label>Buyer note (sealed)</label>
+        <textarea id="note" placeholder="Leave with dock bot; no human handoff."></textarea>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px">
+      <button class="run" id="go">🧬 Run sovereign handoff</button>
+      <label class="mono" style="font-size:12px;color:var(--faint);display:flex;gap:6px;align-items:center;cursor:pointer">
+        <input type="checkbox" id="corrupt"> corrupt: flip one byte in B→C relay frame
+      </label>
+      <label class="mono" style="font-size:12px;color:var(--faint);display:flex;gap:6px;align-items:center;cursor:pointer">
+        <input type="checkbox" id="tamper"> tamper: force verify-before-exec mismatch
+      </label>
+    </div>
+
+    <div class="order-box" id="order"><span class="mono" style="color:var(--faint)">— run to mint a notarized order packet —</span></div>
+    <div class="receipt" id="receipt">— notarized receipt appears after run —</div>
+
+    <div class="relay">
+      <div class="stage" id="stageA">
+        <div class="who"><b>Stage A · Intake Agent</b><span class="role" id="roleA">idle</span></div>
+        <div class="body" id="bodyA"><span style="color:var(--faint)">— waits for notarized order packet —</span></div>
+        <div class="meta" id="metaA"></div>
+      </div>
+
+      <div class="wire">
+        ⇩ verify frame + attest self + guarded run ⇩<br>
+        <span class="vtag" id="vtAB">B verifies A before forwarding</span>
+      </div>
+
+      <div class="stage" id="stageB">
+        <div class="who"><b>Stage B · Transit Agent</b><span class="role" id="roleB">idle</span></div>
+        <div class="body" id="bodyB"><span style="color:var(--faint)">— resumes after A emits —</span></div>
+        <div class="meta" id="metaB"></div>
+      </div>
+
+      <div class="wire">
+        ⇩ verify frame + attest self + guarded run ⇩<br>
+        <span class="vtag" id="vtBC">C verifies B before final custody</span>
+      </div>
+
+      <div class="stage" id="stageC">
+        <div class="who"><b>Stage C · Sovereign Receiver</b><span class="role" id="roleC">idle</span></div>
+        <div class="body" id="bodyC"><span style="color:var(--faint)">— resumes after B emits —</span></div>
+        <div class="meta" id="metaC"></div>
+      </div>
+    </div>
+
+    <div class="live-out" id="out" style="margin-top:14px"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>The Notarized Marketplace donor already gives a sealed, custody-stamped, seller-signed order artifact. The Self-Proving Relay donor already gives per-hop inbound verification, self-attestation, and refuse-on-mismatch enforcement. Weld them and the thing crossing untrusted agents is now a high-value notarized object with provenance checks at every hop.</p>
+    <p style="margin:10px 0 0">If any transit byte flips, the next hop proves and refuses it. If any code-gate bytes mismatch, execution halts. If payload authorship is disputed, the embedded ECDSA receipt still verifies independently. Confidentiality, custody, and authenticity survive the full relay.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Click <b>Run sovereign handoff</b> to mint a sealed + custody-stamped + signed order, then relay it A→B→C with per-hop verification.</li>
+      <li>Enable <b>corrupt</b>: Stage C recomputes B-frame hash, spots mismatch, and refuses before forwarding.</li>
+      <li>Enable <b>tamper</b>: verify-before-exec guard throws <code>{ refused:true }</code> and the handoff halts.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in repo root, then open <code>localhost:8000/showcase/demos/the-sovereign-handoff/</code> (<code>crypto.subtle</code> needs HTTPS or localhost, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Weld pattern: <code>Issues stock gate → AES-sealed order → custody hash link → ECDSA receipt</code> becomes relay payload; each hop enforces <code>verify inbound frame + attest self source + runVerifiedCell gate</code> before forwarding.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, sha256hex, mkNarrator } from '../../lib/showcase.js';
+import { IssuesDB } from '../../lib/issues-db.mjs';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const TRACK = '../../../track';
+const SRC = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd';
+const db = new IssuesDB({ owner:'kody-w', repo:'rapp-static-apis', labels:['submission','physical'], state:'open' });
+
+const menu = [
+  { id:'fermented-cacao', name:'Fermented Cacao Nibs', price:14, stock:7 },
+  { id:'rainforest-honey', name:'Rainforest Honey', price:18, stock:4 },
+  { id:'solar-salt', name:'Solar Salt Crystals', price:9, stock:11 }
+];
+
+const stepsEl = document.getElementById('steps');
+const narrate = mkNarrator(stepsEl);
+const out = document.getElementById('out');
+const itemSel = document.getElementById('item');
+const qtyEl = document.getElementById('qty');
+const noteEl = document.getElementById('note');
+const goBtn = document.getElementById('go');
+const corruptChk = document.getElementById('corrupt');
+const tamperChk = document.getElementById('tamper');
+const orderBox = document.getElementById('order');
+const receiptBox = document.getElementById('receipt');
+
+function fmtUSD(n){ return '$' + Number(n).toFixed(2); }
+function delay(ms){ return new Promise(r => setTimeout(r, ms)); }
+
+function renderMenu(){
+  itemSel.innerHTML = menu.map(it => `<option value="${it.id}">${it.name} · ${fmtUSD(it.price)} · stock ${it.stock}</option>`).join('');
+}
+
+function parseRecord(issue){
+  try {
+    const m = (issue.body || '').match(/```rapp-record\s*([\s\S]*?)```/i);
+    if (!m) return null;
+    return JSON.parse(m[1]);
+  } catch { return null; }
+}
+
+async function hydrateStock(){
+  narrate('issues-open', 'active', 'loading live Issues submissions for stock deltas…', '');
+  try {
+    const issues = await db.list();
+    let seen = 0;
+    for (const issue of issues) {
+      const rec = parseRecord(issue);
+      if (!rec || !rec.slug || !Array.isArray(rec.tags) || !rec.tags.includes('inventory-hit')) continue;
+      const hit = menu.find(m => m.id === rec.slug);
+      if (!hit) continue;
+      hit.stock = Math.max(0, hit.stock - 1);
+      seen++;
+    }
+    narrate('issues-open', 'ok', 'live issue deltas applied', `${seen} inventory hits`);
+  } catch (e) {
+    narrate('issues-open', 'bad', 'Issues fetch failed; using baseline stock', e.message || String(e));
+  }
+  renderMenu();
+}
+
+function b64u(buf){
+  const s = btoa(String.fromCharCode(...new Uint8Array(buf)));
+  return s.replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/g,'');
+}
+
+function fromB64u(str){
+  const pad = str + '==='.slice((str.length + 3) % 4);
+  const b64 = pad.replace(/-/g,'+').replace(/_/g,'/');
+  const raw = atob(b64);
+  return Uint8Array.from(raw, c => c.charCodeAt(0));
+}
+
+async function sealOrder(order){
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const key = await crypto.subtle.generateKey({ name:'AES-GCM', length:256 }, true, ['encrypt','decrypt']);
+  const clear = new TextEncoder().encode(JSON.stringify(order));
+  const cipher = await crypto.subtle.encrypt({ name:'AES-GCM', iv }, key, clear);
+  const raw = await crypto.subtle.exportKey('raw', key);
+  return { alg:'AES-256-GCM', iv:b64u(iv), key:b64u(raw), ciphertext:b64u(cipher), schema:'rapp-sealed/1.0' };
+}
+
+async function unsealOrder(envelope){
+  const key = await crypto.subtle.importKey('raw', fromB64u(envelope.key), 'AES-GCM', false, ['decrypt']);
+  const clear = await crypto.subtle.decrypt({ name:'AES-GCM', iv: fromB64u(envelope.iv) }, key, fromB64u(envelope.ciphertext));
+  return JSON.parse(new TextDecoder().decode(clear));
+}
+
+async function signReceipt(payload){
+  const kp = await crypto.subtle.generateKey({ name:'ECDSA', namedCurve:'P-256' }, true, ['sign','verify']);
+  const data = new TextEncoder().encode(JSON.stringify(payload));
+  const sig = await crypto.subtle.sign({ name:'ECDSA', hash:'SHA-256' }, kp.privateKey, data);
+  const ok = await crypto.subtle.verify({ name:'ECDSA', hash:'SHA-256' }, kp.publicKey, sig, data);
+  const jwk = await crypto.subtle.exportKey('jwk', kp.publicKey);
+  return { signature:b64u(sig), verified:ok, publicJwk:jwk };
+}
+
+async function custodyLink(prev, envelope){
+  const payload = JSON.stringify({ prev, envelope });
+  const hash = await sha256hex(new TextEncoder().encode(payload));
+  return { prev, head: hash.slice(0, 16), at: new Date().toISOString() };
+}
+
+async function makeFrame(obj){
+  const bytes = new TextEncoder().encode(JSON.stringify(obj));
+  const sha8 = (await sha256hex(bytes)).slice(0, 12);
+  return { payload: obj, bytes, sha8 };
+}
+
+async function verifyFrame(frame, key){
+  narrate(key, 'active', 'recomputing SHA-256 from raw frame bytes…', '');
+  const got = (await sha256hex(frame.bytes)).slice(0, 12);
+  if (got !== frame.sha8) {
+    narrate(key, 'bad', `✗ ${got} ≠ pinned ${frame.sha8}`, 'REFUSED');
+    throw Object.assign(new Error('frame verification failed'), { refused:true, got, want:frame.sha8 });
+  }
+  narrate(key, 'ok', `✓ ${got} matches the pin`, frame.sha8);
+  return frame.payload;
+}
+
+async function attestSelf(prefix){
+  narrate(`${prefix}-self-fetch`, 'active', 'fetch own index.html bytes…', location.pathname);
+  const res = await fetch('index.html', { cache:'no-store' });
+  if (!res.ok) throw new Error(`fetch index.html → ${res.status} ${res.statusText}`);
+  const bytes = await res.arrayBuffer();
+  narrate(`${prefix}-self-fetch`, 'ok', 'fetched own source', `${bytes.byteLength} bytes`);
+  narrate(`${prefix}-self-hash`, 'active', 'hash own bytes with crypto.subtle SHA-256…', '');
+  const digest = await crypto.subtle.digest('SHA-256', bytes);
+  const hex = [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
+  narrate(`${prefix}-self-hash`, 'ok', 'self-integrity attested', hex.slice(0, 12));
+  return { hex, short:hex.slice(0, 12) };
+}
+
+function stageOnStep(prefix){ return (k,s,t,d) => narrate(`${prefix}-${k}`, s, `${prefix.toUpperCase()} gate: ${t}`, d); }
+
+function setStage(letter, cls, role, body, metaLine){
+  const el = document.getElementById('stage' + letter);
+  el.className = 'stage' + (cls ? ' ' + cls : '');
+  document.getElementById('role' + letter).textContent = role;
+  document.getElementById('body' + letter).innerHTML = body;
+  document.getElementById('meta' + letter).textContent = metaLine || '';
+}
+
+function setVtag(id, cls, label){
+  const el = document.getElementById(id);
+  el.className = 'vtag' + (cls ? ' ' + cls : '');
+  if (label) el.textContent = label;
+}
+
+function renderOrder(rec){
+  orderBox.innerHTML = `
+    <div class="line"><span>item</span><span class="val">${rec.itemName}</span></div>
+    <div class="line"><span>qty</span><span class="val">${rec.qty}</span></div>
+    <div class="line"><span>total</span><span class="val">${fmtUSD(rec.total)}</span></div>
+    <div class="line"><span>envelope schema</span><span class="val">${rec.envelope.schema}</span></div>
+    <div class="line"><span>custody head</span><span class="val">${rec.custody.head}</span></div>
+    <div class="line"><span>order sha</span><span class="val">${rec.receiptPayload.order_sha}</span></div>
+    <div class="line"><span>signature verify</span><span class="val">${rec.signature.verified ? 'true' : 'false'}</span></div>
+  `;
+}
+
+async function mintNotarizedOrder(){
+  const it = menu.find(m => m.id === itemSel.value) || menu[0];
+  const qty = Math.max(1, Number(qtyEl.value || 1));
+  const note = noteEl.value.trim();
+
+  narrate('pick', 'ok', 'selected item', `${it.name} x${qty}`);
+  narrate('avail', 'active', 'checking stock gate…', `stock ${it.stock}`);
+  if (it.stock < qty) {
+    narrate('avail', 'bad', 'insufficient stock', `${it.stock} available`);
+    throw new Error(`Not enough stock for ${it.name} (need ${qty}, have ${it.stock})`);
+  }
+  narrate('avail', 'ok', 'stock gate passed', `${it.stock} available`);
+
+  const order = {
+    itemId: it.id,
+    itemName: it.name,
+    qty,
+    unitPrice: it.price,
+    total: qty * it.price,
+    note,
+    at: new Date().toISOString()
+  };
+
+  narrate('seal', 'active', 'sealing order with AES-256-GCM…', '');
+  const envelope = await sealOrder(order);
+  narrate('seal', 'ok', 'order sealed', `${envelope.schema} · iv ${envelope.iv.slice(0,8)}…`);
+
+  narrate('custody', 'active', 'stamping custody link from envelope bytes…', '');
+  const custody = await custodyLink('GENESIS', envelope);
+  narrate('custody', 'ok', 'custody link emitted', custody.head);
+
+  narrate('verify-seal', 'active', 'verifying sealed order by local decrypt…', '');
+  const unsealed = await unsealOrder(envelope);
+  narrate('verify-seal', 'ok', 'decrypted sealed payload', `${unsealed.itemName} x${unsealed.qty}`);
+
+  const receiptPayload = {
+    order_sha: (await sha256hex(new TextEncoder().encode(JSON.stringify(envelope)))).slice(0, 16),
+    custody_head: custody.head,
+    seller: 'SOVEREIGN-MARKET-01',
+    issued_at: new Date().toISOString()
+  };
+
+  narrate('sign', 'active', 'signing receipt payload with ECDSA P-256…', '');
+  const signature = await signReceipt(receiptPayload);
+  narrate('sign', 'ok', 'receipt signed + verified', signature.verified ? 'verified' : 'failed');
+
+  const packet = {
+    itemName: it.name,
+    qty,
+    total: order.total,
+    envelope,
+    custody,
+    receiptPayload,
+    signature
+  };
+
+  renderOrder(packet);
+  receiptBox.textContent = JSON.stringify({
+    receipt: receiptPayload,
+    signature_b64u: signature.signature,
+    public_jwk: signature.publicJwk,
+    verify: signature.verified
+  }, null, 2);
+
+  return packet;
+}
+
+async function stageHop({ letter, label, inFrame, verifyKey, forceMismatch, transform }){
+  setStage(letter, 'active-stage', 'verifying + attesting + guarded run…', 'running welded checks…', '');
+  const inbound = await verifyFrame(inFrame, verifyKey);
+  const self = await attestSelf(letter.toLowerCase());
+  const live = await runVerifiedCell({
+    base: TRACK,
+    cell: 'extract',
+    fn: 'extract',
+    args: { src: SRC, path: 'bitcoin.usd' },
+    onStep: stageOnStep(letter.toLowerCase()),
+    forceMismatch
+  });
+
+  const payload = transform(inbound, self, live);
+  const frame = await makeFrame(payload);
+  narrate(`${letter.toLowerCase()}-emit`, 'ok', `${label}: emitted frame`, `sha8 ${frame.sha8}`);
+  setStage(letter, 'ok-stage', 'emitted', `<b>${label}</b><br>${payload.note}`, `in ${inFrame.sha8} · self ${self.short} · out ${frame.sha8}`);
+  await delay(250);
+  return frame;
+}
+
+async function runSovereignHandoff({ corruptFrame, forceMismatch }){
+  stepsEl.innerHTML = '';
+  goBtn.disabled = true;
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">running…</span>';
+  ['A','B','C'].forEach(l => setStage(l, '', 'idle', '<span style="color:var(--faint)">—</span>', ''));
+  setVtag('vtAB', '', 'B verifies A before forwarding');
+  setVtag('vtBC', '', 'C verifies B before final custody');
+  let activeStage = 'A';
+
+  try {
+    const notarized = await mintNotarizedOrder();
+    const genesis = await makeFrame({ stage:'GENESIS', notarized, note:'sealed+custody+signed packet minted', at:new Date().toISOString() });
+    narrate('genesis', 'ok', 'genesis frame created from notarized packet', `sha8 ${genesis.sha8}`);
+
+    const frameA = await stageHop({
+      letter: 'A',
+      label: 'Stage A · Intake Agent',
+      inFrame: genesis,
+      verifyKey: 'a-verify-in',
+      forceMismatch,
+      transform: (seed, self, live) => ({
+        stage: 'A',
+        from: seed.stage,
+        notarized: seed.notarized,
+        relay_stamp: { by:'A', btc_usd:Number(live.value), self_sha8:self.short },
+        note: `A verified genesis ${genesis.sha8}, attested self ${self.short}, forwarding notarized order`,
+        at: new Date().toISOString()
+      })
+    });
+
+    setVtag('vtAB', 'vok', `✓ A verified+attested · frame ${frameA.sha8}`);
+
+    activeStage = 'B';
+    const frameB = await stageHop({
+      letter: 'B',
+      label: 'Stage B · Transit Agent',
+      inFrame: frameA,
+      verifyKey: 'b-verify-a',
+      forceMismatch,
+      transform: (prev, self, live) => ({
+        stage: 'B',
+        from: prev.stage,
+        notarized: prev.notarized,
+        relay_stamp: { by:'B', btc_usd:Number(live.value), self_sha8:self.short, input_sha8:frameA.sha8 },
+        note: `B verified A(${frameA.sha8}), attested self ${self.short}, preserved receipt+custody payload`,
+        at: new Date().toISOString()
+      })
+    });
+
+    setVtag('vtBC', 'vok', `✓ B verified+attested · frame ${frameB.sha8}`);
+
+    let inboundC = frameB;
+    if (corruptFrame) {
+      const tampered = frameB.bytes.slice(0);
+      tampered[3] ^= 0xff;
+      inboundC = { payload: frameB.payload, bytes: tampered, sha8: frameB.sha8 };
+      narrate('c-tamper', 'bad', '⚠ one byte flipped in B→C transit', 'mismatch will be caught at C verify');
+      setVtag('vtBC', 'vbad', '⚠ B→C transit byte flipped');
+    }
+
+    activeStage = 'C';
+    const frameC = await stageHop({
+      letter: 'C',
+      label: 'Stage C · Sovereign Receiver',
+      inFrame: inboundC,
+      verifyKey: 'c-verify-b',
+      forceMismatch,
+      transform: (prev, self, live) => ({
+        stage: 'C',
+        from: prev.stage,
+        notarized: prev.notarized,
+        relay_stamp: { by:'C', btc_usd:Number(live.value), self_sha8:self.short, input_sha8:frameB.sha8 },
+        final_proof: {
+          custody_head: prev.notarized.custody.head,
+          order_sha: prev.notarized.receiptPayload.order_sha,
+          seller_signed: prev.notarized.signature.verified
+        },
+        note: `C verified B(${frameB.sha8}), attested self ${self.short}, accepted sovereign handoff intact`,
+        at: new Date().toISOString()
+      })
+    });
+
+    out.innerHTML =
+      `<div><span class="big" style="font-size:22px">🧬 Sovereign handoff complete</span></div>` +
+      `<div class="mono" style="margin-top:8px;color:var(--good)">genesis(${genesis.sha8}) → A(${frameA.sha8}) → B(${frameB.sha8}) → C(${frameC.sha8})</div>` +
+      `<div class="mono" style="margin-top:4px;color:var(--muted)">sealed ${notarized.envelope.schema} · custody ${notarized.custody.head} · signature verified ${notarized.signature.verified ? 'true' : 'false'}</div>`;
+  } catch (e) {
+    if (e.refused) {
+      setStage(activeStage, 'bad-stage', 'refused', '<span style="color:var(--bad)">REFUSED — tampered byte detected before continuing.</span>', 'relay halted');
+      if (activeStage !== 'C') setStage('C', 'bad-stage', 'did not run', '<span style="color:var(--bad)">Relay stopped before this stage.</span>', 'upstream refused');
+      out.innerHTML =
+        `<div><span class="big" style="color:var(--bad)">REFUSED</span></div>` +
+        `<div class="mono" style="margin-top:6px;color:var(--bad)">${e.got ? `${e.got} ≠ pinned ${e.want}` : 'verify-before-exec refused'} · sovereign handoff halted before propagation.</div>`;
+    } else {
+      out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.message || e}</span>`;
+    }
+  } finally {
+    goBtn.disabled = false;
+  }
+}
+
+goBtn.onclick = () => runSovereignHandoff({ corruptFrame: corruptChk.checked, forceMismatch: tamperChk.checked });
+hydrateStock();
+</script>
+</body></html>
