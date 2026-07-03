@@ -1,0 +1,17 @@
+{
+  "slug": "the-paper-that-boots-python",
+  "channel": "wildcard",
+  "rank": 2,
+  "emoji": "🐍",
+  "title": "The Paper That Boots Python",
+  "tagline": "A printed square makes any phone cold-boot real Python in two seconds.",
+  "holy_shit": "A square of ink makes any phone run real CPython in two seconds — no App Store, no server — and the code is hash-verified before it executes.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["pyodide", "wasm", "qr", "no-install"],
+  "primitives": ["/vbrainstem-cell", "/track"],
+  "powered_by": "/vbrainstem-cell (CPython 3.12 boots headless in a sandboxed iframe)",
+  "agent_scenario": "When you need a full language runtime on a device with nothing installed, delivered by a scannable trigger.",
+  "author": "kody-w + Claude",
+  "created": "2026-07-03"
+}

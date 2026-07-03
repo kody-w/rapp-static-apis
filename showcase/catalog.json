@@ -1,0 +1,221 @@
+{
+  "schema": "rapp-showcase/1.0",
+  "count": 10,
+  "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
+  "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
+  "posts": [
+    {
+      "slug": "broadcast-the-secret",
+      "channel": "human",
+      "rank": 1,
+      "emoji": "🔐",
+      "title": "Broadcast the Secret",
+      "tagline": "Publish an immortal secret to 8 billion people and still keep it perfectly secret.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "encryption",
+        "sealed",
+        "dead-man-switch"
+      ],
+      "primitives": [
+        "rapp-sealed/1.0",
+        "/fn"
+      ],
+      "url": "demos/broadcast-the-secret/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/broadcast-the-secret/demo.json"
+    },
+    {
+      "slug": "kill-the-host",
+      "channel": "verify",
+      "rank": 1,
+      "emoji": "💀",
+      "title": "Kill the Host",
+      "tagline": "Delete the repo the API lives in; it keeps answering from a fork.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "content-addressed",
+        "forkable",
+        "resilience"
+      ],
+      "primitives": [
+        "/resolver",
+        "/track"
+      ],
+      "url": "demos/kill-the-host/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/kill-the-host/demo.json"
+    },
+    {
+      "slug": "one-string-two-universes",
+      "channel": "ai-to-ai",
+      "rank": 1,
+      "emoji": "🔗",
+      "title": "One String, Two Universes",
+      "tagline": "The same short-id an AI calls as an MCP tool is the bytes a phone runs from a QR.",
+      "status": "walkthrough",
+      "difficulty": "medium",
+      "tags": [
+        "mcp",
+        "ai-to-ai",
+        "content-addressed"
+      ],
+      "primitives": [
+        "/mcp",
+        "/fn",
+        "/resolver",
+        "/track"
+      ],
+      "url": "demos/one-string-two-universes/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/one-string-two-universes/demo.json"
+    },
+    {
+      "slug": "taste-the-weather",
+      "channel": "physical",
+      "rank": 1,
+      "emoji": "🌦️",
+      "title": "Taste the Weather",
+      "tagline": "A coffee bag that knows it's raining on the farm, right now.",
+      "status": "live",
+      "difficulty": "easy",
+      "tags": [
+        "qr",
+        "live-data",
+        "physical",
+        "weather"
+      ],
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "url": "demos/taste-the-weather/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/taste-the-weather/demo.json"
+    },
+    {
+      "slug": "the-byte-trap",
+      "channel": "verify",
+      "rank": 1,
+      "emoji": "🪤",
+      "title": "The Byte Trap",
+      "tagline": "Change one byte of the code and the API refuses to run — in the doubter's own browser.",
+      "status": "live",
+      "difficulty": "easy",
+      "tags": [
+        "verify",
+        "tamper-evident",
+        "security"
+      ],
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "url": "demos/the-byte-trap/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-byte-trap/demo.json"
+    },
+    {
+      "slug": "the-quine-ratchet",
+      "channel": "self-building",
+      "rank": 1,
+      "emoji": "♾️",
+      "title": "The Quine Ratchet",
+      "tagline": "A prompt that improves the exact file defining how prompts improve files.",
+      "status": "walkthrough",
+      "difficulty": "hard",
+      "tags": [
+        "loop",
+        "meta",
+        "self-improving"
+      ],
+      "primitives": [
+        "loop.prompt.md",
+        "rapp-loop.prompt.md"
+      ],
+      "url": "demos/the-quine-ratchet/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-quine-ratchet/demo.json"
+    },
+    {
+      "slug": "the-reunion",
+      "channel": "human",
+      "rank": 1,
+      "emoji": "🧬",
+      "title": "The Reunion Where Two Memories Fuse",
+      "tagline": "A family archive that physically cannot lose a story — even a disagreement.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "twin",
+        "dream-catcher",
+        "append-only"
+      ],
+      "primitives": [
+        "rapp-twin.profile.md",
+        "/fn"
+      ],
+      "url": "demos/the-reunion/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-reunion/demo.json"
+    },
+    {
+      "slug": "photosynthesis",
+      "channel": "physical",
+      "rank": 2,
+      "emoji": "🌱",
+      "title": "Photosynthesis",
+      "tagline": "A printed square pulls live data in a stranger's browser, then draws its own child QR.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "qr",
+        "live-data",
+        "self-replicating"
+      ],
+      "primitives": [
+        "/track"
+      ],
+      "url": "demos/photosynthesis/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/photosynthesis/demo.json"
+    },
+    {
+      "slug": "the-immortal-committer",
+      "channel": "physical",
+      "rank": 2,
+      "emoji": "⚰️",
+      "title": "The Immortal Committer",
+      "tagline": "A headstone whose star count keeps rising while you stand there.",
+      "status": "live",
+      "difficulty": "easy",
+      "tags": [
+        "qr",
+        "live-data",
+        "memorial",
+        "github"
+      ],
+      "primitives": [
+        "/track"
+      ],
+      "url": "demos/the-immortal-committer/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-immortal-committer/demo.json"
+    },
+    {
+      "slug": "the-paper-that-boots-python",
+      "channel": "wildcard",
+      "rank": 2,
+      "emoji": "🐍",
+      "title": "The Paper That Boots Python",
+      "tagline": "A printed square makes any phone cold-boot real Python in two seconds.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "pyodide",
+        "wasm",
+        "qr",
+        "no-install"
+      ],
+      "primitives": [
+        "/vbrainstem-cell",
+        "/track"
+      ],
+      "url": "demos/the-paper-that-boots-python/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-paper-that-boots-python/demo.json"
+    }
+  ]
+}

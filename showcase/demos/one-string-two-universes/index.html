@@ -1,0 +1,156 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>One String, Two Universes — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🔗</div>
+    <h1 id="title">One String, Two Universes</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>The one string</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">One content-address — <code>kody-w/fn@ce06d0379462</code> — names an exact 2,417-byte compute cell. An AI dereferences it as an <b>MCP tool</b> in Node. A phone dereferences it from a <b>QR</b> in a browser. Neither runtime trusts a host: each fetches the bytes, recomputes SHA-256, and refuses unless it matches the pin. Same string, same bytes, two universes.</p>
+    <pre class="mono" style="margin:0">          ┌───────────────── /resolver ─────────────────┐
+"one string"  kody-w/fn@ce06d0379462   →  owner · name · sha8
+          └──────────────────────┬──────────────────────┘
+                                 │  the one pinned frame (/fn twin cell)
+                 ┌───────────────┴────────────────┐
+        NODE DOOR (/mcp)                   BROWSER DOOR (/track · QR)
+   AI calls ping()/dataverse_search   phone scans → run.html sandbox
+   shim: fetch→verify sha8→import→run  fetch→verify sha8→run (no install)
+                 └────────── verify-before-exec ──────────┘
+              flip one byte → BOTH refuse, same instant</pre>
+  </div>
+
+  <div class="panel">
+    <h2>The browser door — run it live</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">This is the human half, running right here. Press a button and <b>your</b> browser becomes the phone-with-a-QR: it resolves the one string, fetches the pinned <code>/fn twin</code> frame, recomputes its SHA-256 with <code>crypto.subtle</code>, refuses on any mismatch, imports the exact verified bytes, and runs the export — <b>the identical frame the MCP tool invokes in Node.</b></p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+      <button class="run" id="ping">🔗 ping — open the browser door</button>
+      <button class="run ghost" id="search">🔎 dataverse_search — live data</button>
+      <button class="run ghost" id="tamper">🪤 corrupt one byte</button>
+    </div>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press a button —</span></div>
+    <h2 style="margin-top:18px">Watch both doors do the same thing</h2>
+    <ul class="steps" id="steps"></ul>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:10px 0 0">Status is <b>walkthrough</b> because the AI's door runs in Node (below), not the browser — but the frame you just verified <b>is byte-for-byte the one the shim runs</b>.</p>
+  </div>
+
+  <div class="panel">
+    <h2>The Node door — what the AI runs (MCP)</h2>
+    <p style="margin:0 0 10px;color:var(--muted)">Point Claude Desktop / Cursor / the Copilot CLI at the shipped static-MCP shim. It carries zero per-tool logic — it reads a static catalog and, on every <code>tools/call</code>, does the same verify-before-exec you just watched:</p>
+    <pre class="mono" style="margin:0 0 10px">{ "mcpServers": { "rapp": { "command": "node", "args": [
+    "shim.mjs", "--catalog",
+    "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/mcp/tools.json" ] } } }</pre>
+    <p style="margin:0 0 10px;color:var(--muted)">The catalog binds the <code>ping</code> tool to the <b>same</b> frame the browser door ran:</p>
+    <pre class="mono" style="margin:0 0 10px">"ping": { "cell": "twin", "export": "echo",
+          "sha8": "ce06d0379462",
+          "pin_path": "versions/twin/ce06d0379462.mjs" }</pre>
+    <p style="margin:0 0 10px;color:var(--muted)">And the shim's verify line is the Node twin of <code>runVerifiedCell</code>'s hash check — refuse first, run second:</p>
+    <pre class="mono" style="margin:0">const got = createHash("sha256").update(bytes).digest("hex").slice(0,12);
+if (got !== b.sha8)
+  throw new Error(`verify-before-exec FAILED for ${name}: ${got} != pinned ${b.sha8}`);
+const mod = await import("data:text/javascript;base64," + …);   // exact verified bytes
+return await mod[b.export](args);</pre>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>Trust normally comes from <i>where</i> code runs — a server you log into, a vendor you pay, an app store that vetted the binary. Here trust comes from <b>what the bytes hash to</b>, so it survives crossing between worlds that share nothing else. An autonomous agent with no screen and a stranger's phone with no account reach for the <b>same short string</b>, pull the <b>same bytes</b>, and get the <b>same proof</b> — one in Node over stdin, one in a browser sandbox from a scan. Nothing in the middle can lie to just one of them: corrupt the frame in a fork and the Node shim throws <code>verify-before-exec FAILED</code> while the browser throws <code>refused:true</code>, at the same instant, for the same 12 hex characters. Capability becomes a coordinate, not a location.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li><b>The AI door.</b> Drop the config above into your MCP host and restart it. Ask it to call <code>ping({message:"hi"})</code> — the round trip comes back verified — then <code>dataverse_search({q:"RAPP"})</code>, which runs the same frame's <code>live()</code> export and fetches the static Dataverse twin from inside the sandbox.</li>
+      <li><b>The human door.</b> Open <a href="../../../track/">/track</a>, point a spec at a pinned cell, hit <b>Make QR</b> (the zero-dependency encoder in <code>qr.mjs</code>). Scanning it loads <code>run.html</code>, which verifies the <code>sha8</code> inside a sandboxed iframe before it runs — the exact same verify-before-exec, triggered by a camera instead of a tool call. Print it anywhere.</li>
+      <li><b>The address.</b> Both doors dereference the one string through <a href="../../../resolver/rapp-resolve.mjs">/resolver</a> — <code>expand("kody-w/fn@ce06d0379462")</code> supplies the host so no human ever types it.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/one-string-two-universes/</code> (crypto.subtle needs a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+import { expand } from '../../../resolver/rapp-resolve.mjs';
+
+// header from the record (single source of truth)
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+// The one string, and the shared frame both doors verify. /fn twin @ ce06d0379462 is exactly
+// what the shipped /mcp catalog binds ping (echo) and dataverse_search (live) to.
+const FN = '../../../fn';
+const PIN = 'ce06d0379462';
+const out = document.getElementById('out');
+const stepsEl = document.getElementById('steps');
+const narrate = mkNarrator(stepsEl);
+
+async function openDoor(action) {
+  stepsEl.innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">running…</span>';
+  try {
+    // /resolver: one string -> owner · name · sha8 (the host is filled in for you)
+    const r = expand('kody-w/fn@' + PIN);
+    narrate('resolve', 'ok', `one string → ${r.owner}/${r.name} @ ${r.sha8}`, 'resolver supplies the host');
+
+    if (action === 'tamper') {
+      // simulate a single flipped byte in a fork — same check the Node shim runs, in the browser
+      await runVerifiedCell({ base: FN, cell: 'twin', fn: 'echo',
+        args: { message: 'from the browser door' }, onStep: narrate, forceMismatch: true });
+      return; // unreachable: forceMismatch throws {refused:true}
+    }
+
+    if (action === 'search') {
+      const res = await runVerifiedCell({ base: FN, cell: 'twin', fn: 'live', args: { q: '' }, onStep: narrate });
+      out.innerHTML =
+        `<div><span class="big">${res.matched}</span> <span style="color:var(--muted)">/ ${res.total} live accounts</span></div>` +
+        `<div class="mono" style="margin-top:6px;color:var(--muted)">${(res.names || []).join(' · ') || '—'}</div>` +
+        `<div class="mono" style="margin-top:4px;color:var(--faint)">this is the shipped <code>dataverse_search</code> MCP tool — same frame ${PIN}, fetched the static twin inside your browser</div>`;
+      return;
+    }
+
+    // action === 'ping' : the exact frame + export an AI calls as ping()
+    const res = await runVerifiedCell({ base: FN, cell: 'twin', fn: 'echo',
+      args: { message: 'from the browser door' }, onStep: narrate });
+    const msg = res && res.echoed ? (res.echoed.message ?? JSON.stringify(res.echoed)) : '—';
+    out.innerHTML =
+      `<div><span class="big">✓ round-trip</span></div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--muted)">echo returned <b style="color:var(--accent-2)">${msg}</b> · verified <b>${PIN}</b> · ran on your device</div>` +
+      `<div class="mono" style="margin-top:4px;color:var(--faint)">byte-for-byte identical to <code>ping({message:"…"})</code> an AI calls over MCP — Node vs browser, one frame</div>`;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused
+      ? `verify-before-exec REFUSED (got ${e.got} ≠ pinned ${e.want}) — the same check the Node shim runs`
+      : (e.message || e)}</span>`;
+  }
+}
+
+document.getElementById('ping').onclick = () => openDoor('ping');
+document.getElementById('search').onclick = () => openDoor('search');
+document.getElementById('tamper').onclick = () => openDoor('tamper');
+</script>
+</body></html>

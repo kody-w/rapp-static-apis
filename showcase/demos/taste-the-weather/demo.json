@@ -1,0 +1,17 @@
+{
+  "slug": "taste-the-weather",
+  "channel": "physical",
+  "rank": 1,
+  "emoji": "🌦️",
+  "title": "Taste the Weather",
+  "tagline": "A coffee bag that knows it's raining on the farm, right now.",
+  "holy_shit": "The dead bag in your hand knows it's raining on the hillside your beans grew on — this exact second, 3,000 miles away.",
+  "status": "live",
+  "difficulty": "easy",
+  "tags": ["qr", "live-data", "physical", "weather"],
+  "primitives": ["/track", "/fn"],
+  "powered_by": "/track extract cell + Open-Meteo, hash-verified and rendered entirely in the scanner's browser",
+  "agent_scenario": "When you need: live external data rendered client-side from a scannable/shareable trigger, with no backend and a tamper-proof compute step.",
+  "author": "kody-w + Claude",
+  "created": "2026-07-03"
+}

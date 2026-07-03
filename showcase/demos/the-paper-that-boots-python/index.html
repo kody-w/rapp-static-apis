@@ -1,0 +1,186 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Paper That Boots Python — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🐍</div>
+    <h1 id="title">The Paper That Boots Python</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 10px;color:var(--muted)">This page holds no runtime. Press the button and <b>your own device</b>
+    decodes a base64 Python payload out of a printed square, re-checks its SHA-256 against the pin baked beside it
+    (refusing to run a single altered byte), then <b>cold-boots real CPython 3.12</b> (Pyodide / WebAssembly) headless
+    inside a sandboxed, opaque-origin iframe — and runs the code. No App Store, no install, no server.</p>
+    <p class="mono" style="font-size:12px;color:var(--warn);margin:0 0 14px">⚠ first boot downloads ~10&nbsp;MB of Pyodide from a CDN and takes a few seconds. Needs a network + a secure context (localhost or https). It caches after the first run.</p>
+
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px">
+      <button class="run" id="go">🐍 Boot Python from the square</button>
+      <label class="mono" style="font-size:12px;color:var(--faint);display:flex;gap:6px;align-items:center;cursor:pointer">
+        <input type="checkbox" id="tamper"> tamper: rewrite the square (flip 101→102)
+      </label>
+    </div>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0 0 12px">the square encodes: <code id="payload"></code></p>
+
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>A printed square has no CPU, no OS, no battery, no network. Yet the instant a phone points at it, <b>the phone
+    becomes the computer</b>: it reads a tiny base64 program out of the ink, <b>proves the program wasn't tampered
+    with</b> (its SHA-256 must match the pin printed beside it, or it refuses), and then <b>boots an entire language
+    runtime</b> — CPython 3.12, compiled to WebAssembly — inside a sandboxed iframe that can't touch your DOM, cookies,
+    or storage. Two seconds later real Python is running code that lived only as ink. Nothing was installed. No app
+    store approved it. No server is paying to keep it alive. Swap the payload and the same square ships any Python
+    program — a calculator, a parser, a whole agent — to any device on Earth, forever.</p>
+    <p style="margin-bottom:0">The verify step is not decoration. Press <b>tamper</b> above and watch: the moment a
+    byte of the payload is rewritten, the recomputed hash no longer matches the pin, and CPython <b>never boots</b>.
+    Your phone refused — no server told it to.</p>
+  </div>
+
+  <div class="panel">
+    <h2>The pattern · QR carries base64 Python + its pin</h2>
+    <p style="color:var(--muted);margin-top:0">The square is a <a href="../../../track/">/track</a>-style trigger: instead of
+    a URL it carries a <code>&lt;code&gt;#&lt;sha256&gt;</code> pair. The scanner page (this one) does the honest work:</p>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li><b>decode</b> — base64 → the exact Python source bytes.</li>
+      <li><b>verify</b> — recompute SHA-256 in the browser (<code>crypto.subtle</code>, via the shared lib's <code>sha256hex</code>) and compare to the pin. Mismatch ⇒ refuse, before anything runs.</li>
+      <li><b>boot</b> — hand the sandboxed <a href="../../../vbrainstem-cell/">/vbrainstem-cell</a> iframe the <code>vbs-init</code> handshake; it loads Pyodide and cold-boots CPython 3.12.</li>
+      <li><b>eval</b> — pass the verified source over a private <code>MessagePort</code>; CPython runs it and returns stdout.</li>
+    </ol>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0 0 10px;padding-left:20px;color:var(--muted)">
+      <li>Open the raw runtime at <a href="../../../vbrainstem-cell/">/vbrainstem-cell</a> — the same sandbox this page embeds — and type any Python into its <code>eval</code> box.</li>
+      <li>Encode your own program with <code>btoa("print('hi')")</code>, pin it with its SHA-256, and print the pair as a QR with <a href="../../../track/">/track</a>'s zero-dependency encoder.</li>
+      <li>Anyone who scans it boots the same verified CPython in their own browser. Free, global, forever.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-paper-that-boots-python/</code> (Pyodide + <code>crypto.subtle</code> need a secure context and a network — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">The same sandbox runs <b>RAR agents</b> with verify-before-exec (<code>op:'run'</code>): fetch the agent source → SHA-256 → match RAR's pinned <code>_sha256</code> → refuse on mismatch → <code>exec</code> in CPython. A scannable trigger can therefore ship a whole, tamper-checked agent runtime to a device with nothing installed.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { sha256hex, mkNarrator } from '../../lib/showcase.js';
+
+// ---- header from the record (single source of truth) ----
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+// ---- what the printed square carries: base64 Python + its pinned SHA-256 ----
+const QR_B64 = 'cHJpbnQoc3VtKHJhbmdlKDEsMTAxKSkp';                                    // btoa("print(sum(range(1,101)))")
+const PIN    = 'a3ad03ad91ed32d249053888c196c21116484fdc26e3f37606328ca40802b1ea';   // sha256 of those exact bytes
+document.getElementById('payload').textContent = QR_B64;
+
+// ---- the sandboxed CPython cell: embed /vbrainstem-cell/sandbox.html, do the vbs-init handshake ----
+const VBS_SRC = '../../../vbrainstem-cell/sandbox.html';
+let vbs = null; // cached booted runtime {runtime, op} — boot once, reuse across clicks
+
+function bootVbrainstem() {
+  return new Promise((resolve, reject) => {
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.setAttribute('aria-hidden', 'true');
+    iframe.setAttribute('sandbox', 'allow-scripts'); // opaque origin: no host DOM/cookies/storage
+    const pending = new Map(); let nid = 1, port, started = false;
+    iframe.addEventListener('load', () => {
+      if (started) return; started = true;           // ignore any spurious initial load
+      const ch = new MessageChannel(); port = ch.port1;
+      port.onmessage = (e) => {
+        const d = e.data || {};
+        if ('booted' in d) {                          // CPython is up
+          const op = (msg) => new Promise((res, rej) => {
+            const id = nid++; pending.set(id, { res, rej }); port.postMessage({ id, ...msg });
+          });
+          resolve({ runtime: d.runtime, op });
+          return;
+        }
+        if ('boot_error' in d) { reject(new Error(d.boot_error)); return; }
+        if (d.ready) return;
+        const p = pending.get(d.id); if (!p) return; pending.delete(d.id);
+        d.ok ? p.res(d.result) : p.rej(new Error(d.error)); // {id, ok, result|error}
+      };
+      iframe.contentWindow.postMessage('vbs-init', '*', [ch.port2]); // hand it the private port
+    });
+    iframe.src = VBS_SRC;
+    document.body.appendChild(iframe);
+  });
+}
+
+// ---- the live run: decode → verify → boot → eval ----
+const out = document.getElementById('out');
+const narrate = mkNarrator(document.getElementById('steps'));
+
+document.getElementById('go').onclick = async () => {
+  document.getElementById('steps').innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">working…</span>';
+  const tamper = document.getElementById('tamper').checked;
+  try {
+    // 1) decode the base64 Python out of the square
+    narrate('decode', 'active', 'decode the square’s base64 Python payload', QR_B64);
+    let source = atob(QR_B64);                                   // → print(sum(range(1,101)))
+    if (tamper) source = source.replace('101', '102');           // an attacker rewrites the ink
+    narrate('decode', 'ok', 'recovered the source', source);
+
+    // 2) verify-before-exec: recompute SHA-256 of the exact bytes, refuse on any mismatch
+    narrate('verify', 'active', 'recompute SHA-256 in your browser (crypto.subtle)…', '');
+    const got = await sha256hex(new TextEncoder().encode(source));
+    if (got !== PIN) {
+      narrate('verify', 'bad', `✗ ${got.slice(0, 12)} ≠ pinned ${PIN.slice(0, 12)}`, 'REFUSED');
+      narrate('boot', 'bad', 'verify-before-exec REFUSED — CPython never booted', 'no server said no — your own device did');
+      throw Object.assign(new Error('verify-before-exec failed'), { refused: true });
+    }
+    narrate('verify', 'ok', `✓ ${got.slice(0, 12)} matches the pin`, PIN.slice(0, 12));
+
+    // 3) cold-boot real CPython inside the sandboxed iframe (first time only)
+    if (!vbs) {
+      narrate('boot', 'active', 'cold-boot CPython 3.12 (Pyodide/WASM) in a sandboxed iframe…', '~10MB, a few seconds');
+      vbs = await bootVbrainstem();
+    }
+    narrate('boot', 'ok', 'CPython is up, headless, no server', String(vbs.runtime || '').split(' ')[0]);
+
+    // 4) hand the verified code to CPython over the private MessagePort, capture stdout
+    narrate('eval', 'active', 'eval the verified code in real CPython…', source);
+    const r = await vbs.op({ op: 'eval', code: source });
+    const answer = (r.stdout || (r.value == null ? '' : String(r.value))).trim();
+    narrate('eval', 'ok', 'stdout returned from CPython', 'no server touched');
+
+    out.innerHTML =
+      `<div><span class="big">${answer}</span> <span style="color:var(--muted)">← real CPython computed this on your device</span></div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--muted)">${source} · verified ${PIN.slice(0, 12)} · CPython ${String(vbs.runtime || '').split(' ')[0]} · booted from a printed square, no install</div>`;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED — the square was altered, so CPython never ran it' : (e.message || e)}</span>`;
+  }
+};
+</script>
+</body></html>

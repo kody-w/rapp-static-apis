@@ -1,0 +1,150 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kill the Host — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">💀</div>
+    <h1 id="title">Kill the Host</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">The API's true name is a content hash — <code>track@3fe23f859268</code> — not a URL. Press the button: your browser asks <code>/resolver</code> to point that <b>same hash</b> at many owners and hosts (the host lives in <b>one swappable line</b>), then <b>kills the origin</b> and proves the API still answers — by fetching the pinned cell from a <b>surviving mirror</b>, recomputing its SHA-256 on your device, and refusing anything that doesn't match. No server. No single throat to choke.</p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+      <button class="run" id="go">☠️ Kill the origin, answer from a fork</button>
+      <button class="run ghost" id="evil">😈 Have a mirror serve tampered bytes</button>
+    </div>
+    <div class="live-out" id="mirrors" style="margin-bottom:12px"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— the verdict shows here —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>Every API you've ever used dies when its host dies. Change the domain, delete the repo, let the
+    cert lapse — the endpoint is gone and every caller breaks, because the caller trusted a <b>location</b>.
+    Here the caller trusts a <b>hash</b>. <code>track@3fe23f859268</code> names an exact 1,784 bytes of code; the
+    <code>/resolver</code> maps that name onto a host in a single line, so <code>kody-w.github.io</code>,
+    <code>someone-else.github.io</code>, a GitLab mirror, a raw CDN, an IPFS gateway, or the laptop in your bag
+    are all just <i>different doors to the same content</i>. Kill any door. Your browser re-derives the SHA-256
+    from whatever door survives and <b>refuses to run a single altered byte</b> — so you can safely trust an
+    <i>anonymous</i> mirror precisely because you never trusted the host to begin with. The repo can be deleted.
+    The API cannot.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0 0 10px;padding-left:20px;color:var(--muted)">
+      <li>Import <a href="../../../resolver/rapp-resolve.mjs"><code>/resolver</code></a>'s one function: <code>expand('track@3fe23f859268')</code> and <code>expand('anyone-else/track@3fe23f859268')</code> return the <b>same <code>sha8</code></b> from <b>different hosts</b> — the whole trick is that the host is one line.</li>
+      <li>Feed that pin to <code>runVerifiedCell()</code> against <b>any</b> mirror base (this page uses the local <a href="../../../track/"><code>/track</code></a> fork): it fetches the bytes, recomputes SHA-256 in your browser, and <b>throws before running</b> on any mismatch.</li>
+      <li>Fork this repo to your own account. The same <code>demo.json</code> + <code>index.html</code> now answer from <code>you.github.io</code> — same hash, new host, zero code changes.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/kill-the-host/</code> — the surviving mirror answering is literally your machine, not GitHub (<code>crypto.subtle</code> needs a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+import { expand } from '../../../resolver/rapp-resolve.mjs';
+
+// header from the record (single source of truth)
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const TRACK = '../../../track';         // a surviving mirror: served by THIS host, not the origin
+const PIN   = '3fe23f859268';           // the content-address of the extract cell (its true name)
+const ID    = 'track@' + PIN;
+
+// The ONE content id, resolved against many owners + providers. `/resolver` puts the host in one line;
+// the sha8 rides along unchanged. First entry is the "origin" we delete.
+const MIRRORS = [
+  { id: 'track@3fe23f859268',              host: 'github.io', tag: 'origin repo',        fate: 'dead'  },
+  { id: 'someone-else/track@3fe23f859268', host: 'github.io', tag: "a stranger's fork",  fate: 'alive' },
+  { id: 'eu-mirror/track@3fe23f859268',    host: 'gitlab.io', tag: 'GitLab Pages mirror',fate: 'alive' },
+];
+
+const mirrorsEl = document.getElementById('mirrors');
+const out       = document.getElementById('out');
+const stepsEl   = document.getElementById('steps');
+const narrate   = mkNarrator(stepsEl);
+
+function renderMirrors(rows) {
+  mirrorsEl.innerHTML = rows.map(({ m, e }) => {
+    const dead = m.fate === 'dead';
+    const icon = dead ? '☠️' : '🟢';
+    const host = `${e.owner}.${m.host}/${e.name}`;
+    const nameStyle = dead ? 'text-decoration:line-through;color:var(--faint)' : 'color:var(--ink)';
+    return `<div class="mono" style="display:flex;gap:10px;align-items:baseline;padding:4px 0;font-size:13px">
+      <span style="flex:0 0 auto">${icon}</span>
+      <span style="flex:1;min-width:0;${nameStyle};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${host}
+        <span style="color:var(--faint)"> · ${m.tag}</span></span>
+      <span class="pill mono" style="flex:0 0 auto">@${e.sha8}</span>
+    </div>`;
+  }).join('') +
+  `<div class="mono" style="font-size:12px;color:var(--muted);margin-top:8px;border-top:1px solid var(--line);padding-top:8px">
+     one id · ${rows.length} hosts · <b style="color:var(--accent-2)">every sha8 identical</b> — the host is just a swappable prefix</div>`;
+}
+
+async function verifyFromSurvivor({ forceMismatch = false } = {}) {
+  stepsEl.innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">resolving…</span>';
+
+  // 1) Resolve the SAME id against every mirror. Pure function — always works, host in one line.
+  const rows = MIRRORS.map(m => ({ m, e: expand(m.id, { host: m.host }) }));
+  const allSame = rows.every(r => r.e.sha8 === PIN);
+  renderMirrors(rows);
+
+  // 2) The origin is deleted. Prove the API still answers from a surviving mirror — this repo,
+  //    served by a DIFFERENT host than the (dead) origin. runVerifiedCell fetches the pinned bytes,
+  //    recomputes SHA-256 here, and REFUSES anything that isn't exactly 3fe23f859268.
+  try {
+    if (!allSame) throw new Error('resolver produced differing hashes');
+    const res = await runVerifiedCell({
+      base: TRACK, cell: 'extract', fn: 'echo',
+      args: { ping: 'origin is dead — are you still there?', id: ID },
+      onStep: narrate, forceMismatch,
+    });
+    out.innerHTML =
+      `<div><span class="big" style="color:var(--good)">still answering ✓</span></div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--muted)">origin <span style="text-decoration:line-through">kody-w.github.io/track</span> is gone — this response came from a different host, and your browser re-derived <b style="color:var(--accent-2)">${PIN}</b> from its bytes. Trust the hash, not the host.</div>` +
+      `<div class="mono" style="margin-top:6px;font-size:12px;color:var(--faint)">cell said: ${JSON.stringify(res.echo)}</div>`;
+  } catch (e) {
+    if (e.refused) {
+      out.innerHTML =
+        `<div><span class="big" style="color:var(--bad)">REFUSED ✗</span></div>` +
+        `<div class="mono" style="margin-top:6px;color:var(--muted)">a surviving mirror served <b>altered</b> bytes — the recomputed hash didn't equal <b>${PIN}</b>, so your own browser refused to run it. No server said no. This is why you can trust <i>any</i> host: a lying one gets caught.</div>`;
+    } else {
+      out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.message || e}</span>`;
+    }
+  }
+}
+
+document.getElementById('go').onclick   = () => verifyFromSurvivor({ forceMismatch: false });
+document.getElementById('evil').onclick = () => verifyFromSurvivor({ forceMismatch: true });
+</script>
+</body></html>

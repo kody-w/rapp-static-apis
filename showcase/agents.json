@@ -1,0 +1,184 @@
+{
+  "schema": "rapp-showcase-agents/1.0",
+  "what": "A Library of Awesome: a growing, static, agent-contributable catalog of buildable use-cases for the RAPP static-API stack.",
+  "how_agents_use_this": "Match a need to a scenario via 'when_to_use', then read its data_url for the record and demo_url for the working page. Contribute new scenarios per llms.txt.",
+  "stack": {
+    "/track": "QR -> hash-verified 'extract' cell runs in the scanner's browser, fetches a free live source, renders one value. No server.",
+    "/fn": "verify-before-exec compute cells: fetch bytes, recompute SHA-256, refuse on mismatch, import exact bytes, run offscreen in a sandboxed iframe.",
+    "/vbrainstem-cell": "an entire CPython 3.12 (Pyodide/WASM) boots headless in an opaque-origin sandboxed iframe. Zero install, no server, no tab.",
+    "/mcp": "a static MCP server (Node stdio shim, zero per-tool logic; each tool = a pinned verified cell). Any LLM speaks to it with no browser.",
+    "/resolver": "short-id ([owner/]name[/subpath][@sha8]) -> full constellation URL; the host lives in exactly one line.",
+    "rapp-twin.profile.md": "the two-sided digital twin (god on-device lead / dog public bones), sealed privacy, Dream Catcher merge — nothing is lost.",
+    "loop.prompt.md": "a paste-over-anything improvement ratchet that discovers its own score and keeps only verified wins."
+  },
+  "channels": [
+    {
+      "slug": "physical",
+      "title": "Physical World",
+      "blurb": "QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.",
+      "count": 3
+    },
+    {
+      "slug": "verify",
+      "title": "Verify-Before-Exec",
+      "blurb": "Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.",
+      "count": 2
+    },
+    {
+      "slug": "ai-to-ai",
+      "title": "Agent to Agent",
+      "blurb": "MCP tools, brainstems as bytecode, signed dead-drops — machines using the stack with no human and no browser.",
+      "count": 1
+    },
+    {
+      "slug": "human",
+      "title": "Human & Personal",
+      "blurb": "Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.",
+      "count": 2
+    },
+    {
+      "slug": "self-building",
+      "title": "Self-Building",
+      "blurb": "The loop, the tumbler, systems that improve and verify themselves — including this library.",
+      "count": 1
+    },
+    {
+      "slug": "wildcard",
+      "title": "Wildcard",
+      "blurb": "The strange stacks that shouldn't work but provably do. Go weird, stay real.",
+      "count": 1
+    }
+  ],
+  "scenarios": [
+    {
+      "slug": "broadcast-the-secret",
+      "channel": "human",
+      "title": "Broadcast the Secret",
+      "when_to_use": "When data must be published to a fully public, permanent store yet remain readable only by a key-holder — privacy as a seal, not a location.",
+      "primitives": [
+        "rapp-sealed/1.0",
+        "/fn"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/broadcast-the-secret/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/broadcast-the-secret/"
+    },
+    {
+      "slug": "kill-the-host",
+      "channel": "verify",
+      "title": "Kill the Host",
+      "when_to_use": "When you need an endpoint that survives its origin being deleted — resolve+verify the same content from any mirror.",
+      "primitives": [
+        "/resolver",
+        "/track"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/kill-the-host/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/kill-the-host/"
+    },
+    {
+      "slug": "one-string-two-universes",
+      "channel": "ai-to-ai",
+      "title": "One String, Two Universes",
+      "when_to_use": "When the same verified capability must be callable by an AI (MCP, no browser) and a human (QR, no install) with identical trust.",
+      "primitives": [
+        "/mcp",
+        "/fn",
+        "/resolver",
+        "/track"
+      ],
+      "status": "walkthrough",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/one-string-two-universes/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/one-string-two-universes/"
+    },
+    {
+      "slug": "taste-the-weather",
+      "channel": "physical",
+      "title": "Taste the Weather",
+      "when_to_use": "When you need: live external data rendered client-side from a scannable/shareable trigger, with no backend and a tamper-proof compute step.",
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/taste-the-weather/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/taste-the-weather/"
+    },
+    {
+      "slug": "the-byte-trap",
+      "channel": "verify",
+      "title": "The Byte Trap",
+      "when_to_use": "When you need to run code fetched from an untrusted host and prove byte-for-byte it wasn't altered before it executes.",
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-byte-trap/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-byte-trap/"
+    },
+    {
+      "slug": "the-quine-ratchet",
+      "channel": "self-building",
+      "title": "The Quine Ratchet",
+      "when_to_use": "When you need a domain-agnostic improvement loop that discovers its own score, keeps only verified gains, and stops itself at genuine human-decision boundaries.",
+      "primitives": [
+        "loop.prompt.md",
+        "rapp-loop.prompt.md"
+      ],
+      "status": "walkthrough",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-quine-ratchet/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-quine-ratchet/"
+    },
+    {
+      "slug": "the-reunion",
+      "channel": "human",
+      "title": "The Reunion Where Two Memories Fuse",
+      "when_to_use": "When two datasets must merge without ever losing or overwriting a record — conflicts preserved as alternate frames, append-only.",
+      "primitives": [
+        "rapp-twin.profile.md",
+        "/fn"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-reunion/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-reunion/"
+    },
+    {
+      "slug": "photosynthesis",
+      "channel": "physical",
+      "title": "Photosynthesis",
+      "when_to_use": "When a client-side artifact should both consume live data and emit a new shareable trigger, with zero backend.",
+      "primitives": [
+        "/track"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/photosynthesis/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/photosynthesis/"
+    },
+    {
+      "slug": "the-immortal-committer",
+      "channel": "physical",
+      "title": "The Immortal Committer",
+      "when_to_use": "When you need a permanent physical marker that renders a live, ever-updating public number with no server to maintain.",
+      "primitives": [
+        "/track"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-immortal-committer/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-immortal-committer/"
+    },
+    {
+      "slug": "the-paper-that-boots-python",
+      "channel": "wildcard",
+      "title": "The Paper That Boots Python",
+      "when_to_use": "When you need a full language runtime on a device with nothing installed, delivered by a scannable trigger.",
+      "primitives": [
+        "/vbrainstem-cell",
+        "/track"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-paper-that-boots-python/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-paper-that-boots-python/"
+    }
+  ]
+}

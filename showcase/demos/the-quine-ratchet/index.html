@@ -1,0 +1,164 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Quine Ratchet — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">♾️</div>
+    <h1 id="title">The Quine Ratchet</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>The self-referential move</h2>
+    <p style="margin:0 0 12px"><code><a href="../../../loop.prompt.md">loop.prompt.md</a></code> is a paste-over-anything improvement ratchet: point it at a file, a repo, a
+    design, a dataset — anything — and it climbs, <b>discovering its own score from whatever it's pasted over</b> so it
+    needs no domain wiring. The whole trick of this post is one sentence long:</p>
+    <pre style="white-space:pre-wrap">point <code>/loop</code> at <code>loop.prompt.md</code> itself.</pre>
+    <p style="margin:12px 0 0;color:var(--muted)">Now the thing being improved <i>is the rule that defines improvement</i>.
+    A file that says "keep only what you can re-prove" gets edited by a pass that must… re-prove itself. It's a quine with a
+    ratchet on it: the definition of climbing, climbing. Nothing here can lie about a win, because the definition of a win is
+    the artifact on the table.</p>
+  </div>
+
+  <div class="panel">
+    <h2>The six phases (unchanged whether the target is a coffee farm or the loop itself)</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li><b>Establish the game</b> — first pass only, written once, carried forever: <span class="mono">WHAT am I improving?</span>
+        (one line) · <span class="mono">what is BETTER here?</span> (2–4 checkable dimensions that actually matter for <i>this</i> thing) ·
+        <span class="mono">what is the SCORE?</span> (the most objective signal the domain already has — or the cheapest check you
+        <i>can</i> repeat). That number is your <b>100</b>.</li>
+      <li><b>Measure first</b> — with the check, record the number. Never self-assess from memory.</li>
+      <li><b>Smallest change</b> — pick exactly <i>one</i> improvement you can fully verify this pass; make the smallest edit that
+        could move the score. One variable, not ten.</li>
+      <li><b>Re-measure</b> — with the <i>same</i> check.</li>
+      <li><b>Keep only verified wins</b> — keep the change only if the number objectively went up <i>and</i> nothing that worked
+        before broke. Didn't move it, or regressed anything? <b>Revert.</b> No "probably better."</li>
+      <li><b>STOP for the human</b> — when beating the score needs a real decision (a trade-off between two goods, a contradiction
+        between sources, an irreversible or load-bearing change), don't force it: log it, ask, move to the next-highest
+        improvement. Climb until you can't beat the score without a human.</li>
+    </ol>
+  </div>
+
+  <div class="panel">
+    <h2>Watch a pass climb <span class="mono" style="font-size:11px;color:var(--faint);text-transform:none;letter-spacing:0">(recorded — an illustrative replay, not live telemetry)</span></h2>
+    <p style="margin:0 0 12px;color:var(--muted)">One honest pass of <code>/loop</code> pointed at <code>loop.prompt.md</code>,
+    rendered through the very same <code>mkNarrator</code> the live demos use. It shows the establish → measure → change →
+    re-measure → keep/revert → halt spine — including a pass that gets <b>reverted</b> because it couldn't be re-proven, and
+    the self-halt at the end.</p>
+    <button class="run" id="go">▶ Replay a recorded pass</button>
+    <ul class="steps" id="steps" style="margin-top:16px"></ul>
+    <div id="verdict" class="mono" style="font-size:13px;color:var(--faint);margin-top:12px"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>Most "self-improving" prompts are a vibe: they claim they got better and you have to believe them. This one <b>cannot</b>,
+    by construction. The score isn't invented — it's discovered in the target's own ground truth, so the loop can't grade its own
+    homework. Pointed at code the score becomes tests; at a design, a screenshot; at prose, a rubric; at the RAPP ecosystem, real
+    drift numbers from its own verifiers (that's <code><a href="../../../rapp-loop.prompt.md">rapp-loop.prompt.md</a></code>, the
+    rock-tumbler — same spine, score = drift count + mirror match + enum coverage + parity). Point that <i>same</i> spine at
+    <code>loop.prompt.md</code> and the score becomes: <i>does a throwaway target still converge to drift 0 under this wording,
+    with no rule broken?</i></p>
+    <p style="margin-top:10px">So the file that defines the ratchet gets tightened <b>only where a re-runnable check says it
+    got tighter</b> — and, most of the honest part, it <b>stops itself</b> at the edits that are genuinely a human's call (is the
+    literal <code>120</code> better than a percentage? that's a trade-off between concreteness and generality — not the loop's to
+    decide). A prompt rewrote the rules of prompt-rewriting, kept only what it could re-prove, and told you exactly where it
+    wasn't allowed to decide for you.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <p style="margin:0 0 10px;color:var(--muted)">Open <code><a href="../../../loop.prompt.md">loop.prompt.md</a></code>, and point
+    its own <code>/loop</code> block at the file it lives in. Paste this to your agent:</p>
+    <pre style="white-space:pre-wrap">/loop Improve whatever you've been pointed at — and what you've been pointed at is THIS
+file, loop.prompt.md, the ratchet itself.
+
+FIRST PASS — establish the game:
+  WHAT:   loop.prompt.md, the generic improvement ratchet.
+  BETTER: (a) a fresh reader runs ONE correct pass from it alone,
+          (b) it STOPS at real human-decision boundaries instead of forcing them,
+          (c) the score-discovery step is unambiguous.
+  SCORE:  paste the candidate wording over a THROWAWAY target (a tiny messy doc, a
+          failing test) and score a 5-point checklist — did it (1) name a real score,
+          (2) make exactly one change, (3) re-measure, (4) keep only the verified win,
+          (5) halt at a genuine human call? "Converged" = the throwaway reaches its own
+          drift 0 with no rule broken. That checklist is your 100.
+
+EACH PASS: measure the checklist first · change ONE clause · re-measure with the SAME
+throwaway · keep only if it objectively went up and nothing regressed, else REVERT · log
+one line. STOP and ask when beating the score needs a real decision; say exactly where.</pre>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Related: <code><a href="../../../rapp-loop.prompt.md">rapp-loop.prompt.md</a></code>
+    is the same loop pointed at the RAPP ecosystem, scored by its own drift tools — the "real drift verifiers" this pattern borrows.</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { mkNarrator } from '../../lib/showcase.js';
+
+// header from the record (single source of truth)
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+// A recorded pass, replayed through the shared narrator. This is an illustrative transcript
+// of one honest /loop pass over loop.prompt.md — presentation only, no live execution.
+const PASS = [
+  { k: 'game',     s: 'ok',     t: 'ESTABLISH — what am I improving?',            d: 'loop.prompt.md itself' },
+  { k: 'dims',     s: 'ok',     t: "BETTER? runs-from-alone · stops-at-the-line · score-is-unambiguous", d: '3 checkable dims' },
+  { k: 'score',    s: 'ok',     t: 'SCORE — paste it over a throwaway target, run a 5-point checklist', d: 'that is the 100' },
+  { k: 'measure',  s: 'active', t: 'MEASURE first, with the check…',              d: '' },
+  { k: 'measure',  s: 'ok',     t: 'measured: throwaway target scores 4/5',       d: 'it forced a human-call instead of halting' },
+  { k: 'pick',     s: 'ok',     t: 'PICK one — the STOP rule is the only ambiguous clause (root cause)', d: '1 change' },
+  { k: 'change',   s: 'active', t: 'SMALLEST change — clarify STOP: "log it and move to the next-highest improvement"', d: '' },
+  { k: 'remeasure',s: 'active', t: 'RE-MEASURE with the SAME check…',             d: '' },
+  { k: 'remeasure',s: 'ok',     t: 're-measured: 5/5 — throwaway target converged to drift 0, halted cleanly', d: 'nothing regressed' },
+  { k: 'keep',     s: 'ok',     t: 'KEEP (verified win) — clarified the STOP rule', d: '100 → 122 · kept' },
+  { k: 'revert',   s: 'active', t: 'next try: add a 6th dimension "elegance"…',   d: '' },
+  { k: 'revert',   s: 'bad',    t: 'REVERT — no objective check for "elegance"; the target started gaming the metric', d: 'unverifiable → reverted, no claim' },
+  { k: 'halt',     s: 'active', t: 'candidate: literal 120 vs a percentage?',     d: '' },
+  { k: 'halt',     s: 'ok',     t: 'STOP for the human — a trade-off between two goods (concreteness vs generality)', d: 'logged · asked · did not decide' },
+  { k: 'done',     s: 'ok',     t: "HALT — can't beat the score without a human", d: 'the file now says where it could not decide for you' },
+];
+
+const ul = document.getElementById('steps');
+const narrate = mkNarrator(ul);
+const verdict = document.getElementById('verdict');
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const go = document.getElementById('go');
+
+go.onclick = async () => {
+  go.disabled = true;
+  ul.innerHTML = '';
+  verdict.textContent = '';
+  for (const step of PASS) {
+    narrate(step.k, step.s, step.t, step.d);
+    await sleep(step.s === 'active' ? 620 : 460);
+  }
+  verdict.innerHTML = '<span style="color:var(--good)">1 verified win kept · 1 unprovable pass reverted · 1 human call surfaced, not forced.</span>';
+  go.disabled = false;
+  go.textContent = '▶ Replay again';
+};
+</script>
+</body></html>

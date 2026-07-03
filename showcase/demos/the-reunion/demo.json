@@ -1,0 +1,17 @@
+{
+  "slug": "the-reunion",
+  "channel": "human",
+  "rank": 1,
+  "emoji": "🧬",
+  "title": "The Reunion Where Two Memories Fuse",
+  "tagline": "A family archive that physically cannot lose a story — even a disagreement.",
+  "holy_shit": "A family archive that physically cannot lose a story — even a disagreement is kept forever as a parallel dimension instead of deleted, and every version is immutable and recoverable.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["twin", "dream-catcher", "append-only"],
+  "primitives": ["rapp-twin.profile.md", "/fn"],
+  "powered_by": "the Dream Catcher merge (append-only; contradictions become alternate frames; NOTHING IS LOST)",
+  "agent_scenario": "When two datasets must merge without ever losing or overwriting a record — conflicts preserved as alternate frames, append-only.",
+  "author": "kody-w + Claude",
+  "created": "2026-07-03"
+}

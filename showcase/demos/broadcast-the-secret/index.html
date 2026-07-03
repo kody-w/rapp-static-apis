@@ -1,0 +1,230 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Broadcast the Secret — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  .field{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
+  .field label{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-family:var(--mono)}
+  .field textarea,.field input{width:100%;background:var(--panel-2);border:1px solid var(--line);border-radius:9px;color:var(--ink);padding:10px 12px;font:inherit;font-size:14px}
+  .field textarea{min-height:74px;resize:vertical;font-family:var(--mono)}
+  .field input{font-family:var(--mono)}
+  .cipher{font-family:var(--mono);font-size:12.5px;word-break:break-all;overflow-wrap:anywhere;color:var(--accent-2);line-height:1.5}
+  .note{font-family:var(--mono);font-size:12px;color:var(--faint);margin:8px 0 0}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🔐</div>
+    <h1 id="title">Broadcast the Secret</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>① Live — seal a secret (run it right now)</h2>
+    <p style="margin:0 0 14px;color:var(--muted)">No server, no upload. Your browser stretches the passphrase into a
+    256-bit key (<code>PBKDF2</code>) and <b>seals</b> the secret with <code>AES-256-GCM</code> — native
+    <code>crypto.subtle</code>, entirely on your device. What comes out is the <b>public immortal file</b>: paste it
+    into a gist, a tweet, a git commit, carve it in stone. It leaks nothing.</p>
+    <div class="field">
+      <label for="secret">the secret (plaintext — stays in this tab)</label>
+      <textarea id="secret" spellcheck="false">Vault: 8-19-77. Grandma — the letters are behind the third brick, left of the fireplace. Sell nothing. I love you.</textarea>
+    </div>
+    <div class="field">
+      <label for="pass1">the seal passphrase (the one paper key)</label>
+      <input id="pass1" type="text" spellcheck="false" value="third-brick-left-of-the-fireplace">
+    </div>
+    <button class="run" id="seal">🔐 Seal &amp; publish</button>
+    <div class="live-out" id="sealOut" style="margin-top:14px"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="sealSteps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>② Live — unseal it (only the key-holder gets in)</h2>
+    <p style="margin:0 0 14px;color:var(--muted)">This is what the whole world sees: the ciphertext, in the open,
+    forever. Give it the right passphrase and it opens — in your browser, no server asked. <b>Change one character of
+    the passphrase</b> and the <code>AES-GCM</code> auth tag fails: the seal <b>refuses</b>. The math says no, not a host.</p>
+    <div class="field">
+      <label for="sealed">the public immortal file (base64 — auto-filled from ① above; or paste your own)</label>
+      <textarea id="sealed" spellcheck="false" placeholder="seal something above, or paste an RSL1 base64 file here…"></textarea>
+    </div>
+    <div class="field">
+      <label for="pass2">your passphrase (try the wrong one — watch it refuse)</label>
+      <input id="pass2" type="text" spellcheck="false" placeholder="paste the same passphrase to open it">
+    </div>
+    <button class="run" id="unseal">🔓 Unseal it</button>
+    <div class="live-out" id="unsealOut" style="margin-top:14px"><span class="mono" style="color:var(--faint)">— seal something first, then unseal —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="unsealSteps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>Every other "private" thing you own is private because of <b>where</b> it lives — behind a login, on a server,
+    in an app that can be shut down, breached, or told to hand it over. This one is private because of a <b>seal</b>, not
+    a place. The ciphertext is math: publish it to eight billion people and it still reveals nothing — not the secret, not
+    its length beyond a few bytes, not even whether you changed it between two seals (fresh random salt + nonce every time,
+    so the same secret encrypts to totally different bytes).</p>
+    <p style="margin:12px 0 0">That flips the economics of a <b>dead-man's switch</b>. You don't pay a service to hold your
+    secret until you're gone; you publish the sealed file everywhere <i>now</i> — cheap, redundant, un-deletable — and the
+    only thing that has to survive is the <b>key</b>: a passphrase in a will, a QR on paper in a safe-deposit box, a line
+    memorized by one person. The day the key surfaces, the secret opens. Until then it's immortal and invisible, with
+    nothing left running and nothing left to pay for. That refusal you can trigger above is the confidentiality twin of
+    <code>/fn</code>'s verify-before-exec: integrity proves the bytes weren't changed; the seal proves only a key-holder can
+    read them. Two independent planes, both enforced in your own browser, both server-free.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0 0 10px;padding-left:20px;color:var(--muted)">
+      <li>Type a real secret and a passphrase in ①, hit <b>Seal &amp; publish</b>, and copy the base64 that appears — that string is safe to post literally anywhere.</li>
+      <li>In ②, keep the auto-filled ciphertext, type the passphrase, and <b>Unseal</b>. Then flip one character of the passphrase and watch the seal <b>refuse</b>.</li>
+      <li>The envelope is a tiny self-describing format — magic <code>RSL1</code> · 16-byte salt · 12-byte nonce · <code>AES-256-GCM</code> ciphertext+tag — so any RSL1 reader (browser, agent, CLI) can open it with the key alone.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/broadcast-the-secret/</code> (crypto.subtle needs a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Compose it: publish an <code>rapp-sealed/1.0</code> envelope to any fully-public, permanent store (a repo, a content-store, IPFS) and gate reads by key-possession alone — confidentiality as a seal, not a location. It sits orthogonal to <code>/fn</code> verify-before-exec (integrity): a payload can be sealed <i>and</i> hash-pinned, and either check can refuse independently, both in the client.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { mkNarrator } from '../../lib/showcase.js';
+
+// header from the record (single source of truth) — same pattern as demos/taste-the-weather/
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+// --- rapp-sealed/1.0 envelope, implemented on native WebCrypto (nothing shipped but the browser) ---
+const enc = new TextEncoder(), dec = new TextDecoder();
+const MAGIC = 'RSL1', ITER = 250000;              // PBKDF2-HMAC-SHA-256 rounds
+const HEADER = 4 + 16 + 12;                        // magic + salt + nonce
+
+const b64 = (bytes) => {              // Uint8Array -> base64 (chunked so big secrets don't blow the stack)
+  let s = '';
+  for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(s);
+};
+const unb64 = (str) => {              // base64 -> Uint8Array
+  const s = atob(str.replace(/\s+/g, ''));
+  const out = new Uint8Array(s.length);
+  for (let i = 0; i < s.length; i++) out[i] = s.charCodeAt(i);
+  return out;
+};
+async function deriveKey(passphrase, salt) {
+  const base = await crypto.subtle.importKey('raw', enc.encode(passphrase), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt, iterations: ITER, hash: 'SHA-256' },
+    base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+}
+
+async function seal(plaintext, passphrase, onStep) {
+  onStep('salt', 'active', 'roll a random 16-byte salt (crypto.getRandomValues)…', '');
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  onStep('salt', 'ok', 'random salt', b64(salt).slice(0, 16) + '…');
+  onStep('key', 'active', `stretch the passphrase → 256-bit key (PBKDF2·SHA-256·${ITER.toLocaleString()} rounds)…`, '');
+  const key = await deriveKey(passphrase, salt);
+  onStep('key', 'ok', 'AES-256 key derived — never leaves this tab', 'key-possession is the only gate');
+  onStep('nonce', 'active', 'roll a random 12-byte nonce…', '');
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  onStep('nonce', 'ok', 'random nonce', b64(iv));
+  onStep('enc', 'active', 'AES-256-GCM encrypt (+128-bit auth tag)…', '');
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, enc.encode(plaintext)));
+  onStep('enc', 'ok', 'sealed — ciphertext + auth tag', ct.length + ' bytes');
+  onStep('pack', 'active', 'pack the RSL1 envelope → base64…', '');
+  const env = new Uint8Array(HEADER + ct.length);
+  env.set(enc.encode(MAGIC), 0); env.set(salt, 4); env.set(iv, 20); env.set(ct, 32);
+  const file = b64(env);
+  onStep('pack', 'ok', 'the public immortal file is ready', file.length + ' chars · safe to publish anywhere');
+  return file;
+}
+
+async function unseal(file, passphrase, onStep) {
+  onStep('dec64', 'active', 'base64-decode the published file…', '');
+  const env = unb64(file);
+  if (env.length < HEADER || String.fromCharCode.apply(null, env.subarray(0, 4)) !== MAGIC) {
+    onStep('dec64', 'bad', 'not an RSL1 sealed file', 'refused'); throw new Error('not an RSL1 sealed file');
+  }
+  onStep('dec64', 'ok', 'decoded envelope', env.length + ' bytes');
+  onStep('hdr', 'active', 'read the RSL1 header (salt + nonce)…', '');
+  const salt = env.subarray(4, 20), iv = env.subarray(20, 32), ct = env.subarray(32);
+  onStep('hdr', 'ok', 'RSL1 · salt + nonce recovered', 'ciphertext ' + ct.length + ' bytes');
+  onStep('key', 'active', `stretch YOUR passphrase the same way (PBKDF2·${ITER.toLocaleString()})…`, '');
+  const key = await deriveKey(passphrase, salt);
+  onStep('key', 'ok', 'candidate key derived', '');
+  onStep('dec', 'active', 'AES-256-GCM decrypt + verify the auth tag…', '');
+  let pt;
+  try { pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, ct); }
+  catch (e) {
+    onStep('dec', 'bad', '✗ auth tag failed — wrong key or tampered bytes', 'REFUSED');
+    throw Object.assign(new Error('the seal refused'), { refused: true });
+  }
+  onStep('dec', 'ok', '✓ auth tag valid — the seal opened', 'only the key-holder reaches here');
+  return dec.decode(pt);
+}
+
+// --- wire the two live panels ---
+const $ = (id) => document.getElementById(id);
+const sealOut = $('sealOut'), unsealOut = $('unsealOut');
+const sealNarrate = mkNarrator($('sealSteps'));
+const unsealNarrate = mkNarrator($('unsealSteps'));
+
+$('seal').onclick = async () => {
+  const secret = $('secret').value, pass = $('pass1').value;
+  $('sealSteps').innerHTML = '';
+  if (!secret) { sealOut.innerHTML = '<span class="mono" style="color:var(--warn)">type a secret to seal first.</span>'; return; }
+  if (!pass) { sealOut.innerHTML = '<span class="mono" style="color:var(--warn)">a seal needs a passphrase — it becomes the only key.</span>'; return; }
+  sealOut.innerHTML = '<span class="mono" style="color:var(--faint)">sealing…</span>';
+  try {
+    const file = await seal(secret, pass, sealNarrate);
+    sealOut.innerHTML =
+      '<div class="mono" style="font-size:12px;color:var(--muted);margin-bottom:8px">the public immortal file — reveals nothing without the key:</div>' +
+      `<div class="cipher">${file}</div>` +
+      '<p class="note">Seal the same secret again and every byte changes (fresh salt + nonce). ↓ It is already loaded into ② below — go open it.</p>';
+    $('sealed').value = file;          // hand it straight to the unseal panel
+    $('pass2').value = '';             // make the key-holder prove possession
+    unsealOut.innerHTML = '<span class="mono" style="color:var(--faint)">↑ ciphertext loaded — type the passphrase and press Unseal —</span>';
+    $('unsealSteps').innerHTML = '';
+  } catch (e) {
+    sealOut.innerHTML = `<span class="mono" style="color:var(--bad)">${e.message || e}</span>`;
+  }
+};
+
+$('unseal').onclick = async () => {
+  const file = $('sealed').value.trim(), pass = $('pass2').value;
+  $('unsealSteps').innerHTML = '';
+  if (!file) { unsealOut.innerHTML = '<span class="mono" style="color:var(--warn)">seal something in ① first, or paste an RSL1 file here.</span>'; return; }
+  if (!pass) { unsealOut.innerHTML = '<span class="mono" style="color:var(--warn)">no key, no read — that\'s the whole point. Type the passphrase.</span>'; return; }
+  unsealOut.innerHTML = '<span class="mono" style="color:var(--faint)">unsealing…</span>';
+  try {
+    const plain = await unseal(file, pass, unsealNarrate);
+    unsealOut.innerHTML =
+      '<div class="mono" style="font-size:12px;color:var(--good);margin-bottom:8px">✓ seal opened on your device — no server touched:</div>' +
+      `<div style="white-space:pre-wrap;word-break:break-word">${plain.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]))}</div>`;
+  } catch (e) {
+    unsealOut.innerHTML = e.refused
+      ? '<span class="mono" style="color:var(--bad)">🔒 SEAL REFUSED — wrong key (or tampered bytes). The AES-GCM auth tag said no; no host did.</span>'
+      : `<span class="mono" style="color:var(--bad)">${e.message || e}</span>`;
+  }
+};
+</script>
+</body></html>

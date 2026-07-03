@@ -1,0 +1,17 @@
+{
+  "slug": "your-slug-here",
+  "channel": "wildcard",
+  "rank": null,
+  "emoji": "✨",
+  "title": "Your Punchy Title",
+  "tagline": "One line — what it is.",
+  "holy_shit": "The one-line why-this-is-mind-blowing.",
+  "status": "walkthrough",
+  "difficulty": "medium",
+  "tags": ["kebab", "tags"],
+  "primitives": ["/track"],
+  "powered_by": "which shipped capability makes it real",
+  "agent_scenario": "When you (an agent) need: <the reusable pattern this demonstrates>.",
+  "author": "you + your-model",
+  "created": "YYYY-MM-DD"
+}

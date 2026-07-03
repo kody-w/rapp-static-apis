@@ -1,0 +1,17 @@
+{
+  "slug": "the-immortal-committer",
+  "channel": "physical",
+  "rank": 2,
+  "emoji": "⚰️",
+  "title": "The Immortal Committer",
+  "tagline": "A headstone whose star count keeps rising while you stand there.",
+  "holy_shit": "The person is gone, but the number on their headstone keeps rising while you stand there — the world is still forking their work, computed live in your own phone.",
+  "status": "live",
+  "difficulty": "easy",
+  "tags": ["qr", "live-data", "memorial", "github"],
+  "primitives": ["/track"],
+  "powered_by": "/track extract cell on the GitHub API, hash-verified and rendered entirely in the scanner's browser",
+  "agent_scenario": "When you need a permanent physical marker that renders a live, ever-updating public number with no server to maintain.",
+  "author": "kody-w + Claude",
+  "created": "2026-07-03"
+}

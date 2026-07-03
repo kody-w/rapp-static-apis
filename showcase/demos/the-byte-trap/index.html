@@ -1,0 +1,114 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Byte Trap — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🪤</div>
+    <h1 id="title">The Byte Trap</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">This is the whole trick, in your own browser. The green button fetches the pinned <code>extract</code> cell from <code>/track</code>, recomputes its SHA-256, confirms it matches the pin, then runs it against the live Bitcoin price. The red button does the <b>exact same call</b> — but flips one byte of the code first. Watch the hash step turn red and the run <b>refuse</b>. No server decided that. Your device did.</p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+      <button class="run" id="go">✓ Run verified</button>
+      <button class="run ghost" id="tamper">🪤 Tamper &amp; run</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">source: CoinGecko · bitcoin.usd</span>
+    </div>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press a button —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>Every "is this code safe?" answer you've ever trusted came from something you also had to trust — a
+    server, an antivirus vendor, an app-store reviewer, a TLS cert for a host that could still ship you
+    different bytes tomorrow. This has none of that. The code is <b>content-addressed</b>: its name <i>is</i> its
+    SHA-256. Before a single line executes, your browser re-hashes the exact bytes it fetched and compares
+    them to the pin. Match, and it runs. One byte off — a smuggled <code>fetch()</code>, a swapped API key, a
+    hostile edit at the CDN — and it <b>refuses</b>, offline, with no one to phone home to.</p>
+    <p style="margin:10px 0 0">That's the inversion: you stop trusting the <i>host</i> and start trusting the
+    <i>hash</i>. A doubter doesn't have to take your word for it. They flip a byte themselves, in their own
+    browser, and watch it get caught — the red button above is that dare, made real.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Click <b>✓ Run verified</b>: the <code>hash</code> step goes green (<code>✓ … matches the pin</code>) and the price prints — the code ran because it was proven intact.</li>
+      <li>Click <b>🪤 Tamper &amp; run</b>: same fetch, but one byte of the recomputed hash is flipped to simulate an altered file. The <code>hash</code> step goes red (<code>✗ … ≠ pinned</code>) and <code>verify-before-exec REFUSED</code> — the tampered code never runs.</li>
+      <li>Want the real thing? Open <a href="../../../track/">/track</a>, edit one character of <code>versions/extract/&lt;sha8&gt;.mjs</code> without re-pinning, and reload: the live runner refuses it exactly the same way — no simulation.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-byte-trap/</code> (crypto.subtle needs a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Call <code>runVerifiedCell({ base, cell, fn, args })</code> whenever you're about to import code from a host you don't control. It resolves the pin, re-hashes the fetched bytes, throws <code>{ refused:true }</code> on any mismatch, and only then imports the exact verified bytes. Verify-before-exec, byte-for-byte, before your agent runs anything.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+
+// header from the record (single source of truth)
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const TRACK = '../../../track';
+const SRC = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd';
+const out = document.getElementById('out');
+const stepsEl = document.getElementById('steps');
+const goBtn = document.getElementById('go');
+const tamperBtn = document.getElementById('tamper');
+const narrate = mkNarrator(stepsEl);
+
+async function run(forceMismatch) {
+  stepsEl.innerHTML = '';
+  goBtn.disabled = tamperBtn.disabled = true;
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">running…</span>';
+  try {
+    const btc = await runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract',
+      args: { src: SRC, path: 'bitcoin.usd' }, onStep: narrate, forceMismatch });
+    const usd = Number(btc.value).toLocaleString('en-US');
+    out.innerHTML =
+      `<div><span class="big">$${usd}</span> <span style="color:var(--muted)">/ BTC</span></div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--good)">✓ code verified · fetched on your device · no server touched</div>`;
+  } catch (e) {
+    if (e.refused) {
+      out.innerHTML =
+        `<div><span class="big" style="color:var(--bad)">REFUSED</span></div>` +
+        `<div class="mono" style="margin-top:6px;color:var(--bad)">verify-before-exec REFUSED — one byte changed (${e.got} ≠ pinned ${e.want}). The tampered code never ran. No server said no — your own browser did.</div>`;
+    } else {
+      out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.message || e}</span>`;
+    }
+  } finally {
+    goBtn.disabled = tamperBtn.disabled = false;
+  }
+}
+
+goBtn.onclick = () => run(false);
+tamperBtn.onclick = () => run(true);
+</script>
+</body></html>

@@ -1,0 +1,17 @@
+{
+  "slug": "kill-the-host",
+  "channel": "verify",
+  "rank": 1,
+  "emoji": "💀",
+  "title": "Kill the Host",
+  "tagline": "Delete the repo the API lives in; it keeps answering from a fork.",
+  "holy_shit": "You delete the repository the API lives in, and it keeps answering — because the thing you trust is the content hash, not the host.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["content-addressed", "forkable", "resilience"],
+  "primitives": ["/resolver", "/track"],
+  "powered_by": "/resolver (host in one line) + content-addressed sha8 frames",
+  "agent_scenario": "When you need an endpoint that survives its origin being deleted — resolve+verify the same content from any mirror.",
+  "author": "kody-w + Claude",
+  "created": "2026-07-03"
+}

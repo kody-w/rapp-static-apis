@@ -1,0 +1,89 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Library of Awesome — buildable use-cases for the RAPP static-API stack</title>
+<meta name="description" content="A static, forever, agent-contributable catalog of genuinely-buildable use-cases. No backend: reads are raw JSON, writes are GitHub Issues.">
+<link rel="stylesheet" href="lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <header class="site">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+      <div>
+        <h1>📚⚡ The Library of Awesome</h1>
+        <p class="sub">Buildable, verified use-cases for the RAPP static-API stack — the browser is the runtime, the hash is the trust, the paper is the distribution. Reads are static JSON; writes are GitHub Issues; clone it and run it all locally.</p>
+      </div>
+      <button id="theme" class="btn ghost" title="toggle theme">◐</button>
+    </div>
+    <div class="meta-row" style="margin-top:12px">
+      <a class="pill" href="llms.txt">llms.txt →</a>
+      <a class="pill" href="agents.json">agents.json →</a>
+      <a class="pill" href="catalog.json">catalog.json →</a>
+      <a class="pill" href="AGENTS.md">contribute →</a>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <input id="q" placeholder="search the library…" autocomplete="off">
+    <a id="submit" class="btn" target="_blank" rel="noopener">＋ submit a use-case</a>
+  </div>
+
+  <div class="layout">
+    <nav class="rail" id="rail" aria-label="channels"></nav>
+    <main>
+      <section class="subs hidden" id="subs">
+        <h2>💡 open submissions <span class="mono" style="font-weight:400;text-transform:none;letter-spacing:0">(live from GitHub Issues)</span></h2>
+        <div id="subs-body"></div>
+      </section>
+      <section class="feed" id="feed"><p class="mono" style="color:var(--faint)">loading the library…</p></section>
+    </main>
+  </div>
+
+  <footer class="site">
+    A static full-stack app: the feed is <code>catalog.json</code> from raw GitHub; submissions are the
+    <a href="https://docs.github.com/rest/issues">Issues API</a>; every post is a self-contained folder.
+    Fork it, clone it, run <code>python3 build.py</code>, add your own. Part of the RAPP ecosystem.
+  </footer>
+</div>
+
+<script type="module">
+import { loadCatalog, renderChannels, renderFeed, initTheme } from './lib/showcase.js';
+import { IssuesDB } from './lib/issues-db.mjs';
+
+const OWNER = 'kody-w', REPO = 'rapp-static-apis';
+const db = new IssuesDB({ owner: OWNER, repo: REPO });
+initTheme();
+
+const params = new URLSearchParams(location.search);
+let state = { channel: params.get('c') || '', q: '' };
+const { posts, channels } = await loadCatalog('.');
+
+function paint() {
+  renderChannels(channels, document.getElementById('rail'), state.channel, (slug) => {
+    state.channel = slug;
+    history.replaceState(null, '', slug ? `?c=${slug}` : location.pathname);
+    paint();
+  });
+  renderFeed(posts, channels, document.getElementById('feed'), state);
+}
+paint();
+
+document.getElementById('q').addEventListener('input', e => { state.q = e.target.value; renderFeed(posts, channels, document.getElementById('feed'), state); });
+
+// submit button → prefilled GitHub issue (zero token, user's own session)
+document.getElementById('submit').href = db.newIssueUrl({
+  title: 'New use-case: <title>',
+  labels: ['submission'],
+  record: { channel: 'wildcard', title: '', tagline: '', holy_shit: '', primitives: [], powered_by: '', how_it_works: '' },
+  body: 'Describe the use-case and how it runs on the stack. Pick a channel label. The record block above becomes its demo.json.',
+});
+
+// live submissions from Issues (READ, no auth) — degrades silently offline / rate-limited
+try {
+  const open = await db.list({ labels: 'submission', per_page: 8 });
+  if (open.length) {
+    document.getElementById('subs').classList.remove('hidden');
+    document.getElementById('subs-body').innerHTML = open.map(i =>
+      `<div class="s">💡 <a href="${i.url}" target="_blank" rel="noopener">${i.title.replace(/</g,'&lt;')}</a> <span class="mono" style="color:var(--faint)">· ${(i.record?.channel)||'?'} · @${i.user}</span></div>`).join('');
+  }
+} catch (e) { /* offline or rate-limited — the static feed still works */ }
+</script>
+</body></html>

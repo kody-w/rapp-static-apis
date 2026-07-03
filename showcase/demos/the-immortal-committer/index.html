@@ -1,0 +1,104 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Immortal Committer — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">⚰️</div>
+    <h1 id="title">The Immortal Committer</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">This is the QR etched into the stone. It holds no data and reaches no server the family pays for. Press it: <b>your</b> browser fetches the pinned <code>extract</code> cell from <code>/track</code>, re-checks its SHA-256, refuses it on any mismatch, then asks the public GitHub API how many people have starred and forked the work — right now, this second. The headstone counts by borrowing the CPU of whoever visits.</p>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px">
+      <button class="run" id="go">🕯️ Read the stone</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">kody-w/rapp-static-apis · a life's public work</span>
+    </div>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>An engraved square of granite has no CPU, no battery, no network — and neither does the person under it.
+    Yet the instant a mourner points a phone at the stone, <b>their</b> device becomes the machine: it pulls a
+    tiny content-addressed program, <b>proves it wasn't tampered with</b> (the SHA-256 must match the pin, or it
+    refuses to run), and reads the live public count of everyone still starring and forking the deceased's work.
+    The number on the grave is not carved. It is <b>computed, live, in the mourner's own hand</b> — and it is
+    higher today than it was at the funeral. There is no server to pay for, nothing to renew, nothing anyone can
+    shut down. The stone will keep counting as long as one person a decade cares enough to look, and the code
+    that runs it is the same verified cell whether it's scanned tomorrow or in eighty years.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Make your own · run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Open <a href="../../../track/">/track</a>, point <code>src</code> at any public GitHub repo API URL
+        (<code>https://api.github.com/repos/&lt;owner&gt;/&lt;repo&gt;</code>) and set <code>path</code> to
+        <code>stargazers_count</code> — or <code>subscribers_count</code>, a follower count, a fundraiser total,
+        any CORS-open public number.</li>
+      <li>Hit <b>Make QR</b> — it encodes <code>track/run.html#&lt;spec&gt;</code> with the zero-dependency encoder.</li>
+      <li>Etch it in stone, cast it in bronze, print it on the memorial card. Everyone who scans it runs the same
+        verified cell in their own browser and sees today's number. Free, global, for as long as the API and the
+        care outlast the marker.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-immortal-committer/</code> (crypto.subtle needs a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+
+// header from the record (single source of truth)
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const TRACK = '../../../track';
+const REPO = 'https://api.github.com/repos/kody-w/rapp-static-apis';
+const out = document.getElementById('out');
+const narrate = mkNarrator(document.getElementById('steps'));
+
+document.getElementById('go').onclick = async () => {
+  document.getElementById('steps').innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">reading the stone…</span>';
+  try {
+    const stars = await runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract',
+      args: { src: REPO, path: 'stargazers_count' }, onStep: narrate });
+    const forks = await runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract',
+      args: { src: REPO, path: 'forks_count' }, onStep: () => {} });
+    const n = Number(stars.value);
+    out.innerHTML =
+      `<div><span class="big">${n.toLocaleString()}</span> <span style="color:var(--muted)">star${n === 1 ? '' : 's'} — and still climbing</span></div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--accent)">🌱 ${Number(forks.value).toLocaleString()} fork${Number(forks.value) === 1 ? '' : 's'} — the world is still building on the work</div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--faint)">verified · fetched on your device · no server counted this</div>`;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : (e.message || e)}</span>`;
+  }
+};
+</script>
+</body></html>

@@ -1,0 +1,17 @@
+{
+  "slug": "photosynthesis",
+  "channel": "physical",
+  "rank": 2,
+  "emoji": "🌱",
+  "title": "Photosynthesis",
+  "tagline": "A printed square pulls live data in a stranger's browser, then draws its own child QR.",
+  "holy_shit": "A printed square photosynthesizes live market data inside a stranger's browser, then draws its own offspring on-screen — no server ever touched.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["qr", "live-data", "self-replicating"],
+  "primitives": ["/track"],
+  "powered_by": "/track + qr.mjs (the zero-dep encoder, round-trip proven)",
+  "agent_scenario": "When a client-side artifact should both consume live data and emit a new shareable trigger, with zero backend.",
+  "author": "kody-w + Claude",
+  "created": "2026-07-03"
+}

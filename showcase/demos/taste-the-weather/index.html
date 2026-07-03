@@ -1,0 +1,94 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Taste the Weather — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🌦️</div>
+    <h1 id="title">Taste the Weather</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">This page holds no data. Press the button: your browser fetches the pinned <code>extract</code> cell from <code>/track</code>, re-checks its SHA-256, refuses it on any mismatch, then runs it against Open-Meteo for a coffee farm in Huila, Colombia — all on your device, no server.</p>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px">
+      <button class="run" id="go">☕ Read the farm's sky</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">Huila, Colombia · 2.53°N, 75.53°W</span>
+    </div>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>A printed square on a coffee bag has no CPU, no battery, no network. Yet the moment a shopper points a
+    phone at it, <b>their</b> browser becomes the computer: it pulls a tiny content-addressed program, <b>proves
+    it wasn't tampered with</b> (the SHA-256 must match the pin, or it refuses to run), and reaches a free public
+    weather API for the exact hillside the beans grew on. The bag "knows" it's raining there — live — with no
+    server anyone pays for and nothing to shut down. Swap the coordinates and it's any farm, any river, any sky.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Make your own · run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Open <a href="../../../track/">/track</a>, pick the <b>Seattle temp</b>/Open-Meteo preset, swap in your farm's lat/long, set a <code>path</code> like <code>current.temperature_2m</code>.</li>
+      <li>Hit <b>Make QR</b> — it encodes <code>track/run.html#&lt;spec&gt;</code> with the zero-dependency encoder.</li>
+      <li>Print it on the bag. Anyone who scans it runs the same verified cell in their own browser. Free, global, forever.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/taste-the-weather/</code> (crypto.subtle needs a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+
+// header from the record (single source of truth)
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const TRACK = '../../../track';
+const FARM = 'https://api.open-meteo.com/v1/forecast?latitude=2.53&longitude=-75.53&current=temperature_2m,precipitation';
+const out = document.getElementById('out');
+const narrate = mkNarrator(document.getElementById('steps'));
+
+document.getElementById('go').onclick = async () => {
+  document.getElementById('steps').innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">running…</span>';
+  try {
+    const temp = await runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract',
+      args: { src: FARM, path: 'current.temperature_2m' }, onStep: narrate });
+    const rain = await runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract',
+      args: { src: FARM, path: 'current.precipitation' }, onStep: () => {} });
+    const wet = Number(rain.value) > 0;
+    out.innerHTML = `<div><span class="big">${temp.value}°C</span> <span style="color:var(--muted)">on the farm right now</span></div>` +
+      `<div class="mono" style="margin-top:6px;color:${wet ? 'var(--accent)' : 'var(--muted)'}">${wet ? '🌧️ raining right now (' + rain.value + ' mm)' : '☀️ dry right now'} · verified · fetched on your device</div>`;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : (e.message || e)}</span>`;
+  }
+};
+</script>
+</body></html>

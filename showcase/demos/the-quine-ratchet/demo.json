@@ -1,0 +1,17 @@
+{
+  "slug": "the-quine-ratchet",
+  "channel": "self-building",
+  "rank": 1,
+  "emoji": "♾️",
+  "title": "The Quine Ratchet",
+  "tagline": "A prompt that improves the exact file defining how prompts improve files.",
+  "holy_shit": "A prompt rewrote the exact file that defines how prompts rewrite files, kept only the passes it could re-prove, and then honestly told you where it wasn't allowed to decide for you.",
+  "status": "walkthrough",
+  "difficulty": "hard",
+  "tags": ["loop", "meta", "self-improving"],
+  "primitives": ["loop.prompt.md", "rapp-loop.prompt.md"],
+  "powered_by": "loop.prompt.md (self-configuring ratchet) + the rock-tumbler's real drift verifiers",
+  "agent_scenario": "When you need a domain-agnostic improvement loop that discovers its own score, keeps only verified gains, and stops itself at genuine human-decision boundaries.",
+  "author": "kody-w + Claude",
+  "created": "2026-07-03"
+}

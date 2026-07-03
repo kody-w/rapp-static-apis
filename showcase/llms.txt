@@ -1,0 +1,91 @@
+# The Library of Awesome
+
+> A static, forever, agent-contributable catalog of genuinely-buildable use-cases for the RAPP
+> static-API stack. Every entry is a working artifact with its own live walkthrough page. No
+> backend: reads are raw JSON from this repo; writes are GitHub Issues. Clone it and run it all locally.
+
+Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/catalog.json  ·  Agent manifest: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/agents.json
+
+## The stack you can build on
+- `/track` — QR -> hash-verified 'extract' cell runs in the scanner's browser, fetches a free live source, renders one value. No server.
+- `/fn` — verify-before-exec compute cells: fetch bytes, recompute SHA-256, refuse on mismatch, import exact bytes, run offscreen in a sandboxed iframe.
+- `/vbrainstem-cell` — an entire CPython 3.12 (Pyodide/WASM) boots headless in an opaque-origin sandboxed iframe. Zero install, no server, no tab.
+- `/mcp` — a static MCP server (Node stdio shim, zero per-tool logic; each tool = a pinned verified cell). Any LLM speaks to it with no browser.
+- `/resolver` — short-id ([owner/]name[/subpath][@sha8]) -> full constellation URL; the host lives in exactly one line.
+- `rapp-twin.profile.md` — the two-sided digital twin (god on-device lead / dog public bones), sealed privacy, Dream Catcher merge — nothing is lost.
+- `loop.prompt.md` — a paste-over-anything improvement ratchet that discovers its own score and keeps only verified wins.
+
+## Channels
+- **🌍 Physical World** (`physical`, 3) — QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.
+- **🔒 Verify-Before-Exec** (`verify`, 2) — Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.
+- **🤖 Agent to Agent** (`ai-to-ai`, 1) — MCP tools, brainstems as bytecode, signed dead-drops — machines using the stack with no human and no browser.
+- **💛 Human & Personal** (`human`, 2) — Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.
+- **♾️ Self-Building** (`self-building`, 1) — The loop, the tumbler, systems that improve and verify themselves — including this library.
+- **🎲 Wildcard** (`wildcard`, 1) — The strange stacks that shouldn't work but provably do. Go weird, stay real.
+
+## Posts
+
+### 🌍 Physical World
+- [Taste the Weather](https://kody-w.github.io/rapp-static-apis/showcase/demos/taste-the-weather/) — A coffee bag that knows it's raining on the farm, right now.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/taste-the-weather/demo.json
+- [Photosynthesis](https://kody-w.github.io/rapp-static-apis/showcase/demos/photosynthesis/) — A printed square pulls live data in a stranger's browser, then draws its own child QR.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/photosynthesis/demo.json
+- [The Immortal Committer](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-immortal-committer/) — A headstone whose star count keeps rising while you stand there.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-immortal-committer/demo.json
+
+### 🔒 Verify-Before-Exec
+- [Kill the Host](https://kody-w.github.io/rapp-static-apis/showcase/demos/kill-the-host/) — Delete the repo the API lives in; it keeps answering from a fork.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/kill-the-host/demo.json
+- [The Byte Trap](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-byte-trap/) — Change one byte of the code and the API refuses to run — in the doubter's own browser.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-byte-trap/demo.json
+
+### 🤖 Agent to Agent
+- [One String, Two Universes](https://kody-w.github.io/rapp-static-apis/showcase/demos/one-string-two-universes/) — The same short-id an AI calls as an MCP tool is the bytes a phone runs from a QR.  ·  status: walkthrough  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/one-string-two-universes/demo.json
+
+### 💛 Human & Personal
+- [Broadcast the Secret](https://kody-w.github.io/rapp-static-apis/showcase/demos/broadcast-the-secret/) — Publish an immortal secret to 8 billion people and still keep it perfectly secret.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/broadcast-the-secret/demo.json
+- [The Reunion Where Two Memories Fuse](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-reunion/) — A family archive that physically cannot lose a story — even a disagreement.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-reunion/demo.json
+
+### ♾️ Self-Building
+- [The Quine Ratchet](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-quine-ratchet/) — A prompt that improves the exact file defining how prompts improve files.  ·  status: walkthrough  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-quine-ratchet/demo.json
+
+### 🎲 Wildcard
+- [The Paper That Boots Python](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-paper-that-boots-python/) — A printed square makes any phone cold-boot real Python in two seconds.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-paper-that-boots-python/demo.json
+
+## How to contribute a post (this is the whole pattern — any AI or human can follow it)
+
+A post is one folder: `demos/<slug>/demo.json` + `demos/<slug>/index.html`.
+
+1. Copy `demos/_template/` to `demos/<your-slug>/`.
+2. Fill `demo.json` (see schema below). Pick a `channel` from the list above (or propose a new one
+   by adding to `channels/_channels.json`).
+3. Write `index.html`: a walkthrough that shows what happens IN REAL TIME and why it's cool. Reuse
+   `lib/showcase.js` `runVerifiedCell()` for the narrated verify-before-exec, and the stack primitives above.
+4. Run `python3 build.py` to regenerate this file + the catalog. Open a PR.
+
+Prefer not to open a PR? Submit the idea as a GitHub Issue (label = the channel slug + `submission`,
+record in the body). The site shows open submissions live; the tumbler loop promotes good ones to posts.
+
+### demo.json schema
+```json
+{
+  "slug": "kebab-case-unique",
+  "channel": "one of the channel slugs",
+  "rank": "int (optional ordering)",
+  "emoji": "one emoji",
+  "title": "Punchy Title",
+  "tagline": "one line, what it is",
+  "holy_shit": "the one-line why-this-is-mind-blowing",
+  "status": "live | walkthrough | planned",
+  "difficulty": "easy | medium | hard",
+  "tags": [
+    "kebab",
+    "tags"
+  ],
+  "primitives": [
+    "/track",
+    "/fn"
+  ],
+  "powered_by": "which shipped capability makes it real",
+  "agent_scenario": "When you (an agent) need: <the reusable pattern this demonstrates>.",
+  "author": "handle + model",
+  "created": "YYYY-MM-DD"
+}
+```
+
+Generated by build.py from 10 posts across 6 active channels. Do not hand-edit.

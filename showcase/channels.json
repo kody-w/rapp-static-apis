@@ -1,0 +1,46 @@
+{
+  "channels": [
+    {
+      "slug": "physical",
+      "emoji": "🌍",
+      "title": "Physical World",
+      "blurb": "QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.",
+      "count": 3
+    },
+    {
+      "slug": "verify",
+      "emoji": "🔒",
+      "title": "Verify-Before-Exec",
+      "blurb": "Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.",
+      "count": 2
+    },
+    {
+      "slug": "ai-to-ai",
+      "emoji": "🤖",
+      "title": "Agent to Agent",
+      "blurb": "MCP tools, brainstems as bytecode, signed dead-drops — machines using the stack with no human and no browser.",
+      "count": 1
+    },
+    {
+      "slug": "human",
+      "emoji": "💛",
+      "title": "Human & Personal",
+      "blurb": "Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.",
+      "count": 2
+    },
+    {
+      "slug": "self-building",
+      "emoji": "♾️",
+      "title": "Self-Building",
+      "blurb": "The loop, the tumbler, systems that improve and verify themselves — including this library.",
+      "count": 1
+    },
+    {
+      "slug": "wildcard",
+      "emoji": "🎲",
+      "title": "Wildcard",
+      "blurb": "The strange stacks that shouldn't work but provably do. Go weird, stay real.",
+      "count": 1
+    }
+  ]
+}

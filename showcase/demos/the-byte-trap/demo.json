@@ -1,0 +1,17 @@
+{
+  "slug": "the-byte-trap",
+  "channel": "verify",
+  "rank": 1,
+  "emoji": "🪤",
+  "title": "The Byte Trap",
+  "tagline": "Change one byte of the code and the API refuses to run — in the doubter's own browser.",
+  "holy_shit": "A stranger changes one character of the code your API runs, and the API refuses to run it — no server, no antivirus, no login, just SHA-256 in their own browser.",
+  "status": "live",
+  "difficulty": "easy",
+  "tags": ["verify", "tamper-evident", "security"],
+  "primitives": ["/track", "/fn"],
+  "powered_by": "/track + /fn verify-before-exec: fetch the pinned cell, recompute SHA-256 in the browser, refuse on any mismatch, import the exact verified bytes, run them",
+  "agent_scenario": "When you need to run code fetched from an untrusted host and prove byte-for-byte it wasn't altered before it executes.",
+  "author": "kody-w + Claude",
+  "created": "2026-07-03"
+}

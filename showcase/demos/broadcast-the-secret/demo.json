@@ -1,0 +1,17 @@
+{
+  "slug": "broadcast-the-secret",
+  "channel": "human",
+  "rank": 1,
+  "emoji": "🔐",
+  "title": "Broadcast the Secret",
+  "tagline": "Publish an immortal secret to 8 billion people and still keep it perfectly secret.",
+  "holy_shit": "You publish an immortal secret to eight billion people today and still keep it perfectly secret until one paper key surfaces — a dead-man's switch with nothing left to pay for.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["encryption", "sealed", "dead-man-switch"],
+  "primitives": ["rapp-sealed/1.0", "/fn"],
+  "powered_by": "rapp-sealed/1.0 (AES-256-GCM; key-possession is the only gate) + native WebCrypto",
+  "agent_scenario": "When data must be published to a fully public, permanent store yet remain readable only by a key-holder — privacy as a seal, not a location.",
+  "author": "kody-w + Claude",
+  "created": "2026-07-03"
+}

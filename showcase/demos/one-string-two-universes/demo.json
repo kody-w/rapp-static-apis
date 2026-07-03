@@ -1,0 +1,17 @@
+{
+  "slug": "one-string-two-universes",
+  "channel": "ai-to-ai",
+  "rank": 1,
+  "emoji": "🔗",
+  "title": "One String, Two Universes",
+  "tagline": "The same short-id an AI calls as an MCP tool is the bytes a phone runs from a QR.",
+  "holy_shit": "The exact bytes an AI invokes as an MCP tool are provably the exact bytes a stranger's phone runs from a QR — corrupt one and both refuse at the same instant.",
+  "status": "walkthrough",
+  "difficulty": "medium",
+  "tags": ["mcp", "ai-to-ai", "content-addressed"],
+  "primitives": ["/mcp", "/fn", "/resolver", "/track"],
+  "powered_by": "/mcp shim + a pinned /fn frame + /resolver + /track",
+  "agent_scenario": "When the same verified capability must be callable by an AI (MCP, no browser) and a human (QR, no install) with identical trust.",
+  "author": "kody-w + Claude",
+  "created": "2026-07-03"
+}

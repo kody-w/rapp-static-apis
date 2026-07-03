@@ -1,0 +1,246 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Reunion Where Two Memories Fuse — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  /* post-local styles for the memory archive — themed off showcase.css vars */
+  .bones{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 4px}
+  @media(max-width:620px){.bones{grid-template-columns:1fr}}
+  .bone{border:1px solid var(--line);border-radius:10px;background:var(--panel-2);padding:12px}
+  .bone .who{font-weight:600;font-size:13px;color:var(--accent);margin-bottom:6px}
+  .bone pre{margin:0;background:transparent;border:0;padding:0;font-size:11.5px;color:var(--muted);white-space:pre-wrap;word-break:break-word}
+  .archive{display:flex;flex-direction:column;gap:12px}
+  .slot{border:1px solid var(--line);border-radius:10px;background:var(--panel-2);padding:12px}
+  .slot.contested{border-color:color-mix(in oklab,var(--warn),transparent 45%);background:color-mix(in oklab,var(--warn),transparent 92%)}
+  .slot-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+  .slot-name{font-size:12px;color:var(--faint)}
+  .badge{font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--muted)}
+  .badge.warn{color:var(--warn);border-color:color-mix(in oklab,var(--warn),transparent 50%)}
+  .badge.good{color:var(--good);border-color:color-mix(in oklab,var(--good),transparent 55%)}
+  .frames{display:grid;gap:10px}
+  .frames.two{grid-template-columns:1fr 1fr}
+  @media(max-width:620px){.frames.two{grid-template-columns:1fr}}
+  .frame{border:1px solid var(--line);border-radius:9px;background:var(--panel);padding:10px 12px}
+  .frame-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:4px}
+  .frame .who2{font-weight:600;font-size:13px;color:var(--ink)}
+  .frame .sha{font-size:11px;color:var(--faint)}
+  .frame .ev{font-size:12px;color:var(--muted);margin-bottom:4px}
+  .frame .mem{font-size:14px;color:var(--ink);line-height:1.5}
+  .recover{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px}
+  .recover input{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;color:var(--ink);padding:7px 10px;font-family:var(--mono);font-size:13px;min-width:150px}
+  .rec-out{font-family:var(--mono);font-size:13px}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🧬</div>
+    <h1 id="title">The Reunion Where Two Memories Fuse</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 14px;color:var(--muted)">Two relatives wrote down what they remember. They share three events — and they <b>disagree</b> about Summer 1978. Press the button: a <b>Dream Catcher merge</b> runs on your device — it content-hashes every memory with <code>crypto.subtle</code> SHA-256, folds byte-identical stories into one, and where a slot collides it <b>keeps both</b> as parallel frames. Nothing is overwritten. Nothing is deleted.</p>
+
+    <div class="bones" id="bones"></div>
+
+    <div style="display:flex;gap:8px;align-items:center;margin:14px 0">
+      <button class="run" id="go">🧬 Merge the memories</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">2 bones · 6 frames in · append-only</span>
+    </div>
+
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+
+    <h2 style="margin-top:18px">The merged family archive</h2>
+    <div class="archive" id="archive"><span class="mono" style="color:var(--faint)">— empty until you merge —</span></div>
+
+    <div id="recover-wrap" class="hidden" style="margin-top:14px">
+      <h2>Immutable &amp; recoverable — pull any frame back by its hash</h2>
+      <p style="margin:0 0 8px;color:var(--muted)">Every memory is addressed by its content-hash. Even the "losing" side of a disagreement is kept forever. Paste any <span class="mono">sha8</span> from the archive above:</p>
+      <div class="recover">
+        <input id="hashin" spellcheck="false" placeholder="sha8…">
+        <button class="run ghost" id="recover">🔑 Recover</button>
+        <span class="rec-out" id="recout" style="color:var(--faint)"></span>
+      </div>
+    </div>
+
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>Every archive you've ever used answers a conflict by <b>picking a winner</b>: last-write-wins, a merge that clobbers, a "resolve conflict" dialog that throws one side away. A family's memory can't work like that — Aunt May really did remember sun and a 12-pound bass, and Uncle Joe really did remember rain and a card game. Both are true to the person who holds them.</p>
+    <p>The <b>Dream Catcher merge</b> (<code>rapp-twin.profile.md</code> §4) obeys one law: <b>additive append + dedupe; NOTHING IS LOST.</b> It content-addresses each memory by SHA-256 — the exact same trust-the-hash primitive that makes verified code tamper-proof in <code>/track</code>'s <span class="mono">runVerifiedCell</span>, here pointed at <i>data</i> instead of bytecode. Two byte-identical stories fold into one frame (they were never in conflict). A slot collision — same event, different memory — is <b>not</b> a conflict to resolve; it's a contradiction to <b>keep</b>, surfaced as an alternate frame in a parallel dimension. The loser never expires. Because the address <i>is</i> the content, every version is immutable and recoverable by its hash, forever, with no server and nothing to shut down.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Open this page over <code>localhost</code> or <code>https</code> (<code>crypto.subtle</code> needs a secure context — not <code>file://</code>).</li>
+      <li>Swap the two <code>bones</code> objects in the script for your own family's memories. Give two people the <b>same</b> event with different text — watch the archive keep both instead of choosing.</li>
+      <li>To make it a real, tamper-proof, shareable primitive: the merge is a pure function of the exact <a href="../../../fn/">/fn</a> shape (deterministic compute over caller-supplied rows). Pin it as a <code>/fn</code> cell and drive it through <span class="mono">runVerifiedCell</span> so the merge <i>logic</i> itself is verify-before-act.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-reunion/</code>.</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">The mechanism, generalized: <span class="mono" style="font-size:13px">content-address each record → dedupe on hash-equal → on slot-collision append an alternate frame (never overwrite) → tiebreak is UTC-first + consent, not deletion.</span> The result is an append-only union with provable zero data loss — safe for two datasets that must fuse when neither may lose a row.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { sha256hex, mkNarrator } from '../../lib/showcase.js';
+
+// header from the record (single source of truth) — same pattern as the exemplar
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+// ---- the two family "bones": append-only memory frames, remembered DIFFERENTLY ----
+const MAY = { node: 'aunt-may', frames: [
+  { slot: 'reunion-1978', utc: '1978-07-04', event: 'Summer 1978',           memory: 'We drove to the lake at dawn — Grandpa landed a 12-pound bass and we fried it right on the shore.' },
+  { slot: 'cornbread',    utc: '1965-11-22', event: "Grandma's cornbread",   memory: 'Half a cup of bacon grease, cast-iron skillet screaming hot, 425°F.' },
+  { slot: 'porch-song',   utc: '1981-08-15', event: 'The porch song',        memory: "Joe played 'Wildwood Flower' on the porch until the fireflies came out." },
+]};
+const JOE = { node: 'uncle-joe', frames: [
+  { slot: 'reunion-1978', utc: '1978-07-04', event: 'Summer 1978',           memory: 'It rained the entire weekend. Nobody caught a thing, so we played gin rummy in the cabin.' },
+  { slot: 'cornbread',    utc: '1965-11-22', event: "Grandma's cornbread",   memory: 'Half a cup of bacon grease, cast-iron skillet screaming hot, 425°F.' },
+  { slot: 'first-car',    utc: '1972-03-01', event: "The '72 Chevelle",      memory: 'Bought it for $2,400 and painted it Hugger Orange in the driveway that spring.' },
+]};
+
+const NAMES = { 'aunt-may': 'Aunt May', 'uncle-joe': 'Uncle Joe' };
+const niceName = n => NAMES[n] || n;
+const esc = s => s.replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+// content-hash is over the MEMORY payload only (slot/utc/event/memory) — NOT who told it.
+// So a story two people remember identically hashes the same and folds into one frame.
+const canon = f => JSON.stringify({ event: f.event, memory: f.memory, slot: f.slot, utc: f.utc });
+
+// show the raw bones up front
+document.getElementById('bones').innerHTML = [MAY, JOE].map(b =>
+  `<div class="bone"><div class="who">${niceName(b.node)} · ${b.frames.length} frames</div><pre>${esc(JSON.stringify(b.frames.map(f => ({ [f.slot]: f.memory })), null, 1))}</pre></div>`
+).join('');
+
+const out = document.getElementById('out');
+const archiveEl = document.getElementById('archive');
+const narrate = mkNarrator(document.getElementById('steps'));
+
+let store, bySlot; // rebuilt per run
+
+function render() {
+  if (!store.size) { archiveEl.innerHTML = '<span class="mono" style="color:var(--faint)">— empty until you merge —</span>'; return; }
+  let html = '';
+  for (const [slot, hashes] of bySlot) {
+    const frames = hashes.map(h => store.get(h));
+    const contested = frames.length > 1;
+    html += `<div class="slot${contested ? ' contested' : ''}">`;
+    html += `<div class="slot-head"><span class="slot-name mono">slot: ${esc(slot)}</span>` +
+      (contested
+        ? `<span class="badge warn">⚠ contradiction preserved · ${frames.length} parallel frames</span>`
+        : `<span class="badge good">✓ ${frames[0].by.length > 1 ? 'agreed — deduped' : 'single truth'}</span>`) +
+      `</div>`;
+    html += `<div class="frames${contested ? ' two' : ''}">`;
+    for (const fr of frames) {
+      html += `<div class="frame">` +
+        `<div class="frame-top"><span class="who2">${fr.by.map(niceName).join(' + ')}</span><span class="sha mono">${fr.sha8}</span></div>` +
+        `<div class="ev">${esc(fr.event)} · <span class="mono">${esc(fr.utc)}</span></div>` +
+        `<div class="mem">${esc(fr.memory)}</div>` +
+        `</div>`;
+    }
+    html += `</div></div>`;
+  }
+  archiveEl.innerHTML = html;
+}
+
+async function absorb(node, f) {
+  const bytes = new TextEncoder().encode(canon(f));
+  const hash = await sha256hex(bytes);
+  const sha8 = hash.slice(0, 12);
+  const existing = store.get(hash);
+  if (existing) { // byte-identical memory already in the archive → dedupe, add provenance
+    if (!existing.by.includes(node)) existing.by.push(node);
+    return { kind: 'dedupe', sha8 };
+  }
+  const slotHashes = bySlot.get(f.slot) || [];
+  const kind = slotHashes.length ? 'contradiction' : 'new';
+  store.set(hash, { hash, sha8, slot: f.slot, utc: f.utc, event: f.event, memory: f.memory, by: [node] });
+  bySlot.set(f.slot, [...slotHashes, hash]);
+  return { kind, sha8 };
+}
+
+document.getElementById('go').onclick = async () => {
+  store = new Map(); bySlot = new Map();
+  document.getElementById('steps').innerHTML = '';
+  document.getElementById('recover-wrap').classList.add('hidden');
+  document.getElementById('recout').textContent = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">weaving the dream catcher…</span>';
+  render();
+
+  let n = 0, added = 0, deduped = 0;
+  for (const bone of [MAY, JOE]) {
+    for (const f of bone.frames) {
+      const k = 's' + (n++);
+      narrate(k, 'active', `hash ${niceName(bone.node)} · ${f.event}`, 'sha256…');
+      await sleep(240);
+      const r = await absorb(bone.node, f);
+      if (r.kind === 'dedupe') {
+        deduped++;
+        narrate(k, 'ok', `${f.event} → byte-identical to a frame already here`, `deduped · ${r.sha8}`);
+      } else if (r.kind === 'contradiction') {
+        added++;
+        narrate(k, 'ok', `${f.event} → SAME slot, DIFFERENT memory — kept BOTH`, `alternate frame · ${r.sha8}`);
+      } else {
+        added++;
+        narrate(k, 'ok', `${f.event} → new slot, appended`, `+ frame · ${r.sha8}`);
+      }
+      render();
+      await sleep(160);
+    }
+  }
+
+  const contradictions = [...bySlot.values()].filter(h => h.length > 1).length;
+  narrate('done', 'ok', 'Dream Catcher merge complete — nothing was lost', `${store.size} frames · ${deduped} deduped · ${contradictions} contradiction kept`);
+  out.innerHTML =
+    `<div><span class="big">${store.size}</span> <span style="color:var(--muted)">frames in the archive · <b style="color:var(--accent-2)">0 lost</b></span></div>` +
+    `<div class="mono" style="margin-top:6px;color:var(--warn)">⚠ ${contradictions} disagreement kept forever as a parallel dimension · ${deduped} identical story folded into 1</div>` +
+    `<div class="mono" style="margin-top:4px;color:var(--faint)">append-only · content-addressed on your device · no server touched</div>`;
+
+  // prime the recover box with the "overruled" side (Joe's rainy 1978) — proof it survives
+  const contestedHashes = [...bySlot.values()].find(h => h.length > 1) || [];
+  const secondFrame = contestedHashes[1] && store.get(contestedHashes[1]);
+  if (secondFrame) {
+    document.getElementById('hashin').value = secondFrame.sha8;
+    document.getElementById('recover-wrap').classList.remove('hidden');
+  }
+};
+
+document.getElementById('recover').onclick = () => {
+  const q = document.getElementById('hashin').value.trim().toLowerCase();
+  const recout = document.getElementById('recout');
+  if (!store) { recout.style.color = 'var(--bad)'; recout.textContent = 'merge first'; return; }
+  const hit = [...store.values()].find(fr => fr.sha8 === q || fr.hash === q);
+  if (!hit) { recout.style.color = 'var(--bad)'; recout.textContent = 'no frame with that hash'; return; }
+  recout.style.color = 'var(--good)';
+  recout.innerHTML = `✓ recovered · <b>${niceName(hit.by[0])}</b>: “${esc(hit.memory)}”`;
+};
+</script>
+</body></html>

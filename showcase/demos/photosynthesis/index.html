@@ -1,0 +1,136 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Photosynthesis — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🌱</div>
+    <h1 id="title">Photosynthesis</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">This page holds no data. Press the button: your browser fetches the pinned <code>extract</code> cell from <code>/track</code>, re-checks its SHA-256, refuses it on any mismatch, then runs it against CoinGecko for the live Bitcoin price. Then — with that living value in hand — it imports the zero-dependency <code>qr.mjs</code> encoder and draws a <b>brand-new QR onto a canvas</b>: the data's own child. All on your device, no server.</p>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px">
+      <button class="run" id="go">🌱 Photosynthesize</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">CoinGecko · bitcoin.usd · live</span>
+    </div>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+
+    <div id="child" class="hidden" style="margin-top:16px;display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">
+      <canvas id="qr" width="0" height="0" style="background:#fff;border-radius:10px;image-rendering:pixelated;max-width:100%"></canvas>
+      <div id="child-cap" style="flex:1;min-width:220px;color:var(--muted);font-size:14px"></div>
+    </div>
+
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>A printed square has no CPU, no battery, no network — it just sits there like a leaf. Then a stranger
+    points a phone at it and <b>their</b> browser becomes the chloroplast: it pulls a tiny content-addressed
+    program, <b>proves it wasn't tampered with</b> (the SHA-256 must match the pin, or it refuses to run),
+    and reaches a free market API for the live Bitcoin price. That's the light going in.</p>
+    <p style="margin-top:10px">Then the trick that makes it <i>photosynthesis</i> and not just a reading: the same page imports the
+    inlined, zero-dependency <code>qr.mjs</code> encoder and <b>draws a new QR</b> — a seed. And the seed isn't a
+    photo of the number; it encodes a <code>track/run.html</code> tracker spec. Scan the child and a <i>different</i>
+    stranger's browser boots the same hash-verified cell and re-pulls the same live value. The artifact consumed
+    live data and, from it, grew a working, self-contained replica of itself — with no backend anywhere in the loop.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Make your own · run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Open <a href="../../../track/">/track</a>, pick the <b>BTC / USD</b> preset (or any free CORS-open source + dotted <code>path</code>).</li>
+      <li>Hit <b>Make QR</b> — it encodes <code>track/run.html#&lt;spec&gt;</code> with the same <a href="../../../track/qr.mjs"><code>qr.mjs</code></a> this page uses.</li>
+      <li>Print it, sticker it, tattoo it. Every scan runs the verified cell in a fresh browser — and this page shows how one artifact can <i>also</i> emit the next one.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/photosynthesis/</code> (crypto.subtle needs a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+import { qr } from '../../../track/qr.mjs';
+
+// header from the record (single source of truth)
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const TRACK = '../../../track';
+const BTC = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd';
+const out = document.getElementById('out');
+const child = document.getElementById('child');
+const narrate = mkNarrator(document.getElementById('steps'));
+
+// same b64url + spec vocabulary the /track builder + run.html runner speak
+function b64url(s) { return btoa(unescape(encodeURIComponent(s))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
+
+// draw qr.mjs modules straight onto the canvas: quiet zone 4, scale 5, black on white
+function drawChildQR(text) {
+  const { size, modules, version } = qr(text, { ecl: 'M' });
+  const q = 4, scale = 5, dim = (size + 2 * q) * scale;
+  const c = document.getElementById('qr'); c.width = dim; c.height = dim;
+  const g = c.getContext('2d');
+  g.fillStyle = '#fff'; g.fillRect(0, 0, dim, dim);
+  g.fillStyle = '#000';
+  for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) if (modules[y][x]) g.fillRect((x + q) * scale, (y + q) * scale, scale, scale);
+  return { size, version };
+}
+
+document.getElementById('go').onclick = async () => {
+  document.getElementById('steps').innerHTML = '';
+  child.classList.add('hidden');
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">running…</span>';
+  try {
+    // 1 · eat the light — the pinned, hash-verified extract cell pulls live BTC on your device
+    const btc = await runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract',
+      args: { src: BTC, path: 'bitcoin.usd' }, onStep: narrate });
+    const price = Number(btc.value);
+    const priceStr = Number.isFinite(price)
+      ? price.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
+      : String(btc.value);
+    out.innerHTML = `<div><span class="big">${priceStr}</span> <span style="color:var(--muted)">BTC, live</span></div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--muted)">verified · fetched on your device · no server touched</div>`;
+
+    // 2 · grow the seed — encode a run.html tracker spec that reproduces this exact live pull, then draw it
+    const spec = { src: BTC, path: 'bitcoin.usd', title: 'BTC / USD', unit: '$' };
+    const childUrl = new URL('../../../track/run.html#' + b64url(JSON.stringify(spec)), location.href).href;
+    narrate('encode', 'active', 'import qr.mjs & encode the child (a run.html tracker spec)…', '');
+    const info = drawChildQR(childUrl);
+    narrate('encode', 'ok', `child QR drawn on <canvas> — v${info.version}, ${info.size}×${info.size} modules`, 'the data drew its own child');
+
+    child.classList.remove('hidden');
+    document.getElementById('child-cap').innerHTML =
+      `<b>↑ the child.</b> Not a photo of the price — a live tracker. Scan it and a stranger's browser boots the same hash-verified <code>extract</code> cell and re-pulls this exact BTC value. No server, no you.` +
+      `<span class="mono" style="font-size:11px;color:var(--faint);display:block;margin-top:8px;word-break:break-all">${childUrl}</span>`;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : (e.message || e)}</span>`;
+  }
+};
+</script>
+</body></html>
