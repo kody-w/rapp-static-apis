@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 29,
+  "count": 30,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -438,6 +438,41 @@
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-artifact-with-a-signed-bloodline/demo.json",
       "builds_on": [],
       "weld": ""
+    },
+    {
+      "slug": "the-autonomous-economy",
+      "channel": "wildcard",
+      "rank": null,
+      "emoji": "🧬",
+      "title": "WELD: The Autonomous Economy",
+      "tagline": "A complete no-backend economy: browse ranked-by-verified-reputation sellers, place a sealed+signed order, watch it survive a tamper-refusing autonomous agent relay — reputation, custody, seal, and signature provable end to end.",
+      "status": "live",
+      "difficulty": "hard",
+      "tags": [
+        "weld",
+        "economy",
+        "marketplace",
+        "relay",
+        "reputation",
+        "ecdsa",
+        "custody",
+        "sealed-order",
+        "webcrypto",
+        "autonomous"
+      ],
+      "primitives": [
+        "/track",
+        "rapp-sealed/1.0",
+        "crypto.subtle",
+        "fetch"
+      ],
+      "url": "demos/the-autonomous-economy/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-autonomous-economy/demo.json",
+      "builds_on": [
+        "the-trusted-exchange",
+        "the-sovereign-handoff"
+      ],
+      "weld": "Run the full Trusted Exchange pipeline (live availability → AES-sealed order → SHA-256 custody → ECDSA receipt → signed reputation), then inject the complete notarized economic packet as the Sovereign Handoff relay genesis so every autonomous hop verifies custody and signature before forwarding."
     },
     {
       "slug": "the-brainstem-baton",

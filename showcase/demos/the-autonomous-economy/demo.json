@@ -1,0 +1,19 @@
+{
+  "slug": "the-autonomous-economy",
+  "channel": "wildcard",
+  "rank": null,
+  "emoji": "🧬",
+  "title": "WELD: The Autonomous Economy",
+  "tagline": "A complete no-backend economy: browse ranked-by-verified-reputation sellers, place a sealed+signed order, watch it survive a tamper-refusing autonomous agent relay — reputation, custody, seal, and signature provable end to end.",
+  "holy_shit": "Every layer of real economic trust — live inventory, AES-sealed orders, SHA-256 custody proofs, ECDSA seller-signed receipts, signed reputation — feeds a tamper-refusing autonomous agent relay where any corrupt byte halts the whole chain, entirely in your browser with zero backend.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["weld", "economy", "marketplace", "relay", "reputation", "ecdsa", "custody", "sealed-order", "webcrypto", "autonomous"],
+  "primitives": ["/track", "rapp-sealed/1.0", "crypto.subtle", "fetch"],
+  "powered_by": "The Trusted Exchange's signed-reputation marketplace welded to The Sovereign Handoff's tamper-refusing autonomous relay",
+  "builds_on": ["the-trusted-exchange", "the-sovereign-handoff"],
+  "weld": "Run the full Trusted Exchange pipeline (live availability → AES-sealed order → SHA-256 custody → ECDSA receipt → signed reputation), then inject the complete notarized economic packet as the Sovereign Handoff relay genesis so every autonomous hop verifies custody and signature before forwarding.",
+  "agent_scenario": "When you need a zero-backend economy where sealed, custody-proven, seller-signed orders with verified-reputation sellers flow through a tamper-refusing autonomous agent pipeline and every stage — reputation, seal, custody, signature — is independently verifiable in the browser.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}
