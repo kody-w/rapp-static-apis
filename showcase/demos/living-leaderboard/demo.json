@@ -1,0 +1,17 @@
+{
+  "slug": "living-leaderboard",
+  "channel": "physical",
+  "rank": 4,
+  "emoji": "🏁",
+  "title": "Living Leaderboard",
+  "tagline": "A printed QR re-ranks the top JavaScript repos every time someone scans it.",
+  "holy_shit": "It's just paper, but every scan recomputes a fresh top-10 leaderboard from a live public ranking feed — hash-verified, no server.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["qr", "leaderboard", "live-data", "github-stars"],
+  "primitives": ["/track", "/fn"],
+  "powered_by": "/track extract cell + EvanLi/Github-Ranking Top100/JavaScript.md (public ranking feed), verified and rendered fully in-browser",
+  "agent_scenario": "When you need: a physical trigger that always resolves to a fresh ranked list by fetching public data in-browser with verify-before-exec.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

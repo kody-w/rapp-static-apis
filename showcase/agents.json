@@ -16,7 +16,7 @@
       "slug": "physical",
       "title": "Physical World",
       "blurb": "QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.",
-      "count": 3
+      "count": 4
     },
     {
       "slug": "verify",
@@ -179,6 +179,19 @@
       "status": "live",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-paper-that-boots-python/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-paper-that-boots-python/"
+    },
+    {
+      "slug": "living-leaderboard",
+      "channel": "physical",
+      "title": "Living Leaderboard",
+      "when_to_use": "When you need: a physical trigger that always resolves to a fresh ranked list by fetching public data in-browser with verify-before-exec.",
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/living-leaderboard/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/living-leaderboard/"
     }
   ]
 }

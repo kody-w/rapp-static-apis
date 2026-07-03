@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 10,
+  "count": 11,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -216,6 +216,28 @@
       ],
       "url": "demos/the-paper-that-boots-python/",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-paper-that-boots-python/demo.json"
+    },
+    {
+      "slug": "living-leaderboard",
+      "channel": "physical",
+      "rank": 4,
+      "emoji": "🏁",
+      "title": "Living Leaderboard",
+      "tagline": "A printed QR re-ranks the top JavaScript repos every time someone scans it.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "qr",
+        "leaderboard",
+        "live-data",
+        "github-stars"
+      ],
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "url": "demos/living-leaderboard/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/living-leaderboard/demo.json"
     }
   ]
 }

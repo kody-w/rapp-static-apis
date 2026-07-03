@@ -1,0 +1,125 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Living Leaderboard — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🏁</div>
+    <h1 id="title">Living Leaderboard</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">This page stores no ranking. Press the button: your browser fetches the pinned <code>extract</code> cell from <code>/track</code>, re-checks its SHA-256, refuses it on any mismatch, then pulls a live public stars leaderboard and renders the top 10. All on your device, no server.</p>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap">
+      <button class="run" id="go">🏁 Load live top 10</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">GitHub stars leaderboard · updated daily</span>
+    </div>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>A poster is dead ink. But this one keeps moving: every scan makes the visitor's browser verify code bytes locally, fetch a current public ranking, and draw a fresh top-10 leaderboard. The artifact is physical, the board is alive, and nobody runs a backend in the middle. The same printed QR keeps updating as the world changes.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Open <a href="../../../track/">/track</a>, keep the pinned <code>extract</code> cell, and set <code>src</code> to <code>https://raw.githubusercontent.com/EvanLi/Github-Ranking/master/Top100/JavaScript.md</code>.</li>
+      <li>Use <code>path</code> as blank so the full markdown table is returned, then parse rows into top entries in-page.</li>
+      <li>Encode the spec into a QR and print it. Every scan re-fetches and re-ranks in the scanner's browser.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/living-leaderboard/</code> (crypto.subtle needs a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const TRACK = '../../../track';
+const RANKING = 'https://raw.githubusercontent.com/EvanLi/Github-Ranking/master/Top100/JavaScript.md';
+const out = document.getElementById('out');
+const narrate = mkNarrator(document.getElementById('steps'));
+
+function escapeHtml(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function parseTopRows(md) {
+  const rows = String(md || '').split('\n').map(line => line.trim());
+  const parsed = [];
+  for (const line of rows) {
+    if (!/^\|\s*\d+\s*\|/.test(line)) continue;
+    const cols = line.split('|').map(s => s.trim());
+    if (cols.length < 9) continue;
+    const rank = Number(cols[1]);
+    const link = cols[2].match(/^\[(.+?)\]\((https?:\/\/[^)]+)\)$/);
+    if (!Number.isFinite(rank) || !link) continue;
+    parsed.push({ rank, name: link[1], url: link[2], stars: cols[3], forks: cols[4], issues: cols[6], updated: cols[8] });
+    if (parsed.length >= 10) break;
+  }
+  return parsed;
+}
+
+document.getElementById('go').onclick = async () => {
+  document.getElementById('steps').innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">loading live leaderboard…</span>';
+  try {
+    const feed = await runVerifiedCell({
+      base: TRACK,
+      cell: 'extract',
+      fn: 'extract',
+      args: { src: RANKING, path: '' },
+      onStep: narrate
+    });
+
+    narrate('parse', 'active', 'parse ranking rows from markdown', 'build top 10 in-page');
+    const top10 = parseTopRows(feed.value);
+    if (top10.length < 10) throw new Error('ranking feed did not return 10 rows');
+    narrate('parse', 'ok', 'parsed live top 10', top10.map(r => `#${r.rank} ${r.name}`).join(' · '));
+
+    const list = top10.map((row) => {
+      const name = escapeHtml(row.name);
+      const stars = escapeHtml(row.stars);
+      const forks = escapeHtml(row.forks);
+      return `<li style="margin-bottom:10px"><a href="${row.url}" target="_blank" rel="noopener noreferrer">${name}</a><div class="mono" style="font-size:12px;color:var(--muted)">#${row.rank} · ${stars} ★ · ${forks} forks</div></li>`;
+    }).join('');
+
+    out.innerHTML = `<div style="margin-bottom:10px"><span class="big">Live top 10</span> <span style="color:var(--muted)">JavaScript repos by stars</span></div>` +
+      `<ol style="margin:0;padding-left:20px;color:var(--fg)">${list}</ol>` +
+      `<div class="mono" style="margin-top:10px;color:var(--muted)">verified cell · fetched in your browser · ${new Date().toLocaleTimeString()}</div>`;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : (e.message || e)}</span>`;
+  }
+};
+</script>
+</body></html>
