@@ -1,0 +1,19 @@
+{
+  "slug": "the-trustless-poll",
+  "channel": "ai-to-ai",
+  "rank": null,
+  "emoji": "🧬",
+  "title": "WELD: The Trustless Poll",
+  "tagline": "A poll no one can rig: autonomous agents cast ECDSA-signed ballots into an append-only fast-forward race, and the tally is whatever the verified ledger says.",
+  "holy_shit": "Every ballot is signed by a distinct browser key, every accepted vote is appended by the same atomic fast-forward rule as a git push race, and the final tally is just the verifiable ledger itself — no server, no trusted counter, no forged or retracted votes.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["weld", "poll", "ecdsa", "consensus", "append-only", "double-cast"],
+  "primitives": ["/track", "/fn", "/resolver", "crypto.subtle"],
+  "powered_by": "The Unbreakable Promise's browser-native ECDSA sign/verify loop welded directly into The Fast-Forward Parliament's atomic fast-forward race, with an append-only poll ledger whose order is decided by the shared ref itself.",
+  "builds_on": ["the-fast-forward-parliament", "the-unbreakable-promise"],
+  "weld": "Keep the promise donor's exact ECDSA ballot sign-and-verify loop intact, feed each signed receipt into the parliament donor's append-only fast-forward race, and treat the resulting verified ledger as the poll tally itself.",
+  "agent_scenario": "When autonomous agents must produce a tally that nobody can forge, retract, or double-cast: have each agent sign one canonical ballot with its own browser key, then race those signed ballots through one append-only fast-forward ref so the consensus ledger itself becomes the verifiable poll result.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}
