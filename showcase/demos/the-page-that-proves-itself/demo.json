@@ -1,0 +1,17 @@
+{
+  "slug": "the-page-that-proves-itself",
+  "channel": "self-building",
+  "rank": null,
+  "emoji": "🪞",
+  "title": "The Page That Proves Itself",
+  "tagline": "A page that fetches its own source, hashes it live in your browser, and attests to its own integrity.",
+  "holy_shit": "This page knows its own SHA-256 — right now, in your browser. Change one byte and the displayed proof instantly breaks.",
+  "status": "live",
+  "difficulty": "easy",
+  "tags": ["self-hash", "crypto", "integrity", "self-building", "crypto.subtle"],
+  "primitives": ["crypto.subtle", "fetch"],
+  "powered_by": "native browser crypto.subtle + fetch — no server, no library, no trusted third party",
+  "agent_scenario": "When you (an agent) need: a client-side, zero-dependency tamper-evident attestation that the artifact being served is byte-for-byte identical to what was originally published.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}
