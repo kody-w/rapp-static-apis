@@ -1,0 +1,19 @@
+{
+  "slug": "the-sovereign-ticket",
+  "channel": "human",
+  "rank": null,
+  "emoji": "🧬",
+  "title": "WELD: The Sovereign Ticket",
+  "tagline": "A signed event ticket that becomes redeemable only when a future public beacon drops and both door-side key shares meet in person.",
+  "holy_shit": "The issuer signs the exact ticket so it cannot be forged, commits it to a future drand round so the redeem code does not exist yet, then splits the redemption key across the holder's phone and the venue scanner so admission only happens when both are physically present in the same frame.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["weld", "ticket", "ecdsa", "drand", "2-of-2", "in-person", "double-spend"],
+  "primitives": ["/track", "/fn", "rapp-sealed/1.0", "crypto.subtle"],
+  "powered_by": "The Unbreakable Promise's ECDSA signing loop, The Unriggable Ticket's drand-bound oracle, and Only in the Same Frame's AES-GCM + XOR-share co-presence gate welded into one browser-only ticket flow.",
+  "builds_on": ["the-unriggable-ticket", "the-unbreakable-promise", "only-in-the-same-frame"],
+  "weld": "Sign the exact ticket payload with the promise donor, bind its single-use redeem proof to a future drand round with the unriggable donor, then seal that signed packet behind the same-frame donor's 2-of-2 XOR key shares so the door can spend it only when holder and venue meet in person.",
+  "agent_scenario": "When you need an in-person credential that must be issuer-authentic, unpredictably redeemable, and physically co-present at the moment of use: sign the exact ticket payload, commit its redeem proof to a future public randomness beacon, and split the decryption key across the holder and venue so neither side alone can spend it.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

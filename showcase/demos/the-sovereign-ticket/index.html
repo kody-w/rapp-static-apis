@@ -1,0 +1,503 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WELD: The Sovereign Ticket — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .field{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
+  .field label{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-family:var(--mono)}
+  .field input,.field textarea{width:100%;background:var(--panel-2);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:10px 12px;font:inherit;font-size:14px}
+  .field textarea{min-height:92px;resize:vertical;font-family:var(--mono)}
+  .ticket-box,.share-box,.ledger-box{border:1px solid var(--line);border-radius:11px;background:var(--panel-2);padding:12px 13px}
+  .ticket-box .line,.ledger-box .line{display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:12px;color:var(--muted);margin:3px 0}
+  .ticket-box .val,.ledger-box .val{color:var(--text);text-align:right;word-break:break-word}
+  .share-head{display:flex;justify-content:space-between;gap:8px;align-items:baseline;font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:8px}
+  .share-head b{color:var(--text)}
+  .share-note{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:8px;line-height:1.45}
+  .btnrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+  .tog{font-family:var(--mono);font-size:12px;color:var(--faint);display:flex;gap:6px;align-items:center;cursor:pointer}
+  .mono-pre{white-space:pre-wrap;word-break:break-word;font-family:var(--mono);font-size:12px}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🧬</div>
+    <h1 id="title">WELD: The Sovereign Ticket</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — mint it, wait for the beacon, redeem it at the door</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">This is the full welded flow: the issuer signs the exact ticket payload, commits its redeem proof to a <b>future drand round</b>, then seals that signed packet behind a <b>2-of-2 XOR split key</b>. One share rides on the holder's phone, the other lives on the venue scanner. Redemption succeeds only when the round has dropped <i>and</i> both shares meet in the same browser.</p>
+
+    <div class="grid">
+      <div class="field">
+        <label for="holder">ticket holder</label>
+        <input id="holder" value="Avery Chen" spellcheck="false">
+      </div>
+      <div class="field">
+        <label for="event">event</label>
+        <input id="event" value="Sovereign Night — Door A · 20:00" spellcheck="false">
+      </div>
+    </div>
+
+    <div class="btnrow">
+      <button class="run" id="mint">🧬 Mint a fresh sovereign ticket</button>
+      <button class="run ghost" id="redeem">🎟️ Redeem at the door</button>
+      <button class="run ghost" id="clear">🧹 Clear door ledger</button>
+    </div>
+
+    <div class="btnrow" style="margin-top:-4px">
+      <label class="tog"><input type="checkbox" id="forge"> simulate a forged signature</label>
+      <label class="tog"><input type="checkbox" id="wrongShare"> simulate the wrong venue share</label>
+    </div>
+
+    <div class="ticket-box" id="ticketBox" style="margin-bottom:12px">
+      <span class="mono" style="color:var(--faint)">— mint a ticket to see the signed packet —</span>
+    </div>
+
+    <div class="grid" style="margin-bottom:12px">
+      <div class="field" style="margin:0">
+        <label for="holderShare">holder phone (Object A)</label>
+        <textarea id="holderShare" spellcheck="false" placeholder="mint fills this with ciphertext + share A"></textarea>
+      </div>
+      <div class="field" style="margin:0">
+        <label for="venueShare">venue scanner (Object B)</label>
+        <textarea id="venueShare" spellcheck="false" placeholder="mint fills this with share B"></textarea>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-bottom:12px">
+      <div class="share-box">
+        <div class="share-head"><b>Holder phone</b><span>signed ticket packet + share A</span></div>
+        <div class="share-note">Like <b>Only in the Same Frame</b>: this side has the ciphertext and half the key, but not the whole key, not the plaintext, and not a spendable ticket on its own.</div>
+      </div>
+      <div class="share-box">
+        <div class="share-head"><b>Venue scanner</b><span>share B</span></div>
+        <div class="share-note">The scanner contributes the missing 256 bits only at the door. Remove either side and the packet stays sealed forever.</div>
+      </div>
+    </div>
+
+    <div class="ledger-box" id="ledgerBox" style="margin-bottom:14px">
+      <span class="mono" style="color:var(--faint)">— the door ledger is empty —</span>
+    </div>
+
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— mint a ticket, then redeem it —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>This keeps all three donors alive. From <b>The Unbreakable Promise</b> it transplants the in-browser ECDSA loop, so the issuer signs the exact holder + event + round + seed bytes and any forged edit fails verification. From <b>The Unriggable Ticket</b> it transplants the public-beacon trick, so the redeem proof is tied to a drand round that does not exist yet at issuance time. From <b>Only in the Same Frame</b> it transplants the XOR-split AES key, so the signed packet is not even readable until the holder's phone and the venue's scanner meet.</p>
+    <p style="margin:12px 0 0">That means the ticket is simultaneously <b>authentic</b>, <b>unpredictable</b>, and <b>physically co-present</b>. The page also keeps a tiny browser-side spend ledger so the same verified ticket digest is refused on a second scan in the same door verifier.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Press <b>Mint a fresh sovereign ticket</b>. The page verifies a pinned <code>extract</code> cell, signs the exact payload, learns the current drand head, commits the ticket to a future round, then seals the signed receipt into two shares.</li>
+      <li>Leave both shares in place and press <b>Redeem at the door</b>. If the beacon round has not dropped yet, the page waits until it does, then computes the redeem proof in your browser and spends that ticket digest into the local door ledger.</li>
+      <li>Enable <b>simulate a forged signature</b> to watch ECDSA verification refuse, or <b>simulate the wrong venue share</b> to watch the AES-GCM seal refuse before any signature check can even happen.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-sovereign-ticket/</code> (<code>crypto.subtle</code> needs localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Weld pattern: <code>signed exact payload</code> + <code>future public randomness proof</code> + <code>2-of-2 share gate</code>. First bind authorship, then bind unpredictability, then bind physical co-presence.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator, sha256hex } from '../../lib/showcase.js';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const TRACK = '../../../track';
+const ORACLE = '../the-unriggable-ticket';
+const DOOR_LEDGER_KEY = 'sovereign-ticket-spent-v1';
+const MAGIC = 'SVT1';
+const N = 4096;
+const enc = new TextEncoder();
+const dec = new TextDecoder();
+const $ = id => document.getElementById(id);
+const out = $('out');
+const narrate = mkNarrator($('steps'));
+let issuerKeyPair = null;
+let currentMint = null;
+
+const esc = (v) => String(v ?? '').replace(/[&<>"']/g, c =>
+  ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;', "'":'&#39;' }[c]));
+
+function narrateStage(prefix) {
+  return (k, s, t, d) => narrate(`${prefix}-${k}`, s, t, d);
+}
+
+function b64(bytes) {
+  let s = '';
+  for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(s);
+}
+
+function unb64(str) {
+  const raw = atob(String(str || '').replace(/\s+/g, ''));
+  const out = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i++) out[i] = raw.charCodeAt(i);
+  return out;
+}
+
+function b64url(bytes) {
+  return b64(bytes).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
+
+function fromB64url(str) {
+  const b64s = String(str).replace(/-/g, '+').replace(/_/g, '/');
+  const pad = b64s + '='.repeat((4 - (b64s.length % 4 || 4)) % 4);
+  return unb64(pad);
+}
+
+function sleep(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+
+function randHex(len = 8) {
+  return [...crypto.getRandomValues(new Uint8Array(len))]
+    .map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function loadLedger() {
+  try {
+    const raw = localStorage.getItem(DOOR_LEDGER_KEY);
+    const rows = raw ? JSON.parse(raw) : [];
+    return Array.isArray(rows) ? rows : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveLedger(rows) {
+  localStorage.setItem(DOOR_LEDGER_KEY, JSON.stringify(rows));
+}
+
+function renderLedger() {
+  const rows = loadLedger();
+  if (!rows.length) {
+    $('ledgerBox').innerHTML = '<span class="mono" style="color:var(--faint)">— the door ledger is empty —</span>';
+    return;
+  }
+  $('ledgerBox').innerHTML =
+    `<div style="margin-bottom:8px"><span class="big">${rows.length}</span> <span style="color:var(--muted)">spent ticket${rows.length === 1 ? '' : 's'} in this verifier</span></div>` +
+    rows.slice().reverse().map(r =>
+      `<div class="line"><span>${esc(r.ticketId)}</span><span class="val">${esc(r.proof)}</span></div>` +
+      `<div class="line" style="margin-top:-1px"><span>redeemed</span><span class="val">${new Date(r.at).toLocaleTimeString()}</span></div>`
+    ).join('');
+}
+
+async function getIssuerKeyPair(onStep) {
+  if (issuerKeyPair) return issuerKeyPair;
+  onStep('issuer-keygen', 'active', 'generate issuer ECDSA P-256 keypair in-browser', 'crypto.subtle.generateKey');
+  issuerKeyPair = await crypto.subtle.generateKey(
+    { name: 'ECDSA', namedCurve: 'P-256' },
+    true,
+    ['sign', 'verify']
+  );
+  onStep('issuer-keygen', 'ok', 'issuer keypair ready for this session', 'private key never leaves this tab');
+  return issuerKeyPair;
+}
+
+async function splitReceipt(plaintext, onStep) {
+  onStep('split-key', 'active', 'roll a random AES-256 key for the sealed ticket packet', '');
+  const keyBytes = crypto.getRandomValues(new Uint8Array(32));
+  const key = await crypto.subtle.importKey('raw', keyBytes, { name: 'AES-GCM' }, false, ['encrypt']);
+  onStep('split-key', 'ok', 'AES-256 key minted', 'will be destroyed into two shares');
+
+  onStep('split-seal', 'active', 'AES-256-GCM seal the signed receipt', '');
+  const nonce = crypto.getRandomValues(new Uint8Array(12));
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv: nonce }, key, enc.encode(plaintext)));
+  onStep('split-seal', 'ok', 'signed receipt sealed', `${ct.length} ciphertext bytes`);
+
+  onStep('split-xor', 'active', 'XOR-split that key into holder-share and venue-share', '');
+  const shareA = crypto.getRandomValues(new Uint8Array(32));
+  const shareB = new Uint8Array(32);
+  for (let i = 0; i < 32; i++) shareB[i] = keyBytes[i] ^ shareA[i];
+  onStep('split-xor', 'ok', '2-of-2 split complete', 'neither side alone can reconstruct the key');
+
+  onStep('split-pack', 'active', 'pack Object A {nonce + shareA + ciphertext} and Object B {shareB}', '');
+  const A = new Uint8Array(4 + 1 + 12 + 32 + ct.length);
+  A.set(enc.encode(MAGIC), 0); A[4] = 0x0a; A.set(nonce, 5); A.set(shareA, 17); A.set(ct, 49);
+  const B = new Uint8Array(4 + 1 + 32);
+  B.set(enc.encode(MAGIC), 0); B[4] = 0x0b; B.set(shareB, 5);
+  onStep('split-pack', 'ok', 'holder phone + venue scanner packets ready', 'same-frame donor transplanted whole');
+  return { holderShare: b64(A), venueShare: b64(B) };
+}
+
+async function reassembleReceipt(aText, bText, onStep) {
+  onStep('join-parse', 'active', 'parse holder phone Object A and venue scanner Object B', '');
+  const A = unb64(aText);
+  const B = unb64(bText);
+  if (A.length < 49 || B.length < 37) throw new Error('share payload is too short');
+  if (dec.decode(A.subarray(0, 4)) !== MAGIC || A[4] !== 0x0a) throw new Error('holder phone payload is not Object A');
+  if (dec.decode(B.subarray(0, 4)) !== MAGIC || B[4] !== 0x0b) throw new Error('venue scanner payload is not Object B');
+  const nonce = A.subarray(5, 17), shareA = A.subarray(17, 49), ct = A.subarray(49), shareB = B.subarray(5, 37);
+  onStep('join-parse', 'ok', 'both objects parsed', `${ct.length} ciphertext bytes + both 256-bit shares`);
+
+  onStep('join-key', 'active', 'reassemble the AES key = shareA ⊕ shareB', '');
+  const keyBytes = new Uint8Array(32);
+  for (let i = 0; i < 32; i++) keyBytes[i] = shareA[i] ^ shareB[i];
+  const fp = await sha256hex(keyBytes);
+  const key = await crypto.subtle.importKey('raw', keyBytes, { name: 'AES-GCM' }, false, ['decrypt']);
+  onStep('join-key', 'ok', 'candidate key reconstructed', fp.slice(0, 16));
+
+  onStep('join-open', 'active', 'AES-256-GCM decrypt and authenticate the signed receipt', '');
+  let plain;
+  try {
+    plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: nonce }, key, ct);
+  } catch {
+    throw new Error('seal refused — the holder and venue shares are not a pair');
+  }
+  onStep('join-open', 'ok', 'signed ticket packet reopened', 'same-frame donor succeeded');
+  return { plaintext: dec.decode(plain), fingerprint: fp.slice(0, 16) };
+}
+
+function renderTicketBox(mint) {
+  const t = mint.receipt.ticket;
+  $('ticketBox').innerHTML =
+    `<div class="line"><span>holder</span><span class="val">${esc(t.holder)}</span></div>` +
+    `<div class="line"><span>event</span><span class="val">${esc(t.event)}</span></div>` +
+    `<div class="line"><span>ticket id</span><span class="val">${esc(t.ticketId)}</span></div>` +
+    `<div class="line"><span>seed</span><span class="val">${esc(t.seed)}</span></div>` +
+    `<div class="line"><span>future drand round</span><span class="val">${t.round.toLocaleString()}</span></div>` +
+    `<div class="line"><span>signature</span><span class="val">${esc(mint.receipt.signatureB64url.slice(0, 24))}…</span></div>` +
+    `<div class="line"><span>door opens when</span><span class="val">${new Date(mint.drawAt).toLocaleTimeString()}</span></div>`;
+}
+
+async function mintTicket() {
+  $('steps').innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">minting…</span>';
+  const holder = $('holder').value.trim();
+  const event = $('event').value.trim();
+  if (!holder || !event) {
+    out.innerHTML = '<span class="mono" style="color:var(--bad)">enter both a holder and an event first</span>';
+    return;
+  }
+
+  try {
+    const ticketId = 'svt-' + randHex(4);
+    const seed = 'door-' + randHex(6);
+    const baseStatement = `Admit ${holder} to ${event}. Ticket ${ticketId}. Redeem only when holder + venue are co-present.`;
+    const gate = await runVerifiedCell({
+      base: TRACK,
+      cell: 'extract',
+      fn: 'echo',
+      args: baseStatement,
+      onStep: narrateStage('echo')
+    });
+    const signer = await getIssuerKeyPair(narrate);
+    const head = await runVerifiedCell({
+      base: ORACLE,
+      cell: 'oracle',
+      fn: 'draw',
+      args: { seed, round: 'latest', n: N },
+      onStep: narrateStage('head')
+    });
+    const round = head.latestRound + 3;
+    narrate('commit', 'active', 'commit this ticket to a future drand round', round.toLocaleString());
+
+    const ticket = {
+      schema: 'sovereign-ticket/1.0',
+      ticketId,
+      holder,
+      event,
+      message: String(gate.echo ?? baseStatement),
+      seed,
+      round,
+      n: N,
+      policy: '2-of-2 holder-share + venue-share',
+      issuedAt: new Date().toISOString()
+    };
+    const canonical = JSON.stringify(ticket);
+    narrate('commit', 'ok', 'exact ticket payload frozen', `${canonical.length} signed bytes`);
+
+    narrate('sign', 'active', 'sign the exact ticket bytes with issuer ECDSA P-256', ticketId);
+    const sig = new Uint8Array(await crypto.subtle.sign(
+      { name: 'ECDSA', hash: 'SHA-256' },
+      signer.privateKey,
+      enc.encode(canonical)
+    ));
+    narrate('sign', 'ok', 'issuer signature produced', `${sig.byteLength} bytes`);
+
+    narrate('verify-sign', 'active', 'verify the issuer signature immediately', '');
+    const valid = await crypto.subtle.verify(
+      { name: 'ECDSA', hash: 'SHA-256' },
+      signer.publicKey,
+      sig,
+      enc.encode(canonical)
+    );
+    if (!valid) throw new Error('issuer signature did not verify');
+    narrate('verify-sign', 'ok', 'signature verified', 'promise donor transplanted whole');
+
+    const publicKeyJwk = await crypto.subtle.exportKey('jwk', signer.publicKey);
+    const receipt = {
+      algo: 'ECDSA-P-256-SHA256',
+      canonical,
+      ticket,
+      publicKeyJwk,
+      signatureB64url: b64url(sig)
+    };
+
+    const future = await runVerifiedCell({
+      base: ORACLE,
+      cell: 'oracle',
+      fn: 'draw',
+      args: { seed, round, n: N },
+      onStep: narrateStage('future')
+    });
+    if (future.resolved) throw new Error('expected a future round, but it already resolved');
+
+    const sealed = await splitReceipt(JSON.stringify(receipt), narrate);
+    currentMint = { receipt, ...sealed, drawAt: future.drawAt };
+    $('holderShare').value = sealed.holderShare;
+    $('venueShare').value = sealed.venueShare;
+    renderTicketBox(currentMint);
+    renderLedger();
+    out.innerHTML =
+      `<div><span class="big">✅ Ticket minted</span> <span style="color:var(--muted)">issuer-authentic · future-bound · 2-of-2 sealed</span></div>` +
+      `<div class="mono" style="font-size:12px;color:var(--muted);margin-top:6px">drand round ${round.toLocaleString()} drops at ${new Date(future.drawAt).toLocaleTimeString()} · until then the door proof literally does not exist</div>`;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : esc(e.message || e)}</span>`;
+  }
+}
+
+async function redeemTicket() {
+  $('steps').innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">redeeming…</span>';
+  const a = $('holderShare').value.trim();
+  let b = $('venueShare').value.trim();
+  if (!a || !b) {
+    out.innerHTML = '<span class="mono" style="color:var(--bad)">both holder and venue shares are required</span>';
+    return;
+  }
+
+  try {
+    if ($('wrongShare').checked) {
+      narrate('wrong-share', 'active', 'swap in the wrong venue share', 'simulate the holder showing up without the real scanner');
+      const bogus = new Uint8Array(37);
+      bogus.set(enc.encode(MAGIC), 0);
+      bogus[4] = 0x0b;
+      bogus.set(crypto.getRandomValues(new Uint8Array(32)), 5);
+      b = b64(bogus);
+      narrate('wrong-share', 'ok', 'venue share replaced', 'AES-GCM should refuse');
+    }
+
+    const reopened = await reassembleReceipt(a, b, narrate);
+    const receipt = JSON.parse(reopened.plaintext);
+    const canonical = String(receipt.canonical || '');
+    if (!canonical || !receipt.publicKeyJwk || !receipt.signatureB64url) throw new Error('reopened payload is not a signed sovereign ticket');
+
+    let sig = fromB64url(receipt.signatureB64url);
+    if ($('forge').checked) {
+      narrate('forge', 'active', 'flip one bit of the issuer signature', 'simulate a forged ticket');
+      sig = new Uint8Array(sig);
+      sig[0] ^= 0x01;
+      narrate('forge', 'ok', 'signature mutated', 'ECDSA verify should fail');
+    }
+
+    narrate('pubkey', 'active', 'import issuer public JWK and verify the ticket bytes', receipt.ticket.ticketId);
+    const publicKey = await crypto.subtle.importKey(
+      'jwk',
+      receipt.publicKeyJwk,
+      { name: 'ECDSA', namedCurve: 'P-256' },
+      true,
+      ['verify']
+    );
+    const sigOk = await crypto.subtle.verify(
+      { name: 'ECDSA', hash: 'SHA-256' },
+      publicKey,
+      sig,
+      enc.encode(canonical)
+    );
+    if (!sigOk) throw new Error('issuer signature refused — forged or edited ticket');
+    narrate('pubkey', 'ok', 'issuer signature verified', 'the ticket payload is authentic');
+
+    let draw = await runVerifiedCell({
+      base: ORACLE,
+      cell: 'oracle',
+      fn: 'draw',
+      args: { seed: receipt.ticket.seed, round: receipt.ticket.round, n: receipt.ticket.n },
+      onStep: narrateStage('door')
+    });
+    if (!draw.resolved) {
+      narrate('await', 'active', 'future round not published yet — wait for the public beacon', `${draw.secondsUntil}s`);
+      for (let i = 0; i < 10 && !draw.resolved; i++) {
+        out.innerHTML =
+          `<div><span class="big">⏳ Authentic ticket, but not redeemable yet</span></div>` +
+          `<div class="mono" style="font-size:12px;color:var(--muted);margin-top:6px">waiting for drand round ${receipt.ticket.round.toLocaleString()} to drop at ${new Date(draw.drawAt).toLocaleTimeString()}…</div>`;
+        await sleep(1200);
+        draw = await runVerifiedCell({
+          base: ORACLE,
+          cell: 'oracle',
+          fn: 'draw',
+          args: { seed: receipt.ticket.seed, round: receipt.ticket.round, n: receipt.ticket.n },
+          onStep: narrateStage('door-poll')
+        });
+      }
+      if (!draw.resolved) throw new Error('drand has not published this round yet — try redeem again in a few seconds');
+      narrate('await', 'ok', 'future round dropped — redeem proof now exists', draw.randomness.slice(0, 16) + '…');
+    }
+
+    const proof = draw.digest.slice(0, 16);
+    const spendId = await sha256hex(enc.encode(`${receipt.ticket.ticketId}:${proof}`));
+    const ledger = loadLedger();
+    narrate('spend', 'active', 'check the door ledger for prior redemption', spendId.slice(0, 16));
+    if (ledger.some(row => row.spendId === spendId)) {
+      narrate('spend', 'bad', 'double-spend refused', 'this ticket digest is already in the ledger');
+      out.innerHTML =
+        `<div><span class="big" style="color:var(--bad)">🚫 Already spent</span></div>` +
+        `<div class="mono" style="font-size:12px;color:var(--muted);margin-top:6px">ticket ${esc(receipt.ticket.ticketId)} already redeemed with proof ${esc(proof)}</div>`;
+      renderLedger();
+      return;
+    }
+    ledger.push({ spendId, ticketId: receipt.ticket.ticketId, proof, at: new Date().toISOString() });
+    saveLedger(ledger);
+    narrate('spend', 'ok', 'ticket spent into the door ledger', 'second scan will now refuse');
+    renderLedger();
+
+    out.innerHTML =
+      `<div><span class="big">🎫 Door opened</span> <span style="color:var(--muted)">holder + venue were co-present</span></div>` +
+      `<div class="mono-pre" style="margin-top:8px">ticket ${esc(receipt.ticket.ticketId)}\nissuer signature ✓\nreassembled key fingerprint ${esc(reopened.fingerprint)}\npublic beacon proof ${esc(proof)}\nround ${receipt.ticket.round.toLocaleString()} · pick ${draw.pick} of ${draw.n}</div>`;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${esc(e.message || e)}</span>`;
+  }
+}
+
+$('mint').onclick = mintTicket;
+$('redeem').onclick = redeemTicket;
+$('clear').onclick = () => {
+  localStorage.removeItem(DOOR_LEDGER_KEY);
+  renderLedger();
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">door ledger cleared</span>';
+};
+
+renderLedger();
+</script>
+</body></html>
