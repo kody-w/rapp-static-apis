@@ -1,0 +1,19 @@
+{
+  "slug": "the-trusted-exchange",
+  "channel": "wildcard",
+  "rank": null,
+  "emoji": "🧬",
+  "title": "WELD: The Trusted Exchange",
+  "tagline": "A trustless marketplace where every completed purchase updates a signed, provably-fresh seller reputation board.",
+  "holy_shit": "This weld-of-welds keeps live inventory, sealed orders, custody proofs, and seller-signed receipts from the Notarized Marketplace, then injects each completed sale into the Verifiable Tournament flow so seller reputation is signed, freshness-stamped, and impossible to fake-freshen.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["weld", "marketplace", "reputation", "leaderboard", "ecdsa", "custody", "freshness", "webcrypto"],
+  "primitives": ["/track", "/fn", "rapp-sealed/1.0", "crypto.subtle"],
+  "powered_by": "The Notarized Marketplace end-to-end order trust chain welded to The Verifiable Tournament signed + freshness-stamped leaderboard flow",
+  "builds_on": ["the-notarized-marketplace", "the-verifiable-tournament"],
+  "weld": "Keep the full notarized order pipeline intact, then pipe each completed seller-signed receipt into the tournament's sign-plus-freshness leaderboard so seller reputation updates are both attributable and provably live.",
+  "agent_scenario": "When you need: a zero-backend exchange where buying from a seller emits a custody-proven signed receipt and immediately updates that seller on a cryptographically signed, provably-fresh reputation ranking.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

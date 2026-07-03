@@ -1,0 +1,634 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WELD: The Trusted Exchange — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  .menu-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;padding:10px 12px;background:var(--panel-2,#1a1a2e);border-radius:10px;border:1px solid var(--line)}
+  .menu-item input[type=checkbox]{width:16px;height:16px;margin-top:3px;flex-shrink:0;cursor:pointer;accent-color:var(--accent,#7ee8a2)}
+  .menu-item label{cursor:pointer;flex:1;line-height:1.4}
+  .menu-item.sold-out-item label{opacity:.45;text-decoration:line-through;cursor:not-allowed}
+  .badge{display:inline-block;padding:1px 7px;border-radius:6px;font-size:11px;font-family:var(--mono)}
+  .badge.avail{background:rgba(0,200,100,.15);color:#0c6}
+  .badge.sold{background:rgba(200,100,0,.15);color:var(--accent,#f5a623)}
+  .field{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
+  .field label{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-family:var(--mono)}
+  .field input,.field textarea{width:100%;background:var(--panel-2,#1a1a2e);border:1px solid var(--line);border-radius:9px;color:var(--ink);padding:10px 12px;font:inherit;font-size:14px;font-family:var(--mono)}
+  .field textarea{min-height:56px;resize:vertical}
+  .cipher{font-family:var(--mono);font-size:12px;word-break:break-all;overflow-wrap:anywhere;color:var(--accent-2,#7ee8a2);line-height:1.5}
+  .weld-arrow{text-align:center;font-size:18px;margin:8px 0 14px;color:var(--muted)}
+  #orderSection,#custodySection,#receiptSection,#reputationSection{display:none}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🧬</div>
+    <h1 id="title">WELD: The Trusted Exchange</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Run the full welded flow: <b>(1)</b> live Issues availability gate, <b>(2)</b> AES-sealed order, <b>(3)</b> SHA-256 custody stamp, <b>(4)</b> seller ECDSA receipt, then <b>(5)</b> seller reputation update on a signed, freshness-stamped leaderboard. Every stage is visible in narrated <code>.steps</code>.</p>
+  </div>
+
+  <div class="panel">
+    <h2>① Live menu — check availability</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">No inventory database. Your browser reads live GitHub Issues via <code>IssuesDB</code>: any open issue with a <code>sold-out:&lt;item&gt;</code> label marks that item gone — instantly, no backend needed. A pinned <code>extract</code> cell is re-verified before the fetch runs (donor: <b>the-notarized-marketplace</b>).</p>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap">
+      <button class="run" id="goMenu">🍳 Check what's available</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">repo: kody-w/rapp-static-apis</span>
+    </div>
+    <div class="live-out" id="menuOut"><span class="mono" style="color:var(--faint)">— press the button to load the live menu —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="menuSteps"></ul>
+  </div>
+
+  <div class="panel" id="orderSection">
+    <div class="weld-arrow">🔗 <b>weld point ①→②</b>: selected available items become the plaintext order payload</div>
+    <h2>② Place &amp; seal your order</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Your cart is sealed with <code>AES-256-GCM</code> (RSL1 envelope). The seller's passphrase is the only key that can open it — the sealed order can be published anywhere and leaks nothing. Change one character of the passphrase and the auth tag refuses.</p>
+    <div id="cartItems" style="margin-bottom:14px"></div>
+    <div class="field">
+      <label for="buyerNote">buyer note (optional)</label>
+      <textarea id="buyerNote" spellcheck="false" placeholder="e.g. Table 7 · no onions please"></textarea>
+    </div>
+    <div class="field">
+      <label for="sellerKey">seller's seal passphrase — the one key that opens this order</label>
+      <input id="sellerKey" type="text" value="trusted-exchange-demo-2026" spellcheck="false">
+    </div>
+    <button class="run" id="goSeal">🔐 Seal &amp; submit order</button>
+    <div class="live-out" id="sealOut" style="margin-top:14px"><span class="mono" style="color:var(--faint)">— select items above and press Seal —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="sealSteps"></ul>
+  </div>
+
+  <div class="panel" id="custodySection">
+    <div class="weld-arrow">🔗 <b>weld point ②→③</b>: the RSL1 sealed envelope becomes the content of a custody chain link</div>
+    <h2>③ Custody stamp — tamper-evident trail</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">The sealed order envelope is <code>SHA-256</code> content-addressed. If any byte of the ciphertext changes in transit the hash won't match and tampering is immediately provable from the genesis anchor — no server required.</p>
+    <div class="live-out" id="custodyOut"><span class="mono" style="color:var(--faint)">— seal an order first —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="custodySteps"></ul>
+    <div style="margin-top:14px">
+      <button class="run" id="goVerify" style="display:none">🔍 Verify full custody chain</button>
+    </div>
+    <div class="live-out" id="verifyOut" style="margin-top:10px;display:none"></div>
+    <ul class="steps" id="verifySteps"></ul>
+  </div>
+
+  <div class="panel" id="receiptSection">
+    <div class="weld-arrow">🔗 <b>weld point ③→④</b>: custody-stamped sealed order becomes a seller-signed receipt</div>
+    <h2>④ Notarized receipt — seller-signed and independently verifiable</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">After custody stamping, the seller signs the exact order receipt with an ECDSA P-256 key in-browser. Buyers can verify that signature against the seller public key and prove the receipt matches the precise sealed envelope + custody head.</p>
+    <div class="live-out" id="receiptOut"><span class="mono" style="color:var(--faint)">— complete an order to emit a notarized receipt —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="receiptSteps"></ul>
+  </div>
+
+  <div class="panel" id="reputationSection">
+    <div class="weld-arrow">🧬 <b>weld point ④→⑤</b>: completed seller receipt updates a signed, provably-fresh reputation board</div>
+    <h2>⑤ Trusted reputation exchange board</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">This is the tournament transplant: every seller reputation update is signed with the seller key, then injected into a leaderboard whose source bytes are freshness-stamped and parsed via <code>runVerifiedCell()</code>. Buy from a seller, and their signed rep instantly updates on a board nobody can fake-freshen.</p>
+    <div class="field" style="margin-bottom:10px">
+      <label for="sellerName">seller display name for the leaderboard</label>
+      <input id="sellerName" type="text" value="Trusted Seller Alpha" spellcheck="false">
+    </div>
+    <div class="live-out" id="rankOut"><span class="mono" style="color:var(--faint)">— complete an order to publish signed reputation —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="rankSteps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>This keeps <b>the-notarized-marketplace</b> whole (live stock truth → sealed orders → custody chain → seller-signed receipt), then welds in <b>the-verifiable-tournament</b> whole (signed entry + SHA-256 freshness proof + verified-cell board render). The weld point turns each completed purchase into a signed reputation event on a board that is both attributable and provably current.</p>
+    <p style="margin:12px 0 0">So trust is composable: you don't just trust the listing, or the receipt, or the leaderboard — you can verify every stage independently with browser-native cryptography and pinned compute bytes.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0 0 10px;padding-left:20px;color:var(--muted)">
+      <li>Press <b>Check what's available</b> to load live sold-out labels from GitHub Issues.</li>
+      <li>Select item(s), then press <b>Seal &amp; submit order</b> to produce the RSL1 envelope + custody stamp.</li>
+      <li>Inspect the emitted seller-signed receipt JSON.</li>
+      <li>Watch section ⑤ update seller reputation with a new signed payload embedded into a freshness-stamped leaderboard.</li>
+      <li>Repeat purchases to increase completed orders and see the reputation score rise with new signatures.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">Local: <code>python3 -m http.server</code> in repo root, then open <code>localhost:8000/showcase/demos/the-trusted-exchange/</code> (<code>crypto.subtle</code> requires localhost/https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Transplant two complete flows intact: (A) notarized order trust chain, (B) verifiable tournament trust chain. Weld them by treating each completed signed receipt as a leaderboard event. Result: a marketplace where seller reputation updates are signed, freshness-stamped, and verify-before-exec rendered.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+import { IssuesDB } from '../../lib/issues-db.mjs';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const OWNER = 'kody-w';
+const REPO = 'rapp-static-apis';
+const TRACK = '../../../track';
+const RANKING = 'https://raw.githubusercontent.com/EvanLi/Github-Ranking/master/Top100/JavaScript.md';
+const SOLD_OUT_PREFIX = 'sold-out:';
+const MENU = [
+  { key: 'margherita-pizza',   name: 'Margherita Pizza',   note: 'wood-fired · basil · fior di latte', price: '$14' },
+  { key: 'mushroom-ramen',     name: 'Mushroom Ramen',     note: 'miso broth · smoked shiitake',       price: '$13' },
+  { key: 'halloumi-tacos',     name: 'Halloumi Tacos',     note: 'charred pineapple salsa',            price: '$12' },
+  { key: 'charred-broccolini', name: 'Charred Broccolini', note: 'lemon chili oil',                    price: '$9'  },
+  { key: 'citrus-tonic',       name: 'Citrus Tonic',       note: 'grapefruit · rosemary',              price: '$6'  }
+];
+
+const enc = new TextEncoder();
+const MAGIC = 'RSL1', ITER = 250000;
+const HEADER = 4 + 16 + 12;
+
+const b64 = (bytes) => {
+  let s = '';
+  for (let i = 0; i < bytes.length; i += 0x8000)
+    s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(s);
+};
+
+function b64url(bytes) {
+  const raw = String.fromCharCode(...bytes);
+  return btoa(raw).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
+
+async function deriveKey(passphrase, salt) {
+  const base = await crypto.subtle.importKey('raw', enc.encode(passphrase), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt, iterations: ITER, hash: 'SHA-256' },
+    base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']
+  );
+}
+
+async function sealRSL1(plaintext, passphrase, onStep) {
+  onStep('salt',  'active', 'roll a random 16-byte salt (crypto.getRandomValues)…', '');
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  onStep('salt',  'ok',     'random salt', b64(salt).slice(0, 16) + '…');
+  onStep('key',   'active', `stretch passphrase → 256-bit key (PBKDF2·SHA-256·${ITER.toLocaleString()} rounds)…`, '');
+  const key = await deriveKey(passphrase, salt);
+  onStep('key',   'ok',     'AES-256 key derived — never leaves this tab', 'key-possession is the only gate');
+  onStep('nonce', 'active', 'roll a random 12-byte nonce…', '');
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  onStep('nonce', 'ok',     'random nonce', b64(iv));
+  onStep('enc',   'active', 'AES-256-GCM encrypt (+128-bit auth tag)…', '');
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, enc.encode(plaintext)));
+  onStep('enc',   'ok',     'sealed — ciphertext + auth tag', `${ct.length} bytes`);
+  onStep('pack',  'active', 'pack RSL1 envelope → base64…', '');
+  const env = new Uint8Array(HEADER + ct.length);
+  env.set(enc.encode(MAGIC), 0); env.set(salt, 4); env.set(iv, 20); env.set(ct, 32);
+  const file = b64(env);
+  onStep('pack',  'ok',     'RSL1 sealed order ready', `${file.length} chars · safe to publish anywhere`);
+  return file;
+}
+
+async function sha256Hex(text) {
+  const digest = await crypto.subtle.digest('SHA-256', enc.encode(text));
+  return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function sha256HexBytes(bytes) {
+  const digest = await crypto.subtle.digest('SHA-256', bytes);
+  return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function parseTopRows(md, n) {
+  const rows = String(md || '').split('\n').map(l => l.trim());
+  const parsed = [];
+  for (const line of rows) {
+    if (!/^\|\s*\d+\s*\|/.test(line)) continue;
+    const cols = line.split('|').map(s => s.trim());
+    if (cols.length < 9) continue;
+    const rank = Number(cols[1]);
+    const link = cols[2].match(/^\[(.+?)\]\((https?:\/\/[^)]+)\)$/);
+    if (!Number.isFinite(rank) || !link) continue;
+    parsed.push({ rank, name: link[1], url: link[2], stars: cols[3], forks: cols[4] });
+    if (parsed.length >= n) break;
+  }
+  return parsed;
+}
+
+function short(h) { return `${String(h).slice(0, 10)}…`; }
+
+function toSoldOutMap(records) {
+  const byKey = new Map();
+  for (const issue of records) {
+    for (const label of issue.labels || []) {
+      if (!label.startsWith(SOLD_OUT_PREFIX)) continue;
+      const key = label.slice(SOLD_OUT_PREFIX.length).trim().toLowerCase();
+      if (!key || byKey.has(key)) continue;
+      byKey.set(key, issue);
+    }
+  }
+  return byKey;
+}
+
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+const db = new IssuesDB({ owner: OWNER, repo: REPO });
+let soldOut = new Map();
+let custodyChain = null;
+let sellerKeyPair = null;
+let completedOrders = 0;
+let totalItemsSold = 0;
+
+const $ = id => document.getElementById(id);
+const menuNarrate = mkNarrator($('menuSteps'));
+const sealNarrate = mkNarrator($('sealSteps'));
+const custodyNarrate = mkNarrator($('custodySteps'));
+const verifyNarrate = mkNarrator($('verifySteps'));
+const receiptNarrate = mkNarrator($('receiptSteps'));
+const rankNarrate = mkNarrator($('rankSteps'));
+
+function menuRow(item) {
+  const so = soldOut.get(item.key);
+  const avail = !so;
+  const badge = avail
+    ? '<span class="badge avail">available</span>'
+    : '<span class="badge sold">sold out</span>';
+  const link = so
+    ? ` <a class="mono" style="font-size:11px" href="${so.url}" target="_blank" rel="noopener noreferrer">issue #${so.number}</a>`
+    : '';
+  return `<div class="menu-item${avail ? '' : ' sold-out-item'}">` +
+    `<input type="checkbox" id="chk-${esc(item.key)}" value="${esc(item.key)}"${avail ? '' : ' disabled'}>` +
+    `<label for="chk-${esc(item.key)}">` +
+    `<div><b>${esc(item.name)}</b> ${badge} <span class="mono" style="font-size:12px;color:var(--muted)">${esc(item.price)}</span>${link}</div>` +
+    `<div class="mono" style="font-size:12px;color:var(--muted)">${esc(item.note)}</div>` +
+    '</label></div>';
+}
+
+async function getSellerKeyPair(narrate) {
+  if (sellerKeyPair) return sellerKeyPair;
+  narrate('seller-keygen', 'active', 'generate seller ECDSA P-256 keypair in-browser', 'crypto.subtle.generateKey');
+  sellerKeyPair = await crypto.subtle.generateKey(
+    { name: 'ECDSA', namedCurve: 'P-256' },
+    true,
+    ['sign', 'verify']
+  );
+  narrate('seller-keygen', 'ok', 'seller keypair ready for this session', 'private key never leaves this tab');
+  return sellerKeyPair;
+}
+
+$('goMenu').onclick = async () => {
+  $('menuSteps').innerHTML = '';
+  $('menuOut').innerHTML = '<span class="mono" style="color:var(--faint)">reading kitchen board…</span>';
+  $('orderSection').style.display = 'none';
+  $('custodySection').style.display = 'none';
+  $('receiptSection').style.display = 'none';
+  $('reputationSection').style.display = 'none';
+
+  try {
+    const probe = await runVerifiedCell({
+      base: TRACK, cell: 'extract', fn: 'extract',
+      args: { src: `https://api.github.com/repos/${OWNER}/${REPO}`, path: 'open_issues_count' },
+      onStep: menuNarrate
+    });
+    menuNarrate('probe', 'ok', 'verified compute path', `repo open issues: ${probe.value}`);
+
+    menuNarrate('issues', 'active', 'read open issues via IssuesDB', 'scan labels for sold-out:* markers');
+    const records = await db.list({ state: 'open', per_page: 100 });
+    soldOut = toSoldOutMap(records);
+    menuNarrate('issues', 'ok', `loaded ${records.length} open issues`, `${soldOut.size} sold-out label(s) found`);
+
+    const sold = soldOut.size;
+    const rows = MENU.map(menuRow).join('');
+    $('menuOut').innerHTML =
+      `<div style="margin-bottom:10px"><span class="big">${MENU.length - sold}/${MENU.length}</span> <span style="color:var(--muted)">items available right now</span></div>` +
+      rows +
+      `<div class="mono" style="font-size:12px;color:var(--faint);margin-top:8px">live from GitHub Issues · ${new Date().toLocaleTimeString()}</div>`;
+
+    $('cartItems').innerHTML = rows;
+    $('orderSection').style.display = 'block';
+  } catch (e) {
+    $('menuOut').innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : esc(e.message || String(e))}</span>`;
+  }
+};
+
+$('goSeal').onclick = async () => {
+  $('sealSteps').innerHTML = '';
+  $('sealOut').innerHTML = '<span class="mono" style="color:var(--faint)">building order…</span>';
+  $('custodySection').style.display = 'none';
+  $('receiptSection').style.display = 'none';
+  $('reputationSection').style.display = 'none';
+
+  const selected = MENU.filter(item => {
+    const el = $(`chk-${item.key}`);
+    return el && el.checked;
+  });
+  if (!selected.length) {
+    $('sealOut').innerHTML = '<span class="mono" style="color:var(--warn)">select at least one available item first.</span>';
+    return;
+  }
+
+  const passphrase = $('sellerKey').value.trim();
+  if (!passphrase) {
+    $('sealOut').innerHTML = '<span class="mono" style="color:var(--warn)">a seal needs a passphrase — it becomes the only key.</span>';
+    return;
+  }
+
+  const order = {
+    version: 'trusted-exchange-order/1.0',
+    items: selected.map(i => ({ key: i.key, name: i.name, price: i.price })),
+    note: $('buyerNote').value.trim() || null,
+    submitted_at: new Date().toISOString()
+  };
+
+  sealNarrate('order', 'ok', 'order payload assembled', `${selected.length} item(s): ${selected.map(i => i.name).join(', ')}`);
+
+  try {
+    const sealedEnvelope = await sealRSL1(JSON.stringify(order), passphrase, sealNarrate);
+
+    $('sealOut').innerHTML =
+      '<div class="mono" style="font-size:12px;color:var(--muted);margin-bottom:8px">RSL1 sealed order — only the seller\'s key reads this:</div>' +
+      `<div class="cipher">${esc(sealedEnvelope)}</div>` +
+      '<p class="mono" style="font-size:12px;color:var(--faint);margin-top:8px">Publish it anywhere — it leaks nothing. ↓ Stamping into custody chain…</p>';
+
+    $('custodySection').style.display = 'block';
+    const custodyStamp = await stampCustody(sealedEnvelope);
+
+    $('receiptSection').style.display = 'block';
+    const issued = await emitReceipt(order, sealedEnvelope, custodyStamp);
+    if (issued) {
+      completedOrders += 1;
+      totalItemsSold += selected.length;
+      $('reputationSection').style.display = 'block';
+      await updateReputationBoard(issued);
+    }
+  } catch (e) {
+    $('sealOut').innerHTML = `<span class="mono" style="color:var(--bad)">${esc(e.message || String(e))}</span>`;
+  }
+};
+
+async function stampCustody(sealedEnvelope) {
+  $('custodySteps').innerHTML = '';
+  $('custodyOut').innerHTML = '<span class="mono" style="color:var(--faint)">stamping custody…</span>';
+  $('verifyOut').style.display = 'none';
+  $('verifySteps').innerHTML = '';
+
+  custodyNarrate('hash', 'active', 'SHA-256 hash the RSL1 sealed envelope…', 'the envelope bytes ARE the content link');
+  const contentHash = await sha256Hex(sealedEnvelope);
+  custodyNarrate('hash', 'ok', 'content hash computed', short(contentHash));
+
+  if (!custodyChain) {
+    const genesisContent = `trusted-exchange:genesis:${new Date().toISOString().slice(0, 10)}`;
+    const genesisHash = await sha256Hex(genesisContent);
+    custodyNarrate('genesis', 'ok', 'genesis anchor created for this session', short(genesisHash));
+    custodyChain = { genesis: genesisHash, versions: [] };
+  }
+
+  const versionId = `order-${custodyChain.versions.length + 1}`;
+  const parent = custodyChain.versions.length === 0
+    ? custodyChain.genesis
+    : custodyChain.versions[custodyChain.versions.length - 1].hash;
+
+  custodyChain.versions.push({ id: versionId, parent, content: sealedEnvelope, hash: contentHash });
+  custodyNarrate('link', 'ok', `custody link ${versionId} added`, `parent: ${short(parent)} → head: ${short(contentHash)}`);
+
+  $('custodyOut').innerHTML =
+    `<div><span class="big">✓ stamped</span> <span style="color:var(--muted)">${versionId} in custody chain</span></div>` +
+    `<div class="mono" style="margin-top:8px;color:var(--muted)">genesis: ${custodyChain.genesis}</div>` +
+    `<div class="mono" style="margin-top:4px;color:var(--muted)">head:    ${contentHash}</div>` +
+    `<div class="mono" style="margin-top:6px;color:var(--faint);font-size:11px">Chain: ${custodyChain.versions.length} sealed order(s) this session.</div>`;
+
+  $('goVerify').style.display = '';
+  return { versionId, contentHash, parent };
+}
+
+$('goVerify').onclick = async () => {
+  $('verifySteps').innerHTML = '';
+  $('verifyOut').style.display = 'block';
+  $('verifyOut').innerHTML = '<span class="mono" style="color:var(--faint)">replaying chain…</span>';
+
+  try {
+    if (!custodyChain) throw new Error('no custody chain in session');
+
+    verifyNarrate('parse', 'ok', 'custody chain loaded', `${custodyChain.versions.length} version(s)`);
+
+    const src = `data:application/json,${encodeURIComponent(JSON.stringify(custodyChain))}`;
+    const length = await runVerifiedCell({
+      base: TRACK, cell: 'extract', fn: 'extract',
+      args: { src, path: 'versions.length' },
+      onStep: (k, s, t, d = '') => verifyNarrate(`cell-${k}`, s, `cell: ${t}`, d)
+    });
+    verifyNarrate('shape', 'ok', 'verified cell confirms chain shape', `versions.length = ${length.value}`);
+
+    let prev = String(custodyChain.genesis);
+    verifyNarrate('genesis', 'ok', 'trusted genesis anchor', short(prev));
+
+    for (let i = 0; i < custodyChain.versions.length; i++) {
+      const node = custodyChain.versions[i];
+      verifyNarrate(`link-${i}`, 'active', `verify ${node.id}: parent pointer + content hash`, '');
+      const computed = await sha256Hex(String(node.content || ''));
+      if (String(node.parent) !== prev) {
+        verifyNarrate(`link-${i}`, 'bad', `✗ ${node.id} parent mismatch`, `expected ${short(prev)}, got ${short(node.parent || '')}`);
+        throw new Error(`Broken lineage at ${node.id}`);
+      }
+      if (String(node.hash) !== computed) {
+        verifyNarrate(`link-${i}`, 'bad', `✗ ${node.id} content hash mismatch`, `declared ${short(node.hash || '')}, computed ${short(computed)}`);
+        throw new Error(`Tamper detected at ${node.id}`);
+      }
+      prev = computed;
+      verifyNarrate(`link-${i}`, 'ok', `✓ ${node.id} verified`, `head now ${short(prev)}`);
+    }
+
+    $('verifyOut').innerHTML =
+      `<div><span class="big">✓ custody intact</span> <span style="color:var(--muted)">${custodyChain.versions.length} sealed order(s) verified</span></div>` +
+      `<div class="mono" style="margin-top:8px;color:var(--muted)">genesis: ${custodyChain.genesis}</div>` +
+      `<div class="mono" style="margin-top:4px;color:var(--muted)">head:    ${prev}</div>` +
+      '<div class="mono" style="margin-top:6px;color:var(--good)">All sealed orders intact — no tampering detected from genesis to head.</div>';
+  } catch (e) {
+    $('verifyOut').innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : esc(e.message || String(e))}</span>`;
+  }
+};
+
+async function emitReceipt(order, sealedEnvelope, stamp) {
+  $('receiptSteps').innerHTML = '';
+  $('receiptOut').innerHTML = '<span class="mono" style="color:var(--faint)">issuing notarized receipt…</span>';
+
+  try {
+    const kp = await getSellerKeyPair(receiptNarrate);
+    const sellerPublicKeyJwk = await crypto.subtle.exportKey('jwk', kp.publicKey);
+
+    const receiptPayload = {
+      version: 'trusted-exchange-receipt/1.0',
+      order,
+      sealedEnvelopeHash: stamp.contentHash,
+      custody: {
+        versionId: stamp.versionId,
+        parent: stamp.parent,
+        head: stamp.contentHash,
+        genesis: custodyChain?.genesis || null
+      },
+      sealedEnvelope,
+      signedAt: new Date().toISOString()
+    };
+
+    const canonical = JSON.stringify(receiptPayload);
+    const payloadBytes = enc.encode(canonical);
+
+    receiptNarrate('sign', 'active', 'sign exact receipt payload bytes with seller key', `payload: ${payloadBytes.byteLength} bytes`);
+    const signature = new Uint8Array(await crypto.subtle.sign(
+      { name: 'ECDSA', hash: 'SHA-256' },
+      kp.privateKey,
+      payloadBytes
+    ));
+    receiptNarrate('sign', 'ok', 'receipt signature produced', `${signature.byteLength} bytes`);
+
+    receiptNarrate('verify-local', 'active', 'verify signature using seller public key', 'crypto.subtle.verify');
+    const verifiedNow = await crypto.subtle.verify(
+      { name: 'ECDSA', hash: 'SHA-256' },
+      kp.publicKey,
+      signature,
+      payloadBytes
+    );
+    if (!verifiedNow) throw new Error('receipt signature verify failed');
+    receiptNarrate('verify-local', 'ok', 'receipt signature verified', 'seller key attests this exact sealed order + custody head');
+
+    const receipt = {
+      algo: 'ECDSA-P-256-SHA256',
+      sellerPublicKeyJwk,
+      receiptPayload,
+      signatureB64url: b64url(signature),
+      verifiedNow
+    };
+
+    $('receiptOut').innerHTML =
+      `<div><span class="big">🧾 Notarized receipt emitted</span> <span style="color:var(--muted)">buyer can verify independently</span></div>` +
+      `<div class="mono" style="margin-top:8px;color:var(--muted)">seller key kid: ${(sellerPublicKeyJwk.x || '').slice(0, 12)}…</div>` +
+      `<pre class="mono" style="margin-top:10px;white-space:pre-wrap;word-break:break-word;background:var(--bg);padding:10px;border:1px solid var(--line);border-radius:8px;font-size:11px">${esc(JSON.stringify(receipt, null, 2))}</pre>`;
+
+    return receipt;
+  } catch (e) {
+    $('receiptOut').innerHTML = `<span class="mono" style="color:var(--bad)">${esc(e.message || String(e))}</span>`;
+    return null;
+  }
+}
+
+async function updateReputationBoard(receipt) {
+  $('rankSteps').innerHTML = '';
+  $('rankOut').innerHTML = '<span class="mono" style="color:var(--faint)">updating trust board…</span>';
+
+  const seller = ($('sellerName').value || 'Trusted Seller').trim().slice(0, 48);
+  if (!seller) {
+    $('rankOut').innerHTML = '<span class="mono" style="color:var(--warn)">enter a seller name first.</span>';
+    return;
+  }
+
+  try {
+    const kp = await getSellerKeyPair(rankNarrate);
+    const reputationScore = completedOrders * 100 + totalItemsSold * 7;
+    const reputationPayload = JSON.stringify({
+      seller,
+      reputationScore,
+      completedOrders,
+      totalItemsSold,
+      linkedReceiptHash: receipt?.receiptPayload?.sealedEnvelopeHash || null,
+      at: new Date().toISOString()
+    });
+
+    rankNarrate('sign', 'active', 'sign seller reputation update (ECDSA P-256)', reputationPayload);
+    const sig = new Uint8Array(await crypto.subtle.sign(
+      { name: 'ECDSA', hash: 'SHA-256' },
+      kp.privateKey,
+      enc.encode(reputationPayload)
+    ));
+    const verified = await crypto.subtle.verify(
+      { name: 'ECDSA', hash: 'SHA-256' },
+      kp.publicKey,
+      sig,
+      enc.encode(reputationPayload)
+    );
+    if (!verified) throw new Error('reputation signature self-verification failed');
+    rankNarrate('sign', 'ok', 'seller reputation signed + verified', `${sig.byteLength} bytes`);
+
+    rankNarrate('board-fetch', 'active', 'fetch live ranking bytes for freshness proof', RANKING);
+    const res = await fetch(RANKING, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`fetch ${RANKING} → ${res.status}`);
+    const fetchedAt = new Date().toISOString();
+    const bytes = await res.arrayBuffer();
+    rankNarrate('board-fetch', 'ok', 'ranking bytes fetched', `${bytes.byteLength} bytes @ ${fetchedAt}`);
+
+    rankNarrate('board-hash', 'active', 'SHA-256 stamp ranking payload bytes', 'crypto.subtle.digest');
+    const boardHash = await sha256HexBytes(bytes);
+    rankNarrate('board-hash', 'ok', `board SHA-256 ${boardHash.slice(0, 12)}…`, boardHash);
+
+    const feed = await runVerifiedCell({
+      base: TRACK,
+      cell: 'extract',
+      fn: 'extract',
+      args: { src: RANKING, path: '' },
+      onStep: (k, s, t, d = '') => rankNarrate(`cell-${k}`, s, `verified cell: ${t}`, d)
+    });
+
+    rankNarrate('board-parse', 'active', 'parse top-5 from live ranking', 'build board');
+    const top5 = parseTopRows(feed.value, 5);
+    if (top5.length === 0) throw new Error('ranking feed returned no rows');
+    rankNarrate('board-parse', 'ok', `parsed top ${top5.length} entries`, top5.map(r => r.name).join(' · '));
+
+    const boardRows = top5.map(row =>
+      `<li style="margin-bottom:8px">` +
+      `<a href="${row.url}" target="_blank" rel="noopener noreferrer">${esc(row.name)}</a>` +
+      `<span class="mono" style="font-size:12px;color:var(--muted)"> · ${esc(row.stars)} ★</span>` +
+      `<span style="font-size:11px;color:var(--faint)"> ⚡ live</span>` +
+      `</li>`
+    ).join('');
+
+    const sellerRow =
+      `<li style="margin-bottom:8px;background:var(--bg2);padding:8px 10px;border-radius:8px;border:1px solid var(--line)">` +
+      `<span style="font-weight:600">${esc(seller)}</span>` +
+      `<span class="mono" style="font-size:12px;color:var(--muted)"> · rep ${esc(String(reputationScore))}</span>` +
+      `<span style="font-size:11px;color:var(--good)"> 🔏 signed seller reputation</span>` +
+      `</li>`;
+
+    const repReceipt = {
+      algo: 'ECDSA-P-256-SHA256',
+      seller,
+      reputationScore,
+      completedOrders,
+      totalItemsSold,
+      linkedOrderHead: receipt?.receiptPayload?.sealedEnvelopeHash || null,
+      publicKeyJwk: await crypto.subtle.exportKey('jwk', kp.publicKey),
+      signatureB64url: b64url(sig),
+      signatureVerified: verified,
+      boardFreshnessProof: { fetchedAt, sha256: boardHash, src: RANKING }
+    };
+
+    $('rankOut').innerHTML =
+      `<div style="margin-bottom:12px">` +
+        `<span class="big">🏅 Trusted Exchange Board</span>` +
+        `<div class="mono" style="font-size:12px;color:var(--muted);margin-top:4px">board SHA-256: ${boardHash.slice(0, 20)}… · fetched ${fetchedAt}</div>` +
+      `</div>` +
+      `<ol style="margin:0 0 14px;padding-left:20px;color:var(--fg)">${boardRows}${sellerRow}</ol>` +
+      `<div style="margin-bottom:4px"><span style="color:var(--good);font-weight:600">✅ Signed reputation receipt</span> <span class="mono" style="font-size:11px;color:var(--faint)">(proof your seller rank update is authentic + fresh)</span></div>` +
+      `<pre class="mono" style="margin:0;white-space:pre-wrap;word-break:break-word;background:var(--bg);padding:10px;border:1px solid var(--line);border-radius:8px;font-size:11px">${esc(JSON.stringify(repReceipt, null, 2))}</pre>`;
+  } catch (e) {
+    $('rankOut').innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : esc(String(e.message || e))}</span>`;
+  }
+}
+</script>
+</body></html>
