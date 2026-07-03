@@ -46,7 +46,7 @@
       "slug": "wildcard",
       "title": "Wildcard",
       "blurb": "The strange stacks that shouldn't work but provably do. Go weird, stay real.",
-      "count": 8
+      "count": 9
     }
   ],
   "scenarios": [
@@ -361,6 +361,26 @@
       "weld": "",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-brainstem-baton/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-brainstem-baton/"
+    },
+    {
+      "slug": "the-command-center",
+      "channel": "wildcard",
+      "title": "WELD: The Command Center",
+      "when_to_use": "When you need one zero-backend operator console that watches a sealed-and-signed economy run live while also verifying external feeds, so order intake, custody, reputation, and ambient signals stay provable on one screen.",
+      "primitives": [
+        "/track",
+        "rapp-sealed/1.0",
+        "crypto.subtle",
+        "fetch"
+      ],
+      "status": "live",
+      "builds_on": [
+        "the-autonomous-economy",
+        "the-live-situation-room"
+      ],
+      "weld": "Keep the entire autonomous economy flow intact, then surface its live order, custody, and reputation outputs beside the situation room's verified external-feed tiles so one operator console watches the notarized economy run in real time.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-command-center/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-command-center/"
     },
     {
       "slug": "the-fast-forward-parliament",
