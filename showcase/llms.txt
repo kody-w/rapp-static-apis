@@ -17,7 +17,7 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 
 ## Channels
 - **🌍 Physical World** (`physical`, 6) — QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.
-- **🔒 Verify-Before-Exec** (`verify`, 4) — Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.
+- **🔒 Verify-Before-Exec** (`verify`, 5) — Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.
 - **🤖 Agent to Agent** (`ai-to-ai`, 7) — MCP tools, brainstems as bytecode, signed dead-drops — machines using the stack with no human and no browser.
 - **💛 Human & Personal** (`human`, 4) — Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.
 - **♾️ Self-Building** (`self-building`, 3) — The loop, the tumbler, systems that improve and verify themselves — including this library.
@@ -38,6 +38,7 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 - [The Byte Trap](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-byte-trap/) — Change one byte of the code and the API refuses to run — in the doubter's own browser.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-byte-trap/demo.json
 - [Proof of Freshness](https://kody-w.github.io/rapp-static-apis/showcase/demos/proof-of-freshness/) — Show a live number with a browser-computed SHA-256 proof of the exact bytes fetched right now.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/proof-of-freshness/demo.json
 - [Chain of Custody](https://kody-w.github.io/rapp-static-apis/showcase/demos/chain-of-custody/) — Prove an entire document lineage: every version hash links to the parent, and one changed byte snaps the history.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/chain-of-custody/demo.json
+- [WELD: The Immortal Ledger](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-immortal-ledger/) — An append-only ledger that survives host death, proves every link in its lineage, and stamps each entry with a fresh browser-side byte proof.  ·  status: live  ·  welds `kill-the-host`, `chain-of-custody`, `proof-of-freshness`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-immortal-ledger/demo.json
 
 ### 🤖 Agent to Agent
 - [One String, Two Universes](https://kody-w.github.io/rapp-static-apis/showcase/demos/one-string-two-universes/) — The same short-id an AI calls as an MCP tool is the bytes a phone runs from a QR.  ·  status: walkthrough  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/one-string-two-universes/demo.json
@@ -76,6 +77,7 @@ This library grows like an organism. These posts WELD earlier ones (transplant t
 - **The Verifiable Tournament** ⟵ welds `living-leaderboard`, `proof-of-freshness`, `the-unbreakable-promise`  ·  Transplant the-unbreakable-promise's ECDSA sign/verify loop to sign each player's tournament entry, proof-of-freshness's sha256Hex + arrayBuffer fetch to stamp the live ranking payload, and living-leaderboard's runVerifiedCell + parseTopRows to fetch and render the board — the signed player slot is injected into the freshness-stamped live board so every rank is either signed by its maker or provably current.
 - **WELD: The Autonomous Economy** ⟵ welds `the-trusted-exchange`, `the-sovereign-handoff`  ·  Run the full Trusted Exchange pipeline (live availability → AES-sealed order → SHA-256 custody → ECDSA receipt → signed reputation), then inject the complete notarized economic packet as the Sovereign Handoff relay genesis so every autonomous hop verifies custody and signature before forwarding.
 - **WELD: The Command Center** ⟵ welds `the-autonomous-economy`, `the-live-situation-room`  ·  Keep the entire autonomous economy flow intact, then surface its live order, custody, and reputation outputs beside the situation room's verified external-feed tiles so one operator console watches the notarized economy run in real time.
+- **WELD: The Immortal Ledger** ⟵ welds `kill-the-host`, `chain-of-custody`, `proof-of-freshness`  ·  Resolve the same pinned cell across dead and surviving mirrors, mint each ledger entry from a fresh byte-hash proof, then chain those entries together so the whole mirror-surviving history re-verifies from genesis to head.
 - **WELD: The Live Situation Room** ⟵ welds `taste-the-weather`, `the-immortal-committer`, `living-leaderboard`  ·  Transplants the donors' full weather, repo-star heartbeat, and markdown leaderboard verify-before-exec flows into one live triage wall where each tile verifies before it fetches.
 - **WELD: The Notarized Marketplace** ⟵ welds `the-sealed-storefront`, `the-unbreakable-promise`  ·  Keep the Sealed Storefront flow intact, then sign each completed custody-stamped order with an ECDSA seller key so every buyer gets a cryptographically verifiable receipt bound to the exact sealed envelope and custody head.
 - **The Sealed Storefront** ⟵ welds `the-menu-that-knows-the-kitchen`, `broadcast-the-secret`, `chain-of-custody`  ·  IssuesDB availability gate → AES-256-GCM seals the order payload into an RSL1 envelope → SHA-256 content-addresses that envelope into a custody chain link, so the order's journey is both confidential and tamper-evident end-to-end
@@ -135,4 +137,4 @@ record in the body). The site shows open submissions live; the tumbler loop prom
 }
 ```
 
-Generated by build.py from 33 posts across 6 active channels. Do not hand-edit.
+Generated by build.py from 34 posts across 6 active channels. Do not hand-edit.

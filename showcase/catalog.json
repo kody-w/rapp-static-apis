@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 33,
+  "count": 34,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -560,6 +560,39 @@
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-fast-forward-parliament/demo.json",
       "builds_on": [],
       "weld": ""
+    },
+    {
+      "slug": "the-immortal-ledger",
+      "channel": "verify",
+      "rank": null,
+      "emoji": "🧬",
+      "title": "WELD: The Immortal Ledger",
+      "tagline": "An append-only ledger that survives host death, proves every link in its lineage, and stamps each entry with a fresh browser-side byte proof.",
+      "status": "live",
+      "difficulty": "hard",
+      "tags": [
+        "weld",
+        "ledger",
+        "freshness",
+        "hash-chain",
+        "mirror",
+        "provenance"
+      ],
+      "primitives": [
+        "/resolver",
+        "/track",
+        "/fn",
+        "crypto.subtle",
+        "fetch"
+      ],
+      "url": "demos/the-immortal-ledger/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-immortal-ledger/demo.json",
+      "builds_on": [
+        "kill-the-host",
+        "chain-of-custody",
+        "proof-of-freshness"
+      ],
+      "weld": "Resolve the same pinned cell across dead and surviving mirrors, mint each ledger entry from a fresh byte-hash proof, then chain those entries together so the whole mirror-surviving history re-verifies from genesis to head."
     },
     {
       "slug": "the-live-situation-room",

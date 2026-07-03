@@ -1,0 +1,19 @@
+{
+  "slug": "the-immortal-ledger",
+  "channel": "verify",
+  "rank": null,
+  "emoji": "🧬",
+  "title": "WELD: The Immortal Ledger",
+  "tagline": "An append-only ledger that survives host death, proves every link in its lineage, and stamps each entry with a fresh browser-side byte proof.",
+  "holy_shit": "Delete the host, replay the whole bloodline, and prove the newest head was fetched now: this ledger survives mirrors, proves its ancestry, and timestamps itself in your browser with no server.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["weld", "ledger", "freshness", "hash-chain", "mirror", "provenance"],
+  "primitives": ["/resolver", "/track", "/fn", "crypto.subtle", "fetch"],
+  "powered_by": "Kill the Host mirror resolution + survivor verification welded to Chain of Custody hash-lineage replay and Proof of Freshness byte-hash timestamps",
+  "builds_on": ["kill-the-host", "chain-of-custody", "proof-of-freshness"],
+  "weld": "Resolve the same pinned cell across dead and surviving mirrors, mint each ledger entry from a fresh byte-hash proof, then chain those entries together so the whole mirror-surviving history re-verifies from genesis to head.",
+  "agent_scenario": "When you need a no-backend ledger whose entries can be fetched from any surviving mirror, whose full ancestry is tamper-evident, and whose newest head can prove it was minted from live bytes right now.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

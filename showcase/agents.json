@@ -22,7 +22,7 @@
       "slug": "verify",
       "title": "Verify-Before-Exec",
       "blurb": "Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.",
-      "count": 4
+      "count": 5
     },
     {
       "slug": "ai-to-ai",
@@ -396,6 +396,28 @@
       "weld": "",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-fast-forward-parliament/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-fast-forward-parliament/"
+    },
+    {
+      "slug": "the-immortal-ledger",
+      "channel": "verify",
+      "title": "WELD: The Immortal Ledger",
+      "when_to_use": "When you need a no-backend ledger whose entries can be fetched from any surviving mirror, whose full ancestry is tamper-evident, and whose newest head can prove it was minted from live bytes right now.",
+      "primitives": [
+        "/resolver",
+        "/track",
+        "/fn",
+        "crypto.subtle",
+        "fetch"
+      ],
+      "status": "live",
+      "builds_on": [
+        "kill-the-host",
+        "chain-of-custody",
+        "proof-of-freshness"
+      ],
+      "weld": "Resolve the same pinned cell across dead and surviving mirrors, mint each ledger entry from a fresh byte-hash proof, then chain those entries together so the whole mirror-surviving history re-verifies from genesis to head.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-immortal-ledger/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-immortal-ledger/"
     },
     {
       "slug": "the-live-situation-room",
