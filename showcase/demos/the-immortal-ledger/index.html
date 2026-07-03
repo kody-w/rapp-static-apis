@@ -124,12 +124,12 @@ let lastLedger = null;
 
 function esc(v) {
   return String(v ?? '').replace(/[&<>"']/g, c =>
-    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] || c));
 }
 
 function dig(obj, path) {
   if (!path) return obj;
-  return String(path).split('.').reduce((cur, key) => (cur == null ? undefined : cur[key]), obj);
+  return String(path).split('.').reduce((cur, key) => (cur === null || cur === undefined ? undefined : cur[key]), obj);
 }
 
 function short(h) {
@@ -215,7 +215,7 @@ async function buildLedger(proofs, mirrorWitness, survivorEcho) {
     };
     if (i === 0) {
       content.mirror_id = ID;
-      content.survivor_echo = survivorEcho && survivorEcho.echo ? survivorEcho.echo : null;
+      content.survivor_echo = survivorEcho?.echo ?? null;
     }
     const fullProof = i === 0
       ? { ...proof, mirrors: mirrorWitness.map(({ host, sha8, fate }) => ({ host, sha8, fate })) }
@@ -322,7 +322,7 @@ document.getElementById('go').onclick = async () => {
 };
 
 tamperBtn.onclick = async () => {
-  if (!lastLedger) return;
+  if (!lastLedger || !Array.isArray(lastLedger.entries) || lastLedger.entries.length < 2) return;
   stepsEl.innerHTML = '';
   out.innerHTML = '<span class="mono" style="color:var(--faint)">tampering…</span>';
 
