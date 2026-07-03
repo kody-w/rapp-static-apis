@@ -1,0 +1,151 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Menu That Knows the Kitchen — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🍽️</div>
+    <h1 id="title">The Menu That Knows the Kitchen</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">This page stores no inventory. Press the button: your browser re-verifies a pinned <code>extract</code> cell, then reads this repo's live GitHub Issues through <code>showcase/lib/issues-db.mjs</code>. Any open issue labeled <code>sold-out:&lt;item-key&gt;</code> marks that dish sold out instantly.</p>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap">
+      <button class="run" id="go">🍳 Check kitchen availability</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">repo: kody-w/rapp-static-apis</span>
+    </div>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>A paper menu is supposed to be stale by definition. This one isn't: the kitchen updates stock by opening or closing GitHub Issues, and every scan resolves fresh state client-side. No backend to deploy, no dashboard to keep alive. The printed artifact survives forever while the data stays live.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Dogfood the CRUD backend</h2>
+    <p style="margin:0 0 10px;color:var(--muted)">Use these label keys for sold-out markers:</p>
+    <ul class="mono" style="margin:0;padding-left:20px;color:var(--muted);font-size:12px">
+      <li><code>sold-out:margherita-pizza</code></li>
+      <li><code>sold-out:mushroom-ramen</code></li>
+      <li><code>sold-out:halloumi-tacos</code></li>
+      <li><code>sold-out:charred-broccolini</code></li>
+      <li><code>sold-out:citrus-tonic</code></li>
+    </ul>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-menu-that-knows-the-kitchen/</code> (crypto.subtle needs a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+import { IssuesDB } from '../../lib/issues-db.mjs';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const OWNER = 'kody-w';
+const REPO = 'rapp-static-apis';
+const TRACK = '../../../track';
+const SOLD_OUT_PREFIX = 'sold-out:';
+const MENU = [
+  { key: 'margherita-pizza', name: 'Margherita Pizza', note: 'wood-fired · basil · fior di latte' },
+  { key: 'mushroom-ramen', name: 'Mushroom Ramen', note: 'miso broth · smoked shiitake' },
+  { key: 'halloumi-tacos', name: 'Halloumi Tacos', note: 'charred pineapple salsa' },
+  { key: 'charred-broccolini', name: 'Charred Broccolini', note: 'lemon chili oil' },
+  { key: 'citrus-tonic', name: 'Citrus Tonic', note: 'grapefruit · rosemary' }
+];
+
+const db = new IssuesDB({ owner: OWNER, repo: REPO });
+const out = document.getElementById('out');
+const narrate = mkNarrator(document.getElementById('steps'));
+
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function toSoldOutMap(records) {
+  const byKey = new Map();
+  for (const issue of records) {
+    for (const label of issue.labels || []) {
+      if (!label.startsWith(SOLD_OUT_PREFIX)) continue;
+      const key = label.slice(SOLD_OUT_PREFIX.length).trim().toLowerCase();
+      if (!key || byKey.has(key)) continue;
+      byKey.set(key, issue);
+    }
+  }
+  return byKey;
+}
+
+function renderMenu(soldOut) {
+  const rows = MENU.map(item => {
+    const issue = soldOut.get(item.key);
+    const available = !issue;
+    const state = available
+      ? '<span class="pill live">available</span>'
+      : '<span class="pill planned">sold out</span>';
+    const issueLink = issue
+      ? `<a class="mono" style="font-size:12px" href="${issue.url}" target="_blank" rel="noopener noreferrer">issue #${issue.number}</a>`
+      : `<a class="mono" style="font-size:12px" href="${db.newIssueUrl({ title: `sold-out: ${item.name}`, labels: [SOLD_OUT_PREFIX + item.key], record: { item: item.key, status: 'sold-out' }, body: 'Opened from showcase demo.' })}" target="_blank" rel="noopener noreferrer">mark sold out</a>`;
+    return `<li style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:12px">` +
+      `<div><div><b>${esc(item.name)}</b> ${state}</div><div class="mono" style="font-size:12px;color:var(--muted)">${esc(item.note)}</div></div>` +
+      `<div>${issueLink}</div></li>`;
+  }).join('');
+
+  const sold = soldOut.size;
+  out.innerHTML =
+    `<div style="margin-bottom:10px"><span class="big">${MENU.length - sold}/${MENU.length}</span> <span style="color:var(--muted)">available right now</span></div>` +
+    `<ul style="margin:0;padding-left:0;list-style:none">${rows}</ul>` +
+    `<div class="mono" style="font-size:12px;color:var(--faint);margin-top:8px">live from GitHub Issues · ${new Date().toLocaleTimeString()}</div>`;
+}
+
+document.getElementById('go').onclick = async () => {
+  document.getElementById('steps').innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">reading kitchen board…</span>';
+  try {
+    const probe = await runVerifiedCell({
+      base: TRACK,
+      cell: 'extract',
+      fn: 'extract',
+      args: { src: `https://api.github.com/repos/${OWNER}/${REPO}`, path: 'open_issues_count' },
+      onStep: narrate
+    });
+    narrate('probe', 'ok', `verified compute path`, `repo open issues: ${probe.value}`);
+
+    narrate('issues', 'active', 'read open issues via IssuesDB', 'scan labels for sold-out:* markers');
+    const records = await db.list({ state: 'open', per_page: 100 });
+    const soldOut = toSoldOutMap(records);
+    narrate('issues', 'ok', `loaded ${records.length} open issues`, `${soldOut.size} sold-out labels found`);
+
+    renderMenu(soldOut);
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : (e.message || e)}</span>`;
+  }
+};
+</script>
+</body></html>

@@ -16,7 +16,7 @@
       "slug": "physical",
       "title": "Physical World",
       "blurb": "QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.",
-      "count": 4
+      "count": 5
     },
     {
       "slug": "verify",
@@ -218,6 +218,19 @@
       "status": "live",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/living-leaderboard/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/living-leaderboard/"
+    },
+    {
+      "slug": "the-menu-that-knows-the-kitchen",
+      "channel": "physical",
+      "title": "The Menu That Knows the Kitchen",
+      "when_to_use": "When you need a physical artifact to reflect live operational state without a backend: treat GitHub Issues as the CRUD store and map labels to state, while still verifying compute bytes before exec in the client.",
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "status": "live",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-menu-that-knows-the-kitchen/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-menu-that-knows-the-kitchen/"
     },
     {
       "slug": "only-in-the-same-frame",

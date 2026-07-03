@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 19,
+  "count": 20,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -282,6 +282,29 @@
       ],
       "url": "demos/living-leaderboard/",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/living-leaderboard/demo.json"
+    },
+    {
+      "slug": "the-menu-that-knows-the-kitchen",
+      "channel": "physical",
+      "rank": 5,
+      "emoji": "🍽️",
+      "title": "The Menu That Knows the Kitchen",
+      "tagline": "A printed QR menu where each dish is live-marked available or sold out from GitHub Issues labels.",
+      "status": "live",
+      "difficulty": "easy",
+      "tags": [
+        "qr",
+        "issues",
+        "inventory",
+        "physical",
+        "live-data"
+      ],
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "url": "demos/the-menu-that-knows-the-kitchen/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-menu-that-knows-the-kitchen/demo.json"
     },
     {
       "slug": "only-in-the-same-frame",
