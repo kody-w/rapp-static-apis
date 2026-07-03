@@ -1,0 +1,19 @@
+{
+  "slug": "the-notarized-marketplace",
+  "channel": "wildcard",
+  "rank": null,
+  "emoji": "🧬",
+  "title": "WELD: The Notarized Marketplace",
+  "tagline": "A welded storefront where each completed sealed order emits a seller-signed receipt anyone can verify.",
+  "holy_shit": "This is a weld of a weld: live Issues inventory + AES-sealed orders + SHA-256 custody now produce ECDSA-notarized receipts, so buyers can prove a seller key signed the exact completed order — no backend, no forgery, no take-backs.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["weld", "storefront", "ecdsa", "receipt", "notarized", "custody", "webcrypto"],
+  "primitives": ["/track", "rapp-sealed/1.0", "crypto.subtle"],
+  "powered_by": "The Sealed Storefront weld (IssuesDB availability + AES-256-GCM order sealing + SHA-256 custody chain) plus The Unbreakable Promise ECDSA P-256 sign/verify receipt loop",
+  "builds_on": ["the-sealed-storefront", "the-unbreakable-promise"],
+  "weld": "Keep the Sealed Storefront flow intact, then sign each completed custody-stamped order with an ECDSA seller key so every buyer gets a cryptographically verifiable receipt bound to the exact sealed envelope and custody head.",
+  "agent_scenario": "When you need: a zero-backend marketplace where inventory is live, orders stay sealed, custody is tamper-evident, and every completion emits a seller-signed receipt buyers can verify independently.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}
