@@ -1,0 +1,19 @@
+{
+  "slug": "the-command-center",
+  "channel": "wildcard",
+  "rank": null,
+  "emoji": "🧬",
+  "title": "WELD: The Command Center",
+  "tagline": "A single operator console welding the full autonomous economy to a live situation room, so incoming signed orders, custody, reputation, and external feeds all verify on one screen.",
+  "holy_shit": "One browser tab becomes a no-backend command center: sealed+signed orders, custody proofs, seller reputation, and live outside signals all show up as hash-verifiable tiles with a tamper-refusing relay underneath.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["weld", "dashboard", "economy", "relay", "reputation", "custody", "webcrypto", "live-data", "situation-room", "operator-console"],
+  "primitives": ["/track", "rapp-sealed/1.0", "crypto.subtle", "fetch"],
+  "powered_by": "The Autonomous Economy's full notarized marketplace+relay pipeline fused with The Live Situation Room's verified multi-feed dashboard.",
+  "builds_on": ["the-autonomous-economy", "the-live-situation-room"],
+  "weld": "Keep the entire autonomous economy flow intact, then surface its live order, custody, and reputation outputs beside the situation room's verified external-feed tiles so one operator console watches the notarized economy run in real time.",
+  "agent_scenario": "When you need one zero-backend operator console that watches a sealed-and-signed economy run live while also verifying external feeds, so order intake, custody, reputation, and ambient signals stay provable on one screen.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}
