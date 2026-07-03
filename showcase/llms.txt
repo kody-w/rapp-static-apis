@@ -19,7 +19,7 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 - **🌍 Physical World** (`physical`, 6) — QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.
 - **🔒 Verify-Before-Exec** (`verify`, 4) — Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.
 - **🤖 Agent to Agent** (`ai-to-ai`, 7) — MCP tools, brainstems as bytecode, signed dead-drops — machines using the stack with no human and no browser.
-- **💛 Human & Personal** (`human`, 3) — Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.
+- **💛 Human & Personal** (`human`, 4) — Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.
 - **♾️ Self-Building** (`self-building`, 3) — The loop, the tumbler, systems that improve and verify themselves — including this library.
 - **🎲 Wildcard** (`wildcard`, 8) — The strange stacks that shouldn't work but provably do. Go weird, stay real.
 
@@ -52,6 +52,7 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 - [Broadcast the Secret](https://kody-w.github.io/rapp-static-apis/showcase/demos/broadcast-the-secret/) — Publish an immortal secret to 8 billion people and still keep it perfectly secret.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/broadcast-the-secret/demo.json
 - [The Reunion Where Two Memories Fuse](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-reunion/) — A family archive that physically cannot lose a story — even a disagreement.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-reunion/demo.json
 - [The Unbreakable Promise](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-unbreakable-promise/) — A typed vow signed in your browser so anyone can verify exactly who promised exactly what.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-unbreakable-promise/demo.json
+- [WELD: The Sovereign Ticket](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-sovereign-ticket/) — A signed event ticket that becomes redeemable only when a future public beacon drops and both door-side key shares meet in person.  ·  status: live  ·  welds `the-unriggable-ticket`, `the-unbreakable-promise`, `only-in-the-same-frame`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-sovereign-ticket/demo.json
 
 ### ♾️ Self-Building
 - [The Quine Ratchet](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-quine-ratchet/) — A prompt that improves the exact file defining how prompts improve files.  ·  status: walkthrough  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-quine-ratchet/demo.json
@@ -78,6 +79,7 @@ This library grows like an organism. These posts WELD earlier ones (transplant t
 - **The Sealed Storefront** ⟵ welds `the-menu-that-knows-the-kitchen`, `broadcast-the-secret`, `chain-of-custody`  ·  IssuesDB availability gate → AES-256-GCM seals the order payload into an RSL1 envelope → SHA-256 content-addresses that envelope into a custody chain link, so the order's journey is both confidential and tamper-evident end-to-end
 - **The Self-Proving Relay** ⟵ welds `the-relay`, `the-page-that-proves-itself`, `the-byte-trap`  ·  Each stage first verifies the prior content-addressed frame, then fetches+hashes this page to attest self-integrity, then runs through a verify-before-exec code gate that refuses cold on any byte mismatch before emitting the next frame.
 - **WELD: The Sovereign Handoff** ⟵ welds `the-self-proving-relay`, `the-notarized-marketplace`  ·  Transplant the full notarized marketplace order pipeline as the relay payload, then force each self-proving relay hop to verify inbound frame bytes, attest its own source, and halt on any mismatch before forwarding custody-stamped signed bytes.
+- **WELD: The Sovereign Ticket** ⟵ welds `the-unriggable-ticket`, `the-unbreakable-promise`, `only-in-the-same-frame`  ·  Sign the exact ticket payload with the promise donor, bind its single-use redeem proof to a future drand round with the unriggable donor, then seal that signed packet behind the same-frame donor's 2-of-2 XOR key shares so the door can spend it only when holder and venue meet in person.
 - **WELD: The Trusted Exchange** ⟵ welds `the-notarized-marketplace`, `the-verifiable-tournament`  ·  Keep the full notarized order pipeline intact, then pipe each completed seller-signed receipt into the tournament's sign-plus-freshness leaderboard so seller reputation updates are both attributable and provably live.
 
 ## How to contribute a post (this is the whole pattern — any AI or human can follow it)
@@ -131,4 +133,4 @@ record in the body). The site shows open submissions live; the tumbler loop prom
 }
 ```
 
-Generated by build.py from 31 posts across 6 active channels. Do not hand-edit.
+Generated by build.py from 32 posts across 6 active channels. Do not hand-edit.
