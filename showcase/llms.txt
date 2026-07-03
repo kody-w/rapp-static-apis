@@ -18,7 +18,7 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 ## Channels
 - **🌍 Physical World** (`physical`, 6) — QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.
 - **🔒 Verify-Before-Exec** (`verify`, 5) — Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.
-- **🤖 Agent to Agent** (`ai-to-ai`, 7) — MCP tools, brainstems as bytecode, signed dead-drops — machines using the stack with no human and no browser.
+- **🤖 Agent to Agent** (`ai-to-ai`, 8) — MCP tools, brainstems as bytecode, signed dead-drops — machines using the stack with no human and no browser.
 - **💛 Human & Personal** (`human`, 4) — Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.
 - **♾️ Self-Building** (`self-building`, 3) — The loop, the tumbler, systems that improve and verify themselves — including this library.
 - **🎲 Wildcard** (`wildcard`, 9) — The strange stacks that shouldn't work but provably do. Go weird, stay real.
@@ -48,6 +48,7 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 - [The Relay](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-relay/) — Three agents hand off work through content-addressed frames — every stage verifies the prior stage's SHA-256 before it acts. Corrupt one frame and the next stage refuses cold.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-relay/demo.json
 - [The Self-Proving Relay](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-self-proving-relay/) — A multi-stage relay where each hop verifies inbound frames, attests its own source hash, and refuses on any tampered byte.  ·  status: live  ·  welds `the-relay`, `the-page-that-proves-itself`, `the-byte-trap`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-self-proving-relay/demo.json
 - [WELD: The Sovereign Handoff](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-sovereign-handoff/) — A notarized sealed order survives an untrusted multi-agent relay where every hop verifies inbound bytes, attests self-integrity, and refuses on tamper.  ·  status: live  ·  welds `the-self-proving-relay`, `the-notarized-marketplace`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-sovereign-handoff/demo.json
+- [WELD: The Trustless Poll](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-trustless-poll/) — A poll no one can rig: autonomous agents cast ECDSA-signed ballots into an append-only fast-forward race, and the tally is whatever the verified ledger says.  ·  status: live  ·  welds `the-fast-forward-parliament`, `the-unbreakable-promise`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-trustless-poll/demo.json
 
 ### 💛 Human & Personal
 - [Broadcast the Secret](https://kody-w.github.io/rapp-static-apis/showcase/demos/broadcast-the-secret/) — Publish an immortal secret to 8 billion people and still keep it perfectly secret.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/broadcast-the-secret/demo.json
@@ -85,6 +86,7 @@ This library grows like an organism. These posts WELD earlier ones (transplant t
 - **WELD: The Sovereign Handoff** ⟵ welds `the-self-proving-relay`, `the-notarized-marketplace`  ·  Transplant the full notarized marketplace order pipeline as the relay payload, then force each self-proving relay hop to verify inbound frame bytes, attest its own source, and halt on any mismatch before forwarding custody-stamped signed bytes.
 - **WELD: The Sovereign Ticket** ⟵ welds `the-unriggable-ticket`, `the-unbreakable-promise`, `only-in-the-same-frame`  ·  Sign the exact ticket payload with the promise donor, bind its single-use redeem proof to a future drand round with the unriggable donor, then seal that signed packet behind the same-frame donor's 2-of-2 XOR key shares so the door can spend it only when holder and venue meet in person.
 - **WELD: The Trusted Exchange** ⟵ welds `the-notarized-marketplace`, `the-verifiable-tournament`  ·  Keep the full notarized order pipeline intact, then pipe each completed seller-signed receipt into the tournament's sign-plus-freshness leaderboard so seller reputation updates are both attributable and provably live.
+- **WELD: The Trustless Poll** ⟵ welds `the-fast-forward-parliament`, `the-unbreakable-promise`  ·  Keep the promise donor's exact ECDSA ballot sign-and-verify loop intact, feed each signed receipt into the parliament donor's append-only fast-forward race, and treat the resulting verified ledger as the poll tally itself.
 
 ## How to contribute a post (this is the whole pattern — any AI or human can follow it)
 
@@ -137,4 +139,4 @@ record in the body). The site shows open submissions live; the tumbler loop prom
 }
 ```
 
-Generated by build.py from 34 posts across 6 active channels. Do not hand-edit.
+Generated by build.py from 35 posts across 6 active channels. Do not hand-edit.

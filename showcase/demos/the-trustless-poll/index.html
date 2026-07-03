@@ -1,0 +1,399 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WELD: The Trustless Poll — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  .field{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
+  .field label{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-family:var(--mono)}
+  .field textarea{width:100%;min-height:82px;resize:vertical;background:var(--panel-2);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:10px 12px;font:inherit}
+  .btnrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+  .tally{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin:12px 0}
+  .tally .card,.ledger .row{border:1px solid var(--line);border-radius:11px;background:var(--panel-2);padding:10px 12px}
+  .tally .n{display:block;font-size:24px;font-weight:700;color:var(--text)}
+  .tally .k{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .ledger{display:grid;gap:8px;margin-top:12px}
+  .ledger .row{font-family:var(--mono);font-size:12px}
+  .ledger .top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .ledger .choice{color:var(--good);font-weight:700}
+  .ledger .meta{color:var(--faint);margin-top:5px;line-height:1.45}
+  .agent-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:12px}
+  .agent{border:1px solid var(--line);border-radius:10px;background:var(--panel-2);padding:9px 10px;font-family:var(--mono);font-size:12px}
+  .agent b{color:var(--text)}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🧬</div>
+    <h1 id="title">WELD: The Trustless Poll</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — let signed ballots race into consensus</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">This keeps both donors alive. First each agent runs <b>the-unbreakable-promise</b>: generate a fresh ECDSA P-256 keypair, sign one canonical ballot, and verify it immediately. Then the signed receipts become the proposals for <b>the-fast-forward-parliament</b>: all remaining ballots fetch the same parent and race one append-only fast-forward update. Exactly one lands per parent; the losers adopt and try again on the next head. The ledger itself becomes the tally.</p>
+    <div class="field">
+      <label for="poll">Poll question</label>
+      <textarea id="poll">Should the swarm ship the verified release tonight?</textarea>
+    </div>
+    <div class="btnrow">
+      <button class="run" id="go">🧬 Run the trustless poll</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">6 agents · distinct ECDSA keys · append-only consensus</span>
+    </div>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— run the poll to mint ballots, race consensus, and verify the tally —</span></div>
+    <div class="agent-grid" id="agentGrid"></div>
+    <div class="ledger" id="ledger"></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>This is not "trust us, we counted correctly." It is a poll whose <b>counting surface is the append-only ledger itself</b>. Every accepted row carries a ballot message, the public key that signed it, and the signature proving it. The fast-forward rule makes the order tamper-evident: one parent, one winning append. Re-verify the chain and you can prove three things with no coordinator: <b>who</b> cast each ballot, <b>what</b> exact choice they signed, and <b>that no key appears twice</b>.</p>
+    <p style="margin:12px 0 0">So the tally cannot be forged by a host, retracted by editing history, or padded with duplicate votes from the same key. If any byte changes, either signature verification fails or the chain hash snaps.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Press <b>Run the trustless poll</b>. The page first verifies a pinned cell from <code>/track</code>, then mints six browser-local ECDSA ballot receipts for the exact poll text.</li>
+      <li>Watch the signed ballots race the shared append-only head. Exactly one ballot lands per parent, and the rest fast-forward onto the winner before the next round begins.</li>
+      <li>At the end, the page re-verifies every signature and every parent hash in the accepted order, then derives the tally from that ledger alone.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-trustless-poll/</code> (<code>crypto.subtle</code> + IndexedDB need localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Weld pattern: <code>sign one canonical ballot per key</code> + <code>append it with a fast-forward-only shared ref</code> + <code>verify the resulting chain instead of trusting a counter</code>.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+import { expand } from '../../../resolver/rapp-resolve.mjs';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const TRACK = '../../../track';
+const AGENTS = 6;
+const CHOICES = ['YES', 'YES', 'NO', 'ABSTAIN', 'YES', 'NO'];
+const encoder = new TextEncoder();
+const out = document.getElementById('out');
+const agentGrid = document.getElementById('agentGrid');
+const ledger = document.getElementById('ledger');
+const stepsEl = document.getElementById('steps');
+const narrate = mkNarrator(stepsEl);
+
+const esc = v => String(v ?? '').replace(/[&<>"']/g, c =>
+  ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;', "'":'&#39;' }[c]));
+
+function b64url(bytes) {
+  const raw = String.fromCharCode(...bytes);
+  return btoa(raw).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
+
+function fromB64url(str) {
+  const s = String(str).replace(/-/g, '+').replace(/_/g, '/');
+  const paddingNeeded = (4 - (s.length % 4 || 4)) % 4;
+  const pad = s + '='.repeat(paddingNeeded);
+  const raw = atob(pad);
+  const out = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i++) out[i] = raw.charCodeAt(i);
+  return out;
+}
+
+function rndHex(n = 6) {
+  return [...crypto.getRandomValues(new Uint8Array(n))]
+    .map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function sha12(value) {
+  const d = await crypto.subtle.digest('SHA-256', encoder.encode(String(value)));
+  return [...new Uint8Array(d)].map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 12);
+}
+
+function randInt(maxExclusive) {
+  const limit = Math.floor(0x100000000 / maxExclusive) * maxExclusive;
+  let value = 0;
+  do value = crypto.getRandomValues(new Uint32Array(1))[0];
+  while (value >= limit);
+  return value % maxExclusive;
+}
+
+function shuffle(items) {
+  const copy = items.slice();
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = randInt(i + 1);
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+async function keyIdFor(jwk) {
+  return sha12(JSON.stringify({ crv: jwk.crv, kty: jwk.kty, x: jwk.x, y: jwk.y }));
+}
+
+async function mintBallot(agentId, poll, choice) {
+  const kp = await crypto.subtle.generateKey(
+    { name: 'ECDSA', namedCurve: 'P-256' },
+    true,
+    ['sign', 'verify']
+  );
+  const message = JSON.stringify({
+    poll,
+    agent: `agent-${agentId}`,
+    choice,
+    nonce: rndHex(4),
+    at: new Date().toISOString()
+  });
+  const payload = encoder.encode(message);
+  const sig = new Uint8Array(await crypto.subtle.sign(
+    { name: 'ECDSA', hash: 'SHA-256' },
+    kp.privateKey,
+    payload
+  ));
+  const valid = await crypto.subtle.verify(
+    { name: 'ECDSA', hash: 'SHA-256' },
+    kp.publicKey,
+    sig,
+    payload
+  );
+  if (!valid) throw new Error(`agent-${agentId} signature self-check failed`);
+  const jwk = await crypto.subtle.exportKey('jwk', kp.publicKey);
+  return {
+    agentId,
+    choice,
+    message,
+    publicKeyJwk: jwk,
+    signatureB64url: b64url(sig),
+    keyId: await keyIdFor(jwk)
+  };
+}
+
+async function verifyBallot(ballot) {
+  const pub = await crypto.subtle.importKey(
+    'jwk',
+    ballot.publicKeyJwk,
+    { name: 'ECDSA', namedCurve: 'P-256' },
+    true,
+    ['verify']
+  );
+  const valid = await crypto.subtle.verify(
+    { name: 'ECDSA', hash: 'SHA-256' },
+    pub,
+    fromB64url(ballot.signatureB64url),
+    encoder.encode(ballot.message)
+  );
+  if (!valid) throw new Error(`signature check failed for ${ballot.keyId}`);
+  const parsed = JSON.parse(ballot.message);
+  if (parsed.choice !== ballot.choice) throw new Error(`choice tamper detected for ${ballot.keyId}`);
+  if ((await keyIdFor(ballot.publicKeyJwk)) !== ballot.keyId) throw new Error(`key id mismatch for ${ballot.keyId}`);
+  return parsed;
+}
+
+function idbStore() {
+  const DB = 'rapp-trustless-poll', STORE = 'ref', KEY = 'HEAD';
+  const dbp = new Promise((resolve, reject) => {
+    const rq = indexedDB.open(DB, 1);
+    rq.onupgradeneeded = () => {
+      const db = rq.result;
+      if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE);
+    };
+    rq.onsuccess = () => resolve(rq.result);
+    rq.onerror = () => reject(rq.error);
+  });
+  return {
+    async reset(genesis) {
+      const db = await dbp;
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE, 'readwrite');
+        tx.objectStore(STORE).put({ height: 0, sha8: genesis, parent: null, ballots: [] }, KEY);
+        tx.oncomplete = () => resolve();
+        tx.onerror = tx.onabort = () => reject(tx.error);
+      });
+    },
+    async read() {
+      const db = await dbp;
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE, 'readonly');
+        const g = tx.objectStore(STORE).get(KEY);
+        g.onsuccess = () => resolve(g.result);
+        g.onerror = () => reject(g.error);
+      });
+    },
+    async tryAppend(parent, ballot) {
+      const db = await dbp;
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE, 'readwrite');
+        const st = tx.objectStore(STORE);
+        const g = st.get(KEY);
+        let accepted = false;
+        let reason = 'non-fast-forward';
+        let head = null;
+        g.onsuccess = () => {
+          head = g.result;
+          if (!head || head.sha8 !== parent) return;
+          if (head.ballots.some(b => b.keyId === ballot.keyId)) {
+            reason = 'duplicate-key';
+            return;
+          }
+          accepted = true;
+          head = {
+            height: head.height + 1,
+            parent,
+            sha8: ballot.frameSha8,
+            ballots: [...head.ballots, ballot]
+          };
+          st.put(head, KEY);
+        };
+        tx.oncomplete = () => resolve(accepted ? { accepted: true, head } : { accepted: false, head, reason });
+        tx.onerror = tx.onabort = () => reject(tx.error);
+      });
+    }
+  };
+}
+
+async function settlePoll(ballots, emit) {
+  const store = idbStore();
+  const genesis = await sha12('genesis|' + rndHex(6));
+  await store.reset(genesis);
+  let pending = ballots.slice();
+  while (pending.length) {
+    const base = await store.read();
+    const parent = base.sha8;
+    emit({ type: 'round', parent, pending: pending.length });
+    const proposals = await Promise.all(shuffle(pending).map(async ballot => ({
+      ...ballot,
+      parent,
+      frameSha8: await sha12(`${parent}|${ballot.keyId}|${ballot.signatureB64url}`)
+    })));
+    const results = await Promise.all(proposals.map(async proposal => {
+      const res = await store.tryAppend(parent, proposal);
+      emit({ type: res.accepted ? 'accepted' : res.reason, proposal, head: res.head });
+      return { proposal, ...res };
+    }));
+    const winner = results.find(r => r.accepted);
+    if (!winner) throw new Error('no ballot landed for this parent');
+    pending = pending.filter(ballot => ballot.keyId !== winner.proposal.keyId);
+  }
+  return { genesis, head: await store.read() };
+}
+
+async function verifyLedger(genesis, head) {
+  const tally = { YES: 0, NO: 0, ABSTAIN: 0 };
+  const seen = new Set();
+  let parent = genesis;
+  for (const ballot of head.ballots) {
+    if (ballot.parent !== parent) throw new Error(`broken parent chain before ${ballot.keyId}`);
+    const parsed = await verifyBallot(ballot);
+    if (seen.has(ballot.keyId)) throw new Error(`duplicate key detected: ${ballot.keyId}`);
+    const expected = await sha12(`${ballot.parent}|${ballot.keyId}|${ballot.signatureB64url}`);
+    if (expected !== ballot.frameSha8) throw new Error(`frame hash mismatch for ${ballot.keyId}`);
+    tally[parsed.choice] = (tally[parsed.choice] || 0) + 1;
+    seen.add(ballot.keyId);
+    parent = ballot.frameSha8;
+  }
+  return { tally, count: head.ballots.length };
+}
+
+function renderAgents(ballots) {
+  agentGrid.innerHTML = ballots.map(ballot =>
+    `<div class="agent"><div><b>agent-${ballot.agentId}</b> → ${ballot.choice}</div>` +
+    `<div style="margin-top:4px;color:var(--muted)">key ${ballot.keyId}</div></div>`
+  ).join('');
+}
+
+function renderLedger(genesis, head, tally, decisionName) {
+  const total = tally.YES + tally.NO + tally.ABSTAIN;
+  ledger.innerHTML =
+    `<div class="tally">` +
+      `<div class="card"><span class="n">${tally.YES}</span><span class="k">YES</span></div>` +
+      `<div class="card"><span class="n">${tally.NO}</span><span class="k">NO</span></div>` +
+      `<div class="card"><span class="n">${tally.ABSTAIN}</span><span class="k">ABSTAIN</span></div>` +
+      `<div class="card"><span class="n">${total}</span><span class="k">distinct signed ballots</span></div>` +
+    `</div>` +
+    `<div class="row"><div class="top"><span>genesis ${genesis}</span><span>${decisionName}</span></div><div class="meta">Append-only head after ${head.ballots.length} accepted fast-forwards.</div></div>` +
+    head.ballots.map((ballot, i) => {
+      const parsed = JSON.parse(ballot.message);
+      return `<div class="row">` +
+        `<div class="top"><span>#${i + 1} <span class="choice">${esc(ballot.choice)}</span></span><span>${esc(ballot.keyId)}</span></div>` +
+        `<div class="meta">agent ${esc(parsed.agent)} · parent ${esc(ballot.parent)} → ${esc(ballot.frameSha8)}<br>` +
+        `poll: ${esc(parsed.poll)}</div>` +
+      `</div>`;
+    }).join('');
+}
+
+document.getElementById('go').onclick = async () => {
+  stepsEl.innerHTML = '';
+  agentGrid.innerHTML = '';
+  ledger.innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">running…</span>';
+  try {
+    const poll = (document.getElementById('poll').value || '').trim();
+    if (!poll) throw new Error('type a poll question first');
+
+    const gate = await runVerifiedCell({
+      base: TRACK,
+      cell: 'extract',
+      fn: 'echo',
+      args: poll,
+      onStep: narrate
+    });
+    const canonicalPoll = String(gate.echo ?? poll);
+    narrate('poll', 'ok', 'pinned cell echoed the exact poll bytes to be signed', canonicalPoll);
+
+    narrate('mint', 'active', `${AGENTS} agents generate fresh ECDSA P-256 keypairs`, 'crypto.subtle.generateKey');
+    const ballots = await Promise.all(Array.from({ length: AGENTS }, (_, i) =>
+      mintBallot(i + 1, canonicalPoll, CHOICES[i % CHOICES.length])
+    ));
+    narrate('mint', 'ok', `${AGENTS} signed ballots minted`, ballots.map(b => `${b.agentId}:${b.choice}`).join(' · '));
+
+    narrate('self-verify', 'active', 'each agent self-verifies its own signature before voting', '');
+    await Promise.all(ballots.map(verifyBallot));
+    narrate('self-verify', 'ok', 'all ballots proved authentic before the race', `${ballots.length} valid signatures`);
+
+    renderAgents(ballots);
+
+    const events = [];
+    narrate('consensus', 'active', 'signed ballots enter the fast-forward parliament', 'append-only race begins');
+    const { genesis, head } = await settlePoll(ballots, event => events.push(event));
+    const rounds = events.filter(e => e.type === 'round').length;
+    const accepts = events.filter(e => e.type === 'accepted').length;
+    narrate('consensus', 'ok', 'one append landed per parent until every signed ballot was seated', `${accepts} accepted fast-forwards across ${rounds} rounds`);
+
+    narrate('verify-ledger', 'active', 're-verify every signature and parent hash in accepted order', '');
+    const verified = await verifyLedger(genesis, head);
+    narrate('verify-ledger', 'ok', 'ledger verified: distinct keys, intact signatures, intact chain', `${verified.count} accepted ballots`);
+
+    const named = expand('kody-w/trustless-poll@' + head.sha8);
+    narrate('name', 'ok', '/resolver names the ratified poll tip', `${named.owner}/${named.name}@${named.sha8}`);
+
+    renderLedger(genesis, head, verified.tally, `${named.owner}/${named.name}@${named.sha8}`);
+    out.innerHTML =
+      `<div><span class="big">✅ Trustless tally</span></div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--muted)">YES ${verified.tally.YES} · NO ${verified.tally.NO} · ABSTAIN ${verified.tally.ABSTAIN} · ${verified.count} distinct keys</div>` +
+      `<div class="mono" style="margin-top:4px;color:var(--faint)">The accepted append-only head <b>${named.owner}/${named.name}@${named.sha8}</b> is the consensus tally. No server counted it.</div>`;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${esc(e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : (e.message || e))}</span>`;
+  }
+};
+</script>
+</body></html>

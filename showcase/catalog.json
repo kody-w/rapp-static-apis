@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 34,
+  "count": 35,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -890,6 +890,37 @@
         "the-verifiable-tournament"
       ],
       "weld": "Keep the full notarized order pipeline intact, then pipe each completed seller-signed receipt into the tournament's sign-plus-freshness leaderboard so seller reputation updates are both attributable and provably live."
+    },
+    {
+      "slug": "the-trustless-poll",
+      "channel": "ai-to-ai",
+      "rank": null,
+      "emoji": "🧬",
+      "title": "WELD: The Trustless Poll",
+      "tagline": "A poll no one can rig: autonomous agents cast ECDSA-signed ballots into an append-only fast-forward race, and the tally is whatever the verified ledger says.",
+      "status": "live",
+      "difficulty": "hard",
+      "tags": [
+        "weld",
+        "poll",
+        "ecdsa",
+        "consensus",
+        "append-only",
+        "double-cast"
+      ],
+      "primitives": [
+        "/track",
+        "/fn",
+        "/resolver",
+        "crypto.subtle"
+      ],
+      "url": "demos/the-trustless-poll/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-trustless-poll/demo.json",
+      "builds_on": [
+        "the-fast-forward-parliament",
+        "the-unbreakable-promise"
+      ],
+      "weld": "Keep the promise donor's exact ECDSA ballot sign-and-verify loop intact, feed each signed receipt into the parliament donor's append-only fast-forward race, and treat the resulting verified ledger as the poll tally itself."
     },
     {
       "slug": "the-unriggable-ticket",
