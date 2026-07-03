@@ -34,7 +34,7 @@
       "slug": "human",
       "title": "Human & Personal",
       "blurb": "Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.",
-      "count": 4
+      "count": 3
     },
     {
       "slug": "self-building",
@@ -503,27 +503,6 @@
       "weld": "Transplant the full notarized marketplace order pipeline as the relay payload, then force each self-proving relay hop to verify inbound frame bytes, attest its own source, and halt on any mismatch before forwarding custody-stamped signed bytes.",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-sovereign-handoff/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-sovereign-handoff/"
-    },
-    {
-      "slug": "the-sovereign-ticket",
-      "channel": "human",
-      "title": "WELD: The Sovereign Ticket",
-      "when_to_use": "When you need an in-person credential that must be issuer-authentic, unpredictably redeemable, and physically co-present at the moment of use: sign the exact ticket payload, commit its redeem proof to a future public randomness beacon, and split the decryption key across the holder and venue so neither side alone can spend it.",
-      "primitives": [
-        "/track",
-        "/fn",
-        "rapp-sealed/1.0",
-        "crypto.subtle"
-      ],
-      "status": "live",
-      "builds_on": [
-        "the-unriggable-ticket",
-        "the-unbreakable-promise",
-        "only-in-the-same-frame"
-      ],
-      "weld": "Sign the exact ticket payload with the promise donor, bind its single-use redeem proof to a future drand round with the unriggable donor, then seal that signed packet behind the same-frame donor's 2-of-2 XOR key shares so the door can spend it only when holder and venue meet in person.",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-sovereign-ticket/demo.json",
-      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-sovereign-ticket/"
     },
     {
       "slug": "the-test-that-breeds",
