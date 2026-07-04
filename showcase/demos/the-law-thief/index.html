@@ -376,7 +376,7 @@ document.getElementById('go').onclick = async () => {
       const e = rmse(yTrue, xPred);
       out.innerHTML =
         `<div><span class="big mono" style="font-size:18px">${fit.equation}</span></div>` +
-        `<div class="mono" style="margin-top:8px;color:var(--muted)">predicted next 3s with scipy.integrate.solve_ivp · synthetic holdout RMSE ${e == null ? 'n/a' : e.toFixed(4)}</div>`;
+        `<div class="mono" style="margin-top:8px;color:var(--muted)">predicted next 3s with scipy.integrate.solve_ivp · synthetic holdout RMSE ${e === null ? 'n/a' : e.toFixed(4)}</div>`;
     } else {
       out.innerHTML =
         `<div><span class="big mono" style="font-size:18px">${fit.equation}</span></div>` +
