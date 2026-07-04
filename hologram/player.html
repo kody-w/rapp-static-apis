@@ -458,9 +458,11 @@ function parseVoidBirth(cart) {
   const from = String(cart && cart.born && cart.born.from || '');
   const out = { temp: null, wmo: null, isDay: null, moonPct: null, moonName: '', isMoon: false };
   if (from.startsWith('live ')) {
-    for (const part of from.split(' · ')) {
-      if (part.startsWith('live ')) { const n = parseFloat(part.slice(5)); if (!isNaN(n)) out.temp = n; }
-      else if (part.startsWith('code ')) { const n = parseInt(part.slice(5)); if (!isNaN(n)) out.wmo = n; }
+    const parts = from.split(' · ');
+    const first = parts.shift() || '';
+    if (first.startsWith('live ')) { const n = parseFloat(first.slice(5)); if (!isNaN(n)) out.temp = n; }
+    for (const part of parts) {
+      if (part.startsWith('code ')) { const n = parseInt(part.slice(5)); if (!isNaN(n)) out.wmo = n; }
       else if (part === 'day') out.isDay = true;
       else if (part === 'night') out.isDay = false;
     }
@@ -496,7 +498,11 @@ function voidTint(cart) {
     else if (birth.wmo >= 80) tint = mixColor(tint, parseHex('#566170'), 0.35);
     else if (birth.wmo >= 61) tint = mixColor(tint, parseHex('#4f5f73'), 0.22);
   }
-  tint = desaturateColor(tint, birth.wmo >= 95 ? 0.72 : birth.wmo >= 80 ? 0.46 : birth.wmo >= 61 ? 0.26 : 0.12);
+  let desat = 0.12;
+  if (birth.wmo >= 95) desat = 0.72;
+  else if (birth.wmo >= 80) desat = 0.46;
+  else if (birth.wmo >= 61) desat = 0.26;
+  tint = desaturateColor(tint, desat);
   return {
     top: mixColor(baseTop, tint, 0.18),
     mid: mixColor(baseMid, tint, 0.15),
