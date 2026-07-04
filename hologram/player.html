@@ -484,12 +484,16 @@ function renderScene(ctx, genome, time, view) {
     polys.push({ proj, depth, fill: colorCss(mixColor(shadedColor, parseHex('#04080f'), fog * 0.45), face.alpha) });
   }
   polys.sort((a, b) => b.depth - a.depth);
+  ctx.lineJoin = ctx.lineCap = 'round';
   for (const poly of polys) {
     ctx.beginPath();
     poly.proj.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y));
     ctx.closePath();
     ctx.fillStyle = poly.fill;
     ctx.fill();
+    ctx.strokeStyle = poly.fill;
+    ctx.lineWidth = 1;
+    ctx.stroke();
   }
 }
 /* ── SHA-256 (native SubtleCrypto, runs in-page — no sandbox needed for data) ─ */
@@ -570,33 +574,34 @@ function season(month, lat) {
   return lat < -15 ? { winter: 'summer', summer: 'winter', spring: 'autumn', autumn: 'spring' }[n] : n;
 }
 function latBand(lat) { return 'near ' + Math.round(Math.abs(lat)) + '\u00b0' + (lat < 0 ? 'S' : 'N'); }
+function parseMoonOrigin(from) {
+  // Stored moon provenance is "moon · <illumination %> · <phase name> · <tide text>".
+  const parts = String(from || '').split(' · ');
+  const moonPct = /^\d+$/.test(parts[1] || '') ? parseInt(parts[1]) : null;
+  const moonName = parts[2] || '';
+  const tide = parts.slice(3).filter(Boolean).join(' · ');
+  return { moonPct, moonName, tide };
+}
 function momentPhrase(from, coord) {
   if (!from) return null;
   const isMoon = from.startsWith('moon '), isWeather = from.startsWith('live ');
   if (!isWeather && !isMoon) return null;
-  let temp = '', wmo = '', wind = '', tod = '', moonPct = null, moonName = '';
+  let temp = '', wmo = '', wind = '', tod = '';
+  const { moonPct, moonName, tide } = isMoon ? parseMoonOrigin(from) : { moonPct: null, moonName: '', tide: '' };
   if (isWeather) {
-    const parts = from.split(' \u00b7 ');
+    const parts = from.split(' · ');
     for (const p of parts) {
-      if (p.startsWith('live ')) { temp = p.replace(/^live\s+/, '').replace('\u00b0C', '\u00b0'); }
+      if (p.startsWith('live ')) { temp = p.replace(/^live\s+/, '').replace('°C', '°'); }
       else if (p.startsWith('code ')) { const n = parseInt(p.slice(5)); const w = wmoWord(n); wmo = w !== null ? w : p; }
       else if (p.startsWith('wind ')) { const n = parseInt(p.slice(5)); wind = windWord(n); }
       else if (p === 'day' || p === 'night') { tod = p; }
     }
   }
-  if (isMoon) {
-    const parts = from.split(' \u00b7 ');
-    for (const p of parts) {
-      if (p === 'moon') continue;
-      else if (/^\d+$/.test(p)) moonPct = parseInt(p);
-      else if (p) moonName = p;
-    }
-  }
   let lat = null, epochTs = null;
   if (coord && !coord.startsWith('cross:') && coord !== '0,0') {
-    const em = String(coord).match(/\u00b7(\d{10,})/);
+    const em = String(coord).match(/·(\d{10,})/);
     if (em) epochTs = parseInt(em[1]);
-    const gh = String(coord).split('\u00b7')[0];
+    const gh = String(coord).split('·')[0];
     if (gh && gh.length > 1) { try { lat = geohashDecode(gh).lat; } catch {} }
   }
   let seasonStr = null;
@@ -605,6 +610,7 @@ function momentPhrase(from, coord) {
   if (isMoon) {
     if (moonName) bits.push(moonName);
     if (moonPct !== null) bits.push(moonPct + '%');
+    if (tide) bits.push(tide);
   } else {
     if (wmo) { const sw = seasonStr ? wmo + ' ' + seasonStr : wmo; bits.push('a ' + sw + (tod ? ' ' + tod : '')); }
     if (temp) bits.push(temp);
@@ -613,7 +619,7 @@ function momentPhrase(from, coord) {
   if (lat !== null) bits.push(latBand(lat));
   const dateStr = bornDate(coord);
   if (dateStr) bits.push(dateStr);
-  return bits.length ? bits.join(' \u00b7 ') : null;
+  return bits.length ? bits.join(' · ') : null;
 }
 function buildWhyLegend(cart) {
   const from = (cart.born && cart.born.from) || '';
@@ -631,11 +637,11 @@ function buildWhyLegend(cart) {
     if (from.startsWith('a cross of ')) return [['lineage', from]];
     if (coord.startsWith('cross:')) return [['lineage', 'a cross']];
     if (from.startsWith('moon ')) {
-      const parts = from.split(' \u00b7 '); let moonPct = null, moonName = '';
-      for (const p of parts) { if (p === 'moon') continue; else if (/^\d+$/.test(p)) moonPct = parseInt(p); else if (p) moonName = p; }
+      const { moonPct, moonName, tide } = parseMoonOrigin(from);
       const rows = [];
       if (moonPct !== null) rows.push(['its glow', 'the moon (' + moonPct + '%, ' + (moonName || 'phase') + ')']);
       if (moonPct !== null) rows.push(['its palette', moonPct > 70 ? 'bright moonlight' : moonPct > 40 ? 'half-lit sky' : 'dark new moon']);
+      if (tide) rows.push(['its motion', tide]);
       return rows.length ? rows : [['origin', from]];
     }
     return [['origin', from || 'unknown']];
