@@ -12,6 +12,7 @@
  .card-body{padding:12px}
  .card-title{font-weight:700;font-size:15px;margin:0 0 2px}
  .card-id{font-size:11px;color:#8b949e;font-family:ui-monospace,Menlo,monospace}
+ .card-born{font-size:11px;color:#8b949e;margin:3px 0 5px;line-height:1.35}
  .load-box{border:1px solid #30363d;border-radius:12px;padding:16px;background:#161b22;margin-top:16px}
  .load-box label{display:block;font-size:12px;color:#8b949e;margin-bottom:6px}
  .row{display:flex;gap:8px;flex-wrap:wrap}
@@ -120,6 +121,7 @@ function renderThumb(ctx, genome) {
 }
 /* ── Gallery loader ────────────────────────────────────────────────────────── */
 function b64enc(s){return btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 const grid = document.getElementById('grid');
 (async()=>{
   let reg;
@@ -132,7 +134,8 @@ const grid = document.getElementById('grid');
     card.className = 'card';
     card.href = `player.html?id=${encodeURIComponent(entry.name)}`;
     card.title = entry.title || entry.name;
-    card.innerHTML = `<canvas width="200" height="200"></canvas><div class="card-body"><div class="card-title">${entry.title||entry.name}</div><div class="card-id">${entry.id}</div></div>`;
+    const born = (cart.born && cart.born.from) ? cart.born.from : '';
+    card.innerHTML = `<canvas width="200" height="200"></canvas><div class="card-body"><div class="card-title">${esc(entry.title||entry.name)}</div><div class="card-born">${esc(born)}</div><div class="card-id">${esc(entry.id)}</div></div>`;
     grid.appendChild(card);
     const c = card.querySelector('canvas');
     renderThumb(c.getContext('2d'), cart.genome);
