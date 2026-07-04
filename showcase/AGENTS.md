@@ -52,6 +52,7 @@ lists open submissions live; a maintainer or the tumbler loop promotes accepted 
 | `/vbrainstem-cell` | full CPython 3.12 boots headless in a sandboxed iframe |
 | `/mcp` | a static MCP server; any LLM calls a pinned verified cell as a tool, no browser |
 | `/resolver` | short-id → full URL; the host lives in one line (fork-portable) |
+| `/hologram` | universal hologram-organism player — any content-addressed `hologram-cartridge/1.0` renders any creature in-browser (zero per-creature code), houseable in a verify-before-exec iframe; breedable via `parents[]` |
 
 ## The rules that keep it a *library* and not noise
 
