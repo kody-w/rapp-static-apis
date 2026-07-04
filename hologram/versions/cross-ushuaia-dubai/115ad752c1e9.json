@@ -1,0 +1,60 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "115ad752c1e9",
+  "title": "Ushuaia × Dubai",
+  "author": "@kody-w",
+  "born": {
+    "coord": "cross:4a4dc6b7294c×c144203764f6",
+    "from": "a cross of Ushuaia sky and Dubai sky"
+  },
+  "parents": [
+    "4a4dc6b7294c",
+    "c144203764f6"
+  ],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 29,
+        "shape": "ring",
+        "limbs": 1,
+        "segments": 4,
+        "symmetry": "radial",
+        "body_r": 0.239,
+        "limb_len": 0.272
+      },
+      {
+        "role": "surface",
+        "k": 88,
+        "palette": [
+          "#db8624",
+          "#eea34f",
+          "#ecd979",
+          "#724a1d"
+        ],
+        "pattern": "glow",
+        "glow": 0.75,
+        "opacity": 0.95
+      },
+      {
+        "role": "motion",
+        "k": 83.5,
+        "breathe": 0.247,
+        "drift": 0.132,
+        "pulse": 0.2,
+        "reach": 0.26
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}

@@ -2,12 +2,12 @@
   "schema": "rapp-static-api/1.0",
   "name": "rapp-static-hologram",
   "kind": "hologram-cartridge",
-  "generated": "2026-07-04T03:46:07Z",
+  "generated": "2026-07-04T03:50:25Z",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram",
   "pages_base": "https://kody-w.github.io/rapp-static-apis/hologram",
   "summary": {
-    "cartridges": 12,
-    "versions": 12
+    "cartridges": 13,
+    "versions": 13
   },
   "entries": [
     {
@@ -27,6 +27,26 @@
           "path": "versions/arachne/ce682ee99472.json",
           "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/arachne/ce682ee99472.json",
           "first_captured": "2026-07-04T02:47:42Z"
+        }
+      ]
+    },
+    {
+      "name": "cross-ushuaia-dubai",
+      "id": "115ad752c1e9",
+      "title": "Ushuaia × Dubai",
+      "author": "@kody-w",
+      "sha8": "115ad752c1e9",
+      "bytes": 1089,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/cross-ushuaia-dubai.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/cross-ushuaia-dubai/115ad752c1e9.json",
+      "pin_path": "versions/cross-ushuaia-dubai/115ad752c1e9.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "115ad752c1e9",
+          "path": "versions/cross-ushuaia-dubai/115ad752c1e9.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/cross-ushuaia-dubai/115ad752c1e9.json",
+          "first_captured": "2026-07-04T03:50:25Z"
         }
       ]
     },
