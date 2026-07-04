@@ -1,0 +1,17 @@
+{
+  "slug": "browser-sonar",
+  "channel": "sound",
+  "rank": null,
+  "emoji": "🦇",
+  "title": "Browser Sonar",
+  "tagline": "Chirp your speakers, catch the echo, and sketch your room in a tab.",
+  "holy_shit": "A plain static page pings your room, computes echo distance with Python in-browser, and paints a live map while you rotate — no backend, no depth sensor.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["audio", "echolocation", "pyodide", "canvas", "deviceorientation", "self-test"],
+  "primitives": ["Web Audio API", "/vbrainstem-cell", "deviceorientation", "crypto.subtle"],
+  "powered_by": "Web Audio chirps + in-browser CPython matched filtering (scipy.signal.correlate) + orientation-based canvas mapping",
+  "agent_scenario": "When you need no-backend active sensing in the browser: emit a known pulse, correlate echoes in Python, and project ranges into a live spatial view.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

@@ -1,0 +1,450 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Browser Sonar — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🦇</div>
+    <h1 id="title">Browser Sonar</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel" id="live-panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Press ping. This page emits a 2–8kHz chirp, synthesizes a known delayed echo for self-test, and runs a matched filter in browser-booted Python to estimate distance. Optional mic capture layers real room echoes on top.</p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px">
+      <button class="run" id="go">📡 Ping</button>
+      <label class="mono" style="font-size:12px;color:var(--faint);display:flex;gap:6px;align-items:center;cursor:pointer">
+        <input type="checkbox" id="useMic"> also capture live mic echo (optional)
+      </label>
+      <span class="mono" id="bearingState" style="font-size:12px;color:var(--faint)">bearing: 0° (slider)</span>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 12px">
+      <label class="mono" style="font-size:12px;color:var(--faint)">bearing fallback
+        <input id="bearing" type="range" min="0" max="359" value="0" style="vertical-align:middle;margin-left:6px">
+      </label>
+      <span class="mono" style="font-size:12px;color:var(--faint)">demo wall: <span id="known">2.40</span> m</span>
+    </div>
+
+    <canvas id="wave" width="720" height="170" style="width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:#0c1425"></canvas>
+    <canvas id="map" width="720" height="360" style="width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:#0f1628;margin-top:10px"></canvas>
+    <div class="live-out" id="out" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— press ping —</span></div>
+
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>A browser tab does active sensing: it emits a known waveform, listens for reflections, and solves time-of-flight distance from raw samples using real CPython in WebAssembly. Turn your body and each ping lands at a new bearing, so the map grows from sound alone.</p>
+  </div>
+
+  <div class="panel">
+    <h2>How to</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Hit <b>Ping</b>. The built-in synthetic echo path draws instantly and returns a known distance first run, no room setup needed.</li>
+      <li>Rotate (or drag the bearing slider) and ping again to paint another point on the top-down map.</li>
+      <li>Optionally enable mic capture for a real echo trace from your room on top of the self-test path.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/browser-sonar/</code> (audio + <code>crypto.subtle</code> need localhost/https, not <code>file://</code>).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { mkNarrator, sha256hex } from '../../lib/showcase.js';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const SPEED_OF_SOUND = 343;
+const KNOWN_DISTANCE_M = 2.4;
+const CHIRP_SEC = 0.03;
+const SWEEP_START = 2000;
+const SWEEP_END = 8000;
+
+const wave = document.getElementById('wave');
+const wg = wave.getContext('2d');
+const map = document.getElementById('map');
+const mg = map.getContext('2d');
+const out = document.getElementById('out');
+const narrate = mkNarrator(document.getElementById('steps'));
+document.getElementById('known').textContent = KNOWN_DISTANCE_M.toFixed(2);
+
+let audioCtx;
+let bearingDeg = Number(document.getElementById('bearing').value) || 0;
+let sensorBearing = null;
+let pingCount = 0;
+let py = null;
+const echoes = [];
+
+function audio() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function mkChirp(sr, sec = CHIRP_SEC, f0 = SWEEP_START, f1 = SWEEP_END) {
+  const n = Math.max(128, Math.floor(sr * sec));
+  const out = new Float32Array(n);
+  const k = (f1 - f0) / sec;
+  for (let i = 0; i < n; i++) {
+    const t = i / sr;
+    const phase = 2 * Math.PI * (f0 * t + 0.5 * k * t * t);
+    const w = Math.sin(Math.PI * (i / (n - 1))); // fast taper
+    out[i] = Math.sin(phase) * w;
+  }
+  return out;
+}
+
+function mix(dst, src, start, gain = 1) {
+  for (let i = 0; i < src.length; i++) {
+    const j = start + i;
+    if (j >= 0 && j < dst.length) dst[j] += src[i] * gain;
+  }
+}
+
+function synthRecording(chirp, sr, distanceM = KNOWN_DISTANCE_M) {
+  const total = Math.floor(sr * 0.15);
+  const rec = new Float32Array(total);
+  const directAt = Math.floor(sr * 0.006);
+  const echoDelay = Math.floor((2 * distanceM / SPEED_OF_SOUND) * sr);
+  const echoAt = directAt + echoDelay;
+  mix(rec, chirp, directAt, 1.0);
+  mix(rec, chirp, echoAt, 0.54);
+  for (let i = 0; i < rec.length; i++) rec[i] += (Math.random() * 2 - 1) * 0.006;
+  return { recording: rec, directAt, echoAt };
+}
+
+function jsMatchedFilter(recording, chirp, sr) {
+  const n = recording.length;
+  const m = chirp.length;
+  const corr = new Float32Array(n);
+  for (let lag = 0; lag < n - m; lag++) {
+    let s = 0;
+    for (let i = 0; i < m; i++) s += recording[lag + i] * chirp[i];
+    corr[lag] = Math.abs(s);
+  }
+  let directLag = 0;
+  for (let i = 1; i < corr.length; i++) if (corr[i] > corr[directLag]) directLag = i;
+  const skip = Math.max(8, Math.floor(m * 0.3));
+  let echoLag = directLag;
+  for (let i = Math.min(corr.length - 1, directLag + skip); i < corr.length; i++) {
+    if (corr[i] > corr[echoLag]) echoLag = i;
+  }
+  const dt = Math.max(0, (echoLag - directLag) / sr);
+  return {
+    direct_lag: directLag,
+    echo_lag: echoLag,
+    dt,
+    distance_m: SPEED_OF_SOUND * dt / 2,
+    corr_peak: corr[echoLag] || 0,
+    engine: 'js-fallback'
+  };
+}
+
+function drawWave(recording, chirp, sr, directLag = 0, echoLag = 0) {
+  const W = wave.width, H = wave.height;
+  wg.clearRect(0, 0, W, H);
+  wg.fillStyle = '#0c1425';
+  wg.fillRect(0, 0, W, H);
+
+  wg.strokeStyle = 'rgba(255,255,255,0.08)';
+  for (let y = 20; y < H; y += 30) { wg.beginPath(); wg.moveTo(0, y); wg.lineTo(W, y); wg.stroke(); }
+
+  const maxN = Math.min(recording.length, Math.floor(sr * 0.09));
+  wg.strokeStyle = '#7bc4ff';
+  wg.lineWidth = 1.6;
+  wg.beginPath();
+  for (let i = 0; i < maxN; i++) {
+    const x = (i / (maxN - 1)) * W;
+    const y = H * 0.5 - recording[i] * (H * 0.33);
+    if (i === 0) wg.moveTo(x, y); else wg.lineTo(x, y);
+  }
+  wg.stroke();
+
+  wg.strokeStyle = '#f7b955';
+  wg.lineWidth = 1.2;
+  wg.beginPath();
+  for (let i = 0; i < chirp.length; i++) {
+    const x = (i / (maxN - 1)) * W;
+    const y = H * 0.85 - chirp[i] * (H * 0.11);
+    if (i === 0) wg.moveTo(x, y); else wg.lineTo(x, y);
+  }
+  wg.stroke();
+
+  const mark = (lag, color, label) => {
+    if (!Number.isFinite(lag) || lag < 0 || lag >= maxN) return;
+    const x = (lag / (maxN - 1)) * W;
+    wg.strokeStyle = color;
+    wg.beginPath(); wg.moveTo(x, 0); wg.lineTo(x, H); wg.stroke();
+    wg.fillStyle = color;
+    wg.font = '12px ui-monospace, SFMono-Regular, Menlo, monospace';
+    wg.fillText(label, Math.min(W - 72, x + 5), 14);
+  };
+  mark(directLag, '#8affb2', 'direct');
+  mark(echoLag, '#ff8a8a', 'echo');
+}
+
+function drawMap() {
+  const W = map.width, H = map.height;
+  mg.clearRect(0, 0, W, H);
+  mg.fillStyle = '#0f1628';
+  mg.fillRect(0, 0, W, H);
+  const cx = W / 2;
+  const cy = H * 0.83;
+
+  mg.strokeStyle = 'rgba(255,255,255,0.12)';
+  mg.lineWidth = 1;
+  for (const m of [1, 2, 3, 4]) {
+    const r = m * 65;
+    mg.beginPath(); mg.arc(cx, cy, r, Math.PI, Math.PI * 2); mg.stroke();
+    mg.fillStyle = 'rgba(255,255,255,0.4)';
+    mg.font = '11px ui-monospace, SFMono-Regular, Menlo, monospace';
+    mg.fillText(m + 'm', cx + r + 4, cy - 2);
+  }
+
+  mg.strokeStyle = '#f7b955';
+  mg.lineWidth = 2;
+  const wr = KNOWN_DISTANCE_M * 65;
+  mg.beginPath();
+  mg.arc(cx, cy, wr, Math.PI * 1.06, Math.PI * 1.94);
+  mg.stroke();
+
+  for (const p of echoes) {
+    const a = (p.bearing * Math.PI) / 180;
+    const r = Math.max(0, Math.min(4.3, p.distance)) * 65;
+    const x = cx + Math.sin(a) * r;
+    const y = cy - Math.cos(a) * r;
+    mg.fillStyle = p.source === 'mic' ? '#ffd166' : '#77d6ff';
+    mg.beginPath(); mg.arc(x, y, p.source === 'mic' ? 5 : 4, 0, Math.PI * 2); mg.fill();
+  }
+
+  mg.fillStyle = '#a8b2cc';
+  mg.font = '12px ui-monospace, SFMono-Regular, Menlo, monospace';
+  mg.fillText('listener', cx - 25, cy + 18);
+}
+
+drawMap();
+
+async function hashNonce(chirp, sr, count) {
+  const salt = new Uint32Array(2);
+  crypto.getRandomValues(salt);
+  const bytes = new Uint8Array(chirp.length * 4 + 12);
+  const f = new Float32Array(bytes.buffer, 0, chirp.length);
+  f.set(chirp);
+  const tail = new Uint32Array(bytes.buffer, chirp.length * 4, 3);
+  tail[0] = sr;
+  tail[1] = count;
+  tail[2] = salt[0] ^ salt[1];
+  return (await sha256hex(bytes.buffer)).slice(0, 16);
+}
+
+const VBS_SRC = '../../../vbrainstem-cell/sandbox.html';
+function bootVbrainstem() {
+  return new Promise((resolve, reject) => {
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.setAttribute('aria-hidden', 'true');
+    iframe.setAttribute('sandbox', 'allow-scripts');
+    const pending = new Map(); let nid = 1; let started = false;
+    iframe.addEventListener('load', () => {
+      if (started) return; started = true;
+      const ch = new MessageChannel(); const port = ch.port1;
+      port.onmessage = (e) => {
+        const d = e.data || {};
+        if ('booted' in d) {
+          const op = (msg) => new Promise((res, rej) => {
+            const id = nid++; pending.set(id, { res, rej }); port.postMessage({ id, ...msg });
+          });
+          resolve({ runtime: d.runtime, op });
+          return;
+        }
+        if ('boot_error' in d) { reject(new Error(d.boot_error)); return; }
+        if (d.ready) return;
+        const p = pending.get(d.id); if (!p) return; pending.delete(d.id);
+        d.ok ? p.res(d.result) : p.rej(new Error(d.error));
+      };
+      iframe.contentWindow.postMessage('vbs-init', '*', [ch.port2]);
+    });
+    iframe.src = VBS_SRC;
+    document.body.appendChild(iframe);
+  });
+}
+
+async function pyMatchedFilter(recording, chirp, sr) {
+  if (!py) py = await bootVbrainstem();
+  const payload = JSON.stringify({ recording: Array.from(recording), chirp: Array.from(chirp), sr });
+  const code = `
+import json, numpy as np
+from scipy.signal import correlate
+
+p = json.loads(${JSON.stringify(payload)})
+rec = np.asarray(p["recording"], dtype=np.float32)
+chirp = np.asarray(p["chirp"], dtype=np.float32)
+sr = float(p["sr"])
+
+corr = correlate(rec, chirp, mode='full', method='fft')
+mag = np.abs(corr)
+lags = np.arange(-len(chirp) + 1, len(rec), dtype=np.int32)
+nonneg = np.where(lags >= 0)[0]
+ln = lags[nonneg]
+mn = mag[nonneg]
+
+direct_i = int(np.argmax(mn))
+direct_lag = int(ln[direct_i])
+search_from = min(len(ln) - 1, direct_i + max(8, int(len(chirp) * 0.3)))
+echo_i = int(search_from + np.argmax(mn[search_from:])) if search_from < len(ln) else direct_i
+echo_lag = int(ln[echo_i])
+
+dt = max(0.0, (echo_lag - direct_lag) / sr)
+distance = 343.0 * dt / 2.0
+
+print(json.dumps({
+  "direct_lag": direct_lag,
+  "echo_lag": echo_lag,
+  "dt": dt,
+  "distance_m": distance,
+  "corr_peak": float(mn[echo_i]),
+  "engine": "scipy.signal.correlate"
+}))
+`;
+  const r = await py.op({ op: 'eval', code });
+  const line = String(r.stdout || '').trim().split('\n').filter(Boolean).pop();
+  if (!line) throw new Error('no Python output');
+  return JSON.parse(line);
+}
+
+async function maybeCaptureMic(chirp, sr) {
+  const stream = await navigator.mediaDevices.getUserMedia({
+    audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }
+  });
+  const ctx = audio();
+  const src = ctx.createMediaStreamSource(stream);
+  const proc = ctx.createScriptProcessor(2048, 1, 1);
+  const gate = ctx.createGain(); gate.gain.value = 0;
+  const chunks = [];
+  proc.onaudioprocess = (ev) => chunks.push(new Float32Array(ev.inputBuffer.getChannelData(0)));
+  src.connect(proc); proc.connect(gate); gate.connect(ctx.destination);
+
+  const b = ctx.createBuffer(1, chirp.length, sr);
+  b.getChannelData(0).set(chirp);
+  const s = ctx.createBufferSource();
+  s.buffer = b;
+  s.connect(ctx.destination);
+  s.start(ctx.currentTime + 0.04);
+
+  await new Promise(res => setTimeout(res, 420));
+  proc.disconnect(); src.disconnect(); gate.disconnect();
+  stream.getTracks().forEach(t => t.stop());
+
+  const n = chunks.reduce((a, c) => a + c.length, 0);
+  const rec = new Float32Array(n);
+  let o = 0;
+  for (const c of chunks) { rec.set(c, o); o += c.length; }
+  return rec;
+}
+
+function currentBearing() {
+  return sensorBearing == null ? bearingDeg : sensorBearing;
+}
+
+document.getElementById('bearing').oninput = (e) => {
+  bearingDeg = Number(e.target.value) || 0;
+  document.getElementById('bearingState').textContent = `bearing: ${Math.round(currentBearing())}° ${sensorBearing == null ? '(slider)' : '(sensor)'}`;
+};
+
+document.getElementById('bearing').dispatchEvent(new Event('input'));
+
+(async () => {
+  if (typeof DeviceOrientationEvent === 'undefined') return;
+  try {
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      const p = await DeviceOrientationEvent.requestPermission();
+      if (p !== 'granted') return;
+    }
+  } catch { return; }
+  window.addEventListener('deviceorientation', (ev) => {
+    if (typeof ev.alpha === 'number') sensorBearing = ((ev.alpha % 360) + 360) % 360;
+    document.getElementById('bearingState').textContent = `bearing: ${Math.round(currentBearing())}° ${sensorBearing == null ? '(slider)' : '(sensor)'}`;
+  }, { passive: true });
+})();
+
+document.getElementById('go').onclick = async () => {
+  document.getElementById('steps').innerHTML = '';
+  pingCount += 1;
+
+  const ctx = audio();
+  await ctx.resume();
+  const sr = Math.round(ctx.sampleRate || 48000);
+  const chirp = mkChirp(sr);
+
+  narrate('emit', 'active', 'emit 2–8kHz chirp', `${chirp.length} samples @ ${sr}Hz`);
+  const synth = synthRecording(chirp, sr, KNOWN_DISTANCE_M);
+  drawWave(synth.recording, chirp, sr, synth.directAt, synth.echoAt);
+  drawMap();
+  narrate('emit', 'ok', 'chirp emitted', 'waveform drawn immediately');
+
+  out.innerHTML = `<span class="mono">self-test signal armed · ping #${pingCount}</span>`;
+
+  const pb = ctx.createBuffer(1, chirp.length, sr);
+  pb.getChannelData(0).set(chirp);
+  const src = ctx.createBufferSource(); src.buffer = pb; src.connect(ctx.destination); src.start();
+
+  narrate('nonce', 'active', 'hash chirp as per-ping nonce', 'crypto.subtle');
+  const nonce = await hashNonce(chirp, sr, pingCount);
+  narrate('nonce', 'ok', `nonce ${nonce}`, 'unique ping id');
+
+  let res;
+  narrate('match', 'active', 'run matched filter in CPython', 'booting /vbrainstem-cell if needed');
+  try {
+    res = await pyMatchedFilter(synth.recording, chirp, sr);
+    narrate('match', 'ok', 'Python matched filter complete', res.engine);
+  } catch (e) {
+    res = jsMatchedFilter(synth.recording, chirp, sr);
+    narrate('match', 'bad', 'Python path unavailable, used fallback', e.message || '');
+  }
+
+  echoes.push({ bearing: currentBearing(), distance: Number(res.distance_m) || 0, source: 'demo' });
+  drawWave(synth.recording, chirp, sr, res.direct_lag, res.echo_lag);
+  drawMap();
+
+  out.innerHTML =
+    `<div><span class="big">${(Number(res.distance_m) || 0).toFixed(2)} m</span> <span style="color:var(--muted)">synthetic wall @ bearing ${Math.round(currentBearing())}°</span></div>` +
+    `<div class="mono" style="margin-top:6px;color:var(--muted)">nonce ${nonce} · Δt ${(Number(res.dt) * 1000).toFixed(2)} ms · ${res.engine}</div>`;
+
+  if (document.getElementById('useMic').checked && navigator.mediaDevices?.getUserMedia) {
+    narrate('mic', 'active', 'capture real-room echo via getUserMedia', 'optional layer');
+    try {
+      const micRec = await maybeCaptureMic(chirp, sr);
+      const micRes = await pyMatchedFilter(micRec, chirp, sr).catch(() => jsMatchedFilter(micRec, chirp, sr));
+      echoes.push({ bearing: currentBearing(), distance: Number(micRes.distance_m) || 0, source: 'mic' });
+      drawMap();
+      narrate('mic', 'ok', `mic echo ${(Number(micRes.distance_m) || 0).toFixed(2)}m`, 'added in yellow');
+    } catch (e) {
+      narrate('mic', 'bad', 'mic capture unavailable', e.message || 'permission denied');
+    }
+  }
+};
+</script>
+</body></html>
