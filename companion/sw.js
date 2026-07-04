@@ -1,7 +1,7 @@
 // sw.js — makes the Companion an installable, offline-capable PWA.
 // Caches the app shell so it launches instantly (and works offline); the mind (Pyodide, fetched
 // inside the separate vbrainstem sandbox) needs a connection the first time, then the browser caches it.
-const CACHE = 'companion-v6';   // bumped: pre-filled GitHub auth link
+const CACHE = 'companion-v7';   // bumped: re-vendored player (render polish)
 const SHELL = ['./', 'index.html', 'player.html', 'brain.py', 'manifest.webmanifest', 'icon-180.png', 'icon-192.png', 'icon-512.png'];
 
 self.addEventListener('install', e => {
