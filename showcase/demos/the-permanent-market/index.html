@@ -54,7 +54,7 @@
       </div>
       <div class="field">
         <label for="sellerKey">seller's seal passphrase — the one key that opens this order</label>
-        <input id="sellerKey" type="text" value="permanent-market-demo-2026" spellcheck="false">
+        <input id="sellerKey" type="text" value="" placeholder="type a seller-only passphrase for this run" spellcheck="false">
       </div>
       <button class="run" id="goSeal">🧾 Finalize order + append to permanent ledger</button>
       <div class="live-out" id="sealOut" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— select item(s) and finalize the order —</span></div>
@@ -159,7 +159,7 @@ let lastLedger = null;
 
 const b64 = (bytes) => {
   let s = '';
-  for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  for (const byte of bytes) s += String.fromCharCode(byte);
   return btoa(s);
 };
 
@@ -169,7 +169,10 @@ function b64url(bytes) {
 }
 
 function fromB64url(str) {
-  const padded = String(str).replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - (str.length % 4 || 4)) % 4);
+  const normalized = String(str).replace(/-/g, '+').replace(/_/g, '/');
+  const remainder = normalized.length % 4;
+  const padLength = remainder === 0 ? 0 : 4 - remainder;
+  const padded = normalized + '='.repeat(padLength);
   const raw = atob(padded);
   return Uint8Array.from(raw, ch => ch.charCodeAt(0));
 }
@@ -521,6 +524,10 @@ async function verifyReceipt(receipt, prefix) {
   narrate(prefix, 'ok', 'receipt signature still verifies', `seller key ${(receipt.sellerPublicKeyJwk.x || '').slice(0, 12)}…`);
 }
 
+function hasFreshnessProof(freshness) {
+  return Boolean(freshness && freshness.fetched_at && freshness.payload_sha256 && freshness.value !== undefined);
+}
+
 async function verifyLedger(ledger) {
   if (!ledger || !ledger.genesis) throw new Error('ledger not initialized');
   narrate('verify-genesis', 'ok', 'trusted genesis anchor', short(ledger.genesis));
@@ -540,7 +547,7 @@ async function verifyLedger(ledger) {
       throw new Error(`Tamper detected at ${entry.id}`);
     }
     const freshness = entry.proof?.freshness || {};
-    if (!freshness.fetched_at || !freshness.payload_sha256 || freshness.value === undefined) {
+    if (!hasFreshnessProof(freshness)) {
       narrate(`verify-fresh-${i}`, 'bad', `✗ ${entry.id} freshness proof missing`, 'expected fetched_at + payload_sha256 + value');
       throw new Error(`Freshness proof missing at ${entry.id}`);
     }
