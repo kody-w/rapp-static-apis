@@ -1,0 +1,57 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "4a4dc6b7294c",
+  "title": "Ushuaia sky",
+  "author": "@kody-w",
+  "born": {
+    "coord": "4qr2jxx7b·1783136766270",
+    "from": "live -3°C · code 1 · wind 7 · night"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 29,
+        "shape": "ring",
+        "limbs": 1,
+        "segments": 4,
+        "symmetry": "radial",
+        "body_r": 0.239,
+        "limb_len": 0.272
+      },
+      {
+        "role": "surface",
+        "k": 53,
+        "palette": [
+          "#24dba1",
+          "#4feebb",
+          "#79ecea",
+          "#1d7257"
+        ],
+        "pattern": "glow",
+        "glow": 0.31,
+        "opacity": 0.7
+      },
+      {
+        "role": "motion",
+        "k": 81,
+        "breathe": 0.17,
+        "drift": 0.138,
+        "pulse": 0.2,
+        "reach": 0.26
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}

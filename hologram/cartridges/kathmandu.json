@@ -1,0 +1,57 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "ed366fe72537",
+  "title": "Kathmandu sky",
+  "author": "@kody-w",
+  "born": {
+    "coord": "tuutttg03·1783136766270",
+    "from": "live 26°C · code 3 · wind 4 · day"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 56,
+        "shape": "blob",
+        "limbs": 1,
+        "segments": 4,
+        "symmetry": "radial",
+        "body_r": 0.308,
+        "limb_len": 0.245
+      },
+      {
+        "role": "surface",
+        "k": 19,
+        "palette": [
+          "#dbd524",
+          "#eee84f",
+          "#cdec79",
+          "#726f1d"
+        ],
+        "pattern": "solid",
+        "glow": 0.6,
+        "opacity": 0.95
+      },
+      {
+        "role": "motion",
+        "k": 2,
+        "breathe": 0.292,
+        "drift": 0.105,
+        "pulse": 0.2,
+        "reach": 0.26
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}

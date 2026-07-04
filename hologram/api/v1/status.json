@@ -1,9 +1,9 @@
 {
   "schema": "rapp-static-hologram-status/1.0",
-  "generated": "2026-07-04T03:41:48Z",
+  "generated": "2026-07-04T03:46:07Z",
   "summary": {
-    "cartridges": 9,
-    "versions": 9
+    "cartridges": 12,
+    "versions": 12
   },
   "cartridges": [
     {
@@ -14,11 +14,25 @@
       "bytes": 975
     },
     {
+      "name": "dubai",
+      "id": "c144203764f6",
+      "title": "Dubai sky",
+      "author": "@kody-w",
+      "bytes": 1030
+    },
+    {
       "name": "huila",
       "id": "a4cf4c162ae5",
       "title": "Huila sky",
       "author": "@kody-w",
       "bytes": 1032
+    },
+    {
+      "name": "kathmandu",
+      "id": "ed366fe72537",
+      "title": "Kathmandu sky",
+      "author": "@kody-w",
+      "bytes": 1034
     },
     {
       "name": "lumina",
@@ -54,6 +68,13 @@
       "title": "Longyearbyen sky",
       "author": "@kody-w",
       "bytes": 1036
+    },
+    {
+      "name": "ushuaia",
+      "id": "4a4dc6b7294c",
+      "title": "Ushuaia sky",
+      "author": "@kody-w",
+      "bytes": 1033
     },
     {
       "name": "vex",

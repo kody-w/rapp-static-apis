@@ -2,12 +2,12 @@
   "schema": "rapp-static-api/1.0",
   "name": "rapp-static-hologram",
   "kind": "hologram-cartridge",
-  "generated": "2026-07-04T03:41:48Z",
+  "generated": "2026-07-04T03:46:07Z",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram",
   "pages_base": "https://kody-w.github.io/rapp-static-apis/hologram",
   "summary": {
-    "cartridges": 9,
-    "versions": 9
+    "cartridges": 12,
+    "versions": 12
   },
   "entries": [
     {
@@ -31,6 +31,26 @@
       ]
     },
     {
+      "name": "dubai",
+      "id": "c144203764f6",
+      "title": "Dubai sky",
+      "author": "@kody-w",
+      "sha8": "c144203764f6",
+      "bytes": 1030,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/dubai.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/dubai/c144203764f6.json",
+      "pin_path": "versions/dubai/c144203764f6.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "c144203764f6",
+          "path": "versions/dubai/c144203764f6.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/dubai/c144203764f6.json",
+          "first_captured": "2026-07-04T03:46:07Z"
+        }
+      ]
+    },
+    {
       "name": "huila",
       "id": "a4cf4c162ae5",
       "title": "Huila sky",
@@ -47,6 +67,26 @@
           "path": "versions/huila/a4cf4c162ae5.json",
           "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/huila/a4cf4c162ae5.json",
           "first_captured": "2026-07-04T03:35:43Z"
+        }
+      ]
+    },
+    {
+      "name": "kathmandu",
+      "id": "ed366fe72537",
+      "title": "Kathmandu sky",
+      "author": "@kody-w",
+      "sha8": "ed366fe72537",
+      "bytes": 1034,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/kathmandu.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/kathmandu/ed366fe72537.json",
+      "pin_path": "versions/kathmandu/ed366fe72537.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "ed366fe72537",
+          "path": "versions/kathmandu/ed366fe72537.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/kathmandu/ed366fe72537.json",
+          "first_captured": "2026-07-04T03:46:07Z"
         }
       ]
     },
@@ -147,6 +187,26 @@
           "path": "versions/svalbard/9006d9c76f43.json",
           "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/svalbard/9006d9c76f43.json",
           "first_captured": "2026-07-04T03:41:48Z"
+        }
+      ]
+    },
+    {
+      "name": "ushuaia",
+      "id": "4a4dc6b7294c",
+      "title": "Ushuaia sky",
+      "author": "@kody-w",
+      "sha8": "4a4dc6b7294c",
+      "bytes": 1033,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/ushuaia.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/ushuaia/4a4dc6b7294c.json",
+      "pin_path": "versions/ushuaia/4a4dc6b7294c.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "4a4dc6b7294c",
+          "path": "versions/ushuaia/4a4dc6b7294c.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/ushuaia/4a4dc6b7294c.json",
+          "first_captured": "2026-07-04T03:46:07Z"
         }
       ]
     },
