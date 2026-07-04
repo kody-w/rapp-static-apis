@@ -22,7 +22,7 @@
       "slug": "verify",
       "title": "Verify-Before-Exec",
       "blurb": "Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.",
-      "count": 5
+      "count": 6
     },
     {
       "slug": "ai-to-ai",
@@ -755,6 +755,27 @@
       "weld": "",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-unriggable-ticket/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-unriggable-ticket/"
+    },
+    {
+      "slug": "the-verifiable-broadcast",
+      "channel": "verify",
+      "title": "WELD: The Verifiable Broadcast",
+      "when_to_use": "When you need a live public feed that survives origin deletion and proves every emission was fetched now, not replayed from a stale snapshot.",
+      "primitives": [
+        "/resolver",
+        "/track",
+        "/fn",
+        "crypto.subtle",
+        "fetch"
+      ],
+      "status": "live",
+      "builds_on": [
+        "kill-the-host",
+        "proof-of-freshness"
+      ],
+      "weld": "Each mirror-resolved broadcast value is immediately stamped with a fetch-timestamp and SHA-256 of the exact response bytes, so a silenced host cannot prevent broadcast and a replayed stale value cannot disguise its age.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-verifiable-broadcast/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-verifiable-broadcast/"
     }
   ]
 }

@@ -12,7 +12,7 @@
       "emoji": "🔒",
       "title": "Verify-Before-Exec",
       "blurb": "Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.",
-      "count": 5
+      "count": 6
     },
     {
       "slug": "ai-to-ai",

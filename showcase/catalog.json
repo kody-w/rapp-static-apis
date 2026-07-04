@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 41,
+  "count": 42,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -1134,6 +1134,38 @@
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-unriggable-ticket/demo.json",
       "builds_on": [],
       "weld": ""
+    },
+    {
+      "slug": "the-verifiable-broadcast",
+      "channel": "verify",
+      "rank": null,
+      "emoji": "📡",
+      "title": "WELD: The Verifiable Broadcast",
+      "tagline": "A public feed that can't be silenced or faked: mirrors keep it alive, freshness proofs keep it honest.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "weld",
+        "broadcast",
+        "freshness",
+        "mirror",
+        "censorship-resistant",
+        "replay-proof"
+      ],
+      "primitives": [
+        "/resolver",
+        "/track",
+        "/fn",
+        "crypto.subtle",
+        "fetch"
+      ],
+      "url": "demos/the-verifiable-broadcast/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-verifiable-broadcast/demo.json",
+      "builds_on": [
+        "kill-the-host",
+        "proof-of-freshness"
+      ],
+      "weld": "Each mirror-resolved broadcast value is immediately stamped with a fetch-timestamp and SHA-256 of the exact response bytes, so a silenced host cannot prevent broadcast and a replayed stale value cannot disguise its age."
     }
   ]
 }

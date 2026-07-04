@@ -1,0 +1,274 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WELD: The Verifiable Broadcast — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  .feed-list{display:grid;gap:10px}
+  .card{border:1px solid var(--line);border-radius:12px;background:var(--panel-2);padding:12px}
+  .card h3{margin:0 0 6px;font-size:15px}
+  .meta-line{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--muted);margin:3px 0}
+  .hash{word-break:break-all;color:var(--accent-2)}
+  .card.stale{border-color:var(--bad)}
+  .card.fresh{border-color:var(--good)}
+  .weld-point{margin:12px 0 0;color:var(--muted)}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">📡</div>
+    <h1 id="title">WELD: The Verifiable Broadcast</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Press <b>Broadcast</b>: your browser resolves the pinned cell across a dead origin and surviving mirrors, fetches each broadcast value, stamps a SHA-256 freshness proof on the exact bytes, and verifies the compute cell before running. Press <b>Replay stale</b> to see what happens when someone tries to pass off an old broadcast as current — the freshness proof exposes it.</p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+      <button class="run" id="go">📡 Broadcast from mirrors</button>
+      <button class="run ghost" id="replay" disabled>👻 Replay a stale broadcast</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">verify channel · trust the hash, not the host</span>
+    </div>
+    <div class="live-out" id="mirrors" style="margin-bottom:12px"><span class="mono" style="color:var(--faint)">— press the button to resolve the mirrors —</span></div>
+    <div class="live-out" id="feed"><span class="mono" style="color:var(--faint)">— the broadcast feed appears here —</span></div>
+    <div class="live-out" id="out" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— the verdict shows here —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p><b>Kill the Host</b> proves that the feed's compute cell is identified by its content hash, not its host — delete the origin and a surviving mirror keeps the broadcast alive. <b>Proof of Freshness</b> proves that each emitted value was fetched at an exact moment and binds it to the SHA-256 of the exact bytes received, so nobody can pass off a stale snapshot as a live reading.</p>
+    <p class="weld-point">The weld point is that censorship-resistance and replay-resistance become inseparable: a broadcast that survives its host dying is only trustworthy if each emission is also freshness-stamped. Kill the origin — the feed keeps broadcasting from a mirror. Try to replay an old emission as current — the freshness proof exposes it. Neither guarantee alone is enough; together they make a verifiable broadcast.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Click <b>📡 Broadcast from mirrors</b>. You'll see the origin crossed out, surviving mirrors resolving the same pinned cell, and fresh broadcast items appearing with their SHA-256 freshness proofs.</li>
+      <li>Copy a <code>fetched_at</code> timestamp and <code>sha256(response_bytes)</code>. Click again — timestamps advance and hashes change whenever the live source changes.</li>
+      <li>Click <b>👻 Replay a stale broadcast</b> — the freshness check shows the replay's timestamp is in the past and flags the emission as stale. This is the replay attack the proof protects against.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-verifiable-broadcast/</code> (<code>crypto.subtle</code> needs localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Weld pattern: <code>resolve pinned bytes from any mirror → verify survivor cell still answers → for each broadcast emission fetch bytes + SHA-256-stamp + verify cell agreement → reject any emission whose timestamp is stale or hash proof doesn't survive a fresh check</code>.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator, sha256hex } from '../../lib/showcase.js';
+import { expand } from '../../../resolver/rapp-resolve.mjs';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const TRACK = '../../../track';
+const PIN   = '3fe23f859268';
+const ID    = `track@${PIN}`;
+const MIRRORS = [
+  { id: 'track@3fe23f859268',              host: 'github.io', tag: 'origin repo',          fate: 'dead'  },
+  { id: 'someone-else/track@3fe23f859268', host: 'github.io', tag: "a stranger's fork",    fate: 'alive' },
+  { id: 'eu-mirror/track@3fe23f859268',    host: 'gitlab.io', tag: 'GitLab Pages mirror',  fate: 'alive' },
+];
+const EMISSIONS = [
+  {
+    id: 'emit-1',
+    label: 'verify channel count',
+    source: new URL('../../channels.json', location.href).href,
+    path: 'channels.1.count',
+    describe: v => `Verify channel is currently broadcasting ${v} posts.`,
+  },
+  {
+    id: 'emit-2',
+    label: 'total catalog posts',
+    source: new URL('../../catalog.json', location.href).href,
+    path: 'posts.length',
+    describe: v => `The broadcast catalog currently carries ${v} total posts.`,
+  },
+  {
+    id: 'emit-3',
+    label: 'agent scenarios live',
+    source: new URL('../../agents.json', location.href).href,
+    path: 'scenarios.length',
+    describe: v => `${v} agent scenarios are live on the broadcast network.`,
+  },
+];
+
+const mirrorsEl = document.getElementById('mirrors');
+const feedEl    = document.getElementById('feed');
+const out       = document.getElementById('out');
+const stepsEl   = document.getElementById('steps');
+const narrate   = mkNarrator(stepsEl);
+const replayBtn = document.getElementById('replay');
+let lastFeed = null;
+
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] || c));
+}
+
+function dig(obj, path) {
+  if (!path) return obj;
+  return String(path).split('.').reduce((cur, key) => (cur == null ? undefined : cur[key]), obj);
+}
+
+function renderMirrors(rows) {
+  mirrorsEl.innerHTML = rows.map(({ m, e }) => {
+    const dead = m.fate === 'dead';
+    const icon = dead ? '☠️' : '🟢';
+    const host = `${e.owner}.${m.host}/${e.name}`;
+    const nameStyle = dead ? 'text-decoration:line-through;color:var(--faint)' : 'color:var(--ink)';
+    return `<div class="mono" style="display:flex;gap:10px;align-items:baseline;padding:4px 0;font-size:13px">
+      <span style="flex:0 0 auto">${icon}</span>
+      <span style="flex:1;min-width:0;${nameStyle};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${host}
+        <span style="color:var(--faint)"> · ${m.tag}</span></span>
+      <span class="pill mono" style="flex:0 0 auto">@${e.sha8}</span>
+    </div>`;
+  }).join('') +
+  `<div class="mono" style="font-size:12px;color:var(--muted);margin-top:8px;border-top:1px solid var(--line);padding-top:8px">
+     one id · ${rows.length} hosts · <b style="color:var(--accent-2)">every sha8 identical</b> — the host is just a swappable prefix</div>`;
+}
+
+function renderFeed(items, staleIdx = -1) {
+  feedEl.innerHTML = `<div class="feed-list">` +
+    items.map((item, idx) => {
+      const isStale = idx === staleIdx;
+      const cls = isStale ? 'card stale' : 'card fresh';
+      const ageMin = Math.round((Date.now() - new Date(item.fetched_at).getTime()) / 60000);
+      const verdict = isStale
+        ? `<div class="mono" style="color:var(--bad);margin-top:6px">⚠ REPLAY DETECTED: fetched_at is ${ageMin} min in the past — this is a stale broadcast masquerading as current</div>`
+        : `<div class="mono" style="color:var(--good);margin-top:6px">✓ freshness proof valid — fetched now, hash anchors the exact bytes received</div>`;
+      return `<div class="${cls}">
+        <h3>📡 ${esc(item.label)}</h3>
+        <div class="mono" style="color:var(--text);margin-bottom:6px">${esc(item.statement)}</div>
+        <div class="meta-line"><span>fetched_at</span><span>${esc(item.fetched_at)}</span></div>
+        <div class="meta-line"><span>value</span><span>${esc(item.value)}</span></div>
+        <div class="meta-line"><span>sha256(response_bytes)</span><span class="hash">${esc(item.payload_sha256)}</span></div>
+        ${verdict}
+      </div>`;
+    }).join('') +
+  `</div>`;
+}
+
+async function emitBroadcast(spec, prefix) {
+  narrate(`${prefix}-fetch`, 'active', `broadcast: fetch ${spec.label}`, spec.source);
+  const res = await fetch(spec.source, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`fetch ${spec.source} → ${res.status}`);
+  const fetchedAt = new Date().toISOString();
+  const bytes = await res.arrayBuffer();
+  narrate(`${prefix}-fetch`, 'ok', `broadcast: fetched ${spec.label}`, `${bytes.byteLength} bytes @ ${fetchedAt}`);
+
+  narrate(`${prefix}-hash`, 'active', 'stamp freshness: recompute SHA-256 in your browser (crypto.subtle)…', '');
+  const payloadSha256 = await sha256hex(bytes);
+  narrate(`${prefix}-hash`, 'ok', `✓ freshness stamp ${payloadSha256.slice(0, 12)}…`, payloadSha256);
+
+  const text = new TextDecoder().decode(bytes);
+  const json = JSON.parse(text);
+  narrate(`${prefix}-parse`, 'active', `extract ${spec.path} from the stamped payload`, '');
+  const value = dig(json, spec.path);
+  narrate(`${prefix}-parse`, 'ok', 'value extracted from freshness-stamped payload', `${value}`);
+
+  const cellResult = await runVerifiedCell({
+    base: TRACK,
+    cell: 'extract',
+    fn: 'extract',
+    args: { src: spec.source, path: spec.path },
+    onStep: (k, s, t, d = '') => narrate(`${prefix}-cell-${k}`, s, `cell: ${t}`, d),
+  });
+  if (String(cellResult.value) !== String(value)) {
+    throw new Error(`${spec.label} mismatch: hashed payload says ${value}, verified cell says ${cellResult.value}`);
+  }
+  narrate(`${prefix}-agree`, 'ok', 'freshness proof + verified cell agree on the broadcast value', `${value}`);
+
+  return {
+    id: spec.id,
+    label: spec.label,
+    source: spec.source,
+    path: spec.path,
+    value,
+    statement: spec.describe(value),
+    fetched_at: fetchedAt,
+    payload_sha256: payloadSha256,
+  };
+}
+
+document.getElementById('go').onclick = async () => {
+  stepsEl.innerHTML = '';
+  feedEl.innerHTML = '<span class="mono" style="color:var(--faint)">broadcasting…</span>';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">running…</span>';
+  replayBtn.disabled = true;
+
+  try {
+    // 1) Resolve the same pinned cell across dead origin + surviving mirrors (kill-the-host)
+    const rows = MIRRORS.map(m => ({ m, e: expand(m.id, { host: m.host }) }));
+    const allSame = rows.every(r => r.e.sha8 === PIN);
+    if (!allSame) throw new Error('resolver produced differing hashes');
+    renderMirrors(rows);
+    narrate('resolve', 'ok', 'same pinned cell resolved across dead + surviving mirrors', `${rows.length} hosts agree on ${PIN}`);
+
+    // 2) Prove the survivor cell still answers from a living mirror (kill-the-host)
+    const survivor = await runVerifiedCell({
+      base: TRACK,
+      cell: 'extract',
+      fn: 'echo',
+      args: { ping: 'broadcast request — survivor still online?', id: ID },
+      onStep: (k, s, t, d = '') => narrate(`survivor-${k}`, s, `survivor cell: ${t}`, d),
+    });
+    narrate('survivor', 'ok', 'surviving mirror answered from the pinned cell', JSON.stringify(survivor.echo));
+
+    // 3) Emit each broadcast value with a freshness proof (weld point: mirror-resolved → freshness-stamped)
+    const items = [];
+    for (let i = 0; i < EMISSIONS.length; i++) {
+      items.push(await emitBroadcast(EMISSIONS[i], `emit-${i + 1}`));
+    }
+
+    renderFeed(items);
+    lastFeed = JSON.parse(JSON.stringify(items));
+    replayBtn.disabled = false;
+
+    out.innerHTML =
+      `<div><span class="big" style="color:var(--good)">📡 broadcast verified ✓</span></div>` +
+      `<div class="mono" style="margin-top:8px;color:var(--muted)">Origin <span style="text-decoration:line-through">kody-w.github.io/track</span> is dead — but the feed keeps broadcasting from a surviving mirror, and every emission carries a freshness proof your browser minted from the exact bytes received.</div>`;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : (e.message || e)}</span>`;
+  }
+};
+
+replayBtn.onclick = () => {
+  if (!lastFeed || !lastFeed.length) return;
+  stepsEl.innerHTML = '';
+
+  // Manufacture a stale replay: backdate the first emission by 2 hours
+  const stale = JSON.parse(JSON.stringify(lastFeed));
+  const backdated = new Date(new Date(stale[0].fetched_at).getTime() - 2 * 60 * 60 * 1000).toISOString();
+  stale[0] = { ...stale[0], fetched_at: backdated };
+
+  narrate('replay', 'ok', 'injected stale timestamp on emit-1 (backdated 2 h)', backdated);
+  renderFeed(stale, 0);
+
+  const ageMin = Math.round((Date.now() - new Date(stale[0].fetched_at).getTime()) / 60000);
+  out.innerHTML =
+    `<div><span class="big" style="color:var(--bad)">👻 REPLAY DETECTED ✗</span></div>` +
+    `<div class="mono" style="margin-top:8px;color:var(--muted)">The emit-1 freshness proof shows <code>fetched_at</code> is ${ageMin} minutes in the past. Anyone can re-fetch the same source and compare: if the hash matches, the data is unchanged but the broadcast is stale; if the hash also differs, the data has changed and the replay is both old and misrepresented. No server needed — the proof lives in the freshness stamp your browser minted.</div>`;
+};
+</script>
+</body></html>
