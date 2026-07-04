@@ -856,6 +856,7 @@ function buildPedigree(id) {
   nodeLayer.innerHTML = '';
   lineCanvas.width = stageW;
   lineCanvas.height = stageH;
+  pedigreeThumbs = [];
   for (const node of nodes.values()) {
     node.y = pad + (maxGen - node.generation) * (nodeH + rowGap);
     node.left = pad + node.x * (nodeW + colGap);
@@ -870,7 +871,6 @@ function buildPedigree(id) {
     pedigreeThumbs.push({ ctx: thumbCtx, cart: node.item.cart });
     renderThumb(thumbCtx, node.item.cart);
   }
-  pedigreeThumbs = [];
   const lineCtx = lineCanvas.getContext('2d');
   lineCtx.clearRect(0, 0, stageW, stageH);
   lineCtx.lineWidth = 2;
