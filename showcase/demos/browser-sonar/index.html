@@ -112,7 +112,7 @@ function mkChirp(sr, sec = CHIRP_SEC, f0 = SWEEP_START, f1 = SWEEP_END) {
   for (let i = 0; i < n; i++) {
     const t = i / sr;
     const phase = 2 * Math.PI * (f0 * t + 0.5 * k * t * t);
-    const w = Math.sin(Math.PI * (i / (n - 1))); // Hann-like taper to reduce chirp edge clicks/leakage
+    const w = Math.sin(Math.PI * (i / (n - 1))); // sine taper to reduce chirp edge clicks/leakage
     out[i] = Math.sin(phase) * w;
   }
   return out;
@@ -295,8 +295,9 @@ function bootVbrainstem() {
 
 async function pyMatchedFilter(recording, chirp, sr) {
   if (!py) py = await bootVbrainstem();
-  const payload = JSON.stringify({ recording: Array.from(recording), chirp: Array.from(chirp), sr });
+  const payload = JSON.stringify({ recording: Array.from(recording), chirp: Array.from(chirp), sr, c: SPEED_OF_SOUND });
   const payloadB64 = bytesToBase64(new TextEncoder().encode(payload));
+  if (!/^[A-Za-z0-9+/=]+$/.test(payloadB64)) throw new Error('invalid payload encoding');
   const code = `
 import base64, json, numpy as np
 from scipy.signal import correlate
@@ -320,7 +321,7 @@ echo_i = int(search_from + np.argmax(mn[search_from:])) if search_from < len(ln)
 echo_lag = int(ln[echo_i])
 
 dt = max(0.0, (echo_lag - direct_lag) / sr)
-distance = 343.0 * dt / 2.0
+distance = float(p["c"]) * dt / 2.0
 
 print(json.dumps({
   "direct_lag": direct_lag,
@@ -337,12 +338,13 @@ print(json.dumps({
   return JSON.parse(line);
 }
 
-async function maybeCaptureMic(chirp, sr) {
+async function captureMic(chirp, sr) {
   const stream = await navigator.mediaDevices.getUserMedia({
     audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }
   });
   const ctx = audio();
   const src = ctx.createMediaStreamSource(stream);
+  // ScriptProcessor is legacy but still broadly supported for quick inline capture in static demos.
   const proc = ctx.createScriptProcessor(2048, 1, 1);
   const gate = ctx.createGain(); gate.gain.value = 0;
   const chunks = [];
@@ -447,7 +449,7 @@ document.getElementById('go').onclick = async () => {
   if (document.getElementById('useMic').checked && navigator.mediaDevices?.getUserMedia) {
     narrate('mic', 'active', 'capture real-room echo via getUserMedia', 'optional layer');
     try {
-      const micRec = await maybeCaptureMic(chirp, sr);
+      const micRec = await captureMic(chirp, sr);
       const micRes = await pyMatchedFilter(micRec, chirp, sr).catch(() => jsMatchedFilter(micRec, chirp, sr));
       echoes.push({ bearing: currentBearing(), distance: Number(micRes.distance_m) || 0, source: 'mic' });
       drawMap();
