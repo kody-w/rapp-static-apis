@@ -25,6 +25,24 @@
  button.alt{background:#21262d;border:1px solid #30363d;color:#e6edf3}
  p.muted{border-top:1px solid #30363d;padding-top:14px;margin-top:22px}
  code{background:#010409;border:1px solid #30363d;padding:1px 6px;border-radius:5px;font-size:12px}
+ /* ── Breed mode ─────────────────────────────────────────────────────────── */
+ #breed-bar{margin:10px 0 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+ #btn-breed{background:#1a2f4a;border:1px solid #388bfd;color:#79c0ff}
+ #btn-breed:hover{background:#1d3a60}
+ #btn-breed.on{background:#0d419d;border-color:#58a6ff;color:#cae8ff}
+ #breed-hint{font-size:12px;color:#8b949e}
+ .card.sel-a{outline:2px solid #388bfd;outline-offset:-2px}
+ .card.sel-b{outline:2px solid #bc8cff;outline-offset:-2px}
+ .card.breed-pick{cursor:crosshair}
+ #breed-result{display:none;border:1px solid #30363d;border-radius:12px;background:#161b22;margin-top:14px;padding:16px}
+ #breed-result.show{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+ #breed-canvas{width:200px;height:200px;display:block;border-radius:12px;background:#010409;border:1px solid #30363d;flex-shrink:0;aspect-ratio:1}
+ #breed-info{flex:1;min-width:160px}
+ #breed-title{font-weight:700;font-size:15px;margin:0 0 3px}
+ #breed-lin{font-size:12px;color:#8b949e;margin:0 0 10px}
+ #breed-lin a{color:#58a6ff}
+ #breed-actions{display:flex;gap:8px;flex-wrap:wrap}
+ #breed-hash{font-size:11px;color:#6e7681;font-family:ui-monospace,Menlo,monospace;margin-top:8px}
 </style></head><body>
 <h1>🌀 hologram organisms</h1>
 <p class="muted">
@@ -33,7 +51,27 @@
  <span id="pin" class="mono"></span>
 </p>
 
+<div id="breed-bar">
+ <button id="btn-breed">🧬 breed</button>
+ <span id="breed-hint"></span>
+</div>
+
 <div class="grid" id="grid"></div>
+
+<div id="breed-result">
+ <canvas id="breed-canvas" width="200" height="200"></canvas>
+ <div id="breed-info">
+  <div id="breed-title"></div>
+  <div id="breed-lin"></div>
+  <div id="breed-actions">
+   <button id="breed-lantern">open in Lantern →</button>
+   <button id="breed-dl">↓ download .json</button>
+   <button id="breed-copy">copy keepsake link</button>
+   <button class="alt" id="breed-reset">× reset</button>
+  </div>
+  <div id="breed-hash"></div>
+ </div>
+</div>
 
 <div class="load-box" style="margin-top:20px">
  <label><b>Play your own cartridge</b></label>
@@ -57,6 +95,10 @@
 
 <script type="module">
 const TAU = Math.PI * 2;
+
+/* ── Breed state (declared early so animateThumbs closure can read them) ── */
+const loadedCarts = new Map(); // id → {cart, entry}
+let breedMode = false, breedA = null, breedB = null, breedChild = null, breedThumb = null;
 
 /* ── Tiny in-canvas renderer (mirror of player.html, self-contained) ──────── */
 function hexA(hex, a) {
@@ -131,7 +173,7 @@ const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'
 const grid = document.getElementById('grid');
 const thumbs = [];
 let _thumbT0 = null;
-function animateThumbs(now){ if(_thumbT0===null)_thumbT0=now; const time=(now-_thumbT0)/1000; for(const th of thumbs) renderThumb(th.ctx, th.genome, time); requestAnimationFrame(animateThumbs); }
+function animateThumbs(now){ if(_thumbT0===null)_thumbT0=now; const time=(now-_thumbT0)/1000; for(const th of thumbs) renderThumb(th.ctx, th.genome, time); if(breedThumb) renderThumb(breedThumb.ctx, breedThumb.genome, time); requestAnimationFrame(animateThumbs); }
 requestAnimationFrame(animateThumbs);
 (async()=>{
   let reg;
@@ -155,6 +197,9 @@ requestAnimationFrame(animateThumbs);
       lineage = `<div class="card-lineage">↳ ${chips}</div>`;
     }
     card.innerHTML = `<a class="card-main" href="${openHref}"><canvas width="200" height="200"></canvas><div class="card-title">${esc(entry.title||entry.name)}</div></a><div class="card-body"><div class="card-born">${esc(born)}</div>${lineage}<div class="card-id">${esc(entry.id)}</div></div>`;
+    card.dataset.id = entry.id;
+    loadedCarts.set(entry.id, { cart, entry });
+    card.addEventListener('click', e => { if (!breedMode) return; e.preventDefault(); selectBreedCreature(entry.id); });
     grid.appendChild(card);
     thumbs.push({ ctx: card.querySelector('canvas').getContext('2d'), genome: cart.genome });
   }
@@ -167,5 +212,127 @@ document.getElementById('file-in').onchange=async e=>{
   const f=e.target.files[0];if(!f)return;
   try{const cart=JSON.parse(await f.text());location.href='player.html#'+b64enc(JSON.stringify(cart));}
   catch(err){alert('Invalid JSON: '+err.message);}
+};
+
+/* ── Breed tool ──────────────────────────────────────────────────────────── */
+async function sha256hex(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
+}
+async function genomeId(genome) {
+  function canonical(v) {
+    if (Array.isArray(v)) return '[' + v.map(canonical).join(',') + ']';
+    if (v !== null && typeof v === 'object')
+      return '{' + Object.keys(v).sort().map(k => JSON.stringify(k) + ':' + canonical(v[k])).join(',') + '}';
+    return JSON.stringify(v);
+  }
+  return (await sha256hex(canonical(genome))).slice(0, 12);
+}
+function avgMotion(a, b) {
+  const out = { role: 'motion' };
+  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+  for (const k of keys) {
+    if (k === 'role') continue;
+    const av = a[k], bv = b[k];
+    if (typeof av === 'number' && typeof bv === 'number') out[k] = (av + bv) / 2;
+    else if (typeof av === 'number') out[k] = av;
+    else if (typeof bv === 'number') out[k] = bv;
+    else if (av !== undefined) out[k] = av;
+    else out[k] = bv;
+  }
+  return out;
+}
+function roleMap(layers) { const m = {}; for (const l of layers) m[l.role] = l; return m; }
+async function crossBreed(cartA, cartB) {
+  const lA = roleMap(cartA.genome.layers), lB = roleMap(cartB.genome.layers);
+  const motion = avgMotion(lA.motion || { role: 'motion' }, lB.motion || { role: 'motion' });
+  const genome = {
+    layers: [lA.form, lB.surface, motion],
+    compose: { windows: [[0, 1, 2]], loop: true }
+  };
+  const id = await genomeId(genome);
+  const tA = (cartA.title || cartA.id || '').replace(/ sky$/i, '');
+  const tB = (cartB.title || cartB.id || '').replace(/ sky$/i, '');
+  return {
+    schema: 'hologram-cartridge/1.0', id,
+    title: tA + ' \u00d7 ' + tB,
+    author: '@kody-w',
+    born: { coord: 'cross:' + cartA.id + '\u00d7' + cartB.id, from: 'a cross of ' + (cartA.title || cartA.id) + ' and ' + (cartB.title || cartB.id) },
+    parents: [cartA.id, cartB.id],
+    genome, sig: ''
+  };
+}
+function updateBreedUI() {
+  const btn = document.getElementById('btn-breed');
+  const hint = document.getElementById('breed-hint');
+  btn.classList.toggle('on', breedMode);
+  document.querySelectorAll('.card').forEach(c => c.classList.toggle('breed-pick', breedMode));
+  if (!breedMode) { hint.textContent = ''; return; }
+  if (!breedA) hint.textContent = '→ click a creature to select A';
+  else if (!breedB) hint.textContent = 'A selected — click another creature for B';
+  else hint.textContent = '→ click a creature to start a new cross';
+}
+function selectBreedCreature(id) {
+  const item = loadedCarts.get(id);
+  if (!item) return;
+  if (!breedA || breedB) {
+    // Start a fresh cross: this becomes A
+    breedA = item; breedB = null; breedChild = null; breedThumb = null;
+    document.querySelectorAll('.card.sel-a,.card.sel-b').forEach(c => c.classList.remove('sel-a','sel-b'));
+    document.querySelector(`.card[data-id="${item.entry.id}"]`)?.classList.add('sel-a');
+    document.getElementById('breed-result').classList.remove('show');
+    updateBreedUI();
+  } else if (id !== breedA.entry.id) {
+    // Select B and compute the cross
+    breedB = item;
+    document.querySelector(`.card[data-id="${item.entry.id}"]`)?.classList.add('sel-b');
+    updateBreedUI();
+    crossBreed(breedA.cart, breedB.cart).then(child => { breedChild = child; renderBreedResult(); });
+  }
+}
+function renderBreedResult() {
+  if (!breedChild) return;
+  document.getElementById('breed-title').textContent = breedChild.title;
+  const chips = breedChild.parents.map(pid => {
+    const it = loadedCarts.get(pid);
+    return it ? `<a href="player.html?id=${encodeURIComponent(it.entry.name)}">${esc(it.cart.title || it.entry.name)}</a>`
+               : `<span>${esc(String(pid).slice(0,8))}</span>`;
+  }).join('<span style="margin:0 4px;color:#6e7681">\u00d7</span>');
+  document.getElementById('breed-lin').innerHTML = '\u21b3 ' + chips;
+  document.getElementById('breed-hash').textContent = breedChild.id;
+  const canvas = document.getElementById('breed-canvas');
+  breedThumb = { ctx: canvas.getContext('2d'), genome: breedChild.genome };
+  const result = document.getElementById('breed-result');
+  result.classList.add('show');
+  result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+document.getElementById('btn-breed').onclick = () => {
+  breedMode = !breedMode;
+  if (!breedMode) { breedA = breedB = breedChild = breedThumb = null; document.getElementById('breed-result').classList.remove('show'); document.querySelectorAll('.card.sel-a,.card.sel-b').forEach(c => c.classList.remove('sel-a','sel-b')); }
+  updateBreedUI();
+};
+document.getElementById('breed-reset').onclick = () => {
+  breedA = breedB = breedChild = breedThumb = null;
+  document.querySelectorAll('.card.sel-a,.card.sel-b').forEach(c => c.classList.remove('sel-a','sel-b'));
+  document.getElementById('breed-result').classList.remove('show');
+  updateBreedUI();
+};
+document.getElementById('breed-lantern').onclick = () => {
+  if (!breedChild) return;
+  location.href = 'player.html#' + b64enc(JSON.stringify(breedChild));
+};
+document.getElementById('breed-dl').onclick = () => {
+  if (!breedChild) return;
+  const blob = new Blob([JSON.stringify(breedChild, null, 2)], { type: 'application/json' });
+  const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: breedChild.title.replace(/[^\w\u00d7]+/g, '-').replace(/^-|-$/g,'') + '.json' });
+  a.click(); URL.revokeObjectURL(a.href);
+};
+document.getElementById('breed-copy').onclick = async () => {
+  if (!breedChild) return;
+  const base = location.href.replace(/[^/]*$/, '');
+  const url = base + 'player.html#' + b64enc(JSON.stringify(breedChild));
+  const btn = document.getElementById('breed-copy');
+  try { await navigator.clipboard.writeText(url); btn.textContent = 'copied!'; setTimeout(() => btn.textContent = 'copy keepsake link', 1800); }
+  catch { alert(url); }
 };
 </script></body></html>
