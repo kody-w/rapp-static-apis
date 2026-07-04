@@ -703,7 +703,7 @@ function startAnim() {
     VIEW.lastTs = ts;
     if (!VIEW.dragging) {
       VIEW.yaw += VIEW.yawVel * dt;
-      VIEW.yawVel *= Math.pow(0.0018, dt);
+      VIEW.yawVel *= Math.pow(0.0018, Math.max(0, dt));
       VIEW.spin = Math.min(1, VIEW.spin + dt);
       VIEW.autoOrbit += 0.32 * dt * VIEW.spin;
     }

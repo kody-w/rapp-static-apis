@@ -291,8 +291,8 @@ const thumbs = [];
 async function ingestAdopted(cart) {
   const got = await genomeId(cart.genome);
   const declared = cart.id || '';
+  const id = declared || got;
   if (!declared) cart = Object.assign({}, cart, { id: got });
-  const id = cart.id || got;
   // synthetic entry for loadedCarts
   const entry = { id, name: cart.title || 'adopted', title: cart.title || 'adopted', adopted: true };
   loadedCarts.set(id, { cart, entry });
@@ -304,10 +304,10 @@ async function ingestAdopted(cart) {
   const born = (cart.born && cart.born.from) || '';
   const bornText = momentPhrase(cart.born && cart.born.from, cart.born && cart.born.coord) || born;
   const openHref = 'player.html#' + b64enc(JSON.stringify(cart));
-  const mismatch = declared && got !== declared;
+  const hashMismatch = declared && got !== declared;
   const whyLine = buildWhyLine(cart);
   const whySuffix = whyLine ? `<div class="card-why">\u00b7 ${esc(whyLine)}</div>` : '';
-  card.innerHTML = `<a class="card-main" href="${openHref}"><canvas width="200" height="200"></canvas><div class="card-title">${esc(cart.title||'adopted')}</div></a><div class="card-body"><div class="card-born">${esc(bornText)}${mismatch?' (remix)':''}</div>${whySuffix}<div class="card-id">${esc(id)}</div></div>`;
+  card.innerHTML = `<a class="card-main" href="${openHref}"><canvas width="200" height="200"></canvas><div class="card-title">${esc(cart.title||'adopted')}</div></a><div class="card-body"><div class="card-born">${esc(bornText)}${hashMismatch?' (remix)':''}</div>${whySuffix}<div class="card-id">${esc(id)}</div></div>`;
   card.dataset.id = id;
   card.addEventListener('click', e => { if (!breedMode) return; e.preventDefault(); selectBreedCreature(id); });
   adopted.appendChild(card);
