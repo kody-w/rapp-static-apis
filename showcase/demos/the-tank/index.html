@@ -1,0 +1,302 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Tank — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  .controls{display:grid;grid-template-columns:repeat(3,minmax(140px,1fr));gap:10px;margin-bottom:12px}
+  .controls label{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:12px}
+  #tank{width:100%;height:auto;display:block;border-radius:12px;border:1px solid var(--line);background:#06101e}
+  #qr{width:120px;height:120px;background:#fff;border-radius:8px;border:1px solid var(--line)}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🐠</div>
+    <h1 id="title">The Tank</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel" id="live-panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Set your fish color, fins, and wiggle. Press go to spawn it instantly and start the shared tank swim loop.</p>
+    <div class="controls">
+      <label>Color hue <input id="hue" type="range" min="0" max="360" value="195"></label>
+      <label>Fin size <input id="fins" type="range" min="6" max="26" value="14"></label>
+      <label>Wiggle <input id="wiggle" type="range" min="1" max="20" value="9"></label>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap">
+      <button class="run" id="go">▶ Start the tank</button>
+      <a class="run" id="release" target="_blank" rel="noopener noreferrer">release yours</a>
+      <span class="mono" style="font-size:12px;color:var(--faint)" id="stats">loading reef…</span>
+    </div>
+    <canvas id="tank" width="960" height="420" aria-label="Shared fish tank animation"></canvas>
+    <div class="live-out" id="out" style="margin-top:10px"><span class="mono" style="color:var(--faint)">— press go —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>It's a tiny social game with no app account and no backend. Every open issue labeled <code>fish</code> becomes one swimmer in this canvas tank, so your fish joins a crowd that keeps growing over time.</p>
+  </div>
+
+  <div class="panel">
+    <h2>How to</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Pick hue, fins, and wiggle.</li>
+      <li>Press <b>Start the tank</b> to spawn your fish immediately.</li>
+      <li>Press <b>release yours</b>, submit the prefilled GitHub issue, then refresh to see it rejoin from shared state.</li>
+    </ol>
+    <div style="margin-top:12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+      <canvas id="qr" width="120" height="120" aria-label="QR code for release URL"></canvas>
+      <p class="mono" style="font-size:12px;color:var(--faint);margin:0">Tip: open with <code>python3 -m http.server</code> at repo root, then visit <code>/showcase/demos/the-tank/</code>.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { mkNarrator } from '../../lib/showcase.js';
+import { IssuesDB } from '../../lib/issues-db.mjs';
+import { qr } from '../../../track/qr.mjs';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const OWNER = 'kody-w';
+const REPO = 'rapp-static-apis';
+const db = new IssuesDB({ owner: OWNER, repo: REPO });
+const out = document.getElementById('out');
+const stats = document.getElementById('stats');
+const release = document.getElementById('release');
+const narrate = mkNarrator(document.getElementById('steps'));
+const tankCanvas = document.getElementById('tank');
+const ctx = tankCanvas.getContext('2d');
+const hueInput = document.getElementById('hue');
+const finsInput = document.getElementById('fins');
+const wiggleInput = document.getElementById('wiggle');
+
+let started = false;
+let raf = 0;
+let last = 0;
+let t = 0;
+let shared = [];
+let mine = null;
+let fish = [];
+
+const clamp = (n, a, b) => Math.min(b, Math.max(a, n));
+
+function hashSeed(text = '') {
+  let h = 2166136261;
+  for (let i = 0; i < text.length; i++) {
+    h ^= text.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+function rng(seed) {
+  let s = seed >>> 0;
+  return () => {
+    s += 0x6D2B79F5;
+    let x = Math.imul(s ^ (s >>> 15), 1 | s);
+    x ^= x + Math.imul(x ^ (x >>> 7), 61 | x);
+    return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function makeFish(record, seedText) {
+  const r = rng(hashSeed(seedText));
+  const baseHue = clamp(Number(record?.hue ?? (r() * 360)), 0, 360);
+  const fin = clamp(Number(record?.fin ?? (8 + r() * 18)), 6, 26);
+  const wiggle = clamp(Number(record?.wiggle ?? (4 + r() * 14)), 1, 20);
+  const size = clamp(Number(record?.size ?? (10 + r() * 22)), 10, 34);
+  const speed = clamp(Number(record?.speed ?? (18 + r() * 34)), 12, 70);
+  return {
+    x: r() * tankCanvas.width,
+    y: 30 + r() * (tankCanvas.height - 60),
+    dir: r() > 0.5 ? 1 : -1,
+    hue: baseHue,
+    sat: clamp(Number(record?.sat ?? (60 + r() * 25)), 40, 95),
+    lum: clamp(Number(record?.lum ?? (40 + r() * 30)), 25, 80),
+    fin,
+    wiggle,
+    size,
+    speed,
+    bob: r() * Math.PI * 2
+  };
+}
+
+function currentRecord() {
+  return {
+    kind: 'fish',
+    hue: Number(hueInput.value),
+    fin: Number(finsInput.value),
+    wiggle: Number(wiggleInput.value),
+    sat: 78,
+    lum: 56,
+    size: 22,
+    speed: 38
+  };
+}
+
+function syncReleaseUrl() {
+  const record = currentRecord();
+  const title = `fish ${record.hue}h ${record.fin}f ${record.wiggle}w`;
+  const url = db.newIssueUrl({
+    title,
+    labels: ['fish', 'social'],
+    record,
+    body: 'Released from showcase/demos/the-tank.'
+  });
+  release.href = url;
+  drawQr(document.getElementById('qr'), url);
+}
+
+function drawQr(canvas, text) {
+  const c = canvas.getContext('2d');
+  const code = qr(text, { ecl: 'M' });
+  const pad = 8;
+  const cell = Math.floor((canvas.width - pad * 2) / code.size);
+  const offset = Math.floor((canvas.width - code.size * cell) / 2);
+  c.fillStyle = '#fff';
+  c.fillRect(0, 0, canvas.width, canvas.height);
+  c.fillStyle = '#000';
+  for (let y = 0; y < code.size; y++) {
+    for (let x = 0; x < code.size; x++) {
+      if (code.modules[y][x]) c.fillRect(offset + x * cell, offset + y * cell, cell, cell);
+    }
+  }
+}
+
+function resetFish() {
+  fish = shared.map(f => ({ ...f }));
+  if (mine) fish.push({ ...mine });
+  stats.textContent = `${fish.length} fish swimming`;
+}
+
+function drawBackground() {
+  const g = ctx.createLinearGradient(0, 0, 0, tankCanvas.height);
+  g.addColorStop(0, '#0b1b32');
+  g.addColorStop(1, '#05101f');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, tankCanvas.width, tankCanvas.height);
+  for (let i = 0; i < 18; i++) {
+    const x = (i * 57 + t * 10) % tankCanvas.width;
+    const y = (Math.sin(i + t * 0.8) * 24 + i * 23) % tankCanvas.height;
+    ctx.fillStyle = 'rgba(255,255,255,0.06)';
+    ctx.beginPath();
+    ctx.arc(x, y, 2 + (i % 3), 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function drawFish(f) {
+  const sway = Math.sin(t * (0.5 + f.wiggle / 16) + f.bob);
+  const bodyL = f.size * 1.8;
+  const bodyH = f.size;
+  f.x += f.dir * f.speed * (1 / 60);
+  f.y += Math.sin(t * 0.9 + f.bob) * 0.35;
+  if (f.x < -bodyL - 30) f.x = tankCanvas.width + 30;
+  if (f.x > tankCanvas.width + bodyL + 30) f.x = -30;
+  if (f.y < 26) f.y = 26;
+  if (f.y > tankCanvas.height - 26) f.y = tankCanvas.height - 26;
+
+  ctx.save();
+  ctx.translate(f.x, f.y);
+  ctx.scale(f.dir, 1);
+
+  ctx.fillStyle = `hsl(${f.hue} ${f.sat}% ${f.lum}%)`;
+  ctx.beginPath();
+  ctx.ellipse(0, 0, bodyL, bodyH, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = `hsl(${(f.hue + 18) % 360} ${f.sat}% ${clamp(f.lum + 8, 0, 100)}%)`;
+  ctx.beginPath();
+  ctx.moveTo(-bodyL, 0);
+  ctx.lineTo(-bodyL - f.fin * (1 + Math.abs(sway) * 0.9), -f.fin * 0.9);
+  ctx.lineTo(-bodyL - f.fin * (1 + Math.abs(sway) * 0.9), f.fin * 0.9);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = 'rgba(255,255,255,0.24)';
+  ctx.beginPath();
+  ctx.ellipse(6, -3, bodyL * 0.5, bodyH * 0.35, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = '#08111f';
+  ctx.beginPath();
+  ctx.arc(bodyL * 0.65, -2, Math.max(2, f.size * 0.12), 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.restore();
+}
+
+function frame(now) {
+  if (!started) return;
+  const dt = Math.min(64, now - (last || now));
+  last = now;
+  t += dt / 1000;
+  drawBackground();
+  for (const f of fish) drawFish(f);
+  raf = requestAnimationFrame(frame);
+}
+
+async function loadShared() {
+  try {
+    const rows = await db.list({ labels: 'fish', state: 'open', per_page: 100 });
+    shared = rows.map((row, i) => makeFish(row.record || {}, `${row.number}-${row.user}-${i}`));
+    if (started) resetFish();
+    stats.textContent = `${shared.length} shared fish loaded`;
+  } catch (e) {
+    stats.textContent = 'offline: local fish still swims';
+    if (started) narrate('Could not reach GitHub right now; local tank still runs.');
+  }
+}
+
+function start() {
+  mine = makeFish(currentRecord(), `mine-${Date.now()}`);
+  resetFish();
+  if (!started) {
+    started = true;
+    last = 0;
+    if (raf) cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(frame);
+  }
+}
+
+document.getElementById('go').onclick = async () => {
+  document.getElementById('steps').innerHTML = '';
+  narrate('Spawned your fish immediately.');
+  start();
+  out.innerHTML = '<span class="mono" style="color:var(--accent)">swimming now — release yours to join the shared reef</span>';
+  narrate('Animation loop is running in this browser via requestAnimationFrame.');
+  await loadShared();
+  narrate('Open issues labeled fish are now in the tank.');
+};
+
+[hueInput, finsInput, wiggleInput].forEach(el => el.addEventListener('input', syncReleaseUrl));
+syncReleaseUrl();
+loadShared();
+drawBackground();
+</script>
+</body></html>
