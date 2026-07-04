@@ -33,6 +33,14 @@
  canvas.qr{border-radius:8px;background:#fff;image-rendering:pixelated;display:inline-block}
  #qr-link{word-break:break-all;font-size:10.5px;color:#8b949e;margin-top:4px}
  .err{color:#f85149}
+ #why-row{width:100%;max-width:480px;margin-top:4px}
+ .why-btn{font-size:11px;background:none;border:none;color:#8b949e;cursor:pointer;padding:2px 0;text-decoration:underline dotted}
+ .why-btn:hover{color:#e6edf3;background:none}
+ #why-legend{display:none;margin-top:6px;font-size:11px;color:#8b949e;line-height:1.6}
+ #why-legend table{border-collapse:collapse;width:100%}
+ #why-legend td{padding:1px 0;vertical-align:top}
+ #why-legend td:first-child{color:#6e7681;padding-right:10px;white-space:nowrap}
+ #why-legend .why-arrow{color:#3fb950;margin:0 4px}
  @media(min-width:700px){
   #wrap{flex-direction:row;align-items:flex-start;gap:24px;flex-wrap:wrap}
   #header{grid-column:1/-1;width:100%}
@@ -57,6 +65,7 @@
    <button id="btn-link">copy link</button>
    <button id="btn-qr">QR</button>
    <button id="btn-lantern">Lantern ↗</button>
+   <button id="btn-cabinet">raise at Cabinet ↗</button>
    <button id="btn-keep">🧺 Keep</button>
    <a href="index.html"><button>gallery →</button></a>
   </div>
@@ -69,6 +78,10 @@
    <span id="i-author"></span>
    <span id="i-id" class="mono"></span>
    <span id="i-home" style="display:none"></span>
+  </div>
+  <div id="why-row" style="display:none">
+   <button id="why-toggle" class="why-btn">· why?</button>
+   <div id="why-legend"></div>
   </div>
   <div id="json-area">
    <textarea id="cart-json" spellcheck="false" placeholder="paste hologram-cartridge/1.0 JSON here…"></textarea>
@@ -530,6 +543,57 @@ function momentPhrase(from, coord) {
   if (dateStr) bits.push(dateStr);
   return bits.length ? bits.join(' \u00b7 ') : null;
 }
+function buildWhyLegend(cart) {
+  const from = (cart.born && cart.born.from) || '';
+  const coord = (cart.born && cart.born.coord) || '';
+  const genome = cart.genome;
+  const layers = (genome && genome.layers) || [];
+  const byRole = {};
+  for (const l of layers) byRole[l.role] = l;
+  const surface = byRole.surface || {};
+  const form = byRole.form || {};
+  const motion = byRole.motion || {};
+  // Non-weather origins
+  if (!from.startsWith('live ')) {
+    if (from === 'genesis' || !from) return [['origin', 'a genesis creature']];
+    if (from.startsWith('a cross of ')) return [['lineage', from]];
+    if (coord.startsWith('cross:')) return [['lineage', 'a cross']];
+    return [['origin', from || 'unknown']];
+  }
+  // Parse live weather tokens
+  const parts = from.split(' \u00b7 ');
+  let tempC = null, wmoCode = null, windKmh = null, tod = null;
+  for (const p of parts) {
+    if (p.startsWith('live ')) { const n = parseFloat(p.slice(5)); if (!isNaN(n)) tempC = n; }
+    else if (p.startsWith('code ')) { const n = parseInt(p.slice(5)); if (!isNaN(n)) wmoCode = n; }
+    else if (p.startsWith('wind ')) { const n = parseInt(p.slice(5)); if (!isNaN(n)) windKmh = n; }
+    else if (p === 'day' || p === 'night') tod = p;
+  }
+  const rows = [];
+  if (tempC !== null) {
+    const feat = tempC >= 22 ? 'its warm tones' : tempC <= 8 ? 'its cool tones' : 'its palette';
+    rows.push([feat, tempC + '\u00b0']);
+  }
+  if (wmoCode !== null) {
+    const sky = wmoWord(wmoCode);
+    if (sky) {
+      const glowVal = surface.glow || 0;
+      const feat = glowVal > 0.3 ? 'its glow' : wmoCode === 0 ? 'its sheen' : 'its texture';
+      rows.push([feat, sky + (tod ? ' ' + tod : '')]);
+    }
+  }
+  if (windKmh !== null) {
+    const w = windWord(windKmh);
+    const segments = form.segments || 0;
+    const drift = motion.drift || 0;
+    let feat;
+    if (segments >= 6) feat = 'its spikes';
+    else if (drift > 0.3) feat = 'its drift';
+    else feat = 'its form';
+    rows.push([feat, 'the wind (' + w + ', ' + windKmh + ' km/h)']);
+  }
+  return rows.length ? rows : null;
+}
 
 /* ── IndexedDB basket helper ──────────────────────────────────────────────── */
 async function keepToBasket(cart) {
@@ -563,11 +627,12 @@ const DEFAULT_CART = {"schema":"hologram-cartridge/1.0","id":"d45a79d29e99","tit
 /* ── State ────────────────────────────────────────────────────────────────── */
 let CART = null, RAF = null, T0 = null, _pmPort = null;
 let LANTERN = 'https://kody-w.github.io/rapp-lantern/player.html';
+let CABINET = 'index.html';
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const verEl = document.getElementById('verify');
 const orbitHintEl = document.getElementById('orbit-hint');
-const VIEW = { yaw: 0.85, pitch: 0.22, zoom: 1.0, dragging: false, autoOrbit: 0, userMoved: false, lastTs: null, pinch: 0 };
+const VIEW = { yaw: 0.85, pitch: 0.22, zoom: 1.0, dragging: false, autoOrbit: 0, userMoved: false, lastTs: null, pinch: 0, yawVel: 0, spin: 0 };
 
 async function loadCart(cart) {
   CART = cart;
@@ -605,6 +670,20 @@ async function loadCart(cart) {
     homeEl.style.display = 'none';
   }
   document.getElementById('cart-json').value = JSON.stringify(cart, null, 2);
+  // Why legend
+  const whyRows = buildWhyLegend(cart);
+  const whyRow = document.getElementById('why-row');
+  const whyLegend = document.getElementById('why-legend');
+  if (whyRows) {
+    const esc = s => String(s).replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+    whyLegend.innerHTML = '<table>' + whyRows.map(([feat, datum]) =>
+      `<tr><td>${esc(feat)}</td><td><span class="why-arrow">\u2190</span>${esc(datum)}</td></tr>`
+    ).join('') + '</table>';
+    whyLegend.style.display = 'none';
+    whyRow.style.display = '';
+  } else {
+    whyRow.style.display = 'none';
+  }
   startAnim();
   // Notify sandboxed housing if present
   if (_pmPort) {
@@ -622,7 +701,12 @@ function startAnim() {
     const time = (ts - T0) / 1000;
     const dt = VIEW.lastTs == null ? 0 : (ts - VIEW.lastTs) / 1000;
     VIEW.lastTs = ts;
-    if (!VIEW.dragging) VIEW.autoOrbit += dt * 0.32;
+    if (!VIEW.dragging) {
+      VIEW.yaw += VIEW.yawVel * dt;
+      VIEW.yawVel *= Math.pow(0.0018, dt);
+      VIEW.spin = Math.min(1, VIEW.spin + dt);
+      VIEW.autoOrbit += 0.32 * dt * VIEW.spin;
+    }
     if (CART) renderScene(ctx, CART.genome, time, VIEW);
     RAF = requestAnimationFrame(frame);
   }
@@ -685,6 +769,8 @@ async function resolveAndLoad(input) {
     document.getElementById('meta').innerHTML =
       `${reg.summary.cartridges} cartridges · <a href="registry.json">registry.json</a>`;
     if (reg.lantern_url) LANTERN = reg.lantern_url;
+    if (reg.home && reg.home.gallery) CABINET = reg.home.gallery;
+    else if (reg.cabinet_url) CABINET = reg.cabinet_url;
   } catch {}
 })();
 
@@ -713,6 +799,19 @@ document.getElementById('btn-dl').onclick = () => {
 document.getElementById('btn-lantern').onclick = () => {
   if (!CART) return;
   window.open(LANTERN + '#' + b64enc(JSON.stringify(CART)));
+};
+
+document.getElementById('btn-cabinet').onclick = () => {
+  if (!CART) return;
+  window.open(CABINET + '#remix=' + b64enc(JSON.stringify(CART)));
+};
+
+document.getElementById('why-toggle').onclick = () => {
+  const el = document.getElementById('why-legend');
+  const btn = document.getElementById('why-toggle');
+  const open = el.style.display !== 'none';
+  el.style.display = open ? 'none' : 'block';
+  btn.textContent = open ? '\u00b7 why?' : '\u00b7 hide';
 };
 
 document.getElementById('btn-keep').onclick = async () => {
@@ -749,14 +848,22 @@ function orbitDown(x, y) {
   VIEW.dragging = true;
   VIEW.lastX = x;
   VIEW.lastY = y;
+  VIEW.yawVel = 0;
+  VIEW.spin = 0;
+  VIEW.lastMoveTs = null;
   canvas.classList.add('dragging');
   markOrbitInteraction();
 }
 function orbitMove(x, y) {
   if (!VIEW.dragging) return;
   const dx = x - VIEW.lastX, dy = y - VIEW.lastY;
+  const now = performance.now();
+  const moveDt = VIEW.lastMoveTs ? Math.max(0.001, (now - VIEW.lastMoveTs) / 1000) : 0.016;
+  VIEW.lastMoveTs = now;
   VIEW.lastX = x; VIEW.lastY = y;
-  VIEW.yaw -= dx * 0.0105;
+  const dyaw = -dx * 0.0105;
+  VIEW.yaw += dyaw;
+  VIEW.yawVel = dyaw / moveDt;
   VIEW.pitch = clamp(VIEW.pitch + dy * 0.0075, -0.85, 0.92);
 }
 function orbitUp() {
