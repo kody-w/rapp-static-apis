@@ -1,6 +1,13 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Companion — talk to a hologram organism</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#080b11">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Companion">
+<link rel="apple-touch-icon" href="icon-180.png">
 <style>
  :root{--bg:#080b11;--panel:#111825;--line:#243044;--ink:#e9eef7;--muted:#8593a6;--accent:#6cb0ff;--warm:#ffb672;--good:#54d98c}
  *{box-sizing:border-box}
@@ -8,7 +15,7 @@
  body{background:radial-gradient(120% 90% at 50% -10%,#0e1626 0%,var(--bg) 60%);color:var(--ink);font-family:-apple-system,system-ui,Segoe UI,sans-serif;line-height:1.5}
  a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
  code{font-family:ui-monospace,Menlo,monospace;font-size:.85em}
- .wrap{max-width:1000px;margin:0 auto;padding:20px 16px 28px;min-height:100%;display:flex;flex-direction:column}
+ .wrap{max-width:1000px;margin:0 auto;padding:max(20px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(28px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));min-height:100%;display:flex;flex-direction:column}
  header{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px}
  header h1{font-size:20px;margin:0;letter-spacing:-.3px}
  header .born{color:var(--muted);font-size:13px}
@@ -176,7 +183,7 @@ async function main(){
  CART=await resolveCart(loadCart());
  $('name').textContent=CART.title||'a companion';
  $('born').textContent='· born under '+humanBorn(CART);
- $('creature').src='../hologram/player.html#'+b64url(JSON.stringify(CART));
+ $('creature').src='./player.html#'+b64url(JSON.stringify(CART));
  document.title=(CART.title||'Companion')+' — companion';
 
  setStatus('waking its mind — cold-booting CPython in a verified cell (first time downloads Pyodide)…','work');
@@ -209,6 +216,8 @@ async function main(){
 
 $('send').onclick=()=>send();
 $('say').addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); send(); }});
+// PWA: register the service worker so it installs to the home screen and launches offline
+if('serviceWorker' in navigator) addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 // big hold-to-talk button: pointer events cover touch + mouse; capture so release is caught even if the finger slides off
 const _ptt=$('ptt');
 _ptt.addEventListener('pointerdown',e=>{ try{ _ptt.setPointerCapture(e.pointerId); }catch(_){} pttStart(e); });
