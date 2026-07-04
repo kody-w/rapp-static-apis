@@ -83,6 +83,7 @@ const KNOWN_DISTANCE_M = 2.4;
 const CHIRP_SEC = 0.03;
 const SWEEP_START = 2000;
 const SWEEP_END = 8000;
+const MIC_CAPTURE_MS = 420;
 
 const wave = document.getElementById('wave');
 const wg = wave.getContext('2d');
@@ -354,7 +355,7 @@ async function maybeCaptureMic(chirp, sr) {
   s.connect(ctx.destination);
   s.start(ctx.currentTime + 0.04);
 
-  await new Promise(res => setTimeout(res, 420));
+  await new Promise(res => setTimeout(res, MIC_CAPTURE_MS));
   proc.disconnect(); src.disconnect(); gate.disconnect();
   stream.getTracks().forEach(t => t.stop());
 
