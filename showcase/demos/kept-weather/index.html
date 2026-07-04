@@ -1,0 +1,357 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kept Weather — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+#creature { width:100%; max-width:560px; height:280px; border:1px solid var(--line); border-radius:12px; background:#0b1018; display:block; margin:10px 0 12px; }
+.form-row { display:flex; gap:8px; flex-wrap:wrap; margin:0 0 10px; }
+.form-row input { background:var(--bg); color:var(--fg); border:1px solid var(--line); border-radius:10px; padding:8px; font:inherit; }
+.form-row input[type="text"] { flex:1 1 180px; min-width:170px; }
+.form-row input[type="number"] { width:120px; }
+#keep { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:10px; }
+#qr { border:1px solid var(--line); border-radius:10px; background:#fff; }
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🫧</div>
+    <h1 id="title">Kept Weather</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel" id="live-panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Press hatch and this browser fetches live weather through the pinned <code>extract</code> cell. The sky becomes a small moving companion with its own spacetime identity and share link.</p>
+    <div class="form-row">
+      <input id="place" type="text" value="Huila, Colombia" aria-label="Place name">
+      <input id="lat" type="number" step="0.0001" value="2.53" aria-label="Latitude">
+      <input id="lng" type="number" step="0.0001" value="-75.53" aria-label="Longitude">
+      <button class="run" id="go">Hatch this weather</button>
+    </div>
+    <canvas id="creature" width="560" height="280" aria-label="Weather creature"></canvas>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press hatch —</span></div>
+    <div id="keep" style="display:none">
+      <canvas id="qr" width="132" height="132" aria-label="Share QR"></canvas>
+      <div>
+        <div class="mono" style="font-size:12px;color:var(--faint);margin-bottom:6px">this weather, kept</div>
+        <a id="share" class="mono" href="#" target="_blank" rel="noopener" style="font-size:12px;word-break:break-all"></a>
+        <div style="margin-top:8px"><button id="copy" style="padding:7px 10px">Copy link</button></div>
+      </div>
+    </div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>The weather is no longer a number that vanishes. It becomes a little being shaped by that exact sky and time, then carried as a link or QR with no backend to keep alive. The creature can still move years later because the full Moment record travels with it.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Notes</h2>
+    <p style="margin:0;color:var(--muted)">Attribution: this page builds on <a href="https://github.com/kody-w/rapp-moment" target="_blank" rel="noopener">rapp-moment</a> and <a href="https://github.com/kody-w/rapp-hologram" target="_blank" rel="noopener">rapp-hologram</a>, licensed PolyForm Noncommercial 1.0.0.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/kept-weather/</code>.</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+import { qr } from '../../../track/qr.mjs';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const TRACK = '../../../track';
+const out = document.getElementById('out');
+const narrate = mkNarrator(document.getElementById('steps'));
+const canvas = document.getElementById('creature');
+const ctx = canvas.getContext('2d');
+const keep = document.getElementById('keep');
+const share = document.getElementById('share');
+const qrCanvas = document.getElementById('qr');
+const placeEl = document.getElementById('place');
+const latEl = document.getElementById('lat');
+const lngEl = document.getElementById('lng');
+let loop = null;
+
+const B32 = '0123456789bcdefghjkmnpqrstuvwxyz';
+const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
+const lerp = (a, b, t) => a + (b - a) * t;
+
+function b64url(text) {
+  return btoa(unescape(encodeURIComponent(text))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function decodeMoment(token) {
+  try {
+    const b64 = token.replace(/-/g, '+').replace(/_/g, '/');
+    return JSON.parse(decodeURIComponent(escape(atob(b64))));
+  } catch {
+    return null;
+  }
+}
+
+function geohash(lat, lng, precision = 9) {
+  if (window.Organism?.geohash) return window.Organism.geohash(lat, lng, precision);
+  let idx = 0, bit = 0, even = true, hash = '';
+  let latR = [-90, 90], lngR = [-180, 180];
+  while (hash.length < precision) {
+    if (even) {
+      const m = (lngR[0] + lngR[1]) / 2;
+      if (lng >= m) { idx = idx * 2 + 1; lngR[0] = m; } else { idx = idx * 2; lngR[1] = m; }
+    } else {
+      const m = (latR[0] + latR[1]) / 2;
+      if (lat >= m) { idx = idx * 2 + 1; latR[0] = m; } else { idx = idx * 2; latR[1] = m; }
+    }
+    even = !even;
+    if (++bit === 5) { hash += B32[idx]; bit = 0; idx = 0; }
+  }
+  return hash;
+}
+
+async function sha256Hex(text) {
+  if (window.Rappid?.sha256) return window.Rappid.sha256(text);
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function biomeFromCode(code, day) {
+  if (code >= 95) return 'volcanic';
+  if (code >= 71 && code <= 77) return 'void';
+  if (code >= 51 && code <= 67) return 'forest';
+  if (code >= 3) return 'canyon';
+  return day ? 'savanna' : 'void';
+}
+
+function mapWeatherToMoment({ place, lat, lng, temp, weathercode, wind, isDay, time }) {
+  const tNorm = clamp((temp + 20) / 60, 0, 1);
+  const wNorm = clamp(wind / 45, 0, 1);
+  const storm = weathercode >= 95 ? 0.35 : weathercode >= 80 ? 0.2 : 0;
+  const hue = Math.round(clamp(220 - tNorm * 210, 0, 360));
+  const glow = clamp((isDay ? 0.5 : 0.18) + (weathercode <= 1 ? 0.18 : 0) - storm * 0.25, 0.1, 0.95);
+  const spike = clamp(0.12 + wNorm * 0.72 + storm, 0.05, 1);
+  const size = clamp(0.28 + (weathercode >= 61 ? 0.26 : weathercode >= 3 ? 0.16 : 0.1), 0.18, 0.92);
+  const legs = clamp(0.25 + (weathercode >= 80 ? 0.5 : weathercode >= 51 ? 0.34 : weathercode >= 3 ? 0.2 : 0.1), 0.14, 0.88);
+  const drift = clamp(0.08 + wNorm * 0.52, 0.04, 0.6);
+  const utcMs = Date.parse(String(time).endsWith('Z') ? time : `${time}Z`);
+  const pk = `${geohash(lat, lng, 9)}·${utcMs}`;
+  return {
+    v: 1,
+    t: place,
+    a: '@kody-w',
+    b: biomeFromCode(weathercode, isDay),
+    pk,
+    loc: { lat: +lat.toFixed(5), lng: +lng.toFixed(5), place },
+    k: [
+      { at: 0, s: +size.toFixed(3), l: +legs.toFixed(3), p: +spike.toFixed(3), g: +glow.toFixed(3), h: hue, x: +(-drift).toFixed(3), z: +(drift * -0.35).toFixed(3) },
+      { at: 50, s: +(size * 1.04).toFixed(3), l: +(legs * 0.98).toFixed(3), p: +(spike * 0.95).toFixed(3), g: +(glow + 0.05).toFixed(3), h: (hue + 8) % 360, x: +(drift * 0.75).toFixed(3), z: +(drift * 0.9).toFixed(3) },
+      { at: 99, s: +(size * 0.97).toFixed(3), l: +(legs * 1.03).toFixed(3), p: +(spike * 1.05).toFixed(3), g: +(glow - 0.04).toFixed(3), h: (hue + 354) % 360, x: +(-drift * 0.45).toFixed(3), z: +(-drift * 0.18).toFixed(3) }
+    ]
+  };
+}
+
+function expandMoment(moment) {
+  const keyframes = (moment.k || []).slice().sort((a, b) => a.at - b.at);
+  if (!keyframes.length) return [];
+  if (keyframes.length === 1) keyframes.push({ ...keyframes[0], at: 99 });
+  return Array.from({ length: 100 }, (_, i) => {
+    let lo = keyframes[0], hi = keyframes[keyframes.length - 1];
+    for (const k of keyframes) {
+      if (k.at <= i) lo = k;
+      if (k.at >= i) { hi = k; break; }
+    }
+    const t = hi.at === lo.at ? 0 : (i - lo.at) / (hi.at - lo.at);
+    return {
+      s: lerp(lo.s, hi.s, t), l: lerp(lo.l, hi.l, t), p: lerp(lo.p, hi.p, t),
+      g: lerp(lo.g, hi.g, t), h: lerp(lo.h, hi.h, t), x: lerp(lo.x, hi.x, t), z: lerp(lo.z, hi.z, t)
+    };
+  });
+}
+
+function drawCreature(frame, tick) {
+  const w = canvas.width, h = canvas.height;
+  const hue = ((frame.h % 360) + 360) % 360;
+  const bg = `hsl(${hue}, 38%, 12%)`;
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle = `hsla(${hue}, 75%, 56%, ${0.12 + frame.g * 0.35})`;
+  ctx.beginPath();
+  ctx.arc(w * 0.5, h * 0.35, 44 + frame.g * 62, 0, Math.PI * 2);
+  ctx.fill();
+
+  const baseX = w * 0.5 + frame.x * 120;
+  const baseY = h * 0.62 + Math.sin(tick * 0.04) * (4 + frame.l * 8);
+  const bodyW = 68 + frame.s * 92;
+  const bodyH = 34 + frame.s * 54;
+  const legLen = 18 + frame.l * 42;
+
+  ctx.strokeStyle = `hsla(${hue}, 85%, 70%, 0.95)`;
+  ctx.lineWidth = 4;
+  for (let i = 0; i < 4; i++) {
+    const side = i < 2 ? -1 : 1;
+    const zOff = (i % 2 ? 1 : -1) * (8 + frame.z * 16);
+    const gait = Math.sin(tick * 0.09 + i) * (6 + frame.l * 8);
+    const x = baseX + side * (bodyW * 0.22);
+    const y = baseY + bodyH * 0.32 + zOff * 0.18;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x + gait * 0.4, y + legLen);
+    ctx.stroke();
+  }
+
+  ctx.fillStyle = `hsl(${hue}, 78%, 60%)`;
+  ctx.beginPath();
+  ctx.ellipse(baseX, baseY, bodyW * 0.5, bodyH * 0.5, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  const headX = baseX + bodyW * 0.42;
+  const headY = baseY - bodyH * 0.12;
+  ctx.beginPath();
+  ctx.arc(headX, headY, 14 + frame.s * 14, 0, Math.PI * 2);
+  ctx.fill();
+
+  const spikes = Math.max(1, Math.round(frame.p * 7));
+  ctx.fillStyle = `hsl(${(hue + 16) % 360}, 88%, 66%)`;
+  for (let i = 0; i < spikes; i++) {
+    const t = spikes === 1 ? 0.5 : i / (spikes - 1);
+    const sx = baseX - bodyW * 0.35 + t * bodyW * 0.7;
+    const sy = baseY - bodyH * 0.42;
+    const sh = 8 + frame.p * 20;
+    ctx.beginPath();
+    ctx.moveTo(sx, sy - sh);
+    ctx.lineTo(sx - 4, sy);
+    ctx.lineTo(sx + 4, sy);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.arc(headX + 6, headY - 2, 3, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function animateMoment(moment) {
+  const frames = expandMoment(moment);
+  if (!frames.length) return;
+  if (loop) cancelAnimationFrame(loop);
+  let tick = 0;
+  const run = () => {
+    const frame = frames[Math.floor(tick) % 100];
+    drawCreature(frame, tick);
+    tick += 0.45;
+    loop = requestAnimationFrame(run);
+  };
+  run();
+}
+
+function drawQR(text) {
+  const out = qr(text, { ecl: 'M' });
+  const c = qrCanvas.getContext('2d');
+  const q = 4, scale = 4, dim = (out.size + q * 2) * scale;
+  qrCanvas.width = qrCanvas.height = dim;
+  c.fillStyle = '#fff'; c.fillRect(0, 0, dim, dim);
+  c.fillStyle = '#000';
+  for (let y = 0; y < out.size; y++) for (let x = 0; x < out.size; x++) if (out.modules[y * out.size + x]) {
+    c.fillRect((x + q) * scale, (y + q) * scale, scale, scale);
+  }
+}
+
+async function mintAndShow(moment, weather) {
+  const rid = window.Rappid?.ofMoment ? window.Rappid.ofMoment(moment.pk) : `rappid:moment:${await sha256Hex(`moment:${moment.pk}`)}`;
+  const token = b64url(JSON.stringify(moment));
+  const url = `${location.origin}${location.pathname}?m=${token}`;
+  drawQR(url);
+  share.href = url;
+  share.textContent = url;
+  keep.style.display = 'flex';
+  animateMoment(moment);
+  out.innerHTML = `<div><span class="big">${Math.round(weather.temp)}°C</span> <span style="color:var(--muted)">${weather.place}</span></div>` +
+    `<div class="mono" style="margin-top:6px;color:var(--muted)">code ${weather.weathercode} · wind ${weather.wind.toFixed(1)} m/s · ${weather.isDay ? 'day' : 'night'} · ${moment.pk}</div>` +
+    `<div class="mono" style="margin-top:4px;color:var(--accent)">${rid.slice(0, 38)}… · this weather, kept</div>`;
+}
+
+async function hatch(place, lat, lng) {
+  document.getElementById('steps').innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">hatching…</span>';
+  keep.style.display = 'none';
+
+  const src = `https://api.open-meteo.com/v1/forecast?latitude=${lat.toFixed(4)}&longitude=${lng.toFixed(4)}&current=temperature_2m,weathercode,wind_speed_10m,is_day&timezone=UTC`;
+  const get = (path, onStep = () => {}) => runVerifiedCell({
+    base: TRACK,
+    cell: 'extract',
+    fn: 'extract',
+    args: { src, path },
+    onStep
+  });
+
+  const temp = Number((await get('current.temperature_2m', narrate)).value);
+  const weathercode = Number((await get('current.weathercode')).value);
+  const wind = Number((await get('current.wind_speed_10m')).value);
+  const isDay = Number((await get('current.is_day')).value) === 1;
+  const time = String((await get('current.time')).value);
+
+  const weather = { place, lat, lng, temp, weathercode, wind, isDay, time };
+  const moment = mapWeatherToMoment(weather);
+  await mintAndShow(moment, weather);
+}
+
+document.getElementById('copy').onclick = async () => {
+  if (!share.textContent) return;
+  try { await navigator.clipboard.writeText(share.textContent); } catch {}
+};
+
+document.getElementById('go').onclick = async () => {
+  const place = (placeEl.value || 'Unknown place').trim();
+  const lat = Number(latEl.value);
+  const lng = Number(lngEl.value);
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+    out.innerHTML = '<span class="mono" style="color:var(--bad)">Please enter valid latitude and longitude.</span>';
+    return;
+  }
+  try {
+    await hatch(place, lat, lng);
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e?.refused ? 'verify-before-exec REFUSED (hash mismatch)' : (e?.message || e)}</span>`;
+  }
+};
+
+const token = new URLSearchParams(location.search).get('m');
+if (token) {
+  const m = decodeMoment(token);
+  if (m?.k?.length) {
+    placeEl.value = m.t || placeEl.value;
+    if (m.loc?.lat != null) latEl.value = m.loc.lat;
+    if (m.loc?.lng != null) lngEl.value = m.loc.lng;
+    animateMoment(m);
+    const url = `${location.origin}${location.pathname}?m=${token}`;
+    drawQR(url);
+    keep.style.display = 'flex';
+    share.href = url;
+    share.textContent = url;
+    out.innerHTML = '<span class="mono" style="color:var(--muted)">loaded from keepsake link</span>';
+  }
+}
+</script>
+</body></html>

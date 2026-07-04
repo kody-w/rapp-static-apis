@@ -1,0 +1,18 @@
+{
+  "slug": "kept-weather",
+  "channel": "physical",
+  "rank": null,
+  "emoji": "🫧",
+  "title": "Kept Weather",
+  "tagline": "A sky becomes a small companion you can keep from a link.",
+  "holy_shit": "The weather over a real place can become a tiny living creature that still moves years later, with no server.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["weather", "moment", "qr", "physical", "no-backend"],
+  "primitives": ["/track"],
+  "powered_by": "Open-Meteo via /track extract + a Moment genome + browser rendering + QR keepsake links",
+  "builds_on": ["taste-the-weather"],
+  "agent_scenario": "When you need to turn live place weather into a persistent, shareable, no-backend living artifact.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

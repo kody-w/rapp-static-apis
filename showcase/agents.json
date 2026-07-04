@@ -16,7 +16,7 @@
       "slug": "physical",
       "title": "Physical World",
       "blurb": "QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.",
-      "count": 7
+      "count": 8
     },
     {
       "slug": "verify",
@@ -333,6 +333,22 @@
       "weld": "",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/gravity-organ/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/gravity-organ/"
+    },
+    {
+      "slug": "kept-weather",
+      "channel": "physical",
+      "title": "Kept Weather",
+      "when_to_use": "When you need to turn live place weather into a persistent, shareable, no-backend living artifact.",
+      "primitives": [
+        "/track"
+      ],
+      "status": "live",
+      "builds_on": [
+        "taste-the-weather"
+      ],
+      "weld": "",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/kept-weather/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/kept-weather/"
     },
     {
       "slug": "only-in-the-same-frame",

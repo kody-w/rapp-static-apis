@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 46,
+  "count": 47,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -412,6 +412,32 @@
       "url": "demos/gravity-organ/",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/gravity-organ/demo.json",
       "builds_on": [],
+      "weld": ""
+    },
+    {
+      "slug": "kept-weather",
+      "channel": "physical",
+      "rank": null,
+      "emoji": "🫧",
+      "title": "Kept Weather",
+      "tagline": "A sky becomes a small companion you can keep from a link.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "weather",
+        "moment",
+        "qr",
+        "physical",
+        "no-backend"
+      ],
+      "primitives": [
+        "/track"
+      ],
+      "url": "demos/kept-weather/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/kept-weather/demo.json",
+      "builds_on": [
+        "taste-the-weather"
+      ],
       "weld": ""
     },
     {
