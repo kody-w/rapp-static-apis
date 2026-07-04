@@ -1,0 +1,65 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "69728a0ddad7",
+  "title": "Vex",
+  "author": "@kody-w",
+  "born": {
+    "coord": "0,0",
+    "from": "genesis"
+  },
+  "parent": "",
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 61,
+        "shape": "segment",
+        "limbs": 6,
+        "segments": 5,
+        "symmetry": "bilateral",
+        "body_r": 0.18,
+        "limb_len": 0.42
+      },
+      {
+        "role": "surface",
+        "k": 47,
+        "palette": [
+          "#00ff88",
+          "#33ffaa",
+          "#006644",
+          "#00cc66"
+        ],
+        "pattern": "spot",
+        "glow": 0.5,
+        "opacity": 1.0
+      },
+      {
+        "role": "motion",
+        "k": 33,
+        "breathe": 0.04,
+        "drift": 0.1,
+        "pulse": 0.2,
+        "reach": 0.6
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}

@@ -1,0 +1,8 @@
+{
+  "schema": "rapp-static-api/1.0",
+  "name": "rapp-static-hologram",
+  "kind": "hologram-cartridge",
+  "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram",
+  "pages_base": "https://kody-w.github.io/rapp-static-apis/hologram",
+  "note": "A universal hologram-organism player. Any valid hologram-cartridge/1.0 JSON renders any creature generatively — no per-creature code. Serve a cartridge at a raw URL and play it anywhere: player.html?cart=<url>."
+}

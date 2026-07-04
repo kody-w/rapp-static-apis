@@ -1,0 +1,57 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "ce682ee99472",
+  "title": "Arachne",
+  "author": "@kody-w",
+  "born": {
+    "coord": "0,0",
+    "from": "genesis"
+  },
+  "parent": "",
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 72,
+        "shape": "star",
+        "limbs": 8,
+        "segments": 4,
+        "symmetry": "radial",
+        "body_r": 0.22,
+        "limb_len": 0.52
+      },
+      {
+        "role": "surface",
+        "k": 55,
+        "palette": [
+          "#8b0000",
+          "#cc2200",
+          "#ff6633",
+          "#440000"
+        ],
+        "pattern": "stripe",
+        "glow": 0.25,
+        "opacity": 0.95
+      },
+      {
+        "role": "motion",
+        "k": 41,
+        "breathe": 0.06,
+        "drift": 0.0,
+        "pulse": 0.3,
+        "reach": 0.45
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}
