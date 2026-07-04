@@ -1,0 +1,301 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Gravity Organ — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🪩</div>
+    <h1 id="title">The Gravity Organ</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel" id="live-panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Tap <b>Peg</b> or <b>Bell</b> then paint the board. Tap <b>Drop</b> to place marbles. Tilt your phone (or use arrows / tilt buttons) to bend gravity and conduct the tune.</p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px">
+      <button class="run" id="go">▶ Drop a marble</button>
+      <button id="modePeg">Peg</button>
+      <button id="modeBell">Bell</button>
+      <button id="modeDrop">Drop</button>
+      <button id="clear">Clear marbles</button>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px">
+      <button id="tiltLeft">⟵ Tilt</button>
+      <button id="tiltNeutral">Center</button>
+      <button id="tiltRight">Tilt ⟶</button>
+      <span class="mono" id="tiltState" style="font-size:12px;color:var(--faint)">tilt: neutral</span>
+    </div>
+    <canvas id="board" width="720" height="420" style="width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:linear-gradient(180deg,#0e1526,#131a2e)"></canvas>
+    <div class="live-out" id="out" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>It feels like pinball plus music sequencer: every collision is both a physics event and a note. Because gravity itself is live, the same setup becomes a different instrument as you lean the device.</p>
+  </div>
+
+  <div class="panel">
+    <h2>How to</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Press <b>Drop a marble</b> to start motion and sound immediately.</li>
+      <li>Switch modes to paint <b>Pegs</b> (bouncy) and <b>Bells</b> (musical targets) onto the board.</li>
+      <li>Tilt your phone to steer gravity. If no sensor is available, use arrow keys or tilt buttons.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/gravity-organ/</code>.</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { mkNarrator } from '../../lib/showcase.js';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const canvas = document.getElementById('board');
+const g = canvas.getContext('2d');
+const out = document.getElementById('out');
+const narrate = mkNarrator(document.getElementById('steps'));
+const W = canvas.width;
+const H = canvas.height;
+
+const pegs = [
+  { x: 240, y: 120, r: 13, bell: false },
+  { x: 360, y: 150, r: 13, bell: false },
+  { x: 470, y: 230, r: 13, bell: false },
+  { x: 300, y: 260, r: 16, bell: true },
+  { x: 520, y: 300, r: 16, bell: true }
+];
+const marbles = [];
+
+let mode = 'peg';
+let sensorTilt = { x: 0, y: 1 };
+let keyTilt = { x: 0, y: 0 };
+let btnTiltX = 0;
+let sensorSeen = false;
+
+let audioCtx;
+function audio() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function strike(obj, speed, source = 'peg') {
+  const ctx = audio();
+  const now = ctx.currentTime;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  const pan = ctx.createStereoPanner();
+  const base = obj.bell ? 420 : 280;
+  const pitch = base + ((obj.x / W) * 240) + Math.min(speed * 26, 520);
+  osc.frequency.setValueAtTime(pitch, now);
+  osc.type = obj.bell ? 'sine' : 'triangle';
+  const amp = Math.min(0.22, 0.03 + speed / 80);
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(amp, now + 0.01);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + (obj.bell ? 1.1 : 0.28));
+  pan.pan.setValueAtTime((obj.x / W) * 2 - 1, now);
+  osc.connect(gain).connect(pan).connect(ctx.destination);
+  osc.start(now);
+  osc.stop(now + (obj.bell ? 1.15 : 0.3));
+  if (source === 'wall') return;
+  out.innerHTML = `<span class="mono">${obj.bell ? '🔔 bell' : '⚙️ peg'} @ ${Math.round(obj.x)},${Math.round(obj.y)} · speed ${speed.toFixed(1)} · ${(pitch).toFixed(0)} Hz</span>`;
+}
+
+function addPeg(x, y, bell) {
+  pegs.push({ x, y, r: bell ? 16 : 13, bell });
+}
+
+function dropMarble(x = W / 2, y = 25) {
+  marbles.push({ x, y, vx: (Math.random() - 0.5) * 80, vy: 0, r: 8, age: 0 });
+  out.innerHTML = '<span class="mono">marble dropped — listen for collisions</span>';
+}
+
+function setMode(next) {
+  mode = next;
+  for (const id of ['modePeg', 'modeBell', 'modeDrop']) {
+    document.getElementById(id).style.outline = '';
+  }
+  const map = { peg: 'modePeg', bell: 'modeBell', drop: 'modeDrop' };
+  document.getElementById(map[mode]).style.outline = '2px solid var(--accent)';
+}
+setMode('peg');
+
+for (const [id, m] of [['modePeg', 'peg'], ['modeBell', 'bell'], ['modeDrop', 'drop']]) {
+  document.getElementById(id).onclick = () => setMode(m);
+}
+document.getElementById('clear').onclick = () => {
+  marbles.length = 0;
+  out.innerHTML = '<span class="mono">marbles cleared</span>';
+};
+document.getElementById('go').onclick = async () => {
+  document.getElementById('steps').innerHTML = '';
+  narrate('boot', 'active', 'arming audio + physics', 'client-side only');
+  await audio().resume();
+  dropMarble();
+  narrate('boot', 'ok', 'live engine running', 'no backend');
+  narrate('input', 'active', 'tilt to conduct gravity', 'sensor or keyboard fallback');
+};
+
+canvas.addEventListener('pointerdown', (ev) => {
+  const r = canvas.getBoundingClientRect();
+  const x = (ev.clientX - r.left) * (W / r.width);
+  const y = (ev.clientY - r.top) * (H / r.height);
+  if (mode === 'drop') dropMarble(x, y);
+  else addPeg(x, y, mode === 'bell');
+});
+
+const updateTiltText = () => {
+  const source = sensorSeen ? 'sensor' : 'fallback';
+  const tx = sensorSeen ? sensorTilt.x : (keyTilt.x + btnTiltX);
+  document.getElementById('tiltState').textContent = `tilt: ${source} ${tx.toFixed(2)}`;
+};
+
+document.getElementById('tiltLeft').onpointerdown = () => { btnTiltX = -0.8; updateTiltText(); };
+document.getElementById('tiltRight').onpointerdown = () => { btnTiltX = 0.8; updateTiltText(); };
+document.getElementById('tiltNeutral').onclick = () => { btnTiltX = 0; updateTiltText(); };
+for (const id of ['tiltLeft', 'tiltRight']) {
+  const el = document.getElementById(id);
+  el.onpointerup = () => { btnTiltX = 0; updateTiltText(); };
+  el.onpointerleave = () => { btnTiltX = 0; updateTiltText(); };
+}
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft') keyTilt.x = -0.9;
+  if (e.key === 'ArrowRight') keyTilt.x = 0.9;
+  if (e.key === 'ArrowUp') keyTilt.y = -0.5;
+  if (e.key === 'ArrowDown') keyTilt.y = 0.8;
+  updateTiltText();
+});
+window.addEventListener('keyup', (e) => {
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') keyTilt.x = 0;
+  if (e.key === 'ArrowUp' || e.key === 'ArrowDown') keyTilt.y = 0;
+  updateTiltText();
+});
+
+async function enableDeviceTilt() {
+  if (typeof DeviceOrientationEvent === 'undefined') return;
+  try {
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      const p = await DeviceOrientationEvent.requestPermission();
+      if (p !== 'granted') return;
+    }
+  } catch { return; }
+  window.addEventListener('deviceorientation', (ev) => {
+    const gamma = Math.max(-45, Math.min(45, ev.gamma || 0)) / 45;
+    const beta = Math.max(-45, Math.min(45, ev.beta || 0)) / 45;
+    sensorTilt.x = gamma;
+    sensorTilt.y = Math.max(0.2, 1 + beta * 0.45);
+    sensorSeen = true;
+    updateTiltText();
+  }, { passive: true });
+}
+enableDeviceTilt();
+
+let last = performance.now();
+function frame(now) {
+  const dt = Math.min(0.033, (now - last) / 1000);
+  last = now;
+
+  const gxTilt = sensorSeen ? sensorTilt.x : (keyTilt.x + btnTiltX);
+  const gyTilt = sensorSeen ? sensorTilt.y : (1 + keyTilt.y);
+  const gx = gxTilt * 420;
+  const gy = gyTilt * 520;
+
+  for (let i = marbles.length - 1; i >= 0; i--) {
+    const m = marbles[i];
+    m.age += dt;
+    m.vx += gx * dt;
+    m.vy += gy * dt;
+    m.x += m.vx * dt;
+    m.y += m.vy * dt;
+
+    if (m.x < m.r) { m.x = m.r; m.vx = Math.abs(m.vx) * 0.78; strike({ x: 0, y: m.y, bell: false }, Math.hypot(m.vx, m.vy), 'wall'); }
+    if (m.x > W - m.r) { m.x = W - m.r; m.vx = -Math.abs(m.vx) * 0.78; strike({ x: W, y: m.y, bell: false }, Math.hypot(m.vx, m.vy), 'wall'); }
+    if (m.y < m.r) { m.y = m.r; m.vy = Math.abs(m.vy) * 0.76; }
+
+    for (const p of pegs) {
+      const dx = m.x - p.x;
+      const dy = m.y - p.y;
+      const d = Math.hypot(dx, dy);
+      const minD = m.r + p.r;
+      if (d > 0 && d < minD) {
+        const nx = dx / d;
+        const ny = dy / d;
+        const overlap = minD - d;
+        m.x += nx * overlap;
+        m.y += ny * overlap;
+        const vn = m.vx * nx + m.vy * ny;
+        if (vn < 0) {
+          const restitution = p.bell ? 0.9 : 0.82;
+          m.vx -= (1 + restitution) * vn * nx;
+          m.vy -= (1 + restitution) * vn * ny;
+        }
+        strike(p, Math.hypot(m.vx, m.vy));
+      }
+    }
+
+    if (m.y > H + 40 || m.age > 16) marbles.splice(i, 1);
+  }
+
+  g.clearRect(0, 0, W, H);
+
+  g.fillStyle = 'rgba(255,255,255,0.04)';
+  for (let y = 0; y < H; y += 28) g.fillRect(0, y, W, 1);
+  for (let x = 0; x < W; x += 28) g.fillRect(x, 0, 1, H);
+
+  for (const p of pegs) {
+    g.beginPath();
+    g.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    g.fillStyle = p.bell ? '#f8c24f' : '#7bb3ff';
+    g.fill();
+  }
+
+  for (const m of marbles) {
+    const glow = g.createRadialGradient(m.x - 2, m.y - 2, 1, m.x, m.y, m.r + 5);
+    glow.addColorStop(0, '#fff');
+    glow.addColorStop(1, '#8aa3ff44');
+    g.beginPath();
+    g.arc(m.x, m.y, m.r, 0, Math.PI * 2);
+    g.fillStyle = glow;
+    g.fill();
+  }
+
+  const ax = W - 80;
+  const ay = 50;
+  g.strokeStyle = '#cdd7ffcc';
+  g.lineWidth = 2;
+  g.beginPath();
+  g.moveTo(ax, ay);
+  g.lineTo(ax + gxTilt * 40, ay + gyTilt * 20);
+  g.stroke();
+
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+updateTiltText();
+</script>
+</body></html>
