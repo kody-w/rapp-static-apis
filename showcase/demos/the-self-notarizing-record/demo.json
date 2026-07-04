@@ -1,0 +1,19 @@
+{
+  "slug": "the-self-notarizing-record",
+  "channel": "verify",
+  "rank": null,
+  "emoji": "🧬",
+  "title": "WELD: The Self-Notarizing Record",
+  "tagline": "An editable record proves its current bytes right now and carries a tamper-evident chain of every prior version.",
+  "holy_shit": "Every save promotes the record's live self-hash into the next custody link, so the present proves itself and the past snaps visibly if anyone edits it.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["weld", "record", "self-hash", "hash-chain", "tamper-evident", "verify"],
+  "primitives": ["crypto.subtle", "fetch"],
+  "powered_by": "The Page That Proves Itself's browser-side self-hash attestation welded to Chain of Custody's parent-linked SHA-256 lineage replay",
+  "builds_on": ["the-page-that-proves-itself", "chain-of-custody"],
+  "weld": "Keep the live self-hash attestation intact, keep the full parent-linked custody replay intact, and weld them by appending each freshly computed self-hash as the next version link whenever the record is saved.",
+  "agent_scenario": "When you (an agent) need: an editable record that can prove its current bytes still match the latest published head and that every prior revision still descends from a trusted genesis hash.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

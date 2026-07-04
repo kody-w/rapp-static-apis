@@ -1,0 +1,280 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WELD: The Self-Notarizing Record — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0 14px}
+  .controls .mono{font-size:12px;color:var(--faint)}
+  .editor{width:100%;min-height:170px;resize:vertical;padding:12px;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:12px}
+  .stack{display:grid;gap:12px}
+  .card{border:1px solid var(--line);border-radius:12px;background:var(--panel-2);padding:12px}
+  .card h3{margin:0 0 8px;font-size:15px}
+  .meta-line{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--muted);margin:4px 0}
+  .hash{word-break:break-all;color:var(--accent-2)}
+  .card.broken{border-color:color-mix(in oklab,var(--bad),transparent 45%)}
+  .card.current{border-color:color-mix(in oklab,var(--good),transparent 45%)}
+  .hint{margin-top:10px;color:var(--muted)}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🧬</div>
+    <h1 id="title">WELD: The Self-Notarizing Record</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — notarize the record and replay its whole history</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">This weld keeps both donors alive: the record continuously recomputes its own current SHA-256 like <b>The Page That Proves Itself</b>, while every saved revision keeps the full parent-linked custody replay from <b>Chain of Custody</b>. The weld point is the save itself: each save promotes the freshly computed self-hash into the next custody link.</p>
+    <textarea id="record" class="editor mono"></textarea>
+    <div class="controls">
+      <button class="run" id="verify">🔍 Verify current bytes + history</button>
+      <button class="run" id="save">✍️ Save as next notarized version</button>
+      <button class="run" id="tamper" style="background:var(--panel);color:var(--text);border:1px solid var(--line)">✂️ Alter version 2 after publish</button>
+      <span class="mono">no server · no notary · just browser SHA-256</span>
+    </div>
+    <div class="live-out" id="proof"><span class="mono" style="color:var(--faint)">— current self-hash proof appears here —</span></div>
+    <div class="live-out" id="chain" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— custody chain appears here —</span></div>
+    <div class="live-out" id="out" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— verification verdict appears here —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>Most integrity checks tell you only whether the bytes in front of you are current. Most history checks tell you only whether the lineage behind you is intact. This record does both at once: the browser re-hashes the live text you are reading right now, and every save turns that exact self-hash into the next custody link in an append-only chain.</p>
+    <p class="hint">That means the present can say <b>"I still match the published head"</b>, while the past can say <b>"every prior revision still descends from genesis"</b>. Edit the current draft and the head no longer matches. Edit an old revision and the chain names the exact broken version.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Click <b>Verify current bytes + history</b>. You should get a green verdict: the live text matches the latest published head and every version replays from genesis.</li>
+      <li>Edit the record text without saving, then verify again. The history stays intact, but the current self-hash no longer matches the published head.</li>
+      <li>Click <b>Save as next notarized version</b>. The new self-hash becomes the next custody link and the page verifies green again.</li>
+      <li>Click <b>Alter version 2 after publish</b>. Verification fails exactly where the historical byte change breaks the chain.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-self-notarizing-record/</code> (<code>crypto.subtle</code> needs localhost or https, not <code>file://</code>).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Weld pattern: <code>sha256(current record bytes)</code> to attest the live head right now, then on every save append <code>{ parent: previous hash, content, hash: current self-hash }</code> and replay the full chain with <code>sha256(content) == hash</code> + <code>parent == previous hash</code>.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { mkNarrator, sha256hex } from '../../lib/showcase.js';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' + ');
+
+const enc = new TextEncoder();
+const recordEl = document.getElementById('record');
+const proofEl = document.getElementById('proof');
+const chainEl = document.getElementById('chain');
+const out = document.getElementById('out');
+const stepsEl = document.getElementById('steps');
+const narrate = mkNarrator(stepsEl);
+
+let chain = { genesis: '', versions: [] };
+
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] || c));
+}
+
+function short(hash) {
+  return `${String(hash).slice(0, 12)}…`;
+}
+
+function headVersion() {
+  return chain.versions[chain.versions.length - 1] || null;
+}
+
+async function hashText(text) {
+  return sha256hex(enc.encode(String(text)));
+}
+
+function renderProof(currentHash, bytes, matchesHead) {
+  const head = headVersion();
+  const tone = matchesHead ? 'var(--good)' : 'var(--warn)';
+  const status = matchesHead
+    ? '✓ current bytes still match the published head'
+    : '⚠ current bytes drift from the published head until you save again';
+  proofEl.innerHTML =
+    `<div style="margin-bottom:10px"><span class="big" style="font-size:1.2em">🪞 Current self-hash</span></div>` +
+    `<div class="mono" style="word-break:break-all;margin-bottom:6px"><span style="color:var(--muted)">sha256(current_record) = </span><span style="color:var(--accent);font-weight:600">${esc(currentHash)}</span></div>` +
+    `<div class="mono" style="font-size:13px;color:${tone};margin-bottom:4px">${status}</div>` +
+    `<div class="mono" style="font-size:11px;color:var(--faint)">${bytes} bytes${head ? ` · published head ${esc(short(head.hash))}` : ''}</div>`;
+}
+
+function renderChain(brokenId = '') {
+  if (!chain.versions.length) {
+    chainEl.innerHTML = '<span class="mono" style="color:var(--faint)">— no saved versions yet —</span>';
+    return;
+  }
+  chainEl.innerHTML =
+    `<div class="mono" style="margin-bottom:10px;color:var(--muted)">genesis: ${esc(chain.genesis)}</div>` +
+    `<div class="stack">` +
+    chain.versions.map((version, index) => {
+      const cls = brokenId === version.id ? ' broken' : (index === chain.versions.length - 1 ? ' current' : '');
+      return `<div class="card${cls}">
+        <h3>${esc(version.id)}${brokenId === version.id ? ' · broken here' : ''}</h3>
+        <div class="mono" style="white-space:pre-wrap;color:var(--text);margin-bottom:8px">${esc(version.content)}</div>
+        <div class="meta-line"><span>parent</span><span class="hash">${esc(version.parent)}</span></div>
+        <div class="meta-line"><span>hash</span><span class="hash">${esc(version.hash)}</span></div>
+        <div class="meta-line"><span>saved_at</span><span>${esc(version.saved_at)}</span></div>
+        <div class="meta-line"><span>bytes</span><span>${esc(version.bytes)}</span></div>
+      </div>`;
+    }).join('') +
+    `</div>`;
+}
+
+async function addVersion(content, savedAt = new Date().toISOString()) {
+  const hash = await hashText(content);
+  const prev = headVersion();
+  const bytes = enc.encode(String(content)).byteLength;
+  chain.versions.push({
+    id: `v${chain.versions.length + 1}`,
+    parent: prev ? prev.hash : chain.genesis,
+    content: String(content),
+    hash,
+    saved_at: savedAt,
+    bytes
+  });
+  return hash;
+}
+
+async function verifyEverything({ clearSteps = true, currentHash = '', currentBytes = 0 } = {}) {
+  if (clearSteps) stepsEl.innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">verifying…</span>';
+
+  try {
+    const text = recordEl.value;
+    const bytes = currentBytes || enc.encode(text).byteLength;
+    narrate('current-bytes', 'active', 'read the current record bytes from the editor…', '');
+    narrate('current-bytes', 'ok', 'current record bytes captured', `${bytes} bytes`);
+
+    const liveHash = currentHash || await hashText(text);
+    narrate('current-hash', 'active', 'recompute SHA-256 for the current record…', '');
+    narrate('current-hash', 'ok', 'current self-hash computed', liveHash);
+
+    const head = headVersion();
+    const matchesHead = !!head && liveHash === head.hash;
+    renderProof(liveHash, bytes, matchesHead);
+
+    let prev = String(chain.genesis);
+    narrate('genesis', 'ok', 'trusted genesis hash anchor', short(prev));
+
+    for (let i = 0; i < chain.versions.length; i += 1) {
+      const version = chain.versions[i];
+      narrate(`link-${i}`, 'active', `verify ${version.id}: parent pointer + saved self-hash`, '');
+      const computed = await hashText(version.content);
+      if (String(version.parent) !== prev) {
+        renderChain(version.id);
+        narrate(`link-${i}`, 'bad', `✗ ${version.id} parent mismatch`, `expected ${short(prev)}, got ${short(version.parent || '')}`);
+        throw new Error(`Broken lineage at ${version.id}: parent does not match previous hash`);
+      }
+      if (String(version.hash) !== computed) {
+        renderChain(version.id);
+        narrate(`link-${i}`, 'bad', `✗ ${version.id} self-hash mismatch`, `declared ${short(version.hash || '')}, computed ${short(computed)}`);
+        throw new Error(`Tamper detected at ${version.id}: saved bytes no longer match the notarized hash`);
+      }
+      prev = computed;
+      narrate(`link-${i}`, 'ok', `✓ ${version.id} linked`, `head now ${short(prev)}`);
+    }
+
+    renderChain();
+    out.innerHTML = matchesHead
+      ? `<div><span class="big" style="color:var(--good)">✓ record verified now and all the way back</span></div><div class="mono" style="margin-top:8px;color:var(--muted)">The current editor bytes still match ${esc(head.id)}, and every prior version replays cleanly from genesis to head.</div><div class="mono" style="margin-top:6px;color:var(--good)">head: ${esc(head.hash)}</div>`
+      : `<div><span class="big" style="color:var(--warn)">history intact · current draft not yet notarized</span></div><div class="mono" style="margin-top:8px;color:var(--muted)">The saved chain still replays from genesis to head, but the current editor bytes no longer match ${esc(head.id)}. Save to append this new self-hash as the next custody link.</div><div class="mono" style="margin-top:6px;color:var(--warn)">published head: ${esc(head.hash)}</div>`;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.message || e}</span>`;
+  }
+}
+
+async function seed() {
+  chain.genesis = await hashText('the-self-notarizing-record::genesis::trust-current-and-history');
+  const sample = [
+    {
+      content: 'Version 1 — Publish the intake record exactly as received.\n\nDocument: RAPP static-API archival note\nOwner: verifier@local\nStatus: published',
+      saved_at: '2026-07-03T09:00:00.000Z'
+    },
+    {
+      content: 'Version 2 — Correct the owner line and append the review witness.\n\nDocument: RAPP static-API archival note\nOwner: verify-team@local\nWitness: hash replay scheduled',
+      saved_at: '2026-07-03T10:30:00.000Z'
+    },
+    {
+      content: 'Version 3 — Final published copy with release note.\n\nDocument: RAPP static-API archival note\nOwner: verify-team@local\nWitness: hash replay scheduled\nRelease: public verify demo',
+      saved_at: '2026-07-03T12:00:00.000Z'
+    }
+  ];
+  for (const version of sample) await addVersion(version.content, version.saved_at);
+  recordEl.value = headVersion().content;
+  renderChain();
+  await verifyEverything();
+}
+
+document.getElementById('verify').onclick = () => verifyEverything();
+
+document.getElementById('save').onclick = async () => {
+  stepsEl.innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">saving…</span>';
+
+  try {
+    const text = recordEl.value;
+    const currentHash = await hashText(text);
+    const bytes = enc.encode(text).byteLength;
+    const head = headVersion();
+
+    narrate('draft', 'ok', 'current draft self-hash computed', currentHash);
+    if (head && currentHash === head.hash) {
+      narrate('append', 'bad', 'current bytes already match the published head', 'edit the record before saving a new version');
+      out.innerHTML = '<span class="mono" style="color:var(--warn)">No new version added: the current bytes already match the published head.</span>';
+      renderProof(currentHash, bytes, true);
+      return;
+    }
+
+    narrate('append', 'active', 'append the current self-hash as the next custody link…', head ? short(head.hash) : short(chain.genesis));
+    const hash = await addVersion(text);
+    narrate('append', 'ok', `${headVersion().id} saved`, `parent ${short(headVersion().parent)} → hash ${short(hash)}`);
+    renderChain();
+    await verifyEverything({ clearSteps: false, currentHash: hash, currentBytes: bytes });
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.message || e}</span>`;
+  }
+};
+
+document.getElementById('tamper').onclick = async () => {
+  stepsEl.innerHTML = '';
+  try {
+    if (!chain.versions[1]) throw new Error('Need at least two published versions to tamper with v2');
+    chain.versions[1].content = chain.versions[1].content.replace('verify-team@local', 'mallory@local');
+    renderChain('v2');
+    narrate('tamper', 'bad', 'altered version 2 after publish while leaving its notarized hash unchanged', 'verification should now fail exactly at v2');
+    await verifyEverything({ clearSteps: false });
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.message || e}</span>`;
+  }
+};
+
+await seed();
+</script>
+</body></html>
