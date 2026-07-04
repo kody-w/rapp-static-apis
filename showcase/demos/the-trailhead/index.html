@@ -74,7 +74,9 @@ document.getElementById('scenario').textContent = meta.agent_scenario;
 document.getElementById('prim').textContent = meta.primitives.join(' ');
 
 const TRACK = '../../../track';
-const TRAIL = 'https://api.open-meteo.com/v1/forecast?latitude=47.4345&longitude=-121.7681&current=temperature_2m,weathercode&daily=sunset&timezone=auto&forecast_days=1';
+const RATTLESNAKE_LEDGE_LAT = 47.4345;
+const RATTLESNAKE_LEDGE_LON = -121.7681;
+const TRAIL = `https://api.open-meteo.com/v1/forecast?latitude=${RATTLESNAKE_LEDGE_LAT}&longitude=${RATTLESNAKE_LEDGE_LON}&current=temperature_2m,weathercode&daily=sunset&timezone=auto&forecast_days=1`;
 const TURNBACK_BUFFER_MIN = 90;
 
 const out = document.getElementById('out');
