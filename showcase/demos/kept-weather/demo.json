@@ -9,7 +9,7 @@
   "status": "live",
   "difficulty": "medium",
   "tags": ["weather", "moment", "qr", "physical", "no-backend"],
-  "primitives": ["/track", "/rapp-hologram"],
+  "primitives": ["/track"],
   "powered_by": "Open-Meteo via /track extract + a Moment genome + browser rendering + QR keepsake links",
   "builds_on": ["taste-the-weather"],
   "agent_scenario": "When you need to turn live place weather into a persistent, shareable, no-backend living artifact.",
