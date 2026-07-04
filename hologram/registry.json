@@ -2,12 +2,12 @@
   "schema": "rapp-static-api/1.0",
   "name": "rapp-static-hologram",
   "kind": "hologram-cartridge",
-  "generated": "2026-07-04T03:50:25Z",
+  "generated": "2026-07-04T04:04:34Z",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram",
   "pages_base": "https://kody-w.github.io/rapp-static-apis/hologram",
   "summary": {
-    "cartridges": 13,
-    "versions": 13
+    "cartridges": 16,
+    "versions": 16
   },
   "entries": [
     {
@@ -147,6 +147,66 @@
           "path": "versions/marrakesh/db3b7724eeb3.json",
           "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/marrakesh/db3b7724eeb3.json",
           "first_captured": "2026-07-04T03:35:43Z"
+        }
+      ]
+    },
+    {
+      "name": "mumbai",
+      "id": "57dbafc4a71a",
+      "title": "Mumbai sky",
+      "author": "@kody-w",
+      "sha8": "57dbafc4a71a",
+      "bytes": 1035,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/mumbai.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/mumbai/57dbafc4a71a.json",
+      "pin_path": "versions/mumbai/57dbafc4a71a.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "57dbafc4a71a",
+          "path": "versions/mumbai/57dbafc4a71a.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/mumbai/57dbafc4a71a.json",
+          "first_captured": "2026-07-04T04:04:34Z"
+        }
+      ]
+    },
+    {
+      "name": "phoenix",
+      "id": "0c30753dff8f",
+      "title": "Phoenix sky",
+      "author": "@kody-w",
+      "sha8": "0c30753dff8f",
+      "bytes": 1034,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/phoenix.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/phoenix/0c30753dff8f.json",
+      "pin_path": "versions/phoenix/0c30753dff8f.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "0c30753dff8f",
+          "path": "versions/phoenix/0c30753dff8f.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/phoenix/0c30753dff8f.json",
+          "first_captured": "2026-07-04T04:04:34Z"
+        }
+      ]
+    },
+    {
+      "name": "puntaarenas",
+      "id": "98dd5b054272",
+      "title": "Punta Arenas sky",
+      "author": "@kody-w",
+      "sha8": "98dd5b054272",
+      "bytes": 1036,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/puntaarenas.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/puntaarenas/98dd5b054272.json",
+      "pin_path": "versions/puntaarenas/98dd5b054272.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "98dd5b054272",
+          "path": "versions/puntaarenas/98dd5b054272.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/puntaarenas/98dd5b054272.json",
+          "first_captured": "2026-07-04T04:04:34Z"
         }
       ]
     },

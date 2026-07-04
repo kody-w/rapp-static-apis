@@ -1,9 +1,9 @@
 {
   "schema": "rapp-static-hologram-status/1.0",
-  "generated": "2026-07-04T03:50:25Z",
+  "generated": "2026-07-04T04:04:34Z",
   "summary": {
-    "cartridges": 13,
-    "versions": 13
+    "cartridges": 16,
+    "versions": 16
   },
   "cartridges": [
     {
@@ -54,6 +54,27 @@
       "title": "Marrakesh sky",
       "author": "@kody-w",
       "bytes": 1037
+    },
+    {
+      "name": "mumbai",
+      "id": "57dbafc4a71a",
+      "title": "Mumbai sky",
+      "author": "@kody-w",
+      "bytes": 1035
+    },
+    {
+      "name": "phoenix",
+      "id": "0c30753dff8f",
+      "title": "Phoenix sky",
+      "author": "@kody-w",
+      "bytes": 1034
+    },
+    {
+      "name": "puntaarenas",
+      "id": "98dd5b054272",
+      "title": "Punta Arenas sky",
+      "author": "@kody-w",
+      "bytes": 1036
     },
     {
       "name": "reykjavik",

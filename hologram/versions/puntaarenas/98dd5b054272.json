@@ -1,0 +1,57 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "98dd5b054272",
+  "title": "Punta Arenas sky",
+  "author": "@kody-w",
+  "born": {
+    "coord": "4qt9d1zdr·1783137872736",
+    "from": "live 1°C · code 0 · wind 4 · night"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 77,
+        "shape": "star",
+        "limbs": 1,
+        "segments": 4,
+        "symmetry": "radial",
+        "body_r": 0.249,
+        "limb_len": 0.241
+      },
+      {
+        "role": "surface",
+        "k": 22,
+        "palette": [
+          "#24db73",
+          "#4fee94",
+          "#79eccd",
+          "#1d7242"
+        ],
+        "pattern": "glow",
+        "glow": 0.31,
+        "opacity": 0.7
+      },
+      {
+        "role": "motion",
+        "k": 90,
+        "breathe": 0.188,
+        "drift": 0.1,
+        "pulse": 0.2,
+        "reach": 0.26
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}

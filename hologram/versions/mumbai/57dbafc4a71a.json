@@ -1,0 +1,57 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "57dbafc4a71a",
+  "title": "Mumbai sky",
+  "author": "@kody-w",
+  "born": {
+    "coord": "te7ud2evv·1783137872736",
+    "from": "live 26°C · code 95 · wind 20 · day"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 12,
+        "shape": "star",
+        "limbs": 4,
+        "segments": 10,
+        "symmetry": "radial",
+        "body_r": 0.308,
+        "limb_len": 0.396
+      },
+      {
+        "role": "surface",
+        "k": 14,
+        "palette": [
+          "#dbd524",
+          "#eee84f",
+          "#cdec79",
+          "#726f1d"
+        ],
+        "pattern": "solid",
+        "glow": 0.53,
+        "opacity": 0.95
+      },
+      {
+        "role": "motion",
+        "k": 1,
+        "breathe": 0.293,
+        "drift": 0.29,
+        "pulse": 0.85,
+        "reach": 0.44
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}
