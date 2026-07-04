@@ -76,7 +76,7 @@
  .signin-code{font-family:ui-monospace,Menlo,monospace;font-size:29px;font-weight:700;letter-spacing:3px;color:#eaf3ff;background:#0a1220;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;user-select:all;-webkit-user-select:all;cursor:pointer}
  .signin-copy{background:#12365e;border:1px solid #2f6bb0;color:#cfe6ff;border-radius:10px;padding:10px 18px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:10px}
  .signin-copy:hover{border-color:var(--accent)} .signin-copy.done{background:#15351f;border-color:var(--good);color:#c9f5d6}
- .signin-open{display:block;color:var(--accent);text-decoration:none;font-size:14px;margin-bottom:12px} .signin-open:hover{text-decoration:underline}
+ .signin-open{display:block;background:#238636;border:1px solid #2ea043;color:#fff;text-decoration:none;font-size:14.5px;font-weight:600;border-radius:10px;padding:11px 16px;margin-bottom:12px} .signin-open:hover{filter:brightness(1.08)} .signin-open:active{filter:brightness(.92)}
  .signin-status{font-size:12.5px;color:var(--muted);min-height:18px;margin-bottom:14px}
  .signin-skip{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:10px;padding:8px 14px;font:inherit;font-size:13px;cursor:pointer}
  .signin-skip:hover{border-color:var(--accent);color:var(--ink)}
@@ -119,10 +119,10 @@
 
 <div id="signin"><div class="signin-card">
  <div class="signin-title">📞 Connecting…</div>
- <div class="signin-body">Sign in with GitHub to talk with a real voice. Copy this code, then open the link and paste it:</div>
+ <div class="signin-body">Sign in with GitHub for a real voice. Tap <b>Open GitHub</b> below (the code's filled in for you) — or copy it and enter it yourself:</div>
  <div id="signin-code" class="signin-code" title="tap to copy">····-····</div>
  <button id="signin-copy" class="signin-copy">📋 Copy code</button>
- <a class="signin-open" id="signin-link" href="https://github.com/login/device" target="_blank" rel="noopener">Open github.com/login/device ↗</a>
+ <a class="signin-open" id="signin-link" href="https://github.com/login/device" target="_blank" rel="noopener">↗ Open GitHub &amp; authorize</a>
  <div id="signin-status" class="signin-status">starting…</div>
  <button id="signin-skip" class="signin-skip">skip — talk to the on-device mind</button>
 </div></div>
@@ -339,7 +339,10 @@ function signIn(){ return new Promise(async(resolve)=>{
  try{
   const r=await fetch(AUTH_WORKER+'/api/auth/device',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
   if(!r.ok)throw new Error('device '+r.status); const d=await r.json();
-  code.textContent=d.user_code||'?'; if(link&&d.verification_uri)link.href=d.verification_uri; status.textContent='waiting for you to authorize…';
+  code.textContent=d.user_code||'?';
+  // open GitHub with the code already filled in (verification_uri_complete, or ?user_code=) so it's one tap
+  if(link) link.href = d.verification_uri_complete || ((d.verification_uri||'https://github.com/login/device') + (d.user_code?('?user_code='+encodeURIComponent(d.user_code)):''));
+  status.textContent='waiting for you to authorize…';
   const poll=(deviceCode,iv,n)=>{ if(n>150){ status.textContent='timed out — tap Call to retry'; box.classList.remove('show'); resolve(false); return; }
    _pollTimer=setTimeout(async()=>{ try{
      const pr=await fetch(AUTH_WORKER+'/api/auth/device/poll',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({device_code:deviceCode})});
