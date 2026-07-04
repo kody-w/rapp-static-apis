@@ -2,7 +2,7 @@
   "schema": "rapp-static-api/1.0",
   "name": "rapp-static-hologram",
   "kind": "hologram-cartridge",
-  "generated": "2026-07-04T12:19:26Z",
+  "generated": "2026-07-04T13:32:32Z",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram",
   "pages_base": "https://kody-w.github.io/rapp-static-apis/hologram",
   "summary": {
@@ -690,5 +690,7 @@
         }
       ]
     }
-  ]
+  ],
+  "lantern_url": "https://kody-w.github.io/rapp-lantern/player.html",
+  "moment_url": "https://kody-w.github.io/rapp-hologram/"
 }

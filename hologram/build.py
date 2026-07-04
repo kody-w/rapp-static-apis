@@ -128,7 +128,7 @@ def main():
     entries.sort(key=lambda e: e["name"])
     summary = {"cartridges": len(entries), "versions": sum(e["version_count"] for e in entries)}
 
-    write_json_stable("registry.json", {
+    reg_header = {
         "schema": "rapp-static-api/1.0",
         "name": NAME,
         "kind": "hologram-cartridge",
@@ -137,7 +137,12 @@ def main():
         "pages_base": PAGES_BASE,
         "summary": summary,
         "entries": entries,
-    })
+    }
+    if M.get("lantern_url"):
+        reg_header["lantern_url"] = M["lantern_url"]
+    if M.get("moment_url"):
+        reg_header["moment_url"] = M["moment_url"]
+    write_json_stable("registry.json", reg_header)
     write_json_stable("api/v1/status.json", {
         "schema": f"{NAME}-status/1.0",
         "generated": NOW,
