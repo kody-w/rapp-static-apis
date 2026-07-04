@@ -1,0 +1,57 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "0763aadb3399",
+  "title": "Tonight's Moon",
+  "author": "@kody-w",
+  "born": {
+    "coord": "sky·1783139029823",
+    "from": "the moon, 82% lit · waning gibbous"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 30,
+        "shape": "blob",
+        "limbs": 0,
+        "segments": 16,
+        "symmetry": "radial",
+        "body_r": 0.319,
+        "limb_len": 0
+      },
+      {
+        "role": "surface",
+        "k": 80,
+        "palette": [
+          "#cdd8ec",
+          "#eef3fb",
+          "#9fb2d2",
+          "#5f6f8f"
+        ],
+        "pattern": "glow",
+        "glow": 0.772,
+        "opacity": 0.88
+      },
+      {
+        "role": "motion",
+        "k": 55,
+        "breathe": 0.12,
+        "drift": 0.15,
+        "pulse": 0.313,
+        "reach": 0
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}

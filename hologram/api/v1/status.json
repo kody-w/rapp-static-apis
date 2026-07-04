@@ -1,9 +1,9 @@
 {
   "schema": "rapp-static-hologram-status/1.0",
-  "generated": "2026-07-04T04:08:34Z",
+  "generated": "2026-07-04T04:23:49Z",
   "summary": {
-    "cartridges": 17,
-    "versions": 17
+    "cartridges": 18,
+    "versions": 18
   },
   "cartridges": [
     {
@@ -103,6 +103,13 @@
       "title": "Longyearbyen sky",
       "author": "@kody-w",
       "bytes": 1036
+    },
+    {
+      "name": "the-moon-tonight",
+      "id": "0763aadb3399",
+      "title": "Tonight's Moon",
+      "author": "@kody-w",
+      "bytes": 1023
     },
     {
       "name": "ushuaia",
