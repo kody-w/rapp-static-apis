@@ -112,7 +112,7 @@ function mkChirp(sr, sec = CHIRP_SEC, f0 = SWEEP_START, f1 = SWEEP_END) {
   for (let i = 0; i < n; i++) {
     const t = i / sr;
     const phase = 2 * Math.PI * (f0 * t + 0.5 * k * t * t);
-    const w = Math.sin(Math.PI * (i / (n - 1))); // sine taper to reduce chirp edge clicks/leakage
+    const w = Math.sin(Math.PI * (i / (n - 1))); // sine taper window to reduce spectral leakage and edge artifacts
     out[i] = Math.sin(phase) * w;
   }
   return out;
@@ -133,7 +133,7 @@ function synthRecording(chirp, sr, distanceM = KNOWN_DISTANCE_M) {
   const echoAt = directAt + echoDelay;
   mix(rec, chirp, directAt, 1.0);
   mix(rec, chirp, echoAt, 0.54);
-  for (let i = 0; i < rec.length; i++) rec[i] += (Math.random() * 2 - 1) * 0.006;
+  for (let i = 0; i < rec.length; i++) rec[i] += (Math.random() * 2 - 1) * 0.006; // white noise floor for realistic synthetic capture
   return { recording: rec, directAt, echoAt };
 }
 
@@ -297,7 +297,7 @@ async function pyMatchedFilter(recording, chirp, sr) {
   if (!py) py = await bootVbrainstem();
   const payload = JSON.stringify({ recording: Array.from(recording), chirp: Array.from(chirp), sr, c: SPEED_OF_SOUND });
   const payloadB64 = bytesToBase64(new TextEncoder().encode(payload));
-  if (!/^[A-Za-z0-9+/=]+$/.test(payloadB64)) throw new Error('invalid payload encoding');
+  if (!/^[A-Za-z0-9+/=]+$/.test(payloadB64)) throw new Error(`invalid payload encoding (len=${payloadB64.length})`);
   const code = `
 import base64, json, numpy as np
 from scipy.signal import correlate
