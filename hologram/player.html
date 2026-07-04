@@ -575,6 +575,7 @@ function season(month, lat) {
 }
 function latBand(lat) { return 'near ' + Math.round(Math.abs(lat)) + '\u00b0' + (lat < 0 ? 'S' : 'N'); }
 function parseMoonOrigin(from) {
+  // Stored moon provenance is "moon · <illumination %> · <phase name> · <tide text>".
   const parts = String(from || '').split(' · ');
   const moonPct = /^\d+$/.test(parts[1] || '') ? parseInt(parts[1]) : null;
   const moonName = parts[2] || '';
