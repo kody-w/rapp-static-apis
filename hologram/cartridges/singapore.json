@@ -1,0 +1,57 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "2a25e12c8189",
+  "title": "Singapore sky",
+  "author": "@kody-w",
+  "born": {
+    "coord": "w21zdqpk8·1783136498240",
+    "from": "live 31°C · code 3 · wind 12 · day"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 11,
+        "shape": "blob",
+        "limbs": 2,
+        "segments": 4,
+        "symmetry": "radial",
+        "body_r": 0.319,
+        "limb_len": 0.316
+      },
+      {
+        "role": "surface",
+        "k": 38,
+        "palette": [
+          "#dba424",
+          "#eebe4f",
+          "#ecec79",
+          "#72591d"
+        ],
+        "pattern": "solid",
+        "glow": 0.6,
+        "opacity": 0.95
+      },
+      {
+        "role": "motion",
+        "k": 29,
+        "breathe": 0.312,
+        "drift": 0.192,
+        "pulse": 0.2,
+        "reach": 0.32
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}

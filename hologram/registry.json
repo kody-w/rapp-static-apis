@@ -2,12 +2,12 @@
   "schema": "rapp-static-api/1.0",
   "name": "rapp-static-hologram",
   "kind": "hologram-cartridge",
-  "generated": "2026-07-04T03:35:43Z",
+  "generated": "2026-07-04T03:41:48Z",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram",
   "pages_base": "https://kody-w.github.io/rapp-static-apis/hologram",
   "summary": {
-    "cartridges": 6,
-    "versions": 6
+    "cartridges": 9,
+    "versions": 9
   },
   "entries": [
     {
@@ -111,6 +111,46 @@
       ]
     },
     {
+      "name": "singapore",
+      "id": "2a25e12c8189",
+      "title": "Singapore sky",
+      "author": "@kody-w",
+      "sha8": "2a25e12c8189",
+      "bytes": 1036,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/singapore.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/singapore/2a25e12c8189.json",
+      "pin_path": "versions/singapore/2a25e12c8189.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "2a25e12c8189",
+          "path": "versions/singapore/2a25e12c8189.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/singapore/2a25e12c8189.json",
+          "first_captured": "2026-07-04T03:41:48Z"
+        }
+      ]
+    },
+    {
+      "name": "svalbard",
+      "id": "9006d9c76f43",
+      "title": "Longyearbyen sky",
+      "author": "@kody-w",
+      "sha8": "9006d9c76f43",
+      "bytes": 1036,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/svalbard.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/svalbard/9006d9c76f43.json",
+      "pin_path": "versions/svalbard/9006d9c76f43.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "9006d9c76f43",
+          "path": "versions/svalbard/9006d9c76f43.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/svalbard/9006d9c76f43.json",
+          "first_captured": "2026-07-04T03:41:48Z"
+        }
+      ]
+    },
+    {
       "name": "vex",
       "id": "69728a0ddad7",
       "title": "Vex",
@@ -127,6 +167,26 @@
           "path": "versions/vex/69728a0ddad7.json",
           "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/vex/69728a0ddad7.json",
           "first_captured": "2026-07-04T02:47:42Z"
+        }
+      ]
+    },
+    {
+      "name": "wellington",
+      "id": "e16675b9c2a3",
+      "title": "Wellington sky",
+      "author": "@kody-w",
+      "sha8": "e16675b9c2a3",
+      "bytes": 1036,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/wellington.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/wellington/e16675b9c2a3.json",
+      "pin_path": "versions/wellington/e16675b9c2a3.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "e16675b9c2a3",
+          "path": "versions/wellington/e16675b9c2a3.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/wellington/e16675b9c2a3.json",
+          "first_captured": "2026-07-04T03:41:48Z"
         }
       ]
     }

@@ -1,0 +1,57 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "e16675b9c2a3",
+  "title": "Wellington sky",
+  "author": "@kody-w",
+  "born": {
+    "coord": "rbsm1h58n·1783136498240",
+    "from": "live 12°C · code 1 · wind 37 · day"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 6,
+        "shape": "blob",
+        "limbs": 7,
+        "segments": 4,
+        "symmetry": "radial",
+        "body_r": 0.275,
+        "limb_len": 0.569
+      },
+      {
+        "role": "surface",
+        "k": 88,
+        "palette": [
+          "#4bdb24",
+          "#71ee4f",
+          "#79ec83",
+          "#2f721d"
+        ],
+        "pattern": "glow",
+        "glow": 0.75,
+        "opacity": 0.95
+      },
+      {
+        "role": "motion",
+        "k": 11,
+        "breathe": 0.234,
+        "drift": 0.501,
+        "pulse": 0.2,
+        "reach": 0.62
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}

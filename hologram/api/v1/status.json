@@ -1,9 +1,9 @@
 {
   "schema": "rapp-static-hologram-status/1.0",
-  "generated": "2026-07-04T03:35:43Z",
+  "generated": "2026-07-04T03:41:48Z",
   "summary": {
-    "cartridges": 6,
-    "versions": 6
+    "cartridges": 9,
+    "versions": 9
   },
   "cartridges": [
     {
@@ -42,11 +42,32 @@
       "bytes": 1035
     },
     {
+      "name": "singapore",
+      "id": "2a25e12c8189",
+      "title": "Singapore sky",
+      "author": "@kody-w",
+      "bytes": 1036
+    },
+    {
+      "name": "svalbard",
+      "id": "9006d9c76f43",
+      "title": "Longyearbyen sky",
+      "author": "@kody-w",
+      "bytes": 1036
+    },
+    {
       "name": "vex",
       "id": "69728a0ddad7",
       "title": "Vex",
       "author": "@kody-w",
       "bytes": 1064
+    },
+    {
+      "name": "wellington",
+      "id": "e16675b9c2a3",
+      "title": "Wellington sky",
+      "author": "@kody-w",
+      "bytes": 1036
     }
   ]
 }
