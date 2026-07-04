@@ -1,0 +1,19 @@
+{
+  "slug": "the-enchanted-mirror",
+  "channel": "art",
+  "rank": 1,
+  "emoji": "🪞",
+  "title": "The Enchanted Mirror",
+  "tagline": "Your webcam reflection repaints itself in the brushstrokes of a random museum old master.",
+  "holy_shit": "Every reload picks a different real painting to haunt your face, and every frame stays on your device.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["webcam", "canvas", "museum", "privacy", "generative"],
+  "primitives": ["getUserMedia", "Canvas 2D"],
+  "powered_by": "getUserMedia + on-device Canvas 2D brushstroke rendering with a random public-domain museum palette",
+  "builds_on": ["taste-the-weather", "the-provenance-camera"],
+  "weld": "Transplants taste-the-weather's narrated live #go flow and provenance-camera's canvas-first rendering discipline, then welds them into a webcam-to-brushstroke pipeline colored by a random museum artwork palette on each reload.",
+  "agent_scenario": "When you need: a no-backend live webcam visual that feels magical, discloses its source artwork, and keeps all frame processing local.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-04"
+}

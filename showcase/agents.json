@@ -58,7 +58,7 @@
       "slug": "art",
       "title": "Art",
       "blurb": "Generative and camera visuals — beauty seeded by a hash, live data, or your own face.",
-      "count": 0
+      "count": 1
     },
     {
       "slug": "sound",
@@ -150,6 +150,24 @@
       "weld": "",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-byte-trap/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-byte-trap/"
+    },
+    {
+      "slug": "the-enchanted-mirror",
+      "channel": "art",
+      "title": "The Enchanted Mirror",
+      "when_to_use": "When you need: a no-backend live webcam visual that feels magical, discloses its source artwork, and keeps all frame processing local.",
+      "primitives": [
+        "getUserMedia",
+        "Canvas 2D"
+      ],
+      "status": "live",
+      "builds_on": [
+        "taste-the-weather",
+        "the-provenance-camera"
+      ],
+      "weld": "Transplants taste-the-weather's narrated live #go flow and provenance-camera's canvas-first rendering discipline, then welds them into a webcam-to-brushstroke pipeline colored by a random museum artwork palette on each reload.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-enchanted-mirror/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-enchanted-mirror/"
     },
     {
       "slug": "the-quine-ratchet",

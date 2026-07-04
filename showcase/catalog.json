@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 46,
+  "count": 47,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -121,6 +121,34 @@
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-byte-trap/demo.json",
       "builds_on": [],
       "weld": ""
+    },
+    {
+      "slug": "the-enchanted-mirror",
+      "channel": "art",
+      "rank": 1,
+      "emoji": "🪞",
+      "title": "The Enchanted Mirror",
+      "tagline": "Your webcam reflection repaints itself in the brushstrokes of a random museum old master.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "webcam",
+        "canvas",
+        "museum",
+        "privacy",
+        "generative"
+      ],
+      "primitives": [
+        "getUserMedia",
+        "Canvas 2D"
+      ],
+      "url": "demos/the-enchanted-mirror/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-enchanted-mirror/demo.json",
+      "builds_on": [
+        "taste-the-weather",
+        "the-provenance-camera"
+      ],
+      "weld": "Transplants taste-the-weather's narrated live #go flow and provenance-camera's canvas-first rendering discipline, then welds them into a webcam-to-brushstroke pipeline colored by a random museum artwork palette on each reload."
     },
     {
       "slug": "the-quine-ratchet",
