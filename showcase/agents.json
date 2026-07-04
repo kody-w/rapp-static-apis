@@ -34,7 +34,7 @@
       "slug": "human",
       "title": "Human & Personal",
       "blurb": "Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.",
-      "count": 5
+      "count": 6
     },
     {
       "slug": "self-building",
@@ -536,6 +536,25 @@
       "weld": "The page first attests its own index.html hash, then feeds that attested rule text into a CPython fuzzer that shrinks a failing counterexample and emits a pinned child conformance test QR that re-runs verify-before-exec.",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-living-spec/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-living-spec/"
+    },
+    {
+      "slug": "the-night-you-were-born",
+      "channel": "human",
+      "title": "The Night You Were Born",
+      "when_to_use": "When you need an emotional, no-backend visualization where a personal input (date/place) deterministically recomputes a real physical state in-browser.",
+      "primitives": [
+        "Canvas 2D",
+        "Date",
+        "Math"
+      ],
+      "status": "live",
+      "builds_on": [
+        "taste-the-weather",
+        "gravity-organ"
+      ],
+      "weld": "Transplants Taste the Weather's quiet single-panel restraint and Gravity Organ's canvas animation, then welds deterministic astronomy math so date+longitude alone reconstructs a real sky with moon phase.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-night-you-were-born/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-night-you-were-born/"
     },
     {
       "slug": "the-notarized-marketplace",

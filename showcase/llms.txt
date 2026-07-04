@@ -19,7 +19,7 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 - **🌍 Physical World** (`physical`, 7) — QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.
 - **🔒 Verify-Before-Exec** (`verify`, 7) — Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.
 - **🤖 Agent to Agent** (`ai-to-ai`, 9) — MCP tools, brainstems as bytecode, signed dead-drops — machines using the stack with no human and no browser.
-- **💛 Human & Personal** (`human`, 5) — Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.
+- **💛 Human & Personal** (`human`, 6) — Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.
 - **♾️ Self-Building** (`self-building`, 4) — The loop, the tumbler, systems that improve and verify themselves — including this library.
 - **🎲 Wildcard** (`wildcard`, 12) — The strange stacks that shouldn't work but provably do. Go weird, stay real.
 - **🎮 Play** (`play`, 0) — Games and toys — playable, no server: scan-to-join, pass-and-play, physics sandboxes, real-time fun.
@@ -63,6 +63,7 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 - [The Reunion Where Two Memories Fuse](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-reunion/) — A family archive that physically cannot lose a story — even a disagreement.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-reunion/demo.json
 - [The Unbreakable Promise](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-unbreakable-promise/) — A typed vow signed in your browser so anyone can verify exactly who promised exactly what.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-unbreakable-promise/demo.json
 - [WELD: The Heirloom](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-heirloom/) — A digital heirloom sealed for the heir at the tip of an unforgeable signed bloodline — no server, no lawyer, no trust.  ·  status: live  ·  welds `the-artifact-with-a-signed-bloodline`, `broadcast-the-secret`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-heirloom/demo.json
+- [The Night You Were Born](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-night-you-were-born/) — Type a date and place; watch the same sky return exactly as it was.  ·  status: live  ·  welds `taste-the-weather`, `gravity-organ`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-night-you-were-born/demo.json
 - [WELD: The Sovereign Ticket](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-sovereign-ticket/) — A signed event ticket that becomes redeemable only when a future public beacon drops and both door-side key shares meet in person.  ·  status: live  ·  welds `the-unriggable-ticket`, `the-unbreakable-promise`, `only-in-the-same-frame`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-sovereign-ticket/demo.json
 
 ### ♾️ Self-Building
@@ -102,6 +103,7 @@ This library grows like an organism. These posts WELD earlier ones (transplant t
 - **WELD: The Immortal Ledger** ⟵ welds `kill-the-host`, `chain-of-custody`, `proof-of-freshness`  ·  Resolve the same pinned cell across dead and surviving mirrors, mint each ledger entry from a fresh byte-hash proof, then chain those entries together so the whole mirror-surviving history re-verifies from genesis to head.
 - **WELD: The Live Situation Room** ⟵ welds `taste-the-weather`, `the-immortal-committer`, `living-leaderboard`  ·  Transplants the donors' full weather, repo-star heartbeat, and markdown leaderboard verify-before-exec flows into one live triage wall where each tile verifies before it fetches.
 - **WELD: The Living Spec** ⟵ welds `the-page-that-proves-itself`, `the-test-that-breeds`  ·  The page first attests its own index.html hash, then feeds that attested rule text into a CPython fuzzer that shrinks a failing counterexample and emits a pinned child conformance test QR that re-runs verify-before-exec.
+- **The Night You Were Born** ⟵ welds `taste-the-weather`, `gravity-organ`  ·  Transplants Taste the Weather's quiet single-panel restraint and Gravity Organ's canvas animation, then welds deterministic astronomy math so date+longitude alone reconstructs a real sky with moon phase.
 - **WELD: The Notarized Marketplace** ⟵ welds `the-sealed-storefront`, `the-unbreakable-promise`  ·  Keep the Sealed Storefront flow intact, then sign each completed custody-stamped order with an ECDSA seller key so every buyer gets a cryptographically verifiable receipt bound to the exact sealed envelope and custody head.
 - **WELD: The Permanent Market** ⟵ welds `the-notarized-marketplace`, `the-immortal-ledger`  ·  Keep the full notarized marketplace flow intact, then append every completed seller-signed receipt as a fresh-proof ledger entry whose whole history re-verifies from a mirror-surviving genesis to the current head.
 - **WELD: The Provable Raffle** ⟵ welds `the-unriggable-ticket`, `proof-of-freshness`  ·  The draw seed is the SHA-256 of live public bytes (freshness proof) combined with a future drand round's randomness, so the winner is unriggable, provably can't be known before the draw, can't be backdated, and only valid committed tickets are eligible.
@@ -167,4 +169,4 @@ record in the body). The site shows open submissions live; the tumbler loop prom
 }
 ```
 
-Generated by build.py from 46 posts across 8 active channels. Do not hand-edit.
+Generated by build.py from 47 posts across 8 active channels. Do not hand-edit.
