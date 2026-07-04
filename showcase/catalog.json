@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 46,
+  "count": 47,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -1040,6 +1040,36 @@
         "the-byte-trap"
       ],
       "weld": "Each stage first verifies the prior content-addressed frame, then fetches+hashes this page to attest self-integrity, then runs through a verify-before-exec code gate that refuses cold on any byte mismatch before emitting the next frame."
+    },
+    {
+      "slug": "the-sound-of-far-away",
+      "channel": "sound",
+      "rank": null,
+      "emoji": "🌊",
+      "title": "The Sound of Far Away",
+      "tagline": "Name a coastline and hear the live wind and surf breathing back from that edge of the world.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "sound",
+        "web-audio",
+        "live-data",
+        "open-meteo",
+        "coastline",
+        "ambient"
+      ],
+      "primitives": [
+        "/track",
+        "Web Audio API",
+        "Canvas 2D"
+      ],
+      "url": "demos/the-sound-of-far-away/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-sound-of-far-away/demo.json",
+      "builds_on": [
+        "taste-the-weather",
+        "gravity-organ"
+      ],
+      "weld": "Transplants taste-the-weather's verify-before-exec live fetch pattern and gravity-organ's browser-only Web Audio canvas loop, then welds them so real coastal wind/wave values shape a quiet ambient soundscape."
     },
     {
       "slug": "the-sovereign-handoff",

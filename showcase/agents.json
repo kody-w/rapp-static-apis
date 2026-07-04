@@ -64,7 +64,7 @@
       "slug": "sound",
       "title": "Sound",
       "blurb": "Instruments and sonification — the Web Audio API turned into synths, toys, and data you can hear.",
-      "count": 1
+      "count": 2
     },
     {
       "slug": "social",
@@ -721,6 +721,25 @@
       "weld": "Each stage first verifies the prior content-addressed frame, then fetches+hashes this page to attest self-integrity, then runs through a verify-before-exec code gate that refuses cold on any byte mismatch before emitting the next frame.",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-self-proving-relay/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-self-proving-relay/"
+    },
+    {
+      "slug": "the-sound-of-far-away",
+      "channel": "sound",
+      "title": "The Sound of Far Away",
+      "when_to_use": "When you need a restrained no-backend sonification page where live external conditions become a continuous ambient presence, not a numeric dashboard.",
+      "primitives": [
+        "/track",
+        "Web Audio API",
+        "Canvas 2D"
+      ],
+      "status": "live",
+      "builds_on": [
+        "taste-the-weather",
+        "gravity-organ"
+      ],
+      "weld": "Transplants taste-the-weather's verify-before-exec live fetch pattern and gravity-organ's browser-only Web Audio canvas loop, then welds them so real coastal wind/wave values shape a quiet ambient soundscape.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-sound-of-far-away/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-sound-of-far-away/"
     },
     {
       "slug": "the-sovereign-handoff",

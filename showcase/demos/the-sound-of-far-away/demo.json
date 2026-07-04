@@ -1,0 +1,19 @@
+{
+  "slug": "the-sound-of-far-away",
+  "channel": "sound",
+  "rank": null,
+  "emoji": "🌊",
+  "title": "The Sound of Far Away",
+  "tagline": "Name a coastline and hear the live wind and surf breathing back from that edge of the world.",
+  "holy_shit": "You can close your eyes and listen to what the coast is doing right now — synthesized live from real wind and wave data, with no backend.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["sound", "web-audio", "live-data", "open-meteo", "coastline", "ambient"],
+  "primitives": ["/track", "Web Audio API", "Canvas 2D"],
+  "powered_by": "Open-Meteo wind + marine reads through a pinned /track extract cell, mapped in-browser into procedural surf, rumble, gusts, and a breathing horizon.",
+  "builds_on": ["taste-the-weather", "gravity-organ"],
+  "weld": "Transplants taste-the-weather's verify-before-exec live fetch pattern and gravity-organ's browser-only Web Audio canvas loop, then welds them so real coastal wind/wave values shape a quiet ambient soundscape.",
+  "agent_scenario": "When you need a restrained no-backend sonification page where live external conditions become a continuous ambient presence, not a numeric dashboard.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-04"
+}
