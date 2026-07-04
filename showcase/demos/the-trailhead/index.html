@@ -94,7 +94,12 @@ function weatherLabel(code) {
   return 'changing';
 }
 
-function b64url(s) { return btoa(unescape(encodeURIComponent(s))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
+function b64url(s) {
+  const bytes = new TextEncoder().encode(String(s));
+  let bin = '';
+  for (const b of bytes) bin += String.fromCharCode(b);
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
 
 function parseMinutes(isoLike) {
   const m = String(isoLike || '').match(/T(\d{2}):(\d{2})/);
@@ -135,7 +140,7 @@ document.getElementById('go').onclick = async () => {
     ]);
 
     const t = Number(tempRes.value);
-    const temp = Number.isFinite(t) ? `${Math.round(t)}°C` : `${tempRes.value}°C`;
+    const temp = Number.isFinite(t) ? `${Math.round(t)}°C` : '—';
     const sunsetMin = parseMinutes(sunsetRes.value);
     const turnBackMin = sunsetMin == null ? null : sunsetMin - TURNBACK_BUFFER_MIN;
 
