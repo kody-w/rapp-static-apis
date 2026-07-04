@@ -1,0 +1,57 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "db3b7724eeb3",
+  "title": "Marrakesh sky",
+  "author": "@kody-w",
+  "born": {
+    "coord": "evd7fmur4·1783136127966",
+    "from": "live 26°C · code 3 · wind 3 · night"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 74,
+        "shape": "blob",
+        "limbs": 1,
+        "segments": 4,
+        "symmetry": "radial",
+        "body_r": 0.307,
+        "limb_len": 0.234
+      },
+      {
+        "role": "surface",
+        "k": 46,
+        "palette": [
+          "#dbd824",
+          "#eeeb4f",
+          "#cbec79",
+          "#72711d"
+        ],
+        "pattern": "solid",
+        "glow": 0.16,
+        "opacity": 0.7
+      },
+      {
+        "role": "motion",
+        "k": 55,
+        "breathe": 0.291,
+        "drift": 0.092,
+        "pulse": 0.2,
+        "reach": 0.26
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}

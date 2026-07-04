@@ -1,9 +1,9 @@
 {
   "schema": "rapp-static-hologram-status/1.0",
-  "generated": "2026-07-04T02:47:42Z",
+  "generated": "2026-07-04T03:35:43Z",
   "summary": {
-    "cartridges": 3,
-    "versions": 3
+    "cartridges": 6,
+    "versions": 6
   },
   "cartridges": [
     {
@@ -11,21 +11,42 @@
       "id": "ce682ee99472",
       "title": "Arachne",
       "author": "@kody-w",
-      "bytes": 974
+      "bytes": 975
+    },
+    {
+      "name": "huila",
+      "id": "a4cf4c162ae5",
+      "title": "Huila sky",
+      "author": "@kody-w",
+      "bytes": 1032
     },
     {
       "name": "lumina",
       "id": "d45a79d29e99",
       "title": "Lumina",
       "author": "@kody-w",
-      "bytes": 966
+      "bytes": 967
+    },
+    {
+      "name": "marrakesh",
+      "id": "db3b7724eeb3",
+      "title": "Marrakesh sky",
+      "author": "@kody-w",
+      "bytes": 1037
+    },
+    {
+      "name": "reykjavik",
+      "id": "f8a2c10e10e7",
+      "title": "Reykjavik sky",
+      "author": "@kody-w",
+      "bytes": 1035
     },
     {
       "name": "vex",
       "id": "69728a0ddad7",
       "title": "Vex",
       "author": "@kody-w",
-      "bytes": 1063
+      "bytes": 1064
     }
   ]
 }

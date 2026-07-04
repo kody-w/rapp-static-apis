@@ -1,0 +1,57 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "f8a2c10e10e7",
+  "title": "Reykjavik sky",
+  "author": "@kody-w",
+  "born": {
+    "coord": "ge2kutx5q·1783136127966",
+    "from": "live 8°C · code 0 · wind 12 · day"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 24,
+        "shape": "star",
+        "limbs": 2,
+        "segments": 4,
+        "symmetry": "radial",
+        "body_r": 0.266,
+        "limb_len": 0.322
+      },
+      {
+        "role": "surface",
+        "k": 40,
+        "palette": [
+          "#24db27",
+          "#4fee51",
+          "#79ec9d",
+          "#1d721e"
+        ],
+        "pattern": "glow",
+        "glow": 0.75,
+        "opacity": 0.95
+      },
+      {
+        "role": "motion",
+        "k": 17,
+        "breathe": 0.218,
+        "drift": 0.199,
+        "pulse": 0.2,
+        "reach": 0.32
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}

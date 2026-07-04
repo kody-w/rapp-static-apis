@@ -2,12 +2,12 @@
   "schema": "rapp-static-api/1.0",
   "name": "rapp-static-hologram",
   "kind": "hologram-cartridge",
-  "generated": "2026-07-04T02:47:42Z",
+  "generated": "2026-07-04T03:35:43Z",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram",
   "pages_base": "https://kody-w.github.io/rapp-static-apis/hologram",
   "summary": {
-    "cartridges": 3,
-    "versions": 3
+    "cartridges": 6,
+    "versions": 6
   },
   "entries": [
     {
@@ -16,7 +16,7 @@
       "title": "Arachne",
       "author": "@kody-w",
       "sha8": "ce682ee99472",
-      "bytes": 974,
+      "bytes": 975,
       "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/arachne.json",
       "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/arachne/ce682ee99472.json",
       "pin_path": "versions/arachne/ce682ee99472.json",
@@ -31,12 +31,32 @@
       ]
     },
     {
+      "name": "huila",
+      "id": "a4cf4c162ae5",
+      "title": "Huila sky",
+      "author": "@kody-w",
+      "sha8": "a4cf4c162ae5",
+      "bytes": 1032,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/huila.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/huila/a4cf4c162ae5.json",
+      "pin_path": "versions/huila/a4cf4c162ae5.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "a4cf4c162ae5",
+          "path": "versions/huila/a4cf4c162ae5.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/huila/a4cf4c162ae5.json",
+          "first_captured": "2026-07-04T03:35:43Z"
+        }
+      ]
+    },
+    {
       "name": "lumina",
       "id": "d45a79d29e99",
       "title": "Lumina",
       "author": "@kody-w",
       "sha8": "d45a79d29e99",
-      "bytes": 966,
+      "bytes": 967,
       "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/lumina.json",
       "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/lumina/d45a79d29e99.json",
       "pin_path": "versions/lumina/d45a79d29e99.json",
@@ -51,12 +71,52 @@
       ]
     },
     {
+      "name": "marrakesh",
+      "id": "db3b7724eeb3",
+      "title": "Marrakesh sky",
+      "author": "@kody-w",
+      "sha8": "db3b7724eeb3",
+      "bytes": 1037,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/marrakesh.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/marrakesh/db3b7724eeb3.json",
+      "pin_path": "versions/marrakesh/db3b7724eeb3.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "db3b7724eeb3",
+          "path": "versions/marrakesh/db3b7724eeb3.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/marrakesh/db3b7724eeb3.json",
+          "first_captured": "2026-07-04T03:35:43Z"
+        }
+      ]
+    },
+    {
+      "name": "reykjavik",
+      "id": "f8a2c10e10e7",
+      "title": "Reykjavik sky",
+      "author": "@kody-w",
+      "sha8": "f8a2c10e10e7",
+      "bytes": 1035,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/reykjavik.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/reykjavik/f8a2c10e10e7.json",
+      "pin_path": "versions/reykjavik/f8a2c10e10e7.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "f8a2c10e10e7",
+          "path": "versions/reykjavik/f8a2c10e10e7.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/reykjavik/f8a2c10e10e7.json",
+          "first_captured": "2026-07-04T03:35:43Z"
+        }
+      ]
+    },
+    {
       "name": "vex",
       "id": "69728a0ddad7",
       "title": "Vex",
       "author": "@kody-w",
       "sha8": "69728a0ddad7",
-      "bytes": 1063,
+      "bytes": 1064,
       "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/vex.json",
       "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/vex/69728a0ddad7.json",
       "pin_path": "versions/vex/69728a0ddad7.json",
