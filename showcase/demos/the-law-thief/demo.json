@@ -1,0 +1,16 @@
+{
+  "slug": "the-law-thief",
+  "channel": "self-building",
+  "emoji": "🕰️",
+  "title": "The Law Thief",
+  "tagline": "A static page watches a swinging mass, steals its differential equation, and predicts the next swing exactly.",
+  "holy_shit": "It doesn't estimate a trend — it discovers the governing ODE itself, prints it, and the real swing lands on the predicted line.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["pyodide", "sindy", "differential-equations", "camera", "no-backend"],
+  "primitives": ["/vbrainstem-cell"],
+  "powered_by": "CPython in the browser (Pyodide + numpy + scipy) running sparse system identification (SINDy) and solve_ivp with no backend",
+  "agent_scenario": "When you need to recover a compact dynamical law from noisy motion data directly on-device, then forecast future trajectories live.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

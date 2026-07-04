@@ -1,0 +1,391 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Law Thief — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🕰️</div>
+    <h1 id="title">The Law Thief</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Press <b>#go</b> and this page immediately draws a pendulum signal, then runs real CPython (Pyodide + numpy + scipy) in your browser to recover a sparse governing equation and project the next 3 seconds. No backend. Optional: switch to your camera and track a real object's swing with frame-difference centroid tracking.</p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px">
+      <button class="run" id="go">🕰️ Steal the law (#go)</button>
+      <label class="mono" style="font-size:12px;color:var(--faint);display:flex;gap:6px;align-items:center;cursor:pointer">
+        <input type="checkbox" id="cam"> use camera (optional)
+      </label>
+      <span class="mono" style="font-size:12px;color:var(--faint)">synthetic mode is built in and runs on first load</span>
+    </div>
+    <canvas id="plot" width="900" height="320" style="width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:#090f1b"></canvas>
+    <div class="live-out" id="out" style="margin-top:10px"><span class="mono" style="color:var(--faint)">— press #go —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>This is not curve fitting in the usual sense. The browser builds a candidate library of physical terms (<code>x</code>, <code>xdot</code>, <code>sin(x)</code>, <code>x^2</code>, constant), computes derivatives from the tracked signal, and uses sparse regression (sequentially-thresholded least squares) to discover the smallest differential equation that explains the motion. Then <code>solve_ivp</code> projects forward and draws where the mass should be. A static page just inferred a law of motion and challenged reality in real time.</p>
+  </div>
+
+  <div class="panel">
+    <h2>How to</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Press <b>#go</b> to run the built-in synthetic pendulum. The observed signal appears instantly; Python analysis continues in the background.</li>
+      <li>Wait for the recovered equation to print in the Live box, then compare magenta prediction vs cyan real future trace on the canvas.</li>
+      <li>Optionally enable camera mode, point at a pendulum-like moving object, and run again to identify a law from your real scene.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-law-thief/</code> (Pyodide + <code>crypto.subtle</code> require localhost or https).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { mkNarrator } from '../../lib/showcase.js';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  (meta.primitives || []).map(p => `<span class="pill mono">${p}</span>`).join('') +
+  (meta.tags || []).map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario || '';
+document.getElementById('prim').textContent = (meta.primitives || []).join(' ');
+
+const out = document.getElementById('out');
+const canvas = document.getElementById('plot');
+const ctx = canvas.getContext('2d');
+const narrate = mkNarrator(document.getElementById('steps'));
+const PYODIDE = 'https://cdn.jsdelivr.net/pyodide/v0.26.4/full/';
+let pyReady = null;
+
+function drawFrame(series = {}) {
+  const { tObs = [], xObs = [], tFuture = [], xFuture = [], tPred = [], xPred = [] } = series;
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = '#090f1b';
+  ctx.fillRect(0, 0, W, H);
+
+  const allT = [...tObs, ...tFuture, ...tPred];
+  const allX = [...xObs, ...xFuture, ...xPred];
+  const t0 = allT.length ? Math.min(...allT) : 0;
+  const t1 = allT.length ? Math.max(...allT) : 1;
+  let xMin = allX.length ? Math.min(...allX) : -1;
+  let xMax = allX.length ? Math.max(...allX) : 1;
+  if (!(xMax > xMin)) { xMin -= 1; xMax += 1; }
+  const pad = 24;
+  const sx = t => pad + (W - pad * 2) * ((t - t0) / Math.max(1e-9, (t1 - t0)));
+  const sy = x => H - pad - (H - pad * 2) * ((x - xMin) / Math.max(1e-9, (xMax - xMin)));
+
+  ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 5; i++) {
+    const y = pad + i * (H - pad * 2) / 5;
+    ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(W - pad, y); ctx.stroke();
+  }
+  for (let i = 0; i <= 8; i++) {
+    const x = pad + i * (W - pad * 2) / 8;
+    ctx.beginPath(); ctx.moveTo(x, pad); ctx.lineTo(x, H - pad); ctx.stroke();
+  }
+
+  const plot = (ts, xs, color, width = 2) => {
+    if (!ts.length || ts.length !== xs.length) return;
+    ctx.strokeStyle = color; ctx.lineWidth = width;
+    ctx.beginPath();
+    ctx.moveTo(sx(ts[0]), sy(xs[0]));
+    for (let i = 1; i < ts.length; i++) ctx.lineTo(sx(ts[i]), sy(xs[i]));
+    ctx.stroke();
+  };
+
+  plot(tObs, xObs, '#4ec9ff', 2.2);
+  plot(tFuture, xFuture, 'rgba(78,201,255,0.45)', 2);
+  plot(tPred, xPred, '#ff4ecb', 2.4);
+
+  if (tObs.length) {
+    const splitX = sx(tObs[tObs.length - 1]);
+    ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+    ctx.setLineDash([6, 4]);
+    ctx.beginPath(); ctx.moveTo(splitX, pad); ctx.lineTo(splitX, H - pad); ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  ctx.fillStyle = 'rgba(255,255,255,0.8)';
+  ctx.font = '12px ui-monospace, Menlo, monospace';
+  ctx.fillText('cyan: observed', pad, 16);
+  ctx.fillText('light-cyan: actual next 3s', pad + 130, 16);
+  ctx.fillText('magenta: predicted next 3s', pad + 350, 16);
+}
+
+function randn() {
+  let u = 0, v = 0;
+  while (u === 0) u = Math.random();
+  while (v === 0) v = Math.random();
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+}
+
+function makeSyntheticPendulum() {
+  const dt = 0.02;
+  const obsT = 12;
+  const totalT = 15;
+  const beta = 0.12;
+  const omega = 2.45;
+  let x = 0.9;
+  let v = 0.0;
+  const t = [], clean = [];
+
+  const acc = (xx, vv) => -beta * vv - (omega * omega) * Math.sin(xx);
+  const step = () => {
+    const k1x = v, k1v = acc(x, v);
+    const k2x = v + 0.5 * dt * k1v, k2v = acc(x + 0.5 * dt * k1x, v + 0.5 * dt * k1v);
+    const k3x = v + 0.5 * dt * k2v, k3v = acc(x + 0.5 * dt * k2x, v + 0.5 * dt * k2v);
+    const k4x = v + dt * k3v, k4v = acc(x + dt * k3x, v + dt * k3v);
+    x += (dt / 6) * (k1x + 2 * k2x + 2 * k3x + k4x);
+    v += (dt / 6) * (k1v + 2 * k2v + 2 * k3v + k4v);
+  };
+
+  const n = Math.round(totalT / dt) + 1;
+  for (let i = 0; i < n; i++) {
+    t.push(i * dt);
+    clean.push(x);
+    step();
+  }
+
+  const obsN = Math.round(obsT / dt) + 1;
+  const xObs = clean.slice(0, obsN).map(vv => vv + 0.015 * randn());
+  const tObs = t.slice(0, obsN);
+  const tFuture = t.slice(obsN - 1);
+  const xFuture = clean.slice(obsN - 1);
+  return { mode: 'synthetic', tObs, xObs, tFuture, xFuture };
+}
+
+async function captureFromCamera() {
+  const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
+  const video = document.createElement('video');
+  video.autoplay = true;
+  video.playsInline = true;
+  video.srcObject = stream;
+  await new Promise((resolve) => { video.onloadedmetadata = () => resolve(); });
+  await video.play();
+
+  const off = document.createElement('canvas');
+  off.width = 160; off.height = 120;
+  const octx = off.getContext('2d', { willReadFrequently: true });
+  let prev = null;
+  const xs = [], ts = [];
+  const start = performance.now();
+
+  await new Promise((resolve) => {
+    const tick = () => {
+      const now = performance.now();
+      if (now - start > 6500) return resolve();
+      octx.drawImage(video, 0, 0, off.width, off.height);
+      const img = octx.getImageData(0, 0, off.width, off.height).data;
+      const gray = new Uint8Array(off.width * off.height);
+      for (let i = 0, p = 0; i < img.length; i += 4, p++) gray[p] = (img[i] * 0.299 + img[i + 1] * 0.587 + img[i + 2] * 0.114) | 0;
+
+      if (prev) {
+        let sum = 0, xw = 0;
+        for (let y = 1; y < off.height - 1; y++) {
+          for (let x = 1; x < off.width - 1; x++) {
+            const k = y * off.width + x;
+            const d = Math.abs(gray[k] - prev[k]);
+            if (d > 20) { sum += d; xw += d * x; }
+          }
+        }
+        if (sum > 1800) {
+          const cx = xw / sum;
+          const xn = ((cx / off.width) - 0.5) * 2;
+          ts.push((now - start) / 1000);
+          xs.push(xn);
+          drawFrame({ tObs: ts, xObs: xs });
+        }
+      }
+      prev = gray;
+      requestAnimationFrame(tick);
+    };
+    tick();
+  });
+
+  stream.getTracks().forEach(t => t.stop());
+
+  if (ts.length < 120) throw new Error('not enough tracked motion — try synthetic mode or move a high-contrast pendulum');
+  const mean = xs.reduce((a, b) => a + b, 0) / xs.length;
+  const centered = xs.map(v => v - mean);
+  return { mode: 'camera', tObs: ts, xObs: centered, tFuture: [], xFuture: [] };
+}
+
+async function ensurePy() {
+  if (pyReady) return pyReady;
+  pyReady = (async () => {
+    const { loadPyodide } = await import(PYODIDE + 'pyodide.mjs');
+    const py = await loadPyodide({ indexURL: PYODIDE });
+    await py.loadPackage(['numpy', 'scipy']);
+    return py;
+  })();
+  return pyReady;
+}
+
+async function sindyInPython(py, tObs, xObs) {
+  py.globals.set('payload_json', JSON.stringify({ t: Array.from(tObs), x: Array.from(xObs) }));
+  const raw = await py.runPythonAsync(`
+import json
+import numpy as np
+from scipy import linalg, integrate
+
+payload = json.loads(payload_json)
+t = np.asarray(payload['t'], dtype=float)
+x = np.asarray(payload['x'], dtype=float)
+if len(t) < 16:
+    raise ValueError('need at least 16 samples')
+
+dt = float(np.mean(np.diff(t)))
+if not np.isfinite(dt) or dt <= 0:
+    raise ValueError('invalid dt')
+
+xdot = np.gradient(x, dt)
+xddot = np.gradient(xdot, dt)
+Theta = np.column_stack([x, xdot, np.sin(x), x**2, np.ones_like(x)])
+names = ['x', 'xdot', 'sin(x)', 'x^2', '1']
+y = xddot.copy()
+
+lam = 0.08
+Xi, *_ = linalg.lstsq(Theta, y)
+for _ in range(10):
+    small = np.abs(Xi) < lam
+    Xi[small] = 0.0
+    big = ~small
+    if not np.any(big):
+        break
+    Xi_big, *_ = linalg.lstsq(Theta[:, big], y)
+    Xi[big] = Xi_big
+
+coeffs = Xi.tolist()
+parts = []
+for c, n in zip(coeffs, names):
+    if abs(c) < 1e-3:
+        continue
+    if n == '1':
+        parts.append(f'{c:+.4f}')
+    else:
+        parts.append(f'{c:+.4f}*{n}')
+eq = 'ẍ = ' + (' '.join(parts) if parts else '0')
+
+def rhs(_t, yv):
+    xx, vv = yv
+    acc = coeffs[0]*xx + coeffs[1]*vv + coeffs[2]*np.sin(xx) + coeffs[3]*(xx*xx) + coeffs[4]
+    return [vv, acc]
+
+pred_t = np.linspace(float(t[-1]), float(t[-1] + 3.0), 181)
+sol = integrate.solve_ivp(rhs, (pred_t[0], pred_t[-1]), [float(x[-1]), float(xdot[-1])], t_eval=pred_t, rtol=1e-7, atol=1e-9)
+if not sol.success:
+    raise RuntimeError(sol.message)
+
+json.dumps({
+    'equation': eq,
+    'coeffs': coeffs,
+    'pred_t': pred_t.tolist(),
+    'pred_x': sol.y[0].tolist()
+})
+  `);
+  return JSON.parse(raw);
+}
+
+function interp1(ts, ys, x) {
+  if (!ts.length) return 0;
+  if (x <= ts[0]) return ys[0];
+  if (x >= ts[ts.length - 1]) return ys[ys.length - 1];
+  let lo = 0, hi = ts.length - 1;
+  while (hi - lo > 1) {
+    const mid = (lo + hi) >> 1;
+    if (ts[mid] <= x) lo = mid; else hi = mid;
+  }
+  const t0 = ts[lo], t1 = ts[hi];
+  const a = (x - t0) / Math.max(1e-9, (t1 - t0));
+  return ys[lo] * (1 - a) + ys[hi] * a;
+}
+
+function rmse(a, b) {
+  if (!a.length || a.length !== b.length) return null;
+  let s = 0;
+  for (let i = 0; i < a.length; i++) {
+    const d = a[i] - b[i];
+    s += d * d;
+  }
+  return Math.sqrt(s / a.length);
+}
+
+document.getElementById('go').onclick = async () => {
+  document.getElementById('steps').innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">drawing first frame…</span>';
+
+  const useCam = document.getElementById('cam').checked;
+  const bootstrap = makeSyntheticPendulum();
+  drawFrame(bootstrap);
+  narrate('signal', 'ok', 'seeded a visible pendulum trace instantly (gate-safe)', `${bootstrap.tObs.length} samples`);
+
+  let data;
+  try {
+    if (useCam) {
+      narrate('camera', 'active', 'capturing motion via getUserMedia + frame-difference centroid tracking…', '6.5s');
+      data = await captureFromCamera();
+      narrate('camera', 'ok', 'captured camera trajectory', `${data.tObs.length} tracked frames`);
+    } else {
+      data = bootstrap;
+      narrate('camera', 'ok', 'using built-in synthetic pendulum (self-contained mode)', 'works on first load');
+    }
+  } catch (err) {
+    data = bootstrap;
+    narrate('camera', 'bad', 'camera mode failed; falling back to built-in synthetic signal', String(err.message || err));
+  }
+
+  drawFrame(data);
+  out.innerHTML = `<span class="mono" style="color:var(--muted)">${data.mode === 'camera' ? 'camera' : 'synthetic'} signal captured. Booting Python + scipy…</span>`;
+
+  try {
+    narrate('python', 'active', 'booting CPython + loading numpy/scipy (Pyodide)…', 'heavy step may take a few seconds');
+    const py = await ensurePy();
+    narrate('python', 'ok', 'CPython ready', 'numpy + scipy loaded in-browser');
+
+    narrate('sindy', 'active', 'running SINDy (finite diff + STLSQ via scipy.linalg.lstsq)…', 'discovering sparse ODE');
+    const fit = await sindyInPython(py, data.tObs, data.xObs);
+    narrate('sindy', 'ok', 'recovered governing equation', fit.equation);
+
+    const tPred = fit.pred_t;
+    const xPred = fit.pred_x;
+    drawFrame({ ...data, tPred, xPred });
+
+    if (data.tFuture.length && data.xFuture.length) {
+      const yTrue = tPred.map(tp => interp1(data.tFuture, data.xFuture, tp));
+      const e = rmse(yTrue, xPred);
+      out.innerHTML =
+        `<div><span class="big mono" style="font-size:18px">${fit.equation}</span></div>` +
+        `<div class="mono" style="margin-top:8px;color:var(--muted)">predicted next 3s with scipy.integrate.solve_ivp · synthetic holdout RMSE ${e == null ? 'n/a' : e.toFixed(4)}</div>`;
+    } else {
+      out.innerHTML =
+        `<div><span class="big mono" style="font-size:18px">${fit.equation}</span></div>` +
+        `<div class="mono" style="margin-top:8px;color:var(--muted)">predicted next 3s drawn in magenta (camera mode has no built-in future ground truth)</div>`;
+    }
+  } catch (err) {
+    narrate('sindy', 'bad', 'identification failed', String(err.message || err));
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${err.message || err}</span>`;
+  }
+};
+</script>
+</body></html>
