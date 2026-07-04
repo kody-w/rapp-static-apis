@@ -81,18 +81,32 @@ def main():
         sha8 = genome_sha8(genome)
 
         # Set / refresh the id field in the cartridge source
-        if cart.get("id") != sha8:
+        needs_write = cart.get("id") != sha8
+        if needs_write:
             cart["id"] = sha8
+
+        # Stamp portable provenance OUTSIDE genome — home is never part of the
+        # canonical genome hash, so content-address id is provably unaffected.
+        home = M.get("home")
+        if home and cart.get("home") != home:
+            cart["home"] = home
+            needs_write = True
+
+        if needs_write:
             open(cf, "w", encoding="utf-8").write(json.dumps(cart, indent=2, ensure_ascii=False) + "\n")
 
         # Re-read the bytes after any id update so versions/ stores the canonical form
         raw = open(cf, "rb").read()
 
-        # Content-addressed frame: versions/<name>/<sha8>.json (append-only — never rewrite)
+        # Content-addressed frame: versions/<name>/<sha8>.json
+        # Frame identity = sha8 (genome hash); top-level metadata may be refreshed.
         frame_rel = f"versions/{name}/{sha8}.json"
         fp = os.path.join(ROOT, frame_rel)
         if not os.path.exists(fp):
             os.makedirs(os.path.dirname(fp), exist_ok=True)
+            open(fp, "wb").write(raw)
+        elif open(fp, "rb").read() != raw:
+            # Metadata outside genome changed (e.g. home field) — refresh frame
             open(fp, "wb").write(raw)
 
         # Build version history from what is on disk

@@ -57,6 +57,7 @@
    <button id="btn-link">copy link</button>
    <button id="btn-qr">QR</button>
    <button id="btn-lantern">Lantern ↗</button>
+   <button id="btn-keep">🧺 Keep</button>
    <a href="index.html"><button>gallery →</button></a>
   </div>
   <div id="load-row">
@@ -67,6 +68,7 @@
    <span id="i-title"></span>
    <span id="i-author"></span>
    <span id="i-id" class="mono"></span>
+   <span id="i-home" style="display:none"></span>
   </div>
   <div id="json-area">
    <textarea id="cart-json" spellcheck="false" placeholder="paste hologram-cartridge/1.0 JSON here…"></textarea>
@@ -372,7 +374,7 @@ function projectPoint(p, camera, w, h, focal) {
   const s = focal / z;
   return { x: w / 2 + x * s, y: h / 2 - y * s, z };
 }
-function drawShadow(ctx, camera, w, h, focal, floorY, size) {
+function drawShadow(ctx, camera, w, h, focal, floorY, size, bodyY) {
   const pts = [];
   for (let i = 0; i < 28; i++) {
     const a = (i / 28) * TAU;
@@ -380,10 +382,33 @@ function drawShadow(ctx, camera, w, h, focal, floorY, size) {
     if (p) pts.push(p);
   }
   if (pts.length < 8) return;
+  const cx = pts.reduce((s, p) => s + p.x, 0) / pts.length;
+  const cy = pts.reduce((s, p) => s + p.y, 0) / pts.length;
+  const rAvg = pts.reduce((s, p) => s + Math.hypot(p.x - cx, p.y - cy), 0) / pts.length;
+  // Compute hover lift: screen-space gap between body center and floor projection
+  const bodyProj = projectPoint(vec(0, bodyY, 0), camera, w, h, focal);
+  const floorProj = projectPoint(vec(0, floorY, 0), camera, w, h, focal);
+  // If projections fail (behind camera), fall back to lift=0 (ground-level, max shadow)
+  const gap = (bodyProj && floorProj) ? Math.abs(bodyProj.y - floorProj.y) : 0;
+  const lift = clamp(gap / Math.max(rAvg, 1), 0, 1.4);
+  const alpha = 0.26 * (1 - 0.45 * lift);
+  const shadowR = rAvg * (1 + 0.35 * lift);
+  // Main umbra: radial gradient
+  const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, shadowR);
+  g.addColorStop(0, `rgba(0,0,0,${alpha.toFixed(3)})`);
+  g.addColorStop(0.5, `rgba(0,0,0,${(alpha * 0.5).toFixed(3)})`);
+  g.addColorStop(1, 'rgba(0,0,0,0)');
   ctx.beginPath();
-  pts.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y));
-  ctx.closePath();
-  ctx.fillStyle = 'rgba(0,0,0,0.20)';
+  ctx.arc(cx, cy, shadowR, 0, TAU);
+  ctx.fillStyle = g;
+  ctx.fill();
+  // Penumbra: second larger, very subtle pass
+  const g2 = ctx.createRadialGradient(cx, cy, shadowR * 0.5, cx, cy, shadowR * 1.8);
+  g2.addColorStop(0, 'rgba(0,0,0,0.06)');
+  g2.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.beginPath();
+  ctx.arc(cx, cy, shadowR * 1.8, 0, TAU);
+  ctx.fillStyle = g2;
   ctx.fill();
 }
 function drawHalo(ctx, camera, w, h, focal, center, size, surface, pulse) {
@@ -418,7 +443,7 @@ function renderScene(ctx, genome, time, view) {
   const camera = makeCamera(target, yaw, pitch, radius);
   const focal = Math.min(w, h) * 0.96;
   drawHalo(ctx, camera, w, h, focal, vec(0, built.haloY, 0), built.size, spec.surface, spec.pulse);
-  drawShadow(ctx, camera, w, h, focal, built.floorY, built.size);
+  drawShadow(ctx, camera, w, h, focal, built.floorY, built.size, built.bodyY);
 
   const lightDir = V3.norm(vec(0.45, 0.9, 0.65));
   const polys = [];
@@ -506,6 +531,32 @@ function momentPhrase(from, coord) {
   return bits.length ? bits.join(' \u00b7 ') : null;
 }
 
+/* ── IndexedDB basket helper ──────────────────────────────────────────────── */
+async function keepToBasket(cart) {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open('rapp-basket', 1);
+    req.onupgradeneeded = e => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains('eggs'))
+        db.createObjectStore('eggs', { keyPath: 'id' });
+    };
+    req.onsuccess = e => {
+      const db = e.target.result;
+      const tx = db.transaction('eggs', 'readwrite');
+      tx.objectStore('eggs').put({
+        id: cart.id,
+        egg: cart,
+        title: cart.title || 'organism',
+        born: (cart.born && cart.born.from) || '',
+        addedAt: Date.now()
+      });
+      tx.oncomplete = () => { db.close(); resolve(); };
+      tx.onerror = () => { db.close(); reject(tx.error); };
+    };
+    req.onerror = () => reject(req.error);
+  });
+}
+
 /* ── Default cartridge (Lumina) ────────────────────────────────────────────── */
 const DEFAULT_CART = {"schema":"hologram-cartridge/1.0","id":"d45a79d29e99","title":"Lumina","author":"@kody-w","born":{"coord":"0,0","from":"genesis"},"parents":[],"genome":{"layers":[{"role":"form","k":30,"shape":"blob","limbs":0,"segments":8,"symmetry":"radial","body_r":0.3,"limb_len":0},{"role":"surface","k":85,"palette":["#00ccff","#0088ff","#ffffff","#aaddff"],"pattern":"glow","glow":0.8,"opacity":0.85},{"role":"motion","k":60,"breathe":0.2,"drift":0.5,"pulse":0.8,"reach":0}],"compose":{"windows":[[0,1,2]],"loop":true}},"sig":""};
 
@@ -536,6 +587,23 @@ async function loadCart(cart) {
   const phrase = momentPhrase(cart.born && cart.born.from, cart.born && cart.born.coord);
   document.getElementById('i-author').textContent = phrase || (cart.born && cart.born.from) || (cart.author || '');
   document.getElementById('i-id').style.display = 'none';
+  // Provenance breadcrumb (home field is outside genome, does not affect id)
+  const homeEl = document.getElementById('i-home');
+  if (cart.home && cart.home.name) {
+    homeEl.textContent = '';
+    const a1 = Object.assign(document.createElement('a'), { href: cart.home.gallery || '#', target: '_blank', rel: 'noopener' });
+    a1.textContent = '↗ from ' + cart.home.name;
+    homeEl.appendChild(a1);
+    if (cart.parents && cart.parents.length && cart.home.gallery) {
+      homeEl.appendChild(document.createTextNode(' · '));
+      const a2 = Object.assign(document.createElement('a'), { href: cart.home.gallery, target: '_blank', rel: 'noopener' });
+      a2.textContent = 'see its kin ↗';
+      homeEl.appendChild(a2);
+    }
+    homeEl.style.display = '';
+  } else {
+    homeEl.style.display = 'none';
+  }
   document.getElementById('cart-json').value = JSON.stringify(cart, null, 2);
   startAnim();
   // Notify sandboxed housing if present
@@ -645,6 +713,16 @@ document.getElementById('btn-dl').onclick = () => {
 document.getElementById('btn-lantern').onclick = () => {
   if (!CART) return;
   window.open(LANTERN + '#' + b64enc(JSON.stringify(CART)));
+};
+
+document.getElementById('btn-keep').onclick = async () => {
+  if (!CART) return;
+  try {
+    await keepToBasket(CART);
+    const btn = document.getElementById('btn-keep');
+    btn.textContent = 'kept ✓';
+    setTimeout(() => btn.textContent = '🧺 Keep', 1600);
+  } catch(e) { console.error('keepToBasket:', e); }
 };
 
 document.getElementById('btn-link').onclick = async () => {

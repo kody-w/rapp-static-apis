@@ -53,5 +53,10 @@
       "loop": true
     }
   },
-  "sig": ""
+  "sig": "",
+  "home": {
+    "name": "the Weather Cabinet",
+    "gallery": "https://kody-w.github.io/rapp-static-apis/hologram/",
+    "registry": "https://kody-w.github.io/rapp-static-apis/hologram/registry.json"
+  }
 }
