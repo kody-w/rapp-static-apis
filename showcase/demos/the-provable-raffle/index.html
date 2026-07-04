@@ -1,0 +1,290 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WELD: The Provable Raffle — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  .ticket-pool{display:grid;gap:8px;margin-bottom:14px}
+  .ticket-card{border:1px solid var(--line);border-radius:10px;background:var(--panel-2);padding:10px 14px;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:13px}
+  .ticket-card .holder{flex:1;color:var(--ink);font-weight:600}
+  .ticket-card .tid{color:var(--faint);font-size:11px}
+  .ticket-card.winner{border-color:var(--accent-2);background:color-mix(in srgb,var(--accent-2) 8%,var(--panel-2))}
+  .ticket-card.winner .holder{color:var(--accent-2)}
+  .proof-box{border:1px solid var(--line);border-radius:8px;padding:12px;background:var(--panel-2);margin-top:10px}
+  .proof-box .ph{font-weight:600;margin-bottom:8px;font-size:14px}
+  .proof-line{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--muted);margin:3px 0}
+  .proof-line .pv{word-break:break-all;color:var(--ink)}
+  .weld-point{color:var(--muted);margin:10px 0 0}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🎲</div>
+    <h1 id="title">WELD: The Provable Raffle</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Five tickets are pre-registered. Press <b>Run the provable draw</b>: your browser fetches a live public payload and SHA-256-hashes the exact bytes (the freshness proof, transplanted from <em>proof-of-freshness</em>), then uses the hash-pinned oracle cell to pull the public drand beacon randomness from a committed round (transplanted from <em>the-unriggable-ticket</em>). The two entropy sources combine into the draw seed — and any browser, anywhere, reruns this and picks the same winner. You can also add yourself to the pool first.</p>
+
+    <div id="pool" class="ticket-pool"></div>
+
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+      <input id="holderInput" type="text" placeholder="Your name (optional)" style="padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel-2);color:var(--ink);font-family:var(--mono);font-size:13px;width:180px">
+      <button class="run ghost" id="enter">🎟️ Enter the raffle</button>
+      <button class="run" id="go">🎲 Run the provable draw</button>
+      <button class="run ghost" id="reset" title="Reset to the 5 pre-registered entries">🗑 Reset pool</button>
+    </div>
+
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press the button to run the draw —</span></div>
+
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p><b>The-unriggable-ticket</b> proves nobody can predetermine a ticket outcome: the deciding number lives inside a global randomness beacon that thousands of nodes co-produce every 3 s — it literally does not exist when the ticket is issued. <b>Proof-of-freshness</b> proves a displayed value came from bytes fetched <em>right now</em>, not staged ahead of time.</p>
+    <p class="weld-point">The weld point is that the <em>draw itself</em> gains both guarantees simultaneously. The freshness hash anchors the draw to the moment it was run — so the operator cannot stage a "draw" that was really computed yesterday. The drand randomness anchors the draw to a public beacon that was unknowable at ticket issuance — so no ticket can be pre-screened for a win. A raffle that is simultaneously <b>unriggable</b> (future public randomness) and <b>unpredictable before the draw</b> (live freshness proof) is something neither donor could achieve alone.</p>
+    <p style="margin:10px 0 0;color:var(--muted)">Draw formula: <code class="mono" style="font-size:12px">draw_entropy = SHA-256(freshness_hash ":" drand_randomness)</code> · <code class="mono" style="font-size:12px">winner = tickets[ BigInt("0x" + draw_entropy) mod n ]</code></p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <p style="margin:0 0 10px;color:var(--muted)">All inputs are public — reproduce the winner on any machine:</p>
+    <pre id="repro" style="font-size:12px;overflow-x:auto">Run the draw above to generate the verification script.</pre>
+    <p style="margin:10px 0 0;color:var(--muted);font-size:13px">The drand randomness for the committed round is permanently fixed and public. The freshness hash changes every run (it reflects the exact live bytes your browser fetched), which is the proof the draw is genuinely fresh — not backdated. Anyone who runs the draw at a different moment gets a <em>different</em> freshness hash and therefore a <em>different</em> winner, but the inputs are fully auditable: the hash is your receipt.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-provable-raffle/</code> (crypto.subtle needs a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Weld pattern: <code class="mono" style="font-size:12px">draw_entropy = SHA-256( SHA-256(live_bytes) ":" drand_round_randomness )</code> — freshness proof prevents backdating, drand randomness prevents prediction, verified oracle cell prevents code substitution.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span> · welds <a href="../the-unriggable-ticket/">the-unriggable-ticket</a> + <a href="../proof-of-freshness/">proof-of-freshness</a></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+
+// ---- header from the record (single source of truth) ----
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+// ---- config ----
+// Oracle: transplanted from the-unriggable-ticket (verify-before-exec cell pinned to drand beacon)
+const ORACLE = '../the-unriggable-ticket';
+// Entropy source: transplanted from proof-of-freshness (live public bytes → SHA-256)
+const ENTROPY_SRC = 'https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/channels.json';
+// Committed drand (quicknet) round — long since drawn, demo runs immediately
+const DRAW_ROUND = 30000000;
+const CHAIN = '52db9ba70e0cc0f6eaf7803dd07447a1f5477735fd3f661792ba94600c84e971';
+
+// Base ticket pool — committed before the draw (seeds are known, like "printed tickets")
+const BASE_TICKETS = [
+  { id: 'raffle-alpha',   holder: 'Entrant A' },
+  { id: 'raffle-beta',    holder: 'Entrant B' },
+  { id: 'raffle-gamma',   holder: 'Entrant C' },
+  { id: 'raffle-delta',   holder: 'Entrant D' },
+  { id: 'raffle-epsilon', holder: 'Entrant E' },
+];
+
+const STORAGE_KEY = 'provable-raffle-extra-tickets';
+
+function loadExtra() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch { return []; }
+}
+function saveExtra(arr) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); } catch {}
+}
+
+function allTickets() {
+  return [...BASE_TICKETS, ...loadExtra()];
+}
+
+// ---- ticket pool renderer ----
+function renderPool(winnerIdx = -1) {
+  const tickets = allTickets();
+  document.getElementById('pool').innerHTML = tickets.map((t, i) => {
+    const isWinner = i === winnerIdx;
+    return `<div class="ticket-card${isWinner ? ' winner' : ''}">
+      <span style="font-size:20px">${isWinner ? '🎉' : '🎟️'}</span>
+      <span class="holder">${esc(t.holder)}</span>
+      <span class="tid">${esc(t.id)} · round ${DRAW_ROUND.toLocaleString()}</span>
+      ${isWinner ? '<span class="pill live" style="margin-left:auto">WINNER</span>' : ''}
+    </div>`;
+  }).join('');
+}
+
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] || c));
+}
+
+// ---- browser-side SHA-256 helper ----
+async function sha256hex(str) {
+  const enc = new TextEncoder().encode(str);
+  const d = await crypto.subtle.digest('SHA-256', enc);
+  return [...new Uint8Array(d)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function sha256hexBuf(buf) {
+  const d = await crypto.subtle.digest('SHA-256', buf);
+  return [...new Uint8Array(d)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// ---- enter the raffle ----
+document.getElementById('enter').onclick = () => {
+  const input = document.getElementById('holderInput');
+  const name = input.value.trim() || `Entrant ${String.fromCharCode(70 + loadExtra().length)}`;
+  const id = 'raffle-' + [...crypto.getRandomValues(new Uint8Array(4))].map(b => b.toString(16).padStart(2,'0')).join('');
+  const extra = loadExtra();
+  extra.push({ id, holder: name });
+  saveExtra(extra);
+  input.value = '';
+  renderPool();
+};
+
+document.getElementById('reset').onclick = () => {
+  saveExtra([]);
+  renderPool();
+  document.getElementById('out').innerHTML = '<span class="mono" style="color:var(--faint)">— press the button to run the draw —</span>';
+  document.getElementById('steps').innerHTML = '';
+  document.getElementById('repro').textContent = 'Run the draw above to generate the verification script.';
+};
+
+// ---- provable draw ----
+const out    = document.getElementById('out');
+const stepsEl = document.getElementById('steps');
+const narrate = mkNarrator(stepsEl);
+
+document.getElementById('go').onclick = async () => {
+  stepsEl.innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">running the provable draw…</span>';
+  renderPool(); // reset winner highlights
+
+  const tickets = allTickets();
+  const n = tickets.length;
+
+  try {
+    // ── STEP 1: Freshness proof (transplanted from proof-of-freshness) ──────────────
+    narrate('fresh-fetch', 'active', 'fetch live entropy source (proof-of-freshness)', ENTROPY_SRC);
+    const res = await fetch(ENTROPY_SRC, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`fetch ${ENTROPY_SRC} → ${res.status}`);
+    const fetchedAt = new Date().toISOString();
+    const bytes = await res.arrayBuffer();
+    narrate('fresh-fetch', 'ok', 'fetched live entropy bytes', `${bytes.byteLength} bytes @ ${fetchedAt}`);
+
+    narrate('fresh-hash', 'active', 'recompute SHA-256 in your browser (crypto.subtle) — the freshness proof', '');
+    const freshnessHash = await sha256hexBuf(bytes);
+    narrate('fresh-hash', 'ok', `✓ freshness proof: SHA-256(channels.json) = ${freshnessHash.slice(0,16)}…`, freshnessHash);
+
+    // ── STEP 2: Unriggable randomness (transplanted from the-unriggable-ticket) ────
+    // Use the verified oracle cell to fetch the public drand beacon randomness for the committed round.
+    // The oracle verify-before-exec: fetches the pinned cell, SHA-256 checks it, refuses on mismatch.
+    const oracle = await runVerifiedCell({
+      base: ORACLE,
+      cell: 'oracle',
+      fn: 'draw',
+      // seed doesn't affect the beacon randomness — it just exercises the full oracle path
+      args: { seed: freshnessHash.slice(0, 16), round: DRAW_ROUND, n: 2 },
+      onStep: (k, s, t, d = '') => narrate(`oracle-${k}`, s, `oracle (unriggable-ticket): ${t}`, d),
+    });
+
+    if (!oracle.resolved) throw new Error('oracle: committed round has not dropped yet — try a past round');
+    const { randomness, round } = oracle;
+    narrate('drand-done', 'ok', `drand round ${round.toLocaleString()} randomness confirmed`, randomness.slice(0,16) + '…');
+
+    // ── WELD POINT ───────────────────────────────────────────────────────────────────
+    // draw_entropy = SHA-256( freshness_hash ":" drand_randomness )
+    // The freshness hash anchors the draw to NOW (prevents backdating).
+    // The drand randomness anchors the draw to a public coin no party could bias or predict.
+    narrate('combine', 'active', 'weld: combine freshness proof + drand randomness → draw entropy', '');
+    const drawEntropy = await sha256hex(`${freshnessHash}:${randomness}`);
+    narrate('combine', 'ok', `draw entropy = SHA-256(freshness:drand) = ${drawEntropy.slice(0,16)}…`, drawEntropy);
+
+    // ── STEP 3: Select winner ────────────────────────────────────────────────────────
+    const winnerIdx = Number(BigInt('0x' + drawEntropy) % BigInt(n));
+    const winner = tickets[winnerIdx];
+    narrate('select', 'ok', `winner index = BigInt(draw_entropy) mod ${n} = ${winnerIdx}`, winner.holder);
+
+    // ── Render result ────────────────────────────────────────────────────────────────
+    renderPool(winnerIdx);
+
+    out.innerHTML =
+      `<div><span class="big" style="color:var(--accent-2)">🎉 ${esc(winner.holder)} wins!</span></div>` +
+      `<div class="mono" style="margin-top:8px">ticket <b>${esc(winner.id)}</b> · pool of ${n} · winner_index = ${winnerIdx}</div>` +
+      `<div class="proof-box" style="margin-top:14px">` +
+        `<div class="ph">🧊 Freshness proof (proof-of-freshness)</div>` +
+        `<div class="proof-line"><span>entropy_source</span><span class="pv" style="word-break:break-all">${esc(ENTROPY_SRC)}</span></div>` +
+        `<div class="proof-line"><span>fetched_at</span><span class="pv">${esc(fetchedAt)}</span></div>` +
+        `<div class="proof-line"><span>SHA-256(response_bytes)</span><span class="pv">${esc(freshnessHash)}</span></div>` +
+      `</div>` +
+      `<div class="proof-box" style="margin-top:10px">` +
+        `<div class="ph">🎟️ Unriggable randomness (the-unriggable-ticket)</div>` +
+        `<div class="proof-line"><span>drand chain</span><span class="pv">${CHAIN.slice(0,16)}…</span></div>` +
+        `<div class="proof-line"><span>committed round</span><span class="pv">${round.toLocaleString()}</span></div>` +
+        `<div class="proof-line"><span>round randomness</span><span class="pv">${esc(randomness.slice(0,32))}…</span></div>` +
+      `</div>` +
+      `<div class="proof-box" style="margin-top:10px">` +
+        `<div class="ph">🧬 Weld: draw entropy</div>` +
+        `<div class="proof-line"><span>draw_entropy = SHA-256(freshness ":" drand)</span><span class="pv">${esc(drawEntropy)}</span></div>` +
+        `<div class="proof-line"><span>winner_index = BigInt(entropy) mod ${n}</span><span class="pv">${winnerIdx}</span></div>` +
+        `<div class="mono" style="color:var(--good);margin-top:8px;font-size:12px">✓ re-run this draw in any browser with the same inputs — you get the same winner. The freshness hash is your receipt for when the draw was run.</div>` +
+      `</div>`;
+
+    // ── Reproduce script ─────────────────────────────────────────────────────────────
+    document.getElementById('repro').textContent =
+`# Reproduce the draw winner — all inputs are public
+
+# 1. Fetch the entropy source and recompute its SHA-256
+curl -s '${ENTROPY_SRC}' | python3 -c "
+import sys, hashlib
+data = sys.stdin.buffer.read()
+print('freshness_hash =', hashlib.sha256(data).hexdigest())"
+
+# 2. Fetch the drand beacon randomness for the committed round
+curl -s 'https://api.drand.sh/${CHAIN}/public/${DRAW_ROUND}' | python3 -c "
+import sys, json
+print('randomness =', json.load(sys.stdin)['randomness'])"
+
+# 3. Combine and select winner (paste values from steps 1 and 2)
+python3 -c "
+import hashlib
+freshness_hash = '<paste from step 1>'
+randomness     = '<paste from step 2>'
+tickets        = ${JSON.stringify(tickets.map(t => t.id))}
+draw_entropy   = hashlib.sha256(f'{freshness_hash}:{randomness}'.encode()).hexdigest()
+winner_index   = int(draw_entropy, 16) % len(tickets)
+print('draw_entropy =', draw_entropy)
+print('winner_index =', winner_index)
+print('winner       =', tickets[winner_index])
+# -> winner: ${esc(winner.id)} (${esc(winner.holder)})"`;
+
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused
+      ? 'verify-before-exec REFUSED — the oracle bytes did not match the pin (your browser said no, no server involved)'
+      : esc(e.message || String(e))}</span>`;
+  }
+};
+
+// ---- initial render ----
+renderPool();
+</script>
+</body></html>

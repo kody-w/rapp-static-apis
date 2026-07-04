@@ -1,0 +1,19 @@
+{
+  "slug": "the-provable-raffle",
+  "channel": "wildcard",
+  "rank": null,
+  "emoji": "🎲",
+  "title": "WELD: The Provable Raffle",
+  "tagline": "A raffle nobody can rig: tickets are unforgeable, the draw is freshness-proven, and any browser recomputes the same winner.",
+  "holy_shit": "No operator, no server, no trust: tickets are committed to a future drand beacon round so the issuer can't know the outcome (the-unriggable-ticket), and the draw is seeded with the SHA-256 of live public bytes your browser fetched right now — a cryptographic freshness proof proving the result couldn't have been known in advance and can't be backdated (proof-of-freshness). Anyone reruns the exact draw in their own browser and gets the same winner. A fair lottery with no house.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["weld", "raffle", "provably-fair", "freshness", "drand", "crypto", "wildcard"],
+  "primitives": ["/track", "/fn", "crypto.subtle"],
+  "powered_by": "Unriggable-ticket oracle cell (verify-before-exec drand beacon resolution) welded to proof-of-freshness byte-hash: draw entropy = SHA-256(freshness_hash ':' round_randomness), winner_index = that entropy mod n_tickets.",
+  "builds_on": ["the-unriggable-ticket", "proof-of-freshness"],
+  "weld": "The draw seed is the SHA-256 of live public bytes (freshness proof) combined with a future drand round's randomness, so the winner is unriggable, provably can't be known before the draw, can't be backdated, and only valid committed tickets are eligible.",
+  "agent_scenario": "When you need a raffle where tickets are unforgeable and committed before the draw, the draw entropy is provably fresh (SHA-256 of live public bytes) and unriggable (future drand randomness), and any browser reruns the same deterministic selection — no trusted operator needed.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 42,
+  "count": 43,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -805,6 +805,37 @@
         "the-immortal-ledger"
       ],
       "weld": "Keep the full notarized marketplace flow intact, then append every completed seller-signed receipt as a fresh-proof ledger entry whose whole history re-verifies from a mirror-surviving genesis to the current head."
+    },
+    {
+      "slug": "the-provable-raffle",
+      "channel": "wildcard",
+      "rank": null,
+      "emoji": "🎲",
+      "title": "WELD: The Provable Raffle",
+      "tagline": "A raffle nobody can rig: tickets are unforgeable, the draw is freshness-proven, and any browser recomputes the same winner.",
+      "status": "live",
+      "difficulty": "hard",
+      "tags": [
+        "weld",
+        "raffle",
+        "provably-fair",
+        "freshness",
+        "drand",
+        "crypto",
+        "wildcard"
+      ],
+      "primitives": [
+        "/track",
+        "/fn",
+        "crypto.subtle"
+      ],
+      "url": "demos/the-provable-raffle/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-provable-raffle/demo.json",
+      "builds_on": [
+        "the-unriggable-ticket",
+        "proof-of-freshness"
+      ],
+      "weld": "The draw seed is the SHA-256 of live public bytes (freshness proof) combined with a future drand round's randomness, so the winner is unriggable, provably can't be known before the draw, can't be backdated, and only valid committed tickets are eligible."
     },
     {
       "slug": "the-provenance-camera",

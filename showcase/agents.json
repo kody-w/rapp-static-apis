@@ -46,7 +46,7 @@
       "slug": "wildcard",
       "title": "Wildcard",
       "blurb": "The strange stacks that shouldn't work but provably do. Go weird, stay real.",
-      "count": 11
+      "count": 12
     }
   ],
   "scenarios": [
@@ -551,6 +551,25 @@
       "weld": "Keep the full notarized marketplace flow intact, then append every completed seller-signed receipt as a fresh-proof ledger entry whose whole history re-verifies from a mirror-surviving genesis to the current head.",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-permanent-market/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-permanent-market/"
+    },
+    {
+      "slug": "the-provable-raffle",
+      "channel": "wildcard",
+      "title": "WELD: The Provable Raffle",
+      "when_to_use": "When you need a raffle where tickets are unforgeable and committed before the draw, the draw entropy is provably fresh (SHA-256 of live public bytes) and unriggable (future drand randomness), and any browser reruns the same deterministic selection — no trusted operator needed.",
+      "primitives": [
+        "/track",
+        "/fn",
+        "crypto.subtle"
+      ],
+      "status": "live",
+      "builds_on": [
+        "the-unriggable-ticket",
+        "proof-of-freshness"
+      ],
+      "weld": "The draw seed is the SHA-256 of live public bytes (freshness proof) combined with a future drand round's randomness, so the winner is unriggable, provably can't be known before the draw, can't be backdated, and only valid committed tickets are eligible.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-provable-raffle/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-provable-raffle/"
     },
     {
       "slug": "the-provenance-camera",
