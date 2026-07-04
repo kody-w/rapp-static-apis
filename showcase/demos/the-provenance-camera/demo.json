@@ -1,0 +1,19 @@
+{
+  "slug": "the-provenance-camera",
+  "channel": "physical",
+  "rank": null,
+  "emoji": "📸",
+  "title": "The Provenance Camera",
+  "tagline": "Capture a fact, stamp it into a content-addressed provenance chain, and draw a scannable QR that carries its tamper-evident pedigree.",
+  "holy_shit": "Whatever you capture leaves with a genesis hash and a verifiable custody trail — the QR drawn on your screen is the proof itself, not a link to it.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["qr", "provenance", "hash-chain", "physical", "weld"],
+  "primitives": ["/track", "crypto.subtle"],
+  "powered_by": "chain-of-custody SHA-256 hash-linking + photosynthesis qr.mjs canvas drawing, welded so the custody head hash becomes the QR payload",
+  "builds_on": ["photosynthesis", "chain-of-custody"],
+  "weld": "chain-of-custody's sha256 genesis + parent-link verification stamps the captured datum; photosynthesis's qr.mjs draws the resulting head hash onto a canvas — the chain's output is the QR's input.",
+  "agent_scenario": "When you need to stamp a captured datum with a tamper-evident genesis hash, build a verifiable custody chain, and emit a scannable QR pedigree — all client-side, no server.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}
