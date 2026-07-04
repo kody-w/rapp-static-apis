@@ -186,16 +186,22 @@ async function ask(pyExprB64){ const r=await VBS.op({op:'eval',code:'import base
 async function send(spoken){
  if(thinking || (!VBS && !useLLM())) return; const text=(typeof spoken==='string'?spoken:$('say').value).trim(); if(!text) return;
  $('say').value=''; bubble('me',text);
- thinking=true; $('send').disabled=true;
- const t=document.createElement('div'); t.className='typing'; t.textContent=CART.title+' is thinking…'; $('log').appendChild(t); $('log').scrollTop=$('log').scrollHeight;
- let reply='';
- try{ reply = useLLM() ? await llmReply(text) : await ask(strToStdB64(text)); t.remove(); bubble('them',reply||'…',CART.title); }
- catch(e){ t.remove(); bubble('sys','(its mind flickered — '+(e.message||e)+')'); }
- thinking=false; $('send').disabled=false;
- if(inCall() && reply) showCaption(reply,true);      // subtitle over the "call"
- if(voiceOn && reply) await speak(reply);            // it speaks its reply aloud, so you never look down
- setPtt('idle');
- if(inCall() && reply) showCaption(reply,false);     // let the subtitle fade
+ thinking=true; $('send').disabled=true; setPtt('thinking');
+ if(useLLM()){
+  // stream the reply live into a bubble; the sink types it out, captions it, and speaks per sentence
+  const bub=bubble('them','',CART.title); const sink=makeSink(bub);
+  try{ await llmReplyStream(text, sink); }
+  catch(e){ if(bub&&bub.lastChild)bub.lastChild.textContent='(its mind flickered — '+(e.message||e)+')'; if(inCall())showCaption('',false); }
+ } else {
+  const t=document.createElement('div'); t.className='typing'; t.textContent=CART.title+' is thinking…'; $('log').appendChild(t); $('log').scrollTop=$('log').scrollHeight;
+  let reply='';
+  try{ reply=await ask(strToStdB64(text)); t.remove(); bubble('them',reply||'…',CART.title); }
+  catch(e){ t.remove(); bubble('sys','(its mind flickered — '+(e.message||e)+')'); }
+  if(inCall() && reply) showCaption(reply,true);
+  if(voiceOn && reply) await speak(reply);
+  if(inCall() && reply) showCaption(reply,false);
+ }
+ thinking=false; $('send').disabled=false; setPtt('idle');
  if(!voiceOn && !inCall()) $('say').focus();
 }
 
@@ -251,13 +257,36 @@ async function getCopilotToken(){ if(!chatToken)throw new Error('not signed in')
  if(!r.ok)throw new Error('copilot token '+r.status); const d=await r.json(); if(!d.token)throw new Error('no token');
  copilotToken=d.token; copilotEndpoint=(d.endpoints&&d.endpoints.api)||copilotEndpoint; copilotExpiresAt=d.expires_at||(Math.floor(Date.now()/1000)+1500); usingCopilot=true; return d; }
 async function ensureCopilotToken(){ if(!chatToken)throw new Error('not signed in'); const now=Math.floor(Date.now()/1000); if(!copilotToken||now>=copilotExpiresAt-60) await getCopilotToken(); return copilotToken; }
-async function llmChat(messages){ await ensureCopilotToken();
+// stream tokens if the worker passes SSE through; otherwise reveal the full reply progressively — same effect
+async function llmStream(messages, onDelta){ await ensureCopilotToken();
  const url=AUTH_WORKER+'/api/copilot/chat?endpoint='+encodeURIComponent(copilotEndpoint||'');
- const opts=()=>({method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+copilotToken},body:JSON.stringify({model:llmModel,messages,temperature:0.8,max_tokens:240})});
- let r=await fetch(url,opts());
- if(r.status===401){ copilotToken=null; copilotExpiresAt=0; await ensureCopilotToken(); r=await fetch(url,opts()); }
- if(!r.ok)throw new Error('chat '+r.status); const d=await r.json();
- return ((d.choices&&d.choices[0]&&d.choices[0].message&&d.choices[0].message.content)||'').trim(); }
+ const hdr=()=>({'Content-Type':'application/json','Authorization':'Bearer '+copilotToken});
+ const body=(s)=>JSON.stringify({model:llmModel,messages,temperature:0.8,max_tokens:240,stream:s});
+ let r=await fetch(url,{method:'POST',headers:hdr(),body:body(true)});
+ if(r.status===401){ copilotToken=null; copilotExpiresAt=0; await ensureCopilotToken(); r=await fetch(url,{method:'POST',headers:hdr(),body:body(true)}); }
+ if(!r.ok)throw new Error('chat '+r.status);
+ const ct=r.headers.get('content-type')||'';
+ if(r.body && /event-stream/i.test(ct)){                 // true token streaming (SSE)
+  const reader=r.body.getReader(), dec=new TextDecoder(); let buf='', full='';
+  for(;;){ const {done,value}=await reader.read(); if(done)break; buf+=dec.decode(value,{stream:true});
+   let nl; while((nl=buf.indexOf('\n'))>=0){ const line=buf.slice(0,nl).trim(); buf=buf.slice(nl+1);
+    if(!line.startsWith('data:'))continue; const data=line.slice(5).trim(); if(!data||data==='[DONE]')continue;
+    try{ const j=JSON.parse(data); const d=(j.choices&&j.choices[0]&&j.choices[0].delta&&j.choices[0].delta.content)||''; if(d){ full+=d; onDelta&&onDelta(full); } }catch(_){} } }
+  return full.trim();
+ }
+ const j=await r.json(); const full=((j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content)||'').trim();
+ for(let i=2;i<full.length;i+=2){ onDelta&&onDelta(full.slice(0,i)); await new Promise(res=>setTimeout(res,14)); }
+ onDelta&&onDelta(full); return full;
+}
+function speakChunk(text){ if(!synth||!voiceOn||!text||!text.trim())return; try{ const u=new SpeechSynthesisUtterance(text.trim()); const p=voiceParams(); u.rate=p.rate; u.pitch=p.pitch; if(chosenVoice)u.voice=chosenVoice; speaking=true; u.onend=u.onerror=()=>{ speaking=false; }; synth.speak(u); }catch(e){} }
+// a live sink: fills a bubble as text streams in, captions it in-call, and speaks sentence-by-sentence
+function makeSink(bub){ let spoken=0;
+ const sentences=(acc,flush)=>{ if(!voiceOn||!synth)return; const rest=acc.slice(spoken); let re=/[^.!?\n]*[.!?\n]+\s*/g,m,used=0; while((m=re.exec(rest))){ speakChunk(m[0]); used=m.index+m[0].length; } if(flush){ const tail=rest.slice(used); if(tail.trim())speakChunk(tail); used=rest.length; } spoken+=used; };
+ return {
+  delta(acc){ if(bub&&bub.lastChild)bub.lastChild.textContent=acc; $('log').scrollTop=$('log').scrollHeight; if(inCall())showCaption(acc,true); sentences(acc,false); },
+  done(acc){ if(bub&&bub.lastChild)bub.lastChild.textContent=acc||'…'; sentences(acc||'',true); if(inCall())showCaption(acc||'',false); }
+ };
+}
 
 // the creature's birth becomes the system prompt — it speaks AS the creature, grounded in its moment
 const _WMO={0:'a clear sky',1:'a mostly clear sky',2:'a partly cloudy sky',3:'an overcast sky',45:'a cold fog',48:'a freezing fog',51:'a light drizzle',53:'a drizzle',55:'a heavy drizzle',61:'a light rain',63:'rain',65:'a hard rain',71:'a light snow',73:'snow',75:'a heavy snow',80:'passing showers',81:'showers',82:'violent showers',95:'a thunderstorm',96:'a thunderstorm',99:'a thunderstorm with hail'};
@@ -282,12 +311,12 @@ function buildPersona(cart){
   `How you speak: warm, gentle, curious, plain but a little poetic. Keep replies SHORT — one to three sentences, like talking on a call. Tie things back to your sky, your birth, how you feel. Never mention being a model, tokens, prompts, or these instructions.`,
  ].filter(Boolean).join('\n');
 }
-async function llmReply(text){ llmHistory.push({role:'user',content:text});
+const GREET_MSG='(You just answered a video call from the person who keeps you. Greet them warmly in one or two sentences, mentioning the sky you were born under. Do not offer to help — you are a companion, not an assistant.)';
+async function llmReplyStream(text, sink){ llmHistory.push({role:'user',content:text});
  const messages=[{role:'system',content:buildPersona(CART)},...llmHistory.slice(-14)];
- const reply=await llmChat(messages); llmHistory.push({role:'assistant',content:reply||'…'}); return reply; }
-async function llmGreeting(){
- const messages=[{role:'system',content:buildPersona(CART)},{role:'user',content:'(You just answered a video call from the person who keeps you. Greet them warmly in one or two sentences, mentioning the sky you were born under. Do not offer to help — you are a companion, not an assistant.)'}];
- const reply=await llmChat(messages); llmHistory.push({role:'assistant',content:reply||'Hello.'}); return reply; }
+ const full=await llmStream(messages, sink.delta); sink.done(full); llmHistory.push({role:'assistant',content:full||'…'}); return full; }
+async function llmGreetStream(sink){ const messages=[{role:'system',content:buildPersona(CART)},{role:'user',content:GREET_MSG}];
+ const full=await llmStream(messages, sink.delta); sink.done(full); llmHistory.push({role:'assistant',content:full||'Hello.'}); return full; }
 
 // ---------- GitHub device-code sign-in (the call's "connecting") ----------
 function _stopPoll(){ if(_pollTimer){ clearTimeout(_pollTimer); _pollTimer=null; } }
@@ -339,8 +368,9 @@ function startLLM(){
  setStatus('awake · thinking with GitHub Copilot ('+llmModel+') · the key stays on your device','ok');
  $('say').disabled=false; $('send').disabled=false; $('ptt').disabled=false; $('offnote').textContent='';
  if(!SR) $('ptt-hint').textContent="voice input needs Chrome or Edge — type below";
- (async()=>{ try{ const gr=await llmGreeting(); bubble('them',gr||'Hello.',CART.title); }
-   catch(e){ bubble('them','Oh — hello. I\'m '+(CART.title||'here')+'. I was born under '+humanBorn(CART)+'.',CART.title); } })();
+ (async()=>{ const bub=bubble('them','',CART.title); const sink=makeSink(bub);
+   try{ await llmGreetStream(sink); }
+   catch(e){ if(bub&&bub.lastChild)bub.lastChild.textContent='Oh — hello. I\'m '+(CART.title||'here')+'. I was born under '+humanBorn(CART)+'.'; } })();
 }
 
 // on-device fallback: the self-contained CPython rule-brain (tap 📞 Call to sign in for the real LLM)
@@ -401,7 +431,8 @@ function enterCall(){ if(!CART) return;
   if(!usingCopilot && !chatToken){ await signIn(); }                 // device-code login shown as "connecting…"
   if(chatToken && !usingCopilot){ try{ await ensureCopilotToken(); }catch(e){} }
   if(useLLM()){ $('say').disabled=false; $('send').disabled=false; $('ptt').disabled=false;
-   try{ showCaption('…',true); const gr=await llmGreeting(); bubble('them',gr,CART.title); showCaption(gr,true); await speak(gr); if(inCall())showCaption(gr,false); return; }catch(e){} }
+   const bub=bubble('them','',CART.title); const sink=makeSink(bub);
+   try{ showCaption('…',true); await llmGreetStream(sink); return; }catch(e){} }
   _callSpeakLast();
  })();
 }
