@@ -22,7 +22,7 @@
       "slug": "verify",
       "title": "Verify-Before-Exec",
       "blurb": "Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.",
-      "count": 7
+      "count": 6
     },
     {
       "slug": "ai-to-ai",
@@ -643,24 +643,6 @@
       "weld": "IssuesDB availability gate → AES-256-GCM seals the order payload into an RSL1 envelope → SHA-256 content-addresses that envelope into a custody chain link, so the order's journey is both confidential and tamper-evident end-to-end",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-sealed-storefront/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-sealed-storefront/"
-    },
-    {
-      "slug": "the-self-notarizing-record",
-      "channel": "verify",
-      "title": "WELD: The Self-Notarizing Record",
-      "when_to_use": "When you (an agent) need: an editable record that can prove its current bytes still match the latest published head and that every prior revision still descends from a trusted genesis hash.",
-      "primitives": [
-        "crypto.subtle",
-        "fetch"
-      ],
-      "status": "live",
-      "builds_on": [
-        "the-page-that-proves-itself",
-        "chain-of-custody"
-      ],
-      "weld": "Keep the live self-hash attestation intact, keep the full parent-linked custody replay intact, and weld them by appending each freshly computed self-hash as the next version link whenever the record is saved.",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-self-notarizing-record/demo.json",
-      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-self-notarizing-record/"
     },
     {
       "slug": "the-self-proving-relay",

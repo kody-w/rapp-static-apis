@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 44,
+  "count": 43,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -954,35 +954,6 @@
         "chain-of-custody"
       ],
       "weld": "IssuesDB availability gate → AES-256-GCM seals the order payload into an RSL1 envelope → SHA-256 content-addresses that envelope into a custody chain link, so the order's journey is both confidential and tamper-evident end-to-end"
-    },
-    {
-      "slug": "the-self-notarizing-record",
-      "channel": "verify",
-      "rank": null,
-      "emoji": "🧬",
-      "title": "WELD: The Self-Notarizing Record",
-      "tagline": "An editable record proves its current bytes right now and carries a tamper-evident chain of every prior version.",
-      "status": "live",
-      "difficulty": "medium",
-      "tags": [
-        "weld",
-        "record",
-        "self-hash",
-        "hash-chain",
-        "tamper-evident",
-        "verify"
-      ],
-      "primitives": [
-        "crypto.subtle",
-        "fetch"
-      ],
-      "url": "demos/the-self-notarizing-record/",
-      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-self-notarizing-record/demo.json",
-      "builds_on": [
-        "the-page-that-proves-itself",
-        "chain-of-custody"
-      ],
-      "weld": "Keep the live self-hash attestation intact, keep the full parent-linked custody replay intact, and weld them by appending each freshly computed self-hash as the next version link whenever the record is saved."
     },
     {
       "slug": "the-self-proving-relay",
