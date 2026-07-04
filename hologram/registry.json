@@ -2,12 +2,12 @@
   "schema": "rapp-static-api/1.0",
   "name": "rapp-static-hologram",
   "kind": "hologram-cartridge",
-  "generated": "2026-07-04T04:37:27Z",
+  "generated": "2026-07-04T04:48:29Z",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram",
   "pages_base": "https://kody-w.github.io/rapp-static-apis/hologram",
   "summary": {
-    "cartridges": 23,
-    "versions": 23
+    "cartridges": 24,
+    "versions": 24
   },
   "entries": [
     {
@@ -27,6 +27,26 @@
           "path": "versions/arachne/ce682ee99472.json",
           "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/arachne/ce682ee99472.json",
           "first_captured": "2026-07-04T02:47:42Z"
+        }
+      ]
+    },
+    {
+      "name": "capetown",
+      "id": "1ed3ce04658f",
+      "title": "Cape Town sky",
+      "author": "@kody-w",
+      "sha8": "1ed3ce04658f",
+      "bytes": 1036,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/capetown.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/capetown/1ed3ce04658f.json",
+      "pin_path": "versions/capetown/1ed3ce04658f.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "1ed3ce04658f",
+          "path": "versions/capetown/1ed3ce04658f.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/capetown/1ed3ce04658f.json",
+          "first_captured": "2026-07-04T04:48:29Z"
         }
       ]
     },

@@ -1,9 +1,9 @@
 {
   "schema": "rapp-static-hologram-status/1.0",
-  "generated": "2026-07-04T04:37:27Z",
+  "generated": "2026-07-04T04:48:29Z",
   "summary": {
-    "cartridges": 23,
-    "versions": 23
+    "cartridges": 24,
+    "versions": 24
   },
   "cartridges": [
     {
@@ -12,6 +12,13 @@
       "title": "Arachne",
       "author": "@kody-w",
       "bytes": 975
+    },
+    {
+      "name": "capetown",
+      "id": "1ed3ce04658f",
+      "title": "Cape Town sky",
+      "author": "@kody-w",
+      "bytes": 1036
     },
     {
       "name": "cross-gen2",

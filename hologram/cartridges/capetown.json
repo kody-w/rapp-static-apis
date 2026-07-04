@@ -1,0 +1,57 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "1ed3ce04658f",
+  "title": "Cape Town sky",
+  "author": "@kody-w",
+  "born": {
+    "coord": "k3vp520j0·1783140508837",
+    "from": "live 10°C · code 2 · wind 11 · night"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 63,
+        "shape": "blob",
+        "limbs": 2,
+        "segments": 4,
+        "symmetry": "radial",
+        "body_r": 0.27,
+        "limb_len": 0.311
+      },
+      {
+        "role": "surface",
+        "k": 57,
+        "palette": [
+          "#33db24",
+          "#5cee4f",
+          "#79ec92",
+          "#24721d"
+        ],
+        "pattern": "solid",
+        "glow": 0.16,
+        "opacity": 0.7
+      },
+      {
+        "role": "motion",
+        "k": 7,
+        "breathe": 0.225,
+        "drift": 0.186,
+        "pulse": 0.2,
+        "reach": 0.32
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}
