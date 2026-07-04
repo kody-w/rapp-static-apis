@@ -1,0 +1,19 @@
+{
+  "slug": "the-heirloom",
+  "channel": "human",
+  "rank": null,
+  "emoji": "📜",
+  "title": "WELD: The Heirloom",
+  "tagline": "A digital heirloom sealed for the heir at the tip of an unforgeable signed bloodline — no server, no lawyer, no trust.",
+  "holy_shit": "Seal a letter, a key, or a memory with AES-256-GCM and bind it to a family line of ECDSA signatures: each generation signs the next's public key, the heir at the tip is the only one whose passphrase opens the seal — publish the sealed package to the whole world and it stays perfectly secret until the rightful heir arrives.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["weld", "heirloom", "ecdsa", "sealed", "lineage", "custody"],
+  "primitives": ["crypto.subtle", "rapp-sealed/1.0"],
+  "powered_by": "The Artifact With a Signed Bloodline's ECDSA P-256 generational chain (each generation signs the next's public key) welded to Broadcast the Secret's AES-256-GCM (RSL1) seal — the heir at the tip of the verified bloodline is the one whose passphrase opens the sealed contents.",
+  "builds_on": ["the-artifact-with-a-signed-bloodline", "broadcast-the-secret"],
+  "weld": "Transplant the ECDSA generational chain from the-artifact-with-a-signed-bloodline (each generation's key signs the next's public key) and the AES-256-GCM RSL1 seal from broadcast-the-secret; weld point = the heir at the tip of the verified bloodline is the one whose passphrase opens the seal.",
+  "agent_scenario": "When data must survive generations with verifiable chain-of-custody yet remain readable only by the current rightful holder: sign each new keyholder's public key with the prior generation's ECDSA key, seal the payload AES-256-GCM under the heir's passphrase, and publish both openly — anyone verifies the lineage, only the heir reads the contents.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

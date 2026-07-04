@@ -1,0 +1,381 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WELD: The Heirloom — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  .chain{display:flex;flex-direction:column;gap:4px;margin:8px 0 0}
+  .gen{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:11px;background:var(--panel-2);padding:11px 13px}
+  .gen .g-n{font-family:var(--mono);font-size:12px;color:var(--faint);min-width:52px;padding-top:2px}
+  .gen .g-body{min-width:0;flex:1}
+  .gen .g-name{font-size:14px;color:var(--ink)}
+  .gen .g-meta{font-family:var(--mono);font-size:11px;color:var(--faint);word-break:break-all;margin-top:3px}
+  .gen .g-badge{font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--muted);white-space:nowrap;align-self:center}
+  .gen.ok{border-color:color-mix(in oklab,var(--good),transparent 60%)}
+  .gen.ok .g-badge{color:var(--good);border-color:color-mix(in oklab,var(--good),transparent 55%)}
+  .gen.broken{border-color:color-mix(in oklab,var(--bad),transparent 45%);background:color-mix(in oklab,var(--bad),transparent 90%)}
+  .gen.broken .g-badge{color:var(--bad);border-color:color-mix(in oklab,var(--bad),transparent 45%)}
+  .gen.heir{border-color:color-mix(in oklab,var(--accent),transparent 50%);background:color-mix(in oklab,var(--accent),transparent 92%)}
+  .gen.heir .g-badge{color:var(--accent);border-color:color-mix(in oklab,var(--accent),transparent 45%)}
+  .arrow{text-align:center;font-size:16px;color:var(--faint);line-height:1;margin:0}
+  .field{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
+  .field label{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-family:var(--mono)}
+  .field textarea,.field input{width:100%;background:var(--panel-2);border:1px solid var(--line);border-radius:9px;color:var(--ink);padding:10px 12px;font:inherit;font-size:14px;box-sizing:border-box}
+  .field textarea{min-height:80px;resize:vertical;font-family:var(--mono)}
+  .field input{font-family:var(--mono)}
+  .cipher{font-family:var(--mono);font-size:12.5px;word-break:break-all;overflow-wrap:anywhere;color:var(--accent-2);line-height:1.5}
+  .note{font-family:var(--mono);font-size:12px;color:var(--faint);margin:8px 0 0}
+  .ctl{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">📜</div>
+    <h1 id="title">WELD: The Heirloom</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <!-- ① FORGE -->
+  <div class="panel">
+    <h2>① Live — forge the heirloom (build the bloodline &amp; seal the contents)</h2>
+    <p style="margin:0 0 14px;color:var(--muted)">No server, no lawyer, no trust. Your browser mints one <b>ECDSA P-256</b> keypair per generation — each generation signs the next's public key, forming an unforgeable chain of custody (from <code><a href="../the-artifact-with-a-signed-bloodline/">the-artifact-with-a-signed-bloodline</a></code>). Then the heirloom is sealed with <b>AES-256-GCM</b> under the heir's passphrase (from <code><a href="../broadcast-the-secret/">broadcast-the-secret</a></code>). Publish the sealed package to the whole world: the bloodline proves who the rightful heir is; the seal ensures only they can read it.</p>
+    <div class="field">
+      <label for="content">the heirloom (a letter, a key, a memory — stays in this tab)</label>
+      <textarea id="content" spellcheck="false">To my heir: the deed to the land is behind the family portrait in the study. The combination is the year your great-grandmother arrived in this country. Guard it with your life — it has been in our family for four generations. Do not sell.</textarea>
+    </div>
+    <div class="field">
+      <label for="generations">generations (comma-separated, eldest first — the last is the heir)</label>
+      <input id="generations" type="text" spellcheck="false" value="Great-Grandmother, Grandmother, Mother, Heir">
+    </div>
+    <div class="field">
+      <label for="pass1">the heir's passphrase (the one paper key)</label>
+      <input id="pass1" type="text" spellcheck="false" value="year-of-arrival-1923">
+    </div>
+    <button class="run" id="forge">🔐 Forge the heirloom</button>
+    <div class="live-out" id="forgeOut" style="margin-top:14px"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+    <div id="forgeChain" class="chain"></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="forgeSteps"></ul>
+  </div>
+
+  <!-- ② CLAIM -->
+  <div class="panel">
+    <h2>② Live — claim the heirloom (verify the bloodline, then unseal)</h2>
+    <p style="margin:0 0 14px;color:var(--muted)">This is what the whole world sees: the sealed heirloom and its bloodline, in the open, forever. <b>Verify</b> walks every ECDSA link — if each generation correctly signed the next, the heir's public key is confirmed rightful. Then <b>Claim</b>: give it the correct passphrase and the contents open in your browser, no server asked. Change one character and the AES-GCM auth tag refuses cold — the math says no, not a host.</p>
+    <div class="field">
+      <label for="sealed">the sealed heirloom (base64 — auto-filled from ① above; or paste your own)</label>
+      <textarea id="sealed" spellcheck="false" placeholder="forge a heirloom above first, or paste an RSL1 base64 envelope here…"></textarea>
+    </div>
+    <div class="field">
+      <label for="pass2">the heir's passphrase (try the wrong one — watch it refuse)</label>
+      <input id="pass2" type="text" spellcheck="false" placeholder="enter the heir's passphrase">
+    </div>
+    <div class="ctl">
+      <button class="run ghost" id="verify">🔎 Verify the bloodline</button>
+      <button class="run" id="claim">🔓 Claim the heirloom</button>
+    </div>
+    <div class="live-out" id="claimOut" style="margin-top:14px"><span class="mono" style="color:var(--faint)">— forge a heirloom in ① first —</span></div>
+    <div id="claimChain" class="chain"></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="claimSteps"></ul>
+  </div>
+
+  <!-- ③ WHY IT'S COOL -->
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>Every heirloom transfer in history has relied on a <b>trusted party</b> — a lawyer, a notary, a bank, a will executor. If the institution collapses, the record is destroyed, or the intermediary is corrupt, the chain of custody is severed. This one has none of those failure modes.</p>
+    <p style="margin:10px 0 0">The <b>bloodline</b> (from <a href="../the-artifact-with-a-signed-bloodline/">the-artifact-with-a-signed-bloodline</a>) is an unforgeable ECDSA chain: generation 0 minted a keypair and signed generation 1's public key. Generation 1 signed generation 2's, and so on down to the heir. No one can insert a generation without the current tip's private key, and no one can alter a past generation's key without breaking every subsequent signature. The chain is verifiable by anyone — a skeptic walks every link with <code>crypto.subtle.verify</code> in their own browser and confirms who the rightful heir is.</p>
+    <p style="margin:10px 0 0">The <b>seal</b> (from <a href="../broadcast-the-secret/">broadcast-the-secret</a>) is AES-256-GCM: the contents are mathematically indistinguishable from random bytes until the heir's passphrase arrives. Publish the sealed envelope to 8 billion people and it reveals nothing — not the contents, not their length, not even whether they changed between seals (fresh random salt + nonce every time). The day the passphrase surfaces in the right hands, the heirloom opens. Until then it's immortal and invisible, with nothing left running and nothing left to pay for.</p>
+    <p style="margin:10px 0 0">The <b>weld point</b>: the bloodline proves <em>who</em> the rightful heir is (by public key, ECDSA-unforgeable); the seal proves <em>only that heir</em> can read the contents (by key-possession, AES-GCM-enforced). Together they are a complete chain of custody and a privacy guarantee — no server, no lawyer, no trust — enforced in the browser's own crypto engine.</p>
+  </div>
+
+  <!-- ④ RUN IT YOURSELF -->
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0 0 10px;padding-left:20px;color:var(--muted)">
+      <li>In ①, type your heirloom content, comma-separate the family generations (eldest first, last = heir), type the heir's passphrase, and click <b>Forge</b>. The page mints one ECDSA P-256 keypair per generation and seals the contents — watch the chain build link by link.</li>
+      <li>In ②, click <b>Verify the bloodline</b> to walk every ECDSA signature — all links go green. Then enter the heir's passphrase and <b>Claim</b> to unseal the contents. Change one character of the passphrase and watch the AES-GCM auth tag refuse cold.</li>
+      <li>The sealed envelope (RSL1 base64) and the bloodline (array of public keys + signatures) are the only things you would publish. The private keys never leave the browser tab; the passphrase lives only in the heir's own keeping.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-heirloom/</code> (crypto.subtle needs a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <!-- ⑤ FOR AGENTS -->
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Compose it: build an ECDSA generational chain where each keyholder signs the next's public key (<code>the-artifact-with-a-signed-bloodline</code> pattern), then seal the payload AES-256-GCM under the heir's passphrase (<code>broadcast-the-secret</code> pattern). Publish both to any permanent store — the lineage is the identity proof; the seal is the access control. Any verifier can audit the custody chain; only the heir can open the contents. The two planes are orthogonal and independently verifiable.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { mkNarrator } from '../../lib/showcase.js';
+
+// header from demo.json (single source of truth)
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+// ── shared helpers ─────────────────────────────────────────────────────────
+const subtle = crypto.subtle, enc = new TextEncoder(), dec = new TextDecoder();
+const b64 = (bytes) => {
+  let s = '';
+  for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(s);
+};
+const unb64 = (str) => {
+  const s = atob(str.replace(/\s+/g, ''));
+  const out = new Uint8Array(s.length);
+  for (let i = 0; i < s.length; i++) out[i] = s.charCodeAt(i);
+  return out;
+};
+const hex = (bytes) => [...bytes].map(b => b.toString(16).padStart(2, '0')).join('');
+
+// ── transplanted from the-artifact-with-a-signed-bloodline ───────────────
+// Build a generational ECDSA P-256 chain: generation i signs generation i+1's raw public key.
+async function buildBloodline(names, onStep) {
+  const gens = [];
+  for (let i = 0; i < names.length; i++) {
+    onStep('kp' + i, 'active', names[i] + ' — mint ECDSA P-256 keypair\u2026', '');
+    const kp = await subtle.generateKey({ name: 'ECDSA', namedCurve: 'P-256' }, true, ['sign', 'verify']);
+    const raw = new Uint8Array(await subtle.exportKey('raw', kp.publicKey));
+    onStep('kp' + i, 'ok', names[i] + ' — keypair minted', 'pub ' + hex(raw.slice(1, 5)) + '\u2026');
+    let sig = null;
+    if (i > 0) {
+      onStep('pass' + i, 'active', names[i - 1] + ' signs ' + names[i] + '\u2019s public key — passing custody\u2026', '');
+      sig = new Uint8Array(await subtle.sign({ name: 'ECDSA', hash: 'SHA-256' }, gens[i - 1].kp.privateKey, raw));
+      onStep('pass' + i, 'ok', 'custody passed: ' + names[i - 1] + ' \u2192 ' + names[i], 'sig ' + b64(sig).slice(0, 14) + '\u2026');
+    }
+    gens.push({ name: names[i], kp, raw, sig, isHeir: i === names.length - 1 });
+  }
+  return gens;
+}
+
+// Walk the bloodline and verify every ECDSA link.
+async function verifyBloodline(gens, onStep) {
+  for (let i = 1; i < gens.length; i++) {
+    onStep('v' + i, 'active', 'verify ' + gens[i - 1].name + ' \u2192 ' + gens[i].name + '\u2026', '');
+    const ok = await subtle.verify(
+      { name: 'ECDSA', hash: 'SHA-256' },
+      gens[i - 1].kp.publicKey, gens[i].sig, gens[i].raw
+    );
+    if (!ok) {
+      onStep('v' + i, 'bad', 'chain snapped: ' + gens[i - 1].name + ' did NOT sign ' + gens[i].name + '\u2019s key', 'REFUSED');
+      return false;
+    }
+    onStep('v' + i, 'ok', gens[i - 1].name + ' \u2713 signed ' + gens[i].name + '\u2019s key', 'custody intact');
+  }
+  return true;
+}
+
+function renderChain(el, gens, marks) {
+  el.innerHTML = '';
+  gens.forEach((g, i) => {
+    const m = marks ? marks[i] : { cls: g.isHeir ? 'heir' : 'ok', badge: g.isHeir ? '\u{1F451} heir' : 'signed' };
+    const div = document.createElement('div');
+    div.className = 'gen ' + m.cls;
+    div.innerHTML =
+      '<div class="g-n">gen ' + i + '</div>' +
+      '<div class="g-body">' +
+        '<div class="g-name">' + g.name + '</div>' +
+        '<div class="g-meta">pub ' + hex(g.raw.slice(1, 5)) + '\u2026' + (g.sig ? ' \u00b7 signed by ' + gens[i - 1].name : ' \u00b7 genesis (no prior signer)') + '</div>' +
+      '</div>' +
+      '<div class="g-badge">' + m.badge + '</div>';
+    el.appendChild(div);
+    if (i < gens.length - 1) {
+      const arr = document.createElement('div');
+      arr.className = 'arrow';
+      arr.textContent = '\u2193';
+      el.appendChild(arr);
+    }
+  });
+}
+
+// ── transplanted from broadcast-the-secret (rapp-sealed/1.0) ─────────────
+const MAGIC = 'RSL1', ITER = 250000;
+const HEADER = 4 + 16 + 12; // magic(4) + salt(16) + nonce(12)
+
+async function deriveKey(passphrase, salt) {
+  const base = await subtle.importKey('raw', enc.encode(passphrase), 'PBKDF2', false, ['deriveKey']);
+  return subtle.deriveKey(
+    { name: 'PBKDF2', salt, iterations: ITER, hash: 'SHA-256' },
+    base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+}
+
+async function seal(plaintext, passphrase, onStep) {
+  onStep('salt', 'active', 'roll a random 16-byte salt (crypto.getRandomValues)\u2026', '');
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  onStep('salt', 'ok', 'random salt ready', b64(salt).slice(0, 16) + '\u2026');
+  onStep('key', 'active', 'stretch the heir\u2019s passphrase \u2192 256-bit AES key (PBKDF2\u00b7SHA-256\u00b7' + ITER.toLocaleString() + ' rounds)\u2026', '');
+  const key = await deriveKey(passphrase, salt);
+  onStep('key', 'ok', 'AES-256 key derived \u2014 never leaves this tab', 'key-possession is the only gate');
+  onStep('nonce', 'active', 'roll a random 12-byte nonce\u2026', '');
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  onStep('nonce', 'ok', 'random nonce', b64(iv));
+  onStep('enc', 'active', 'AES-256-GCM seal the heirloom (+128-bit auth tag)\u2026', '');
+  const ct = new Uint8Array(await subtle.encrypt({ name: 'AES-GCM', iv }, key, enc.encode(plaintext)));
+  onStep('enc', 'ok', 'sealed \u2014 heirloom invisible until the heir arrives', ct.length + ' bytes');
+  onStep('pack', 'active', 'pack the RSL1 envelope \u2192 base64\u2026', '');
+  const env = new Uint8Array(HEADER + ct.length);
+  env.set(enc.encode(MAGIC), 0); env.set(salt, 4); env.set(iv, 20); env.set(ct, 32);
+  const file = b64(env);
+  onStep('pack', 'ok', 'the public sealed heirloom is ready', file.length + ' chars \u00b7 safe to publish anywhere');
+  return file;
+}
+
+async function unseal(file, passphrase, onStep) {
+  onStep('dec64', 'active', 'base64-decode the sealed heirloom\u2026', '');
+  const env = unb64(file);
+  if (env.length < HEADER || String.fromCharCode.apply(null, env.subarray(0, 4)) !== MAGIC) {
+    onStep('dec64', 'bad', 'not a valid RSL1 sealed heirloom', 'refused');
+    throw new Error('not a sealed heirloom');
+  }
+  onStep('dec64', 'ok', 'decoded envelope', env.length + ' bytes');
+  onStep('hdr', 'active', 'read the RSL1 header (salt + nonce)\u2026', '');
+  const salt = env.subarray(4, 20), iv = env.subarray(20, 32), ct = env.subarray(32);
+  onStep('hdr', 'ok', 'RSL1 \u00b7 salt + nonce recovered', 'ciphertext ' + ct.length + ' bytes');
+  onStep('key', 'active', 'stretch your passphrase the same way (PBKDF2\u00b7' + ITER.toLocaleString() + ')\u2026', '');
+  const key = await deriveKey(passphrase, salt);
+  onStep('key', 'ok', 'candidate key derived', '');
+  onStep('dec', 'active', 'AES-256-GCM decrypt + verify the auth tag\u2026', '');
+  let pt;
+  try { pt = await subtle.decrypt({ name: 'AES-GCM', iv }, key, ct); }
+  catch (e) {
+    onStep('dec', 'bad', '\u2717 auth tag failed \u2014 wrong passphrase or tampered envelope', 'REFUSED');
+    throw Object.assign(new Error('the seal refused'), { refused: true });
+  }
+  onStep('dec', 'ok', '\u2713 auth tag valid \u2014 the heirloom is yours', 'only the heir reaches here');
+  return dec.decode(pt);
+}
+
+// ── weld: wire both flows together ────────────────────────────────────────
+const state = { gens: [] };
+const $ = id => document.getElementById(id);
+const forgeNarrate = mkNarrator($('forgeSteps'));
+const claimNarrate = mkNarrator($('claimSteps'));
+
+$('forge').onclick = async () => {
+  $('forgeSteps').innerHTML = '';
+  $('forgeChain').innerHTML = '';
+  $('forgeOut').innerHTML = '<span class="mono" style="color:var(--faint)">forging\u2026</span>';
+
+  const content = $('content').value.trim();
+  const names = $('generations').value.split(',').map(s => s.trim()).filter(Boolean);
+  const pass = $('pass1').value.trim();
+
+  if (!content) { $('forgeOut').innerHTML = '<span class="mono" style="color:var(--warn)">enter the heirloom content first.</span>'; return; }
+  if (names.length < 2) { $('forgeOut').innerHTML = '<span class="mono" style="color:var(--warn)">enter at least two generations (eldest and heir, comma-separated).</span>'; return; }
+  if (!pass) { $('forgeOut').innerHTML = '<span class="mono" style="color:var(--warn)">enter the heir\u2019s passphrase \u2014 it is the only key.</span>'; return; }
+
+  $('forge').disabled = true;
+  try {
+    // ── from the-artifact-with-a-signed-bloodline: build the signed lineage ──
+    forgeNarrate('chain', 'active', 'building the signed generational bloodline\u2026', names.length + ' generations');
+    state.gens = await buildBloodline(names, forgeNarrate);
+    forgeNarrate('chain', 'ok', 'bloodline forged \u2014 ' + names.length + ' generations, each signing the next', 'chain is unforgeable');
+    renderChain($('forgeChain'), state.gens, state.gens.map(g => ({
+      cls: g.isHeir ? 'heir' : 'ok',
+      badge: g.isHeir ? '\u{1F451} heir' : 'signed'
+    })));
+
+    // ── from broadcast-the-secret: seal the heirloom ──
+    forgeNarrate('seal', 'active', 'sealing the heirloom for the heir (AES-256-GCM)\u2026', '');
+    const file = await seal(content, pass, forgeNarrate);
+    state.sealedFile = file;
+
+    $('forgeOut').innerHTML =
+      '<div class="mono" style="font-size:12px;color:var(--muted);margin-bottom:8px">the public sealed heirloom \u2014 publish anywhere; reveals nothing without the heir\u2019s passphrase:</div>' +
+      '<div class="cipher">' + file + '</div>' +
+      '<p class="note">Seal the same heirloom again and every byte changes (fresh salt + nonce). \u2193 Bloodline + seal loaded into \u2461 \u2014 go verify the lineage and claim it.</p>';
+
+    // hand off to panel ②
+    $('sealed').value = file;
+    $('pass2').value = '';
+    $('claimOut').innerHTML = '<span class="mono" style="color:var(--faint)">\u2191 bloodline and seal loaded \u2014 verify the lineage, then enter the heir\u2019s passphrase and claim \u2014</span>';
+    $('claimChain').innerHTML = '';
+    $('claimSteps').innerHTML = '';
+  } catch (e) {
+    $('forgeOut').innerHTML = '<span class="mono" style="color:var(--bad)">' + (e.message || e) + '</span>';
+  } finally {
+    $('forge').disabled = false;
+  }
+};
+
+$('verify').onclick = async () => {
+  $('claimSteps').innerHTML = '';
+  $('claimChain').innerHTML = '';
+  if (!state.gens.length) { $('claimOut').innerHTML = '<span class="mono" style="color:var(--warn)">forge a heirloom in \u2460 first.</span>'; return; }
+  $('claimOut').innerHTML = '<span class="mono" style="color:var(--faint)">verifying bloodline\u2026</span>';
+  try {
+    const ok = await verifyBloodline(state.gens, claimNarrate);
+    renderChain($('claimChain'), state.gens, state.gens.map(g => ({
+      cls: g.isHeir ? 'heir' : 'ok',
+      badge: g.isHeir ? '\u{1F451} heir' : 'signed \u2713'
+    })));
+    if (ok) {
+      const heir = state.gens[state.gens.length - 1];
+      $('claimOut').innerHTML =
+        '<div><span class="big" style="color:var(--good)">\u2713 bloodline intact</span></div>' +
+        '<div class="mono" style="margin-top:6px;color:var(--good)">all ' + state.gens.length + ' generations verify \u00b7 rightful heir confirmed as <b>' + heir.name + '</b> (pub ' + hex(heir.raw.slice(1, 5)) + '\u2026) \u00b7 enter the passphrase and claim</div>';
+    } else {
+      $('claimOut').innerHTML = '<span class="mono" style="color:var(--bad)">\u2717 bloodline broken \u2014 a signature did not verify. The chain was tampered.</span>';
+    }
+  } catch (e) {
+    $('claimOut').innerHTML = '<span class="mono" style="color:var(--bad)">' + (e.message || e) + '</span>';
+  }
+};
+
+$('claim').onclick = async () => {
+  $('claimSteps').innerHTML = '';
+  $('claimChain').innerHTML = '';
+  const file = $('sealed').value.trim();
+  const pass = $('pass2').value;
+  if (!file) { $('claimOut').innerHTML = '<span class="mono" style="color:var(--warn)">seal something in \u2460 first, or paste an RSL1 file here.</span>'; return; }
+  if (!pass) { $('claimOut').innerHTML = '<span class="mono" style="color:var(--warn)">no key, no read \u2014 that\u2019s the whole point. Enter the heir\u2019s passphrase.</span>'; return; }
+  $('claimOut').innerHTML = '<span class="mono" style="color:var(--faint)">claiming\u2026</span>';
+
+  // weld point: first verify the bloodline to confirm who the heir is
+  if (state.gens.length) {
+    claimNarrate('bl', 'active', 'walk the bloodline first \u2014 confirm the heir\u2019s identity\u2026', '');
+    const ok = await verifyBloodline(state.gens, claimNarrate);
+    renderChain($('claimChain'), state.gens, state.gens.map(g => ({
+      cls: g.isHeir ? 'heir' : 'ok',
+      badge: g.isHeir ? '\u{1F451} heir' : 'signed \u2713'
+    })));
+    if (!ok) {
+      $('claimOut').innerHTML = '<span class="mono" style="color:var(--bad)">\u2717 bloodline broken \u2014 chain was tampered. Cannot claim.</span>';
+      return;
+    }
+    const heir = state.gens[state.gens.length - 1];
+    claimNarrate('bl', 'ok', 'bloodline verified \u2014 rightful heir is ' + heir.name, 'now unseal with the heir\u2019s passphrase');
+  }
+
+  try {
+    // weld point: then unseal — only the heir's passphrase opens the AES-GCM envelope
+    const plain = await unseal(file, pass, claimNarrate);
+    const escaped = plain.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+    $('claimOut').innerHTML =
+      '<div class="mono" style="font-size:12px;color:var(--good);margin-bottom:8px">\u2713 heirloom unsealed on your device \u2014 the bloodline confirmed the heir; the seal confirmed the key:</div>' +
+      '<div style="white-space:pre-wrap;word-break:break-word;background:var(--panel-2);border:1px solid color-mix(in oklab,var(--good),transparent 60%);border-radius:9px;padding:12px 14px;margin-top:4px">' + escaped + '</div>';
+  } catch (e) {
+    $('claimOut').innerHTML = e.refused
+      ? '<span class="mono" style="color:var(--bad)">\u{1F512} SEAL REFUSED \u2014 wrong passphrase (or tampered bytes). The AES-GCM auth tag said no; no host did.</span>'
+      : '<span class="mono" style="color:var(--bad)">' + (e.message || e) + '</span>';
+  }
+};
+</script>
+</body></html>
