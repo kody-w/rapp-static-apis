@@ -262,9 +262,11 @@ function voidTint(cart) {
     else if (birth.wmo >= 61) tint = mixColor(tint, parseHex('#4f5f73'), 0.22);
   }
   let desat = 0.12;
-  if (birth.wmo >= 95) desat = 0.72;
-  else if (birth.wmo >= 80) desat = 0.46;
-  else if (birth.wmo >= 61) desat = 0.26;
+  if (birth.wmo !== null) {
+    if (birth.wmo >= 95) desat = 0.72;
+    else if (birth.wmo >= 80) desat = 0.46;
+    else if (birth.wmo >= 61) desat = 0.26;
+  }
   tint = desaturateColor(tint, desat);
   return {
     top: mixColor(baseTop, tint, 0.18),
