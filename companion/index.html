@@ -80,10 +80,14 @@
  .signin-status{font-size:12.5px;color:var(--muted);min-height:18px;margin-bottom:14px}
  .signin-skip{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:10px;padding:8px 14px;font:inherit;font-size:13px;cursor:pointer}
  .signin-skip:hover{border-color:var(--accent);color:var(--ink)}
+ .actions{display:flex;gap:8px;margin:0 0 10px;flex-wrap:wrap}
+ .act{background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:5px 12px;font:inherit;font-size:12.5px;cursor:pointer}
+ .act:hover{border-color:var(--accent);color:var(--ink)} .act.done{border-color:var(--good);color:var(--good)}
 </style></head>
 <body>
 <div class="wrap">
  <header><h1 id="name">a companion</h1><span class="born" id="born"></span><button id="go-call" disabled>📞 Call</button></header>
+ <div class="actions"><button class="act" id="act-keep">🧺 Keep</button><button class="act" id="act-lantern">🔮 Lantern ↗</button><button class="act" id="act-cabinet">🧬 Breed ↗</button></div>
 
  <div class="grid">
   <div class="stage"><iframe id="creature" title="the creature"></iframe><div class="hint">drag to look around</div></div>
@@ -110,6 +114,7 @@
   <div id="call-caption"></div>
   <div id="call-hint">hold the mic to talk · drag the screen to look around</div>
   <div id="call-tray">
+   <button id="call-keep" title="keep this one">🧺</button>
    <button id="call-self" title="hide self view">👤</button>
    <button id="call-mic" title="hold to talk">🎙️</button>
    <button id="call-end" title="end call"><span>📞</span></button>
@@ -478,6 +483,20 @@ function copyCode(){ const code=($('signin-code').textContent||'').trim(); if(!c
 }
 $('signin-copy').onclick=copyCode;
 $('signin-code').onclick=copyCode;
+
+// keep the creature you're talking to → the shared 'rapp-basket' store; two doors onward (Lantern / Cabinet)
+const LANTERN='https://kody-w.github.io/rapp-lantern/player.html';
+const CABINET='https://kody-w.github.io/rapp-static-apis/hologram/';
+function keepToBasket(cart){ return new Promise(res=>{ try{ const r=indexedDB.open('rapp-basket',1);
+ r.onupgradeneeded=()=>{ const d=r.result; if(!d.objectStoreNames.contains('eggs')) d.createObjectStore('eggs',{keyPath:'id'}); };
+ r.onsuccess=()=>{ try{ const tx=r.result.transaction('eggs','readwrite'); tx.objectStore('eggs').put({id:cart.id, egg:cart, title:cart.title||'organism', born:(cart.born&&cart.born.from)||'', addedAt:Date.now()}); tx.oncomplete=()=>res(true); tx.onerror=()=>res(false); }catch(e){ res(false); } };
+ r.onerror=()=>res(false); }catch(e){ res(false); } }); }
+function keptFlash(btn,label){ if(!btn)return; const t=btn.textContent; btn.textContent=label; btn.classList.add('done'); setTimeout(()=>{ btn.textContent=t; btn.classList.remove('done'); },1700); }
+function keepCurrent(btn){ if(!CART||!CART.id)return; keepToBasket(CART).then(ok=>{ if(ok) keptFlash(btn, btn&&btn.id==='call-keep'?'✓':'🧺 kept ✓'); }); }
+$('act-keep').onclick=()=>keepCurrent($('act-keep'));
+$('act-lantern').onclick=()=>{ if(CART) window.open(LANTERN+'#'+b64url(JSON.stringify(CART))); };
+$('act-cabinet').onclick=()=>{ if(CART) window.open(CABINET+'#remix='+b64url(JSON.stringify(CART))); };
+$('call-keep').onclick=()=>keepCurrent($('call-keep'));
 main();
 </script>
 </body></html>
