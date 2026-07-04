@@ -6,5 +6,10 @@
   "pages_base": "https://kody-w.github.io/rapp-static-apis/hologram",
   "lantern_url": "https://kody-w.github.io/rapp-lantern/player.html",
   "moment_url": "https://kody-w.github.io/rapp-hologram/",
+  "home": {
+    "name": "the Weather Cabinet",
+    "gallery": "https://kody-w.github.io/rapp-static-apis/hologram/",
+    "registry": "https://kody-w.github.io/rapp-static-apis/hologram/registry.json"
+  },
   "note": "A universal hologram-organism player. Any valid hologram-cartridge/1.0 JSON renders any creature generatively — no per-creature code. Serve a cartridge at a raw URL and play it anywhere: player.html?cart=<url>."
 }
