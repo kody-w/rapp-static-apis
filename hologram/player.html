@@ -576,13 +576,9 @@ function season(month, lat) {
 function latBand(lat) { return 'near ' + Math.round(Math.abs(lat)) + '\u00b0' + (lat < 0 ? 'S' : 'N'); }
 function parseMoonOrigin(from) {
   const parts = String(from || '').split(' · ');
-  let moonPct = null, moonName = '', tide = '';
-  for (const p of parts) {
-    if (p === 'moon') continue;
-    if (/^\d+$/.test(p)) moonPct = parseInt(p);
-    else if (!moonName && p) moonName = p;
-    else if (p) tide = tide ? tide + ' · ' + p : p;
-  }
+  const moonPct = /^\d+$/.test(parts[1] || '') ? parseInt(parts[1]) : null;
+  const moonName = parts[2] || '';
+  const tide = parts.slice(3).filter(Boolean).join(' · ');
   return { moonPct, moonName, tide };
 }
 function momentPhrase(from, coord) {

@@ -310,13 +310,9 @@ function relativeTime(ts) { const d=new Date(ts),now=Date.now(),ms=now-ts,hr=ms/
 function bornDate(coord) { if(!coord)return null; const m=String(coord).match(/\u00b7(\d{10,})/); if(!m)return null; const ts=parseInt(m[1]); const d=new Date(ts); if(isNaN(d.getTime()))return null; return relativeTime(ts); }
 function parseMoonOrigin(from) {
   const parts = String(from || '').split(' · ');
-  let moonPct = null, moonName = '', tide = '';
-  for (const p of parts) {
-    if (p === 'moon') continue;
-    if (/^\d+$/.test(p)) moonPct = parseInt(p);
-    else if (!moonName && p) moonName = p;
-    else if (p) tide = tide ? tide + ' · ' + p : p;
-  }
+  const moonPct = /^\d+$/.test(parts[1] || '') ? parseInt(parts[1]) : null;
+  const moonName = parts[2] || '';
+  const tide = parts.slice(3).filter(Boolean).join(' · ');
   return { moonPct, moonName, tide };
 }
 function momentPhrase(from,coord) { if(!from)return null; const isMoon=from.startsWith('moon '),isWeather=from.startsWith('live '); if(!isWeather&&!isMoon)return null; let temp='',wmo='',wind='',tod=''; const { moonPct, moonName, tide } = isMoon ? parseMoonOrigin(from) : { moonPct:null, moonName:'', tide:'' }; if(isWeather){const parts=from.split(' · ');for(const p of parts){if(p.startsWith('live ')){temp=p.replace(/^live\s+/,'').replace('°C','°');}else if(p.startsWith('code ')){const n=parseInt(p.slice(5)),w=wmoWord(n);wmo=w!==null?w:p;}else if(p.startsWith('wind ')){const n=parseInt(p.slice(5));wind=windWord(n);}else if(p==='day'||p==='night'){tod=p;}}} let lat=null,epochTs=null; if(coord&&!coord.startsWith('cross:')&&coord!=='0,0'){const em=String(coord).match(/·(\d{10,})/);if(em)epochTs=parseInt(em[1]);const gh=String(coord).split('·')[0];if(gh&&gh.length>1){try{lat=geohashDecode(gh).lat;}catch{}}} let seasonStr=null; if(lat!==null&&epochTs)seasonStr=season(new Date(epochTs).getMonth(),lat); const bits=[]; if(isMoon){if(moonName)bits.push(moonName);if(moonPct!==null)bits.push(moonPct+'%');if(tide)bits.push(tide);}else{if(wmo){const sw=seasonStr?wmo+' '+seasonStr:wmo;bits.push('a '+sw+(tod?' '+tod:''));}if(temp)bits.push(temp);if(wind&&wind!=='calm')bits.push(wind);} if(lat!==null)bits.push(latBand(lat)); const dateStr=bornDate(coord);if(dateStr)bits.push(dateStr); return bits.length?bits.join(' · '):null; }
@@ -741,6 +737,7 @@ function moonPhase(when = Date.now()) {
   return { frac, illuminated: Math.round(illum * 100), name };
 }
 function tideFromPhase(frac) {
+  // Syzygy (new/full moon) drives spring tides; quadrature (quarter moons) drives neaps.
   const phaseDist = point => { const d = Math.abs(frac - point); return Math.min(d, 1 - d); };
   const syzygy = Math.min(phaseDist(0), phaseDist(0.5));
   const quadrature = Math.min(phaseDist(0.25), phaseDist(0.75));
@@ -787,7 +784,8 @@ function momentToGenome(datum) {
   const glow = illuminated != null ? clamp(illuminated / 100 * 0.9, 0.1, 0.9) : weathercode != null && weathercode === 0 ? 0.65 : weathercode != null && weathercode <= 3 ? 0.4 : 0.2;
   const pattern = weathercode != null && weathercode >= 80 ? 'stripe' : weathercode != null && weathercode >= 51 ? 'spot' : glow > 0.5 ? 'glow' : 'solid';
   const surface = { role: 'surface', k: 60, palette, pattern, glow, opacity: isDay ? 0.9 : 0.75 };
-  const tideStrength = illuminated != null && tide ? clamp(tide.strength || 0, 0, 1) : 0;
+  const hasTideData = tide && illuminated != null;
+  const tideStrength = hasTideData ? clamp(tide.strength || 0, 0, 1) : 0;
   const spring = tide && tide.kind === 'spring';
   const moonDrift = 0.08 + (spring ? 0.22 * tideStrength : 0.03 * (1 - tideStrength));
   const moonReach = spring ? 0.18 + tideStrength * 0.48 : 0.02 + (1 - tideStrength) * 0.06;
