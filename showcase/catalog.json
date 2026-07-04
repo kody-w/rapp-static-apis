@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 46,
+  "count": 47,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -413,6 +413,35 @@
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/gravity-organ/demo.json",
       "builds_on": [],
       "weld": ""
+    },
+    {
+      "slug": "nobody-drew-this-alone",
+      "channel": "social",
+      "rank": null,
+      "emoji": "🧟",
+      "title": "Nobody Drew This Alone",
+      "tagline": "See only the last inch of a stranger's drawing, continue it blind, then reveal the chimera.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "social",
+        "drawing",
+        "issues",
+        "canvas",
+        "collab"
+      ],
+      "primitives": [
+        "canvas 2D",
+        "pointer events",
+        "../../lib/issues-db.mjs"
+      ],
+      "url": "demos/nobody-drew-this-alone/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/nobody-drew-this-alone/demo.json",
+      "builds_on": [
+        "the-tank",
+        "the-reunion"
+      ],
+      "weld": "Uses The Tank's no-backend issue-backed shared state, then applies The Reunion's additive preserve-every-contribution logic so each blind segment permanently joins a stitched creature."
     },
     {
       "slug": "only-in-the-same-frame",

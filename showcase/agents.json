@@ -70,7 +70,7 @@
       "slug": "social",
       "title": "Social",
       "blurb": "Collaborative, no backend — shared canvases, tanks, walls and stories built on GitHub Issues.",
-      "count": 1
+      "count": 2
     }
   ],
   "scenarios": [
@@ -333,6 +333,25 @@
       "weld": "",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/gravity-organ/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/gravity-organ/"
+    },
+    {
+      "slug": "nobody-drew-this-alone",
+      "channel": "social",
+      "title": "Nobody Drew This Alone",
+      "when_to_use": "When you need: no-backend collaborative creation where each participant contributes a partial view and the final artifact is append-only shared state.",
+      "primitives": [
+        "canvas 2D",
+        "pointer events",
+        "../../lib/issues-db.mjs"
+      ],
+      "status": "live",
+      "builds_on": [
+        "the-tank",
+        "the-reunion"
+      ],
+      "weld": "Uses The Tank's no-backend issue-backed shared state, then applies The Reunion's additive preserve-every-contribution logic so each blind segment permanently joins a stitched creature.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/nobody-drew-this-alone/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/nobody-drew-this-alone/"
     },
     {
       "slug": "only-in-the-same-frame",

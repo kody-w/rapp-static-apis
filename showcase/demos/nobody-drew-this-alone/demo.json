@@ -1,0 +1,19 @@
+{
+  "slug": "nobody-drew-this-alone",
+  "channel": "social",
+  "rank": null,
+  "emoji": "🧟",
+  "title": "Nobody Drew This Alone",
+  "tagline": "See only the last inch of a stranger's drawing, continue it blind, then reveal the chimera.",
+  "holy_shit": "You only see the tail-end of someone else's line, add your own blind continuation, and the final creature is a permanent multi-hand chimera no one ever saw whole while drawing.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["social", "drawing", "issues", "canvas", "collab"],
+  "primitives": ["canvas 2D", "pointer events", "../../lib/issues-db.mjs"],
+  "powered_by": "Issue-backed drawing fragments stitched client-side into an append-only shared chimera",
+  "builds_on": ["the-tank", "the-reunion"],
+  "weld": "Uses The Tank's no-backend issue-backed shared state, then applies The Reunion's additive preserve-every-contribution logic so each blind segment permanently joins a stitched creature.",
+  "agent_scenario": "When you need: no-backend collaborative creation where each participant contributes a partial view and the final artifact is append-only shared state.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-04"
+}
