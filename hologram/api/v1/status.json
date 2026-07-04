@@ -1,0 +1,31 @@
+{
+  "schema": "rapp-static-hologram-status/1.0",
+  "generated": "2026-07-04T02:47:42Z",
+  "summary": {
+    "cartridges": 3,
+    "versions": 3
+  },
+  "cartridges": [
+    {
+      "name": "arachne",
+      "id": "ce682ee99472",
+      "title": "Arachne",
+      "author": "@kody-w",
+      "bytes": 974
+    },
+    {
+      "name": "lumina",
+      "id": "d45a79d29e99",
+      "title": "Lumina",
+      "author": "@kody-w",
+      "bytes": 966
+    },
+    {
+      "name": "vex",
+      "id": "69728a0ddad7",
+      "title": "Vex",
+      "author": "@kody-w",
+      "bytes": 1063
+    }
+  ]
+}
