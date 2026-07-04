@@ -4,22 +4,21 @@
 # Same shape as brainstem.py: each agent = a BasicAgent subclass with name/metadata/perform()/to_tool()/system_context().
 import sys, types, json, traceback
 
-try:
-    import js            # Pyodide: the browser's JS scope
-    _LS = js.localStorage
-except Exception:
-    _LS = None
-_MEM = {}                # fallback store if no localStorage (e.g. local test)
-def _get(k):
-    if _LS is not None:
-        v = _LS.getItem(k); return v if v is not None else None
-    return _MEM.get(k)
-def _set(k, v):
-    if _LS is not None: _LS.setItem(k, v)
-    else: _MEM[k] = v
-def _del(k):
-    if _LS is not None: _LS.removeItem(k)
-    else: _MEM.pop(k, None)
+# Storage lives in this in-cell dict. The sandboxed (opaque-origin) Pyodide cell CANNOT touch the page's
+# localStorage, so the host seeds this from localStorage before an agent runs and dumps it back after.
+_MEM = {}
+def _get(k): return _MEM.get(k)
+def _set(k, v): _MEM[k] = v
+def _del(k): _MEM.pop(k, None)
+def seed_store(json_str):
+    try:
+        d = json.loads(json_str)
+        if isinstance(d, dict): _MEM.update(d)
+        return {"seeded": len(_MEM)}
+    except Exception as e:
+        return {"error": str(e)}
+def dump_store():
+    return dict(_MEM)
 
 # --- drop-in for AzureFileStorageManager, persisting to localStorage (shared key space with vBrainstem) ---
 class AzureFileStorageManager:
