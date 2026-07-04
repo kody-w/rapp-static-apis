@@ -1,9 +1,9 @@
 {
   "schema": "rapp-static-hologram-status/1.0",
-  "generated": "2026-07-04T04:04:34Z",
+  "generated": "2026-07-04T04:08:34Z",
   "summary": {
-    "cartridges": 16,
-    "versions": 16
+    "cartridges": 17,
+    "versions": 17
   },
   "cartridges": [
     {
@@ -12,6 +12,13 @@
       "title": "Arachne",
       "author": "@kody-w",
       "bytes": 975
+    },
+    {
+      "name": "cross-gen2",
+      "id": "887299b58715",
+      "title": "Ushuaia × Dubai × Mumbai",
+      "author": "@kody-w",
+      "bytes": 1108
     },
     {
       "name": "cross-ushuaia-dubai",

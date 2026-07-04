@@ -1,0 +1,60 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "887299b58715",
+  "title": "Ushuaia × Dubai × Mumbai",
+  "author": "@kody-w",
+  "born": {
+    "coord": "cross:115ad752c1e9×57dbafc4a71a",
+    "from": "a cross of Ushuaia × Dubai and Mumbai sky"
+  },
+  "parents": [
+    "115ad752c1e9",
+    "57dbafc4a71a"
+  ],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 29,
+        "shape": "ring",
+        "limbs": 1,
+        "segments": 4,
+        "symmetry": "radial",
+        "body_r": 0.239,
+        "limb_len": 0.272
+      },
+      {
+        "role": "surface",
+        "k": 14,
+        "palette": [
+          "#dbd524",
+          "#eee84f",
+          "#cdec79",
+          "#726f1d"
+        ],
+        "pattern": "solid",
+        "glow": 0.53,
+        "opacity": 0.95
+      },
+      {
+        "role": "motion",
+        "k": 42.25,
+        "breathe": 0.27,
+        "drift": 0.211,
+        "pulse": 0.525,
+        "reach": 0.35
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}
