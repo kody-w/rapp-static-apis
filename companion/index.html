@@ -48,10 +48,30 @@
  #ptt.speaking{background:#15351f;border-color:var(--good);color:#c9f5d6}
  #ptt:disabled{opacity:.45;cursor:default}
  .ptt-hint{font-size:11.5px;color:var(--muted);text-align:center;margin:0 0 8px}
+ /* FaceTime-style call mode */
+ #go-call{margin-left:auto;align-self:center;background:#12365e;border:1px solid #2f6bb0;color:#cfe6ff;border-radius:999px;padding:7px 15px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+ #go-call:hover{border-color:var(--accent)} #go-call:disabled{opacity:.4;cursor:default}
+ #call{position:fixed;inset:0;z-index:100;display:none;background:#05080e}
+ body.in-call{overflow:hidden} body.in-call .wrap{display:none} body.in-call #call{display:block}
+ #call-creature{position:absolute;inset:0;width:100%;height:100%;border:0;background:#05080e}
+ #call-chrome{position:absolute;inset:0;pointer-events:none}
+ #call-top{position:absolute;top:0;left:0;right:0;padding:max(16px,env(safe-area-inset-top)) 16px 26px;display:flex;flex-direction:column;align-items:center;gap:2px;background:linear-gradient(#000b,transparent);color:#fff;text-shadow:0 1px 5px #000c}
+ #call-name{font-size:20px;font-weight:600;letter-spacing:.2px} #call-sub{font-size:13px;color:#bfe3ff;font-variant-numeric:tabular-nums;opacity:.95}
+ #selfcam{position:absolute;top:max(78px,calc(env(safe-area-inset-top) + 66px));right:14px;width:92px;height:126px;border-radius:16px;object-fit:cover;transform:scaleX(-1);background:#0c1016;border:1.5px solid #ffffff33;box-shadow:0 6px 20px #000a;pointer-events:auto;z-index:3}
+ #selfcam.off{display:none}
+ #call-caption{position:absolute;left:0;right:0;bottom:calc(132px + env(safe-area-inset-bottom));text-align:center;padding:0 26px;color:#fff;font-size:16.5px;line-height:1.35;text-shadow:0 1px 6px #000d;opacity:0;transition:opacity .25s;pointer-events:none}
+ #call-caption.show{opacity:1}
+ #call-hint{position:absolute;left:0;right:0;bottom:calc(100px + env(safe-area-inset-bottom));text-align:center;color:#ffffff8c;font-size:12px;text-shadow:0 1px 4px #000;pointer-events:none}
+ #call-tray{position:absolute;left:0;right:0;bottom:0;padding:16px 16px max(18px,env(safe-area-inset-bottom));display:flex;justify-content:center;align-items:center;gap:22px;background:linear-gradient(transparent,#000c);pointer-events:none}
+ #call-tray button{pointer-events:auto;width:60px;height:60px;border-radius:50%;border:0;font-size:23px;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;background:#ffffff24;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);user-select:none;-webkit-user-select:none;touch-action:none}
+ #call-mic{width:80px!important;height:80px!important;font-size:30px!important;background:#ffffff33!important}
+ #call-mic.listening{background:#ff375f!important;animation:pulse .95s infinite}
+ #call-end{background:#ff3b30!important}#call-end span{display:block;transform:rotate(135deg)}
+ #call-end:active{filter:brightness(.85)}
 </style></head>
 <body>
 <div class="wrap">
- <header><h1 id="name">a companion</h1><span class="born" id="born"></span></header>
+ <header><h1 id="name">a companion</h1><span class="born" id="born"></span><button id="go-call" disabled>📞 Call</button></header>
 
  <div class="grid">
   <div class="stage"><iframe id="creature" title="the creature"></iframe><div class="hint">drag to look around</div></div>
@@ -68,6 +88,21 @@
 
  <div class="status"><span class="dot" id="dot"></span><span id="statusText">loading…</span></div>
  <div class="foot">Its mind is <b>real CPython</b>, cold-booted in a verified sandbox on your device — its whole self is the moment it was born. Its thinking and its voice run on-device; the mic uses your browser's own speech recognition. <span id="offnote"></span></div>
+</div>
+
+<div id="call" aria-hidden="true">
+ <iframe id="call-creature" title="the companion" allow="autoplay"></iframe>
+ <div id="call-chrome">
+  <div id="call-top"><div id="call-name">Companion</div><div id="call-sub">connecting…</div></div>
+  <video id="selfcam" autoplay playsinline muted></video>
+  <div id="call-caption"></div>
+  <div id="call-hint">hold the mic to talk · drag the screen to look around</div>
+  <div id="call-tray">
+   <button id="call-self" title="hide self view">👤</button>
+   <button id="call-mic" title="hold to talk">🎙️</button>
+   <button id="call-end" title="end call"><span>📞</span></button>
+  </div>
+ </div>
 </div>
 
 <script>
@@ -140,8 +175,11 @@ async function send(spoken){
  try{ reply=await ask(strToStdB64(text)); t.remove(); bubble('them',reply||'…',CART.title); }
  catch(e){ t.remove(); bubble('sys','(its mind flickered — '+(e.message||e)+')'); }
  thinking=false; $('send').disabled=false;
- if(voiceOn && reply) await speak(reply);   // it speaks its reply aloud, so you never look down
- setPtt('idle'); if(!voiceOn) $('say').focus();
+ if(inCall() && reply) showCaption(reply,true);      // subtitle over the "call"
+ if(voiceOn && reply) await speak(reply);            // it speaks its reply aloud, so you never look down
+ setPtt('idle');
+ if(inCall() && reply) showCaption(reply,false);     // let the subtitle fade
+ if(!voiceOn && !inCall()) $('say').focus();
 }
 
 // ---------- voice: it speaks, and you HOLD-TO-TALK (Web Speech API — browser-native, no CDN, no backend) ----------
@@ -155,12 +193,17 @@ function voiceParams(){ const g={}; ((CART&&CART.genome&&CART.genome.layers)||[]
 function pickVoice(){ if(!synth)return; const vs=synth.getVoices();
  chosenVoice = vs.find(v=>/^en/i.test(v.lang)&&/(google|natural|samantha|serena|daniel|karen|zira)/i.test(v.name)) || vs.find(v=>/^en/i.test(v.lang)) || vs[0] || null; }
 if(synth){ pickVoice(); synth.addEventListener&&synth.addEventListener('voiceschanged',pickVoice); }
-function setPtt(state,text){ const b=$('ptt'); if(!b)return;
- b.classList.toggle('listening',state==='listening'); b.classList.toggle('speaking',state==='speaking'||state==='thinking');
- b.textContent = state==='listening' ? ('● '+(text||'Listening… let go to send'))
+const inCall=()=>document.body.classList.contains('in-call');
+let _capT=null;
+function showCaption(text,hold){ const c=$('call-caption'); if(!c)return; c.textContent=text||''; c.classList.toggle('show',!!text); if(_capT){clearTimeout(_capT);_capT=null;} if(text&&!hold)_capT=setTimeout(()=>c.classList.remove('show'),4500); }
+function setPtt(state,text){ const b=$('ptt'), cm=$('call-mic');
+ [b,cm].forEach(x=>{ if(x) x.classList.toggle('listening',state==='listening'); });
+ if(b){ b.classList.toggle('speaking',state==='speaking'||state==='thinking');
+  b.textContent = state==='listening' ? ('● '+(text||'Listening… let go to send'))
    : state==='thinking' ? ((CART?CART.title:'it')+' is thinking…')
    : state==='speaking' ? ('🔊 '+(CART?CART.title:'…'))
    : '🎙️ Hold to talk'; }
+ if(inCall()){ if(state==='listening') showCaption('🎙 '+(text||'Listening…'),true); else if(state==='thinking') showCaption('…',true); } }
 function speak(text){ return new Promise(res=>{ if(!synth||!voiceOn||!text){res();return;}
  try{ synth.cancel(); const u=new SpeechSynthesisUtterance(text); const p=voiceParams(); u.rate=p.rate; u.pitch=p.pitch; if(chosenVoice)u.voice=chosenVoice;
   speaking=true; setPtt('speaking'); u.onend=u.onerror=()=>{ speaking=false; res(); }; synth.speak(u);
@@ -185,6 +228,7 @@ async function main(){
  $('born').textContent='· born under '+humanBorn(CART);
  $('creature').src='./player.html#'+b64url(JSON.stringify(CART));
  document.title=(CART.title||'Companion')+' — companion';
+ $('go-call').disabled=false;   // the FaceTime-style call view is available as soon as the creature loads
 
  setStatus('waking its mind — cold-booting CPython in a verified cell (first time downloads Pyodide)…','work');
  let brainSrc;
@@ -225,6 +269,38 @@ _ptt.addEventListener('pointerup',pttEnd);
 _ptt.addEventListener('pointercancel',pttEnd);
 _ptt.addEventListener('lostpointercapture',pttEnd);
 _ptt.addEventListener('contextmenu',e=>e.preventDefault());
+
+// ---------- FaceTime-style call view: full-screen creature, self-view, tray, hang up ----------
+let _callTimer=null,_callSecs=0,_selfStream=null;
+function _updTimer(){ const m=Math.floor(_callSecs/60),s=_callSecs%60; const el=$('call-sub'); if(el) el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0'); }
+function enterCall(){ if(!CART) return;
+ document.body.classList.add('in-call'); $('call').setAttribute('aria-hidden','false');
+ $('call-name').textContent=CART.title||'Companion'; $('call-sub').textContent='connecting…';
+ $('call-creature').src='./player.html#'+b64url(JSON.stringify(CART));
+ voiceOn=true; _callSecs=0;
+ if(_callTimer)clearInterval(_callTimer); _callTimer=setInterval(()=>{_callSecs++;_updTimer();},1000); setTimeout(_updTimer,900);
+ // self-view: your front camera, shown locally only — never sent anywhere
+ if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){
+  navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false}).then(s=>{ _selfStream=s; $('selfcam').srcObject=s; $('selfcam').classList.remove('off'); }).catch(()=>{ $('selfcam').classList.add('off'); });
+ } else $('selfcam').classList.add('off');
+ // it "answers": speak + caption the latest thing it said
+ const last=[...document.querySelectorAll('.msg.them')].pop();
+ if(last){ const w=last.querySelector('.who'); const txt=last.textContent.slice(w?w.textContent.length:0).trim();
+  if(txt){ showCaption(txt,true); Promise.resolve(speak(txt)).then(()=>{ if(inCall()) showCaption(txt,false); }); } }
+}
+function endCall(){ document.body.classList.remove('in-call'); $('call').setAttribute('aria-hidden','true');
+ if(_callTimer){clearInterval(_callTimer);_callTimer=null;}
+ if(_selfStream){ _selfStream.getTracks().forEach(t=>t.stop()); _selfStream=null; }
+ $('call-creature').src='about:blank'; if(synth)synth.cancel(); holding=false; if(recog){try{recog.stop();}catch(e){}} showCaption('',false); }
+$('go-call').onclick=enterCall;
+$('call-end').onclick=endCall;
+$('call-self').onclick=()=>$('selfcam').classList.toggle('off');
+const _cmic=$('call-mic');
+_cmic.addEventListener('pointerdown',e=>{ try{_cmic.setPointerCapture(e.pointerId);}catch(_){} pttStart(e); });
+_cmic.addEventListener('pointerup',pttEnd);
+_cmic.addEventListener('pointercancel',pttEnd);
+_cmic.addEventListener('lostpointercapture',pttEnd);
+_cmic.addEventListener('contextmenu',e=>e.preventDefault());
 main();
 </script>
 </body></html>
