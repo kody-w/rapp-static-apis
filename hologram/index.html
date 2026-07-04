@@ -72,7 +72,7 @@
  #btn-moon:hover{background:#0f2d45}
  #catch-hint{font-size:12px;color:#8b949e}
  #btn-catch-geo{display:none}
-#inp-date{flex:none;width:130px}
+#inp-date{flex:none;min-width:130px}
 #btn-catch-date,#btn-date-geo{background:#1a2235;border:1px solid #3a5070;color:#7cc0e8}
 #btn-catch-date:hover,#btn-date-geo:hover{filter:brightness(1.1)}
 </style></head><body>
@@ -305,7 +305,8 @@ function windWord(kmh) { return kmh < 5 ? 'calm' : kmh < 20 ? 'breeze' : kmh < 4
 function geohashDecode(hash) { const B='0123456789bcdefghjkmnpqrstuvwxyz'; let even=true; const lat=[-90,90],lon=[-180,180]; for(let i=0;i<hash.length;i++){const v=B.indexOf(hash[i]);if(v<0)break;for(let b=4;b>=0;b--){const r=even?lon:lat,mid=(r[0]+r[1])/2;if((v>>b)&1)r[0]=mid;else r[1]=mid;even=!even;}} return{lat:(lat[0]+lat[1])/2,lon:(lon[0]+lon[1])/2}; }
 function season(month,lat) { if(Math.abs(lat)<15)return null; const n=month<=1||month===11?'winter':month<=4?'spring':month<=7?'summer':'autumn'; return lat<-15?{winter:'summer',summer:'winter',spring:'autumn',autumn:'spring'}[n]:n; }
 function latBand(lat) { return 'near '+Math.round(Math.abs(lat))+'\u00b0'+(lat<0?'S':'N'); }
-function relativeTime(ts) { const d=new Date(ts),now=Date.now(),ms=now-ts,hr=ms/3.6e6,dy=ms/8.64e7; if(ms<5*60000)return'just now'; if(hr<6)return'earlier today'; if(hr<36)return'last night'; if(dy<2)return'yesterday'; if(dy<10)return Math.floor(dy)+' days ago'; const ann=new Date(d);ann.setFullYear(ann.getFullYear()+1);if(Math.abs(now-ann.getTime())<7*8.64e7)return'a year ago today \u2726'; const mo=['January','February','March','April','May','June','July','August','September','October','November','December']; if(dy<50)return'last '+mo[d.getMonth()]; const sn=month=>(month<=1||month===11?'winter':month<=4?'spring':month<=7?'summer':'autumn'); if(dy<330)return'last '+sn(d.getMonth()); const ms_=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return d.getDate()+' '+ms_[d.getMonth()]+' '+d.getFullYear(); }
+const _MO_ABR = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function relativeTime(ts) { const d=new Date(ts),now=Date.now(),ms=now-ts,hr=ms/3.6e6,dy=ms/8.64e7; if(ms<5*60000)return'just now'; if(hr<6)return'earlier today'; if(hr<36)return'last night'; if(dy<2)return'yesterday'; if(dy<10)return Math.floor(dy)+' days ago'; const ann=new Date(d);ann.setFullYear(ann.getFullYear()+1);if(Math.abs(now-ann.getTime())<7*8.64e7)return'a year ago today \u2726'; const mo=['January','February','March','April','May','June','July','August','September','October','November','December']; if(dy<50)return'last '+mo[d.getMonth()]; const sn=month=>(month<=1||month===11?'winter':month<=4?'spring':month<=7?'summer':'autumn'); if(dy<330)return'last '+sn(d.getMonth()); return d.getDate()+' '+_MO_ABR[d.getMonth()]+' '+d.getFullYear(); }
 function bornDate(coord) { if(!coord)return null; const m=String(coord).match(/\u00b7(\d{10,})/); if(!m)return null; const ts=parseInt(m[1]); const d=new Date(ts); if(isNaN(d.getTime()))return null; return relativeTime(ts); }
 function momentPhrase(from,coord) { if(!from)return null; const isMoon=from.startsWith('moon '),isWeather=from.startsWith('live '); if(!isWeather&&!isMoon)return null; let temp='',wmo='',wind='',tod='',moonPct=null,moonName=''; if(isWeather){const parts=from.split(' \u00b7 ');for(const p of parts){if(p.startsWith('live ')){temp=p.replace(/^live\s+/,'').replace('\u00b0C','\u00b0');}else if(p.startsWith('code ')){const n=parseInt(p.slice(5)),w=wmoWord(n);wmo=w!==null?w:p;}else if(p.startsWith('wind ')){const n=parseInt(p.slice(5));wind=windWord(n);}else if(p==='day'||p==='night'){tod=p;}}} if(isMoon){const parts=from.split(' \u00b7 ');for(const p of parts){if(p==='moon')continue;else if(/^\d+$/.test(p))moonPct=parseInt(p);else if(p)moonName=p;}} let lat=null,epochTs=null; if(coord&&!coord.startsWith('cross:')&&coord!=='0,0'){const em=String(coord).match(/\u00b7(\d{10,})/);if(em)epochTs=parseInt(em[1]);const gh=String(coord).split('\u00b7')[0];if(gh&&gh.length>1){try{lat=geohashDecode(gh).lat;}catch{}}} let seasonStr=null; if(lat!==null&&epochTs)seasonStr=season(new Date(epochTs).getMonth(),lat); const bits=[]; if(isMoon){if(moonName)bits.push(moonName);if(moonPct!==null)bits.push(moonPct+'%');}else{if(wmo){const sw=seasonStr?wmo+' '+seasonStr:wmo;bits.push('a '+sw+(tod?' '+tod:''));}if(temp)bits.push(temp);if(wind&&wind!=='calm')bits.push(wind);} if(lat!==null)bits.push(latBand(lat)); const dateStr=bornDate(coord);if(dateStr)bits.push(dateStr); return bits.length?bits.join(' \u00b7 '):null; }
 function buildWhyLine(cart) {
@@ -855,8 +856,7 @@ document.getElementById('btn-catch-date').onclick = async () => {
     const id = await genomeId(genome);
     const coord = '\u00b7' + when;
     const d = new Date(when);
-    const MOS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const dateLabel = d.getDate() + ' ' + MOS[d.getMonth()] + ' ' + d.getFullYear();
+    const dateLabel = d.getDate() + ' ' + _MO_ABR[d.getMonth()] + ' ' + d.getFullYear();
     const cart = {
       schema: 'hologram-cartridge/1.0', id,
       title: 'Sky of ' + dateLabel,
@@ -895,9 +895,8 @@ document.getElementById('btn-date-geo').onclick = async () => {
     const id = await genomeId(genome);
     const gh = geohashEncode(lat, lng);
     const coord = gh + '\u00b7' + _dateChosenWhen;
-    const MOS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     const dd = new Date(_dateChosenWhen);
-    const dateLabel = dd.getDate() + ' ' + MOS[dd.getMonth()] + ' ' + dd.getFullYear();
+    const dateLabel = dd.getDate() + ' ' + _MO_ABR[dd.getMonth()] + ' ' + dd.getFullYear();
     const sky = wmoWord(weathercode) || '';
     const fromStr = `live ${temp !== null ? temp : '?'}\u00b0C \u00b7 code ${weathercode ?? '?'} \u00b7 wind ${Math.round(wind)} \u00b7 day`;
     const cart = {
