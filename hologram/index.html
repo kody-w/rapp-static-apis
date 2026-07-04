@@ -1,5 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
 <title>rapp-static-hologram — hologram organism gallery</title>
 <style>
  body{font-family:-apple-system,system-ui,Segoe UI,sans-serif;max-width:860px;margin:40px auto;padding:0 16px;background:#0d1117;color:#e6edf3;line-height:1.5}
@@ -43,6 +44,7 @@
  #breed-lin a{color:#58a6ff}
  #breed-actions{display:flex;gap:8px;flex-wrap:wrap}
  #breed-hash{font-size:11px;color:#6e7681;font-family:ui-monospace,Menlo,monospace;margin-top:8px}
+ .lineage-btn{padding:3px 8px;font-size:11px;border-radius:999px}
  #kept-strip{margin-top:16px;margin-bottom:4px}
  #kept-strip h2{font-size:13px;font-weight:700;margin:0 0 8px;color:#e6edf3;display:flex;align-items:center;gap:10px}
  #kept-strip h2 a{font-size:12px;font-weight:400;color:#58a6ff}
@@ -50,6 +52,20 @@
  #adopted-strip h2{font-size:13px;font-weight:700;margin:0 0 8px;color:#e6edf3}
  .card-adopted{border-color:#388bfd}
  .card-why{font-size:10px;color:#6e7681;margin-top:3px;line-height:1.4}
+ #pedigree-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(1,4,9,.78);z-index:40;padding:20px}
+ #pedigree-modal.show{display:flex}
+ #pedigree-sheet{width:min(1000px,100%);max-height:100%;display:flex;flex-direction:column;background:#161b22;border:1px solid #30363d;border-radius:16px;box-shadow:0 24px 80px rgba(0,0,0,.45);overflow:hidden}
+ #pedigree-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid #30363d}
+ #pedigree-title{font-size:14px;font-weight:700}
+ #pedigree-wrap{position:relative;overflow:auto;padding:18px;background:linear-gradient(180deg,#0c131d,#090d14)}
+ #pedigree-stage{position:relative;min-width:100%;min-height:260px}
+ #pedigree-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+ .pedigree-node{position:absolute;width:180px;border:1px solid #30363d;border-radius:14px;background:#161b22;overflow:hidden;color:inherit;text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.24)}
+ .pedigree-node:hover{border-color:#58a6ff}
+ .pedigree-node canvas{width:100%;display:block;aspect-ratio:1;background:#010409}
+ .pedigree-node-body{padding:10px 12px}
+ .pedigree-node-title{font-weight:700;font-size:13px;margin:0 0 3px}
+ .pedigree-node-meta{font-size:11px;color:#8b949e;line-height:1.4}
  /* ── Catch bar ─────────────────────────────────────────────────────────── */
  #catch-bar{margin:8px 0 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
  #btn-moon{background:#0d2235;border:1px solid #4a6e8a;color:#7cc0e8}
@@ -97,6 +113,7 @@
    <button id="breed-dl">↓ download .egg</button>
    <button id="breed-copy">copy keepsake link</button>
    <button id="breed-keep">🧺 Keep</button>
+   <button class="alt lineage-btn" id="breed-lineage" style="display:none" type="button">🌳 lineage</button>
    <button class="alt" id="breed-reset">× reset</button>
   </div>
   <div id="breed-hash"></div>
@@ -123,6 +140,21 @@
  <a href="registry.json">registry.json</a> · <a href="api/v1/status.json">status.json</a>
 </p>
 
+<div id="pedigree-modal" aria-hidden="true">
+ <div id="pedigree-sheet">
+  <div id="pedigree-head">
+   <div id="pedigree-title">🌳 lineage</div>
+   <button class="alt" id="pedigree-close" type="button">close</button>
+  </div>
+  <div id="pedigree-wrap">
+   <div id="pedigree-stage">
+    <canvas id="pedigree-lines"></canvas>
+    <div id="pedigree-nodes"></div>
+   </div>
+  </div>
+ </div>
+</div>
+
 <script type="module">
 const TAU = Math.PI * 2;
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
@@ -142,6 +174,7 @@ function rotX(p, a) { const c = Math.cos(a), s = Math.sin(a); return { x: p.x, y
 function rotY(p, a) { const c = Math.cos(a), s = Math.sin(a); return { x: p.x * c + p.z * s, y: p.y, z: -p.x * s + p.z * c }; }
 function rotZ(p, a) { const c = Math.cos(a), s = Math.sin(a); return { x: p.x * c - p.y * s, y: p.x * s + p.y * c, z: p.z }; }
 function transformPoint(p, tf) { let q = { x: p.x * tf.scale.x, y: p.y * tf.scale.y, z: p.z * tf.scale.z }; q = rotX(q, tf.rot.x); q = rotY(q, tf.rot.y); q = rotZ(q, tf.rot.z); return V3.add(q, tf.pos); }
+function rotateVector(p, rot) { let q = rotX(p, rot.x); q = rotY(q, rot.y); q = rotZ(q, rot.z); return q; }
 function parseHex(hex) { if (!hex || hex[0] !== '#') return { r: 68, g: 136, b: 255 }; const s = hex.length === 4 ? '#' + hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3] : hex; return { r: parseInt(s.slice(1, 3), 16), g: parseInt(s.slice(3, 5), 16), b: parseInt(s.slice(5, 7), 16) }; }
 function colorCss(c, a = 1) { return `rgba(${clamp(Math.round(c.r), 0, 255)},${clamp(Math.round(c.g), 0, 255)},${clamp(Math.round(c.b), 0, 255)},${clamp(a, 0, 1).toFixed(3)})`; }
 function mixColor(a, b, t) { return { r: lerp(a.r, b.r, t), g: lerp(a.g, b.g, t), b: lerp(a.b, b.b, t) }; }
@@ -160,13 +193,14 @@ function patternSample(pattern, palette, u, v, w, pulse, part = 'body') {
     default: return { color: mixColor(base, hi, 0.15), emissive: 0.04 };
   }
 }
-function pushFace(faces, pts, fill, alpha) { faces.push({ pts, fill, alpha }); }
-function pushQuad(faces, a, b, c, d, fill, alpha) { pushFace(faces, [a, b, c], fill, alpha); pushFace(faces, [a, c, d], fill, alpha); }
+function analyticNormal(tf, dirs) { let n = dirs.reduce((acc, d) => V3.add(acc, d), vec(0, 0, 0)); if (Math.hypot(n.x, n.y, n.z) < 1e-6) n = dirs[0] || vec(0, 1, 0); n = V3.norm(n); if (tf) n = V3.norm(rotateVector(n, tf.rot)); return n; }
+function pushFace(faces, pts, fill, alpha, normal = null) { faces.push({ pts, fill, alpha, normal }); }
+function pushQuad(faces, a, b, c, d, fill, alpha, normal = null) { pushFace(faces, [a, b, c], fill, alpha, normal); pushFace(faces, [a, c, d], fill, alpha, normal); }
 function addBox(faces, center, sx, sy, sz, fill, alpha = 1, tf = null) { const hx = sx / 2, hy = sy / 2, hz = sz / 2; let pts = [vec(-hx, -hy, -hz), vec(hx, -hy, -hz), vec(hx, hy, -hz), vec(-hx, hy, -hz), vec(-hx, -hy, hz), vec(hx, -hy, hz), vec(hx, hy, hz), vec(-hx, hy, hz)].map(p => V3.add(p, center)); if (tf) pts = pts.map(p => transformPoint(p, tf)); [[0, 1, 2, 3], [4, 7, 6, 5], [0, 4, 5, 1], [1, 5, 6, 2], [2, 6, 7, 3], [4, 0, 3, 7]].forEach(q => pushQuad(faces, pts[q[0]], pts[q[1]], pts[q[2]], pts[q[3]], fill, alpha)); }
-function addSphere(faces, center, rx, ry, rz, latSteps, lonSteps, fillFn, alpha = 1, tf = null) { const latN = Math.max(4, latSteps), lonN = Math.max(6, lonSteps); const P = (la, lo) => { const a = -Math.PI / 2 + la * Math.PI, b = lo * TAU, c = Math.cos(a); return { p: vec(center.x + Math.cos(b) * c * rx, center.y + Math.sin(a) * ry, center.z + Math.sin(b) * c * rz), u: Math.cos(b) * c, v: Math.sin(a), w: Math.sin(b) * c }; }; for (let i = 0; i < latN; i++) for (let j = 0; j < lonN; j++) { const p00 = P(i / latN, j / lonN), p01 = P(i / latN, (j + 1) / lonN), p10 = P((i + 1) / latN, j / lonN), p11 = P((i + 1) / latN, (j + 1) / lonN); const pts = [p00.p, p01.p, p11.p, p10.p].map(p => tf ? transformPoint(p, tf) : p); const fill = fillFn((p00.u + p01.u + p10.u + p11.u) / 4, (p00.v + p01.v + p10.v + p11.v) / 4, (p00.w + p01.w + p10.w + p11.w) / 4); pushQuad(faces, pts[0], pts[1], pts[2], pts[3], fill, alpha); } }
-function addStarBody(faces, center, size, latSteps, lonSteps, spikes, fillFn, alpha = 1, tf = null) { const latN = Math.max(5, latSteps), lonN = Math.max(7, lonSteps), freq = Math.max(4, spikes); const P = (la, lo) => { const a = -Math.PI / 2 + la * Math.PI, b = lo * TAU, c = Math.cos(a), spike = 1 + 0.28 * Math.max(0, Math.sin(b * freq) * Math.pow(c, 0.65)) + 0.1 * Math.sin((a + Math.PI / 2) * Math.max(3, Math.round(freq / 2))); return { p: vec(center.x + Math.cos(b) * c * size * 0.85 * spike, center.y + Math.sin(a) * size * 0.72 * (1 + 0.08 * Math.cos(b * freq * 0.5)), center.z + Math.sin(b) * c * size * 0.85 * spike), u: Math.cos(b) * c * spike, v: Math.sin(a), w: Math.sin(b) * c * spike }; }; for (let i = 0; i < latN; i++) for (let j = 0; j < lonN; j++) { const p00 = P(i / latN, j / lonN), p01 = P(i / latN, (j + 1) / lonN), p10 = P((i + 1) / latN, j / lonN), p11 = P((i + 1) / latN, (j + 1) / lonN); const pts = [p00.p, p01.p, p11.p, p10.p].map(p => tf ? transformPoint(p, tf) : p); const fill = fillFn((p00.u + p01.u + p10.u + p11.u) / 4, (p00.v + p01.v + p10.v + p11.v) / 4, (p00.w + p01.w + p10.w + p11.w) / 4); pushQuad(faces, pts[0], pts[1], pts[2], pts[3], fill, alpha); } }
-function addTorus(faces, center, majorR, minorR, segU, segV, fillFn, alpha = 1, tf = null) { const su = Math.max(8, segU), sv = Math.max(6, segV); const P = (u, v) => { const a = u * TAU, b = v * TAU, ring = majorR + Math.cos(b) * minorR; return { p: vec(center.x + Math.cos(a) * ring, center.y + Math.sin(b) * minorR, center.z + Math.sin(a) * ring), u: Math.cos(a), v: Math.sin(b), w: Math.sin(a) }; }; for (let i = 0; i < su; i++) for (let j = 0; j < sv; j++) { const p00 = P(i / su, j / sv), p01 = P(i / su, (j + 1) / sv), p10 = P((i + 1) / su, j / sv), p11 = P((i + 1) / su, (j + 1) / sv); const pts = [p00.p, p10.p, p11.p, p01.p].map(p => tf ? transformPoint(p, tf) : p); const fill = fillFn((p00.u + p01.u + p10.u + p11.u) / 4, (p00.v + p01.v + p10.v + p11.v) / 4, (p00.w + p01.w + p10.w + p11.w) / 4); pushQuad(faces, pts[0], pts[1], pts[2], pts[3], fill, alpha); } }
-function addCylinder(faces, from, to, r0, r1, steps, fillFn, alpha = 1, cap0 = true, cap1 = false) { const axis = V3.norm(V3.sub(to, from)); const ref = Math.abs(axis.y) < 0.92 ? vec(0, 1, 0) : vec(1, 0, 0); const side = V3.norm(V3.cross(ref, axis)); const up = V3.norm(V3.cross(axis, side)); const rings0 = [], rings1 = [], n = Math.max(5, steps); for (let i = 0; i < n; i++) { const a = (i / n) * TAU, c = Math.cos(a), s = Math.sin(a), off = V3.add(V3.scale(side, c), V3.scale(up, s)); rings0.push(V3.add(from, V3.scale(off, r0))); rings1.push(V3.add(to, V3.scale(off, r1))); } for (let i = 0; i < n; i++) { const j = (i + 1) % n, fill = fillFn(i / n, 0, j / n); pushQuad(faces, rings0[i], rings0[j], rings1[j], rings1[i], fill, alpha); if (cap0 && r0 > 0.001) pushFace(faces, [from, rings0[j], rings0[i]], fill, alpha); if (cap1 && r1 > 0.001) pushFace(faces, [to, rings1[i], rings1[j]], fill, alpha); } }
+function addSphere(faces, center, rx, ry, rz, latSteps, lonSteps, fillFn, alpha = 1, tf = null) { const latN = Math.max(4, latSteps), lonN = Math.max(6, lonSteps); const P = (la, lo) => { const a = -Math.PI / 2 + la * Math.PI, b = lo * TAU, c = Math.cos(a); return { p: vec(center.x + Math.cos(b) * c * rx, center.y + Math.sin(a) * ry, center.z + Math.sin(b) * c * rz), u: Math.cos(b) * c, v: Math.sin(a), w: Math.sin(b) * c }; }; for (let i = 0; i < latN; i++) for (let j = 0; j < lonN; j++) { const p00 = P(i / latN, j / lonN), p01 = P(i / latN, (j + 1) / lonN), p10 = P((i + 1) / latN, j / lonN), p11 = P((i + 1) / latN, (j + 1) / lonN); const pts = [p00.p, p01.p, p11.p, p10.p].map(p => tf ? transformPoint(p, tf) : p); const fill = fillFn((p00.u + p01.u + p10.u + p11.u) / 4, (p00.v + p01.v + p10.v + p11.v) / 4, (p00.w + p01.w + p10.w + p11.w) / 4); const normal = analyticNormal(tf, [vec(p00.u, p00.v, p00.w), vec(p01.u, p01.v, p01.w), vec(p10.u, p10.v, p10.w), vec(p11.u, p11.v, p11.w)]); pushQuad(faces, pts[0], pts[1], pts[2], pts[3], fill, alpha, normal); } }
+function addStarBody(faces, center, size, latSteps, lonSteps, spikes, fillFn, alpha = 1, tf = null) { const latN = Math.max(5, latSteps), lonN = Math.max(7, lonSteps), freq = Math.max(4, spikes); const P = (la, lo) => { const a = -Math.PI / 2 + la * Math.PI, b = lo * TAU, c = Math.cos(a), spike = 1 + 0.28 * Math.max(0, Math.sin(b * freq) * Math.pow(c, 0.65)) + 0.1 * Math.sin((a + Math.PI / 2) * Math.max(3, Math.round(freq / 2))); return { p: vec(center.x + Math.cos(b) * c * size * 0.85 * spike, center.y + Math.sin(a) * size * 0.72 * (1 + 0.08 * Math.cos(b * freq * 0.5)), center.z + Math.sin(b) * c * size * 0.85 * spike), u: Math.cos(b) * c * spike, v: Math.sin(a), w: Math.sin(b) * c * spike }; }; for (let i = 0; i < latN; i++) for (let j = 0; j < lonN; j++) { const p00 = P(i / latN, j / lonN), p01 = P(i / latN, (j + 1) / lonN), p10 = P((i + 1) / latN, j / lonN), p11 = P((i + 1) / latN, (j + 1) / lonN); const pts = [p00.p, p01.p, p11.p, p10.p].map(p => tf ? transformPoint(p, tf) : p); const fill = fillFn((p00.u + p01.u + p10.u + p11.u) / 4, (p00.v + p01.v + p10.v + p11.v) / 4, (p00.w + p01.w + p10.w + p11.w) / 4); const normal = analyticNormal(tf, [vec(p00.u, p00.v, p00.w), vec(p01.u, p01.v, p01.w), vec(p10.u, p10.v, p10.w), vec(p11.u, p11.v, p11.w)]); pushQuad(faces, pts[0], pts[1], pts[2], pts[3], fill, alpha, normal); } }
+function addTorus(faces, center, majorR, minorR, segU, segV, fillFn, alpha = 1, tf = null) { const su = Math.max(8, segU), sv = Math.max(6, segV); const P = (u, v) => { const a = u * TAU, b = v * TAU, ring = majorR + Math.cos(b) * minorR; return { p: vec(center.x + Math.cos(a) * ring, center.y + Math.sin(b) * minorR, center.z + Math.sin(a) * ring), u: Math.cos(a), v: Math.sin(b), w: Math.sin(a) }; }; for (let i = 0; i < su; i++) for (let j = 0; j < sv; j++) { const p00 = P(i / su, j / sv), p01 = P(i / su, (j + 1) / sv), p10 = P((i + 1) / su, j / sv), p11 = P((i + 1) / su, (j + 1) / sv); const pts = [p00.p, p10.p, p11.p, p01.p].map(p => tf ? transformPoint(p, tf) : p); const fill = fillFn((p00.u + p01.u + p10.u + p11.u) / 4, (p00.v + p01.v + p10.v + p11.v) / 4, (p00.w + p01.w + p10.w + p11.w) / 4); const normal = analyticNormal(tf, [vec(p00.u, p00.v, p00.w), vec(p01.u, p01.v, p01.w), vec(p10.u, p10.v, p10.w), vec(p11.u, p11.v, p11.w)]); pushQuad(faces, pts[0], pts[1], pts[2], pts[3], fill, alpha, normal); } }
+function addCylinder(faces, from, to, r0, r1, steps, fillFn, alpha = 1, cap0 = true, cap1 = false) { const axis = V3.norm(V3.sub(to, from)); const ref = Math.abs(axis.y) < 0.92 ? vec(0, 1, 0) : vec(1, 0, 0); const side = V3.norm(V3.cross(ref, axis)); const up = V3.norm(V3.cross(axis, side)); const rings0 = [], rings1 = [], offs = [], n = Math.max(5, steps); for (let i = 0; i < n; i++) { const a = (i / n) * TAU, c = Math.cos(a), s = Math.sin(a), off = V3.add(V3.scale(side, c), V3.scale(up, s)); offs.push(off); rings0.push(V3.add(from, V3.scale(off, r0))); rings1.push(V3.add(to, V3.scale(off, r1))); } for (let i = 0; i < n; i++) { const j = (i + 1) % n, fill = fillFn(i / n, 0, j / n), normal = V3.norm(V3.add(offs[i], offs[j])); pushQuad(faces, rings0[i], rings0[j], rings1[j], rings1[i], fill, alpha, normal); if (cap0 && r0 > 0.001) pushFace(faces, [from, rings0[j], rings0[i]], fill, alpha); if (cap1 && r1 > 0.001) pushFace(faces, [to, rings1[i], rings1[j]], fill, alpha); } }
 function readGenome(genome, time) { const layers = genome.layers || [], compose = genome.compose || {}, windows = compose.windows || []; const winIdx = windows.length > 1 && compose.loop ? Math.floor(time / 1.8) % windows.length : 0; const active = new Set(windows[winIdx] || []); const byRole = {}; layers.forEach((l, i) => { if (!byRole[l.role] || active.has(i)) byRole[l.role] = l; }); const form = byRole.form || {}, surface = byRole.surface || {}, motion = byRole.motion || {}; const breathe = (motion.breathe || 0) * Math.sin(time * TAU * 0.65), pulseAmt = motion.pulse || 0, pulse = pulseAmt * (0.5 + 0.5 * Math.sin(time * TAU * Math.max(pulseAmt, 0.2) * 1.3)); return { form, surface: { palette: surface.palette || ['#4488ff', '#2255cc'], pattern: surface.pattern || 'solid', glow: surface.glow || 0, opacity: surface.opacity == null ? 1 : surface.opacity }, motion, size: (1.1 + (form.body_r || 0.25) * 2.7) * (1 + breathe * 0.18), limbLen: 0.5 + (form.limb_len || 0.3) * 2.6, segments: clamp(Math.round(form.segments || 6), 3, 14), limbs: clamp(Math.round(form.limbs || 0), 0, 14), pulse }; }
 function bodyTransform(spec, time) { const drift = spec.motion.drift || 0; return { pos: vec(0, drift * 0.12 * Math.cos(time * 0.6), 0), rot: vec(drift * 0.06 * Math.sin(time * 0.5), spec.motion.reach * 0.14 * Math.sin(time * 0.45), drift * 0.18 * Math.sin(time * 0.55)), scale: vec(1, 1, 1) }; }
 function buildCreatureFaces(spec, time) { const faces = [], { form, surface, motion, size, limbLen, limbs, segments, pulse } = spec, shape = form.shape || 'blob', symmetry = form.symmetry || 'radial', tf = bodyTransform(spec, time), bodyY = limbs > 0 ? Math.max(0.45, limbLen * 0.42) : 0.28; const bodyFill = (u, v, w) => patternSample(surface.pattern, surface.palette, u, v, w, pulse, 'body'), limbFill = (u, v, w) => patternSample(surface.pattern, surface.palette, u + 0.2, v, w, pulse, 'limb'), spikeFill = (u, v, w) => patternSample(surface.pattern, surface.palette, u, v, w, pulse, 'spike'), headFill = (u, v, w) => patternSample(surface.pattern, surface.palette, u + 0.1, v + 0.15, w, pulse, 'body');
@@ -185,7 +219,7 @@ function projectPoint(p, camera, w, h, focal) { const rel = V3.sub(p, camera.pos
 function shadeFace(color, diffuse, viewDot, emissive, palette) { const KEY = [1.0, 0.96, 0.88], FILL = [0.50, 0.58, 0.75]; const em = emissive || 0; const rim = Math.pow(1 - viewDot, 3) * 0.35; const rimTint = mixColor(paletteSample(palette, 0.5), { r: 255, g: 255, b: 255 }, 0.4); const channels = ['r', 'g', 'b']; const out = {}; for (let i = 0; i < 3; i++) { const ch = channels[i]; out[ch] = clamp(color[ch] * (FILL[i] * 0.30 + KEY[i] * (diffuse * 0.85)) + color[ch] * em * 0.5 + rimTint[ch] * rim, 0, 255); } return out; }
 function renderThumb(ctx, genome, time = 0.85) { const w = ctx.canvas.width, h = ctx.canvas.height; ctx.clearRect(0, 0, w, h); const bg = ctx.createLinearGradient(0, 0, 0, h); bg.addColorStop(0, '#07111b'); bg.addColorStop(0.55, '#04080f'); bg.addColorStop(1, '#010409'); ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h); const spec = readGenome(genome, time), built = buildCreatureFaces(spec, time), camera = makeCamera(vec(0, built.haloY * 0.72, 0), 0.78, 0.28, 3.35 + built.size * 1.08), focal = Math.min(w, h) * 0.9; if ((spec.surface.glow || 0) > 0.03) { const cp = projectPoint(vec(0, built.haloY, 0), camera, w, h, focal), edge = projectPoint(vec(built.size * 1.15, built.haloY, 0), camera, w, h, focal); if (cp && edge) { const rr = Math.max(16, Math.hypot(edge.x - cp.x, edge.y - cp.y) * (1.2 + spec.surface.glow * 0.7)), g = ctx.createRadialGradient(cp.x, cp.y, rr * 0.18, cp.x, cp.y, rr); g.addColorStop(0, hexA(spec.surface.palette[0], spec.surface.glow * (0.22 + spec.pulse * 0.28))); g.addColorStop(0.55, hexA(spec.surface.palette[0], spec.surface.glow * 0.1)); g.addColorStop(1, hexA(spec.surface.palette[0], 0)); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cp.x, cp.y, rr, 0, TAU); ctx.fill(); } }
   const shadow = []; for (let i = 0; i < 28; i++) { const a = (i / 28) * TAU, p = projectPoint(vec(Math.cos(a) * built.size * 0.95, built.floorY, Math.sin(a) * built.size * 0.72), camera, w, h, focal); if (p) shadow.push(p); } if (shadow.length > 8) { const scx = shadow.reduce((s,p)=>s+p.x,0)/shadow.length, scy = shadow.reduce((s,p)=>s+p.y,0)/shadow.length, sr = shadow.reduce((s,p)=>s+Math.hypot(p.x-scx,p.y-scy),0)/shadow.length; const bcp = projectPoint(vec(0,built.bodyY,0),camera,w,h,focal), bfp = projectPoint(vec(0,built.floorY,0),camera,w,h,focal); const gap = bcp&&bfp?Math.abs(bcp.y-bfp.y):0, lift = clamp(gap/Math.max(sr,1),0,1.4), sa=0.26*(1-0.45*lift), sR=sr*(1+0.35*lift); const sg=ctx.createRadialGradient(scx,scy,0,scx,scy,sR); sg.addColorStop(0,`rgba(0,0,0,${sa.toFixed(3)})`); sg.addColorStop(0.5,`rgba(0,0,0,${(sa*0.5).toFixed(3)})`); sg.addColorStop(1,'rgba(0,0,0,0)'); ctx.beginPath(); ctx.arc(scx,scy,sR,0,TAU); ctx.fillStyle=sg; ctx.fill(); const sg2=ctx.createRadialGradient(scx,scy,sR*0.5,scx,scy,sR*1.8); sg2.addColorStop(0,'rgba(0,0,0,0.06)'); sg2.addColorStop(1,'rgba(0,0,0,0)'); ctx.beginPath(); ctx.arc(scx,scy,sR*1.8,0,TAU); ctx.fillStyle=sg2; ctx.fill(); }
-  const lightDir = V3.norm(vec(0.45, 0.9, 0.65)); const polys = []; for (const face of built.faces) { const proj = face.pts.map(p => projectPoint(p, camera, w, h, focal)); if (proj.some(p => !p)) continue; const a = face.pts[0], b = face.pts[1], c = face.pts[2], normal = V3.norm(V3.cross(V3.sub(b, a), V3.sub(c, a))), center = V3.mid(face.pts), diffuse = Math.max(0, V3.dot(normal, lightDir)), viewDot = Math.max(0, V3.dot(normal, V3.norm(V3.sub(camera.pos, center)))); polys.push({ proj, depth: proj.reduce((acc, p) => acc + p.z, 0) / proj.length, fill: colorCss(shadeFace(face.fill.color, diffuse, viewDot, face.fill.emissive, spec.surface.palette), face.alpha) }); } polys.sort((a, b) => b.depth - a.depth); for (const poly of polys) { ctx.beginPath(); poly.proj.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y)); ctx.closePath(); ctx.fillStyle = poly.fill; ctx.fill(); } }
+  const lightDir = V3.norm(vec(0.45, 0.9, 0.65)); const polys = []; for (const face of built.faces) { const proj = face.pts.map(p => projectPoint(p, camera, w, h, focal)); if (proj.some(p => !p)) continue; const a = face.pts[0], b = face.pts[1], c = face.pts[2], normal = face.normal || V3.norm(V3.cross(V3.sub(b, a), V3.sub(c, a))), center = V3.mid(face.pts), diffuse = Math.max(0, V3.dot(normal, lightDir)), viewDot = Math.max(0, V3.dot(normal, V3.norm(V3.sub(camera.pos, center)))); polys.push({ proj, depth: proj.reduce((acc, p) => acc + p.z, 0) / proj.length, fill: colorCss(shadeFace(face.fill.color, diffuse, viewDot, face.fill.emissive, spec.surface.palette), face.alpha) }); } polys.sort((a, b) => b.depth - a.depth); for (const poly of polys) { ctx.beginPath(); poly.proj.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y)); ctx.closePath(); ctx.fillStyle = poly.fill; ctx.fill(); } }
 
 /* ── Breed state ──────────────────────────────────────────────────────────── */
 const loadedCarts = new Map(); // id → {cart, entry}
@@ -239,11 +273,14 @@ async function loadKeptStrip() {
         for (const rec of records) {
           const cart = rec.egg;
           if (!cart || !cart.genome) continue;
+          loadedCarts.set(rec.id, { cart, entry: { id: rec.id, name: rec.title || rec.id || 'kept', title: rec.title || rec.id || 'kept', adopted: true } });
           const card = document.createElement('div');
           card.className = 'card';
           card.title = rec.title || 'organism';
           const href = 'player.html#' + b64enc(JSON.stringify(cart));
-          card.innerHTML = `<a class="card-main" href="${href}"><canvas width="200" height="200"></canvas><div class="card-title">${esc(rec.title||'organism')}</div></a><div class="card-body"><div class="card-born">${esc(rec.born||'')}</div><div class="card-id">${esc(rec.id||'')}</div></div>`;
+          const lineage = Array.isArray(cart.parents) && cart.parents.length ? `<div class="card-lineage">↳ ${(cart.parents || []).map(parentLink).join('<span class="sep">×</span>')} <span class="sep">·</span>${lineageAffordance(rec.id)}</div>` : '';
+          card.innerHTML = `<a class="card-main" href="${href}"><canvas width="200" height="200"></canvas><div class="card-title">${esc(rec.title||'organism')}</div></a><div class="card-body"><div class="card-born">${esc(rec.born||'')}</div>${lineage}<div class="card-id">${esc(rec.id||'')}</div></div>`;
+          wirePedigreeButton(card, rec.id);
           kgrid.appendChild(card);
           renderThumb(card.querySelector('canvas').getContext('2d'), cart.genome);
         }
@@ -328,9 +365,11 @@ async function ingestAdopted(cart) {
   const hashMismatch = declared && got !== declared;
   const whyLine = buildWhyLine(cart);
   const whySuffix = whyLine ? `<div class="card-why">\u00b7 ${esc(whyLine)}</div>` : '';
-  card.innerHTML = `<a class="card-main" href="${openHref}"><canvas width="200" height="200"></canvas><div class="card-title">${esc(cart.title||'adopted')}</div></a><div class="card-body"><div class="card-born">${esc(bornText)}${hashMismatch?' (remix)':''}</div>${whySuffix}<div class="card-id">${esc(id)}</div></div>`;
+  const lineage = Array.isArray(cart.parents) && cart.parents.length ? `<div class="card-lineage">↳ ${(cart.parents || []).map(parentLink).join('<span class="sep">×</span>')} <span class="sep">·</span>${lineageAffordance(id)}</div>` : '';
+  card.innerHTML = `<a class="card-main" href="${openHref}"><canvas width="200" height="200"></canvas><div class="card-title">${esc(cart.title||'adopted')}</div></a><div class="card-body"><div class="card-born">${esc(bornText)}${hashMismatch?' (remix)':''}</div>${lineage}${whySuffix}<div class="card-id">${esc(id)}</div></div>`;
   card.dataset.id = id;
   card.addEventListener('click', e => { if (!breedMode) return; e.preventDefault(); selectBreedCreature(id); });
+  wirePedigreeButton(card, id);
   adopted.appendChild(card);
   renderThumb(card.querySelector('canvas').getContext('2d'), cart.genome);
   strip.style.display = '';
@@ -377,7 +416,7 @@ loadKeptStrip();
         const pe = idToEntry[pid];
         return pe ? `<a href="player.html?id=${encodeURIComponent(pe.name)}">${esc(pe.title||pe.name)}</a>` : `<span>${esc(String(pid).slice(0,8))}</span>`;
       }).join('<span class="sep">×</span>');
-      lineage = `<div class="card-lineage">↳ ${chips}</div>`;
+      lineage = `<div class="card-lineage">↳ ${chips} <span class="sep">·</span>${lineageAffordance(entry.id)}</div>`;
     }
     const whyLine = buildWhyLine(cart);
     const whySuffix = whyLine ? `<div class="card-why">\u00b7 ${esc(whyLine)}</div>` : '';
@@ -385,6 +424,7 @@ loadKeptStrip();
     card.dataset.id = entry.id;
     loadedCarts.set(entry.id, { cart, entry });
     card.addEventListener('click', e => { if (!breedMode) return; e.preventDefault(); selectBreedCreature(entry.id); });
+    wirePedigreeButton(card, entry.id);
     grid.appendChild(card);
     const thumbCtx = card.querySelector('canvas').getContext('2d');
     thumbs.push({ ctx: thumbCtx, genome: cart.genome });
@@ -442,9 +482,15 @@ async function crossBreed(cartA, cartB) {
     born: { coord: 'cross:' + cartA.id + '\u00d7' + cartB.id, from: 'a cross of ' + (cartA.title || cartA.id) + ' and ' + (cartB.title || cartB.id) },
     parents: [cartA.id, cartB.id],
     home: cartA.home || cartB.home || null,
+    lineage: [cartA, cartB].map(cart => ({ title: cart.title || cart.id || 'parent', from: cart.born && cart.born.from || '', coord: cart.born && cart.born.coord || '' })), // keep lineage outside genome like home so the content-hash id stays unchanged
     genome, sig: ''
   };
 }
+function cartHref(item) { return item.entry.adopted ? 'player.html#' + b64enc(JSON.stringify(item.cart)) : `player.html?id=${encodeURIComponent(item.entry.name)}`; }
+function parentLink(pid) { const it = loadedCarts.get(pid); if (!it) return `<span>${esc(String(pid).slice(0,8))}</span>`; return `<a href="${cartHref(it)}">${esc(it.cart.title || it.entry.name)}</a>`; }
+function lineageAffordance(id) { return `<button class="alt lineage-btn" data-pedigree="${esc(id)}" type="button">🌳 lineage</button>`; }
+function pedigreeCaption(cart) { const from = cart.born && cart.born.from || ''; const coord = cart.born && cart.born.coord || ''; return (!cart.parents || !cart.parents.length) ? (buildWhyLine(cart) || momentPhrase(from, coord) || from || 'a genesis creature') : (momentPhrase(from, coord) || buildWhyLine(cart) || from || 'bred creature'); }
+function wirePedigreeButton(host, id) { const btn = host.querySelector('[data-pedigree]'); if (!btn) return; btn.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); buildPedigree(id); }); }
 function updateBreedUI() {
   const btn = document.getElementById('btn-breed');
   const hint = document.getElementById('breed-hint');
@@ -454,6 +500,132 @@ function updateBreedUI() {
   if (!breedA) hint.textContent = '→ click a creature to select A';
   else if (!breedB) hint.textContent = 'A selected — click another creature for B';
   else hint.textContent = '→ click a creature to start a new cross';
+}
+function buildPedigree(id) {
+  const rootItem = loadedCarts.get(id);
+  if (!rootItem) return;
+  const depthCap = 4;
+  const nodes = new Map();
+  const edgeKeys = new Set();
+  function ensureNode(nodeId) {
+    if (nodes.has(nodeId)) return nodes.get(nodeId);
+    const item = loadedCarts.get(nodeId);
+    if (!item) return null;
+    const node = { id: nodeId, item, generation: null, parents: [], children: [], x: null, y: 0, left: 0 };
+    nodes.set(nodeId, node);
+    return node;
+  }
+  function walk(nodeId, generation, trail) {
+    const node = ensureNode(nodeId);
+    if (!node) return null;
+    node.generation = node.generation == null ? generation : Math.min(node.generation, generation);
+    if (generation >= depthCap || trail.has(nodeId)) return node;
+    const nextTrail = new Set(trail);
+    nextTrail.add(nodeId);
+    for (const pid of (node.item.cart.parents || []).slice(0, 2)) {
+      const parent = walk(pid, generation + 1, nextTrail);
+      if (!parent) continue;
+      if (!node.parents.includes(pid)) node.parents.push(pid);
+      if (!parent.children.includes(nodeId)) parent.children.push(nodeId);
+      edgeKeys.add(pid + '→' + nodeId);
+    }
+    return node;
+  }
+  walk(id, 0, new Set());
+  const root = nodes.get(id);
+  if (!root) return;
+  const queue = [root];
+  root.generation = 0;
+  while (queue.length) {
+    const node = queue.shift();
+    for (const pid of node.parents) {
+      const parent = nodes.get(pid);
+      if (!parent) continue;
+      if (parent.generation == null || parent.generation > node.generation + 1) {
+        parent.generation = node.generation + 1;
+        queue.push(parent);
+      }
+    }
+  }
+  let nextSlot = 0;
+  function assignX(nodeId, trail = new Set()) {
+    const node = nodes.get(nodeId);
+    if (!node) return 0;
+    if (node.x != null) return node.x;
+    if (trail.has(nodeId) || !node.parents.length || node.generation >= depthCap) {
+      node.x = nextSlot++;
+      return node.x;
+    }
+    const nextTrail = new Set(trail);
+    nextTrail.add(nodeId);
+    const xs = node.parents.map(pid => assignX(pid, nextTrail));
+    node.x = xs.reduce((sum, x) => sum + x, 0) / Math.max(xs.length, 1);
+    return node.x;
+  }
+  assignX(id);
+  for (const node of [...nodes.values()].sort((a, b) => a.generation - b.generation || a.x - b.x)) assignX(node.id);
+  const byGen = new Map();
+  for (const node of nodes.values()) {
+    const group = byGen.get(node.generation) || [];
+    group.push(node);
+    byGen.set(node.generation, group);
+  }
+  for (const group of byGen.values()) {
+    group.sort((a, b) => a.x - b.x);
+    let last = -Infinity;
+    for (const node of group) {
+      if (node.x < last + 1) node.x = last + 1;
+      last = node.x;
+    }
+  }
+  const maxGen = Math.max(...[...nodes.values()].map(node => node.generation));
+  const maxX = Math.max(...[...nodes.values()].map(node => node.x));
+  const nodeW = 180, nodeH = 244, colGap = 48, rowGap = 86, pad = 20;
+  const stageW = pad * 2 + nodeW + maxX * (nodeW + colGap);
+  const stageH = pad * 2 + nodeH + maxGen * (nodeH + rowGap);
+  const modal = document.getElementById('pedigree-modal');
+  const title = document.getElementById('pedigree-title');
+  const stage = document.getElementById('pedigree-stage');
+  const nodeLayer = document.getElementById('pedigree-nodes');
+  const lineCanvas = document.getElementById('pedigree-lines');
+  title.textContent = '🌳 lineage — ' + (root.item.cart.title || root.item.entry.name || root.id);
+  stage.style.width = stageW + 'px';
+  stage.style.height = stageH + 'px';
+  nodeLayer.innerHTML = '';
+  lineCanvas.width = stageW;
+  lineCanvas.height = stageH;
+  for (const node of nodes.values()) {
+    node.y = pad + (maxGen - node.generation) * (nodeH + rowGap);
+    node.left = pad + node.x * (nodeW + colGap);
+    const a = document.createElement('a');
+    a.className = 'pedigree-node';
+    a.href = cartHref(node.item);
+    a.style.left = node.left + 'px';
+    a.style.top = node.y + 'px';
+    a.innerHTML = `<canvas width="180" height="180"></canvas><div class="pedigree-node-body"><div class="pedigree-node-title">${esc(node.item.cart.title || node.item.entry.name || node.id)}</div><div class="pedigree-node-meta">${esc(pedigreeCaption(node.item.cart))}</div></div>`;
+    nodeLayer.appendChild(a);
+    renderThumb(a.querySelector('canvas').getContext('2d'), node.item.cart.genome);
+  }
+  const lineCtx = lineCanvas.getContext('2d');
+  lineCtx.clearRect(0, 0, stageW, stageH);
+  lineCtx.lineWidth = 2;
+  lineCtx.strokeStyle = 'rgba(124,192,232,.42)';
+  for (const key of edgeKeys) {
+    const [pid, cid] = key.split('→');
+    const parent = nodes.get(pid), child = nodes.get(cid);
+    if (!parent || !child) continue;
+    const x0 = parent.left + nodeW / 2, y0 = parent.y + nodeH;
+    const x1 = child.left + nodeW / 2, y1 = child.y;
+    const midY = y0 + (y1 - y0) * 0.45;
+    lineCtx.beginPath();
+    lineCtx.moveTo(x0, y0);
+    lineCtx.lineTo(x0, midY);
+    lineCtx.lineTo(x1, midY);
+    lineCtx.lineTo(x1, y1);
+    lineCtx.stroke();
+  }
+  modal.classList.add('show');
+  modal.setAttribute('aria-hidden', 'false');
 }
 function selectBreedCreature(id) {
   const item = loadedCarts.get(id);
@@ -475,17 +647,12 @@ function selectBreedCreature(id) {
 }
 function renderBreedResult() {
   if (!breedChild) return;
+  loadedCarts.set(breedChild.id, { cart: breedChild, entry: { id: breedChild.id, name: breedChild.title || breedChild.id, title: breedChild.title || breedChild.id, adopted: true } });
   document.getElementById('breed-title').textContent = breedChild.title;
-  const chips = breedChild.parents.map(pid => {
-    const it = loadedCarts.get(pid);
-    if (!it) return `<span>${esc(String(pid).slice(0,8))}</span>`;
-    const href = it.entry.adopted
-      ? 'player.html#' + b64enc(JSON.stringify(it.cart))
-      : `player.html?id=${encodeURIComponent(it.entry.name)}`;
-    return `<a href="${href}">${esc(it.cart.title || it.entry.name)}</a>`;
-  }).join('<span style="margin:0 4px;color:#6e7681">\u00d7</span>');
+  const chips = breedChild.parents.map(parentLink).join('<span style="margin:0 4px;color:#6e7681">\u00d7</span>');
   document.getElementById('breed-lin').innerHTML = '\u21b3 ' + chips;
   document.getElementById('breed-hash').textContent = breedChild.id;
+  document.getElementById('breed-lineage').style.display = breedChild.parents.length ? '' : 'none';
   const canvas = document.getElementById('breed-canvas');
   breedThumb = { ctx: canvas.getContext('2d'), genome: breedChild.genome };
   renderThumb(breedThumb.ctx, breedThumb.genome);
@@ -532,6 +699,18 @@ document.getElementById('breed-keep').onclick = async () => {
     loadKeptStrip();
   } catch(e) { console.error('keepToBasket:', e); }
 };
+document.getElementById('breed-lineage').onclick = () => { if (breedChild) buildPedigree(breedChild.id); };
+document.getElementById('pedigree-close').onclick = () => {
+  const modal = document.getElementById('pedigree-modal');
+  modal.classList.remove('show');
+  modal.setAttribute('aria-hidden', 'true');
+};
+document.getElementById('pedigree-modal').addEventListener('click', e => {
+  if (e.target.id === 'pedigree-modal') document.getElementById('pedigree-close').click();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('pedigree-modal').classList.contains('show')) document.getElementById('pedigree-close').click();
+});
 
 /* ── Catch a moment (Feature 3) ────────────────────────────────────────────── */
 // Offline moon phase from synodic closed form (2000-01-06 18:14 UTC epoch)

@@ -1,5 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
 <title>hologram player</title>
 <style>
  *{box-sizing:border-box}
@@ -120,6 +121,7 @@ function vec(x, y, z) { return { x, y, z }; }
 function rotX(p, a) { const c = Math.cos(a), s = Math.sin(a); return { x: p.x, y: p.y * c - p.z * s, z: p.y * s + p.z * c }; }
 function rotY(p, a) { const c = Math.cos(a), s = Math.sin(a); return { x: p.x * c + p.z * s, y: p.y, z: -p.x * s + p.z * c }; }
 function rotZ(p, a) { const c = Math.cos(a), s = Math.sin(a); return { x: p.x * c - p.y * s, y: p.x * s + p.y * c, z: p.z }; }
+function rotateVector(p, rot) { let q = rotX(p, rot.x); q = rotY(q, rot.y); q = rotZ(q, rot.z); return q; }
 function transformPoint(p, tf) {
   let q = { x: p.x * tf.scale.x, y: p.y * tf.scale.y, z: p.z * tf.scale.z };
   q = rotX(q, tf.rot.x); q = rotY(q, tf.rot.y); q = rotZ(q, tf.rot.z);
@@ -190,10 +192,11 @@ function patternSample(pattern, palette, u, v, w, pulse, part = 'body') {
       return { color: mixColor(base, hi, 0.15), emissive: 0.04 };
   }
 }
-function pushFace(faces, pts, fill, alpha) { faces.push({ pts, fill, alpha }); }
-function pushQuad(faces, a, b, c, d, fill, alpha) {
-  pushFace(faces, [a, b, c], fill, alpha);
-  pushFace(faces, [a, c, d], fill, alpha);
+function analyticNormal(tf, dirs) { let n = dirs.reduce((acc, d) => V3.add(acc, d), vec(0, 0, 0)); if (V3.len(n) < 1e-6) n = dirs[0] || vec(0, 1, 0); n = V3.norm(n); if (tf) n = V3.norm(rotateVector(n, tf.rot)); return n; }
+function pushFace(faces, pts, fill, alpha, normal = null) { faces.push({ pts, fill, alpha, normal }); }
+function pushQuad(faces, a, b, c, d, fill, alpha, normal = null) {
+  pushFace(faces, [a, b, c], fill, alpha, normal);
+  pushFace(faces, [a, c, d], fill, alpha, normal);
 }
 function addBox(faces, center, sx, sy, sz, fill, alpha = 1, tf = null) {
   const hx = sx / 2, hy = sy / 2, hz = sz / 2;
@@ -213,7 +216,8 @@ function addSphere(faces, center, rx, ry, rz, latSteps, lonSteps, fillFn, alpha 
       const p00 = P(i / latN, j / lonN), p01 = P(i / latN, (j + 1) / lonN), p10 = P((i + 1) / latN, j / lonN), p11 = P((i + 1) / latN, (j + 1) / lonN);
       const pts = [p00.p, p01.p, p11.p, p10.p].map(p => tf ? transformPoint(p, tf) : p);
       const fill = fillFn((p00.u + p01.u + p10.u + p11.u) / 4, (p00.v + p01.v + p10.v + p11.v) / 4, (p00.w + p01.w + p10.w + p11.w) / 4);
-      pushQuad(faces, pts[0], pts[1], pts[2], pts[3], fill, alpha);
+      const normal = analyticNormal(tf, [vec(p00.u, p00.v, p00.w), vec(p01.u, p01.v, p01.w), vec(p10.u, p10.v, p10.w), vec(p11.u, p11.v, p11.w)]);
+      pushQuad(faces, pts[0], pts[1], pts[2], pts[3], fill, alpha, normal);
     }
   }
 }
@@ -229,7 +233,8 @@ function addStarBody(faces, center, size, latSteps, lonSteps, spikes, fillFn, al
       const p00 = P(i / latN, j / lonN), p01 = P(i / latN, (j + 1) / lonN), p10 = P((i + 1) / latN, j / lonN), p11 = P((i + 1) / latN, (j + 1) / lonN);
       const pts = [p00.p, p01.p, p11.p, p10.p].map(p => tf ? transformPoint(p, tf) : p);
       const fill = fillFn((p00.u + p01.u + p10.u + p11.u) / 4, (p00.v + p01.v + p10.v + p11.v) / 4, (p00.w + p01.w + p10.w + p11.w) / 4);
-      pushQuad(faces, pts[0], pts[1], pts[2], pts[3], fill, alpha);
+      const normal = analyticNormal(tf, [vec(p00.u, p00.v, p00.w), vec(p01.u, p01.v, p01.w), vec(p10.u, p10.v, p10.w), vec(p11.u, p11.v, p11.w)]);
+      pushQuad(faces, pts[0], pts[1], pts[2], pts[3], fill, alpha, normal);
     }
   }
 }
@@ -244,7 +249,8 @@ function addTorus(faces, center, majorR, minorR, segU, segV, fillFn, alpha = 1, 
       const p00 = P(i / su, j / sv), p01 = P(i / su, (j + 1) / sv), p10 = P((i + 1) / su, j / sv), p11 = P((i + 1) / su, (j + 1) / sv);
       const pts = [p00.p, p10.p, p11.p, p01.p].map(p => tf ? transformPoint(p, tf) : p);
       const fill = fillFn((p00.u + p01.u + p10.u + p11.u) / 4, (p00.v + p01.v + p10.v + p11.v) / 4, (p00.w + p01.w + p10.w + p11.w) / 4);
-      pushQuad(faces, pts[0], pts[1], pts[2], pts[3], fill, alpha);
+      const normal = analyticNormal(tf, [vec(p00.u, p00.v, p00.w), vec(p01.u, p01.v, p01.w), vec(p10.u, p10.v, p10.w), vec(p11.u, p11.v, p11.w)]);
+      pushQuad(faces, pts[0], pts[1], pts[2], pts[3], fill, alpha, normal);
     }
   }
 }
@@ -253,17 +259,19 @@ function addCylinder(faces, from, to, r0, r1, steps, fillFn, alpha = 1, cap0 = t
   const ref = Math.abs(axis.y) < 0.92 ? vec(0, 1, 0) : vec(1, 0, 0);
   const side = V3.norm(V3.cross(ref, axis));
   const up = V3.norm(V3.cross(axis, side));
-  const rings0 = [], rings1 = [], n = Math.max(5, steps);
+  const rings0 = [], rings1 = [], offs = [], n = Math.max(5, steps);
   for (let i = 0; i < n; i++) {
     const a = (i / n) * TAU, c = Math.cos(a), s = Math.sin(a);
     const off = V3.add(V3.scale(side, c), V3.scale(up, s));
+    offs.push(off);
     rings0.push(V3.add(from, V3.scale(off, r0)));
     rings1.push(V3.add(to, V3.scale(off, r1)));
   }
   for (let i = 0; i < n; i++) {
     const j = (i + 1) % n;
     const fill = fillFn(i / n, 0, j / n);
-    pushQuad(faces, rings0[i], rings0[j], rings1[j], rings1[i], fill, alpha);
+    const normal = V3.norm(V3.add(offs[i], offs[j]));
+    pushQuad(faces, rings0[i], rings0[j], rings1[j], rings1[i], fill, alpha, normal);
     if (cap0 && r0 > 0.001) pushFace(faces, [from, rings0[j], rings0[i]], fill, alpha);
     if (cap1 && r1 > 0.001) pushFace(faces, [to, rings1[i], rings1[j]], fill, alpha);
   }
@@ -464,7 +472,7 @@ function renderScene(ctx, genome, time, view) {
     const proj = face.pts.map(p => projectPoint(p, camera, w, h, focal));
     if (proj.some(p => !p)) continue;
     const a = face.pts[0], b = face.pts[1], c = face.pts[2];
-    const normal = V3.norm(V3.cross(V3.sub(b, a), V3.sub(c, a)));
+    const normal = face.normal || V3.norm(V3.cross(V3.sub(b, a), V3.sub(c, a)));
     const center = V3.mid(face.pts);
     const diffuse = Math.max(0, V3.dot(normal, lightDir));
     const viewDot = Math.max(0, V3.dot(normal, V3.norm(V3.sub(camera.pos, center))));
