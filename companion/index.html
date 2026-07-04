@@ -139,11 +139,18 @@ async function main(){
  catch(e){ setStatus('could not load its mind (brain.py)','err'); return; }
  try{
   VBS=await bootVbrainstem();
-  const inject=brainSrc+'\nimport json,base64\nCOMPANION=Companion(json.loads(base64.b64decode("'+strToStdB64(JSON.stringify(CART))+'").decode("utf-8")))\n';
+  // per-device memory: it quietly knows if you've visited before (localStorage, never leaves this device)
+  const memKey='companion-mem:'+(CART.id||CART.title||'x');
+  let mem={}; try{ mem=JSON.parse(localStorage.getItem(memKey)||'{}'); }catch(e){}
+  const memIn=Object.assign({}, mem, {now:Date.now()});
+  const inject=brainSrc+'\nimport json,base64\nCOMPANION=Companion('+
+    'json.loads(base64.b64decode("'+strToStdB64(JSON.stringify(CART))+'").decode("utf-8")), '+
+    'json.loads(base64.b64decode("'+strToStdB64(JSON.stringify(memIn))+'").decode("utf-8")))\n';
   await VBS.op({op:'eval',code:inject});
   const g=await VBS.op({op:'eval',code:'COMPANION.greeting()'});
   setStatus('awake · real CPython '+String(VBS.runtime||'').split(' ')[0]+' · nothing left your device','ok');
   bubble('them',(g.value||'Hello.').trim(),CART.title);
+  try{ const now=Date.now(); localStorage.setItem(memKey, JSON.stringify({visits:(mem.visits||0)+1, firstSeen:mem.firstSeen||now, lastSeen:now})); }catch(e){}
   $('say').disabled=false; $('send').disabled=false; $('say').focus();
  }catch(e){
   setStatus('its mind needs a network the first time (to fetch Pyodide) — but here is who it is','err');

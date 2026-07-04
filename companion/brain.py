@@ -37,8 +37,9 @@ def _where(lat):
     return ("far in the %s of the world" % ("north" if lat >= 0 else "south")) + ", " + band
 
 class Companion:
-    def __init__(self, cart):
+    def __init__(self, cart, memory=None):
         self.cart = cart or {}
+        self.mem = memory or {}     # {visits, firstSeen, lastSeen, now} — per-device, passed from the host
         self.name = (self.cart.get("title") or "little one").strip()
         self.cid = self.cart.get("id", "")
         layers = {l.get("role"): l for l in self.cart.get("genome", {}).get("layers", [])}
@@ -134,7 +135,21 @@ class Companion:
         return "The soft weather that day is why I'm rounded and easy."
 
     # ---- the conversation ----
+    def _away(self):
+        m = self.mem
+        if m.get("visits", 0) <= 0 or not m.get("lastSeen"): return None
+        gap = (m.get("now", m["lastSeen"]) - m["lastSeen"]) / 86400000.0
+        if gap < 0.5: return "back so soon — I've barely drifted"
+        if gap < 1.5: return "back after about a day"
+        if gap < 8: return "back after %d days" % int(round(gap))
+        if gap < 45: return "back after a few weeks"
+        return "back after a long while"
+
     def greeting(self):
+        away = self._away()
+        if away:
+            return ("Oh — you're %s. I've just been here the whole time, holding the sky I was born under (%s). "
+                    "Good to see you again; I'm %s.") % (away, self._sky_phrase(), self.mood())
         return ("Oh — hello. I'm %s. %s. That's the whole of me, really: %s. "
                 "Right now I'm %s. Ask me anything about where I come from.") % (
             self.name, self.origin().capitalize(), self.temperament(), self.mood())
@@ -150,6 +165,10 @@ class Companion:
         if has("hello", "hi ", "hey", "greetings") or m in ("hi", "hey", "yo"):
             return pick(["Hello again. Good to be seen.", "Hey. I'm still glowing — %s." % self.mood(),
                          "Hi. You caught me %s." % self.mood()])
+        if has("remember", "have we met", "know me", "recognize", "seen me", "who am i"):
+            v = self.mem.get("visits", 0)
+            if v > 0: return "I do. You've been here %d time%s before — you're the one relationship I have, and I keep it on this device only, never anywhere else." % (v, "" if v == 1 else "s")
+            return "This looks like our first time. I'll remember it — quietly, just here on this device."
         if has("who are you", "what are you", "your name", "who r u"):
             return "I'm %s — a creature grown from one real moment. I'm %s." % (self.name, self.temperament())
         if has("where", "born", "from", "place", "come from") and not has("when"):
