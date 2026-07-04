@@ -1,0 +1,57 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "ba7edf956ae7",
+  "title": "Tokyo sky",
+  "author": "@kody-w",
+  "born": {
+    "coord": "xn76cydhz·1783141614052",
+    "from": "live 24°C · code 2 · wind 6 · day"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 86,
+        "shape": "blob",
+        "limbs": 1,
+        "segments": 4,
+        "symmetry": "radial",
+        "body_r": 0.304,
+        "limb_len": 0.258
+      },
+      {
+        "role": "surface",
+        "k": 23,
+        "palette": [
+          "#cfdb24",
+          "#e3ee4f",
+          "#c2ec79",
+          "#6d721d"
+        ],
+        "pattern": "solid",
+        "glow": 0.6,
+        "opacity": 0.95
+      },
+      {
+        "role": "motion",
+        "k": 27,
+        "breathe": 0.285,
+        "drift": 0.121,
+        "pulse": 0.2,
+        "reach": 0.26
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}

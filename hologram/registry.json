@@ -2,12 +2,12 @@
   "schema": "rapp-static-api/1.0",
   "name": "rapp-static-hologram",
   "kind": "hologram-cartridge",
-  "generated": "2026-07-04T05:01:52Z",
+  "generated": "2026-07-04T05:06:54Z",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram",
   "pages_base": "https://kody-w.github.io/rapp-static-apis/hologram",
   "summary": {
-    "cartridges": 25,
-    "versions": 25
+    "cartridges": 26,
+    "versions": 26
   },
   "entries": [
     {
@@ -427,6 +427,26 @@
           "path": "versions/timbuktu/589db43c58f6.json",
           "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/timbuktu/589db43c58f6.json",
           "first_captured": "2026-07-04T04:37:27Z"
+        }
+      ]
+    },
+    {
+      "name": "tokyo",
+      "id": "ba7edf956ae7",
+      "title": "Tokyo sky",
+      "author": "@kody-w",
+      "sha8": "ba7edf956ae7",
+      "bytes": 1031,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/tokyo.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/tokyo/ba7edf956ae7.json",
+      "pin_path": "versions/tokyo/ba7edf956ae7.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "ba7edf956ae7",
+          "path": "versions/tokyo/ba7edf956ae7.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/tokyo/ba7edf956ae7.json",
+          "first_captured": "2026-07-04T05:06:54Z"
         }
       ]
     },

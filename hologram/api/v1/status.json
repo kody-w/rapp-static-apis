@@ -1,9 +1,9 @@
 {
   "schema": "rapp-static-hologram-status/1.0",
-  "generated": "2026-07-04T05:01:52Z",
+  "generated": "2026-07-04T05:06:54Z",
   "summary": {
-    "cartridges": 25,
-    "versions": 25
+    "cartridges": 26,
+    "versions": 26
   },
   "cartridges": [
     {
@@ -152,6 +152,13 @@
       "title": "Timbuktu sky",
       "author": "@kody-w",
       "bytes": 1036
+    },
+    {
+      "name": "tokyo",
+      "id": "ba7edf956ae7",
+      "title": "Tokyo sky",
+      "author": "@kody-w",
+      "bytes": 1031
     },
     {
       "name": "tromso",
