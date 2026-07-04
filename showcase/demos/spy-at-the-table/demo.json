@@ -1,0 +1,16 @@
+{
+  "slug": "spy-at-the-table",
+  "channel": "play",
+  "emoji": "🕵️🍽️",
+  "title": "The Spy at the Table",
+  "tagline": "Deal a no-app social-deduction game by printing seat QRs in one click.",
+  "holy_shit": "Eight people can sit down, scan, and start accusing each other in under ten seconds — with no backend, no lobby code, no install.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["game", "qr", "social-deduction", "no-backend", "webcrypto"],
+  "primitives": ["/track"],
+  "powered_by": "Zero-dependency qr.mjs seat cards + Web Crypto PIN locks + pure canvas/DOM reveal flow",
+  "agent_scenario": "When you need: instant multi-player role dealing where each player privately reveals a secret from a static page without any backend.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}
