@@ -1,0 +1,152 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Far Window — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🧲</div>
+    <h1 id="title">The Far Window</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">This page stores no weather data. Press the button: your browser fetches the pinned <code>extract</code> cell from <code>/track</code>, verifies its SHA-256, then asks Open-Meteo for Lisbon right now — all on your device, no backend.</p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+      <button class="run" id="go">🪟 Open the window</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">Lisbon, Portugal · 38.72°N, 9.14°W</span>
+    </div>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>A souvenir is usually frozen in time. This one stays alive. A quiet magnet on your fridge can still open a tiny real-time truth from far away — the air, the hour, whether the city is in daylight or under stars — without asking any private server to remember anything for you.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Make your own · run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Open <a href="../../../track/">/track</a> and choose an Open-Meteo URL for your place's latitude and longitude.</li>
+      <li>Keep one path simple (like <code>current.temperature_2m</code>) so <code>track/run.html</code> can show the same source live.</li>
+      <li>Use <b>Make the QR</b> below to draw that run page URL with <a href="../../../track/qr.mjs"><code>qr.mjs</code></a>, then print it as your magnet.</li>
+    </ol>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px">
+      <button class="run" id="mkqr">🧲 Make the QR</button>
+      <a id="runlink" class="mono" style="font-size:12px;color:var(--faint);word-break:break-all" href="#"></a>
+    </div>
+    <canvas id="qr" width="0" height="0" style="margin-top:12px;background:#fff;border-radius:10px;image-rendering:pixelated;max-width:100%"></canvas>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-far-window/</code> (crypto.subtle needs a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+import { qr } from '../../../track/qr.mjs';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const TRACK = '../../../track';
+const PLACE = { name: 'Lisbon', lat: 38.7223, lon: -9.1393 };
+const OPEN_METEO = `https://api.open-meteo.com/v1/forecast?latitude=${PLACE.lat}&longitude=${PLACE.lon}&current=temperature_2m,is_day,weathercode&timezone=auto`;
+
+const out = document.getElementById('out');
+const narrate = mkNarrator(document.getElementById('steps'));
+
+function b64url(s) {
+  return btoa(unescape(encodeURIComponent(s))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function clockFromOffset(offsetSeconds) {
+  const shifted = new Date(Date.now() + Number(offsetSeconds || 0) * 1000);
+  let h = shifted.getUTCHours();
+  const m = shifted.getUTCMinutes().toString().padStart(2, '0');
+  const ap = h >= 12 ? 'pm' : 'am';
+  h = h % 12 || 12;
+  return `${h}:${m}${ap}`;
+}
+
+function skyLine(code, isDay) {
+  if (code === 0) return isDay ? 'sun up' : 'stars out';
+  if ([1, 2, 3].includes(code)) return isDay ? 'clouds drifting by' : 'night clouds';
+  if ([45, 48].includes(code)) return 'fog hanging low';
+  if ([51, 53, 55, 56, 57].includes(code)) return 'drizzle right now';
+  if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return 'raining right now';
+  if ([71, 73, 75, 77, 85, 86].includes(code)) return 'snow falling';
+  if ([95, 96, 99].includes(code)) return 'storm in the distance';
+  return isDay ? 'sun up' : 'stars out';
+}
+
+function drawQR(text) {
+  const { size, modules } = qr(text, { ecl: 'M' });
+  const q = 4;
+  const scale = 5;
+  const dim = (size + 2 * q) * scale;
+  const c = document.getElementById('qr');
+  c.width = dim;
+  c.height = dim;
+  const g = c.getContext('2d');
+  g.fillStyle = '#fff';
+  g.fillRect(0, 0, dim, dim);
+  g.fillStyle = '#000';
+  for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) if (modules[y][x]) g.fillRect((x + q) * scale, (y + q) * scale, scale, scale);
+}
+
+document.getElementById('go').onclick = async () => {
+  document.getElementById('steps').innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">running…</span>';
+  try {
+    const [temp, isDay, weather, tz, offset] = await Promise.all([
+      runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract', args: { src: OPEN_METEO, path: 'current.temperature_2m' }, onStep: narrate }),
+      runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract', args: { src: OPEN_METEO, path: 'current.is_day' }, onStep: () => {} }),
+      runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract', args: { src: OPEN_METEO, path: 'current.weathercode' }, onStep: () => {} }),
+      runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract', args: { src: OPEN_METEO, path: 'timezone' }, onStep: () => {} }),
+      runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract', args: { src: OPEN_METEO, path: 'utc_offset_seconds' }, onStep: () => {} })
+    ]);
+
+    const tempNum = Number(temp.value);
+    const temperature = Number.isFinite(tempNum) ? Math.round(tempNum) : temp.value;
+    const isDayNow = Number(isDay.value) === 1;
+    const weatherCode = Number(weather.value);
+    const line = `In ${PLACE.name} right now: ${temperature}°C, ${clockFromOffset(offset.value)} · ${skyLine(weatherCode, isDayNow)} (${String(tz.value || 'local time')})`;
+    out.innerHTML = `<div class="mono" style="color:var(--ink)">${line}</div>`;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : (e.message || e)}</span>`;
+  }
+};
+
+document.getElementById('mkqr').onclick = () => {
+  const spec = { src: OPEN_METEO, path: 'current.temperature_2m', title: `${PLACE.name} temperature`, unit: '°C' };
+  const runUrl = new URL(`../../../track/run.html#${b64url(JSON.stringify(spec))}`, location.href).href;
+  drawQR(runUrl);
+  const link = document.getElementById('runlink');
+  link.href = runUrl;
+  link.textContent = runUrl;
+};
+</script>
+</body></html>
