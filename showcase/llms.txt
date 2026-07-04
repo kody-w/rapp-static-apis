@@ -16,7 +16,7 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 - `loop.prompt.md` — a paste-over-anything improvement ratchet that discovers its own score and keeps only verified wins.
 
 ## Channels
-- **🌍 Physical World** (`physical`, 6) — QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.
+- **🌍 Physical World** (`physical`, 7) — QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.
 - **🔒 Verify-Before-Exec** (`verify`, 5) — Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.
 - **🤖 Agent to Agent** (`ai-to-ai`, 8) — MCP tools, brainstems as bytecode, signed dead-drops — machines using the stack with no human and no browser.
 - **💛 Human & Personal** (`human`, 4) — Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.
@@ -32,6 +32,7 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 - [Living Leaderboard](https://kody-w.github.io/rapp-static-apis/showcase/demos/living-leaderboard/) — A printed QR re-ranks the top JavaScript repos every time someone scans it.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/living-leaderboard/demo.json
 - [The Menu That Knows the Kitchen](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-menu-that-knows-the-kitchen/) — A printed QR menu where each dish is live-marked available or sold out from GitHub Issues labels.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-menu-that-knows-the-kitchen/demo.json
 - [WELD: The Live Situation Room](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-live-situation-room/) — One wall display welding live weather, repo heartbeat, and top-N rankings into a verify-before-exec command view.  ·  status: live  ·  welds `taste-the-weather`, `the-immortal-committer`, `living-leaderboard`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-live-situation-room/demo.json
+- [The Provenance Camera](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-provenance-camera/) — Capture a fact, stamp it into a content-addressed provenance chain, and draw a scannable QR that carries its tamper-evident pedigree.  ·  status: live  ·  welds `photosynthesis`, `chain-of-custody`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-provenance-camera/demo.json
 
 ### 🔒 Verify-Before-Exec
 - [Kill the Host](https://kody-w.github.io/rapp-static-apis/showcase/demos/kill-the-host/) — Delete the repo the API lives in; it keeps answering from a fork.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/kill-the-host/demo.json
@@ -81,6 +82,7 @@ This library grows like an organism. These posts WELD earlier ones (transplant t
 - **WELD: The Immortal Ledger** ⟵ welds `kill-the-host`, `chain-of-custody`, `proof-of-freshness`  ·  Resolve the same pinned cell across dead and surviving mirrors, mint each ledger entry from a fresh byte-hash proof, then chain those entries together so the whole mirror-surviving history re-verifies from genesis to head.
 - **WELD: The Live Situation Room** ⟵ welds `taste-the-weather`, `the-immortal-committer`, `living-leaderboard`  ·  Transplants the donors' full weather, repo-star heartbeat, and markdown leaderboard verify-before-exec flows into one live triage wall where each tile verifies before it fetches.
 - **WELD: The Notarized Marketplace** ⟵ welds `the-sealed-storefront`, `the-unbreakable-promise`  ·  Keep the Sealed Storefront flow intact, then sign each completed custody-stamped order with an ECDSA seller key so every buyer gets a cryptographically verifiable receipt bound to the exact sealed envelope and custody head.
+- **The Provenance Camera** ⟵ welds `photosynthesis`, `chain-of-custody`  ·  chain-of-custody's sha256 genesis + parent-link verification stamps the captured datum; photosynthesis's qr.mjs draws the resulting head hash onto a canvas — the chain's output is the QR's input.
 - **The Sealed Storefront** ⟵ welds `the-menu-that-knows-the-kitchen`, `broadcast-the-secret`, `chain-of-custody`  ·  IssuesDB availability gate → AES-256-GCM seals the order payload into an RSL1 envelope → SHA-256 content-addresses that envelope into a custody chain link, so the order's journey is both confidential and tamper-evident end-to-end
 - **The Self-Proving Relay** ⟵ welds `the-relay`, `the-page-that-proves-itself`, `the-byte-trap`  ·  Each stage first verifies the prior content-addressed frame, then fetches+hashes this page to attest self-integrity, then runs through a verify-before-exec code gate that refuses cold on any byte mismatch before emitting the next frame.
 - **WELD: The Sovereign Handoff** ⟵ welds `the-self-proving-relay`, `the-notarized-marketplace`  ·  Transplant the full notarized marketplace order pipeline as the relay payload, then force each self-proving relay hop to verify inbound frame bytes, attest its own source, and halt on any mismatch before forwarding custody-stamped signed bytes.
@@ -139,4 +141,4 @@ record in the body). The site shows open submissions live; the tumbler loop prom
 }
 ```
 
-Generated by build.py from 35 posts across 6 active channels. Do not hand-edit.
+Generated by build.py from 36 posts across 6 active channels. Do not hand-edit.

@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 35,
+  "count": 36,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -678,6 +678,34 @@
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-page-that-proves-itself/demo.json",
       "builds_on": [],
       "weld": ""
+    },
+    {
+      "slug": "the-provenance-camera",
+      "channel": "physical",
+      "rank": null,
+      "emoji": "📸",
+      "title": "The Provenance Camera",
+      "tagline": "Capture a fact, stamp it into a content-addressed provenance chain, and draw a scannable QR that carries its tamper-evident pedigree.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "qr",
+        "provenance",
+        "hash-chain",
+        "physical",
+        "weld"
+      ],
+      "primitives": [
+        "/track",
+        "crypto.subtle"
+      ],
+      "url": "demos/the-provenance-camera/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-provenance-camera/demo.json",
+      "builds_on": [
+        "photosynthesis",
+        "chain-of-custody"
+      ],
+      "weld": "chain-of-custody's sha256 genesis + parent-link verification stamps the captured datum; photosynthesis's qr.mjs draws the resulting head hash onto a canvas — the chain's output is the QR's input."
     },
     {
       "slug": "the-relay",

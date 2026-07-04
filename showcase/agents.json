@@ -16,7 +16,7 @@
       "slug": "physical",
       "title": "Physical World",
       "blurb": "QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.",
-      "count": 6
+      "count": 7
     },
     {
       "slug": "verify",
@@ -471,6 +471,24 @@
       "weld": "",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-page-that-proves-itself/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-page-that-proves-itself/"
+    },
+    {
+      "slug": "the-provenance-camera",
+      "channel": "physical",
+      "title": "The Provenance Camera",
+      "when_to_use": "When you need to stamp a captured datum with a tamper-evident genesis hash, build a verifiable custody chain, and emit a scannable QR pedigree — all client-side, no server.",
+      "primitives": [
+        "/track",
+        "crypto.subtle"
+      ],
+      "status": "live",
+      "builds_on": [
+        "photosynthesis",
+        "chain-of-custody"
+      ],
+      "weld": "chain-of-custody's sha256 genesis + parent-link verification stamps the captured datum; photosynthesis's qr.mjs draws the resulting head hash onto a canvas — the chain's output is the QR's input.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-provenance-camera/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-provenance-camera/"
     },
     {
       "slug": "the-relay",
