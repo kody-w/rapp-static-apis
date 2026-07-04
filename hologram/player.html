@@ -478,14 +478,14 @@ function windWord(kmh) {
 }
 function bornDate(coord) {
   if (!coord) return null;
-  const m = String(coord).match(/\u00b7(\d{10,})/);
+  const m = String(coord).match(/\u00b7(\d{10,})/); // ·<ms-epoch-timestamp> (10+ digits)
   if (!m) return null;
   const d = new Date(parseInt(m[1]));
   if (isNaN(d.getTime())) return null;
   const now = new Date();
   const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const label = d.getFullYear() === now.getFullYear() ? 'this' : 'last';
-  return 'kept ' + label + ' ' + months[d.getMonth()];
+  const sameMonth = d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
+  return 'kept ' + (sameMonth ? 'this' : 'last') + ' ' + months[d.getMonth()];
 }
 function momentPhrase(from, coord) {
   if (!from || !from.startsWith('live ')) return null;
