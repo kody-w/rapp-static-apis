@@ -112,7 +112,7 @@ function mkChirp(sr, sec = CHIRP_SEC, f0 = SWEEP_START, f1 = SWEEP_END) {
   for (let i = 0; i < n; i++) {
     const t = i / sr;
     const phase = 2 * Math.PI * (f0 * t + 0.5 * k * t * t);
-    const w = Math.sin(Math.PI * (i / (n - 1))); // fast taper
+    const w = Math.sin(Math.PI * (i / (n - 1))); // Hann-like taper to reduce chirp edge clicks/leakage
     out[i] = Math.sin(phase) * w;
   }
   return out;
@@ -296,11 +296,12 @@ function bootVbrainstem() {
 async function pyMatchedFilter(recording, chirp, sr) {
   if (!py) py = await bootVbrainstem();
   const payload = JSON.stringify({ recording: Array.from(recording), chirp: Array.from(chirp), sr });
+  const payloadB64 = bytesToBase64(new TextEncoder().encode(payload));
   const code = `
-import json, numpy as np
+import base64, json, numpy as np
 from scipy.signal import correlate
 
-p = json.loads(${JSON.stringify(payload)})
+p = json.loads(base64.b64decode(${JSON.stringify(payloadB64)}).decode("utf-8"))
 rec = np.asarray(p["recording"], dtype=np.float32)
 chirp = np.asarray(p["chirp"], dtype=np.float32)
 sr = float(p["sr"])
@@ -368,6 +369,15 @@ async function maybeCaptureMic(chirp, sr) {
 
 function currentBearing() {
   return sensorBearing == null ? bearingDeg : sensorBearing;
+}
+
+function bytesToBase64(bytes) {
+  let s = '';
+  const chunk = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunk) {
+    s += String.fromCharCode(...bytes.subarray(i, i + chunk));
+  }
+  return btoa(s);
 }
 
 document.getElementById('bearing').oninput = (e) => {
