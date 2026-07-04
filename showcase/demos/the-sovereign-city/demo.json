@@ -1,0 +1,19 @@
+{
+  "slug": "the-sovereign-city",
+  "channel": "wildcard",
+  "rank": null,
+  "emoji": "🧬",
+  "title": "WELD: The Sovereign City",
+  "tagline": "One screen to watch and govern an entire autonomous civilization — governance votes, permanent ledger, sealed orders, custody, reputation, and live relay all verified in browser with no backend.",
+  "holy_shit": "The democratic market's trustless ECDSA-ballot governance and mirror-surviving permanent ledger now run inside the command-center's operator console — governance outcomes, ledger head, and relay proofs all show as live hash-verified tiles on one tab, with no admin, no server, and nothing to shut down.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["weld", "governance", "marketplace", "dashboard", "relay", "ledger", "ecdsa", "append-only", "operator-console", "sovereign", "no-backend", "webcrypto"],
+  "primitives": ["/resolver", "/track", "rapp-sealed/1.0", "crypto.subtle", "fetch"],
+  "powered_by": "The Democratic Market's trustless governance + mirror-surviving permanent ledger fused with The Command Center's verified operator console + sovereign relay pipeline.",
+  "builds_on": ["the-democratic-market", "the-command-center"],
+  "weld": "Transplant the democratic market's full ECDSA-ballot governance, mirror-verified cell resolution, and permanently-ledgered economy intact as the inner core; transplant the command-center's console tiles, verified external feeds, and sovereign relay intact as the outer layer; bind them so the governance-ratified permanent ledger entry becomes the relay genesis frame — one tab governs and operates an autonomous civilization.",
+  "agent_scenario": "When you need a single no-backend operator console that both governs and operates a trustless economy — where ECDSA-ballot consensus ratifies every order, a permanent mirror-surviving ledger records each verdict, and a tamper-refusing relay carries the governed history through hash-verified hops.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}
