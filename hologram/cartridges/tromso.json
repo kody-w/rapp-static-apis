@@ -1,0 +1,57 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "cadfda7f8f80",
+  "title": "Tromso sky",
+  "author": "@kody-w",
+  "born": {
+    "coord": "ukmkpr4zf·1783139846396",
+    "from": "live 11°C · code 51 · wind 13 · day"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 30,
+        "shape": "segment",
+        "limbs": 2,
+        "segments": 8,
+        "symmetry": "bilateral",
+        "body_r": 0.272,
+        "limb_len": 0.326
+      },
+      {
+        "role": "surface",
+        "k": 41,
+        "palette": [
+          "#3cdb24",
+          "#64ee4f",
+          "#79ec8c",
+          "#28721d"
+        ],
+        "pattern": "stripe",
+        "glow": 0.6,
+        "opacity": 0.95
+      },
+      {
+        "role": "motion",
+        "k": 92,
+        "breathe": 0.228,
+        "drift": 0.204,
+        "pulse": 0.5,
+        "reach": 0.32
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}

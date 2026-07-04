@@ -2,12 +2,12 @@
   "schema": "rapp-static-api/1.0",
   "name": "rapp-static-hologram",
   "kind": "hologram-cartridge",
-  "generated": "2026-07-04T04:28:13Z",
+  "generated": "2026-07-04T04:37:27Z",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram",
   "pages_base": "https://kody-w.github.io/rapp-static-apis/hologram",
   "summary": {
-    "cartridges": 21,
-    "versions": 21
+    "cartridges": 23,
+    "versions": 23
   },
   "entries": [
     {
@@ -367,6 +367,46 @@
           "path": "versions/the-moon-tonight/0763aadb3399.json",
           "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/the-moon-tonight/0763aadb3399.json",
           "first_captured": "2026-07-04T04:23:49Z"
+        }
+      ]
+    },
+    {
+      "name": "timbuktu",
+      "id": "589db43c58f6",
+      "title": "Timbuktu sky",
+      "author": "@kody-w",
+      "sha8": "589db43c58f6",
+      "bytes": 1036,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/timbuktu.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/timbuktu/589db43c58f6.json",
+      "pin_path": "versions/timbuktu/589db43c58f6.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "589db43c58f6",
+          "path": "versions/timbuktu/589db43c58f6.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/timbuktu/589db43c58f6.json",
+          "first_captured": "2026-07-04T04:37:27Z"
+        }
+      ]
+    },
+    {
+      "name": "tromso",
+      "id": "cadfda7f8f80",
+      "title": "Tromso sky",
+      "author": "@kody-w",
+      "sha8": "cadfda7f8f80",
+      "bytes": 1041,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/tromso.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/tromso/cadfda7f8f80.json",
+      "pin_path": "versions/tromso/cadfda7f8f80.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "cadfda7f8f80",
+          "path": "versions/tromso/cadfda7f8f80.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/tromso/cadfda7f8f80.json",
+          "first_captured": "2026-07-04T04:37:27Z"
         }
       ]
     },

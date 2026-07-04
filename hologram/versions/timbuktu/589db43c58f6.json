@@ -1,0 +1,57 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "589db43c58f6",
+  "title": "Timbuktu sky",
+  "author": "@kody-w",
+  "born": {
+    "coord": "efvz7sm8d·1783139846396",
+    "from": "live 29°C · code 0 · wind 19 · night"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 71,
+        "shape": "star",
+        "limbs": 3,
+        "segments": 4,
+        "symmetry": "radial",
+        "body_r": 0.315,
+        "limb_len": 0.386
+      },
+      {
+        "role": "surface",
+        "k": 83,
+        "palette": [
+          "#dbb724",
+          "#eece4f",
+          "#e0ec79",
+          "#72611d"
+        ],
+        "pattern": "glow",
+        "glow": 0.31,
+        "opacity": 0.7
+      },
+      {
+        "role": "motion",
+        "k": 22,
+        "breathe": 0.305,
+        "drift": 0.277,
+        "pulse": 0.2,
+        "reach": 0.38
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}

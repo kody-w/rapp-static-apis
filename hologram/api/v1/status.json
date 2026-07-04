@@ -1,9 +1,9 @@
 {
   "schema": "rapp-static-hologram-status/1.0",
-  "generated": "2026-07-04T04:28:13Z",
+  "generated": "2026-07-04T04:37:27Z",
   "summary": {
-    "cartridges": 21,
-    "versions": 21
+    "cartridges": 23,
+    "versions": 23
   },
   "cartridges": [
     {
@@ -131,6 +131,20 @@
       "title": "Tonight's Moon",
       "author": "@kody-w",
       "bytes": 1023
+    },
+    {
+      "name": "timbuktu",
+      "id": "589db43c58f6",
+      "title": "Timbuktu sky",
+      "author": "@kody-w",
+      "bytes": 1036
+    },
+    {
+      "name": "tromso",
+      "id": "cadfda7f8f80",
+      "title": "Tromso sky",
+      "author": "@kody-w",
+      "bytes": 1041
     },
     {
       "name": "ushuaia",
