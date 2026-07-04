@@ -13,6 +13,9 @@
  .card-title{font-weight:700;font-size:15px;margin:0 0 2px}
  .card-id{font-size:11px;color:#8b949e;font-family:ui-monospace,Menlo,monospace}
  .card-born{font-size:11px;color:#8b949e;margin:3px 0 5px;line-height:1.35}
+ .card-main{display:block;color:inherit;text-decoration:none}
+ .card-lineage{font-size:11px;margin:2px 0 5px;color:#8b949e}
+ .card-lineage a{color:#58a6ff} .card-lineage .sep{margin:0 5px;color:#6e7681}
  .load-box{border:1px solid #30363d;border-radius:12px;padding:16px;background:#161b22;margin-top:16px}
  .load-box label{display:block;font-size:12px;color:#8b949e;margin-bottom:6px}
  .row{display:flex;gap:8px;flex-wrap:wrap}
@@ -134,15 +137,24 @@ requestAnimationFrame(animateThumbs);
   let reg;
   try{ reg = await (await fetch('registry.json',{cache:'no-store'})).json(); } catch{ grid.innerHTML='<p class="muted err">Could not load registry.json</p>'; return; }
   document.getElementById('pin').textContent = `${reg.summary.cartridges} cartridges · ${reg.summary.versions} frames`;
+  const idToEntry = {}; (reg.entries||[]).forEach(e => idToEntry[e.id] = e);
   for(const entry of (reg.entries||[])){
     let cart;
     try{ cart = await (await fetch(new URL(entry.pin_path, location.href).href)).json(); }catch{ continue; }
-    const card = document.createElement('a');
+    const card = document.createElement('div');
     card.className = 'card';
-    card.href = `player.html?id=${encodeURIComponent(entry.name)}`;
     card.title = entry.title || entry.name;
     const born = (cart.born && cart.born.from) ? cart.born.from : '';
-    card.innerHTML = `<canvas width="200" height="200"></canvas><div class="card-body"><div class="card-title">${esc(entry.title||entry.name)}</div><div class="card-born">${esc(born)}</div><div class="card-id">${esc(entry.id)}</div></div>`;
+    const openHref = `player.html?id=${encodeURIComponent(entry.name)}`;
+    let lineage = '';
+    if (Array.isArray(cart.parents) && cart.parents.length) {
+      const chips = cart.parents.map(pid => {
+        const pe = idToEntry[pid];
+        return pe ? `<a href="player.html?id=${encodeURIComponent(pe.name)}">${esc(pe.title||pe.name)}</a>` : `<span>${esc(String(pid).slice(0,8))}</span>`;
+      }).join('<span class="sep">×</span>');
+      lineage = `<div class="card-lineage">↳ ${chips}</div>`;
+    }
+    card.innerHTML = `<a class="card-main" href="${openHref}"><canvas width="200" height="200"></canvas><div class="card-title">${esc(entry.title||entry.name)}</div></a><div class="card-body"><div class="card-born">${esc(born)}</div>${lineage}<div class="card-id">${esc(entry.id)}</div></div>`;
     grid.appendChild(card);
     thumbs.push({ ctx: card.querySelector('canvas').getContext('2d'), genome: cart.genome });
   }
