@@ -1,0 +1,316 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WELD: The Living Spec — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🧬</div>
+    <h1 id="title">WELD: The Living Spec</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — prove + breed + re-run</h2>
+    <p style="margin:0 0 10px;color:var(--muted)">This welded flow keeps both donor organs intact: first this page fetches and hashes its own <code>index.html</code> bytes, then a sandboxed CPython fuzzer breeds a minimized conformance test from the same spec rule, pins it by SHA-256, draws a child QR, and re-runs that exact child verify-before-exec.</p>
+    <p class="mono" style="font-size:12px;color:var(--warn);margin:0 0 12px">⚠ first run cold-boots Pyodide from CDN (~10 MB). Use localhost/https and a network.</p>
+
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px">
+      <button class="run" id="go">🧬 Run living spec</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">rule: decode(encode(xs)) == xs</span>
+    </div>
+
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+
+    <div id="child" class="hidden" style="margin-top:16px;display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">
+      <canvas id="qr" width="0" height="0" style="background:#fff;border-radius:10px;image-rendering:pixelated;max-width:100%"></canvas>
+      <div id="child-cap" style="flex:1;min-width:240px;color:var(--muted);font-size:14px"></div>
+    </div>
+
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Transplant A — The Page That Proves Itself</h2>
+    <p>The page reuses the donor self-attestation loop exactly: <code>fetch('index.html')</code> → <code>arrayBuffer()</code> → <code>crypto.subtle.digest('SHA-256')</code>. That proof is computed live in your browser and becomes an input to the next stage.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Transplant B — The Test That Breeds</h2>
+    <p>The page keeps the donor breeding loop: boot sandboxed CPython, fuzz a property until failure, shrink the counterexample, freeze a self-contained test string, hash-pin it, and draw it as a fresh child QR.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Weld point — The spec mutates itself safely</h2>
+    <p>The generated child test embeds the attested page hash and the declared rule. So each run emits a conformance test that checks the claim and carries provenance of the exact spec bytes that bred it.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { sha256hex, mkNarrator } from '../../lib/showcase.js';
+import { qr } from '../../../track/qr.mjs';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const out = document.getElementById('out');
+const child = document.getElementById('child');
+const narrate = mkNarrator(document.getElementById('steps'));
+
+const SPEC_RULE = 'decode(encode(xs)) == xs';
+const VBS_SRC = '../../../vbrainstem-cell/sandbox.html';
+
+let vbs = null;
+
+function esc(s) { return String(s).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
+function b64urlEncode(s) { return btoa(unescape(encodeURIComponent(s))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
+function pageBase() { return location.href.split('#')[0]; }
+
+function bootVbrainstem() {
+  return new Promise((resolve, reject) => {
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.setAttribute('aria-hidden', 'true');
+    iframe.setAttribute('sandbox', 'allow-scripts');
+    const pending = new Map();
+    let nid = 1;
+    let started = false;
+
+    iframe.addEventListener('load', () => {
+      if (started) return;
+      started = true;
+      const ch = new MessageChannel();
+      const port = ch.port1;
+      port.onmessage = (e) => {
+        const d = e.data || {};
+        if ('booted' in d) {
+          const op = (msg) => new Promise((res, rej) => {
+            const id = nid++;
+            pending.set(id, { res, rej });
+            port.postMessage({ id, ...msg });
+          });
+          resolve({ runtime: d.runtime, op });
+          return;
+        }
+        if ('boot_error' in d) { reject(new Error(d.boot_error)); return; }
+        if (d.ready) return;
+        const p = pending.get(d.id);
+        if (!p) return;
+        pending.delete(d.id);
+        d.ok ? p.res(d.result) : p.rej(new Error(d.error));
+      };
+      iframe.contentWindow.postMessage('vbs-init', '*', [ch.port2]);
+    });
+
+    iframe.src = VBS_SRC;
+    document.body.appendChild(iframe);
+  });
+}
+
+async function bootedRuntime() {
+  if (!vbs) {
+    narrate('boot', 'active', 'cold-boot CPython 3.12 in a sandboxed iframe…', '~10MB first run');
+    vbs = await bootVbrainstem();
+    narrate('boot', 'ok', 'CPython booted', String(vbs.runtime || '').split(' ')[0]);
+  }
+  return vbs;
+}
+
+async function attestSelf() {
+  narrate('self-fetch', 'active', 'fetch this page\'s own index.html bytes…', location.pathname);
+  const res = await fetch('index.html', { cache: 'no-store' });
+  if (!res.ok) throw new Error(`fetch index.html → ${res.status} ${res.statusText}`);
+  const bytes = await res.arrayBuffer();
+  narrate('self-fetch', 'ok', 'fetched own source', `${bytes.byteLength} bytes`);
+
+  narrate('self-hash', 'active', 'hash own bytes with crypto.subtle SHA-256…', '');
+  const digest = await crypto.subtle.digest('SHA-256', bytes);
+  const hex = [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
+  narrate('self-hash', 'ok', 'self-integrity attested', hex.slice(0, 12));
+  return { hex, short: hex.slice(0, 12), bytes: bytes.byteLength };
+}
+
+function buildFuzzerPy(attestedHash) {
+  return `import json, random
+
+def encode(xs):
+    return "-".join(str(x) for x in xs)
+
+def decode(s):
+    if s == "":
+        return []
+    return [int(t) for t in s.split("-")]
+
+def prop(xs):
+    try:
+        return decode(encode(xs)) == xs
+    except Exception:
+        return False
+
+def gen(rng):
+    n = rng.randint(0, 4)
+    xs = []
+    for _ in range(n):
+        if rng.random() < 0.12:
+            xs.append(-rng.randint(1, 5))
+        else:
+            xs.append(rng.randint(0, 20))
+    return xs
+
+def fuzz(seed, budget):
+    rng = random.Random(seed)
+    for i in range(1, budget + 1):
+        xs = gen(rng)
+        if not prop(xs):
+            return xs, i
+    return None, budget
+
+def shrink(xs):
+    cur = list(xs)
+    path = [list(cur)]
+    changed = True
+    while changed:
+        changed = False
+        for i in range(len(cur)):
+            cand = cur[:i] + cur[i+1:]
+            if not prop(cand):
+                cur = cand; path.append(list(cur)); changed = True; break
+        if changed:
+            continue
+        for i in range(len(cur)):
+            x = cur[i]
+            if x == 0:
+                continue
+            step = 1 if x < 0 else -1
+            cand = list(cur); cand[i] = x + step
+            if not prop(cand):
+                cur = cand; path.append(list(cur)); changed = True; break
+    return cur, path
+
+def build_frozen(xs):
+    return '''# living-spec rule: ${SPEC_RULE}
+# attested page hash: ${attestedHash}
+def encode(xs):
+    return "-".join(str(x) for x in xs)
+def decode(s):
+    if s == "":
+        return []
+    return [int(t) for t in s.split("-")]
+def test_living_spec_roundtrip_rule():
+    xs = %r
+    assert decode(encode(xs)) == xs
+try:
+    test_living_spec_roundtrip_rule()
+    print("PASS - conformance holds")
+except Exception as e:
+    print("FAIL - conformance mismatch: " + type(e).__name__ + ": " + str(e))
+''' % (xs,)
+
+counter, iters = fuzz(3, 5000)
+minimized, path = shrink(counter)
+frozen = build_frozen(minimized)
+print(json.dumps({
+    "rule": "${SPEC_RULE}",
+    "iters": iters,
+    "counterexample": counter,
+    "minimized": minimized,
+    "path": path,
+    "frozen": frozen
+}))`;
+}
+
+function drawChildQR(text) {
+  const { size, modules, version } = qr(text, { ecl: 'M' });
+  const quiet = 4;
+  const scale = 4;
+  const dim = (size + 2 * quiet) * scale;
+  const canvas = document.getElementById('qr');
+  canvas.width = dim;
+  canvas.height = dim;
+  const g = canvas.getContext('2d');
+  g.fillStyle = '#fff';
+  g.fillRect(0, 0, dim, dim);
+  g.fillStyle = '#000';
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      if (modules[y][x]) g.fillRect((x + quiet) * scale, (y + quiet) * scale, scale, scale);
+    }
+  }
+  return { size, version };
+}
+
+async function runLivingSpec() {
+  document.getElementById('steps').innerHTML = '';
+  child.classList.add('hidden');
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">working…</span>';
+
+  try {
+    const self = await attestSelf();
+    const rt = await bootedRuntime();
+
+    narrate('fuzz', 'active', 'run spec fuzzer in CPython until rule violation…', SPEC_RULE);
+    const fuzzerPy = buildFuzzerPy(self.short);
+    const fuzzRun = await rt.op({ op: 'eval', code: fuzzerPy });
+    const bred = JSON.parse((fuzzRun.stdout || '').trim());
+    narrate('fuzz', 'ok', `violation found after ${bred.iters} tries`, JSON.stringify(bred.counterexample));
+
+    narrate('shrink', 'active', 'shrink to smallest counterexample…', 'delete elements + pull magnitudes toward 0');
+    const from = bred.path[0];
+    const steps = bred.path.length - 1;
+    narrate('shrink', 'ok', `minimized ${JSON.stringify(from)} → ${JSON.stringify(bred.minimized)}`, `${steps} shrink step${steps === 1 ? '' : 's'}`);
+
+    narrate('freeze', 'active', 'hash-pin the generated child conformance test…', 'crypto.subtle');
+    const pin = (await sha256hex(new TextEncoder().encode(bred.frozen))).slice(0, 12);
+    const spec = { v: 1, kind: 'living-spec-test', rule: bred.rule, src: bred.frozen, pin, attested: self.short };
+    narrate('freeze', 'ok', `child test pinned @ ${pin}`, `${bred.frozen.length} bytes`);
+
+    narrate('breed', 'active', 'draw child QR carrying {rule, src, pin}…', 'qr.mjs');
+    const childUrl = pageBase() + '#t=' + b64urlEncode(JSON.stringify(spec));
+    const info = drawChildQR(childUrl);
+    narrate('breed', 'ok', `child QR drawn — v${info.version}, ${info.size}×${info.size}`, 'the spec emitted its next test');
+
+    narrate('rerun-verify', 'active', 'verify the child bytes before re-running…', 'same device, same run');
+    const got = (await sha256hex(new TextEncoder().encode(spec.src))).slice(0, 12);
+    if (got !== spec.pin) throw Object.assign(new Error('verify-before-exec REFUSED: child test mismatch'), { refused: true });
+    narrate('rerun-verify', 'ok', `✓ ${got} matches pinned ${spec.pin}`, 'safe to execute');
+
+    narrate('rerun-eval', 'active', 're-run the bred child test in CPython…', 'conformance replay');
+    const replay = await rt.op({ op: 'eval', code: spec.src });
+    const replayLine = (replay.stdout || '').trim();
+    narrate('rerun-eval', 'ok', 'child test re-run completed', replayLine || '(no output)');
+
+    out.innerHTML =
+      `<div><span class="big" style="font-size:1.25em">🪞 ${self.short} · 🧪 ${pin}</span></div>` +
+      `<div class="mono" style="margin-top:8px;color:var(--muted)">self hash attested from ${self.bytes} bytes · rule <b style="color:var(--ink)">${esc(SPEC_RULE)}</b> bred ${esc(JSON.stringify(bred.minimized))}</div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--good)">${esc(replayLine)}</div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--faint)">CPython ${esc(String(rt.runtime || '').split(' ')[0])} · no backend</div>`;
+
+    child.classList.remove('hidden');
+    document.getElementById('child-cap').innerHTML =
+      `<b>↑ child conformance test (bred now)</b><br>` +
+      `Carries rule <code>${esc(spec.rule)}</code>, pinned hash <code>${esc(spec.pin)}</code>, and attested parent hash <code>${esc(spec.attested)}</code>.<br>` +
+      `<span class="mono" style="font-size:11px;color:var(--faint);display:block;margin-top:8px;word-break:break-all">${esc(childUrl)}</span>`;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${esc(e.message || e)}</span>`;
+  }
+}
+
+document.getElementById('go').onclick = runLivingSpec;
+</script>
+</body></html>

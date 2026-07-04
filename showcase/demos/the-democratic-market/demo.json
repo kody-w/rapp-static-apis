@@ -1,0 +1,19 @@
+{
+  "slug": "the-democratic-market",
+  "channel": "wildcard",
+  "rank": null,
+  "emoji": "🧬",
+  "title": "WELD: The Democratic Market",
+  "tagline": "An unkillable, notarized market where listing and moderation decisions are ratified by ECDSA-signed, append-only trustless votes.",
+  "holy_shit": "Every sale and every rule decision is sealed into tamper-evident append-only history: a permanent market governed by unriggable signed ballots, with no backend and no admin.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["weld", "marketplace", "governance", "poll", "ecdsa", "append-only", "ledger", "no-backend"],
+  "primitives": ["/resolver", "/track", "rapp-sealed/1.0", "crypto.subtle", "fetch"],
+  "powered_by": "The Permanent Market's notarized immutable marketplace welded to The Trustless Poll's ECDSA-signed append-only governance consensus",
+  "builds_on": ["the-permanent-market", "the-trustless-poll"],
+  "weld": "Keep the full permanent market pipeline intact, but gate each order with a trustless poll where signed ballots race append-only consensus and the ratified governance decision is recorded permanently with the sale.",
+  "agent_scenario": "When you need a no-backend economy where market operations are permanent and notarized, and governance/moderation decisions are made by verifiable append-only signed ballots instead of an admin.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

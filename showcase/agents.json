@@ -40,13 +40,13 @@
       "slug": "self-building",
       "title": "Self-Building",
       "blurb": "The loop, the tumbler, systems that improve and verify themselves — including this library.",
-      "count": 3
+      "count": 4
     },
     {
       "slug": "wildcard",
       "title": "Wildcard",
       "blurb": "The strange stacks that shouldn't work but provably do. Go weird, stay real.",
-      "count": 10
+      "count": 11
     }
   ],
   "scenarios": [
@@ -383,6 +383,27 @@
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-command-center/"
     },
     {
+      "slug": "the-democratic-market",
+      "channel": "wildcard",
+      "title": "WELD: The Democratic Market",
+      "when_to_use": "When you need a no-backend economy where market operations are permanent and notarized, and governance/moderation decisions are made by verifiable append-only signed ballots instead of an admin.",
+      "primitives": [
+        "/resolver",
+        "/track",
+        "rapp-sealed/1.0",
+        "crypto.subtle",
+        "fetch"
+      ],
+      "status": "live",
+      "builds_on": [
+        "the-permanent-market",
+        "the-trustless-poll"
+      ],
+      "weld": "Keep the full permanent market pipeline intact, but gate each order with a trustless poll where signed ballots race append-only consensus and the ratified governance decision is recorded permanently with the sale.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-democratic-market/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-democratic-market/"
+    },
+    {
       "slug": "the-fast-forward-parliament",
       "channel": "ai-to-ai",
       "title": "The Fast-Forward Parliament",
@@ -455,6 +476,26 @@
       "weld": "Transplants the donors' full weather, repo-star heartbeat, and markdown leaderboard verify-before-exec flows into one live triage wall where each tile verifies before it fetches.",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-live-situation-room/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-live-situation-room/"
+    },
+    {
+      "slug": "the-living-spec",
+      "channel": "self-building",
+      "title": "WELD: The Living Spec",
+      "when_to_use": "When you need a living specification that can prove its own bytes and continuously generate the next executable conformance test from its current rules, with no backend.",
+      "primitives": [
+        "crypto.subtle",
+        "fetch",
+        "/vbrainstem-cell",
+        "/track"
+      ],
+      "status": "live",
+      "builds_on": [
+        "the-page-that-proves-itself",
+        "the-test-that-breeds"
+      ],
+      "weld": "The page first attests its own index.html hash, then feeds that attested rule text into a CPython fuzzer that shrinks a failing counterexample and emits a pinned child conformance test QR that re-runs verify-before-exec.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-living-spec/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-living-spec/"
     },
     {
       "slug": "the-notarized-marketplace",

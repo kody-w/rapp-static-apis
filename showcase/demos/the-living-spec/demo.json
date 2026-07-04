@@ -1,0 +1,19 @@
+{
+  "slug": "the-living-spec",
+  "channel": "self-building",
+  "rank": null,
+  "emoji": "🧬",
+  "title": "WELD: The Living Spec",
+  "tagline": "A specification that proves its own integrity and breeds the next conformance test from its own rules.",
+  "holy_shit": "Read the spec and it does two live acts: it hashes its own source to prove it is untampered, then mints and runs a new conformance test generated from the very rule it declares.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["weld", "self-building", "integrity", "fuzzing", "conformance", "qr"],
+  "primitives": ["crypto.subtle", "fetch", "/vbrainstem-cell", "/track"],
+  "powered_by": "the-page-that-proves-itself self-hash attestation + the-test-that-breeds CPython fuzz/shrink/freeze loop + qr.mjs child-test emission",
+  "builds_on": ["the-page-that-proves-itself", "the-test-that-breeds"],
+  "weld": "The page first attests its own index.html hash, then feeds that attested rule text into a CPython fuzzer that shrinks a failing counterexample and emits a pinned child conformance test QR that re-runs verify-before-exec.",
+  "agent_scenario": "When you need a living specification that can prove its own bytes and continuously generate the next executable conformance test from its current rules, with no backend.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 38,
+  "count": 40,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -537,6 +537,40 @@
       "weld": "Keep the entire autonomous economy flow intact, then surface its live order, custody, and reputation outputs beside the situation room's verified external-feed tiles so one operator console watches the notarized economy run in real time."
     },
     {
+      "slug": "the-democratic-market",
+      "channel": "wildcard",
+      "rank": null,
+      "emoji": "🧬",
+      "title": "WELD: The Democratic Market",
+      "tagline": "An unkillable, notarized market where listing and moderation decisions are ratified by ECDSA-signed, append-only trustless votes.",
+      "status": "live",
+      "difficulty": "hard",
+      "tags": [
+        "weld",
+        "marketplace",
+        "governance",
+        "poll",
+        "ecdsa",
+        "append-only",
+        "ledger",
+        "no-backend"
+      ],
+      "primitives": [
+        "/resolver",
+        "/track",
+        "rapp-sealed/1.0",
+        "crypto.subtle",
+        "fetch"
+      ],
+      "url": "demos/the-democratic-market/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-democratic-market/demo.json",
+      "builds_on": [
+        "the-permanent-market",
+        "the-trustless-poll"
+      ],
+      "weld": "Keep the full permanent market pipeline intact, but gate each order with a trustless poll where signed ballots race append-only consensus and the ratified governance decision is recorded permanently with the sale."
+    },
+    {
       "slug": "the-fast-forward-parliament",
       "channel": "ai-to-ai",
       "rank": null,
@@ -651,6 +685,37 @@
         "living-leaderboard"
       ],
       "weld": "Transplants the donors' full weather, repo-star heartbeat, and markdown leaderboard verify-before-exec flows into one live triage wall where each tile verifies before it fetches."
+    },
+    {
+      "slug": "the-living-spec",
+      "channel": "self-building",
+      "rank": null,
+      "emoji": "🧬",
+      "title": "WELD: The Living Spec",
+      "tagline": "A specification that proves its own integrity and breeds the next conformance test from its own rules.",
+      "status": "live",
+      "difficulty": "hard",
+      "tags": [
+        "weld",
+        "self-building",
+        "integrity",
+        "fuzzing",
+        "conformance",
+        "qr"
+      ],
+      "primitives": [
+        "crypto.subtle",
+        "fetch",
+        "/vbrainstem-cell",
+        "/track"
+      ],
+      "url": "demos/the-living-spec/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-living-spec/demo.json",
+      "builds_on": [
+        "the-page-that-proves-itself",
+        "the-test-that-breeds"
+      ],
+      "weld": "The page first attests its own index.html hash, then feeds that attested rule text into a CPython fuzzer that shrinks a failing counterexample and emits a pinned child conformance test QR that re-runs verify-before-exec."
     },
     {
       "slug": "the-notarized-marketplace",
