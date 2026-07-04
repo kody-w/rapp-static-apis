@@ -1,0 +1,19 @@
+{
+  "slug": "the-verifiable-broadcast",
+  "channel": "verify",
+  "rank": null,
+  "emoji": "📡",
+  "title": "WELD: The Verifiable Broadcast",
+  "tagline": "A public feed that can't be silenced or faked: mirrors keep it alive, freshness proofs keep it honest.",
+  "holy_shit": "Kill the host and the feed keeps broadcasting from a mirror; try to replay a stale value as current and the freshness proof exposes it — censorship-resistant and replay-proof, all in your browser.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["weld", "broadcast", "freshness", "mirror", "censorship-resistant", "replay-proof"],
+  "primitives": ["/resolver", "/track", "/fn", "crypto.subtle", "fetch"],
+  "powered_by": "Kill the Host mirror resolution welded to Proof of Freshness byte-hash timestamps so every broadcast emission is both host-independent and tamper-evident",
+  "builds_on": ["kill-the-host", "proof-of-freshness"],
+  "weld": "Each mirror-resolved broadcast value is immediately stamped with a fetch-timestamp and SHA-256 of the exact response bytes, so a silenced host cannot prevent broadcast and a replayed stale value cannot disguise its age.",
+  "agent_scenario": "When you need a live public feed that survives origin deletion and proves every emission was fetched now, not replayed from a stale snapshot.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}
