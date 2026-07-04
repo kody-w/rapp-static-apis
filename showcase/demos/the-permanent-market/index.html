@@ -1,0 +1,646 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WELD: The Permanent Market — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  .menu-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;padding:10px 12px;background:var(--panel-2,#1a1a2e);border-radius:10px;border:1px solid var(--line)}
+  .menu-item input[type=checkbox]{width:16px;height:16px;margin-top:3px;flex-shrink:0;cursor:pointer;accent-color:var(--accent,#7ee8a2)}
+  .menu-item label{cursor:pointer;flex:1;line-height:1.4}
+  .menu-item.sold-out-item label{opacity:.45;text-decoration:line-through;cursor:not-allowed}
+  .badge{display:inline-block;padding:1px 7px;border-radius:6px;font-size:11px;font-family:var(--mono)}
+  .badge.avail{background:rgba(0,200,100,.15);color:#0c6}
+  .badge.sold{background:rgba(200,100,0,.15);color:var(--accent,#f5a623)}
+  .field{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
+  .field label{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-family:var(--mono)}
+  .field input,.field textarea{width:100%;background:var(--panel-2,#1a1a2e);border:1px solid var(--line);border-radius:9px;color:var(--ink);padding:10px 12px;font:inherit;font-size:14px;font-family:var(--mono)}
+  .field textarea{min-height:56px;resize:vertical}
+  .cipher{font-family:var(--mono);font-size:12px;word-break:break-all;overflow-wrap:anywhere;color:var(--accent-2,#7ee8a2);line-height:1.5}
+  .weld-arrow{text-align:center;font-size:17px;margin:8px 0 14px;color:var(--muted)}
+  .mirror-list,.ledger-list{display:grid;gap:10px}
+  .card{border:1px solid var(--line);border-radius:12px;background:var(--panel-2);padding:12px}
+  .card h3{margin:0 0 8px;font-size:15px}
+  .meta-line{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--muted);margin:4px 0}
+  .hash{word-break:break-all;color:var(--accent-2)}
+  #orderSection{display:none}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🧬</div>
+    <h1 id="title">WELD: The Permanent Market</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run the permanent market</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">This weld keeps both donors alive in one flow: <b>(1)</b> resolve the same pinned cell across dead and surviving mirrors, <b>(2)</b> load live inventory from GitHub Issues, <b>(3)</b> seal the chosen order, <b>(4)</b> stamp custody, <b>(5)</b> emit a seller-signed receipt, then <b>(6)</b> append that finalized order into an immortal ledger entry with a fresh browser-side byte proof and replay the whole lineage from genesis to head.</p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+      <button class="run" id="goMenu">🛒 Resolve mirrors + load live market</button>
+      <button class="run" id="tamper" style="background:var(--panel);color:var(--text);border:1px solid var(--line)" disabled>✂️ Tamper latest ledger entry</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">wildcard channel · no backend · verify in-browser</span>
+    </div>
+    <div class="live-out" id="mirrorsOut" style="margin-bottom:12px"><span class="mono" style="color:var(--faint)">— resolve the immortal mirrors first —</span></div>
+    <div class="live-out" id="menuOut" style="margin-bottom:12px"><span class="mono" style="color:var(--faint)">— live inventory appears here —</span></div>
+
+    <div id="orderSection">
+      <div class="weld-arrow">🔗 <b>weld point ①→②→③→④</b>: live availability becomes a sealed order, then custody, then a notarized receipt</div>
+      <div id="cartItems" style="margin-bottom:14px"></div>
+      <div class="field">
+        <label for="buyerNote">buyer note (optional)</label>
+        <textarea id="buyerNote" spellcheck="false" placeholder="e.g. Hold for pickup · include a paper receipt too"></textarea>
+      </div>
+      <div class="field">
+        <label for="sellerKey">seller's seal passphrase — the one key that opens this order</label>
+        <input id="sellerKey" type="text" value="" placeholder="type a seller-only passphrase for this run" spellcheck="false">
+      </div>
+      <button class="run" id="goSeal">🧾 Finalize order + append to permanent ledger</button>
+      <div class="live-out" id="sealOut" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— select item(s) and finalize the order —</span></div>
+    </div>
+
+    <div class="live-out" id="custodyOut" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— custody proof appears here —</span></div>
+    <div class="live-out" id="receiptOut" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— notarized receipt appears here —</span></div>
+    <div class="live-out" id="ledgerOut" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— immutable ledger entries appear here —</span></div>
+    <div class="live-out" id="out" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— final verification verdict appears here —</span></div>
+
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p><b>The Notarized Marketplace</b> already proves live availability, AES-sealed orders, SHA-256 custody, and ECDSA seller receipts. <b>The Immortal Ledger</b> already proves a mirror-surviving verifier, fresh browser-side byte proofs, and append-only lineage replay. This weld keeps both intact and joins them at the one place that matters: the moment a receipt becomes history.</p>
+    <p style="margin:12px 0 0">So a sale is not just completed — it is permanently witnessed. The buyer can verify the seller signature, the market can verify the sealed-envelope custody head, and anyone can replay the ledger from genesis to the current head even if the original host dies.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Press <b>Resolve mirrors + load live market</b>. The page should prove the same pinned cell survives across mirrors and then load live sold-out labels from GitHub Issues.</li>
+      <li>Select at least one available item, optionally edit the note or passphrase, then press <b>Finalize order + append to permanent ledger</b>.</li>
+      <li>Watch the order become an RSL1 envelope, a custody link, a seller-signed receipt, and finally a ledger entry with a fresh byte-hash proof.</li>
+      <li>Repeat with another order: the ledger should append, not replace, and the verifier should replay every prior entry before accepting the new head.</li>
+      <li>Press <b>Tamper latest ledger entry</b> to mutate stored content. Verification should halt on that exact entry.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-permanent-market/</code> (<code>crypto.subtle</code> needs localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Weld pattern: <code>mirror-surviving verifier → IssuesDB availability gate → AES-256-GCM sealed order → SHA-256 custody chain → ECDSA seller-signed receipt → append-only ledger entry with fresh byte proof → replay lineage from genesis to head</code>.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator, sha256hex } from '../../lib/showcase.js';
+import { IssuesDB } from '../../lib/issues-db.mjs';
+import { expand } from '../../../resolver/rapp-resolve.mjs';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const OWNER = 'kody-w';
+const REPO = 'rapp-static-apis';
+const TRACK = '../../../track';
+const TRACK_REGISTRY = new URL('../../../track/registry.json', location.href).href;
+const SOLD_OUT_PREFIX = 'sold-out:';
+const MENU = [
+  { key: 'margherita-pizza',   name: 'Margherita Pizza',   note: 'wood-fired · basil · fior di latte', price: '$14' },
+  { key: 'mushroom-ramen',     name: 'Mushroom Ramen',     note: 'miso broth · smoked shiitake',       price: '$13' },
+  { key: 'halloumi-tacos',     name: 'Halloumi Tacos',     note: 'charred pineapple salsa',            price: '$12' },
+  { key: 'charred-broccolini', name: 'Charred Broccolini', note: 'lemon chili oil',                    price: '$9'  },
+  { key: 'citrus-tonic',       name: 'Citrus Tonic',       note: 'grapefruit · rosemary',              price: '$6'  }
+];
+const PIN = '3fe23f859268';
+const ID = `track@${PIN}`;
+const MIRRORS = [
+  { id: 'track@3fe23f859268', host: 'github.io', tag: 'origin repo', fate: 'dead' },
+  { id: 'someone-else/track@3fe23f859268', host: 'github.io', tag: "a stranger's fork", fate: 'alive' },
+  { id: 'eu-mirror/track@3fe23f859268', host: 'gitlab.io', tag: 'GitLab Pages mirror', fate: 'alive' }
+];
+const FRESHNESS_SPEC = {
+  title: 'catalog freshness witness',
+  source: new URL('../../catalog.json', location.href).href,
+  path: 'posts.length',
+  describe: value => `The live showcase catalog exposed ${value} published posts when this receipt was committed into the ledger.`
+};
+
+const enc = new TextEncoder();
+const MAGIC = 'RSL1';
+const ITER = 250000;
+const HEADER = 4 + 16 + 12;
+const db = new IssuesDB({ owner: OWNER, repo: REPO });
+const $ = id => document.getElementById(id);
+const narrate = mkNarrator($('steps'));
+
+let soldOut = new Map();
+let custodyChain = null;
+let sellerKeyPair = null;
+let mirrorWitness = null;
+let survivorEcho = null;
+let permanentLedger = null;
+let lastLedger = null;
+
+const b64 = (bytes) => {
+  let s = '';
+  for (const byte of bytes) s += String.fromCharCode(byte);
+  return btoa(s);
+};
+
+function b64url(bytes) {
+  const raw = String.fromCharCode(...bytes);
+  return btoa(raw).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
+
+function fromB64url(str) {
+  const normalized = String(str).replace(/-/g, '+').replace(/_/g, '/');
+  const remainder = normalized.length % 4;
+  const padLength = remainder === 0 ? 0 : 4 - remainder;
+  const padded = normalized + '='.repeat(padLength);
+  const raw = atob(padded);
+  return Uint8Array.from(raw, ch => ch.charCodeAt(0));
+}
+
+async function deriveKey(passphrase, salt) {
+  const base = await crypto.subtle.importKey('raw', enc.encode(passphrase), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt, iterations: ITER, hash: 'SHA-256' },
+    base,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['encrypt', 'decrypt']
+  );
+}
+
+async function sealRSL1(plaintext, passphrase) {
+  narrate('seal-salt', 'active', 'roll a random 16-byte salt', 'crypto.getRandomValues');
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  narrate('seal-salt', 'ok', 'random salt ready', b64(salt).slice(0, 16) + '…');
+  narrate('seal-key', 'active', `stretch passphrase → AES-256 key (${ITER.toLocaleString()} PBKDF2 rounds)`, '');
+  const key = await deriveKey(passphrase, salt);
+  narrate('seal-key', 'ok', 'AES-256 key derived', 'the key never leaves this tab');
+  narrate('seal-nonce', 'active', 'roll a random 12-byte nonce', '');
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  narrate('seal-nonce', 'ok', 'random nonce ready', b64(iv));
+  narrate('seal-enc', 'active', 'AES-256-GCM encrypt the order payload', '');
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, enc.encode(plaintext)));
+  narrate('seal-enc', 'ok', 'order sealed', `${ct.length} bytes of ciphertext + auth tag`);
+  const env = new Uint8Array(HEADER + ct.length);
+  env.set(enc.encode(MAGIC), 0);
+  env.set(salt, 4);
+  env.set(iv, 20);
+  env.set(ct, 32);
+  const sealed = b64(env);
+  narrate('seal-pack', 'ok', 'RSL1 envelope packed', `${sealed.length} chars`);
+  return sealed;
+}
+
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function short(h) {
+  return `${String(h || '').slice(0, 12)}…`;
+}
+
+function dig(obj, path) {
+  return String(path || '').split('.').reduce((cur, key) => (cur == null ? undefined : cur[key]), obj);
+}
+
+function toSoldOutMap(records) {
+  const byKey = new Map();
+  for (const issue of records) {
+    for (const label of issue.labels || []) {
+      if (!label.startsWith(SOLD_OUT_PREFIX)) continue;
+      const key = label.slice(SOLD_OUT_PREFIX.length).trim().toLowerCase();
+      if (key && !byKey.has(key)) byKey.set(key, issue);
+    }
+  }
+  return byKey;
+}
+
+function menuRow(item) {
+  const so = soldOut.get(item.key);
+  const avail = !so;
+  const badge = avail
+    ? '<span class="badge avail">available</span>'
+    : '<span class="badge sold">sold out</span>';
+  const link = so
+    ? ` <a class="mono" style="font-size:11px" href="${so.url}" target="_blank" rel="noopener noreferrer">issue #${so.number}</a>`
+    : '';
+  return `<div class="menu-item${avail ? '' : ' sold-out-item'}">` +
+    `<input type="checkbox" id="chk-${esc(item.key)}" value="${esc(item.key)}"${avail ? '' : ' disabled'}>` +
+    `<label for="chk-${esc(item.key)}">` +
+    `<div><b>${esc(item.name)}</b> ${badge} <span class="mono" style="font-size:12px;color:var(--muted)">${esc(item.price)}</span>${link}</div>` +
+    `<div class="mono" style="font-size:12px;color:var(--muted)">${esc(item.note)}</div>` +
+    '</label></div>';
+}
+
+function renderMirrors(rows) {
+  $('mirrorsOut').innerHTML = rows.map(({ m, e }) => {
+    const dead = m.fate === 'dead';
+    const icon = dead ? '☠️' : '🟢';
+    const host = `${e.owner}.${m.host}/${e.name}`;
+    return `<div class="mono" style="display:flex;gap:10px;align-items:baseline;padding:4px 0;font-size:13px">` +
+      `<span style="flex:0 0 auto">${icon}</span>` +
+      `<span style="flex:1;min-width:0;${dead ? 'text-decoration:line-through;color:var(--faint)' : 'color:var(--ink)'};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${host} <span style="color:var(--faint)">· ${m.tag}</span></span>` +
+      `<span class="pill mono" style="flex:0 0 auto">@${e.sha8}</span>` +
+      `</div>`;
+  }).join('') +
+  `<div class="mono" style="font-size:12px;color:var(--muted);margin-top:8px;border-top:1px solid var(--line);padding-top:8px">one id · ${rows.length} hosts · <b style="color:var(--accent-2)">every sha8 identical</b></div>`;
+}
+
+async function resolvePermanentMirrors() {
+  const rows = MIRRORS.map(m => ({ m, e: expand(m.id, { host: m.host }) }));
+  if (!rows.every(r => r.e.sha8 === PIN)) throw new Error('resolver produced differing hashes');
+  renderMirrors(rows);
+  mirrorWitness = rows.map(({ m, e }) => ({ host: `${e.owner}.${m.host}/${e.name}`, sha8: e.sha8, fate: m.fate }));
+  narrate('mirror-resolve', 'ok', 'same pinned cell resolved across dead + surviving mirrors', `${rows.length} hosts agree on ${PIN}`);
+
+  const survivor = await runVerifiedCell({
+    base: TRACK,
+    cell: 'extract',
+    fn: 'echo',
+    args: { ping: 'origin is dead — are you still there?', id: ID },
+    onStep: (k, s, t, d = '') => narrate(`survivor-${k}`, s, `survivor cell: ${t}`, d)
+  });
+  survivorEcho = survivor.echo;
+  narrate('survivor-proof', 'ok', 'surviving mirror answered from the pinned cell', JSON.stringify(survivorEcho));
+}
+
+async function loadLiveMarket() {
+  narrate('market-probe', 'active', 'verify the local market witness path', 'catalog posts.length via pinned extract cell');
+  const probe = await runVerifiedCell({
+    base: TRACK,
+    cell: 'extract',
+    fn: 'extract',
+    args: { src: new URL('../../catalog.json', location.href).href, path: 'posts.length' },
+    onStep: (k, s, t, d = '') => narrate(`market-${k}`, s, `market cell: ${t}`, d)
+  });
+  narrate('market-probe', 'ok', 'verified compute path for the local witness', `catalog posts: ${probe.value}`);
+
+  let fallbackNote = '';
+  try {
+    narrate('issues', 'active', 'read open issues via IssuesDB', 'scan labels for sold-out:* markers');
+    const records = await db.list({ state: 'open', per_page: 100 });
+    soldOut = toSoldOutMap(records);
+    narrate('issues', 'ok', `loaded ${records.length} open issues`, `${soldOut.size} sold-out label(s) found`);
+  } catch (e) {
+    soldOut = new Map();
+    fallbackNote = ' · live Issues API unavailable here, so this run assumes no sold-out labels';
+    narrate('issues', 'bad', 'live IssuesDB read failed in this browser', String(e.message || e));
+    narrate('issues-fallback', 'ok', 'fallback: keep the market running with all items unsold', 'the primary donor path is still IssuesDB when reachable');
+  }
+
+  const rows = MENU.map(menuRow).join('');
+  $('menuOut').innerHTML =
+    `<div style="margin-bottom:10px"><span class="big">${MENU.length - soldOut.size}/${MENU.length}</span> <span style="color:var(--muted)">items available right now</span></div>` +
+    rows +
+    `<div class="mono" style="font-size:12px;color:var(--faint);margin-top:8px">live Issues availability gate${fallbackNote} · ${new Date().toLocaleTimeString()}</div>`;
+  $('cartItems').innerHTML = rows;
+  $('orderSection').style.display = 'block';
+}
+
+async function stampCustody(sealedEnvelope) {
+  narrate('custody-hash', 'active', 'SHA-256 hash the sealed envelope', 'the ciphertext becomes the custody content link');
+  const contentHash = await sha256hex(enc.encode(sealedEnvelope));
+  narrate('custody-hash', 'ok', 'content hash computed', short(contentHash));
+
+  if (!custodyChain) {
+    const genesisSeed = `permanent-market:genesis:${new Date().toISOString().slice(0, 10)}`;
+    const genesis = await sha256hex(enc.encode(genesisSeed));
+    custodyChain = { genesis, versions: [] };
+    narrate('custody-genesis', 'ok', 'custody genesis anchor created for this session', short(genesis));
+  }
+
+  const versionId = `order-${custodyChain.versions.length + 1}`;
+  const parent = custodyChain.versions.length ? custodyChain.versions[custodyChain.versions.length - 1].hash : custodyChain.genesis;
+  custodyChain.versions.push({ id: versionId, parent, content: sealedEnvelope, hash: contentHash });
+  narrate('custody-link', 'ok', `custody link ${versionId} added`, `parent ${short(parent)} → head ${short(contentHash)}`);
+
+  $('custodyOut').innerHTML =
+    `<div><span class="big">✓ custody stamped</span> <span style="color:var(--muted)">${versionId} entered the order chain</span></div>` +
+    `<div class="mono" style="margin-top:8px;color:var(--muted)">genesis: ${esc(custodyChain.genesis)}</div>` +
+    `<div class="mono" style="margin-top:4px;color:var(--muted)">head: ${esc(contentHash)}</div>` +
+    `<div class="mono" style="margin-top:6px;color:var(--faint);font-size:11px">${custodyChain.versions.length} sealed order(s) in this session.</div>`;
+
+  return { versionId, contentHash, parent };
+}
+
+async function getSellerKeyPair() {
+  if (sellerKeyPair) return sellerKeyPair;
+  narrate('seller-keygen', 'active', 'generate seller ECDSA P-256 keypair in-browser', 'crypto.subtle.generateKey');
+  sellerKeyPair = await crypto.subtle.generateKey({ name: 'ECDSA', namedCurve: 'P-256' }, true, ['sign', 'verify']);
+  narrate('seller-keygen', 'ok', 'seller keypair ready for this session', 'private key never leaves this tab');
+  return sellerKeyPair;
+}
+
+async function emitReceipt(order, sealedEnvelope, stamp) {
+  const kp = await getSellerKeyPair();
+  const sellerPublicKeyJwk = await crypto.subtle.exportKey('jwk', kp.publicKey);
+  const receiptPayload = {
+    version: 'notarized-receipt/1.0',
+    order,
+    sealedEnvelopeHash: stamp.contentHash,
+    custody: {
+      versionId: stamp.versionId,
+      parent: stamp.parent,
+      head: stamp.contentHash,
+      genesis: custodyChain?.genesis || null
+    },
+    sealedEnvelope,
+    signedAt: new Date().toISOString()
+  };
+  const payloadBytes = enc.encode(JSON.stringify(receiptPayload));
+  narrate('receipt-sign', 'active', 'sign exact receipt payload bytes with seller key', `${payloadBytes.byteLength} bytes`);
+  const signature = new Uint8Array(await crypto.subtle.sign({ name: 'ECDSA', hash: 'SHA-256' }, kp.privateKey, payloadBytes));
+  narrate('receipt-sign', 'ok', 'receipt signature produced', `${signature.byteLength} bytes`);
+  const verifiedNow = await crypto.subtle.verify({ name: 'ECDSA', hash: 'SHA-256' }, kp.publicKey, signature, payloadBytes);
+  if (!verifiedNow) throw new Error('receipt signature verify failed');
+  narrate('receipt-verify', 'ok', 'receipt signature verified locally', 'seller key attests this exact sealed envelope + custody head');
+
+  const receipt = {
+    algo: 'ECDSA-P-256-SHA256',
+    sellerPublicKeyJwk,
+    receiptPayload,
+    signatureB64url: b64url(signature),
+    verifiedNow
+  };
+
+  $('receiptOut').innerHTML =
+    `<div><span class="big">🧾 notarized receipt emitted</span> <span style="color:var(--muted)">buyer can verify independently</span></div>` +
+    `<div class="mono" style="margin-top:8px;color:var(--muted)">seller key kid: ${(sellerPublicKeyJwk.x || '').slice(0, 12)}…</div>` +
+    `<pre class="mono" style="margin-top:10px;white-space:pre-wrap;word-break:break-word;background:var(--bg);padding:10px;border:1px solid var(--line);border-radius:8px;font-size:11px">${esc(JSON.stringify(receipt, null, 2))}</pre>`;
+  return receipt;
+}
+
+async function fetchFreshProof() {
+  narrate('fresh-fetch', 'active', `fetch ${FRESHNESS_SPEC.title} bytes`, FRESHNESS_SPEC.source);
+  const res = await fetch(FRESHNESS_SPEC.source, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`fetch ${FRESHNESS_SPEC.source} -> ${res.status}`);
+  const fetchedAt = new Date().toISOString();
+  const bytes = await res.arrayBuffer();
+  narrate('fresh-fetch', 'ok', 'fetched freshness witness bytes', `${bytes.byteLength} bytes @ ${fetchedAt}`);
+  narrate('fresh-hash', 'active', 'recompute SHA-256 in your browser', 'crypto.subtle');
+  const payloadSha256 = await sha256hex(bytes);
+  narrate('fresh-hash', 'ok', `freshness hash ${payloadSha256.slice(0, 12)}…`, payloadSha256);
+  const json = JSON.parse(new TextDecoder().decode(bytes));
+  const value = dig(json, FRESHNESS_SPEC.path);
+  narrate('fresh-parse', 'ok', 'extracted the freshness witness value', `${value}`);
+
+  const cellValue = await runVerifiedCell({
+    base: TRACK,
+    cell: 'extract',
+    fn: 'extract',
+    args: { src: FRESHNESS_SPEC.source, path: FRESHNESS_SPEC.path },
+    onStep: (k, s, t, d = '') => narrate(`fresh-cell-${k}`, s, `freshness cell: ${t}`, d)
+  });
+  if (String(cellValue.value) !== String(value)) {
+    throw new Error(`freshness witness mismatch: hashed payload says ${value}, verified cell says ${cellValue.value}`);
+  }
+  narrate('fresh-agree', 'ok', 'hashed payload agrees with verified cell output', `${value}`);
+
+  return {
+    title: FRESHNESS_SPEC.title,
+    source: FRESHNESS_SPEC.source,
+    path: FRESHNESS_SPEC.path,
+    value,
+    statement: FRESHNESS_SPEC.describe(value),
+    fetched_at: fetchedAt,
+    payload_sha256: payloadSha256
+  };
+}
+
+async function entryHash(entry) {
+  return sha256hex(enc.encode(JSON.stringify({ id: entry.id, parent: entry.parent, content: entry.content, proof: entry.proof })));
+}
+
+function ensureLedger() {
+  if (permanentLedger) return permanentLedger;
+  permanentLedger = {
+    id: ID,
+    genesis: null,
+    mirrorWitness: mirrorWitness || [],
+    survivorEcho: survivorEcho || null,
+    entries: [],
+    head: null
+  };
+  return permanentLedger;
+}
+
+async function appendLedgerEntry(receipt, order, freshness) {
+  const ledger = ensureLedger();
+  if (!ledger.genesis) {
+    ledger.genesis = await sha256hex(enc.encode('the-permanent-market::genesis::trust-the-hash-not-the-host'));
+    ledger.head = ledger.genesis;
+    narrate('ledger-genesis', 'ok', 'permanent ledger genesis anchored', short(ledger.genesis));
+  }
+
+  const entry = {
+    id: `entry-${ledger.entries.length + 1}`,
+    parent: ledger.head,
+    content: {
+      label: `completed order ${ledger.entries.length + 1}`,
+      statement: `${order.items.length} item(s) sealed, custody-stamped, and seller-signed at ${receipt.receiptPayload.signedAt}.`,
+      receipt
+    },
+    proof: {
+      mirror_id: ID,
+      mirrors: ledger.mirrorWitness,
+      survivor_echo: ledger.survivorEcho,
+      freshness
+    }
+  };
+  entry.hash = await entryHash(entry);
+  ledger.entries.push(entry);
+  ledger.head = entry.hash;
+  lastLedger = JSON.parse(JSON.stringify(ledger));
+  narrate('ledger-append', 'ok', `${entry.id} appended to the immortal ledger`, `head ${short(entry.hash)}`);
+  return ledger;
+}
+
+function renderLedger(ledger) {
+  const mirrorBlock = (ledger.mirrorWitness || []).map(m =>
+    `<div class="mono" style="font-size:12px;color:var(--muted)">${m.fate === 'dead' ? '☠️' : '🟢'} ${esc(m.host)} · @${esc(m.sha8)}</div>`
+  ).join('');
+  $('ledgerOut').innerHTML =
+    `<div class="mono" style="margin-bottom:10px;color:var(--muted)">genesis: ${esc(ledger.genesis)}</div>` +
+    `<div class="card" style="margin-bottom:10px">` +
+    `<h3>mirror-surviving verifier</h3>` +
+    mirrorBlock +
+    `<div class="mono" style="font-size:12px;color:var(--faint);margin-top:8px">survivor echo: ${esc(JSON.stringify(ledger.survivorEcho))}</div>` +
+    `</div>` +
+    `<div class="ledger-list">` +
+    ledger.entries.map(entry => `
+      <div class="card">
+        <h3>${esc(entry.id)} · ${esc(entry.content.label)}</h3>
+        <div class="mono" style="color:var(--text);margin-bottom:8px">${esc(entry.content.statement)}</div>
+        <div class="meta-line"><span>parent</span><span class="hash">${esc(entry.parent)}</span></div>
+        <div class="meta-line"><span>hash</span><span class="hash">${esc(entry.hash)}</span></div>
+        <div class="meta-line"><span>signedAt</span><span>${esc(entry.content.receipt.receiptPayload.signedAt)}</span></div>
+        <div class="meta-line"><span>custody head</span><span class="hash">${esc(entry.content.receipt.receiptPayload.custody.head)}</span></div>
+        <div class="meta-line"><span>fetched_at</span><span>${esc(entry.proof.freshness.fetched_at)}</span></div>
+        <div class="meta-line"><span>freshness value</span><span>${esc(entry.proof.freshness.value)}</span></div>
+        <div class="meta-line"><span>sha256(response_bytes)</span><span class="hash">${esc(entry.proof.freshness.payload_sha256)}</span></div>
+        <div class="meta-line"><span>signature</span><span class="hash">${esc(entry.content.receipt.signatureB64url)}</span></div>
+      </div>`).join('') +
+    `</div><div class="mono" style="margin-top:10px;color:var(--good)">head: ${esc(ledger.head)}</div>`;
+}
+
+async function verifyReceipt(receipt, prefix) {
+  const publicKey = await crypto.subtle.importKey(
+    'jwk',
+    receipt.sellerPublicKeyJwk,
+    { name: 'ECDSA', namedCurve: 'P-256' },
+    true,
+    ['verify']
+  );
+  const ok = await crypto.subtle.verify(
+    { name: 'ECDSA', hash: 'SHA-256' },
+    publicKey,
+    fromB64url(receipt.signatureB64url),
+    enc.encode(JSON.stringify(receipt.receiptPayload))
+  );
+  if (!ok) {
+    narrate(prefix, 'bad', 'receipt signature no longer verifies', 'the seller attestation was forged or mutated');
+    throw new Error('Receipt signature verification failed');
+  }
+  narrate(prefix, 'ok', 'receipt signature still verifies', `seller key ${(receipt.sellerPublicKeyJwk.x || '').slice(0, 12)}…`);
+}
+
+function hasFreshnessProof(freshness) {
+  return Boolean(freshness && freshness.fetched_at && freshness.payload_sha256 && freshness.value !== undefined);
+}
+
+async function verifyLedger(ledger) {
+  if (!ledger || !ledger.genesis) throw new Error('ledger not initialized');
+  narrate('verify-genesis', 'ok', 'trusted genesis anchor', short(ledger.genesis));
+  narrate('verify-mirrors', 'ok', 'mirror witness preserved with the ledger', `${(ledger.mirrorWitness || []).length} host(s)`);
+  let prev = String(ledger.genesis);
+
+  for (let i = 0; i < ledger.entries.length; i += 1) {
+    const entry = ledger.entries[i];
+    narrate(`verify-link-${i}`, 'active', `verify ${entry.id}: parent pointer + content hash`, '');
+    if (String(entry.parent) !== prev) {
+      narrate(`verify-link-${i}`, 'bad', `✗ ${entry.id} parent mismatch`, `expected ${short(prev)}, got ${short(entry.parent)}`);
+      throw new Error(`Broken lineage at ${entry.id}`);
+    }
+    const recomputed = await entryHash(entry);
+    if (String(entry.hash) !== recomputed) {
+      narrate(`verify-link-${i}`, 'bad', `✗ ${entry.id} content hash mismatch`, `declared ${short(entry.hash)}, computed ${short(recomputed)}`);
+      throw new Error(`Tamper detected at ${entry.id}`);
+    }
+    const freshness = entry.proof?.freshness || {};
+    if (!hasFreshnessProof(freshness)) {
+      narrate(`verify-fresh-${i}`, 'bad', `✗ ${entry.id} freshness proof missing`, 'expected fetched_at + payload_sha256 + value');
+      throw new Error(`Freshness proof missing at ${entry.id}`);
+    }
+    narrate(`verify-fresh-${i}`, 'ok', `${entry.id} freshness proof present`, `${freshness.value} @ ${freshness.fetched_at}`);
+    await verifyReceipt(entry.content.receipt, `verify-receipt-${i}`);
+    prev = recomputed;
+    narrate(`verify-link-${i}`, 'ok', `✓ ${entry.id} linked`, `head now ${short(prev)}`);
+  }
+  return prev;
+}
+
+$('goMenu').onclick = async () => {
+  $('steps').innerHTML = '';
+  $('menuOut').innerHTML = '<span class="mono" style="color:var(--faint)">loading live market…</span>';
+  $('sealOut').innerHTML = '<span class="mono" style="color:var(--faint)">— select item(s) and finalize the order —</span>';
+  $('custodyOut').innerHTML = '<span class="mono" style="color:var(--faint)">— custody proof appears here —</span>';
+  $('receiptOut').innerHTML = '<span class="mono" style="color:var(--faint)">— notarized receipt appears here —</span>';
+  $('ledgerOut').innerHTML = '<span class="mono" style="color:var(--faint)">— immutable ledger entries appear here —</span>';
+  $('out').innerHTML = '<span class="mono" style="color:var(--faint)">— final verification verdict appears here —</span>';
+  $('orderSection').style.display = 'none';
+  try {
+    await resolvePermanentMirrors();
+    await loadLiveMarket();
+  } catch (e) {
+    $('menuOut').innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : esc(e.message || String(e))}</span>`;
+  }
+};
+
+$('goSeal').onclick = async () => {
+  const selected = MENU.filter(item => {
+    const el = $('cartItems')?.querySelector(`[id="chk-${item.key}"]`);
+    return el && el.checked;
+  });
+  if (!selected.length) {
+    $('sealOut').innerHTML = '<span class="mono" style="color:var(--warn)">select at least one available item first.</span>';
+    return;
+  }
+  const passphrase = $('sellerKey').value.trim();
+  if (!passphrase) {
+    $('sealOut').innerHTML = '<span class="mono" style="color:var(--warn)">a seal needs a passphrase — it becomes the only key.</span>';
+    return;
+  }
+  if (!mirrorWitness || !survivorEcho) {
+    $('sealOut').innerHTML = '<span class="mono" style="color:var(--warn)">resolve the immortal mirrors before finalizing an order.</span>';
+    return;
+  }
+
+  try {
+    $('steps').innerHTML = '';
+    $('sealOut').innerHTML = '<span class="mono" style="color:var(--faint)">building permanent order…</span>';
+    const order = {
+      version: 'permanent-market-order/1.0',
+      items: selected.map(i => ({ key: i.key, name: i.name, price: i.price })),
+      note: $('buyerNote').value.trim() || null,
+      submitted_at: new Date().toISOString(),
+      mirror_id: ID
+    };
+    narrate('order', 'ok', 'order payload assembled', `${selected.length} item(s): ${selected.map(i => i.name).join(', ')}`);
+    const sealedEnvelope = await sealRSL1(JSON.stringify(order), passphrase);
+    $('sealOut').innerHTML =
+      '<div class="mono" style="font-size:12px;color:var(--muted);margin-bottom:8px">RSL1 sealed order — only the seller passphrase opens this:</div>' +
+      `<div class="cipher">${esc(sealedEnvelope)}</div>`;
+    const stamp = await stampCustody(sealedEnvelope);
+    const receipt = await emitReceipt(order, sealedEnvelope, stamp);
+    narrate('weld-point', 'ok', 'weld point reached', 'finalized seller-signed receipt becomes an immutable ledger entry');
+    const freshness = await fetchFreshProof();
+    const ledger = await appendLedgerEntry(receipt, order, freshness);
+    renderLedger(ledger);
+    const head = await verifyLedger(ledger);
+    $('tamper').disabled = false;
+    $('out').innerHTML =
+      `<div><span class="big" style="color:var(--good)">✓ permanent market verified</span></div>` +
+      `<div class="mono" style="margin-top:8px;color:var(--muted)">every completed order is now sealed, custody-linked, seller-signed, freshness-witnessed, and chained into a mirror-surviving ledger.</div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--good)">head: ${esc(head)}</div>`;
+  } catch (e) {
+    $('out').innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : esc(e.message || String(e))}</span>`;
+  }
+};
+
+$('tamper').onclick = async () => {
+  if (!lastLedger?.entries?.length) return;
+  $('steps').innerHTML = '';
+  $('out').innerHTML = '<span class="mono" style="color:var(--faint)">tampering…</span>';
+  try {
+    const latest = lastLedger.entries[lastLedger.entries.length - 1];
+    latest.content.statement = `${latest.content.statement} (mutated)`;
+    renderLedger(lastLedger);
+    narrate('tamper', 'ok', 'mutated the latest ledger entry while leaving its stored hash unchanged', 'verification should fail at that entry');
+    await verifyLedger(lastLedger);
+    $('out').innerHTML = '<span class="mono" style="color:var(--accent)">unexpectedly passed after tamper</span>';
+  } catch (e) {
+    $('out').innerHTML = `<span class="mono" style="color:var(--bad)">${esc(e.message || String(e))}</span>`;
+  }
+};
+</script>
+</body></html>

@@ -1,0 +1,19 @@
+{
+  "slug": "the-permanent-market",
+  "channel": "wildcard",
+  "rank": null,
+  "emoji": "🧬",
+  "title": "WELD: The Permanent Market",
+  "tagline": "A notarized marketplace whose completed orders become immutable ledger entries that survive host death and replay from genesis to head.",
+  "holy_shit": "This weld keeps the whole notarized order pipeline intact, then commits each seller-signed receipt into an immortal mirror-surviving ledger, so a market's history can't be forged, back-dated, lost, or erased — and the proof runs entirely in your browser.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["weld", "marketplace", "ledger", "ecdsa", "custody", "freshness", "mirror"],
+  "primitives": ["/resolver", "/track", "rapp-sealed/1.0", "crypto.subtle", "fetch"],
+  "powered_by": "The Notarized Marketplace order pipeline welded to The Immortal Ledger mirror resolution, freshness proof, and append-only lineage replay",
+  "builds_on": ["the-notarized-marketplace", "the-immortal-ledger"],
+  "weld": "Keep the full notarized marketplace flow intact, then append every completed seller-signed receipt as a fresh-proof ledger entry whose whole history re-verifies from a mirror-surviving genesis to the current head.",
+  "agent_scenario": "When you need a zero-backend market where inventory is live, orders stay sealed, receipts are seller-signed, and every completed transaction is preserved in a mirror-surviving append-only ledger with browser-side freshness and lineage proofs.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

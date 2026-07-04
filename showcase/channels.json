@@ -26,7 +26,7 @@
       "emoji": "💛",
       "title": "Human & Personal",
       "blurb": "Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.",
-      "count": 4
+      "count": 5
     },
     {
       "slug": "self-building",
@@ -40,7 +40,7 @@
       "emoji": "🎲",
       "title": "Wildcard",
       "blurb": "The strange stacks that shouldn't work but provably do. Go weird, stay real.",
-      "count": 9
+      "count": 10
     }
   ]
 }

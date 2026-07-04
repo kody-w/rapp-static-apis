@@ -34,7 +34,7 @@
       "slug": "human",
       "title": "Human & Personal",
       "blurb": "Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.",
-      "count": 4
+      "count": 5
     },
     {
       "slug": "self-building",
@@ -46,7 +46,7 @@
       "slug": "wildcard",
       "title": "Wildcard",
       "blurb": "The strange stacks that shouldn't work but provably do. Go weird, stay real.",
-      "count": 9
+      "count": 10
     }
   ],
   "scenarios": [
@@ -398,6 +398,24 @@
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-fast-forward-parliament/"
     },
     {
+      "slug": "the-heirloom",
+      "channel": "human",
+      "title": "WELD: The Heirloom",
+      "when_to_use": "When data must survive generations with verifiable chain-of-custody yet remain readable only by the current rightful holder: sign each new keyholder's public key with the prior generation's ECDSA key, seal the payload AES-256-GCM under the heir's passphrase, and publish both openly — anyone verifies the lineage, only the heir reads the contents.",
+      "primitives": [
+        "crypto.subtle",
+        "rapp-sealed/1.0"
+      ],
+      "status": "live",
+      "builds_on": [
+        "the-artifact-with-a-signed-bloodline",
+        "broadcast-the-secret"
+      ],
+      "weld": "Transplant the ECDSA generational chain from the-artifact-with-a-signed-bloodline (each generation's key signs the next's public key) and the AES-256-GCM RSL1 seal from broadcast-the-secret; weld point = the heir at the tip of the verified bloodline is the one whose passphrase opens the seal.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-heirloom/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-heirloom/"
+    },
+    {
       "slug": "the-immortal-ledger",
       "channel": "verify",
       "title": "WELD: The Immortal Ledger",
@@ -471,6 +489,27 @@
       "weld": "",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-page-that-proves-itself/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-page-that-proves-itself/"
+    },
+    {
+      "slug": "the-permanent-market",
+      "channel": "wildcard",
+      "title": "WELD: The Permanent Market",
+      "when_to_use": "When you need a zero-backend market where inventory is live, orders stay sealed, receipts are seller-signed, and every completed transaction is preserved in a mirror-surviving append-only ledger with browser-side freshness and lineage proofs.",
+      "primitives": [
+        "/resolver",
+        "/track",
+        "rapp-sealed/1.0",
+        "crypto.subtle",
+        "fetch"
+      ],
+      "status": "live",
+      "builds_on": [
+        "the-notarized-marketplace",
+        "the-immortal-ledger"
+      ],
+      "weld": "Keep the full notarized marketplace flow intact, then append every completed seller-signed receipt as a fresh-proof ledger entry whose whole history re-verifies from a mirror-surviving genesis to the current head.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-permanent-market/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-permanent-market/"
     },
     {
       "slug": "the-provenance-camera",

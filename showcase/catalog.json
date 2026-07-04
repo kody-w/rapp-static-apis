@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 36,
+  "count": 38,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -562,6 +562,35 @@
       "weld": ""
     },
     {
+      "slug": "the-heirloom",
+      "channel": "human",
+      "rank": null,
+      "emoji": "📜",
+      "title": "WELD: The Heirloom",
+      "tagline": "A digital heirloom sealed for the heir at the tip of an unforgeable signed bloodline — no server, no lawyer, no trust.",
+      "status": "live",
+      "difficulty": "hard",
+      "tags": [
+        "weld",
+        "heirloom",
+        "ecdsa",
+        "sealed",
+        "lineage",
+        "custody"
+      ],
+      "primitives": [
+        "crypto.subtle",
+        "rapp-sealed/1.0"
+      ],
+      "url": "demos/the-heirloom/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-heirloom/demo.json",
+      "builds_on": [
+        "the-artifact-with-a-signed-bloodline",
+        "broadcast-the-secret"
+      ],
+      "weld": "Transplant the ECDSA generational chain from the-artifact-with-a-signed-bloodline (each generation's key signs the next's public key) and the AES-256-GCM RSL1 seal from broadcast-the-secret; weld point = the heir at the tip of the verified bloodline is the one whose passphrase opens the seal."
+    },
+    {
       "slug": "the-immortal-ledger",
       "channel": "verify",
       "rank": null,
@@ -678,6 +707,39 @@
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-page-that-proves-itself/demo.json",
       "builds_on": [],
       "weld": ""
+    },
+    {
+      "slug": "the-permanent-market",
+      "channel": "wildcard",
+      "rank": null,
+      "emoji": "🧬",
+      "title": "WELD: The Permanent Market",
+      "tagline": "A notarized marketplace whose completed orders become immutable ledger entries that survive host death and replay from genesis to head.",
+      "status": "live",
+      "difficulty": "hard",
+      "tags": [
+        "weld",
+        "marketplace",
+        "ledger",
+        "ecdsa",
+        "custody",
+        "freshness",
+        "mirror"
+      ],
+      "primitives": [
+        "/resolver",
+        "/track",
+        "rapp-sealed/1.0",
+        "crypto.subtle",
+        "fetch"
+      ],
+      "url": "demos/the-permanent-market/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-permanent-market/demo.json",
+      "builds_on": [
+        "the-notarized-marketplace",
+        "the-immortal-ledger"
+      ],
+      "weld": "Keep the full notarized marketplace flow intact, then append every completed seller-signed receipt as a fresh-proof ledger entry whose whole history re-verifies from a mirror-surviving genesis to the current head."
     },
     {
       "slug": "the-provenance-camera",
