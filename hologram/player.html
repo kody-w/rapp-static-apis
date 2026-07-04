@@ -531,7 +531,7 @@ function bornDate(coord) {
   if (Math.abs(now - ann.getTime()) < 7 * 8.64e7) return 'a year ago today \u2726';
   const mo = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   if (dy < 50) return 'last ' + mo[d.getMonth()];
-  const sn = m2 => (m2 <= 1 || m2 === 11 ? 'winter' : m2 <= 4 ? 'spring' : m2 <= 7 ? 'summer' : 'autumn');
+  const sn = month => (month <= 1 || month === 11 ? 'winter' : month <= 4 ? 'spring' : month <= 7 ? 'summer' : 'autumn');
   if (dy < 330) return 'last ' + sn(d.getMonth());
   return Math.floor(dy / 365) + ' year' + (dy < 730 ? '' : 's') + ' ago';
 }
