@@ -121,6 +121,8 @@ let stream;
 let raf = 0;
 let running = false;
 let palette = [];
+const DEFAULT_VIDEO_HEIGHT = 3;
+const DEFAULT_VIDEO_WIDTH = 4;
 
 function nearestColor(r, g, b) {
   let best = palette[0] || [r, g, b];
@@ -145,9 +147,9 @@ function extractPalette(img, maxColors = 24) {
     const a = data[i + 3];
     if (a < 8) continue;
     const r = data[i] & 0xf0;
-    const gg = data[i + 1] & 0xf0;
+    const g = data[i + 1] & 0xf0;
     const b = data[i + 2] & 0xf0;
-    const key = `${r},${gg},${b}`;
+    const key = `${r},${g},${b}`;
     buckets.set(key, (buckets.get(key) || 0) + 1);
   }
   return [...buckets.entries()]
@@ -185,7 +187,7 @@ function paintFrame() {
   }
 
   const sw = 176;
-  const sh = Math.max(100, Math.round(sw * (video.videoHeight || 3) / (video.videoWidth || 4)));
+  const sh = Math.max(100, Math.round(sw * (video.videoHeight || DEFAULT_VIDEO_HEIGHT) / (video.videoWidth || DEFAULT_VIDEO_WIDTH)));
   if (sample.width !== sw || sample.height !== sh) {
     sample.width = sw;
     sample.height = sh;
