@@ -321,10 +321,10 @@ function b64enc(s) { return btoa(unescape(encodeURIComponent(s))).replace(/\+/g,
 function b64dec(s) { s = String(s).replace(/-/g,'+').replace(/_/g,'/'); while(s.length%4)s+='='; return decodeURIComponent(escape(atob(s))); }
 
 /* ── Default cartridge (Lumina) ────────────────────────────────────────────── */
-const DEFAULT_CART = {"schema":"hologram-cartridge/1.0","id":"d45a79d29e99","title":"Lumina","author":"@kody-w","born":{"coord":"0,0","from":"genesis"},"parent":"","genome":{"layers":[{"role":"form","k":30,"shape":"blob","limbs":0,"segments":8,"symmetry":"radial","body_r":0.3,"limb_len":0},{"role":"surface","k":85,"palette":["#00ccff","#0088ff","#ffffff","#aaddff"],"pattern":"glow","glow":0.8,"opacity":0.85},{"role":"motion","k":60,"breathe":0.2,"drift":0.5,"pulse":0.8,"reach":0}],"compose":{"windows":[[0,1,2]],"loop":true}},"sig":""};
+const DEFAULT_CART = {"schema":"hologram-cartridge/1.0","id":"d45a79d29e99","title":"Lumina","author":"@kody-w","born":{"coord":"0,0","from":"genesis"},"parents":[],"genome":{"layers":[{"role":"form","k":30,"shape":"blob","limbs":0,"segments":8,"symmetry":"radial","body_r":0.3,"limb_len":0},{"role":"surface","k":85,"palette":["#00ccff","#0088ff","#ffffff","#aaddff"],"pattern":"glow","glow":0.8,"opacity":0.85},{"role":"motion","k":60,"breathe":0.2,"drift":0.5,"pulse":0.8,"reach":0}],"compose":{"windows":[[0,1,2]],"loop":true}},"sig":""};
 
 /* ── State ────────────────────────────────────────────────────────────────── */
-let CART = null, RAF = null, T0 = null;
+let CART = null, RAF = null, T0 = null, _pmPort = null;
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const verEl = document.getElementById('verify');
@@ -334,8 +334,9 @@ async function loadCart(cart) {
   // Verify genome id
   const got = await genomeId(cart.genome);
   const declared = cart.id || '';
+  const match = !declared || got === declared;
   verEl.style.display = 'block';
-  if (!declared || got === declared) {
+  if (match) {
     verEl.textContent = got + ' ✓';
     verEl.className = 'mono';
   } else {
@@ -347,6 +348,11 @@ async function loadCart(cart) {
   document.getElementById('i-id').textContent = 'id:' + (cart.id || got);
   document.getElementById('cart-json').value = JSON.stringify(cart, null, 2);
   startAnim();
+  // Notify sandboxed housing if present
+  if (_pmPort) {
+    if (match) _pmPort.postMessage({ type: 'hatched', id: got });
+    else _pmPort.postMessage({ type: 'hash-mismatch', got, declared });
+  }
 }
 
 function startAnim() {
@@ -492,4 +498,20 @@ document.getElementById('btn-qr').onclick = async () => {
   document.getElementById('qr-link').textContent = url;
   wrap.style.display = 'block';
 };
+
+/* ── postMessage housing protocol ────────────────────────────────────────── */
+// Accepts {type:'hologram-init'} from a host page that embeds this player in a
+// sandboxed iframe (sandbox="allow-scripts"). Replies {type:'ready'} on the
+// MessageChannel port, then accepts {type:'load-cartridge', cart:{...}} and
+// replies {type:'hatched', id} or {type:'hash-mismatch', got, declared}.
+window.addEventListener('message', e => {
+  if (!e.data || e.data.type !== 'hologram-init') return;
+  _pmPort = e.ports[0] || null;
+  if (!_pmPort) return;
+  _pmPort.onmessage = async ev => {
+    const d = ev.data;
+    if (d && d.type === 'load-cartridge' && d.cart) await loadCart(d.cart);
+  };
+  _pmPort.postMessage({ type: 'ready' });
+});
 </script></body></html>

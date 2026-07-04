@@ -7,7 +7,7 @@
     "coord": "0,0",
     "from": "genesis"
   },
-  "parent": "",
+  "parents": [],
   "genome": {
     "layers": [
       {

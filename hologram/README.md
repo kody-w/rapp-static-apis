@@ -34,7 +34,7 @@ A single self-describing JSON file. The genome is **holographic**, not a timelin
   "title": "Lumina",
   "author": "@handle",
   "born": { "coord": "0,0", "from": "genesis" },
-  "parent": "",
+  "parents": [],
   "genome": {
     "layers": [
       {
@@ -116,7 +116,8 @@ hologram/
   versions/
     <name>/<sha8>.json       # immutable content-addressed frames (append-only)
   index.html                 # gallery
-  player.html                # universal player / interpreter
+  player.html                # universal player / interpreter (standalone or embedded)
+  run.html                   # sandboxed iframe housing — postMessage protocol host
 ```
 
 ```bash
