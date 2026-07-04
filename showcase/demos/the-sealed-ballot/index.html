@@ -1,0 +1,496 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WELD: The Sealed Ballot — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  .field{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
+  .field label{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-family:var(--mono)}
+  .field textarea,.field input{width:100%;background:var(--panel-2);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:10px 12px;font:inherit}
+  .field textarea{min-height:82px;resize:vertical}
+  .field input{font-family:var(--mono)}
+  .btnrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+  .agent-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:12px}
+  .agent{border:1px solid var(--line);border-radius:10px;background:var(--panel-2);padding:9px 10px;font-family:var(--mono);font-size:12px}
+  .agent b{color:var(--text)}
+  .ledger{display:grid;gap:8px;margin-top:12px}
+  .ledger .row{border:1px solid var(--line);border-radius:11px;background:var(--panel-2);padding:10px 12px;font-family:var(--mono);font-size:12px}
+  .ledger .top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .ledger .meta{color:var(--faint);margin-top:5px;line-height:1.45}
+  .tally{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin:12px 0}
+  .tally .card{border:1px solid var(--line);border-radius:11px;background:var(--panel-2);padding:10px 12px}
+  .tally .n{display:block;font-size:24px;font-weight:700;color:var(--text)}
+  .tally .k{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .cipher{font-family:var(--mono);font-size:12px;color:var(--accent-2);word-break:break-all;overflow-wrap:anywhere}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🧬</div>
+    <h1 id="title">WELD: The Sealed Ballot</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — cast sealed ballots, then close and reveal</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">This keeps both donors alive. Each agent first runs <b>The Trustless Poll</b> signing loop (fresh ECDSA key, canonical ballot, immediate self-verify), then the signed ballot is sealed as a <b>Broadcast the Secret</b> RSL1 envelope (PBKDF2 + AES-256-GCM). Consensus appends only sealed envelopes. At close, everyone unseals and verifies signatures, distinct keys, and that nothing readable leaked before close.</p>
+    <div class="field">
+      <label for="poll">Poll question</label>
+      <textarea id="poll">Should the swarm ratify this release candidate?</textarea>
+    </div>
+    <div class="field">
+      <label for="sealKey">Closing passphrase (the reveal key)</label>
+      <input id="sealKey" type="text" spellcheck="false" value="close-at-midnight-ledger-key">
+    </div>
+    <div class="btnrow">
+      <button class="run" id="go">🧬 Run the sealed ballot</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">6 agents · ECDSA signatures · AES-256-GCM seal · append-only consensus</span>
+    </div>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— run to cast sealed ballots, reach consensus, then reveal at close —</span></div>
+    <div class="agent-grid" id="agentGrid"></div>
+    <div class="ledger" id="sealedLedger"></div>
+    <div class="ledger" id="openedLedger"></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>Before close, the ledger contains only sealed RSL1 envelopes and append-only parent links — no counter sees the choices, and no host can forge votes because the underlying ballots are still ECDSA-signed by distinct browser keys. After close, unsealing proves both secrecy and legitimacy.</p>
+    <p style="margin:12px 0 0">So the same run proves three things: <b>privacy</b> (ballots unreadable pre-close), <b>authenticity</b> (every revealed ballot re-verifies against its signature), and <b>consensus integrity</b> (accepted order is exactly the fast-forward chain).</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Press <b>Run the sealed ballot</b>. The poll bytes are pinned through <code>/track</code>, then each agent signs one canonical ballot.</li>
+      <li>Each signed ballot is sealed into an <code>RSL1</code> envelope with your closing passphrase; only sealed envelopes race append-only fast-forward consensus.</li>
+      <li>At close, the page unseals every accepted envelope, re-verifies every signature and parent hash, and derives the tally from distinct revealed keys only.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-sealed-ballot/</code> (<code>crypto.subtle</code> + IndexedDB need localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Weld pattern: <code>ECDSA signed canonical ballots</code> + <code>RSL1 AES-256-GCM sealing at cast</code> + <code>fast-forward append-only consensus over ciphertext</code> + <code>post-close reveal verification</code>.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+import { expand } from '../../../resolver/rapp-resolve.mjs';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const TRACK = '../../../track';
+const AGENTS = 6;
+const CHOICES = ['YES', 'YES', 'NO', 'ABSTAIN', 'YES', 'NO'];
+const ITER = 250000;
+const MAGIC = 'RSL1';
+const HEADER = 4 + 16 + 12;
+
+const encoder = new TextEncoder();
+const decoder = new TextDecoder();
+const out = document.getElementById('out');
+const agentGrid = document.getElementById('agentGrid');
+const sealedLedger = document.getElementById('sealedLedger');
+const openedLedger = document.getElementById('openedLedger');
+const stepsEl = document.getElementById('steps');
+const narrate = mkNarrator(stepsEl);
+
+const esc = v => String(v ?? '').replace(/[&<>"']/g, c =>
+  ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;', "'":'&#39;' }[c]));
+
+function b64(bytes) {
+  let s = '';
+  for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(s);
+}
+
+function unb64(str) {
+  const s = atob(String(str).replace(/\s+/g, ''));
+  const out = new Uint8Array(s.length);
+  for (let i = 0; i < s.length; i++) out[i] = s.charCodeAt(i);
+  return out;
+}
+
+function b64url(bytes) {
+  const raw = String.fromCharCode(...bytes);
+  return btoa(raw).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
+
+function fromB64url(str) {
+  const s = String(str).replace(/-/g, '+').replace(/_/g, '/');
+  const paddingNeeded = (4 - (s.length % 4 || 4)) % 4;
+  const raw = atob(s + '='.repeat(paddingNeeded));
+  const out = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i++) out[i] = raw.charCodeAt(i);
+  return out;
+}
+
+function rndHex(n = 6) {
+  return [...crypto.getRandomValues(new Uint8Array(n))]
+    .map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function sha12(value) {
+  const d = await crypto.subtle.digest('SHA-256', encoder.encode(String(value)));
+  return [...new Uint8Array(d)].map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 12);
+}
+
+function randInt(maxExclusive) {
+  const limit = Math.floor(0x100000000 / maxExclusive) * maxExclusive;
+  let value = 0;
+  do value = crypto.getRandomValues(new Uint32Array(1))[0];
+  while (value >= limit);
+  return value % maxExclusive;
+}
+
+function shuffle(items) {
+  const copy = items.slice();
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = randInt(i + 1);
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+async function keyIdFor(jwk) {
+  return sha12(JSON.stringify({ crv: jwk.crv, kty: jwk.kty, x: jwk.x, y: jwk.y }));
+}
+
+async function deriveKey(passphrase, salt) {
+  const base = await crypto.subtle.importKey('raw', encoder.encode(passphrase), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt, iterations: ITER, hash: 'SHA-256' },
+    base,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['encrypt', 'decrypt']
+  );
+}
+
+async function sealEnvelope(plaintext, passphrase) {
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const key = await deriveKey(passphrase, salt);
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, encoder.encode(plaintext)));
+  const env = new Uint8Array(HEADER + ct.length);
+  env.set(encoder.encode(MAGIC), 0);
+  env.set(salt, 4);
+  env.set(iv, 20);
+  env.set(ct, 32);
+  return b64(env);
+}
+
+async function unsealEnvelope(file, passphrase) {
+  const env = unb64(file);
+  if (env.length < HEADER || String.fromCharCode.apply(null, env.subarray(0, 4)) !== MAGIC) {
+    throw new Error('not an RSL1 sealed ballot');
+  }
+  const salt = env.subarray(4, 20);
+  const iv = env.subarray(20, 32);
+  const ct = env.subarray(32);
+  const key = await deriveKey(passphrase, salt);
+  try {
+    const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, ct);
+    return decoder.decode(pt);
+  } catch {
+    throw Object.assign(new Error('the ballot seal refused'), { refused: true });
+  }
+}
+
+async function mintBallot(agentId, poll, choice) {
+  const kp = await crypto.subtle.generateKey(
+    { name: 'ECDSA', namedCurve: 'P-256' },
+    true,
+    ['sign', 'verify']
+  );
+  const message = JSON.stringify({
+    poll,
+    agent: `agent-${agentId}`,
+    choice,
+    nonce: rndHex(4),
+    at: new Date().toISOString()
+  });
+  const payload = encoder.encode(message);
+  const sig = new Uint8Array(await crypto.subtle.sign(
+    { name: 'ECDSA', hash: 'SHA-256' },
+    kp.privateKey,
+    payload
+  ));
+  const valid = await crypto.subtle.verify(
+    { name: 'ECDSA', hash: 'SHA-256' },
+    kp.publicKey,
+    sig,
+    payload
+  );
+  if (!valid) throw new Error(`agent-${agentId} signature self-check failed`);
+  const jwk = await crypto.subtle.exportKey('jwk', kp.publicKey);
+  return {
+    agentId,
+    choice,
+    message,
+    publicKeyJwk: jwk,
+    signatureB64url: b64url(sig),
+    keyId: await keyIdFor(jwk)
+  };
+}
+
+async function verifyBallot(ballot) {
+  const pub = await crypto.subtle.importKey(
+    'jwk',
+    ballot.publicKeyJwk,
+    { name: 'ECDSA', namedCurve: 'P-256' },
+    true,
+    ['verify']
+  );
+  const valid = await crypto.subtle.verify(
+    { name: 'ECDSA', hash: 'SHA-256' },
+    pub,
+    fromB64url(ballot.signatureB64url),
+    encoder.encode(ballot.message)
+  );
+  if (!valid) throw new Error(`signature check failed for ${ballot.keyId}`);
+  const parsed = JSON.parse(ballot.message);
+  if (parsed.choice !== ballot.choice) throw new Error(`choice tamper detected for ${ballot.keyId}`);
+  if ((await keyIdFor(ballot.publicKeyJwk)) !== ballot.keyId) throw new Error(`key id mismatch for ${ballot.keyId}`);
+  return parsed;
+}
+
+function idbStore() {
+  const DB = 'rapp-sealed-ballot', STORE = 'ref', KEY = 'HEAD';
+  const dbp = new Promise((resolve, reject) => {
+    const rq = indexedDB.open(DB, 1);
+    rq.onupgradeneeded = () => {
+      const db = rq.result;
+      if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE);
+    };
+    rq.onsuccess = () => resolve(rq.result);
+    rq.onerror = () => reject(rq.error);
+  });
+  return {
+    async reset(genesis) {
+      const db = await dbp;
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE, 'readwrite');
+        tx.objectStore(STORE).put({ height: 0, sha8: genesis, parent: null, frames: [] }, KEY);
+        tx.oncomplete = () => resolve();
+        tx.onerror = tx.onabort = () => reject(tx.error);
+      });
+    },
+    async read() {
+      const db = await dbp;
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE, 'readonly');
+        const g = tx.objectStore(STORE).get(KEY);
+        g.onsuccess = () => resolve(g.result);
+        g.onerror = () => reject(g.error);
+      });
+    },
+    async tryAppend(parent, frame) {
+      const db = await dbp;
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE, 'readwrite');
+        const st = tx.objectStore(STORE);
+        const g = st.get(KEY);
+        let accepted = false;
+        let reason = 'non-fast-forward';
+        let head = null;
+        g.onsuccess = () => {
+          head = g.result;
+          if (!head || head.sha8 !== parent) return;
+          accepted = true;
+          head = {
+            height: head.height + 1,
+            parent,
+            sha8: frame.frameSha8,
+            frames: [...head.frames, frame]
+          };
+          st.put(head, KEY);
+        };
+        tx.oncomplete = () => resolve(accepted ? { accepted: true, head } : { accepted: false, head, reason });
+        tx.onerror = tx.onabort = () => reject(tx.error);
+      });
+    }
+  };
+}
+
+async function settlePoll(frames, emit) {
+  const store = idbStore();
+  const genesis = await sha12('genesis|' + rndHex(6));
+  await store.reset(genesis);
+  let pending = frames.slice();
+  while (pending.length) {
+    const base = await store.read();
+    const parent = base.sha8;
+    emit({ type: 'round', parent, pending: pending.length });
+    const proposals = await Promise.all(shuffle(pending).map(async frame => ({
+      ...frame,
+      parent,
+      frameSha8: await sha12(`${parent}|${frame.envelopeSha8}`)
+    })));
+    const results = await Promise.all(proposals.map(async proposal => {
+      const res = await store.tryAppend(parent, proposal);
+      emit({ type: res.accepted ? 'accepted' : res.reason, proposal, head: res.head });
+      return { proposal, ...res };
+    }));
+    const winner = results.find(r => r.accepted);
+    if (!winner) throw new Error('no sealed ballot landed for this parent');
+    pending = pending.filter(frame => frame.castId !== winner.proposal.castId);
+  }
+  return { genesis, head: await store.read() };
+}
+
+async function verifySealedLedger(genesis, head) {
+  let parent = genesis;
+  for (const frame of head.frames) {
+    if (frame.parent !== parent) throw new Error(`broken parent chain before ${frame.castId}`);
+    const expected = await sha12(`${frame.parent}|${frame.envelopeSha8}`);
+    if (expected !== frame.frameSha8) throw new Error(`frame hash mismatch for ${frame.castId}`);
+    if ('choice' in frame || 'keyId' in frame || 'message' in frame || 'signatureB64url' in frame) {
+      throw new Error(`plain ballot leaked before close for ${frame.castId}`);
+    }
+    parent = frame.frameSha8;
+  }
+}
+
+async function openAndVerify(head, passphrase) {
+  const tally = { YES: 0, NO: 0, ABSTAIN: 0 };
+  const seen = new Set();
+  const revealed = [];
+  for (const frame of head.frames) {
+    const ballot = JSON.parse(await unsealEnvelope(frame.envelope, passphrase));
+    const parsed = await verifyBallot(ballot);
+    if (seen.has(ballot.keyId)) throw new Error(`duplicate key detected: ${ballot.keyId}`);
+    tally[parsed.choice] = (tally[parsed.choice] || 0) + 1;
+    seen.add(ballot.keyId);
+    revealed.push({ ...frame, ballot, parsed });
+  }
+  return { tally, count: revealed.length, revealed };
+}
+
+function renderAgents(frames) {
+  agentGrid.innerHTML = frames.map(frame =>
+    `<div class="agent"><div><b>agent-${frame.agentId}</b> cast a sealed ballot</div>` +
+    `<div class="cipher" style="margin-top:4px">RSL1 ${esc(frame.envelope.slice(0, 32))}…</div></div>`
+  ).join('');
+}
+
+function renderSealedLedger(genesis, head, decisionName) {
+  sealedLedger.innerHTML =
+    `<div class="row"><div class="top"><span>sealed ledger tip ${head.sha8}</span><span>${decisionName}</span></div>` +
+    `<div class="meta">Before close: append-only frames with envelope hashes only. Genesis ${genesis}.</div></div>` +
+    head.frames.map((frame, i) =>
+      `<div class="row"><div class="top"><span>#${i + 1} sealed cast ${esc(frame.castId)}</span><span>${esc(frame.envelopeSha8)}</span></div>` +
+      `<div class="meta">parent ${esc(frame.parent)} → ${esc(frame.frameSha8)}<br><span class="cipher">${esc(frame.envelope.slice(0, 120))}…</span></div></div>`
+    ).join('');
+}
+
+function renderOpenedLedger(opened) {
+  const total = opened.tally.YES + opened.tally.NO + opened.tally.ABSTAIN;
+  openedLedger.innerHTML =
+    `<div class="tally">` +
+      `<div class="card"><span class="n">${opened.tally.YES}</span><span class="k">YES</span></div>` +
+      `<div class="card"><span class="n">${opened.tally.NO}</span><span class="k">NO</span></div>` +
+      `<div class="card"><span class="n">${opened.tally.ABSTAIN}</span><span class="k">ABSTAIN</span></div>` +
+      `<div class="card"><span class="n">${total}</span><span class="k">distinct revealed keys</span></div>` +
+    `</div>` +
+    opened.revealed.map((row, i) =>
+      `<div class="row"><div class="top"><span>#${i + 1} ${esc(row.parsed.choice)}</span><span>${esc(row.ballot.keyId)}</span></div>` +
+      `<div class="meta">${esc(row.parsed.agent)} signed poll: ${esc(row.parsed.poll)}</div></div>`
+    ).join('');
+}
+
+document.getElementById('go').onclick = async () => {
+  stepsEl.innerHTML = '';
+  agentGrid.innerHTML = '';
+  sealedLedger.innerHTML = '';
+  openedLedger.innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">running…</span>';
+  try {
+    const poll = (document.getElementById('poll').value || '').trim();
+    const sealKey = String(document.getElementById('sealKey').value || '');
+    if (!poll) throw new Error('type a poll question first');
+    if (!sealKey) throw new Error('type the closing passphrase first');
+
+    const gate = await runVerifiedCell({
+      base: TRACK,
+      cell: 'extract',
+      fn: 'echo',
+      args: poll,
+      onStep: narrate
+    });
+    const canonicalPoll = String(gate.echo ?? poll);
+    narrate('poll', 'ok', 'pinned cell echoed the exact poll bytes to be signed', canonicalPoll);
+
+    narrate('mint', 'active', `${AGENTS} agents generate fresh ECDSA P-256 keypairs`, 'crypto.subtle.generateKey');
+    const ballots = await Promise.all(Array.from({ length: AGENTS }, (_, i) =>
+      mintBallot(i + 1, canonicalPoll, CHOICES[i % CHOICES.length])
+    ));
+    narrate('mint', 'ok', `${AGENTS} signed ballots minted`, ballots.map(b => `${b.agentId}:${b.choice}`).join(' · '));
+
+    narrate('self-verify', 'active', 'each ballot self-verifies before being cast', 'ECDSA verify');
+    await Promise.all(ballots.map(verifyBallot));
+    narrate('self-verify', 'ok', 'all signatures valid pre-cast', `${ballots.length} valid signatures`);
+
+    narrate('seal', 'active', 'seal each signed ballot as RSL1 (PBKDF2 + AES-256-GCM)', `${ITER.toLocaleString()} rounds`);
+    const sealedFrames = await Promise.all(ballots.map(async ballot => {
+      const envelope = await sealEnvelope(JSON.stringify(ballot), sealKey);
+      return {
+        castId: `cast-${ballot.agentId}-${rndHex(2)}`,
+        agentId: ballot.agentId,
+        envelope,
+        envelopeSha8: await sha12(envelope)
+      };
+    }));
+    narrate('seal', 'ok', 'all ballots sealed; plaintext removed from cast surface', `${sealedFrames.length} RSL1 envelopes`);
+    renderAgents(sealedFrames);
+
+    const events = [];
+    narrate('consensus', 'active', 'sealed envelopes enter fast-forward append-only consensus', 'ciphertext race begins');
+    const { genesis, head } = await settlePoll(sealedFrames, event => events.push(event));
+    const rounds = events.filter(e => e.type === 'round').length;
+    const accepts = events.filter(e => e.type === 'accepted').length;
+    narrate('consensus', 'ok', 'one sealed append landed per parent until all casts were seated', `${accepts} accepted fast-forwards across ${rounds} rounds`);
+
+    narrate('preclose-check', 'active', 'verify that pre-close ledger leaks no readable ballot fields', 'ciphertext-only chain');
+    await verifySealedLedger(genesis, head);
+    narrate('preclose-check', 'ok', 'no key IDs or choices were visible before close', `${head.frames.length} sealed entries`);
+
+    narrate('close', 'active', 'poll closes: unseal every accepted envelope and verify signatures', 'distinct key check');
+    const opened = await openAndVerify(head, sealKey);
+    narrate('close', 'ok', 'post-close reveal verified: distinct keys, valid signatures', `${opened.count} revealed ballots`);
+
+    const named = expand('kody-w/sealed-ballot@' + head.sha8);
+    narrate('name', 'ok', '/resolver names the ratified sealed-ballot tip', `${named.owner}/${named.name}@${named.sha8}`);
+
+    renderSealedLedger(genesis, head, `${named.owner}/${named.name}@${named.sha8}`);
+    renderOpenedLedger(opened);
+    out.innerHTML =
+      `<div><span class="big">✅ Sealed ballot ratified</span></div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--muted)">YES ${opened.tally.YES} · NO ${opened.tally.NO} · ABSTAIN ${opened.tally.ABSTAIN} · ${opened.count} distinct keys</div>` +
+      `<div class="mono" style="margin-top:4px;color:var(--faint)">Before close, consensus saw only ciphertext. After close, signatures and key uniqueness re-verified from the accepted append-only head <b>${named.owner}/${named.name}@${named.sha8}</b>.</div>`;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${esc(e.refused ? 'seal REFUSED (wrong key or tampered ciphertext)' : (e.message || e))}</span>`;
+  }
+};
+</script>
+</body></html>

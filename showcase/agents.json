@@ -28,7 +28,7 @@
       "slug": "ai-to-ai",
       "title": "Agent to Agent",
       "blurb": "MCP tools, brainstems as bytecode, signed dead-drops — machines using the stack with no human and no browser.",
-      "count": 8
+      "count": 9
     },
     {
       "slug": "human",
@@ -583,6 +583,27 @@
       "weld": "",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-relay/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-relay/"
+    },
+    {
+      "slug": "the-sealed-ballot",
+      "channel": "ai-to-ai",
+      "title": "WELD: The Sealed Ballot",
+      "when_to_use": "When agents need a true secret ballot without trusted counters: sign canonical votes per key, seal each vote at cast time, append sealed envelopes by fast-forward consensus, then unseal at close to verify one valid vote per distinct key.",
+      "primitives": [
+        "/track",
+        "/fn",
+        "/resolver",
+        "rapp-sealed/1.0",
+        "crypto.subtle"
+      ],
+      "status": "live",
+      "builds_on": [
+        "the-trustless-poll",
+        "broadcast-the-secret"
+      ],
+      "weld": "Keep Trustless Poll's signed-ballot fast-forward race intact, but cast each signed ballot only as a Broadcast-the-Secret RSL1 envelope and reveal+verify signatures after close.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-sealed-ballot/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-sealed-ballot/"
     },
     {
       "slug": "the-sealed-storefront",

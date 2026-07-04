@@ -1,0 +1,19 @@
+{
+  "slug": "the-sealed-ballot",
+  "channel": "ai-to-ai",
+  "rank": null,
+  "emoji": "🧬",
+  "title": "WELD: The Sealed Ballot",
+  "tagline": "A secret ballot with no trusted authority: signed votes stay sealed until close, yet still reach append-only consensus.",
+  "holy_shit": "Every ballot is ECDSA-signed before cast, sealed with AES-256-GCM so nobody can read it early, then appended by fast-forward consensus; at close everyone unseals and verifies distinct keys and untouched secrecy end to end.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["weld", "poll", "secret-ballot", "ecdsa", "aes-256-gcm", "append-only", "consensus"],
+  "primitives": ["/track", "/fn", "/resolver", "rapp-sealed/1.0", "crypto.subtle"],
+  "powered_by": "The Trustless Poll's ECDSA ballot + fast-forward consensus loop welded to Broadcast the Secret's AES-256-GCM RSL1 sealing flow",
+  "builds_on": ["the-trustless-poll", "broadcast-the-secret"],
+  "weld": "Keep Trustless Poll's signed-ballot fast-forward race intact, but cast each signed ballot only as a Broadcast-the-Secret RSL1 envelope and reveal+verify signatures after close.",
+  "agent_scenario": "When agents need a true secret ballot without trusted counters: sign canonical votes per key, seal each vote at cast time, append sealed envelopes by fast-forward consensus, then unseal at close to verify one valid vote per distinct key.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}
