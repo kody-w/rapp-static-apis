@@ -97,7 +97,7 @@ const V3 = {
   cross: (a, b) => ({ x: a.y * b.z - a.z * b.y, y: a.z * b.x - a.x * b.z, z: a.x * b.y - a.y * b.x }),
   len: a => Math.hypot(a.x, a.y, a.z),
   norm(a) { const l = Math.hypot(a.x, a.y, a.z) || 1; return { x: a.x / l, y: a.y / l, z: a.z / l }; },
-  mid: pts => pts.reduce((acc, p) => ({ x: acc.x + p.x, y: acc.y + p.y, z: acc.z + p.z }), { x: 0, y: 0, z: 0 })
+  mid: pts => V3.scale(pts.reduce((acc, p) => ({ x: acc.x + p.x, y: acc.y + p.y, z: acc.z + p.z }), { x: 0, y: 0, z: 0 }), 1 / Math.max(pts.length, 1))
 };
 
 function vec(x, y, z) { return { x, y, z }; }
@@ -139,7 +139,6 @@ function patternSample(pattern, palette, u, v, w, pulse, part = 'body') {
   const alt = paletteSample(palette, fract(v * 0.35 + 0.5));
   const hi = paletteSample(palette, fract(w * 0.35 + 0.5));
   if (part === 'eye') return { color: { r: 255, g: 244, b: 200 }, emissive: 1.15 };
-  if (part === 'halo') return { color: mixColor(base, { r: 255, g: 255, b: 255 }, 0.3 + pulse * 0.2), emissive: 0.8 + pulse * 0.45 };
   if (part === 'limb') {
     const t = 0.45 + 0.35 * Math.sin(u * 4.5 + v * 2.2);
     return { color: mixColor(base, alt, t), emissive: pattern === 'glow' ? 0.22 + pulse * 0.15 : 0.05 };
@@ -397,7 +396,7 @@ function renderScene(ctx, genome, time, view) {
   const spec = readGenome(genome, time);
   const built = buildCreatureFaces(spec, time);
   const yaw = view.yaw + (view.autoOrbit || 0);
-  const pitch = clamp(view.pitch, -1.0, 0.92);
+  const pitch = clamp(view.pitch, -0.85, 0.92);
   const radius = (3.5 + built.size * 1.12) / clamp(view.zoom, 0.72, 1.9);
   const target = vec(0, built.haloY * 0.72, 0);
   const camera = makeCamera(target, yaw, pitch, radius);
@@ -412,7 +411,7 @@ function renderScene(ctx, genome, time, view) {
     if (proj.some(p => !p)) continue;
     const a = face.pts[0], b = face.pts[1], c = face.pts[2];
     const normal = V3.norm(V3.cross(V3.sub(b, a), V3.sub(c, a)));
-    const center = V3.scale(V3.mid(face.pts), 1 / face.pts.length);
+    const center = V3.mid(face.pts);
     const diffuse = Math.max(0, V3.dot(normal, lightDir));
     const viewDot = Math.max(0, V3.dot(normal, V3.norm(V3.sub(camera.pos, center))));
     const lit = 0.26 + diffuse * 0.76 + viewDot * 0.12 + (face.fill.emissive || 0) * 0.35;
@@ -628,7 +627,7 @@ function orbitZoom(delta) {
 canvas.addEventListener('mousedown', e => orbitDown(e.clientX, e.clientY));
 window.addEventListener('mousemove', e => orbitMove(e.clientX, e.clientY));
 window.addEventListener('mouseup', orbitUp);
-canvas.addEventListener('mouseleave', () => { if (!VIEW.dragging) canvas.classList.remove('dragging'); });
+canvas.addEventListener('mouseleave', () => { if (VIEW.dragging) orbitUp(); else canvas.classList.remove('dragging'); });
 canvas.addEventListener('wheel', e => { e.preventDefault(); orbitZoom(e.deltaY); }, { passive: false });
 canvas.addEventListener('touchstart', e => {
   if (e.touches.length === 1) orbitDown(e.touches[0].clientX, e.touches[0].clientY);
