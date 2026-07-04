@@ -2,12 +2,12 @@
   "schema": "rapp-static-api/1.0",
   "name": "rapp-static-hologram",
   "kind": "hologram-cartridge",
-  "generated": "2026-07-04T04:48:29Z",
+  "generated": "2026-07-04T05:01:52Z",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram",
   "pages_base": "https://kody-w.github.io/rapp-static-apis/hologram",
   "summary": {
-    "cartridges": 24,
-    "versions": 24
+    "cartridges": 25,
+    "versions": 25
   },
   "entries": [
     {
@@ -227,6 +227,26 @@
           "path": "versions/marrakesh/db3b7724eeb3.json",
           "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/marrakesh/db3b7724eeb3.json",
           "first_captured": "2026-07-04T03:35:43Z"
+        }
+      ]
+    },
+    {
+      "name": "miami",
+      "id": "4743dfb86f1a",
+      "title": "Miami sky",
+      "author": "@kody-w",
+      "sha8": "4743dfb86f1a",
+      "bytes": 1031,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/miami.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/miami/4743dfb86f1a.json",
+      "pin_path": "versions/miami/4743dfb86f1a.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "4743dfb86f1a",
+          "path": "versions/miami/4743dfb86f1a.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/miami/4743dfb86f1a.json",
+          "first_captured": "2026-07-04T05:01:52Z"
         }
       ]
     },
