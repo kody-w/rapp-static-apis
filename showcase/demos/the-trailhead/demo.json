@@ -1,0 +1,17 @@
+{
+  "slug": "the-trailhead",
+  "channel": "physical",
+  "rank": null,
+  "emoji": "🥾",
+  "title": "The Trailhead",
+  "tagline": "A small trailhead sticker that quietly checks today's sky and sunset for you.",
+  "holy_shit": "A patch of vinyl on a post can quietly tell you what it's like up there right now — and exactly when to head back.",
+  "status": "live",
+  "difficulty": "easy",
+  "tags": ["qr", "live-data", "weather", "sunset", "safety"],
+  "primitives": ["/track", "/fn"],
+  "powered_by": "/track extract cell + Open-Meteo + qr.mjs, hash-verified and rendered in the scanner's browser",
+  "agent_scenario": "When you need one calm, place-specific safety readout from live data, delivered from a physical marker with no backend.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}
