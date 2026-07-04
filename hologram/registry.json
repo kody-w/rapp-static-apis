@@ -2,12 +2,12 @@
   "schema": "rapp-static-api/1.0",
   "name": "rapp-static-hologram",
   "kind": "hologram-cartridge",
-  "generated": "2026-07-04T04:23:49Z",
+  "generated": "2026-07-04T04:28:13Z",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram",
   "pages_base": "https://kody-w.github.io/rapp-static-apis/hologram",
   "summary": {
-    "cartridges": 18,
-    "versions": 18
+    "cartridges": 21,
+    "versions": 21
   },
   "entries": [
     {
@@ -71,6 +71,26 @@
       ]
     },
     {
+      "name": "dhaka",
+      "id": "4fc6c8347d82",
+      "title": "Dhaka sky",
+      "author": "@kody-w",
+      "sha8": "4fc6c8347d82",
+      "bytes": 1032,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/dhaka.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/dhaka/4fc6c8347d82.json",
+      "pin_path": "versions/dhaka/4fc6c8347d82.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "4fc6c8347d82",
+          "path": "versions/dhaka/4fc6c8347d82.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/dhaka/4fc6c8347d82.json",
+          "first_captured": "2026-07-04T04:28:13Z"
+        }
+      ]
+    },
+    {
       "name": "dubai",
       "id": "c144203764f6",
       "title": "Dubai sky",
@@ -127,6 +147,26 @@
           "path": "versions/kathmandu/ed366fe72537.json",
           "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/kathmandu/ed366fe72537.json",
           "first_captured": "2026-07-04T03:46:07Z"
+        }
+      ]
+    },
+    {
+      "name": "lapaz",
+      "id": "8e490e9f1622",
+      "title": "La Paz sky",
+      "author": "@kody-w",
+      "sha8": "8e490e9f1622",
+      "bytes": 1031,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/lapaz.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/lapaz/8e490e9f1622.json",
+      "pin_path": "versions/lapaz/8e490e9f1622.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "8e490e9f1622",
+          "path": "versions/lapaz/8e490e9f1622.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/lapaz/8e490e9f1622.json",
+          "first_captured": "2026-07-04T04:28:13Z"
         }
       ]
     },
@@ -247,6 +287,26 @@
           "path": "versions/reykjavik/f8a2c10e10e7.json",
           "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/reykjavik/f8a2c10e10e7.json",
           "first_captured": "2026-07-04T03:35:43Z"
+        }
+      ]
+    },
+    {
+      "name": "sanfrancisco",
+      "id": "a22984c6a19f",
+      "title": "San Francisco sky",
+      "author": "@kody-w",
+      "sha8": "a22984c6a19f",
+      "bytes": 1043,
+      "src_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/cartridges/sanfrancisco.json",
+      "pin_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/sanfrancisco/a22984c6a19f.json",
+      "pin_path": "versions/sanfrancisco/a22984c6a19f.json",
+      "version_count": 1,
+      "versions": [
+        {
+          "sha8": "a22984c6a19f",
+          "path": "versions/sanfrancisco/a22984c6a19f.json",
+          "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/versions/sanfrancisco/a22984c6a19f.json",
+          "first_captured": "2026-07-04T04:28:13Z"
         }
       ]
     },

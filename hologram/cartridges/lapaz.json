@@ -1,0 +1,57 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "8e490e9f1622",
+  "title": "La Paz sky",
+  "author": "@kody-w",
+  "born": {
+    "coord": "6mpd1hq8t·1783139291654",
+    "from": "live 4°C · code 1 · wind 5 · night"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 6,
+        "shape": "blob",
+        "limbs": 1,
+        "segments": 4,
+        "symmetry": "radial",
+        "body_r": 0.255,
+        "limb_len": 0.246
+      },
+      {
+        "role": "surface",
+        "k": 88,
+        "palette": [
+          "#24db58",
+          "#4fee7c",
+          "#79ecbc",
+          "#1d7235"
+        ],
+        "pattern": "glow",
+        "glow": 0.31,
+        "opacity": 0.7
+      },
+      {
+        "role": "motion",
+        "k": 36,
+        "breathe": 0.199,
+        "drift": 0.106,
+        "pulse": 0.2,
+        "reach": 0.26
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}

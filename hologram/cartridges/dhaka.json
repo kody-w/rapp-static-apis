@@ -1,0 +1,57 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "4fc6c8347d82",
+  "title": "Dhaka sky",
+  "author": "@kody-w",
+  "born": {
+    "coord": "wh0r3qs35·1783139291654",
+    "from": "live 33°C · code 3 · wind 15 · day"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 97,
+        "shape": "star",
+        "limbs": 3,
+        "segments": 4,
+        "symmetry": "radial",
+        "body_r": 0.324,
+        "limb_len": 0.346
+      },
+      {
+        "role": "surface",
+        "k": 12,
+        "palette": [
+          "#db8c24",
+          "#eea94f",
+          "#ecdd79",
+          "#724d1d"
+        ],
+        "pattern": "solid",
+        "glow": 0.6,
+        "opacity": 0.95
+      },
+      {
+        "role": "motion",
+        "k": 64,
+        "breathe": 0.321,
+        "drift": 0.228,
+        "pulse": 0.2,
+        "reach": 0.38
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}

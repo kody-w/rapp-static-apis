@@ -1,9 +1,9 @@
 {
   "schema": "rapp-static-hologram-status/1.0",
-  "generated": "2026-07-04T04:23:49Z",
+  "generated": "2026-07-04T04:28:13Z",
   "summary": {
-    "cartridges": 18,
-    "versions": 18
+    "cartridges": 21,
+    "versions": 21
   },
   "cartridges": [
     {
@@ -28,6 +28,13 @@
       "bytes": 1089
     },
     {
+      "name": "dhaka",
+      "id": "4fc6c8347d82",
+      "title": "Dhaka sky",
+      "author": "@kody-w",
+      "bytes": 1032
+    },
+    {
       "name": "dubai",
       "id": "c144203764f6",
       "title": "Dubai sky",
@@ -47,6 +54,13 @@
       "title": "Kathmandu sky",
       "author": "@kody-w",
       "bytes": 1034
+    },
+    {
+      "name": "lapaz",
+      "id": "8e490e9f1622",
+      "title": "La Paz sky",
+      "author": "@kody-w",
+      "bytes": 1031
     },
     {
       "name": "lumina",
@@ -89,6 +103,13 @@
       "title": "Reykjavik sky",
       "author": "@kody-w",
       "bytes": 1035
+    },
+    {
+      "name": "sanfrancisco",
+      "id": "a22984c6a19f",
+      "title": "San Francisco sky",
+      "author": "@kody-w",
+      "bytes": 1043
     },
     {
       "name": "singapore",
