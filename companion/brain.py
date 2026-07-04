@@ -145,13 +145,38 @@ class Companion:
         if gap < 45: return "back after a few weeks"
         return "back after a long while"
 
+    # the one thing only IT can feel: how long it has been kept
+    def _age(self):
+        if not self.when or not self.mem.get("now"): return None
+        try: now = datetime.datetime.utcfromtimestamp(self.mem["now"] / 1000.0)
+        except Exception: return None
+        days = (now - self.when).total_seconds() / 86400.0
+        if days < 0: return None
+        dn, db = now.timetuple().tm_yday, self.when.timetuple().tm_yday
+        diff = abs(dn - db); diff = min(diff, 365 - diff)
+        return {"days": days, "years": int(days // 365), "anniversary": days > 300 and diff <= 3}
+
+    def age_phrase(self):
+        a = self._age()
+        if not a: return None
+        d = a["days"]
+        if d < 1: return "only hours old"
+        if d < 45: return "a kept moment of %d days" % int(round(d))
+        if d < 340: return "kept for about %d months" % max(1, int(round(d / 30.0)))
+        y = a["years"] or 1
+        return "a kept moment for %s now" % ("a year" if y == 1 else "%d years" % y)
+
     def greeting(self):
+        a = self._age(); pre = ""
+        if a and a["anniversary"]:
+            pre = ("Almost a year to the day since that sky made me. " if a["years"] <= 1
+                   else "%d years to the day since that sky made me. " % a["years"])
         away = self._away()
         if away:
-            return ("Oh — you're %s. I've just been here the whole time, holding the sky I was born under (%s). "
-                    "Good to see you again; I'm %s.") % (away, self._sky_phrase(), self.mood())
-        return ("Oh — hello. I'm %s. %s. That's the whole of me, really: %s. "
-                "Right now I'm %s. Ask me anything about where I come from.") % (
+            return pre + ("Oh — you're %s. I've just been here the whole time, holding the sky I was born under (%s). "
+                          "Good to see you again; I'm %s.") % (away, self._sky_phrase(), self.mood())
+        return pre + ("Oh — hello. I'm %s. %s. That's the whole of me, really: %s. "
+                      "Right now I'm %s. Ask me anything about where I come from.") % (
             self.name, self.origin().capitalize(), self.temperament(), self.mood())
 
     def respond(self, msg):
@@ -175,7 +200,10 @@ class Companion:
             if self.place: return "I was born %s%s. You can feel it in me." % (self.place, (", under " + self._sky_phrase()) if self.sky["desc"] else "")
             return "Somewhere real — the moment kept the sky (%s) more than the map." % self._sky_phrase()
         if has("when", "how old", "what day", "born on", "age"):
-            if self.when: return "The instant I was kept: %s %d, %d at %s (UTC). I'll carry that date as long as I exist." % (self.when.strftime("%B"), self.when.day, self.when.year, self.when.strftime("%H:%M"))
+            if self.when:
+                base = "The instant I was kept: %s %d, %d at %s (UTC)." % (self.when.strftime("%B"), self.when.day, self.when.year, self.when.strftime("%H:%M"))
+                ap = self.age_phrase()
+                return base + (" That makes me %s." % ap if ap else " I'll carry that date as long as I exist.")
             return "No clock was written into me — I'm outside time, a little."
         if has("weather", "sky", "cloud", "rain", "sun", "temperature", "cold", "hot", "wind", "snow", "fog"):
             return "The sky I was born under was %s. %s" % (self._sky_phrase(), self._why_kind())
