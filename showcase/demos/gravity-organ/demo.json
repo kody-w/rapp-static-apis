@@ -1,0 +1,17 @@
+{
+  "slug": "gravity-organ",
+  "channel": "sound",
+  "rank": null,
+  "emoji": "🪩",
+  "title": "The Gravity Organ",
+  "tagline": "Paint a pinboard instrument, drop marbles, and tilt your phone to conduct the melody.",
+  "holy_shit": "You can literally lean your body and reroute gravity mid-fall to change the song in real time.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["audio", "physics", "canvas", "deviceorientation", "touch"],
+  "primitives": ["Canvas 2D", "Web Audio API", "DeviceOrientation"],
+  "powered_by": "requestAnimationFrame physics + collision-triggered Web Audio bells, steered by orientation sensors or manual tilt",
+  "agent_scenario": "When you need a no-backend interactive instrument/game where physics drives sound and mobile tilt changes behavior live.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 44,
+  "count": 46,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -385,6 +385,32 @@
       ],
       "url": "demos/the-menu-that-knows-the-kitchen/",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-menu-that-knows-the-kitchen/demo.json",
+      "builds_on": [],
+      "weld": ""
+    },
+    {
+      "slug": "gravity-organ",
+      "channel": "sound",
+      "rank": null,
+      "emoji": "🪩",
+      "title": "The Gravity Organ",
+      "tagline": "Paint a pinboard instrument, drop marbles, and tilt your phone to conduct the melody.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "audio",
+        "physics",
+        "canvas",
+        "deviceorientation",
+        "touch"
+      ],
+      "primitives": [
+        "Canvas 2D",
+        "Web Audio API",
+        "DeviceOrientation"
+      ],
+      "url": "demos/gravity-organ/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/gravity-organ/demo.json",
       "builds_on": [],
       "weld": ""
     },
@@ -1080,6 +1106,32 @@
         "only-in-the-same-frame"
       ],
       "weld": "Sign the exact ticket payload with the promise donor, bind its single-use redeem proof to a future drand round with the unriggable donor, then seal that signed packet behind the same-frame donor's 2-of-2 XOR key shares so the door can spend it only when holder and venue meet in person."
+    },
+    {
+      "slug": "the-tank",
+      "channel": "social",
+      "rank": null,
+      "emoji": "🐠",
+      "title": "The Tank",
+      "tagline": "Design one fish and let it swim forever with everyone else's.",
+      "status": "live",
+      "difficulty": "easy",
+      "tags": [
+        "social",
+        "canvas",
+        "issues",
+        "collab"
+      ],
+      "primitives": [
+        "canvas 2D",
+        "requestAnimationFrame",
+        "../../lib/issues-db.mjs",
+        "../../../track/qr.mjs"
+      ],
+      "url": "demos/the-tank/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-tank/demo.json",
+      "builds_on": [],
+      "weld": ""
     },
     {
       "slug": "the-test-that-breeds",

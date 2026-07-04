@@ -61,14 +61,14 @@
       "emoji": "🔊",
       "title": "Sound",
       "blurb": "Instruments and sonification — the Web Audio API turned into synths, toys, and data you can hear.",
-      "count": 0
+      "count": 1
     },
     {
       "slug": "social",
       "emoji": "🌐",
       "title": "Social",
       "blurb": "Collaborative, no backend — shared canvases, tanks, walls and stories built on GitHub Issues.",
-      "count": 0
+      "count": 1
     }
   ]
 }

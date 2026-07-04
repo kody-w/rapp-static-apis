@@ -1,0 +1,17 @@
+{
+  "slug": "the-tank",
+  "channel": "social",
+  "rank": null,
+  "emoji": "🐠",
+  "title": "The Tank",
+  "tagline": "Design one fish and let it swim forever with everyone else's.",
+  "holy_shit": "Your tiny fish keeps swimming in a crowd of strangers' fish for weeks, with no server and no owner.",
+  "status": "live",
+  "difficulty": "easy",
+  "tags": ["social", "canvas", "issues", "collab"],
+  "primitives": ["canvas 2D", "requestAnimationFrame", "../../lib/issues-db.mjs", "../../../track/qr.mjs"],
+  "powered_by": "Browser canvas animation + GitHub Issues as a shared, token-free fish list",
+  "agent_scenario": "When you need: a no-backend shared toy where everyone contributes persistent objects through issue-backed state.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}
