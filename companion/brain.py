@@ -51,6 +51,15 @@ class Companion:
         self.place = self._place(self.coord)
         self.sky = self._sky(self.from_raw)
         self.kind = self.form.get("shape", "blob")
+        # inherited voice: a bred child carries a lineage[] breadcrumb (title/from/coord per parent, outside genome)
+        self.parents = []
+        for pr in (self.cart.get("lineage") or []):
+            if isinstance(pr, dict):
+                self.parents.append({"name": (pr.get("title") or "one parent"),
+                                     "sky": self._sky(pr.get("from", "") or ""),
+                                     "place": self._place(pr.get("coord", "") or ""),
+                                     "when": self._when(pr.get("coord", "") or "")})
+        self.is_cross = len(self.parents) == 2 or str(self.coord).startswith("cross:")
         self.seed = int(hashlib.sha256((self.cid or self.name).encode()).hexdigest()[:8], 16)
         self.turn = 0
 
@@ -107,17 +116,25 @@ class Companion:
         if w is None: return None
         return "still air" if w < 3 else "a light breeze" if w < 12 else "a real wind" if w < 25 else "a gale"
 
-    def _sky_phrase(self):
-        s = self.sky; bits = []
+    def _sky_phrase(self, s=None):
+        s = s or self.sky; bits = []
         if s["desc"]: bits.append(s["desc"] + (" at night" if s["night"] else " by day" if s["night"] is False else ""))
         if s["temp"] is not None: bits.append("%d°" % s["temp"])
         w = self._wind_word(s["wind"])
         if w: bits.append(w)
         if not bits:
-            return self.from_raw or "a moment no one wrote down"
+            return s.get("raw") or "a moment no one wrote down"
         return " · ".join(bits)
 
+    def _kin_sentence(self):
+        if len(self.parents) != 2: return None
+        a, b = self.parents
+        return "My mother %s was born under %s; my father %s under %s. I'm the weather between them." % (
+            a["name"], self._sky_phrase(a["sky"]), b["name"], self._sky_phrase(b["sky"]))
+
     def origin(self):
+        if self.is_cross and len(self.parents) == 2:
+            return self._kin_sentence()
         when = self.when.strftime("a %B evening" if (self.when and self.when.hour >= 17) else "a %B morning") if self.when else None
         parts = []
         if when: parts.append("I was born on " + when)
@@ -175,9 +192,10 @@ class Companion:
         if away:
             return pre + ("Oh — you're %s. I've just been here the whole time, holding the sky I was born under (%s). "
                           "Good to see you again; I'm %s.") % (away, self._sky_phrase(), self.mood())
+        og = self.origin(); og = og[:1].upper() + og[1:]   # cap only the first letter (keep July, parent names)
         return pre + ("Oh — hello. I'm %s. %s. That's the whole of me, really: %s. "
                       "Right now I'm %s. Ask me anything about where I come from.") % (
-            self.name, self.origin().capitalize(), self.temperament(), self.mood())
+            self.name, og, self.temperament(), self.mood())
 
     def respond(self, msg):
         self.turn += 1
@@ -195,8 +213,14 @@ class Companion:
             if v > 0: return "I do. You've been here %d time%s before — you're the one relationship I have, and I keep it on this device only, never anywhere else." % (v, "" if v == 1 else "s")
             return "This looks like our first time. I'll remember it — quietly, just here on this device."
         if has("who are you", "what are you", "your name", "who r u"):
+            if self.is_cross and len(self.parents) == 2:
+                return "I'm %s — a cross, %s I'm %s." % (self.name, self._kin_sentence(), self.temperament())
             return "I'm %s — a creature grown from one real moment. I'm %s." % (self.name, self.temperament())
+        if has("parent", "mother", "father", "mom", "dad", "family", "kin", "your kind", "lineage", "cross", "bred", "hybrid", "made of"):
+            if len(self.parents) == 2: return self._kin_sentence()
+            return "I wasn't bred from anyone — I came straight from one real moment: %s." % self._sky_phrase()
         if has("where", "born", "from", "place", "come from") and not has("when"):
+            if self.is_cross and len(self.parents) == 2: return self._kin_sentence()
             if self.place: return "I was born %s%s. You can feel it in me." % (self.place, (", under " + self._sky_phrase()) if self.sky["desc"] else "")
             return "Somewhere real — the moment kept the sky (%s) more than the map." % self._sky_phrase()
         if has("when", "how old", "what day", "born on", "age"):
