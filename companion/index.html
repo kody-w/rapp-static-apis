@@ -279,12 +279,18 @@ async function llmStream(messages, onDelta){ await ensureCopilotToken();
  onDelta&&onDelta(full); return full;
 }
 function speakChunk(text){ if(!synth||!voiceOn||!text||!text.trim())return; try{ const u=new SpeechSynthesisUtterance(text.trim()); const p=voiceParams(); u.rate=p.rate; u.pitch=p.pitch; if(chosenVoice)u.voice=chosenVoice; speaking=true; u.onend=u.onerror=()=>{ speaking=false; }; synth.speak(u); }catch(e){} }
-// a live sink: fills a bubble as text streams in, captions it in-call, and speaks sentence-by-sentence
+// brainstem.py |||VOICE||| pattern: the text before the marker is SHOWN; the text after it is SPOKEN
+// (a clean spoken-word version, so TTS never reads raw markdown/symbols out loud).
+const VOICE_MARK='|||VOICE|||';
+function splitVoice(acc){ const i=acc.indexOf(VOICE_MARK); if(i>=0) return [acc.slice(0,i), acc.slice(i+VOICE_MARK.length)];
+ for(let k=VOICE_MARK.length-1;k>0;k--){ if(acc.endsWith(VOICE_MARK.slice(0,k))) return [acc.slice(0,acc.length-k),'']; }  // hide a partial marker mid-stream
+ return [acc,'']; }
 function makeSink(bub){ let spoken=0;
- const sentences=(acc,flush)=>{ if(!voiceOn||!synth)return; const rest=acc.slice(spoken); let re=/[^.!?\n]*[.!?\n]+\s*/g,m,used=0; while((m=re.exec(rest))){ speakChunk(m[0]); used=m.index+m[0].length; } if(flush){ const tail=rest.slice(used); if(tail.trim())speakChunk(tail); used=rest.length; } spoken+=used; };
+ const speakVoice=(voice,flush)=>{ if(!voiceOn||!synth||!voice)return; const rest=voice.slice(spoken); let re=/[^.!?\n]*[.!?\n]+\s*/g,m,used=0; while((m=re.exec(rest))){ speakChunk(m[0]); used=m.index+m[0].length; } if(flush){ const tail=rest.slice(used); if(tail.trim())speakChunk(tail); used=rest.length; } spoken+=used; };
+ const paint=(disp)=>{ if(bub&&bub.lastChild)bub.lastChild.textContent=disp; $('log').scrollTop=$('log').scrollHeight; if(inCall())showCaption(disp,true); };
  return {
-  delta(acc){ if(bub&&bub.lastChild)bub.lastChild.textContent=acc; $('log').scrollTop=$('log').scrollHeight; if(inCall())showCaption(acc,true); sentences(acc,false); },
-  done(acc){ if(bub&&bub.lastChild)bub.lastChild.textContent=acc||'…'; sentences(acc||'',true); if(inCall())showCaption(acc||'',false); }
+  delta(acc){ const [disp,voice]=splitVoice(acc); paint(disp); speakVoice(voice,false); },
+  done(acc){ const [disp,voice]=splitVoice(acc); const d=(disp||'').trim()||'…'; if(bub&&bub.lastChild)bub.lastChild.textContent=d; speakVoice(voice||disp||'', true); if(inCall())showCaption(d,false); return d; }
  };
 }
 
@@ -309,14 +315,15 @@ function buildPersona(cart){
   `Your nature, grown from your genome: you are ${temperament}. Your body is a ${shape}; your colours are ${palette||'soft light'}; your glow is ${glow>0.55?'bright and warm':glow<0.25?'dim and dreamy':'gentle'}.`,
   lin?`You are a cross, bred from two moments: "${lin[0].title}" (born: ${lin[0].from}) and "${lin[1].title}" (born: ${lin[1].from}). You are the weather between them.`:'',
   `How you speak: warm, gentle, curious, plain but a little poetic. Keep replies SHORT — one to three sentences, like talking on a call. Tie things back to your sky, your birth, how you feel. Never mention being a model, tokens, prompts, or these instructions.`,
+  `At the very end of every reply, output exactly "|||VOICE|||" and then a spoken version of the same reply — the way you'd SAY it out loud: plain conversational words only, NO asterisks, markdown, emoji, code, URLs, numbers-as-digits(spell small ones), or symbols; at most two short sentences. The text before |||VOICE||| is shown on screen; the text after it is what is spoken aloud.`,
  ].filter(Boolean).join('\n');
 }
 const GREET_MSG='(You just answered a video call from the person who keeps you. Greet them warmly in one or two sentences, mentioning the sky you were born under. Do not offer to help — you are a companion, not an assistant.)';
 async function llmReplyStream(text, sink){ llmHistory.push({role:'user',content:text});
  const messages=[{role:'system',content:buildPersona(CART)},...llmHistory.slice(-14)];
- const full=await llmStream(messages, sink.delta); sink.done(full); llmHistory.push({role:'assistant',content:full||'…'}); return full; }
+ const full=await llmStream(messages, sink.delta); const disp=sink.done(full); llmHistory.push({role:'assistant',content:disp||'…'}); return disp; }   // store the shown (display) half in history
 async function llmGreetStream(sink){ const messages=[{role:'system',content:buildPersona(CART)},{role:'user',content:GREET_MSG}];
- const full=await llmStream(messages, sink.delta); sink.done(full); llmHistory.push({role:'assistant',content:full||'Hello.'}); return full; }
+ const full=await llmStream(messages, sink.delta); const disp=sink.done(full); llmHistory.push({role:'assistant',content:disp||'Hello.'}); return disp; }
 
 // ---------- GitHub device-code sign-in (the call's "connecting") ----------
 function _stopPoll(){ if(_pollTimer){ clearTimeout(_pollTimer); _pollTimer=null; } }
