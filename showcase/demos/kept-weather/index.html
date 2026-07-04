@@ -294,8 +294,8 @@ async function mintAndShow(moment, weather) {
 
 async function hatch(place, lat, lng) {
   document.getElementById('steps').innerHTML = '';
-  out.innerHTML = '<span class="mono" style="color:var(--faint)">hatching…</span>';
-  keep.style.display = 'none';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">reading the live sky…</span>';
+  // the current companion keeps breathing while we read — the viewer is NEVER blank
 
   const src = `https://api.open-meteo.com/v1/forecast?latitude=${lat.toFixed(4)}&longitude=${lng.toFixed(4)}&current=temperature_2m,weathercode,wind_speed_10m,is_day&timezone=UTC`;
   const get = (path, onStep = () => {}) => runVerifiedCell({
@@ -306,13 +306,23 @@ async function hatch(place, lat, lng) {
     onStep
   });
 
-  const temp = Number((await get('current.temperature_2m', narrate)).value);
-  const weathercode = Number((await get('current.weathercode')).value);
-  const wind = Number((await get('current.wind_speed_10m')).value);
-  const isDay = Number((await get('current.is_day')).value) === 1;
-  const time = String((await get('current.time')).value);
+  const live = (async () => {
+    const temp = Number((await get('current.temperature_2m', narrate)).value);
+    const weathercode = Number((await get('current.weathercode')).value);
+    const wind = Number((await get('current.wind_speed_10m')).value);
+    const isDay = Number((await get('current.is_day')).value) === 1;
+    const time = String((await get('current.time')).value);
+    return { place, lat, lng, temp, weathercode, wind, isDay, time };
+  })();
+  const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 9000));
 
-  const weather = { place, lat, lng, temp, weathercode, wind, isDay, time };
+  let weather;
+  try {
+    weather = await Promise.race([live, timeout]);
+  } catch {
+    out.innerHTML = '<span class="mono" style="color:var(--warn)">couldn\'t reach the live sky just now — your default companion is still here. try again?</span>';
+    return;
+  }
   const moment = mapWeatherToMoment(weather);
   await mintAndShow(moment, weather);
 }
@@ -337,21 +347,25 @@ document.getElementById('go').onclick = async () => {
   }
 };
 
+// a default companion breathes immediately so the viewer is NEVER blank (self-contained, no network)
+const DEFAULT_MOMENT = mapWeatherToMoment({ place: '—', lat: 2.53, lng: -75.53, temp: 19, weathercode: 1, wind: 6, isDay: 1, time: '2026-07-03T12:00:00Z' });
+
 const token = new URLSearchParams(location.search).get('m');
-if (token) {
-  const m = decodeMoment(token);
-  if (m?.k?.length) {
-    placeEl.value = m.t || placeEl.value;
-    if (m.loc?.lat != null) latEl.value = m.loc.lat;
-    if (m.loc?.lng != null) lngEl.value = m.loc.lng;
-    animateMoment(m);
-    const url = `${location.origin}${location.pathname}?m=${token}`;
-    drawQR(url);
-    keep.style.display = 'flex';
-    share.href = url;
-    share.textContent = url;
-    out.innerHTML = '<span class="mono" style="color:var(--muted)">loaded from keepsake link</span>';
-  }
+const loaded = token ? decodeMoment(token) : null;
+if (loaded?.k?.length) {
+  placeEl.value = loaded.t || placeEl.value;
+  if (loaded.loc?.lat != null) latEl.value = loaded.loc.lat;
+  if (loaded.loc?.lng != null) lngEl.value = loaded.loc.lng;
+  animateMoment(loaded);
+  const url = `${location.origin}${location.pathname}?m=${token}`;
+  drawQR(url);
+  keep.style.display = 'flex';
+  share.href = url;
+  share.textContent = url;
+  out.innerHTML = '<span class="mono" style="color:var(--muted)">loaded from keepsake link</span>';
+} else {
+  animateMoment(DEFAULT_MOMENT);
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">a default companion — press “hatch this weather” for your own sky</span>';
 }
 </script>
 </body></html>
