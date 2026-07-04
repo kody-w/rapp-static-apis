@@ -1,0 +1,356 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Sound of Far Away — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🌊</div>
+    <h1 id="title">The Sound of Far Away</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel" id="live-panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Pick a coastline, press play, and let it breathe. Your browser fetches live Open-Meteo wind + marine data through a pinned <code>/track</code> cell, verifies the bytes, then maps those values into soft surf, distant rumble, and occasional gusts.</p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px">
+      <select id="coast"></select>
+      <button class="run" id="go">▶ Start listening</button>
+      <span class="mono" id="where" style="font-size:12px;color:var(--faint)"></span>
+    </div>
+    <canvas id="sea" width="900" height="220" style="width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:linear-gradient(180deg,#0d1321,#10182b)"></canvas>
+    <div class="live-out" id="out" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— choose a coast and press play —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>It is not a dashboard. It is a presence. The data never touches a backend, and the browser does not show you a bunch of numbers — it turns what the coast is doing this minute into one restrained sound you can leave on in the room.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <p class="mono" style="font-size:12px;color:var(--faint)">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-sound-of-far-away/</code> (crypto.subtle needs a secure context — localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel"><h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator } from '../../lib/showcase.js';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span><span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const TRACK = '../../../track';
+const coasts = [
+  { name: 'Pacifica, California', lat: 37.6138, lon: -122.4869, label: '37.61°N, 122.49°W' },
+  { name: 'Nazaré, Portugal', lat: 39.6029, lon: -9.0702, label: '39.60°N, 9.07°W' },
+  { name: 'Biarritz, France', lat: 43.4832, lon: -1.5586, label: '43.48°N, 1.56°W' },
+  { name: 'Tofino, British Columbia', lat: 49.1520, lon: -125.9067, label: '49.15°N, 125.91°W' }
+];
+
+const coastEl = document.getElementById('coast');
+const whereEl = document.getElementById('where');
+const out = document.getElementById('out');
+const go = document.getElementById('go');
+const narrate = mkNarrator(document.getElementById('steps'));
+const canvas = document.getElementById('sea');
+const g = canvas.getContext('2d');
+
+coasts.forEach((c, i) => {
+  const o = document.createElement('option');
+  o.value = String(i);
+  o.textContent = c.name;
+  coastEl.appendChild(o);
+});
+
+let state = { wind: 0, gust: 0, wave: 0, swell: 0.04, intensity: 0.12, particles: 24 };
+let running = false;
+let raf = 0;
+let refreshTimer = 0;
+let gustTimer = 0;
+
+const audio = {
+  ctx: null,
+  master: null,
+  surf: null,
+  surfGain: null,
+  rumbleOsc: null,
+  rumbleGain: null,
+  swellOsc: null,
+  swellDepth: null
+};
+
+const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
+
+function weatherUrl(c) {
+  return `https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current=wind_speed_10m,wind_gusts_10m`;
+}
+
+function marineUrl(c) {
+  return `https://marine-api.open-meteo.com/v1/marine?latitude=${c.lat}&longitude=${c.lon}&current=wave_height`;
+}
+
+function fmt(v, unit) {
+  return Number.isFinite(v) ? `${v.toFixed(1)} ${unit}` : `— ${unit}`;
+}
+
+async function readCoast(c) {
+  narrate('weather', 'active', 'reading live wind', c.name);
+  const wind = await runVerifiedCell({
+    base: TRACK,
+    cell: 'extract',
+    fn: 'extract',
+    args: { src: weatherUrl(c), path: 'current.wind_speed_10m' },
+    onStep: narrate
+  });
+
+  const gust = await runVerifiedCell({
+    base: TRACK,
+    cell: 'extract',
+    fn: 'extract',
+    args: { src: weatherUrl(c), path: 'current.wind_gusts_10m' },
+    onStep: () => {}
+  });
+
+  let waveValue = NaN;
+  try {
+    narrate('marine', 'active', 'reading live wave height', c.name);
+    const wave = await runVerifiedCell({
+      base: TRACK,
+      cell: 'extract',
+      fn: 'extract',
+      args: { src: marineUrl(c), path: 'current.wave_height' },
+      onStep: () => {}
+    });
+    waveValue = Number(wave.value);
+    narrate('marine', 'ok', 'marine data ready', `${fmt(waveValue, 'm')}`);
+  } catch {
+    narrate('marine', 'ok', 'marine data unavailable here', 'using wind-only surf estimate');
+  }
+
+  return {
+    wind: Number(wind.value),
+    gust: Number(gust.value),
+    wave: Number.isFinite(waveValue) ? waveValue : NaN
+  };
+}
+
+function applySoundMap(live) {
+  const wind = Number.isFinite(live.wind) ? live.wind : 0;
+  const gust = Number.isFinite(live.gust) ? live.gust : wind;
+  const wave = Number.isFinite(live.wave) ? live.wave : clamp(wind / 18, 0.2, 2.8);
+
+  state.wind = wind;
+  state.gust = gust;
+  state.wave = wave;
+  state.intensity = clamp(0.08 + wind / 65 + wave / 4.5, 0.06, 0.55);
+  state.swell = clamp(0.028 + wave / 24 + wind / 520, 0.02, 0.14);
+  state.particles = Math.round(clamp(12 + wind * 1.8 + wave * 18, 16, 120));
+
+  if (!audio.ctx) return;
+  const now = audio.ctx.currentTime;
+  audio.surfGain.gain.setTargetAtTime(state.intensity, now, 1.6);
+  audio.rumbleGain.gain.setTargetAtTime(clamp(0.02 + wave / 25, 0.01, 0.12), now, 2.4);
+  audio.rumbleOsc.frequency.setTargetAtTime(clamp(28 + wave * 10 + wind * 0.35, 24, 72), now, 3.2);
+  audio.swellOsc.frequency.setTargetAtTime(state.swell, now, 3.8);
+  audio.swellDepth.gain.setTargetAtTime(clamp(state.intensity * 0.42, 0.03, 0.26), now, 2.1);
+}
+
+function spawnGust() {
+  if (!audio.ctx || !running) return;
+  const now = audio.ctx.currentTime;
+  const src = audio.ctx.createBufferSource();
+  src.buffer = makeNoiseBuffer(audio.ctx, audio.ctx.sampleRate * 0.7);
+  const hp = audio.ctx.createBiquadFilter();
+  hp.type = 'highpass';
+  hp.frequency.value = 380;
+  const lp = audio.ctx.createBiquadFilter();
+  lp.type = 'lowpass';
+  lp.frequency.value = 2400;
+  const gain = audio.ctx.createGain();
+  const p = audio.ctx.createStereoPanner();
+  p.pan.value = (Math.random() * 2 - 1) * 0.8;
+  const burst = clamp(0.018 + state.gust / 170, 0.015, 0.13);
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(burst, now + 0.12);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.1);
+  src.connect(hp).connect(lp).connect(gain).connect(p).connect(audio.master);
+  src.start(now);
+  src.stop(now + 1.2);
+}
+
+function scheduleGusts() {
+  clearInterval(gustTimer);
+  const ms = Math.round(clamp(11000 - state.gust * 140, 2500, 11000));
+  gustTimer = setInterval(spawnGust, ms);
+}
+
+function makeNoiseBuffer(ctx, size = ctx.sampleRate * 2) {
+  const buf = ctx.createBuffer(1, size, ctx.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < size; i++) data[i] = Math.random() * 2 - 1;
+  return buf;
+}
+
+function ensureAudio() {
+  if (audio.ctx) return;
+  audio.ctx = new (window.AudioContext || window.webkitAudioContext)();
+  audio.master = audio.ctx.createGain();
+  audio.master.gain.value = 0.7;
+  audio.master.connect(audio.ctx.destination);
+
+  const surfSrc = audio.ctx.createBufferSource();
+  surfSrc.buffer = makeNoiseBuffer(audio.ctx);
+  surfSrc.loop = true;
+  const surfBand = audio.ctx.createBiquadFilter();
+  surfBand.type = 'bandpass';
+  surfBand.frequency.value = 760;
+  surfBand.Q.value = 0.7;
+  audio.surfGain = audio.ctx.createGain();
+  audio.surfGain.gain.value = 0.08;
+  surfSrc.connect(surfBand).connect(audio.surfGain).connect(audio.master);
+  surfSrc.start();
+  audio.surf = surfSrc;
+
+  const rumble = audio.ctx.createOscillator();
+  rumble.type = 'sine';
+  rumble.frequency.value = 34;
+  audio.rumbleGain = audio.ctx.createGain();
+  audio.rumbleGain.gain.value = 0.02;
+  rumble.connect(audio.rumbleGain).connect(audio.master);
+  rumble.start();
+  audio.rumbleOsc = rumble;
+
+  audio.swellOsc = audio.ctx.createOscillator();
+  audio.swellOsc.type = 'sine';
+  audio.swellOsc.frequency.value = 0.04;
+  audio.swellDepth = audio.ctx.createGain();
+  audio.swellDepth.gain.value = 0.05;
+  audio.swellOsc.connect(audio.swellDepth).connect(audio.surfGain.gain);
+  audio.swellOsc.start();
+}
+
+function stopSound() {
+  running = false;
+  clearInterval(refreshTimer);
+  clearInterval(gustTimer);
+  if (audio.ctx) {
+    audio.master.gain.setTargetAtTime(0.0001, audio.ctx.currentTime, 0.8);
+  }
+  go.textContent = '▶ Start listening';
+}
+
+function draw(now) {
+  const t = now / 1000;
+  const w = canvas.width;
+  const h = canvas.height;
+  g.clearRect(0, 0, w, h);
+
+  const sky = g.createLinearGradient(0, 0, 0, h);
+  sky.addColorStop(0, '#0f1627');
+  sky.addColorStop(1, '#101a30');
+  g.fillStyle = sky;
+  g.fillRect(0, 0, w, h);
+
+  const horizon = h * 0.58 + Math.sin(t * state.swell * Math.PI * 2) * (5 + state.intensity * 26);
+  g.fillStyle = '#1a2f55';
+  g.fillRect(0, horizon, w, h - horizon);
+
+  g.beginPath();
+  for (let x = 0; x <= w; x += 8) {
+    const y = horizon + Math.sin((x / w) * Math.PI * 3 + t * (0.5 + state.swell * 7)) * (4 + state.intensity * 14);
+    if (x === 0) g.moveTo(x, y); else g.lineTo(x, y);
+  }
+  g.strokeStyle = '#9fb8dd';
+  g.lineWidth = 1.3;
+  g.stroke();
+
+  g.fillStyle = 'rgba(210,228,255,0.42)';
+  for (let i = 0; i < state.particles; i++) {
+    const x = (i * 67 + t * (30 + state.wind * 1.7)) % (w + 30) - 15;
+    const drift = Math.sin(i * 1.9 + t * 0.7) * 5;
+    const y = horizon - 12 - (i % 13) * 2.7 + drift;
+    const r = 0.6 + (i % 3) * 0.35;
+    g.beginPath();
+    g.arc(x, y, r, 0, Math.PI * 2);
+    g.fill();
+  }
+
+  raf = requestAnimationFrame(draw);
+}
+
+async function refreshLive(coast) {
+  try {
+    const live = await readCoast(coast);
+    applySoundMap(live);
+    const waveText = Number.isFinite(live.wave) ? ` · wave ${fmt(live.wave, 'm')}` : '';
+    out.innerHTML = `<span class="mono">${coast.name} · wind ${fmt(live.wind, 'km/h')} · gust ${fmt(live.gust, 'km/h')}${waveText} · live · verified · synthesized on your device</span>`;
+    return true;
+  } catch (e) {
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : (e.message || e)}</span>`;
+    stopSound();
+    return false;
+  }
+}
+
+function selectedCoast() {
+  return coasts[Number(coastEl.value) || 0];
+}
+
+function syncCoastLabel() {
+  const c = selectedCoast();
+  whereEl.textContent = `${c.label}`;
+}
+
+coastEl.onchange = async () => {
+  syncCoastLabel();
+  if (running) {
+    document.getElementById('steps').innerHTML = '';
+    await refreshLive(selectedCoast());
+    scheduleGusts();
+  }
+};
+
+syncCoastLabel();
+raf = requestAnimationFrame(draw);
+
+go.onclick = async () => {
+  if (running) {
+    stopSound();
+    return;
+  }
+  running = true;
+  go.textContent = '⏸ Pause';
+  document.getElementById('steps').innerHTML = '';
+  ensureAudio();
+  await audio.ctx.resume();
+  audio.master.gain.setTargetAtTime(0.7, audio.ctx.currentTime, 0.25);
+  narrate('boot', 'active', 'arming live audio', 'browser only');
+  const ok = await refreshLive(selectedCoast());
+  if (!ok) return;
+  narrate('boot', 'ok', 'ambient engine running', 'no backend');
+  scheduleGusts();
+  refreshTimer = setInterval(() => refreshLive(selectedCoast()), 120000);
+};
+</script>
+</body></html>

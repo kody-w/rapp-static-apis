@@ -1,0 +1,272 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Spy at the Table — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  .controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+  .controls input{width:92px;background:var(--bg2);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:7px 9px}
+  .grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-top:12px}
+  .seat{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--bg2)}
+  .seat b{display:block;margin-bottom:6px}
+  .mono.small{font-size:11px;color:var(--faint);word-break:break-all}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🕵️🍽️</div>
+    <h1 id="title">The Spy at the Table</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Press deal: this page assigns one spy, PIN-locks every seat with Web Crypto, and draws one QR per seat on a canvas. Each person scans their own code to reveal their private role from this same static page.</p>
+    <div class="controls" id="dealer-controls">
+      <button class="run" id="go">🎲 Deal 6 players</button>
+      <label class="mono" style="font-size:12px;color:var(--muted)">players:
+        <input id="players" type="number" min="3" max="12" value="6">
+      </label>
+      <span class="mono" style="font-size:12px;color:var(--faint)">scan on phones • no app • no backend</span>
+    </div>
+    <div class="controls hidden" id="reveal-controls">
+      <span class="mono" style="font-size:12px;color:var(--muted)">seat <b id="seat-label">?</b></span>
+      <label class="mono" style="font-size:12px;color:var(--muted)">PIN:
+        <input id="pin" type="password" inputmode="numeric" placeholder="6 digits" autocomplete="off">
+      </label>
+      <button class="run" id="unlock">🔓 Reveal role</button>
+      <a class="mono" style="font-size:12px" href="./">new deal screen</a>
+    </div>
+    <canvas id="table" width="0" height="0" style="background:#fff;border-radius:12px;image-rendering:pixelated;max-width:100%"></canvas>
+    <div class="live-out" id="out"><span class="mono" style="color:var(--faint)">— press deal —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>It feels like party-magic because the table is instantly playable without infrastructure: one click makes private seat cards, every player reveals only their own role, and nothing depends on a host, account system, or game server.</p>
+  </div>
+
+  <div class="panel">
+    <h2>How to</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Set the player count and press <b>Deal</b>.</li>
+      <li>Let each person scan their seat's QR and enter their PIN.</li>
+      <li>Everyone learns their role privately; discussion starts immediately.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> at repo root, then open <code>localhost:8000/showcase/demos/spy-at-the-table/</code> (<code>localhost</code> is treated as a secure context by browsers, so <code>crypto.subtle</code> works there, as on https).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { mkNarrator } from '../../lib/showcase.js';
+import { qr } from '../../../track/qr.mjs';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const out = document.getElementById('out');
+const canvas = document.getElementById('table');
+const steps = document.getElementById('steps');
+const narrate = mkNarrator(steps);
+const enc = new TextEncoder();
+const dec = new TextDecoder();
+const KDF_ITERS = 600000;
+
+const b64u = {
+  encode(data) {
+    const bytes = data instanceof Uint8Array ? data : new Uint8Array(data);
+    let s = ''; for (const b of bytes) s += String.fromCharCode(b);
+    return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  },
+  decode(str) {
+    let s = str.replace(/-/g, '+').replace(/_/g, '/');
+    while (s.length % 4) s += '=';
+    const raw = atob(s);
+    const out = new Uint8Array(raw.length);
+    for (let i = 0; i < raw.length; i++) out[i] = raw.charCodeAt(i);
+    return out;
+  },
+  json(obj) { return this.encode(enc.encode(JSON.stringify(obj))); },
+  parse(str) { return JSON.parse(dec.decode(this.decode(str))); }
+};
+
+function rbytes(n) { const a = new Uint8Array(n); crypto.getRandomValues(a); return a; }
+function randInt(max) {
+  const limit = Math.floor(0x100000000 / max) * max;
+  let n = 0;
+  do { n = crypto.getRandomValues(new Uint32Array(1))[0]; } while (n >= limit);
+  return n % max;
+}
+function rpin() { return String(100000 + randInt(900000)); }
+function esc(s) { return String(s).replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
+
+async function deriveKey(pin, salt) {
+  const material = await crypto.subtle.importKey('raw', enc.encode(pin), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({ name:'PBKDF2', salt, iterations:KDF_ITERS, hash:'SHA-256' }, material, { name:'AES-GCM', length:256 }, false, ['encrypt','decrypt']);
+}
+
+async function lockSeat(payload, pin) {
+  const salt = rbytes(16), iv = rbytes(12);
+  const key = await deriveKey(pin, salt);
+  const ct = await crypto.subtle.encrypt({ name:'AES-GCM', iv }, key, enc.encode(JSON.stringify(payload)));
+  return { alg:'PBKDF2-AES-GCM', salt:b64u.encode(salt), iv:b64u.encode(iv), ct:b64u.encode(ct) };
+}
+
+async function unlockSeat(lock, pin) {
+  const key = await deriveKey(pin, b64u.decode(lock.salt));
+  const plain = await crypto.subtle.decrypt({ name:'AES-GCM', iv:b64u.decode(lock.iv) }, key, b64u.decode(lock.ct));
+  return JSON.parse(dec.decode(plain));
+}
+
+function shuffledRoles(n) {
+  const arr = Array(n).fill('Guest');
+  arr[randInt(n)] = 'Spy';
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = randInt(i + 1);
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function drawGrid(cards) {
+  const box = 190, pad = 20;
+  const cols = Math.ceil(Math.sqrt(cards.length));
+  const rows = Math.ceil(cards.length / cols);
+  canvas.width = cols * box + (cols + 1) * pad;
+  canvas.height = rows * box + (rows + 1) * pad;
+  const g = canvas.getContext('2d');
+  g.fillStyle = '#ffffff'; g.fillRect(0, 0, canvas.width, canvas.height);
+
+  cards.forEach((c, i) => {
+    const col = i % cols, row = Math.floor(i / cols);
+    const x0 = pad + col * (box + pad), y0 = pad + row * (box + pad);
+    g.fillStyle = '#111'; g.fillRect(x0, y0, box, box);
+    g.fillStyle = '#fff'; g.fillRect(x0 + 2, y0 + 2, box - 4, box - 4);
+
+    const code = qr(c.url, { ecl: 'M' });
+    const q = 4;
+    const scale = Math.max(2, Math.floor((box - 56) / (code.size + 2 * q)));
+    const dim = (code.size + 2 * q) * scale;
+    const ox = x0 + Math.floor((box - dim) / 2), oy = y0 + 30;
+    g.fillStyle = '#fff'; g.fillRect(ox, oy, dim, dim);
+    g.fillStyle = '#000';
+    for (let y = 0; y < code.size; y++) for (let x = 0; x < code.size; x++) if (code.modules[y][x]) g.fillRect(ox + (x + q) * scale, oy + (y + q) * scale, scale, scale);
+
+    g.fillStyle = '#111';
+    g.font = 'bold 14px system-ui';
+    g.fillText(`Seat ${c.seat}`, x0 + 10, y0 + 18);
+    g.font = '12px ui-monospace, SFMono-Regular, Menlo, monospace';
+    g.fillStyle = '#666';
+    g.fillText(`PIN ${c.pin}`, x0 + 10, y0 + box - 10);
+  });
+}
+
+async function deal() {
+  const n = Math.max(3, Math.min(12, Number(document.getElementById('players').value) || 6));
+  document.getElementById('players').value = String(n);
+  steps.innerHTML = '';
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">dealing…</span>';
+
+  narrate('seats', 'active', `assign ${n} seats and exactly one spy`, '');
+  const game = b64u.encode(rbytes(9));
+  const roles = shuffledRoles(n);
+  narrate('seats', 'ok', `roles assigned for game ${game.slice(0, 8)}…`, 'private per seat');
+
+  narrate('lock', 'active', 'PIN-lock each seat role with Web Crypto (PBKDF2 + AES-GCM)…', '');
+  const cards = [];
+  for (let seat = 1; seat <= n; seat++) {
+    const pin = rpin();
+    const lock = await lockSeat({ v:1, game, seat, role:roles[seat - 1] }, pin);
+    const frag = b64u.json({ v:1, seat, lock });
+    cards.push({ seat, pin, url: new URL(`./#seat=${frag}`, location.href).href });
+  }
+  narrate('lock', 'ok', 'seat roles encrypted', `${n} locked payloads`);
+
+  narrate('draw', 'active', 'encode each seat URL into a QR and draw the table cards on canvas…', '');
+  drawGrid(cards);
+  narrate('draw', 'ok', `canvas drawn: ${cards.length} seat QR cards`, `${canvas.width}×${canvas.height}`);
+
+  out.innerHTML = `<div class="mono" style="color:var(--muted)">Hand each player their seat number and PIN privately, then have them scan that seat's QR.</div>` +
+    `<div class="grid">${cards.map(c => `<div class="seat"><b>Seat ${c.seat}</b><div class="mono">PIN: ${c.pin}</div><a class="mono small" href="${c.url}" target="_blank" rel="noopener">${esc(c.url)}</a></div>`).join('')}</div>`;
+}
+
+async function revealFromHash() {
+  const hash = new URLSearchParams(location.hash.slice(1));
+  const encoded = hash.get('seat');
+  if (!encoded) return;
+
+  let seatPack;
+  try {
+    seatPack = b64u.parse(encoded);
+  } catch {
+    out.innerHTML = '<span class="mono" style="color:var(--bad)">Invalid seat payload.</span>';
+    return;
+  }
+
+  document.getElementById('dealer-controls').classList.add('hidden');
+  document.getElementById('reveal-controls').classList.remove('hidden');
+  document.getElementById('seat-label').textContent = String(seatPack.seat || '?');
+  canvas.width = 0; canvas.height = 0;
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">Enter your seat PIN to reveal your role.</span>';
+
+  document.getElementById('unlock').onclick = async () => {
+    const pin = document.getElementById('pin').value.trim();
+    steps.innerHTML = '';
+    if (!/^\d{6}$/.test(pin)) {
+      out.innerHTML = '<span class="mono" style="color:var(--bad)">Enter a 6-digit PIN.</span>';
+      return;
+    }
+    out.innerHTML = '<span class="mono" style="color:var(--faint)">unlocking…</span>';
+    try {
+      narrate('unlock', 'active', 'derive key from PIN and decrypt seat payload…', `seat ${seatPack.seat}`);
+      const opened = await unlockSeat(seatPack.lock, pin);
+      narrate('unlock', 'ok', 'seat payload decrypted on your device', `game ${opened.game.slice(0, 8)}…`);
+
+      const spy = opened.role === 'Spy';
+      narrate('role', 'ok', spy ? 'you are the spy' : 'you are not the spy', 'keep this private');
+
+      canvas.width = 320; canvas.height = 180;
+      const g = canvas.getContext('2d');
+      g.fillStyle = spy ? '#2b0d16' : '#0d1d2b'; g.fillRect(0, 0, canvas.width, canvas.height);
+      g.fillStyle = '#fff'; g.font = 'bold 28px system-ui';
+      g.fillText(spy ? '🕵️ SPY' : '🍽️ GUEST', 20, 80);
+      g.font = '14px ui-monospace, SFMono-Regular, Menlo, monospace';
+      g.fillText(`Seat ${opened.seat}`, 20, 112);
+      g.fillText('Keep your role secret.', 20, 140);
+
+      out.innerHTML = `<div><span class="big">${spy ? '🕵️ SPY' : '🍽️ GUEST'}</span></div>` +
+        `<div class="mono" style="margin-top:6px;color:var(--muted)">Seat ${opened.seat} · revealed locally after PIN unlock</div>`;
+    } catch (e) {
+      console.error('Seat reveal failed', e);
+      narrate('unlock', 'bad', 'PIN failed — role stays locked', 'try again');
+      out.innerHTML = '<span class="mono" style="color:var(--bad)">Wrong PIN (or tampered payload). Role not revealed.</span>';
+    }
+  };
+}
+
+document.getElementById('go').onclick = deal;
+await revealFromHash();
+</script>
+</body></html>

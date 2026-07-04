@@ -16,7 +16,7 @@
       "slug": "physical",
       "title": "Physical World",
       "blurb": "QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.",
-      "count": 8
+      "count": 10
     },
     {
       "slug": "verify",
@@ -34,7 +34,7 @@
       "slug": "human",
       "title": "Human & Personal",
       "blurb": "Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.",
-      "count": 5
+      "count": 6
     },
     {
       "slug": "self-building",
@@ -52,25 +52,25 @@
       "slug": "play",
       "title": "Play",
       "blurb": "Games and toys — playable, no server: scan-to-join, pass-and-play, physics sandboxes, real-time fun.",
-      "count": 0
+      "count": 1
     },
     {
       "slug": "art",
       "title": "Art",
       "blurb": "Generative and camera visuals — beauty seeded by a hash, live data, or your own face.",
-      "count": 0
+      "count": 1
     },
     {
       "slug": "sound",
       "title": "Sound",
       "blurb": "Instruments and sonification — the Web Audio API turned into synths, toys, and data you can hear.",
-      "count": 1
+      "count": 2
     },
     {
       "slug": "social",
       "title": "Social",
       "blurb": "Collaborative, no backend — shared canvases, tanks, walls and stories built on GitHub Issues.",
-      "count": 1
+      "count": 2
     }
   ],
   "scenarios": [
@@ -150,6 +150,24 @@
       "weld": "",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-byte-trap/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-byte-trap/"
+    },
+    {
+      "slug": "the-enchanted-mirror",
+      "channel": "art",
+      "title": "The Enchanted Mirror",
+      "when_to_use": "When you need: a no-backend live webcam visual that feels magical, discloses its source artwork, and keeps all frame processing local.",
+      "primitives": [
+        "getUserMedia",
+        "Canvas 2D"
+      ],
+      "status": "live",
+      "builds_on": [
+        "taste-the-weather",
+        "the-provenance-camera"
+      ],
+      "weld": "Transplants taste-the-weather's narrated live #go flow and provenance-camera's canvas-first rendering discipline, then welds them into a webcam-to-brushstroke pipeline colored by a random museum artwork palette on each reload.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-enchanted-mirror/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-enchanted-mirror/"
     },
     {
       "slug": "the-quine-ratchet",
@@ -351,6 +369,25 @@
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/kept-weather/"
     },
     {
+      "slug": "nobody-drew-this-alone",
+      "channel": "social",
+      "title": "Nobody Drew This Alone",
+      "when_to_use": "When you need: no-backend collaborative creation where each participant contributes a partial view and the final artifact is append-only shared state.",
+      "primitives": [
+        "canvas 2D",
+        "pointer events",
+        "../../lib/issues-db.mjs"
+      ],
+      "status": "live",
+      "builds_on": [
+        "the-tank",
+        "the-reunion"
+      ],
+      "weld": "Uses The Tank's no-backend issue-backed shared state, then applies The Reunion's additive preserve-every-contribution logic so each blind segment permanently joins a stitched creature.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/nobody-drew-this-alone/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/nobody-drew-this-alone/"
+    },
+    {
       "slug": "only-in-the-same-frame",
       "channel": "wildcard",
       "title": "Only in the Same Frame",
@@ -365,6 +402,20 @@
       "weld": "",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/only-in-the-same-frame/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/only-in-the-same-frame/"
+    },
+    {
+      "slug": "spy-at-the-table",
+      "channel": "play",
+      "title": "The Spy at the Table",
+      "when_to_use": "When you need: instant multi-player role dealing where each player privately reveals a secret from a static page without any backend.",
+      "primitives": [
+        "/track"
+      ],
+      "status": "live",
+      "builds_on": [],
+      "weld": "",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/spy-at-the-table/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/spy-at-the-table/"
     },
     {
       "slug": "the-artifact-with-a-signed-bloodline",
@@ -460,6 +511,24 @@
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-democratic-market/"
     },
     {
+      "slug": "the-far-window",
+      "channel": "physical",
+      "title": "The Far Window",
+      "when_to_use": "When you need a quiet, location-specific live truth from a printed object, with verify-before-exec and no backend.",
+      "primitives": [
+        "/track",
+        "/fn",
+        "../../../track/qr.mjs"
+      ],
+      "status": "live",
+      "builds_on": [
+        "taste-the-weather"
+      ],
+      "weld": "",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-far-window/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-far-window/"
+    },
+    {
       "slug": "the-fast-forward-parliament",
       "channel": "ai-to-ai",
       "title": "The Fast-Forward Parliament",
@@ -552,6 +621,25 @@
       "weld": "The page first attests its own index.html hash, then feeds that attested rule text into a CPython fuzzer that shrinks a failing counterexample and emits a pinned child conformance test QR that re-runs verify-before-exec.",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-living-spec/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-living-spec/"
+    },
+    {
+      "slug": "the-night-you-were-born",
+      "channel": "human",
+      "title": "The Night You Were Born",
+      "when_to_use": "When you need an emotional, no-backend visualization where a personal input (date/place) deterministically recomputes a real physical state in-browser.",
+      "primitives": [
+        "Canvas 2D",
+        "Date",
+        "Math"
+      ],
+      "status": "live",
+      "builds_on": [
+        "taste-the-weather",
+        "gravity-organ"
+      ],
+      "weld": "Transplants Taste the Weather's quiet single-panel restraint and Gravity Organ's canvas animation, then welds deterministic astronomy math so date+longitude alone reconstructs a real sky with moon phase.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-night-you-were-born/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-night-you-were-born/"
     },
     {
       "slug": "the-notarized-marketplace",
@@ -739,6 +827,25 @@
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-self-proving-relay/"
     },
     {
+      "slug": "the-sound-of-far-away",
+      "channel": "sound",
+      "title": "The Sound of Far Away",
+      "when_to_use": "When you need a restrained no-backend sonification page where live external conditions become a continuous ambient presence, not a numeric dashboard.",
+      "primitives": [
+        "/track",
+        "Web Audio API",
+        "Canvas 2D"
+      ],
+      "status": "live",
+      "builds_on": [
+        "taste-the-weather",
+        "gravity-organ"
+      ],
+      "weld": "Transplants taste-the-weather's verify-before-exec live fetch pattern and gravity-organ's browser-only Web Audio canvas loop, then welds them so real coastal wind/wave values shape a quiet ambient soundscape.",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-sound-of-far-away/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-sound-of-far-away/"
+    },
+    {
       "slug": "the-sovereign-handoff",
       "channel": "ai-to-ai",
       "title": "WELD: The Sovereign Handoff",
@@ -810,6 +917,21 @@
       "weld": "",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-test-that-breeds/demo.json",
       "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-test-that-breeds/"
+    },
+    {
+      "slug": "the-trailhead",
+      "channel": "physical",
+      "title": "The Trailhead",
+      "when_to_use": "When you need one calm, place-specific safety readout from live data, delivered from a physical marker with no backend.",
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "status": "live",
+      "builds_on": [],
+      "weld": "",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-trailhead/demo.json",
+      "demo_url": "https://kody-w.github.io/rapp-static-apis/showcase/demos/the-trailhead/"
     },
     {
       "slug": "the-trusted-exchange",

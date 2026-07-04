@@ -1,0 +1,303 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nobody Drew This Alone — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  .stage{display:grid;gap:12px}
+  .canvases{display:grid;grid-template-columns:220px 1fr;gap:12px}
+  @media(max-width:760px){.canvases{grid-template-columns:1fr}}
+  .box{border:1px solid var(--line);border-radius:12px;background:var(--panel-2);padding:10px}
+  .box h3{margin:0 0 8px;font-size:13px;color:var(--muted);font-weight:600}
+  canvas{width:100%;height:auto;display:block;border-radius:10px;border:1px solid var(--line);background:#080b12}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🧟</div>
+    <h1 id="title">Nobody Drew This Alone</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel" id="live-panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Press <b>Start a blind handoff</b>. You'll only see the last inch of a stranger's stroke, then continue from that endpoint without seeing the whole creature. Release your segment as a prefilled issue to permanently join the shared chimera.</p>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap">
+      <button class="run" id="go">▶ Start a blind handoff</button>
+      <a class="run" id="release" target="_blank" rel="noopener noreferrer" aria-disabled="true">release your segment</a>
+      <span class="mono" style="font-size:12px;color:var(--faint)" id="stats">loading fragments…</span>
+    </div>
+
+    <div class="stage">
+      <div class="canvases">
+        <div class="box">
+          <h3>What you can see (last inch only)</h3>
+          <canvas id="hint" width="220" height="220" aria-label="Tail of a stranger drawing"></canvas>
+        </div>
+        <div class="box">
+          <h3>Your continuation (blind)</h3>
+          <canvas id="draw" width="640" height="220" aria-label="Draw your continuation"></canvas>
+        </div>
+      </div>
+      <div class="box">
+        <h3>Reveal: the shared chimera</h3>
+        <canvas id="reveal" width="860" height="260" aria-label="Combined chimera"></canvas>
+      </div>
+    </div>
+
+    <div class="live-out" id="out" style="margin-top:10px"><span class="mono" style="color:var(--faint)">— press go —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>You never get the full context while drawing, so collaboration isn't coordinated — it's accidental. The final creature is a weird fossil of partial intentions, permanently reconstructed from issue-backed fragments with no backend.</p>
+  </div>
+
+  <div class="panel">
+    <h2>How to</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Press <b>Start a blind handoff</b> to load a random parent segment and reveal only its tail.</li>
+      <li>Draw from the glowing start point in the right canvas.</li>
+      <li>Press <b>release your segment</b>, submit the prefilled issue, and your piece becomes permanent shared state.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in repo root, then open <code>/showcase/demos/nobody-drew-this-alone/</code>.</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { mkNarrator } from '../../lib/showcase.js';
+import { IssuesDB } from '../../lib/issues-db.mjs';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const db = new IssuesDB({ owner: 'kody-w', repo: 'rapp-static-apis' });
+const out = document.getElementById('out');
+const stats = document.getElementById('stats');
+const release = document.getElementById('release');
+const narrate = mkNarrator(document.getElementById('steps'));
+
+const hint = document.getElementById('hint');
+const hctx = hint.getContext('2d');
+const draw = document.getElementById('draw');
+const dctx = draw.getContext('2d');
+const reveal = document.getElementById('reveal');
+const rctx = reveal.getContext('2d');
+
+let pool = [];
+let parent = null;
+let mine = [];
+let drawing = false;
+let ready = false;
+let start = { x: 60, y: draw.height / 2 };
+const MIN_STROKE_POINTS = 6;
+const MAX_SAMPLED_POINTS = 72;
+const MAX_REVEALED_SEGMENTS = 12;
+const SEGMENT_SKIP_FACTOR = 7;
+const TAIL_VISIBLE_POINTS = 16;
+const START_POINT_TOLERANCE = 24;
+
+const clamp = (n, a, b) => Math.min(b, Math.max(a, n));
+const toLocal = (e, c) => {
+  const rect = c.getBoundingClientRect();
+  return {
+    x: ((e.clientX - rect.left) / rect.width) * c.width,
+    y: ((e.clientY - rect.top) / rect.height) * c.height
+  };
+};
+const normalize = pts => pts.map(([x, y]) => [
+  +clamp(x / draw.width, 0, 1).toFixed(4),
+  +clamp(y / draw.height, 0, 1).toFixed(4)
+]);
+const denorm = (pts, w, h) => pts.map(([x, y]) => [x * w, y * h]);
+const sample = (pts, max = MAX_SAMPLED_POINTS) => {
+  if (pts.length <= max) return pts;
+  const outPts = [];
+  const step = (pts.length - 1) / (max - 1);
+  for (let i = 0; i < max; i++) outPts.push(pts[Math.round(i * step)]);
+  return outPts;
+};
+
+function drawPath(ctx, pts, color, width = 4) {
+  if (pts.length < 2) return;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = width;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.beginPath();
+  ctx.moveTo(pts[0][0], pts[0][1]);
+  for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+  ctx.stroke();
+}
+
+function resetHint() {
+  hctx.fillStyle = '#080b12';
+  hctx.fillRect(0, 0, hint.width, hint.height);
+  hctx.strokeStyle = 'rgba(255,255,255,0.15)';
+  hctx.setLineDash([5, 5]);
+  hctx.beginPath();
+  hctx.moveTo(0, hint.height / 2);
+  hctx.lineTo(hint.width, hint.height / 2);
+  hctx.stroke();
+  hctx.setLineDash([]);
+}
+
+function resetDraw() {
+  dctx.fillStyle = '#080b12';
+  dctx.fillRect(0, 0, draw.width, draw.height);
+  dctx.fillStyle = 'rgba(255,255,255,0.05)';
+  dctx.fillRect(0, 0, start.x - 8, draw.height);
+  dctx.fillStyle = '#66f0ff';
+  dctx.beginPath();
+  dctx.arc(start.x, start.y, 5, 0, Math.PI * 2);
+  dctx.fill();
+  if (mine.length > 1) drawPath(dctx, mine, '#66f0ff', 4);
+}
+
+function drawReveal() {
+  rctx.fillStyle = '#080b12';
+  rctx.fillRect(0, 0, reveal.width, reveal.height);
+  const picks = [...pool];
+  if (mine.length > 1) picks.unshift({ record: { points: normalize(sample(mine)) } });
+  if (!picks.length) return;
+
+  const max = Math.min(MAX_REVEALED_SEGMENTS, picks.length);
+  let x = 70;
+  let y = reveal.height / 2;
+  for (let i = 0; i < max; i++) {
+    const seg = picks[(i * SEGMENT_SKIP_FACTOR) % picks.length]?.record?.points;
+    if (!Array.isArray(seg) || seg.length < 2) continue;
+    const den = denorm(seg, 140, 120);
+    const sx = den[0][0], sy = den[0][1];
+    const shifted = den.map(([px, py]) => [x + (px - sx), y + (py - sy)]);
+    drawPath(rctx, shifted, `hsl(${(i * 33) % 360} 90% 64%)`, 5);
+    const end = shifted[shifted.length - 1];
+    x = clamp(end[0], 40, reveal.width - 40);
+    y = clamp(end[1], 28, reveal.height - 28);
+  }
+}
+
+function renderParentTail() {
+  resetHint();
+  if (!parent?.record?.points?.length) {
+    hctx.fillStyle = 'rgba(255,255,255,0.6)';
+    hctx.font = '12px ui-monospace, SFMono-Regular, Menlo, monospace';
+    hctx.fillText('genesis round: no parent yet', 14, 28);
+    start = { x: 60, y: draw.height / 2 };
+    return;
+  }
+  const den = denorm(parent.record.points, hint.width, hint.height);
+  const tail = den.slice(Math.max(0, den.length - TAIL_VISIBLE_POINTS));
+  drawPath(hctx, tail, '#ff7aff', 5);
+  const p = tail[tail.length - 1];
+  hctx.fillStyle = '#ff7aff';
+  hctx.beginPath();
+  hctx.arc(p[0], p[1], 4, 0, Math.PI * 2);
+  hctx.fill();
+  start = { x: 60, y: clamp((p[1] / hint.height) * draw.height, 20, draw.height - 20) };
+}
+
+function syncRelease() {
+  if (mine.length < MIN_STROKE_POINTS) {
+    release.removeAttribute('href');
+    release.setAttribute('aria-disabled', 'true');
+    return;
+  }
+  const points = normalize(sample(mine));
+  const record = {
+    kind: 'chimera-segment',
+    v: 1,
+    parent: parent?.number ?? null,
+    points,
+    source: 'showcase/demos/nobody-drew-this-alone'
+  };
+  release.href = db.newIssueUrl({
+    title: `chimera segment ${parent?.number ? `after #${parent.number}` : 'genesis'}`,
+    labels: ['chimera', 'social'],
+    record,
+    body: 'Released from showcase/demos/nobody-drew-this-alone.'
+  });
+  release.setAttribute('aria-disabled', 'false');
+}
+
+function startStroke(p) {
+  if (!ready) return;
+  if (Math.hypot(p.x - start.x, p.y - start.y) > START_POINT_TOLERANCE && mine.length < 2) return;
+  drawing = true;
+  mine = [[start.x, start.y], [clamp(p.x, start.x, draw.width - 10), clamp(p.y, 10, draw.height - 10)]];
+  resetDraw();
+  syncRelease();
+}
+function moveStroke(p) {
+  if (!drawing) return;
+  mine.push([clamp(p.x, start.x, draw.width - 10), clamp(p.y, 10, draw.height - 10)]);
+  resetDraw();
+  drawReveal();
+  syncRelease();
+}
+function endStroke() {
+  drawing = false;
+  if (mine.length > 8) narrate('Your segment is ready to release.', 'ok', `${mine.length} sampled points captured.`);
+}
+
+draw.addEventListener('pointerdown', e => startStroke(toLocal(e, draw)));
+draw.addEventListener('pointermove', e => moveStroke(toLocal(e, draw)));
+window.addEventListener('pointerup', endStroke);
+
+async function loadPool() {
+  try {
+    const rows = await db.list({ labels: 'chimera,social', state: 'open', per_page: 100 });
+    pool = rows.filter(r => Array.isArray(r.record?.points) && r.record?.kind === 'chimera-segment');
+    stats.textContent = `${pool.length} shared fragments loaded`;
+  } catch {
+    pool = [];
+    stats.textContent = 'offline: start local genesis round';
+  }
+}
+
+async function startRound() {
+  document.getElementById('steps').innerHTML = '';
+  await loadPool();
+  parent = pool.length ? pool[Math.floor(Math.random() * pool.length)] : null;
+  narrate(`Loaded ${pool.length} shared fragments from open issues.`);
+  if (parent) narrate(`Picked parent segment #${parent.number}; only its tail is visible.`);
+  else narrate('No parent exists yet; you are drawing a genesis segment.');
+
+  renderParentTail();
+  mine = [];
+  ready = true;
+  resetDraw();
+  drawReveal();
+  syncRelease();
+  out.innerHTML = '<span class="mono" style="color:var(--accent)">draw from the cyan start dot, then release your segment</span>';
+}
+
+document.getElementById('go').onclick = startRound;
+resetHint();
+resetDraw();
+drawReveal();
+loadPool();
+</script>
+</body></html>

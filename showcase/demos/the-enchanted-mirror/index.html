@@ -1,0 +1,279 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Enchanted Mirror — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🪞</div>
+    <h1 id="title">The Enchanted Mirror</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel" id="live-panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Press <b>Start the mirror</b>: your browser asks for webcam access, picks one real old-master painting at random, extracts its color soul, and repaints your live reflection into breathing oil strokes. No server, no upload — frames never leave this device.</p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px">
+      <button class="run" id="go">Start the mirror</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">front camera · local processing only</span>
+    </div>
+    <video id="cam" playsinline muted style="display:none"></video>
+    <canvas id="mirror" width="640" height="480" style="width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:#0f1022"></canvas>
+    <div class="live-out" id="out" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>A style-transfer model would normally need a backend or heavy libraries. This version does the spell with just browser primitives: webcam pixels are downsampled, remapped into a palette sampled from a museum painting, then painted back as jittered brush-like strokes in real time. The “haunting” artwork is disclosed on-screen so the aesthetic source is explicit, and every frame lives and dies locally in your tab.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Open this page over <code>https</code> or <code>localhost</code> and click <b>Start the mirror</b>.</li>
+      <li>Grant camera permission and move your face — the brushstroke portrait updates continuously.</li>
+      <li>Reload to get haunted by a different real museum painting.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-enchanted-mirror/</code>.</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { mkNarrator } from '../../lib/showcase.js';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const ARTWORKS = [
+  {
+    title: 'Girl with a Pearl Earring',
+    artist: 'Johannes Vermeer',
+    museum: 'Mauritshuis',
+    year: 'c.1665',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Meisje_met_de_parel.jpg/640px-Meisje_met_de_parel.jpg'
+  },
+  {
+    title: 'The Night Watch',
+    artist: 'Rembrandt van Rijn',
+    museum: 'Rijksmuseum',
+    year: '1642',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/The_Nightwatch_by_Rembrandt.jpg/640px-The_Nightwatch_by_Rembrandt.jpg'
+  },
+  {
+    title: 'Las Meninas',
+    artist: 'Diego Velázquez',
+    museum: 'Museo del Prado',
+    year: '1656',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Las_Meninas_01.jpg/640px-Las_Meninas_01.jpg'
+  },
+  {
+    title: 'The Birth of Venus',
+    artist: 'Sandro Botticelli',
+    museum: 'Uffizi Gallery',
+    year: 'c.1485',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Birth_of_Venus_Botticelli.jpg/640px-Birth_of_Venus_Botticelli.jpg'
+  },
+  {
+    title: 'The Arnolfini Portrait',
+    artist: 'Jan van Eyck',
+    museum: 'The National Gallery, London',
+    year: '1434',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Van_Eyck_-_Arnolfini_Portrait.jpg/640px-Van_Eyck_-_Arnolfini_Portrait.jpg'
+  }
+];
+
+const haunt = ARTWORKS[Math.floor(Math.random() * ARTWORKS.length)];
+const out = document.getElementById('out');
+const video = document.getElementById('cam');
+const canvas = document.getElementById('mirror');
+const g = canvas.getContext('2d');
+const narrate = mkNarrator(document.getElementById('steps'));
+
+const sample = document.createElement('canvas');
+const sg = sample.getContext('2d', { willReadFrequently: true });
+const artSample = document.createElement('canvas');
+const ag = artSample.getContext('2d', { willReadFrequently: true });
+
+let stream;
+let raf = 0;
+let running = false;
+let palette = [];
+const DEFAULT_ASPECT_HEIGHT = 3;
+const DEFAULT_ASPECT_WIDTH = 4;
+const BRUSH_DRIFT_X_WEIGHT = 17;
+const BRUSH_DRIFT_Y_WEIGHT = 11;
+const BRUSH_DRIFT_MOD = 7;
+const BRUSH_DRIFT_CENTER = 3;
+
+function nearestColor(r, g, b) {
+  let best = palette[0] || [r, g, b];
+  let min = Infinity;
+  for (const c of palette) {
+    const dr = r - c[0];
+    const dg = g - c[1];
+    const db = b - c[2];
+    const d = dr * dr + dg * dg + db * db;
+    if (d < min) { min = d; best = c; }
+  }
+  return best;
+}
+
+function extractPalette(img, maxColors = 24) {
+  artSample.width = 96;
+  artSample.height = 96;
+  ag.drawImage(img, 0, 0, artSample.width, artSample.height);
+  const data = ag.getImageData(0, 0, artSample.width, artSample.height).data;
+  const buckets = new Map();
+  for (let i = 0; i < data.length; i += 16) {
+    const a = data[i + 3];
+    if (a < 8) continue;
+    const r = data[i] & 0xf0;
+    const g = data[i + 1] & 0xf0;
+    const b = data[i + 2] & 0xf0;
+    const key = `${r},${g},${b}`;
+    buckets.set(key, (buckets.get(key) || 0) + 1);
+  }
+  return [...buckets.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, maxColors)
+    .map(([k]) => k.split(',').map(Number));
+}
+
+async function loadArtworkPalette() {
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  await new Promise((resolve, reject) => {
+    img.onload = resolve;
+    img.onerror = reject;
+    img.src = haunt.image;
+  });
+  palette = extractPalette(img);
+}
+
+function stopMirror() {
+  running = false;
+  cancelAnimationFrame(raf);
+  raf = 0;
+  if (stream) {
+    stream.getTracks().forEach(t => t.stop());
+    stream = null;
+  }
+}
+
+function paintFrame() {
+  if (!running) return;
+  if (video.readyState < 2) {
+    raf = requestAnimationFrame(paintFrame);
+    return;
+  }
+
+  const sw = 176;
+  const sh = Math.max(100, Math.round(sw * (video.videoHeight || DEFAULT_ASPECT_HEIGHT) / (video.videoWidth || DEFAULT_ASPECT_WIDTH)));
+  if (sample.width !== sw || sample.height !== sh) {
+    sample.width = sw;
+    sample.height = sh;
+  }
+
+  if (canvas.height !== Math.round(canvas.width * sh / sw)) {
+    canvas.height = Math.round(canvas.width * sh / sw);
+  }
+
+  sg.save();
+  sg.scale(-1, 1);
+  sg.drawImage(video, -sw, 0, sw, sh);
+  sg.restore();
+
+  const frame = sg.getImageData(0, 0, sw, sh).data;
+  const scaleX = canvas.width / sw;
+  const scaleY = canvas.height / sh;
+
+  g.fillStyle = '#141024';
+  g.fillRect(0, 0, canvas.width, canvas.height);
+  g.lineCap = 'round';
+
+  const step = 2;
+  for (let y = 0; y < sh; y += step) {
+    for (let x = 0; x < sw; x += step) {
+      const i = (y * sw + x) * 4;
+      const col = nearestColor(frame[i], frame[i + 1], frame[i + 2]);
+      const px = (x + 0.5) * scaleX;
+      const py = (y + 0.5) * scaleY;
+      const drift = ((x * BRUSH_DRIFT_X_WEIGHT + y * BRUSH_DRIFT_Y_WEIGHT) % BRUSH_DRIFT_MOD) - BRUSH_DRIFT_CENTER;
+      g.strokeStyle = `rgba(${col[0]},${col[1]},${col[2]},0.78)`;
+      g.lineWidth = Math.max(1.5, scaleX * 1.4);
+      g.beginPath();
+      g.moveTo(px - scaleX * 0.9, py + drift * 0.15);
+      g.lineTo(px + scaleX * 0.9, py - drift * 0.15);
+      g.stroke();
+    }
+  }
+
+  raf = requestAnimationFrame(paintFrame);
+}
+
+document.getElementById('go').onclick = async () => {
+  document.getElementById('steps').innerHTML = '';
+  stopMirror();
+
+  if (!navigator.mediaDevices?.getUserMedia) {
+    out.innerHTML = '<span class="mono" style="color:var(--bad)">This browser does not support getUserMedia.</span>';
+    return;
+  }
+
+  out.innerHTML = '<span class="mono" style="color:var(--faint)">summoning the mirror…</span>';
+
+  try {
+    narrate('source', 'active', 'choosing your haunting artwork', `${haunt.title} · ${haunt.artist}`);
+    await loadArtworkPalette();
+    narrate('source', 'ok', 'museum palette extracted', `${haunt.museum} · ${haunt.year}`);
+
+    narrate('camera', 'active', 'requesting webcam stream', 'on-device only');
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } },
+      audio: false
+    });
+    video.srcObject = stream;
+    await video.play();
+    narrate('camera', 'ok', 'webcam live', 'no frames uploaded');
+
+    running = true;
+    narrate('paint', 'active', 'repainting live reflection as brushstrokes', 'palette-quantized each frame');
+    paintFrame();
+    narrate('paint', 'ok', 'enchanted mirror running', 'reload for a different painting');
+
+    out.innerHTML =
+      `<div><span class="big">haunting you today: ${haunt.title}</span></div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--muted)">${haunt.artist} · ${haunt.year} · ${haunt.museum}</div>` +
+      '<div class="mono" style="margin-top:6px;color:var(--good)">live camera frames are processed entirely in this tab.</div>';
+  } catch (e) {
+    stopMirror();
+    out.innerHTML = `<span class="mono" style="color:var(--bad)">${e.message || e}</span>`;
+  }
+};
+
+window.addEventListener('beforeunload', stopMirror);
+</script>
+</body></html>

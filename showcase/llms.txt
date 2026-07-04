@@ -16,16 +16,16 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 - `loop.prompt.md` — a paste-over-anything improvement ratchet that discovers its own score and keeps only verified wins.
 
 ## Channels
-- **🌍 Physical World** (`physical`, 8) — QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.
+- **🌍 Physical World** (`physical`, 10) — QR on paper, objects, stickers, skin, stone — the physical thing runs live code inside whoever looks at it.
 - **🔒 Verify-Before-Exec** (`verify`, 7) — Tamper-evident, un-killable, trust-the-hash-not-the-host. Run untrusted-CDN code and prove it wasn't changed.
 - **🤖 Agent to Agent** (`ai-to-ai`, 9) — MCP tools, brainstems as bytecode, signed dead-drops — machines using the stack with no human and no browser.
-- **💛 Human & Personal** (`human`, 5) — Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.
+- **💛 Human & Personal** (`human`, 6) — Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.
 - **♾️ Self-Building** (`self-building`, 4) — The loop, the tumbler, systems that improve and verify themselves — including this library.
 - **🎲 Wildcard** (`wildcard`, 12) — The strange stacks that shouldn't work but provably do. Go weird, stay real.
-- **🎮 Play** (`play`, 0) — Games and toys — playable, no server: scan-to-join, pass-and-play, physics sandboxes, real-time fun.
-- **🎨 Art** (`art`, 0) — Generative and camera visuals — beauty seeded by a hash, live data, or your own face.
-- **🔊 Sound** (`sound`, 1) — Instruments and sonification — the Web Audio API turned into synths, toys, and data you can hear.
-- **🌐 Social** (`social`, 1) — Collaborative, no backend — shared canvases, tanks, walls and stories built on GitHub Issues.
+- **🎮 Play** (`play`, 1) — Games and toys — playable, no server: scan-to-join, pass-and-play, physics sandboxes, real-time fun.
+- **🎨 Art** (`art`, 1) — Generative and camera visuals — beauty seeded by a hash, live data, or your own face.
+- **🔊 Sound** (`sound`, 2) — Instruments and sonification — the Web Audio API turned into synths, toys, and data you can hear.
+- **🌐 Social** (`social`, 2) — Collaborative, no backend — shared canvases, tanks, walls and stories built on GitHub Issues.
 
 ## Posts
 
@@ -36,8 +36,10 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 - [Living Leaderboard](https://kody-w.github.io/rapp-static-apis/showcase/demos/living-leaderboard/) — A printed QR re-ranks the top JavaScript repos every time someone scans it.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/living-leaderboard/demo.json
 - [The Menu That Knows the Kitchen](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-menu-that-knows-the-kitchen/) — A printed QR menu where each dish is live-marked available or sold out from GitHub Issues labels.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-menu-that-knows-the-kitchen/demo.json
 - [Kept Weather](https://kody-w.github.io/rapp-static-apis/showcase/demos/kept-weather/) — A sky becomes a small companion you can keep from a link.  ·  status: live  ·  welds `taste-the-weather`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/kept-weather/demo.json
+- [The Far Window](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-far-window/) — A fridge magnet that still opens onto one real place, right now.  ·  status: live  ·  welds `taste-the-weather`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-far-window/demo.json
 - [WELD: The Live Situation Room](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-live-situation-room/) — One wall display welding live weather, repo heartbeat, and top-N rankings into a verify-before-exec command view.  ·  status: live  ·  welds `taste-the-weather`, `the-immortal-committer`, `living-leaderboard`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-live-situation-room/demo.json
 - [The Provenance Camera](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-provenance-camera/) — Capture a fact, stamp it into a content-addressed provenance chain, and draw a scannable QR that carries its tamper-evident pedigree.  ·  status: live  ·  welds `photosynthesis`, `chain-of-custody`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-provenance-camera/demo.json
+- [The Trailhead](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-trailhead/) — A small trailhead sticker that quietly checks today's sky and sunset for you.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-trailhead/demo.json
 
 ### 🔒 Verify-Before-Exec
 - [Kill the Host](https://kody-w.github.io/rapp-static-apis/showcase/demos/kill-the-host/) — Delete the repo the API lives in; it keeps answering from a fork.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/kill-the-host/demo.json
@@ -64,6 +66,7 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 - [The Reunion Where Two Memories Fuse](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-reunion/) — A family archive that physically cannot lose a story — even a disagreement.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-reunion/demo.json
 - [The Unbreakable Promise](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-unbreakable-promise/) — A typed vow signed in your browser so anyone can verify exactly who promised exactly what.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-unbreakable-promise/demo.json
 - [WELD: The Heirloom](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-heirloom/) — A digital heirloom sealed for the heir at the tip of an unforgeable signed bloodline — no server, no lawyer, no trust.  ·  status: live  ·  welds `the-artifact-with-a-signed-bloodline`, `broadcast-the-secret`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-heirloom/demo.json
+- [The Night You Were Born](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-night-you-were-born/) — Type a date and place; watch the same sky return exactly as it was.  ·  status: live  ·  welds `taste-the-weather`, `gravity-organ`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-night-you-were-born/demo.json
 - [WELD: The Sovereign Ticket](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-sovereign-ticket/) — A signed event ticket that becomes redeemable only when a future public beacon drops and both door-side key shares meet in person.  ·  status: live  ·  welds `the-unriggable-ticket`, `the-unbreakable-promise`, `only-in-the-same-frame`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-sovereign-ticket/demo.json
 
 ### ♾️ Self-Building
@@ -86,24 +89,36 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 - [WELD: The Trusted Exchange](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-trusted-exchange/) — A trustless marketplace where every completed purchase updates a signed, provably-fresh seller reputation board.  ·  status: live  ·  welds `the-notarized-marketplace`, `the-verifiable-tournament`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-trusted-exchange/demo.json
 - [The Unriggable Ticket](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-unriggable-ticket/) — A scratch-off printed today, whose winner is chosen by a number nobody on Earth knows yet.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-unriggable-ticket/demo.json
 
+### 🎮 Play
+- [The Spy at the Table](https://kody-w.github.io/rapp-static-apis/showcase/demos/spy-at-the-table/) — Deal a no-app social-deduction game by printing seat QRs in one click.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/spy-at-the-table/demo.json
+
+### 🎨 Art
+- [The Enchanted Mirror](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-enchanted-mirror/) — Your webcam reflection repaints itself in the brushstrokes of a random museum old master.  ·  status: live  ·  welds `taste-the-weather`, `the-provenance-camera`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-enchanted-mirror/demo.json
+
 ### 🔊 Sound
 - [The Gravity Organ](https://kody-w.github.io/rapp-static-apis/showcase/demos/gravity-organ/) — Paint a pinboard instrument, drop marbles, and tilt your phone to conduct the melody.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/gravity-organ/demo.json
+- [The Sound of Far Away](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-sound-of-far-away/) — Name a coastline and hear the live wind and surf breathing back from that edge of the world.  ·  status: live  ·  welds `taste-the-weather`, `gravity-organ`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-sound-of-far-away/demo.json
 
 ### 🌐 Social
+- [Nobody Drew This Alone](https://kody-w.github.io/rapp-static-apis/showcase/demos/nobody-drew-this-alone/) — See only the last inch of a stranger's drawing, continue it blind, then reveal the chimera.  ·  status: live  ·  welds `the-tank`, `the-reunion`  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/nobody-drew-this-alone/demo.json
 - [The Tank](https://kody-w.github.io/rapp-static-apis/showcase/demos/the-tank/) — Design one fish and let it swim forever with everyone else's.  ·  status: live  ·  data: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-tank/demo.json
 
 ## The evolution tree — welds
 
 This library grows like an organism. These posts WELD earlier ones (transplant their working cells/patterns, kept intact) into something more sophisticated:
+- **The Enchanted Mirror** ⟵ welds `taste-the-weather`, `the-provenance-camera`  ·  Transplants taste-the-weather's narrated live #go flow and provenance-camera's canvas-first rendering discipline, then welds them into a webcam-to-brushstroke pipeline colored by a random museum artwork palette on each reload.
 - **The Verifiable Tournament** ⟵ welds `living-leaderboard`, `proof-of-freshness`, `the-unbreakable-promise`  ·  Transplant the-unbreakable-promise's ECDSA sign/verify loop to sign each player's tournament entry, proof-of-freshness's sha256Hex + arrayBuffer fetch to stamp the live ranking payload, and living-leaderboard's runVerifiedCell + parseTopRows to fetch and render the board — the signed player slot is injected into the freshness-stamped live board so every rank is either signed by its maker or provably current.
 - **Kept Weather** ⟵ welds `taste-the-weather`  ·  
+- **Nobody Drew This Alone** ⟵ welds `the-tank`, `the-reunion`  ·  Uses The Tank's no-backend issue-backed shared state, then applies The Reunion's additive preserve-every-contribution logic so each blind segment permanently joins a stitched creature.
 - **WELD: The Autonomous Economy** ⟵ welds `the-trusted-exchange`, `the-sovereign-handoff`  ·  Run the full Trusted Exchange pipeline (live availability → AES-sealed order → SHA-256 custody → ECDSA receipt → signed reputation), then inject the complete notarized economic packet as the Sovereign Handoff relay genesis so every autonomous hop verifies custody and signature before forwarding.
 - **WELD: The Command Center** ⟵ welds `the-autonomous-economy`, `the-live-situation-room`  ·  Keep the entire autonomous economy flow intact, then surface its live order, custody, and reputation outputs beside the situation room's verified external-feed tiles so one operator console watches the notarized economy run in real time.
 - **WELD: The Democratic Market** ⟵ welds `the-permanent-market`, `the-trustless-poll`  ·  Keep the full permanent market pipeline intact, but gate each order with a trustless poll where signed ballots race append-only consensus and the ratified governance decision is recorded permanently with the sale.
+- **The Far Window** ⟵ welds `taste-the-weather`  ·  
 - **WELD: The Heirloom** ⟵ welds `the-artifact-with-a-signed-bloodline`, `broadcast-the-secret`  ·  Transplant the ECDSA generational chain from the-artifact-with-a-signed-bloodline (each generation's key signs the next's public key) and the AES-256-GCM RSL1 seal from broadcast-the-secret; weld point = the heir at the tip of the verified bloodline is the one whose passphrase opens the seal.
 - **WELD: The Immortal Ledger** ⟵ welds `kill-the-host`, `chain-of-custody`, `proof-of-freshness`  ·  Resolve the same pinned cell across dead and surviving mirrors, mint each ledger entry from a fresh byte-hash proof, then chain those entries together so the whole mirror-surviving history re-verifies from genesis to head.
 - **WELD: The Live Situation Room** ⟵ welds `taste-the-weather`, `the-immortal-committer`, `living-leaderboard`  ·  Transplants the donors' full weather, repo-star heartbeat, and markdown leaderboard verify-before-exec flows into one live triage wall where each tile verifies before it fetches.
 - **WELD: The Living Spec** ⟵ welds `the-page-that-proves-itself`, `the-test-that-breeds`  ·  The page first attests its own index.html hash, then feeds that attested rule text into a CPython fuzzer that shrinks a failing counterexample and emits a pinned child conformance test QR that re-runs verify-before-exec.
+- **The Night You Were Born** ⟵ welds `taste-the-weather`, `gravity-organ`  ·  Transplants Taste the Weather's quiet single-panel restraint and Gravity Organ's canvas animation, then welds deterministic astronomy math so date+longitude alone reconstructs a real sky with moon phase.
 - **WELD: The Notarized Marketplace** ⟵ welds `the-sealed-storefront`, `the-unbreakable-promise`  ·  Keep the Sealed Storefront flow intact, then sign each completed custody-stamped order with an ECDSA seller key so every buyer gets a cryptographically verifiable receipt bound to the exact sealed envelope and custody head.
 - **WELD: The Permanent Market** ⟵ welds `the-notarized-marketplace`, `the-immortal-ledger`  ·  Keep the full notarized marketplace flow intact, then append every completed seller-signed receipt as a fresh-proof ledger entry whose whole history re-verifies from a mirror-surviving genesis to the current head.
 - **WELD: The Provable Raffle** ⟵ welds `the-unriggable-ticket`, `proof-of-freshness`  ·  The draw seed is the SHA-256 of live public bytes (freshness proof) combined with a future drand round's randomness, so the winner is unriggable, provably can't be known before the draw, can't be backdated, and only valid committed tickets are eligible.
@@ -112,6 +127,7 @@ This library grows like an organism. These posts WELD earlier ones (transplant t
 - **The Sealed Storefront** ⟵ welds `the-menu-that-knows-the-kitchen`, `broadcast-the-secret`, `chain-of-custody`  ·  IssuesDB availability gate → AES-256-GCM seals the order payload into an RSL1 envelope → SHA-256 content-addresses that envelope into a custody chain link, so the order's journey is both confidential and tamper-evident end-to-end
 - **WELD: The Self-Notarizing Record** ⟵ welds `the-page-that-proves-itself`, `chain-of-custody`  ·  Keep the live self-hash attestation intact, keep the full parent-linked custody replay intact, and weld them by appending each freshly computed self-hash as the next version link whenever the record is saved.
 - **The Self-Proving Relay** ⟵ welds `the-relay`, `the-page-that-proves-itself`, `the-byte-trap`  ·  Each stage first verifies the prior content-addressed frame, then fetches+hashes this page to attest self-integrity, then runs through a verify-before-exec code gate that refuses cold on any byte mismatch before emitting the next frame.
+- **The Sound of Far Away** ⟵ welds `taste-the-weather`, `gravity-organ`  ·  Transplants taste-the-weather's verify-before-exec live fetch pattern and gravity-organ's browser-only Web Audio canvas loop, then welds them so real coastal wind/wave values shape a quiet ambient soundscape.
 - **WELD: The Sovereign Handoff** ⟵ welds `the-self-proving-relay`, `the-notarized-marketplace`  ·  Transplant the full notarized marketplace order pipeline as the relay payload, then force each self-proving relay hop to verify inbound frame bytes, attest its own source, and halt on any mismatch before forwarding custody-stamped signed bytes.
 - **WELD: The Sovereign Ticket** ⟵ welds `the-unriggable-ticket`, `the-unbreakable-promise`, `only-in-the-same-frame`  ·  Sign the exact ticket payload with the promise donor, bind its single-use redeem proof to a future drand round with the unriggable donor, then seal that signed packet behind the same-frame donor's 2-of-2 XOR key shares so the door can spend it only when holder and venue meet in person.
 - **WELD: The Trusted Exchange** ⟵ welds `the-notarized-marketplace`, `the-verifiable-tournament`  ·  Keep the full notarized order pipeline intact, then pipe each completed seller-signed receipt into the tournament's sign-plus-freshness leaderboard so seller reputation updates are both attributable and provably live.
@@ -169,4 +185,4 @@ record in the body). The site shows open submissions live; the tumbler loop prom
 }
 ```
 
-Generated by build.py from 47 posts across 8 active channels. Do not hand-edit.
+Generated by build.py from 54 posts across 10 active channels. Do not hand-edit.

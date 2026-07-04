@@ -1,6 +1,6 @@
 {
   "schema": "rapp-showcase/1.0",
-  "count": 47,
+  "count": 54,
   "pages": "https://kody-w.github.io/rapp-static-apis/showcase",
   "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase",
   "posts": [
@@ -121,6 +121,34 @@
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-byte-trap/demo.json",
       "builds_on": [],
       "weld": ""
+    },
+    {
+      "slug": "the-enchanted-mirror",
+      "channel": "art",
+      "rank": 1,
+      "emoji": "🪞",
+      "title": "The Enchanted Mirror",
+      "tagline": "Your webcam reflection repaints itself in the brushstrokes of a random museum old master.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "webcam",
+        "canvas",
+        "museum",
+        "privacy",
+        "generative"
+      ],
+      "primitives": [
+        "getUserMedia",
+        "Canvas 2D"
+      ],
+      "url": "demos/the-enchanted-mirror/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-enchanted-mirror/demo.json",
+      "builds_on": [
+        "taste-the-weather",
+        "the-provenance-camera"
+      ],
+      "weld": "Transplants taste-the-weather's narrated live #go flow and provenance-camera's canvas-first rendering discipline, then welds them into a webcam-to-brushstroke pipeline colored by a random museum artwork palette on each reload."
     },
     {
       "slug": "the-quine-ratchet",
@@ -441,6 +469,35 @@
       "weld": ""
     },
     {
+      "slug": "nobody-drew-this-alone",
+      "channel": "social",
+      "rank": null,
+      "emoji": "🧟",
+      "title": "Nobody Drew This Alone",
+      "tagline": "See only the last inch of a stranger's drawing, continue it blind, then reveal the chimera.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "social",
+        "drawing",
+        "issues",
+        "canvas",
+        "collab"
+      ],
+      "primitives": [
+        "canvas 2D",
+        "pointer events",
+        "../../lib/issues-db.mjs"
+      ],
+      "url": "demos/nobody-drew-this-alone/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/nobody-drew-this-alone/demo.json",
+      "builds_on": [
+        "the-tank",
+        "the-reunion"
+      ],
+      "weld": "Uses The Tank's no-backend issue-backed shared state, then applies The Reunion's additive preserve-every-contribution logic so each blind segment permanently joins a stitched creature."
+    },
+    {
       "slug": "only-in-the-same-frame",
       "channel": "wildcard",
       "rank": null,
@@ -463,6 +520,30 @@
       ],
       "url": "demos/only-in-the-same-frame/",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/only-in-the-same-frame/demo.json",
+      "builds_on": [],
+      "weld": ""
+    },
+    {
+      "slug": "spy-at-the-table",
+      "channel": "play",
+      "rank": null,
+      "emoji": "🕵️🍽️",
+      "title": "The Spy at the Table",
+      "tagline": "Deal a no-app social-deduction game by printing seat QRs in one click.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "game",
+        "qr",
+        "social-deduction",
+        "no-backend",
+        "webcrypto"
+      ],
+      "primitives": [
+        "/track"
+      ],
+      "url": "demos/spy-at-the-table/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/spy-at-the-table/demo.json",
       "builds_on": [],
       "weld": ""
     },
@@ -623,6 +704,34 @@
       "weld": "Keep the full permanent market pipeline intact, but gate each order with a trustless poll where signed ballots race append-only consensus and the ratified governance decision is recorded permanently with the sale."
     },
     {
+      "slug": "the-far-window",
+      "channel": "physical",
+      "rank": null,
+      "emoji": "🧲",
+      "title": "The Far Window",
+      "tagline": "A fridge magnet that still opens onto one real place, right now.",
+      "status": "live",
+      "difficulty": "easy",
+      "tags": [
+        "qr",
+        "live-data",
+        "physical",
+        "weather",
+        "time"
+      ],
+      "primitives": [
+        "/track",
+        "/fn",
+        "../../../track/qr.mjs"
+      ],
+      "url": "demos/the-far-window/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-far-window/demo.json",
+      "builds_on": [
+        "taste-the-weather"
+      ],
+      "weld": ""
+    },
+    {
       "slug": "the-fast-forward-parliament",
       "channel": "ai-to-ai",
       "rank": null,
@@ -768,6 +877,35 @@
         "the-test-that-breeds"
       ],
       "weld": "The page first attests its own index.html hash, then feeds that attested rule text into a CPython fuzzer that shrinks a failing counterexample and emits a pinned child conformance test QR that re-runs verify-before-exec."
+    },
+    {
+      "slug": "the-night-you-were-born",
+      "channel": "human",
+      "rank": null,
+      "emoji": "🌙",
+      "title": "The Night You Were Born",
+      "tagline": "Type a date and place; watch the same sky return exactly as it was.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "astronomy",
+        "canvas",
+        "birth",
+        "moon",
+        "no-backend"
+      ],
+      "primitives": [
+        "Canvas 2D",
+        "Date",
+        "Math"
+      ],
+      "url": "demos/the-night-you-were-born/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-night-you-were-born/demo.json",
+      "builds_on": [
+        "taste-the-weather",
+        "gravity-organ"
+      ],
+      "weld": "Transplants Taste the Weather's quiet single-panel restraint and Gravity Organ's canvas animation, then welds deterministic astronomy math so date+longitude alone reconstructs a real sky with moon phase."
     },
     {
       "slug": "the-notarized-marketplace",
@@ -1068,6 +1206,36 @@
       "weld": "Each stage first verifies the prior content-addressed frame, then fetches+hashes this page to attest self-integrity, then runs through a verify-before-exec code gate that refuses cold on any byte mismatch before emitting the next frame."
     },
     {
+      "slug": "the-sound-of-far-away",
+      "channel": "sound",
+      "rank": null,
+      "emoji": "🌊",
+      "title": "The Sound of Far Away",
+      "tagline": "Name a coastline and hear the live wind and surf breathing back from that edge of the world.",
+      "status": "live",
+      "difficulty": "medium",
+      "tags": [
+        "sound",
+        "web-audio",
+        "live-data",
+        "open-meteo",
+        "coastline",
+        "ambient"
+      ],
+      "primitives": [
+        "/track",
+        "Web Audio API",
+        "Canvas 2D"
+      ],
+      "url": "demos/the-sound-of-far-away/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-sound-of-far-away/demo.json",
+      "builds_on": [
+        "taste-the-weather",
+        "gravity-organ"
+      ],
+      "weld": "Transplants taste-the-weather's verify-before-exec live fetch pattern and gravity-organ's browser-only Web Audio canvas loop, then welds them so real coastal wind/wave values shape a quiet ambient soundscape."
+    },
+    {
       "slug": "the-sovereign-handoff",
       "channel": "ai-to-ai",
       "rank": null,
@@ -1181,6 +1349,31 @@
       ],
       "url": "demos/the-test-that-breeds/",
       "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-test-that-breeds/demo.json",
+      "builds_on": [],
+      "weld": ""
+    },
+    {
+      "slug": "the-trailhead",
+      "channel": "physical",
+      "rank": null,
+      "emoji": "🥾",
+      "title": "The Trailhead",
+      "tagline": "A small trailhead sticker that quietly checks today's sky and sunset for you.",
+      "status": "live",
+      "difficulty": "easy",
+      "tags": [
+        "qr",
+        "live-data",
+        "weather",
+        "sunset",
+        "safety"
+      ],
+      "primitives": [
+        "/track",
+        "/fn"
+      ],
+      "url": "demos/the-trailhead/",
+      "data_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/demos/the-trailhead/demo.json",
       "builds_on": [],
       "weld": ""
     },

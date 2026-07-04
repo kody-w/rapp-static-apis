@@ -1,0 +1,19 @@
+{
+  "slug": "the-night-you-were-born",
+  "channel": "human",
+  "rank": null,
+  "emoji": "🌙",
+  "title": "The Night You Were Born",
+  "tagline": "Type a date and place; watch the same sky return exactly as it was.",
+  "holy_shit": "With no backend and no telescope, your browser can recompute the real sky over any birthplace from date + coordinates alone — and it keeps turning like that night never ended.",
+  "status": "live",
+  "difficulty": "medium",
+  "tags": ["astronomy", "canvas", "birth", "moon", "no-backend"],
+  "primitives": ["Canvas 2D", "Date", "Math"],
+  "powered_by": "in-browser sidereal-time astronomy: bright-star RA/dec catalog rotated into local alt/az plus moon phase from date",
+  "builds_on": ["taste-the-weather", "gravity-organ"],
+  "weld": "Transplants Taste the Weather's quiet single-panel restraint and Gravity Organ's canvas animation, then welds deterministic astronomy math so date+longitude alone reconstructs a real sky with moon phase.",
+  "agent_scenario": "When you need an emotional, no-backend visualization where a personal input (date/place) deterministically recomputes a real physical state in-browser.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-04"
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "the-far-window",
+  "channel": "physical",
+  "emoji": "🧲",
+  "title": "The Far Window",
+  "tagline": "A fridge magnet that still opens onto one real place, right now.",
+  "holy_shit": "A little square on your fridge can still tell you what the air feels like in a city you miss — this exact minute.",
+  "status": "live",
+  "difficulty": "easy",
+  "tags": ["qr", "live-data", "physical", "weather", "time"],
+  "primitives": ["/track", "/fn", "../../../track/qr.mjs"],
+  "powered_by": "/track extract cell + Open-Meteo + qr.mjs, verified and fetched in the scanner's browser",
+  "agent_scenario": "When you need a quiet, location-specific live truth from a printed object, with verify-before-exec and no backend.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03",
+  "builds_on": ["taste-the-weather"]
+}
