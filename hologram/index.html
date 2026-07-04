@@ -251,13 +251,13 @@ async function crossBreed(cartA, cartB) {
     compose: { windows: [[0, 1, 2]], loop: true }
   };
   const id = await genomeId(genome);
-  const tA = (cartA.title || '').replace(/ sky$/i, '');
-  const tB = (cartB.title || '').replace(/ sky$/i, '');
+  const tA = (cartA.title || cartA.id || '').replace(/ sky$/i, '');
+  const tB = (cartB.title || cartB.id || '').replace(/ sky$/i, '');
   return {
     schema: 'hologram-cartridge/1.0', id,
     title: tA + ' \u00d7 ' + tB,
     author: '@kody-w',
-    born: { coord: 'cross:' + cartA.id + '\u00d7' + cartB.id, from: 'a cross of ' + cartA.title + ' and ' + cartB.title },
+    born: { coord: 'cross:' + cartA.id + '\u00d7' + cartB.id, from: 'a cross of ' + (cartA.title || cartA.id) + ' and ' + (cartB.title || cartB.id) },
     parents: [cartA.id, cartB.id],
     genome, sig: ''
   };
