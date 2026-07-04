@@ -79,6 +79,7 @@
    <span id="i-title"></span>
    <span id="i-author"></span>
    <span id="i-id" class="mono"></span>
+   <span id="i-note" style="display:none"></span>
    <span id="i-home" style="display:none"></span>
   </div>
   <div id="why-row" style="display:none">
@@ -146,17 +147,24 @@ function mixColor(a, b, t) {
 function scaleColor(c, s) {
   return { r: clamp(c.r * s, 0, 255), g: clamp(c.g * s, 0, 255), b: clamp(c.b * s, 0, 255) };
 }
-function shadeFace(color, diffuse, viewDot, emissive, palette) {
-  // Warm-key / cool-fill Lambert + palette-tinted fresnel rim
-  const KEY = [1.0, 0.96, 0.88], FILL = [0.50, 0.58, 0.75];
+function desaturateColor(c, amount) {
+  const avg = (c.r + c.g + c.b) / 3;
+  return mixColor(c, { r: avg, g: avg, b: avg }, clamp(amount, 0, 1));
+}
+function shadeFace(color, diffuse, viewDot, emissive, palette, rig) {
+  const key = rig && rig.keyColor ? rig.keyColor : { r: 255, g: 245, b: 224 };
+  const fill = rig && rig.fillColor ? rig.fillColor : { r: 128, g: 148, b: 191 };
+  const intensity = clamp(rig && rig.intensity != null ? rig.intensity : 1, 0.35, 1.18);
   const em = emissive || 0;
-  const rim = Math.pow(1 - viewDot, 3) * 0.35;
+  const rim = Math.pow(1 - viewDot, 3) * (0.28 + intensity * 0.1);
   const rimTint = mixColor(paletteSample(palette, 0.5), { r: 255, g: 255, b: 255 }, 0.4);
   const channels = ['r', 'g', 'b'];
   const out = {};
+  const ambient = 0.18 + intensity * 0.04;
+  const keyGain = 0.76 * intensity;
   for (let i = 0; i < 3; i++) {
     const ch = channels[i];
-    out[ch] = clamp(color[ch] * (FILL[i] * 0.30 + KEY[i] * (diffuse * 0.85))
+    out[ch] = clamp(color[ch] * ((fill[ch] / 255) * ambient + (key[ch] / 255) * (diffuse * keyGain))
       + color[ch] * em * 0.5 + rimTint[ch] * rim, 0, 255);
   }
   return out;
@@ -396,40 +404,47 @@ function projectPoint(p, camera, w, h, focal) {
   const s = focal / z;
   return { x: w / 2 + x * s, y: h / 2 - y * s, z };
 }
-function drawShadow(ctx, camera, w, h, focal, floorY, size, bodyY) {
+function drawShadow(ctx, camera, w, h, focal, floorY, size, bodyY, rig, birth) {
+  const dir = rig && rig.dir ? rig.dir : V3.norm(vec(0.45, 0.9, 0.65));
+  const horizLen = Math.hypot(dir.x, dir.z);
+  const along = horizLen > 1e-5 ? { x: -dir.x / horizLen, y: 0, z: -dir.z / horizLen } : vec(-1, 0, 0);
+  const across = vec(-along.z, 0, along.x);
+  const lowSun = 1 - clamp(dir.y, 0, 1);
+  const cloud = birthCloudiness(birth);
+  const stretch = 1 + lowSun * 1.75;
+  const offset = V3.scale(along, size * (0.18 + lowSun * 0.56));
   const pts = [];
   for (let i = 0; i < 28; i++) {
     const a = (i / 28) * TAU;
-    const p = projectPoint(vec(Math.cos(a) * size * 0.95, floorY, Math.sin(a) * size * 0.72), camera, w, h, focal);
+    const ring = V3.add(V3.scale(along, Math.cos(a) * size * 0.9 * stretch), V3.scale(across, Math.sin(a) * size * 0.62));
+    const p = projectPoint(vec(offset.x + ring.x, floorY, offset.z + ring.z), camera, w, h, focal);
     if (p) pts.push(p);
   }
   if (pts.length < 8) return;
   const cx = pts.reduce((s, p) => s + p.x, 0) / pts.length;
   const cy = pts.reduce((s, p) => s + p.y, 0) / pts.length;
   const rAvg = pts.reduce((s, p) => s + Math.hypot(p.x - cx, p.y - cy), 0) / pts.length;
-  // Compute hover lift: screen-space gap between body center and floor projection
   const bodyProj = projectPoint(vec(0, bodyY, 0), camera, w, h, focal);
   const floorProj = projectPoint(vec(0, floorY, 0), camera, w, h, focal);
-  // If projections fail (behind camera), fall back to lift=0 (ground-level, max shadow)
   const gap = (bodyProj && floorProj) ? Math.abs(bodyProj.y - floorProj.y) : 0;
   const lift = clamp(gap / Math.max(rAvg, 1), 0, 1.4);
-  const alpha = 0.26 * (1 - 0.45 * lift);
-  const shadowR = rAvg * (1 + 0.35 * lift);
-  // Main umbra: radial gradient
+  const baseAlpha = 0.26 * (1 - 0.45 * lift) * (0.55 + clamp(rig && rig.intensity != null ? rig.intensity : 1, 0.35, 1.18) * 0.45);
+  const alpha = baseAlpha * (1 - cloud * 0.55);
+  const shadowR = rAvg * (1 + 0.35 * lift) * (1 + lowSun * 0.18 + cloud * 0.1);
   const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, shadowR);
   g.addColorStop(0, `rgba(0,0,0,${alpha.toFixed(3)})`);
-  g.addColorStop(0.5, `rgba(0,0,0,${(alpha * 0.5).toFixed(3)})`);
+  g.addColorStop(clamp(0.42 + cloud * 0.18, 0.42, 0.68), `rgba(0,0,0,${(alpha * (0.42 - cloud * 0.12)).toFixed(3)})`);
   g.addColorStop(1, 'rgba(0,0,0,0)');
   ctx.beginPath();
   ctx.arc(cx, cy, shadowR, 0, TAU);
   ctx.fillStyle = g;
   ctx.fill();
-  // Penumbra: second larger, very subtle pass
-  const g2 = ctx.createRadialGradient(cx, cy, shadowR * 0.5, cx, cy, shadowR * 1.8);
-  g2.addColorStop(0, 'rgba(0,0,0,0.06)');
+  const penumbraR = shadowR * (1.7 + cloud * 0.55);
+  const g2 = ctx.createRadialGradient(cx, cy, shadowR * 0.42, cx, cy, penumbraR);
+  g2.addColorStop(0, `rgba(0,0,0,${(0.055 * (1 - cloud * 0.45)).toFixed(3)})`);
   g2.addColorStop(1, 'rgba(0,0,0,0)');
   ctx.beginPath();
-  ctx.arc(cx, cy, shadowR * 1.8, 0, TAU);
+  ctx.arc(cx, cy, penumbraR, 0, TAU);
   ctx.fillStyle = g2;
   ctx.fill();
 }
@@ -449,11 +464,113 @@ function drawHalo(ctx, camera, w, h, focal, center, size, surface, pulse) {
   ctx.arc(cp.x, cp.y, rr, 0, TAU);
   ctx.fill();
 }
-function renderScene(ctx, genome, time, view) {
+function parseVoidBirth(cart) {
+  const from = String(cart && cart.born && cart.born.from || '');
+  const out = { temp: null, wmo: null, isDay: null, moonPct: null, moonName: '', isMoon: false };
+  if (from.startsWith('live ')) {
+    const parts = from.split(' · ');
+    const first = parts.shift() || '';
+    if (first.startsWith('live ')) { const n = parseFloat(first.slice(5)); if (!isNaN(n)) out.temp = n; }
+    for (const part of parts) {
+      if (part.startsWith('code ')) { const n = parseInt(part.slice(5)); if (!isNaN(n)) out.wmo = n; }
+      else if (part === 'day') out.isDay = true;
+      else if (part === 'night') out.isDay = false;
+    }
+  } else if (from.startsWith('moon ') || from.startsWith('the moon')) {
+    const moon = parseMoonOrigin(from);
+    out.isMoon = true;
+    out.moonPct = moon.moonPct;
+    out.moonName = moon.moonName || '';
+  }
+  return out;
+}
+function birthCloudiness(birth) {
+  if (!birth || birth.wmo === null) return 0.14;
+  if (birth.wmo >= 95) return 1;
+  if (birth.wmo >= 80) return 0.82;
+  if (birth.wmo >= 61) return 0.58;
+  if (birth.wmo > 3) return 0.32;
+  return 0.08;
+}
+function voidTint(cart) {
+  const baseTop = parseHex('#07111b'), baseMid = parseHex('#04080f'), baseBottom = parseHex('#010409');
+  const birth = parseVoidBirth(cart);
+  let tint = parseHex('#46556a');
+  if (birth.isMoon) {
+    const name = birth.moonName.toLowerCase();
+    tint = name.includes('full') ? parseHex('#7a83b1')
+      : name.includes('new') ? parseHex('#4c4868')
+      : name.includes('waning') ? parseHex('#516f98')
+      : name.includes('waxing') ? parseHex('#765d93')
+      : parseHex('#5d6e93');
+    if (birth.moonPct !== null) tint = mixColor(tint, birth.moonPct >= 50 ? parseHex('#8f96c0') : parseHex('#465b8f'), 0.25);
+  } else if (birth.temp !== null) {
+    tint = birth.temp >= 24 ? parseHex('#764841')
+      : birth.temp <= 8 ? parseHex('#36506f')
+      : parseHex('#486258');
+  }
+  if (birth.isDay === true) tint = mixColor(tint, parseHex('#748190'), 0.28);
+  else if (birth.isDay === false) tint = mixColor(tint, parseHex('#283142'), 0.22);
+  if (birth.wmo !== null) {
+    if (birth.wmo >= 95) tint = mixColor(tint, parseHex('#655f67'), 0.52);
+    else if (birth.wmo >= 80) tint = mixColor(tint, parseHex('#566170'), 0.35);
+    else if (birth.wmo >= 61) tint = mixColor(tint, parseHex('#4f5f73'), 0.22);
+  }
+  let desat = 0.12;
+  if (birth.wmo !== null) {
+    if (birth.wmo >= 95) desat = 0.72;
+    else if (birth.wmo >= 80) desat = 0.46;
+    else if (birth.wmo >= 61) desat = 0.26;
+  }
+  tint = desaturateColor(tint, desat);
+  return {
+    top: mixColor(baseTop, tint, 0.18),
+    mid: mixColor(baseMid, tint, 0.15),
+    bottom: mixColor(baseBottom, tint, 0.12),
+    fog: mixColor(baseMid, tint, 0.18)
+  };
+}
+function lightRig(cart, birth = parseVoidBirth(cart)) {
+  const cloud = birthCloudiness(birth);
+  if (birth.isMoon) {
+    const moon = birth.moonPct === null ? 0.55 : clamp(birth.moonPct / 100, 0, 1);
+    const moonName = String(birth.moonName || '').toLowerCase();
+    const waxing = moonName.includes('wax');
+    return {
+      dir: V3.norm(vec(waxing ? -0.42 : 0.42, lerp(0.28, 0.48, moon), waxing ? 0.58 : 0.42)),
+      keyColor: mixColor(parseHex('#bfc9e8'), parseHex('#eef3ff'), moon * 0.45),
+      fillColor: mixColor(parseHex('#18243c'), parseHex('#334564'), moon * 0.35),
+      intensity: 0.42 + moon * 0.18
+    };
+  }
+  if (birth.isDay === false) {
+    return {
+      dir: V3.norm(vec(-0.36, 0.26, 0.62)),
+      keyColor: parseHex('#8ea4d8'),
+      fillColor: parseHex('#182235'),
+      intensity: 0.46 - cloud * 0.08
+    };
+  }
+  const tempNorm = birth.temp === null ? 0.55 : clamp((birth.temp - 4) / 28, 0, 1);
+  const clear = 1 - cloud;
+  const sunHeight = lerp(0.42, 0.94, clamp(clear * 0.7 + tempNorm * 0.6, 0, 1));
+  const warmth = clamp(0.68 - clear * 0.38 - tempNorm * 0.22 + cloud * 0.25, 0.12, 0.76);
+  return {
+    dir: V3.norm(vec(0.48 - cloud * 0.12, sunHeight, 0.58 - tempNorm * 0.18)),
+    keyColor: mixColor(parseHex('#ffd1a0'), parseHex('#fff7ef'), 1 - warmth),
+    fillColor: mixColor(parseHex('#2d3f63'), parseHex('#4b627d'), clear * 0.55),
+    intensity: 0.78 + clear * 0.3 - cloud * 0.18
+  };
+}
+function renderScene(ctx, cart, time, view) {
+  const genome = cart.genome;
   const w = ctx.canvas.width, h = ctx.canvas.height;
   ctx.clearRect(0, 0, w, h);
+  const birth = parseVoidBirth(cart);
+  const tint = voidTint(cart);
+  const rig = lightRig(cart, birth);
   const bg = ctx.createLinearGradient(0, 0, 0, h);
-  bg.addColorStop(0, '#07111b'); bg.addColorStop(0.55, '#04080f'); bg.addColorStop(1, '#010409');
+  bg.addColorStop(0, colorCss(tint.top)); bg.addColorStop(0.55, colorCss(tint.mid)); bg.addColorStop(1, colorCss(tint.bottom));
   ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
 
   const spec = readGenome(genome, time);
@@ -465,9 +582,9 @@ function renderScene(ctx, genome, time, view) {
   const camera = makeCamera(target, yaw, pitch, radius);
   const focal = Math.min(w, h) * 0.96;
   drawHalo(ctx, camera, w, h, focal, vec(0, built.haloY, 0), built.size, spec.surface, spec.pulse);
-  drawShadow(ctx, camera, w, h, focal, built.floorY, built.size, built.bodyY);
+  drawShadow(ctx, camera, w, h, focal, built.floorY, built.size, built.bodyY, rig, birth);
 
-  const lightDir = V3.norm(vec(0.45, 0.9, 0.65));
+  const lightDir = rig.dir;
   const polys = [];
   for (const face of built.faces) {
     const proj = face.pts.map(p => projectPoint(p, camera, w, h, focal));
@@ -480,8 +597,8 @@ function renderScene(ctx, genome, time, view) {
     const depth = proj.reduce((acc, p) => acc + p.z, 0) / proj.length;
     const near = radius - built.size, far = radius + built.size;
     const fog = clamp((depth - near) / (far - near), 0, 1);
-    const shadedColor = shadeFace(face.fill.color, diffuse, viewDot, face.fill.emissive, spec.surface.palette);
-    polys.push({ proj, depth, fill: colorCss(mixColor(shadedColor, parseHex('#04080f'), fog * 0.45), face.alpha) });
+    const shadedColor = shadeFace(face.fill.color, diffuse, viewDot, face.fill.emissive, spec.surface.palette, rig);
+    polys.push({ proj, depth, fill: colorCss(mixColor(shadedColor, tint.fog, fog * 0.45), face.alpha) });
   }
   polys.sort((a, b) => b.depth - a.depth);
   ctx.lineJoin = ctx.lineCap = 'round';
@@ -492,7 +609,8 @@ function renderScene(ctx, genome, time, view) {
     ctx.fillStyle = poly.fill;
     ctx.fill();
     ctx.strokeStyle = poly.fill;
-    ctx.lineWidth = 1;
+    const dpr = clamp(w / Math.max(stage.clientWidth || w, 1), 1, 2.5);
+    ctx.lineWidth = dpr;
     ctx.stroke();
   }
 }
@@ -575,8 +693,18 @@ function season(month, lat) {
 }
 function latBand(lat) { return 'near ' + Math.round(Math.abs(lat)) + '\u00b0' + (lat < 0 ? 'S' : 'N'); }
 function parseMoonOrigin(from) {
+  const src = String(from || '');
+  if (src.startsWith('the moon')) {
+    const parts = src.split(' · ');
+    const head = parts.shift() || '';
+    const moonPctMatch = head.match(/(\d+)\s*%/);
+    const moonPct = moonPctMatch ? parseInt(moonPctMatch[1]) : null;
+    const moonName = parts.shift() || '';
+    const tide = parts.filter(Boolean).join(' · ');
+    return { moonPct, moonName, tide };
+  }
   // Stored moon provenance is "moon · <illumination %> · <phase name> · <tide text>".
-  const parts = String(from || '').split(' · ');
+  const parts = src.split(' · ');
   const moonPct = /^\d+$/.test(parts[1] || '') ? parseInt(parts[1]) : null;
   const moonName = parts[2] || '';
   const tide = parts.slice(3).filter(Boolean).join(' · ');
@@ -584,7 +712,7 @@ function parseMoonOrigin(from) {
 }
 function momentPhrase(from, coord) {
   if (!from) return null;
-  const isMoon = from.startsWith('moon '), isWeather = from.startsWith('live ');
+  const isMoon = from.startsWith('moon ') || from.startsWith('the moon'), isWeather = from.startsWith('live ');
   if (!isWeather && !isMoon) return null;
   let temp = '', wmo = '', wind = '', tod = '';
   const { moonPct, moonName, tide } = isMoon ? parseMoonOrigin(from) : { moonPct: null, moonName: '', tide: '' };
@@ -636,7 +764,7 @@ function buildWhyLegend(cart) {
     if (from === 'genesis' || !from) return [['origin', 'a genesis creature']];
     if (from.startsWith('a cross of ')) return [['lineage', from]];
     if (coord.startsWith('cross:')) return [['lineage', 'a cross']];
-    if (from.startsWith('moon ')) {
+    if (from.startsWith('moon ') || from.startsWith('the moon')) {
       const { moonPct, moonName, tide } = parseMoonOrigin(from);
       const rows = [];
       if (moonPct !== null) rows.push(['its glow', 'the moon (' + moonPct + '%, ' + (moonName || 'phase') + ')']);
@@ -714,11 +842,26 @@ const DEFAULT_CART = {"schema":"hologram-cartridge/1.0","id":"d45a79d29e99","tit
 let CART = null, RAF = null, T0 = null, _pmPort = null;
 let LANTERN = 'https://kody-w.github.io/rapp-lantern/player.html';
 let CABINET = 'index.html';
+const stage = document.getElementById('stage');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const verEl = document.getElementById('verify');
 const orbitHintEl = document.getElementById('orbit-hint');
 const VIEW = { yaw: 0.85, pitch: 0.22, zoom: 1.0, dragging: false, autoOrbit: 0, userMoved: false, lastTs: null, pinch: 0, yawVel: 0, spin: 0 };
+function sizeCanvas() {
+  const dpr = clamp(window.devicePixelRatio || 1, 1, 2.5);
+  const cssSize = Math.max(1, Math.round(stage.clientWidth || canvas.clientWidth || 480));
+  const px = Math.max(1, Math.round(cssSize * dpr));
+  if (canvas.width !== px || canvas.height !== px) {
+    canvas.width = px;
+    canvas.height = px;
+  }
+  return dpr;
+}
+sizeCanvas();
+if (typeof ResizeObserver === 'function') new ResizeObserver(() => sizeCanvas()).observe(stage);
+window.addEventListener('resize', sizeCanvas);
+window.addEventListener('orientationchange', sizeCanvas);
 
 async function loadCart(cart) {
   CART = cart;
@@ -738,6 +881,14 @@ async function loadCart(cart) {
   const phrase = momentPhrase(cart.born && cart.born.from, cart.born && cart.born.coord);
   document.getElementById('i-author').textContent = phrase || (cart.born && cart.born.from) || (cart.author || '');
   document.getElementById('i-id').style.display = 'none';
+  const noteEl = document.getElementById('i-note');
+  const noteText = String(cart.note && cart.note.text || '').trim();
+  if (noteText) {
+    noteEl.textContent = noteText;
+    noteEl.style.display = '';
+  } else {
+    noteEl.style.display = 'none';
+  }
   // Provenance breadcrumb (home field is outside genome, does not affect id)
   const homeEl = document.getElementById('i-home');
   if (cart.home && cart.home.name) {
@@ -793,7 +944,7 @@ function startAnim() {
       VIEW.spin = Math.min(1, VIEW.spin + dt);
       VIEW.autoOrbit += 0.32 * dt * VIEW.spin;
     }
-    if (CART) renderScene(ctx, CART.genome, time, VIEW);
+    if (CART) renderScene(ctx, CART, time, VIEW);
     RAF = requestAnimationFrame(frame);
   }
   RAF = requestAnimationFrame(frame);
