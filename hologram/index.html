@@ -50,6 +50,12 @@
  #adopted-strip h2{font-size:13px;font-weight:700;margin:0 0 8px;color:#e6edf3}
  .card-adopted{border-color:#388bfd}
  .card-why{font-size:10px;color:#6e7681;margin-top:3px;line-height:1.4}
+ /* ── Catch bar ─────────────────────────────────────────────────────────── */
+ #catch-bar{margin:8px 0 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+ #btn-moon{background:#0d2235;border:1px solid #4a6e8a;color:#7cc0e8}
+ #btn-moon:hover{background:#0f2d45}
+ #catch-hint{font-size:12px;color:#8b949e}
+ #btn-catch-geo{display:none}
 </style></head><body>
 <h1>🌀 hologram organisms</h1>
 <p class="muted">
@@ -61,6 +67,12 @@
 <div id="breed-bar">
  <button id="btn-breed">🧬 breed</button>
  <span id="breed-hint"></span>
+</div>
+
+<div id="catch-bar">
+ <button id="btn-moon">🌙 catch tonight's moon</button>
+ <button class="alt" id="btn-catch-geo">📍 use my weather</button>
+ <span id="catch-hint"></span>
 </div>
 
 <div id="kept-strip" style="display:none">
@@ -244,11 +256,15 @@ async function loadKeptStrip() {
   });
 }
 
-/* ── Moment-phrase helpers (improvement 3) ────────────────────────────────── */
+/* ── Moment-phrase helpers ────────────────────────────────────────────────── */
 function wmoWord(code) { if (code === 0) return 'clear'; if (code <= 3) return 'partly cloudy'; if (code === 45 || code === 48) return 'fog'; if (code >= 51 && code <= 55) return 'drizzle'; if (code >= 61 && code <= 65) return 'rain'; if (code >= 71 && code <= 77) return 'snow'; if (code >= 80 && code <= 82) return 'showers'; if (code >= 95) return 'thunderstorm'; return null; }
 function windWord(kmh) { return kmh < 5 ? 'calm' : kmh < 20 ? 'breeze' : kmh < 40 ? 'windy' : 'gale'; }
-function bornDate(coord) { if (!coord) return null; const m = String(coord).match(/\u00b7(\d{10,})/); /* ·<ms-epoch-timestamp> (10+ digits) */ if (!m) return null; const d = new Date(parseInt(m[1])); if (isNaN(d.getTime())) return null; const now = new Date(); const months = ['January','February','March','April','May','June','July','August','September','October','November','December']; const sameMonth = d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth(); return 'kept ' + (sameMonth ? 'this' : 'last') + ' ' + months[d.getMonth()]; }
-function momentPhrase(from, coord) { if (!from || !from.startsWith('live ')) return null; const parts = from.split(' \u00b7 '); let temp = '', wmo = '', wind = '', tod = ''; for (const p of parts) { if (p.startsWith('live ')) { temp = p.replace(/^live\s+/, '').replace('\u00b0C', '\u00b0'); } else if (p.startsWith('code ')) { const n = parseInt(p.slice(5)), w = wmoWord(n); wmo = w !== null ? w : p; } else if (p.startsWith('wind ')) { const n = parseInt(p.slice(5)); wind = windWord(n); } else if (p === 'day' || p === 'night') { tod = p; } } const bits = []; if (wmo) bits.push('a ' + wmo + (tod ? ' ' + tod : '')); if (temp) bits.push(temp); if (wind && wind !== 'calm') bits.push(wind); const dateStr = bornDate(coord); if (dateStr) bits.push(dateStr); return bits.length ? bits.join(' \u00b7 ') : null; }
+function geohashDecode(hash) { const B='0123456789bcdefghjkmnpqrstuvwxyz'; let even=true; const lat=[-90,90],lon=[-180,180]; for(let i=0;i<hash.length;i++){const v=B.indexOf(hash[i]);if(v<0)break;for(let b=4;b>=0;b--){const r=even?lon:lat,mid=(r[0]+r[1])/2;if((v>>b)&1)r[0]=mid;else r[1]=mid;even=!even;}} return{lat:(lat[0]+lat[1])/2,lon:(lon[0]+lon[1])/2}; }
+function season(month,lat) { if(Math.abs(lat)<15)return null; const n=month<=1||month===11?'winter':month<=4?'spring':month<=7?'summer':'autumn'; return lat<-15?{winter:'summer',summer:'winter',spring:'autumn',autumn:'spring'}[n]:n; }
+function latBand(lat) { return 'near '+Math.round(Math.abs(lat))+'\u00b0'+(lat<0?'S':'N'); }
+function relativeTime(ts) { const d=new Date(ts),now=Date.now(),ms=now-ts,hr=ms/3.6e6,dy=ms/8.64e7; if(ms<5*60000)return'just now'; if(hr<6)return'earlier today'; if(hr<36)return'last night'; if(dy<2)return'yesterday'; if(dy<10)return Math.floor(dy)+' days ago'; const ann=new Date(d);ann.setFullYear(ann.getFullYear()+1);if(Math.abs(now-ann.getTime())<7*8.64e7)return'a year ago today \u2726'; const mo=['January','February','March','April','May','June','July','August','September','October','November','December']; if(dy<50)return'last '+mo[d.getMonth()]; const sn=m=>(m<=1||m===11?'winter':m<=4?'spring':m<=7?'summer':'autumn'); if(dy<330)return'last '+sn(d.getMonth()); return Math.floor(dy/365)+' year'+(dy<730?'':'s')+' ago'; }
+function bornDate(coord) { if(!coord)return null; const m=String(coord).match(/\u00b7(\d{10,})/); if(!m)return null; const ts=parseInt(m[1]); const d=new Date(ts); if(isNaN(d.getTime()))return null; return relativeTime(ts); }
+function momentPhrase(from,coord) { if(!from)return null; const isMoon=from.startsWith('moon '),isWeather=from.startsWith('live '); if(!isWeather&&!isMoon)return null; let temp='',wmo='',wind='',tod='',moonPct=null,moonName=''; if(isWeather){const parts=from.split(' \u00b7 ');for(const p of parts){if(p.startsWith('live ')){temp=p.replace(/^live\s+/,'').replace('\u00b0C','\u00b0');}else if(p.startsWith('code ')){const n=parseInt(p.slice(5)),w=wmoWord(n);wmo=w!==null?w:p;}else if(p.startsWith('wind ')){const n=parseInt(p.slice(5));wind=windWord(n);}else if(p==='day'||p==='night'){tod=p;}}} if(isMoon){const parts=from.split(' \u00b7 ');for(const p of parts){if(p==='moon')continue;else if(/^\d+$/.test(p))moonPct=parseInt(p);else if(p)moonName=p;}} let lat=null,epochTs=null; if(coord&&!coord.startsWith('cross:')&&coord!=='0,0'){const em=String(coord).match(/\u00b7(\d{10,})/);if(em)epochTs=parseInt(em[1]);const gh=String(coord).split('\u00b7')[0];if(gh&&gh.length>1){try{lat=geohashDecode(gh).lat;}catch{}}} let seasonStr=null; if(lat!==null&&epochTs)seasonStr=season(new Date(epochTs).getMonth(),lat); const bits=[]; if(isMoon){if(moonName)bits.push(moonName);if(moonPct!==null)bits.push(moonPct+'%');}else{if(wmo){const sw=seasonStr?wmo+' '+seasonStr:wmo;bits.push('a '+sw+(tod?' '+tod:''));}if(temp)bits.push(temp);if(wind&&wind!=='calm')bits.push(wind);} if(lat!==null)bits.push(latBand(lat)); const dateStr=bornDate(coord);if(dateStr)bits.push(dateStr); return bits.length?bits.join(' \u00b7 '):null; }
 function buildWhyLine(cart) {
   const from = (cart.born && cart.born.from) || '';
   const coord = (cart.born && cart.born.coord) || '';
@@ -263,6 +279,11 @@ function buildWhyLine(cart) {
     if (from === 'genesis' || !from) return 'a genesis creature';
     if (from.startsWith('a cross of ')) return from;
     if (coord.startsWith('cross:')) return 'a cross';
+    if (from.startsWith('moon ')) {
+      const parts = from.split(' \u00b7 '); let moonPct = null, moonName = '';
+      for (const p of parts) { if (p === 'moon') continue; else if (/^\d+$/.test(p)) moonPct = parseInt(p); else if (p) moonName = p; }
+      return moonName + (moonPct !== null ? ' \u00b7 ' + moonPct + '%' : '');
+    }
     return null;
   }
   const parts = from.split(' \u00b7 ');
@@ -394,26 +415,21 @@ async function genomeId(genome) {
   }
   return (await sha256hex(canonical(genome))).slice(0, 12);
 }
-function avgMotion(a, b) {
-  const out = { role: 'motion' };
-  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
-  for (const k of keys) {
-    if (k === 'role') continue;
-    const av = a[k], bv = b[k];
-    if (typeof av === 'number' && typeof bv === 'number') out[k] = (av + bv) / 2;
-    else if (typeof av === 'number') out[k] = av;
-    else if (typeof bv === 'number') out[k] = bv;
-    else if (av !== undefined) out[k] = av;
-    else out[k] = bv;
-  }
-  return out;
-}
+// Deterministic PRNG seeded from a string (xmur3 → mulberry32)
+function mkRng(seed) { let h=1779033703^seed.length; for(let i=0;i<seed.length;i++){h=Math.imul(h^seed.charCodeAt(i),3432918353);h=h<<13|h>>>19;} h=Math.imul(h^h>>>16,2246822507); h=Math.imul(h^h>>>13,3266489909); let s=(h^=h>>>16)>>>0; return function(){s+=0x6D2B79F5;let t=Math.imul(s^s>>>15,1|s);t=(t+Math.imul(t^t>>>7,61|t))^t;return((t^t>>>14)>>>0)/4294967296;}; }
+// Per-gene recombination of two same-role layers
+function recombineLayer(a,b,role,rng) { const out={role}; const DISC={form:new Set(['shape','symmetry','limbs','segments']),surface:new Set(['pattern'])}; const disc=DISC[role]||new Set(); const keys=new Set([...Object.keys(a),...Object.keys(b)]); for(const k of keys){if(k==='role')continue;const av=a[k],bv=b[k];if(k==='palette'){const pA=av||[],pB=bv||[],len=Math.max(pA.length,pB.length);out[k]=Array.from({length:len},(_,i)=>{const sa=pA[i%pA.length],sb=pB[i%pB.length];return rng()<0.5?(sa||sb):(sb||sa);});}else if(disc.has(k)){const hasA=av!==undefined,hasB=bv!==undefined;out[k]=(hasA&&hasB)?(rng()<0.5?av:bv):(hasA?av:bv);}else if(typeof av==='number'&&typeof bv==='number'){const r=rng();out[k]=r<0.35?av:r<0.70?bv:(av+bv)/2;}else if(av!==undefined){out[k]=av;}else{out[k]=bv;}} return out; }
 function roleMap(layers) { const m = {}; for (const l of layers) m[l.role] = l; return m; }
 async function crossBreed(cartA, cartB) {
   const lA = roleMap(cartA.genome.layers), lB = roleMap(cartB.genome.layers);
-  const motion = avgMotion(lA.motion || { role: 'motion' }, lB.motion || { role: 'motion' });
+  // Seed PRNG from A.id × B.id — deterministic AND A×B ≠ B×A
+  const seed = (cartA.id || '') + '\u00d7' + (cartB.id || '');
+  const rng = mkRng(seed);
+  const form   = recombineLayer(lA.form   || { role: 'form'   }, lB.form   || { role: 'form'   }, 'form',    rng);
+  const surface = recombineLayer(lA.surface || { role: 'surface' }, lB.surface || { role: 'surface' }, 'surface', rng);
+  const motion  = recombineLayer(lA.motion  || { role: 'motion'  }, lB.motion  || { role: 'motion'  }, 'motion',  rng);
   const genome = {
-    layers: [lA.form, lB.surface, motion],
+    layers: [form, surface, motion],
     compose: { windows: [[0, 1, 2]], loop: true }
   };
   const id = await genomeId(genome);
@@ -515,6 +531,121 @@ document.getElementById('breed-keep').onclick = async () => {
     setTimeout(() => btn.textContent = '🧺 Keep', 1600);
     loadKeptStrip();
   } catch(e) { console.error('keepToBasket:', e); }
+};
+
+/* ── Catch a moment (Feature 3) ────────────────────────────────────────────── */
+// Offline moon phase from synodic closed form (2000-01-06 18:14 UTC epoch)
+function moonPhase() {
+  const EPOCH = 947182440000, SYN = 29.53059 * 86400000;
+  const frac = ((Date.now() - EPOCH) % SYN + SYN) % SYN / SYN;
+  const illum = frac < 0.5 ? frac * 2 : (1 - frac) * 2;
+  const name = frac < 0.03 ? 'new moon' : frac < 0.25 ? 'waxing crescent' : frac < 0.28 ? 'first quarter' :
+               frac < 0.5  ? 'waxing gibbous' : frac < 0.53 ? 'full moon' : frac < 0.75 ? 'waning gibbous' :
+               frac < 0.78 ? 'last quarter' : frac < 0.97 ? 'waning crescent' : 'new moon';
+  return { frac, illuminated: Math.round(illum * 100), name };
+}
+// Encode lat/lng as a geohash string (precision=9)
+function geohashEncode(lat, lng, precision = 9) {
+  const B = '0123456789bcdefghjkmnpqrstuvwxyz';
+  let even = true, hash = '', bits = 0, hc = 0;
+  const latR = [-90, 90], lonR = [-180, 180];
+  while (hash.length < precision) {
+    if (even) { const mid = (lonR[0]+lonR[1])/2; if (lng > mid) { hc=(hc<<1)|1; lonR[0]=mid; } else { hc<<=1; lonR[1]=mid; } }
+    else      { const mid = (latR[0]+latR[1])/2; if (lat > mid) { hc=(hc<<1)|1; latR[0]=mid; } else { hc<<=1; latR[1]=mid; } }
+    even = !even;
+    if (++bits === 5) { hash += B[hc]; bits = 0; hc = 0; }
+  }
+  return hash;
+}
+// Map a captured moment datum to a hologram genome
+function momentToGenome(datum) {
+  const { temp = null, weathercode = null, wind = 0, isDay = 1, illuminated = null } = datum;
+  const windV = wind || 0;
+  const segments = windV > 40 ? 10 : windV > 20 ? 7 : windV > 5 ? 5 : 4;
+  const drift = clamp(windV / 60, 0, 1);
+  const form = {
+    role: 'form', k: 40,
+    shape: weathercode != null && weathercode >= 71 ? 'star' : weathercode != null && weathercode >= 51 ? 'ring' : 'blob',
+    limbs: windV > 30 ? 4 : 0, segments, symmetry: 'radial',
+    body_r: 0.28 + clamp((temp != null ? temp : 15) / 100, 0, 0.15),
+    limb_len: drift * 0.5
+  };
+  let palette;
+  if (illuminated != null) {
+    const f = illuminated / 100;
+    palette = f > 0.7 ? ['#ffffff','#e8e8ff','#aaaacc'] : f > 0.4 ? ['#c0c0e0','#8080aa','#404060'] : ['#404060','#202040','#100020'];
+  } else if (temp != null) {
+    palette = temp >= 28 ? ['#ff6600','#ffaa00','#ff3300'] : temp >= 15 ? ['#44cc88','#22aaff','#88ffcc'] : temp >= 5 ? ['#2255cc','#4477ff','#88aaff'] : ['#aaccff','#ffffff','#99bbee'];
+  } else { palette = ['#4488ff','#2255cc']; }
+  const glow = illuminated != null ? clamp(illuminated / 100 * 0.9, 0.1, 0.9) : weathercode != null && weathercode === 0 ? 0.65 : weathercode != null && weathercode <= 3 ? 0.4 : 0.2;
+  const pattern = weathercode != null && weathercode >= 80 ? 'stripe' : weathercode != null && weathercode >= 51 ? 'spot' : glow > 0.5 ? 'glow' : 'solid';
+  const surface = { role: 'surface', k: 60, palette, pattern, glow, opacity: isDay ? 0.9 : 0.75 };
+  const breathe = illuminated != null ? 0.3 + illuminated / 100 * 0.4 : 0.2;
+  const pulse = glow > 0.5 ? glow * 0.8 : 0.3;
+  const motion = { role: 'motion', k: 50, breathe, drift, pulse, reach: drift * 0.6 };
+  return { layers: [form, surface, motion], compose: { windows: [[0, 1, 2]], loop: true } };
+}
+// Path 1: offline moon hatch (zero permissions, zero network)
+document.getElementById('btn-moon').onclick = async () => {
+  const btn = document.getElementById('btn-moon');
+  btn.disabled = true; btn.textContent = '🌙 hatching…';
+  try {
+    const moon = moonPhase();
+    const genome = momentToGenome({ illuminated: moon.illuminated });
+    const id = await genomeId(genome);
+    const coord = '\u00b7' + Date.now(); // no location
+    const cart = {
+      schema: 'hologram-cartridge/1.0', id,
+      title: 'Tonight\u2019s moon \u2014 ' + moon.illuminated + '%, ' + moon.name,
+      author: 'you',
+      born: { coord, from: 'moon \u00b7 ' + moon.illuminated + ' \u00b7 ' + moon.name },
+      parents: [], genome, sig: ''
+    };
+    const item = await ingestAdopted(cart);
+    breedMode = true; updateBreedUI(); selectBreedCreature(item.entry.id);
+    document.getElementById('adopted-strip').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('btn-catch-geo').style.display = '';
+    document.getElementById('catch-hint').textContent = moon.illuminated + '%, ' + moon.name;
+    btn.textContent = 'hatched \u2713';
+    setTimeout(() => { btn.textContent = '\uD83C\uDF19 catch tonight\u2019s moon'; btn.disabled = false; }, 2200);
+  } catch(e) { console.error('moonHatch:', e); btn.textContent = '\uD83C\uDF19 catch tonight\u2019s moon'; btn.disabled = false; }
+};
+// Path 2: geolocation → open-meteo (explicit user click, behind the geo button)
+document.getElementById('btn-catch-geo').onclick = async () => {
+  const btn = document.getElementById('btn-catch-geo');
+  btn.disabled = true; btn.textContent = '\uD83D\uDCCD locating…';
+  try {
+    const pos = await new Promise((res, rej) => navigator.geolocation.getCurrentPosition(res, rej, { timeout: 10000 }));
+    const { latitude: lat, longitude: lng } = pos.coords;
+    btn.textContent = '\uD83C\uDF24 fetching…';
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat.toFixed(4)}&longitude=${lng.toFixed(4)}&current=temperature_2m,weathercode,wind_speed_10m,is_day&timezone=auto`;
+    const data = await (await fetch(url)).json();
+    const c = data.current;
+    const temp = c.temperature_2m, weathercode = c.weathercode, wind = c.wind_speed_10m, isDay = c.is_day;
+    const genome = momentToGenome({ temp, weathercode, wind, isDay });
+    const id = await genomeId(genome);
+    const gh = geohashEncode(lat, lng);
+    const coord = gh + '\u00b7' + Date.now();
+    const fromStr = `live ${temp}\u00b0C \u00b7 code ${weathercode} \u00b7 wind ${Math.round(wind)} \u00b7 ${isDay ? 'day' : 'night'}`;
+    const sky = wmoWord(weathercode) || '';
+    const cart = {
+      schema: 'hologram-cartridge/1.0', id,
+      title: 'your sky \u2014 ' + temp + '\u00b0 ' + sky,
+      author: 'you',
+      born: { coord, from: fromStr },
+      parents: [], genome, sig: ''
+    };
+    const item = await ingestAdopted(cart);
+    breedMode = true; updateBreedUI(); selectBreedCreature(item.entry.id);
+    document.getElementById('adopted-strip').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    btn.textContent = 'hatched \u2713';
+    setTimeout(() => { btn.textContent = '\uD83D\uDCCD use my weather'; btn.disabled = false; }, 2200);
+  } catch(e) {
+    console.error('geoHatch:', e);
+    const hint = document.getElementById('catch-hint');
+    hint.textContent = e.code === 1 ? 'location denied — moon path used instead' : 'couldn\u2019t reach the sky just now';
+    btn.textContent = '\uD83D\uDCCD use my weather'; btn.disabled = false;
+  }
 };
 
 </script></body></html>
