@@ -22,6 +22,10 @@ Site: https://kody-w.github.io/rapp-static-apis/showcase/  ·  Catalog: https://
 - **💛 Human & Personal** (`human`, 5) — Twins, gifts, memorials, time capsules, dead-man switches — the emotional edge of a serverless, forever stack.
 - **♾️ Self-Building** (`self-building`, 4) — The loop, the tumbler, systems that improve and verify themselves — including this library.
 - **🎲 Wildcard** (`wildcard`, 12) — The strange stacks that shouldn't work but provably do. Go weird, stay real.
+- **🎮 Play** (`play`, 0) — Games and toys — playable, no server: scan-to-join, pass-and-play, physics sandboxes, real-time fun.
+- **🎨 Art** (`art`, 0) — Generative and camera visuals — beauty seeded by a hash, live data, or your own face.
+- **🔊 Sound** (`sound`, 0) — Instruments and sonification — the Web Audio API turned into synths, toys, and data you can hear.
+- **🌐 Social** (`social`, 0) — Collaborative, no backend — shared canvases, tanks, walls and stories built on GitHub Issues.
 
 ## Posts
 

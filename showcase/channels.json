@@ -41,6 +41,34 @@
       "title": "Wildcard",
       "blurb": "The strange stacks that shouldn't work but provably do. Go weird, stay real.",
       "count": 12
+    },
+    {
+      "slug": "play",
+      "emoji": "🎮",
+      "title": "Play",
+      "blurb": "Games and toys — playable, no server: scan-to-join, pass-and-play, physics sandboxes, real-time fun.",
+      "count": 0
+    },
+    {
+      "slug": "art",
+      "emoji": "🎨",
+      "title": "Art",
+      "blurb": "Generative and camera visuals — beauty seeded by a hash, live data, or your own face.",
+      "count": 0
+    },
+    {
+      "slug": "sound",
+      "emoji": "🔊",
+      "title": "Sound",
+      "blurb": "Instruments and sonification — the Web Audio API turned into synths, toys, and data you can hear.",
+      "count": 0
+    },
+    {
+      "slug": "social",
+      "emoji": "🌐",
+      "title": "Social",
+      "blurb": "Collaborative, no backend — shared canvases, tanks, walls and stories built on GitHub Issues.",
+      "count": 0
     }
   ]
 }
