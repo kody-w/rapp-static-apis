@@ -1,0 +1,58 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "a07807181085",
+  "title": "Stillness 3 · won the triple jump",
+  "author": "@twin",
+  "born": {
+    "coord": "orig:orig-stillness-3",
+    "from": "converted from rapp-hologram · biome volcanic"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 30,
+        "shape": "blob",
+        "limbs": 4,
+        "segments": 8,
+        "symmetry": "radial",
+        "body_r": 0.325,
+        "limb_len": 0.401,
+        "spikes": 1
+      },
+      {
+        "role": "surface",
+        "k": 80,
+        "palette": [
+          "#24c9db",
+          "#4fdeee",
+          "#79c2ec",
+          "#1d6a72"
+        ],
+        "pattern": "solid",
+        "glow": 0.724,
+        "opacity": 0.95
+      },
+      {
+        "role": "motion",
+        "k": 55,
+        "breathe": 0.22,
+        "drift": 0.4,
+        "pulse": 0.44,
+        "reach": 0
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}

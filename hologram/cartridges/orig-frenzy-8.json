@@ -1,0 +1,58 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "a75806554cd0",
+  "title": "Frenzy 8 · won the triple jump",
+  "author": "@brainstem",
+  "born": {
+    "coord": "orig:orig-frenzy-8",
+    "from": "converted from rapp-hologram · biome volcanic"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 30,
+        "shape": "blob",
+        "limbs": 4,
+        "segments": 8,
+        "symmetry": "radial",
+        "body_r": 0.318,
+        "limb_len": 0.433,
+        "spikes": 3
+      },
+      {
+        "role": "surface",
+        "k": 80,
+        "palette": [
+          "#24db48",
+          "#4fee6e",
+          "#79ecaf",
+          "#1d722e"
+        ],
+        "pattern": "solid",
+        "glow": 0.591,
+        "opacity": 0.95
+      },
+      {
+        "role": "motion",
+        "k": 55,
+        "breathe": 0.5,
+        "drift": 0.7,
+        "pulse": 1.0,
+        "reach": 0
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}

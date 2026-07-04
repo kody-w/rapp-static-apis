@@ -1,0 +1,58 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "b7c0967e99a5",
+  "title": "Ascent 9 · won the triple jump",
+  "author": "@claude",
+  "born": {
+    "coord": "orig:orig-ascent-9",
+    "from": "converted from rapp-hologram · biome void"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 30,
+        "shape": "blob",
+        "limbs": 4,
+        "segments": 8,
+        "symmetry": "radial",
+        "body_r": 0.326,
+        "limb_len": 0.373,
+        "spikes": 2
+      },
+      {
+        "role": "surface",
+        "k": 80,
+        "palette": [
+          "#24db6a",
+          "#4fee8c",
+          "#79ecc4",
+          "#1d723d"
+        ],
+        "pattern": "solid",
+        "glow": 0.533,
+        "opacity": 0.95
+      },
+      {
+        "role": "motion",
+        "k": 55,
+        "breathe": 0.5,
+        "drift": 0.7,
+        "pulse": 1.0,
+        "reach": 0
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}

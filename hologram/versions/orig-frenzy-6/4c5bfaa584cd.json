@@ -1,0 +1,58 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "4c5bfaa584cd",
+  "title": "Frenzy 6 · won the triple jump",
+  "author": "@brainstem",
+  "born": {
+    "coord": "orig:orig-frenzy-6",
+    "from": "converted from rapp-hologram · biome canyon"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 30,
+        "shape": "blob",
+        "limbs": 4,
+        "segments": 8,
+        "symmetry": "radial",
+        "body_r": 0.241,
+        "limb_len": 0.419,
+        "spikes": 4
+      },
+      {
+        "role": "surface",
+        "k": 80,
+        "palette": [
+          "#2480db",
+          "#4f9eee",
+          "#7994ec",
+          "#1d4772"
+        ],
+        "pattern": "solid",
+        "glow": 0.498,
+        "opacity": 0.95
+      },
+      {
+        "role": "motion",
+        "k": 55,
+        "breathe": 0.5,
+        "drift": 0.7,
+        "pulse": 1.0,
+        "reach": 0
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}

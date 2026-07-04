@@ -1,9 +1,9 @@
 {
   "schema": "rapp-static-hologram-status/1.0",
-  "generated": "2026-07-04T05:06:54Z",
+  "generated": "2026-07-04T12:19:26Z",
   "summary": {
-    "cartridges": 26,
-    "versions": 26
+    "cartridges": 34,
+    "versions": 34
   },
   "cartridges": [
     {
@@ -96,6 +96,62 @@
       "title": "Mumbai sky",
       "author": "@kody-w",
       "bytes": 1035
+    },
+    {
+      "name": "orig-ascent-5",
+      "id": "b7f7528eaa58",
+      "title": "Ascent 5 · won the triple jump",
+      "author": "@claude",
+      "bytes": 1071
+    },
+    {
+      "name": "orig-ascent-9",
+      "id": "b7c0967e99a5",
+      "title": "Ascent 9 · won the triple jump",
+      "author": "@claude",
+      "bytes": 1068
+    },
+    {
+      "name": "orig-frenzy-10",
+      "id": "2dcd5eb615a6",
+      "title": "Frenzy 10 · won the triple jump",
+      "author": "@brainstem",
+      "bytes": 1074
+    },
+    {
+      "name": "orig-frenzy-4",
+      "id": "8619baa9b68f",
+      "title": "Frenzy 4 · won the triple jump",
+      "author": "@brainstem",
+      "bytes": 1071
+    },
+    {
+      "name": "orig-frenzy-6",
+      "id": "4c5bfaa584cd",
+      "title": "Frenzy 6 · won the triple jump",
+      "author": "@brainstem",
+      "bytes": 1073
+    },
+    {
+      "name": "orig-frenzy-8",
+      "id": "a75806554cd0",
+      "title": "Frenzy 8 · won the triple jump",
+      "author": "@brainstem",
+      "bytes": 1075
+    },
+    {
+      "name": "orig-stillness-3",
+      "id": "a07807181085",
+      "title": "Stillness 3 · won the triple jump",
+      "author": "@twin",
+      "bytes": 1078
+    },
+    {
+      "name": "orig-stillness-7",
+      "id": "fbe3462781a7",
+      "title": "Stillness 7 · won the triple jump",
+      "author": "@twin",
+      "bytes": 1076
     },
     {
       "name": "phoenix",

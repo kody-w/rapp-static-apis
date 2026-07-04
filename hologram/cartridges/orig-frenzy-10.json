@@ -1,0 +1,58 @@
+{
+  "schema": "hologram-cartridge/1.0",
+  "id": "2dcd5eb615a6",
+  "title": "Frenzy 10 · won the triple jump",
+  "author": "@brainstem",
+  "born": {
+    "coord": "orig:orig-frenzy-10",
+    "from": "converted from rapp-hologram · biome savanna"
+  },
+  "parents": [],
+  "genome": {
+    "layers": [
+      {
+        "role": "form",
+        "k": 30,
+        "shape": "blob",
+        "limbs": 4,
+        "segments": 8,
+        "symmetry": "radial",
+        "body_r": 0.27,
+        "limb_len": 0.37,
+        "spikes": 6
+      },
+      {
+        "role": "surface",
+        "k": 80,
+        "palette": [
+          "#24addb",
+          "#4fc6ee",
+          "#79b1ec",
+          "#1d5d72"
+        ],
+        "pattern": "solid",
+        "glow": 0.332,
+        "opacity": 0.95
+      },
+      {
+        "role": "motion",
+        "k": 55,
+        "breathe": 0.5,
+        "drift": 0.7,
+        "pulse": 1.0,
+        "reach": 0
+      }
+    ],
+    "compose": {
+      "windows": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "loop": true
+    }
+  },
+  "sig": ""
+}
