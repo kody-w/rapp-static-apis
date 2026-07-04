@@ -192,7 +192,7 @@ function patternSample(pattern, palette, u, v, w, pulse, part = 'body') {
       return { color: mixColor(base, hi, 0.15), emissive: 0.04 };
   }
 }
-function analyticNormal(tf, dirs) { let n = dirs.reduce((acc, d) => V3.add(acc, d), vec(0, 0, 0)); if (V3.len(n) < 1e-6) n = dirs[0] || vec(0, 1, 0); n = V3.norm(n); if (tf) n = V3.norm(rotateVector(n, tf.rot)); return n; }
+function analyticNormal(tf, normalDirections) { let n = normalDirections.reduce((acc, d) => V3.add(acc, d), vec(0, 0, 0)); if (V3.len(n) < 1e-6) n = normalDirections[0] || vec(0, 1, 0); n = V3.norm(n); if (tf) n = V3.norm(rotateVector(n, tf.rot)); return n; }
 function pushFace(faces, pts, fill, alpha, normal = null) { faces.push({ pts, fill, alpha, normal }); }
 function pushQuad(faces, a, b, c, d, fill, alpha, normal = null) {
   pushFace(faces, [a, b, c], fill, alpha, normal);

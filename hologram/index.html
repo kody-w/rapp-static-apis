@@ -193,7 +193,7 @@ function patternSample(pattern, palette, u, v, w, pulse, part = 'body') {
     default: return { color: mixColor(base, hi, 0.15), emissive: 0.04 };
   }
 }
-function analyticNormal(tf, dirs) { let n = dirs.reduce((acc, d) => V3.add(acc, d), vec(0, 0, 0)); if (Math.hypot(n.x, n.y, n.z) < 1e-6) n = dirs[0] || vec(0, 1, 0); n = V3.norm(n); if (tf) n = V3.norm(rotateVector(n, tf.rot)); return n; }
+function analyticNormal(tf, normalDirections) { let n = normalDirections.reduce((acc, d) => V3.add(acc, d), vec(0, 0, 0)); if (Math.hypot(n.x, n.y, n.z) < 1e-6) n = normalDirections[0] || vec(0, 1, 0); n = V3.norm(n); if (tf) n = V3.norm(rotateVector(n, tf.rot)); return n; }
 function pushFace(faces, pts, fill, alpha, normal = null) { faces.push({ pts, fill, alpha, normal }); }
 function pushQuad(faces, a, b, c, d, fill, alpha, normal = null) { pushFace(faces, [a, b, c], fill, alpha, normal); pushFace(faces, [a, c, d], fill, alpha, normal); }
 function addBox(faces, center, sx, sy, sz, fill, alpha = 1, tf = null) { const hx = sx / 2, hy = sy / 2, hz = sz / 2; let pts = [vec(-hx, -hy, -hz), vec(hx, -hy, -hz), vec(hx, hy, -hz), vec(-hx, hy, -hz), vec(-hx, -hy, hz), vec(hx, -hy, hz), vec(hx, hy, hz), vec(-hx, hy, hz)].map(p => V3.add(p, center)); if (tf) pts = pts.map(p => transformPoint(p, tf)); [[0, 1, 2, 3], [4, 7, 6, 5], [0, 4, 5, 1], [1, 5, 6, 2], [2, 6, 7, 3], [4, 0, 3, 7]].forEach(q => pushQuad(faces, pts[q[0]], pts[q[1]], pts[q[2]], pts[q[3]], fill, alpha)); }
@@ -503,7 +503,7 @@ function updateBreedUI() {
 }
 function buildPedigree(id) {
   const rootItem = loadedCarts.get(id);
-  if (!rootItem) return;
+  if (!rootItem) { console.warn('Cannot build pedigree: organism not found', id); return; }
   const depthCap = 4;
   const nodes = new Map();
   const edgeKeys = new Set();
