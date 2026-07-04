@@ -1,6 +1,6 @@
 {
   "schema": "rapp-static-hologram-status/1.0",
-  "generated": "2026-07-04T14:01:37Z",
+  "generated": "2026-07-04T14:25:02Z",
   "summary": {
     "cartridges": 34,
     "versions": 34
@@ -11,238 +11,238 @@
       "id": "ce682ee99472",
       "title": "Arachne",
       "author": "@kody-w",
-      "bytes": 1180
+      "bytes": 1190
     },
     {
       "name": "capetown",
       "id": "1ed3ce04658f",
       "title": "Cape Town sky",
       "author": "@kody-w",
-      "bytes": 1241
+      "bytes": 1251
     },
     {
       "name": "cross-gen2",
       "id": "887299b58715",
       "title": "Ushuaia × Dubai × Mumbai",
       "author": "@kody-w",
-      "bytes": 1313
+      "bytes": 1323
     },
     {
       "name": "cross-ushuaia-dubai",
       "id": "115ad752c1e9",
       "title": "Ushuaia × Dubai",
       "author": "@kody-w",
-      "bytes": 1294
+      "bytes": 1304
     },
     {
       "name": "dhaka",
       "id": "4fc6c8347d82",
       "title": "Dhaka sky",
       "author": "@kody-w",
-      "bytes": 1237
+      "bytes": 1247
     },
     {
       "name": "dubai",
       "id": "c144203764f6",
       "title": "Dubai sky",
       "author": "@kody-w",
-      "bytes": 1235
+      "bytes": 1245
     },
     {
       "name": "huila",
       "id": "a4cf4c162ae5",
       "title": "Huila sky",
       "author": "@kody-w",
-      "bytes": 1237
+      "bytes": 1247
     },
     {
       "name": "kathmandu",
       "id": "ed366fe72537",
       "title": "Kathmandu sky",
       "author": "@kody-w",
-      "bytes": 1239
+      "bytes": 1249
     },
     {
       "name": "lapaz",
       "id": "8e490e9f1622",
       "title": "La Paz sky",
       "author": "@kody-w",
-      "bytes": 1236
+      "bytes": 1246
     },
     {
       "name": "lumina",
       "id": "d45a79d29e99",
       "title": "Lumina",
       "author": "@kody-w",
-      "bytes": 1172
+      "bytes": 1182
     },
     {
       "name": "marrakesh",
       "id": "db3b7724eeb3",
       "title": "Marrakesh sky",
       "author": "@kody-w",
-      "bytes": 1242
+      "bytes": 1252
     },
     {
       "name": "miami",
       "id": "4743dfb86f1a",
       "title": "Miami sky",
       "author": "@kody-w",
-      "bytes": 1236
+      "bytes": 1246
     },
     {
       "name": "mumbai",
       "id": "57dbafc4a71a",
       "title": "Mumbai sky",
       "author": "@kody-w",
-      "bytes": 1240
+      "bytes": 1250
     },
     {
       "name": "orig-ascent-5",
       "id": "b7f7528eaa58",
       "title": "Ascent 5 · won the triple jump",
       "author": "@claude",
-      "bytes": 1276
+      "bytes": 1286
     },
     {
       "name": "orig-ascent-9",
       "id": "b7c0967e99a5",
       "title": "Ascent 9 · won the triple jump",
       "author": "@claude",
-      "bytes": 1273
+      "bytes": 1283
     },
     {
       "name": "orig-frenzy-10",
       "id": "2dcd5eb615a6",
       "title": "Frenzy 10 · won the triple jump",
       "author": "@brainstem",
-      "bytes": 1279
+      "bytes": 1289
     },
     {
       "name": "orig-frenzy-4",
       "id": "8619baa9b68f",
       "title": "Frenzy 4 · won the triple jump",
       "author": "@brainstem",
-      "bytes": 1276
+      "bytes": 1286
     },
     {
       "name": "orig-frenzy-6",
       "id": "4c5bfaa584cd",
       "title": "Frenzy 6 · won the triple jump",
       "author": "@brainstem",
-      "bytes": 1278
+      "bytes": 1288
     },
     {
       "name": "orig-frenzy-8",
       "id": "a75806554cd0",
       "title": "Frenzy 8 · won the triple jump",
       "author": "@brainstem",
-      "bytes": 1280
+      "bytes": 1290
     },
     {
       "name": "orig-stillness-3",
       "id": "a07807181085",
       "title": "Stillness 3 · won the triple jump",
       "author": "@twin",
-      "bytes": 1283
+      "bytes": 1293
     },
     {
       "name": "orig-stillness-7",
       "id": "fbe3462781a7",
       "title": "Stillness 7 · won the triple jump",
       "author": "@twin",
-      "bytes": 1281
+      "bytes": 1291
     },
     {
       "name": "phoenix",
       "id": "0c30753dff8f",
       "title": "Phoenix sky",
       "author": "@kody-w",
-      "bytes": 1239
+      "bytes": 1249
     },
     {
       "name": "puntaarenas",
       "id": "98dd5b054272",
       "title": "Punta Arenas sky",
       "author": "@kody-w",
-      "bytes": 1241
+      "bytes": 1251
     },
     {
       "name": "reykjavik",
       "id": "f8a2c10e10e7",
       "title": "Reykjavik sky",
       "author": "@kody-w",
-      "bytes": 1240
+      "bytes": 1250
     },
     {
       "name": "sanfrancisco",
       "id": "a22984c6a19f",
       "title": "San Francisco sky",
       "author": "@kody-w",
-      "bytes": 1248
+      "bytes": 1258
     },
     {
       "name": "singapore",
       "id": "2a25e12c8189",
       "title": "Singapore sky",
       "author": "@kody-w",
-      "bytes": 1241
+      "bytes": 1251
     },
     {
       "name": "svalbard",
       "id": "9006d9c76f43",
       "title": "Longyearbyen sky",
       "author": "@kody-w",
-      "bytes": 1241
+      "bytes": 1251
     },
     {
       "name": "the-moon-tonight",
       "id": "0763aadb3399",
       "title": "Tonight's Moon",
       "author": "@kody-w",
-      "bytes": 1228
+      "bytes": 1238
     },
     {
       "name": "timbuktu",
       "id": "589db43c58f6",
       "title": "Timbuktu sky",
       "author": "@kody-w",
-      "bytes": 1241
+      "bytes": 1251
     },
     {
       "name": "tokyo",
       "id": "ba7edf956ae7",
       "title": "Tokyo sky",
       "author": "@kody-w",
-      "bytes": 1236
+      "bytes": 1246
     },
     {
       "name": "tromso",
       "id": "cadfda7f8f80",
       "title": "Tromso sky",
       "author": "@kody-w",
-      "bytes": 1246
+      "bytes": 1256
     },
     {
       "name": "ushuaia",
       "id": "4a4dc6b7294c",
       "title": "Ushuaia sky",
       "author": "@kody-w",
-      "bytes": 1238
+      "bytes": 1248
     },
     {
       "name": "vex",
       "id": "69728a0ddad7",
       "title": "Vex",
       "author": "@kody-w",
-      "bytes": 1269
+      "bytes": 1279
     },
     {
       "name": "wellington",
       "id": "e16675b9c2a3",
       "title": "Wellington sky",
       "author": "@kody-w",
-      "bytes": 1241
+      "bytes": 1251
     }
   ]
 }
