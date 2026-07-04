@@ -79,6 +79,7 @@
    <span id="i-title"></span>
    <span id="i-author"></span>
    <span id="i-id" class="mono"></span>
+   <span id="i-note" style="display:none"></span>
    <span id="i-home" style="display:none"></span>
   </div>
   <div id="why-row" style="display:none">
@@ -145,6 +146,10 @@ function mixColor(a, b, t) {
 }
 function scaleColor(c, s) {
   return { r: clamp(c.r * s, 0, 255), g: clamp(c.g * s, 0, 255), b: clamp(c.b * s, 0, 255) };
+}
+function desaturateColor(c, amount) {
+  const avg = (c.r + c.g + c.b) / 3;
+  return mixColor(c, { r: avg, g: avg, b: avg }, clamp(amount, 0, 1));
 }
 function shadeFace(color, diffuse, viewDot, emissive, palette) {
   // Warm-key / cool-fill Lambert + palette-tinted fresnel rim
@@ -449,11 +454,63 @@ function drawHalo(ctx, camera, w, h, focal, center, size, surface, pulse) {
   ctx.arc(cp.x, cp.y, rr, 0, TAU);
   ctx.fill();
 }
-function renderScene(ctx, genome, time, view) {
+function parseVoidBirth(cart) {
+  const from = String(cart && cart.born && cart.born.from || '');
+  const out = { temp: null, wmo: null, isDay: null, moonPct: null, moonName: '', isMoon: false };
+  if (from.startsWith('live ')) {
+    for (const part of from.split(' · ')) {
+      if (part.startsWith('live ')) { const n = parseFloat(part.slice(5)); if (!isNaN(n)) out.temp = n; }
+      else if (part.startsWith('code ')) { const n = parseInt(part.slice(5)); if (!isNaN(n)) out.wmo = n; }
+      else if (part === 'day') out.isDay = true;
+      else if (part === 'night') out.isDay = false;
+    }
+  } else if (from.startsWith('moon ')) {
+    const moon = parseMoonOrigin(from);
+    out.isMoon = true;
+    out.moonPct = moon.moonPct;
+    out.moonName = moon.moonName || '';
+  }
+  return out;
+}
+function voidTint(cart) {
+  const baseTop = parseHex('#07111b'), baseMid = parseHex('#04080f'), baseBottom = parseHex('#010409');
+  const birth = parseVoidBirth(cart);
+  let tint = parseHex('#46556a');
+  if (birth.isMoon) {
+    const name = birth.moonName.toLowerCase();
+    tint = name.includes('full') ? parseHex('#7a83b1')
+      : name.includes('new') ? parseHex('#4c4868')
+      : name.includes('waning') ? parseHex('#516f98')
+      : name.includes('waxing') ? parseHex('#765d93')
+      : parseHex('#5d6e93');
+    if (birth.moonPct !== null) tint = mixColor(tint, birth.moonPct >= 50 ? parseHex('#8f96c0') : parseHex('#465b8f'), 0.25);
+  } else if (birth.temp !== null) {
+    tint = birth.temp >= 24 ? parseHex('#764841')
+      : birth.temp <= 8 ? parseHex('#36506f')
+      : parseHex('#486258');
+  }
+  if (birth.isDay === true) tint = mixColor(tint, parseHex('#748190'), 0.28);
+  else if (birth.isDay === false) tint = mixColor(tint, parseHex('#283142'), 0.22);
+  if (birth.wmo !== null) {
+    if (birth.wmo >= 95) tint = mixColor(tint, parseHex('#655f67'), 0.52);
+    else if (birth.wmo >= 80) tint = mixColor(tint, parseHex('#566170'), 0.35);
+    else if (birth.wmo >= 61) tint = mixColor(tint, parseHex('#4f5f73'), 0.22);
+  }
+  tint = desaturateColor(tint, birth.wmo >= 95 ? 0.72 : birth.wmo >= 80 ? 0.46 : birth.wmo >= 61 ? 0.26 : 0.12);
+  return {
+    top: mixColor(baseTop, tint, 0.18),
+    mid: mixColor(baseMid, tint, 0.15),
+    bottom: mixColor(baseBottom, tint, 0.12),
+    fog: mixColor(baseMid, tint, 0.18)
+  };
+}
+function renderScene(ctx, cart, time, view) {
+  const genome = cart.genome;
   const w = ctx.canvas.width, h = ctx.canvas.height;
   ctx.clearRect(0, 0, w, h);
+  const tint = voidTint(cart);
   const bg = ctx.createLinearGradient(0, 0, 0, h);
-  bg.addColorStop(0, '#07111b'); bg.addColorStop(0.55, '#04080f'); bg.addColorStop(1, '#010409');
+  bg.addColorStop(0, colorCss(tint.top)); bg.addColorStop(0.55, colorCss(tint.mid)); bg.addColorStop(1, colorCss(tint.bottom));
   ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
 
   const spec = readGenome(genome, time);
@@ -481,7 +538,7 @@ function renderScene(ctx, genome, time, view) {
     const near = radius - built.size, far = radius + built.size;
     const fog = clamp((depth - near) / (far - near), 0, 1);
     const shadedColor = shadeFace(face.fill.color, diffuse, viewDot, face.fill.emissive, spec.surface.palette);
-    polys.push({ proj, depth, fill: colorCss(mixColor(shadedColor, parseHex('#04080f'), fog * 0.45), face.alpha) });
+    polys.push({ proj, depth, fill: colorCss(mixColor(shadedColor, tint.fog, fog * 0.45), face.alpha) });
   }
   polys.sort((a, b) => b.depth - a.depth);
   ctx.lineJoin = ctx.lineCap = 'round';
@@ -738,6 +795,14 @@ async function loadCart(cart) {
   const phrase = momentPhrase(cart.born && cart.born.from, cart.born && cart.born.coord);
   document.getElementById('i-author').textContent = phrase || (cart.born && cart.born.from) || (cart.author || '');
   document.getElementById('i-id').style.display = 'none';
+  const noteEl = document.getElementById('i-note');
+  const noteText = String(cart.note && cart.note.text || '').trim();
+  if (noteText) {
+    noteEl.textContent = noteText;
+    noteEl.style.display = '';
+  } else {
+    noteEl.style.display = 'none';
+  }
   // Provenance breadcrumb (home field is outside genome, does not affect id)
   const homeEl = document.getElementById('i-home');
   if (cart.home && cart.home.name) {
@@ -793,7 +858,7 @@ function startAnim() {
       VIEW.spin = Math.min(1, VIEW.spin + dt);
       VIEW.autoOrbit += 0.32 * dt * VIEW.spin;
     }
-    if (CART) renderScene(ctx, CART.genome, time, VIEW);
+    if (CART) renderScene(ctx, CART, time, VIEW);
     RAF = requestAnimationFrame(frame);
   }
   RAF = requestAnimationFrame(frame);
