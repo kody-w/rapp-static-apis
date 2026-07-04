@@ -303,7 +303,8 @@ function lightRig(cart, birth = parseVoidBirth(cart)) {
   const cloud = birthCloudiness(birth);
   if (birth.isMoon) {
     const moon = birth.moonPct === null ? 0.55 : clamp(birth.moonPct / 100, 0, 1);
-    const waxing = birth.moonName.toLowerCase().includes('wax');
+    const moonName = String(birth.moonName || '').toLowerCase();
+    const waxing = moonName.includes('wax');
     return { dir: V3.norm(vec(waxing ? -0.42 : 0.42, lerp(0.28, 0.48, moon), waxing ? 0.58 : 0.42)), keyColor: mixColor(parseHex('#bfc9e8'), parseHex('#eef3ff'), moon * 0.45), fillColor: mixColor(parseHex('#18243c'), parseHex('#334564'), moon * 0.35), intensity: 0.42 + moon * 0.18 };
   }
   if (birth.isDay === false) return { dir: V3.norm(vec(-0.36, 0.26, 0.62)), keyColor: parseHex('#8ea4d8'), fillColor: parseHex('#182235'), intensity: 0.46 - cloud * 0.08 };
