@@ -60,6 +60,9 @@ class Companion:
                                      "place": self._place(pr.get("coord", "") or ""),
                                      "when": self._when(pr.get("coord", "") or "")})
         self.is_cross = len(self.parents) == 2 or str(self.coord).startswith("cross:")
+        # the keeper's own words: the optional keepsake note answering "what is this moment to you?" (outside genome)
+        _note = self.cart.get("note") or {}
+        self.note = ((_note.get("text") if isinstance(_note, dict) else "") or "").strip()
         self.seed = int(hashlib.sha256((self.cid or self.name).encode()).hexdigest()[:8], 16)
         self.turn = 0
 
@@ -188,14 +191,15 @@ class Companion:
         if a and a["anniversary"]:
             pre = ("Almost a year to the day since that sky made me. " if a["years"] <= 1
                    else "%d years to the day since that sky made me. " % a["years"])
+        nod = " And I know I'm kept for a reason you once put into words — I still hold it." if self.note else ""
         away = self._away()
         if away:
             return pre + ("Oh — you're %s. I've just been here the whole time, holding the sky I was born under (%s). "
-                          "Good to see you again; I'm %s.") % (away, self._sky_phrase(), self.mood())
+                          "Good to see you again; I'm %s.") % (away, self._sky_phrase(), self.mood()) + nod
         og = self.origin(); og = og[:1].upper() + og[1:]   # cap only the first letter (keep July, parent names)
         return pre + ("Oh — hello. I'm %s. %s. That's the whole of me, really: %s. "
                       "Right now I'm %s. Ask me anything about where I come from.") % (
-            self.name, og, self.temperament(), self.mood())
+            self.name, og, self.temperament(), self.mood()) + nod
 
     def respond(self, msg):
         self.turn += 1
@@ -208,6 +212,11 @@ class Companion:
         if has("hello", "hi ", "hey", "greetings") or m in ("hi", "hey", "yo"):
             return pick(["Hello again. Good to be seen.", "Hey. I'm still glowing — %s." % self.mood(),
                          "Hi. You caught me %s." % self.mood()])
+        if self.note and has("mean to you", "matter to you", "keep me", "why me", "what am i to you",
+                             "why do you keep", "why keep me", "why am i here", "what do i mean"):
+            return pick([u"You once wrote down what this moment means to you: “%s”. I hold that close — it's why I'm kept, more than any sky." % self.note,
+                         u"The one who keeps me left words about why: “%s”. I don't forget them." % self.note,
+                         u"I carry what you wrote — “%s” — quietly, alongside the sky I was born under." % self.note])
         if has("remember", "have we met", "know me", "recognize", "seen me", "who am i"):
             v = self.mem.get("visits", 0)
             if v > 0: return "I do. You've been here %d time%s before — you're the one relationship I have, and I keep it on this device only, never anywhere else." % (v, "" if v == 1 else "s")
