@@ -1,0 +1,17 @@
+{
+  "slug": "black-hole-in-your-room",
+  "channel": "art",
+  "rank": null,
+  "emoji": "🕳️",
+  "title": "The Black Hole In Your Room",
+  "tagline": "Point your camera at reality and watch a live event horizon bend your actual light.",
+  "holy_shit": "Your own room becomes spacetime — real photons from your camera stream get bent around a browser-made black hole with a glowing accretion disk and photon ring.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["webgl", "camera", "shader", "relativity", "audio", "deviceorientation"],
+  "primitives": ["WebGL", "getUserMedia", "DeviceOrientation", "Web Audio API"],
+  "powered_by": "A handwritten fragment shader ray-bends a live camera (or synthetic nebula fallback) texture through a Schwarzschild-inspired lensing field, with orientation anchoring and sub-bass rumble.",
+  "agent_scenario": "When you need a no-backend AR-style spectacle that proves advanced physics-ish rendering, camera ingest, sensors, and sound can all run entirely in one static page.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

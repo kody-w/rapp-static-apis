@@ -1,0 +1,418 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Black Hole In Your Room — The Library of Awesome</title>
+<link rel="stylesheet" href="../../lib/showcase.css">
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🕳️</div>
+    <h1 id="title">The Black Hole In Your Room</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel" id="live-panel">
+    <h2>Live — run it right now</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">Press <b>#go</b>. This instantly paints a lensed universe on the canvas, then tries to upgrade to your real camera feed. Tilt your phone to anchor and steer the black hole in space; tilt forward to make the horizon swell and hear the rumble rise.</p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px">
+      <button class="run" id="go">🕳️ Pull spacetime into the room</button>
+      <span class="mono" id="mode" style="font-size:12px;color:var(--faint)">env: synthetic nebula standby</span>
+    </div>
+    <canvas id="view" width="960" height="540" style="width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:#05070f"></canvas>
+    <div class="live-out" id="out" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— press the button —</span></div>
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p>A static page is swallowing your real room in real time. The camera stream (or a built-in nebula if no camera is usable) is turned into a GPU texture, then a handwritten fragment shader bends those photons around a dark core using a Schwarzschild-style deflection field. You get the look of gravitational lensing, an accretion disk with Doppler tint, and a photon ring rim — all from one browser tab, no app, no backend.</p>
+  </div>
+
+  <div class="panel">
+    <h2>How to</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Press <b>#go</b>; the first frame appears immediately with synthetic stars/nebula.</li>
+      <li>Allow camera access to lens your real room. If denied, fake, or unavailable, it stays in synthetic space mode and still works.</li>
+      <li>Tilt your phone to shift anchor and depth: left/right moves the hole, forward tilt expands the horizon and deepens the bass.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/black-hole-in-your-room/</code> (camera/sensors need https or localhost).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a id="dataurl" href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { mkNarrator } from '../../lib/showcase.js';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+const canvas = document.getElementById('view');
+const gl = canvas.getContext('webgl', { antialias: false, preserveDrawingBuffer: false });
+const out = document.getElementById('out');
+const modeEl = document.getElementById('mode');
+const narrate = mkNarrator(document.getElementById('steps'));
+
+if (!gl) {
+  out.innerHTML = '<span class="mono" style="color:var(--bad)">WebGL unavailable on this browser/device.</span>';
+  throw new Error('WebGL unavailable');
+}
+
+const vertexSrc = `
+attribute vec2 p;
+varying vec2 v;
+void main(){
+  v = p * 0.5 + 0.5;
+  gl_Position = vec4(p, 0.0, 1.0);
+}`;
+
+const fragmentSrc = `
+precision mediump float;
+varying vec2 v;
+uniform sampler2D uEnv;
+uniform vec2 uRes;
+uniform float uTime;
+uniform vec2 uHole;
+uniform float uHorizon;
+uniform float uMass;
+
+void main(){
+  vec2 uv = v;
+  vec2 dp = uv - uHole;
+  dp.x *= uRes.x / uRes.y;
+
+  float r = max(length(dp), 0.0005);
+  vec2 dir = dp / r;
+  vec2 tang = vec2(-dir.y, dir.x);
+
+  float deflect = (uMass * 0.038) / (r * r + uHorizon * 0.24);
+  vec2 sampleUv = uv + dir * deflect + tang * deflect * 0.46;
+  vec3 env = texture2D(uEnv, clamp(sampleUv, 0.001, 0.999)).rgb;
+
+  float shadow = smoothstep(uHorizon * 0.55, uHorizon * 2.8, r);
+  vec3 col = env * mix(0.22, 1.0, shadow);
+
+  float ring = exp(-pow((r - uHorizon * 1.52) / (uHorizon * 0.11 + 0.0001), 2.0));
+
+  float diskBand = exp(-pow((abs(dp.y * 1.6 + 0.045 * sin(uTime * 0.6))) / (uHorizon * 0.18 + 0.0001), 2.0));
+  float diskRad = exp(-pow((r - uHorizon * 2.1) / (uHorizon * 0.95 + 0.0001), 2.0));
+  float disk = diskBand * diskRad;
+
+  float doppler = 0.5 + 0.5 * dot(normalize(vec2(0.92, 0.35)), tang);
+  vec3 cool = vec3(0.16, 0.44, 1.0);
+  vec3 hot = vec3(1.7, 0.78, 0.24);
+  vec3 diskCol = mix(cool, hot, doppler);
+
+  col += ring * vec3(1.7, 1.45, 1.08);
+  col += disk * diskCol * 1.25;
+
+  float horizonMask = smoothstep(uHorizon * 0.98, uHorizon * 1.05, r);
+  col *= horizonMask;
+
+  float vignette = smoothstep(1.25, 0.22, length((uv - 0.5) * vec2(uRes.x / uRes.y, 1.0)));
+  col *= mix(0.72, 1.0, vignette);
+
+  gl_FragColor = vec4(col, 1.0);
+}`;
+
+function makeShader(type, source) {
+  const s = gl.createShader(type);
+  gl.shaderSource(s, source);
+  gl.compileShader(s);
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s) || 'shader compile failed');
+  return s;
+}
+
+const program = gl.createProgram();
+gl.attachShader(program, makeShader(gl.VERTEX_SHADER, vertexSrc));
+gl.attachShader(program, makeShader(gl.FRAGMENT_SHADER, fragmentSrc));
+gl.linkProgram(program);
+if (!gl.getProgramParameter(program, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(program) || 'program link failed');
+
+gl.useProgram(program);
+const quad = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, quad);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+  -1, -1, 1, -1, -1, 1,
+  -1, 1, 1, -1, 1, 1
+]), gl.STATIC_DRAW);
+
+const locP = gl.getAttribLocation(program, 'p');
+gl.enableVertexAttribArray(locP);
+gl.vertexAttribPointer(locP, 2, gl.FLOAT, false, 0, 0);
+
+const locEnv = gl.getUniformLocation(program, 'uEnv');
+const locRes = gl.getUniformLocation(program, 'uRes');
+const locTime = gl.getUniformLocation(program, 'uTime');
+const locHole = gl.getUniformLocation(program, 'uHole');
+const locHorizon = gl.getUniformLocation(program, 'uHorizon');
+const locMass = gl.getUniformLocation(program, 'uMass');
+
+const envTex = gl.createTexture();
+gl.activeTexture(gl.TEXTURE0);
+gl.bindTexture(gl.TEXTURE_2D, envTex);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+gl.uniform1i(locEnv, 0);
+
+const envCanvas = document.createElement('canvas');
+envCanvas.width = 512;
+envCanvas.height = 512;
+const env2d = envCanvas.getContext('2d');
+const stars = Array.from({ length: 360 }, () => ({
+  x: Math.random() * envCanvas.width,
+  y: Math.random() * envCanvas.height,
+  r: Math.random() * 1.8 + 0.25,
+  s: Math.random() * 2.4 + 0.4,
+  p: Math.random() * Math.PI * 2
+}));
+
+let stream = null;
+const video = document.createElement('video');
+video.setAttribute('playsinline', 'true');
+video.muted = true;
+video.autoplay = true;
+video.loop = true;
+
+let envMode = 'fallback';
+let running = false;
+let raf = 0;
+let sensorReady = false;
+let baseOri = null;
+const orient = { alpha: 0, beta: 0, gamma: 0 };
+let audioCtx = null;
+let rumbleGain = null;
+
+function paintFallback(t) {
+  const w = envCanvas.width;
+  const h = envCanvas.height;
+  const g = env2d;
+  const tt = t * 0.001;
+
+  g.clearRect(0, 0, w, h);
+  const bg = g.createLinearGradient(0, 0, w, h);
+  bg.addColorStop(0, '#060816');
+  bg.addColorStop(0.45, '#130b2d');
+  bg.addColorStop(1, '#06070f');
+  g.fillStyle = bg;
+  g.fillRect(0, 0, w, h);
+
+  const neb = g.createRadialGradient(
+    w * (0.35 + 0.08 * Math.sin(tt * 0.17)),
+    h * (0.4 + 0.07 * Math.cos(tt * 0.13)),
+    40,
+    w * 0.45,
+    h * 0.5,
+    w * 0.7
+  );
+  neb.addColorStop(0, 'rgba(66,84,255,0.28)');
+  neb.addColorStop(0.45, 'rgba(220,88,255,0.13)');
+  neb.addColorStop(1, 'rgba(0,0,0,0)');
+  g.fillStyle = neb;
+  g.fillRect(0, 0, w, h);
+
+  for (const s of stars) {
+    const twinkle = 0.45 + 0.55 * Math.sin(tt * s.s + s.p);
+    g.fillStyle = `rgba(255,255,255,${0.22 + twinkle * 0.78})`;
+    g.beginPath();
+    g.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    g.fill();
+  }
+}
+
+function isFakeLabel(label) {
+  return /fake|virtual|mock|obs|simulated|test/i.test(label || '');
+}
+
+async function tryCamera() {
+  if (!navigator.mediaDevices?.getUserMedia) throw new Error('getUserMedia unavailable');
+  const s = await navigator.mediaDevices.getUserMedia({
+    video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } },
+    audio: false
+  });
+  const track = s.getVideoTracks()[0];
+  if (track && isFakeLabel(track.label)) {
+    track.stop();
+    throw new Error('fake/virtual camera detected — keeping synthetic nebula for visible lensing');
+  }
+  stream = s;
+  video.srcObject = s;
+  await video.play();
+  envMode = 'camera';
+  modeEl.textContent = 'env: live camera feed';
+  narrate('camera', 'ok', 'camera stream mapped as environment texture', 'real room photons now lensing');
+}
+
+function ensureAudio() {
+  if (audioCtx) return;
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  if (!Ctx) return;
+  audioCtx = new Ctx();
+  const oscA = audioCtx.createOscillator();
+  const oscB = audioCtx.createOscillator();
+  const lfo = audioCtx.createOscillator();
+  const lfoGain = audioCtx.createGain();
+  const mix = audioCtx.createGain();
+
+  oscA.type = 'sine';
+  oscB.type = 'triangle';
+  lfo.type = 'sine';
+  oscA.frequency.value = 34;
+  oscB.frequency.value = 48;
+  lfo.frequency.value = 0.22;
+
+  lfoGain.gain.value = 7;
+  lfo.connect(lfoGain);
+  lfoGain.connect(oscA.frequency);
+
+  mix.gain.value = 0.0001;
+  oscA.connect(mix);
+  oscB.connect(mix);
+  mix.connect(audioCtx.destination);
+
+  oscA.start();
+  oscB.start();
+  lfo.start();
+
+  rumbleGain = mix;
+}
+
+function resize() {
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  const w = Math.max(640, Math.floor(canvas.clientWidth * dpr));
+  const h = Math.floor(w * 9 / 16);
+  if (canvas.width === w && canvas.height === h) return;
+  canvas.width = w;
+  canvas.height = h;
+  gl.viewport(0, 0, w, h);
+}
+
+async function enableOrientation() {
+  if (typeof DeviceOrientationEvent === 'undefined') return;
+  try {
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      const p = await DeviceOrientationEvent.requestPermission();
+      if (p !== 'granted') return;
+    }
+  } catch { return; }
+  window.addEventListener('deviceorientation', (ev) => {
+    orient.alpha = ev.alpha || 0;
+    orient.beta = ev.beta || 0;
+    orient.gamma = ev.gamma || 0;
+    if (!baseOri) baseOri = { alpha: orient.alpha, beta: orient.beta, gamma: orient.gamma };
+    sensorReady = true;
+  }, { passive: true });
+}
+
+function draw(ts) {
+  if (!running) return;
+  resize();
+
+  let holeX = 0.5;
+  let holeY = 0.5;
+  let depth = 0.28 + 0.06 * Math.sin(ts * 0.0008);
+
+  if (sensorReady && baseOri) {
+    const dx = Math.max(-45, Math.min(45, orient.gamma - baseOri.gamma)) / 45;
+    const dy = Math.max(-45, Math.min(45, orient.beta - baseOri.beta)) / 45;
+    holeX = Math.max(0.16, Math.min(0.84, 0.5 + dx * 0.35));
+    holeY = Math.max(0.16, Math.min(0.84, 0.5 + dy * 0.26));
+    depth = Math.max(0.12, Math.min(0.95, 0.32 + Math.max(0, -dy) * 0.72));
+  }
+
+  const horizon = 0.08 + depth * 0.2;
+  const mass = 0.46 + depth * 0.92;
+
+  if (envMode === 'camera' && video.readyState >= 2) {
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, video);
+  } else {
+    paintFallback(ts);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, envCanvas);
+  }
+
+  gl.uniform2f(locRes, canvas.width, canvas.height);
+  gl.uniform1f(locTime, ts * 0.001);
+  gl.uniform2f(locHole, holeX, holeY);
+  gl.uniform1f(locHorizon, horizon);
+  gl.uniform1f(locMass, mass);
+  gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+  if (rumbleGain && audioCtx) {
+    const fill = Math.min(1, Math.PI * horizon * horizon * 5.2);
+    const target = 0.003 + fill * 0.18;
+    rumbleGain.gain.setTargetAtTime(target, audioCtx.currentTime, 0.08);
+  }
+
+  raf = requestAnimationFrame(draw);
+}
+
+function start() {
+  if (running) return;
+  running = true;
+  draw(performance.now());
+}
+
+document.getElementById('go').onclick = async () => {
+  document.getElementById('steps').innerHTML = '';
+  modeEl.textContent = 'env: synthetic nebula (instant fallback)';
+  out.innerHTML = '<span class="mono">initializing spacetime lens… first frame is already live.</span>';
+
+  narrate('boot', 'active', 'draw first frame immediately', 'synthetic starfield fallback');
+  start();
+  narrate('boot', 'ok', 'black hole shader rendering', 'no backend');
+
+  ensureAudio();
+  if (audioCtx) {
+    await audioCtx.resume();
+    narrate('audio', 'ok', 'sub-bass horizon rumble armed', 'gain rises as horizon fills the view');
+  }
+
+  narrate('sensor', 'active', 'request device orientation (optional)', 'hole anchor in room-space');
+  await enableOrientation();
+  narrate('sensor', sensorReady ? 'ok' : 'bad', sensorReady ? 'orientation stream active' : 'orientation unavailable — using gentle drift', sensorReady ? 'tilt to steer' : 'still fully live');
+
+  narrate('camera', 'active', 'request live camera for environment texture', 'fallback stays active instantly');
+  try {
+    await tryCamera();
+    out.innerHTML = '<span class="mono">camera fused: your room is being lensed in real time. Tilt to move and deepen the hole.</span>';
+  } catch (e) {
+    envMode = 'fallback';
+    modeEl.textContent = 'env: synthetic nebula (camera optional)';
+    narrate('camera', 'bad', e.message || 'camera unavailable', 'continuing with synthetic universe');
+    out.innerHTML = '<span class="mono">camera unavailable/fake/blocked — synthetic nebula still shows full lensing live.</span>';
+  }
+};
+
+window.addEventListener('resize', resize, { passive: true });
+resize();
+paintFallback(performance.now());
+gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, envCanvas);
+gl.uniform2f(locRes, canvas.width, canvas.height);
+gl.uniform1f(locTime, 0);
+gl.uniform2f(locHole, 0.5, 0.5);
+gl.uniform1f(locHorizon, 0.12);
+gl.uniform1f(locMass, 0.75);
+gl.drawArrays(gl.TRIANGLES, 0, 6);
+</script>
+</body></html>
