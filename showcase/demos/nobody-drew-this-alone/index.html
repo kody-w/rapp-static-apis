@@ -112,6 +112,12 @@ let mine = [];
 let drawing = false;
 let ready = false;
 let start = { x: 60, y: draw.height / 2 };
+const MIN_STROKE_POINTS = 6;
+const MAX_SAMPLED_POINTS = 72;
+const MAX_REVEALED_SEGMENTS = 12;
+const SEGMENT_SKIP_FACTOR = 7;
+const TAIL_VISIBLE_POINTS = 16;
+const START_POINT_TOLERANCE = 24;
 
 const clamp = (n, a, b) => Math.min(b, Math.max(a, n));
 const toLocal = (e, c) => {
@@ -126,7 +132,7 @@ const normalize = pts => pts.map(([x, y]) => [
   +clamp(y / draw.height, 0, 1).toFixed(4)
 ]);
 const denorm = (pts, w, h) => pts.map(([x, y]) => [x * w, y * h]);
-const sample = (pts, max = 72) => {
+const sample = (pts, max = MAX_SAMPLED_POINTS) => {
   if (pts.length <= max) return pts;
   const outPts = [];
   const step = (pts.length - 1) / (max - 1);
@@ -177,11 +183,11 @@ function drawReveal() {
   if (mine.length > 1) picks.unshift({ record: { points: normalize(sample(mine)) } });
   if (!picks.length) return;
 
-  const max = Math.min(12, picks.length);
+  const max = Math.min(MAX_REVEALED_SEGMENTS, picks.length);
   let x = 70;
   let y = reveal.height / 2;
   for (let i = 0; i < max; i++) {
-    const seg = picks[(i * 7) % picks.length]?.record?.points;
+    const seg = picks[(i * SEGMENT_SKIP_FACTOR) % picks.length]?.record?.points;
     if (!Array.isArray(seg) || seg.length < 2) continue;
     const den = denorm(seg, 140, 120);
     const sx = den[0][0], sy = den[0][1];
@@ -203,7 +209,7 @@ function renderParentTail() {
     return;
   }
   const den = denorm(parent.record.points, hint.width, hint.height);
-  const tail = den.slice(Math.max(0, den.length - 16));
+  const tail = den.slice(Math.max(0, den.length - TAIL_VISIBLE_POINTS));
   drawPath(hctx, tail, '#ff7aff', 5);
   const p = tail[tail.length - 1];
   hctx.fillStyle = '#ff7aff';
@@ -214,7 +220,7 @@ function renderParentTail() {
 }
 
 function syncRelease() {
-  if (mine.length < 6) {
+  if (mine.length < MIN_STROKE_POINTS) {
     release.removeAttribute('href');
     release.setAttribute('aria-disabled', 'true');
     return;
@@ -238,7 +244,7 @@ function syncRelease() {
 
 function startStroke(p) {
   if (!ready) return;
-  if (Math.hypot(p.x - start.x, p.y - start.y) > 24 && mine.length < 2) return;
+  if (Math.hypot(p.x - start.x, p.y - start.y) > START_POINT_TOLERANCE && mine.length < 2) return;
   drawing = true;
   mine = [[start.x, start.y], [clamp(p.x, start.x, draw.width - 10), clamp(p.y, 10, draw.height - 10)]];
   resetDraw();
