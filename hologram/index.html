@@ -72,6 +72,9 @@
  #btn-moon:hover{background:#0f2d45}
  #catch-hint{font-size:12px;color:#8b949e}
  #btn-catch-geo{display:none}
+#inp-date{flex:none;width:130px}
+#btn-catch-date,#btn-date-geo{background:#1a2235;border:1px solid #3a5070;color:#7cc0e8}
+#btn-catch-date:hover,#btn-date-geo:hover{filter:brightness(1.1)}
 </style></head><body>
 <h1>🌀 hologram organisms</h1>
 <p class="muted">
@@ -88,6 +91,9 @@
 <div id="catch-bar">
  <button id="btn-moon">🌙 catch tonight's moon</button>
  <button class="alt" id="btn-catch-geo">📍 use my weather</button>
+ <input type="date" id="inp-date" title="pick a date to hatch its sky">
+ <button id="btn-catch-date">📅 that sky</button>
+ <button id="btn-date-geo" style="display:none">📍 + weather</button>
  <span id="catch-hint"></span>
 </div>
 
@@ -217,9 +223,9 @@ function buildCreatureFaces(spec, time) { const faces = [], { form, surface, mot
 function makeCamera(target, yaw, pitch, radius) { const cp = Math.cos(pitch), sp = Math.sin(pitch), pos = { x: target.x + Math.cos(yaw) * cp * radius, y: target.y + sp * radius, z: target.z + Math.sin(yaw) * cp * radius }, forward = V3.norm(V3.sub(target, pos)), right = V3.norm(V3.cross(forward, vec(0, 1, 0))), up = V3.norm(V3.cross(right, forward)); return { pos, forward, right, up }; }
 function projectPoint(p, camera, w, h, focal) { const rel = V3.sub(p, camera.pos), x = V3.dot(rel, camera.right), y = V3.dot(rel, camera.up), z = V3.dot(rel, camera.forward); if (z <= 0.08) return null; const s = focal / z; return { x: w / 2 + x * s, y: h / 2 - y * s, z }; }
 function shadeFace(color, diffuse, viewDot, emissive, palette) { const KEY = [1.0, 0.96, 0.88], FILL = [0.50, 0.58, 0.75]; const em = emissive || 0; const rim = Math.pow(1 - viewDot, 3) * 0.35; const rimTint = mixColor(paletteSample(palette, 0.5), { r: 255, g: 255, b: 255 }, 0.4); const channels = ['r', 'g', 'b']; const out = {}; for (let i = 0; i < 3; i++) { const ch = channels[i]; out[ch] = clamp(color[ch] * (FILL[i] * 0.30 + KEY[i] * (diffuse * 0.85)) + color[ch] * em * 0.5 + rimTint[ch] * rim, 0, 255); } return out; }
-function renderThumb(ctx, genome, time = 0.85) { const w = ctx.canvas.width, h = ctx.canvas.height; ctx.clearRect(0, 0, w, h); const bg = ctx.createLinearGradient(0, 0, 0, h); bg.addColorStop(0, '#07111b'); bg.addColorStop(0.55, '#04080f'); bg.addColorStop(1, '#010409'); ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h); const spec = readGenome(genome, time), built = buildCreatureFaces(spec, time), camera = makeCamera(vec(0, built.haloY * 0.72, 0), 0.78, 0.28, 3.35 + built.size * 1.08), focal = Math.min(w, h) * 0.9; if ((spec.surface.glow || 0) > 0.03) { const cp = projectPoint(vec(0, built.haloY, 0), camera, w, h, focal), edge = projectPoint(vec(built.size * 1.15, built.haloY, 0), camera, w, h, focal); if (cp && edge) { const rr = Math.max(16, Math.hypot(edge.x - cp.x, edge.y - cp.y) * (1.2 + spec.surface.glow * 0.7)), g = ctx.createRadialGradient(cp.x, cp.y, rr * 0.18, cp.x, cp.y, rr); g.addColorStop(0, hexA(spec.surface.palette[0], spec.surface.glow * (0.22 + spec.pulse * 0.28))); g.addColorStop(0.55, hexA(spec.surface.palette[0], spec.surface.glow * 0.1)); g.addColorStop(1, hexA(spec.surface.palette[0], 0)); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cp.x, cp.y, rr, 0, TAU); ctx.fill(); } }
+function renderThumb(ctx, genome, time = 0.85) { const w = ctx.canvas.width, h = ctx.canvas.height; ctx.clearRect(0, 0, w, h); const bg = ctx.createLinearGradient(0, 0, 0, h); bg.addColorStop(0, '#07111b'); bg.addColorStop(0.55, '#04080f'); bg.addColorStop(1, '#010409'); ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h); const spec = readGenome(genome, time), built = buildCreatureFaces(spec, time), thumbR = 3.35 + built.size * 1.08, camera = makeCamera(vec(0, built.haloY * 0.72, 0), 0.78, 0.28, thumbR), focal = Math.min(w, h) * 0.9; if ((spec.surface.glow || 0) > 0.03) { const cp = projectPoint(vec(0, built.haloY, 0), camera, w, h, focal), edge = projectPoint(vec(built.size * 1.15, built.haloY, 0), camera, w, h, focal); if (cp && edge) { const rr = Math.max(16, Math.hypot(edge.x - cp.x, edge.y - cp.y) * (1.2 + spec.surface.glow * 0.7)), g = ctx.createRadialGradient(cp.x, cp.y, rr * 0.18, cp.x, cp.y, rr); g.addColorStop(0, hexA(spec.surface.palette[0], spec.surface.glow * (0.22 + spec.pulse * 0.28))); g.addColorStop(0.55, hexA(spec.surface.palette[0], spec.surface.glow * 0.1)); g.addColorStop(1, hexA(spec.surface.palette[0], 0)); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cp.x, cp.y, rr, 0, TAU); ctx.fill(); } }
   const shadow = []; for (let i = 0; i < 28; i++) { const a = (i / 28) * TAU, p = projectPoint(vec(Math.cos(a) * built.size * 0.95, built.floorY, Math.sin(a) * built.size * 0.72), camera, w, h, focal); if (p) shadow.push(p); } if (shadow.length > 8) { const scx = shadow.reduce((s,p)=>s+p.x,0)/shadow.length, scy = shadow.reduce((s,p)=>s+p.y,0)/shadow.length, sr = shadow.reduce((s,p)=>s+Math.hypot(p.x-scx,p.y-scy),0)/shadow.length; const bcp = projectPoint(vec(0,built.bodyY,0),camera,w,h,focal), bfp = projectPoint(vec(0,built.floorY,0),camera,w,h,focal); const gap = bcp&&bfp?Math.abs(bcp.y-bfp.y):0, lift = clamp(gap/Math.max(sr,1),0,1.4), sa=0.26*(1-0.45*lift), sR=sr*(1+0.35*lift); const sg=ctx.createRadialGradient(scx,scy,0,scx,scy,sR); sg.addColorStop(0,`rgba(0,0,0,${sa.toFixed(3)})`); sg.addColorStop(0.5,`rgba(0,0,0,${(sa*0.5).toFixed(3)})`); sg.addColorStop(1,'rgba(0,0,0,0)'); ctx.beginPath(); ctx.arc(scx,scy,sR,0,TAU); ctx.fillStyle=sg; ctx.fill(); const sg2=ctx.createRadialGradient(scx,scy,sR*0.5,scx,scy,sR*1.8); sg2.addColorStop(0,'rgba(0,0,0,0.06)'); sg2.addColorStop(1,'rgba(0,0,0,0)'); ctx.beginPath(); ctx.arc(scx,scy,sR*1.8,0,TAU); ctx.fillStyle=sg2; ctx.fill(); }
-  const lightDir = V3.norm(vec(0.45, 0.9, 0.65)); const polys = []; for (const face of built.faces) { const proj = face.pts.map(p => projectPoint(p, camera, w, h, focal)); if (proj.some(p => !p)) continue; const a = face.pts[0], b = face.pts[1], c = face.pts[2], normal = face.normal || V3.norm(V3.cross(V3.sub(b, a), V3.sub(c, a))), center = V3.mid(face.pts), diffuse = Math.max(0, V3.dot(normal, lightDir)), viewDot = Math.max(0, V3.dot(normal, V3.norm(V3.sub(camera.pos, center)))); polys.push({ proj, depth: proj.reduce((acc, p) => acc + p.z, 0) / proj.length, fill: colorCss(shadeFace(face.fill.color, diffuse, viewDot, face.fill.emissive, spec.surface.palette), face.alpha) }); } polys.sort((a, b) => b.depth - a.depth); for (const poly of polys) { ctx.beginPath(); poly.proj.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y)); ctx.closePath(); ctx.fillStyle = poly.fill; ctx.fill(); } }
+  const lightDir = V3.norm(vec(0.45, 0.9, 0.65)); const polys = []; for (const face of built.faces) { const proj = face.pts.map(p => projectPoint(p, camera, w, h, focal)); if (proj.some(p => !p)) continue; const a = face.pts[0], b = face.pts[1], c = face.pts[2], normal = face.normal || V3.norm(V3.cross(V3.sub(b, a), V3.sub(c, a))), center = V3.mid(face.pts), diffuse = Math.max(0, V3.dot(normal, lightDir)), viewDot = Math.max(0, V3.dot(normal, V3.norm(V3.sub(camera.pos, center)))); const depth = proj.reduce((acc, p) => acc + p.z, 0) / proj.length; const fog = clamp((depth - (thumbR - built.size)) / (2 * built.size), 0, 1); const shadedColor = shadeFace(face.fill.color, diffuse, viewDot, face.fill.emissive, spec.surface.palette); polys.push({ proj, depth, fill: colorCss(mixColor(shadedColor, parseHex('#04080f'), fog * 0.45), face.alpha) }); } polys.sort((a, b) => b.depth - a.depth); for (const poly of polys) { ctx.beginPath(); poly.proj.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y)); ctx.closePath(); ctx.fillStyle = poly.fill; ctx.fill(); } }
 
 /* ── Breed state ──────────────────────────────────────────────────────────── */
 const loadedCarts = new Map(); // id → {cart, entry}
@@ -299,7 +305,7 @@ function windWord(kmh) { return kmh < 5 ? 'calm' : kmh < 20 ? 'breeze' : kmh < 4
 function geohashDecode(hash) { const B='0123456789bcdefghjkmnpqrstuvwxyz'; let even=true; const lat=[-90,90],lon=[-180,180]; for(let i=0;i<hash.length;i++){const v=B.indexOf(hash[i]);if(v<0)break;for(let b=4;b>=0;b--){const r=even?lon:lat,mid=(r[0]+r[1])/2;if((v>>b)&1)r[0]=mid;else r[1]=mid;even=!even;}} return{lat:(lat[0]+lat[1])/2,lon:(lon[0]+lon[1])/2}; }
 function season(month,lat) { if(Math.abs(lat)<15)return null; const n=month<=1||month===11?'winter':month<=4?'spring':month<=7?'summer':'autumn'; return lat<-15?{winter:'summer',summer:'winter',spring:'autumn',autumn:'spring'}[n]:n; }
 function latBand(lat) { return 'near '+Math.round(Math.abs(lat))+'\u00b0'+(lat<0?'S':'N'); }
-function relativeTime(ts) { const d=new Date(ts),now=Date.now(),ms=now-ts,hr=ms/3.6e6,dy=ms/8.64e7; if(ms<5*60000)return'just now'; if(hr<6)return'earlier today'; if(hr<36)return'last night'; if(dy<2)return'yesterday'; if(dy<10)return Math.floor(dy)+' days ago'; const ann=new Date(d);ann.setFullYear(ann.getFullYear()+1);if(Math.abs(now-ann.getTime())<7*8.64e7)return'a year ago today \u2726'; const mo=['January','February','March','April','May','June','July','August','September','October','November','December']; if(dy<50)return'last '+mo[d.getMonth()]; const sn=month=>(month<=1||month===11?'winter':month<=4?'spring':month<=7?'summer':'autumn'); if(dy<330)return'last '+sn(d.getMonth()); return Math.floor(dy/365)+' year'+(dy<730?'':'s')+' ago'; }
+function relativeTime(ts) { const d=new Date(ts),now=Date.now(),ms=now-ts,hr=ms/3.6e6,dy=ms/8.64e7; if(ms<5*60000)return'just now'; if(hr<6)return'earlier today'; if(hr<36)return'last night'; if(dy<2)return'yesterday'; if(dy<10)return Math.floor(dy)+' days ago'; const ann=new Date(d);ann.setFullYear(ann.getFullYear()+1);if(Math.abs(now-ann.getTime())<7*8.64e7)return'a year ago today \u2726'; const mo=['January','February','March','April','May','June','July','August','September','October','November','December']; if(dy<50)return'last '+mo[d.getMonth()]; const sn=month=>(month<=1||month===11?'winter':month<=4?'spring':month<=7?'summer':'autumn'); if(dy<330)return'last '+sn(d.getMonth()); const ms_=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return d.getDate()+' '+ms_[d.getMonth()]+' '+d.getFullYear(); }
 function bornDate(coord) { if(!coord)return null; const m=String(coord).match(/\u00b7(\d{10,})/); if(!m)return null; const ts=parseInt(m[1]); const d=new Date(ts); if(isNaN(d.getTime()))return null; return relativeTime(ts); }
 function momentPhrase(from,coord) { if(!from)return null; const isMoon=from.startsWith('moon '),isWeather=from.startsWith('live '); if(!isWeather&&!isMoon)return null; let temp='',wmo='',wind='',tod='',moonPct=null,moonName=''; if(isWeather){const parts=from.split(' \u00b7 ');for(const p of parts){if(p.startsWith('live ')){temp=p.replace(/^live\s+/,'').replace('\u00b0C','\u00b0');}else if(p.startsWith('code ')){const n=parseInt(p.slice(5)),w=wmoWord(n);wmo=w!==null?w:p;}else if(p.startsWith('wind ')){const n=parseInt(p.slice(5));wind=windWord(n);}else if(p==='day'||p==='night'){tod=p;}}} if(isMoon){const parts=from.split(' \u00b7 ');for(const p of parts){if(p==='moon')continue;else if(/^\d+$/.test(p))moonPct=parseInt(p);else if(p)moonName=p;}} let lat=null,epochTs=null; if(coord&&!coord.startsWith('cross:')&&coord!=='0,0'){const em=String(coord).match(/\u00b7(\d{10,})/);if(em)epochTs=parseInt(em[1]);const gh=String(coord).split('\u00b7')[0];if(gh&&gh.length>1){try{lat=geohashDecode(gh).lat;}catch{}}} let seasonStr=null; if(lat!==null&&epochTs)seasonStr=season(new Date(epochTs).getMonth(),lat); const bits=[]; if(isMoon){if(moonName)bits.push(moonName);if(moonPct!==null)bits.push(moonPct+'%');}else{if(wmo){const sw=seasonStr?wmo+' '+seasonStr:wmo;bits.push('a '+sw+(tod?' '+tod:''));}if(temp)bits.push(temp);if(wind&&wind!=='calm')bits.push(wind);} if(lat!==null)bits.push(latBand(lat)); const dateStr=bornDate(coord);if(dateStr)bits.push(dateStr); return bits.length?bits.join(' \u00b7 '):null; }
 function buildWhyLine(cart) {
@@ -714,9 +720,9 @@ document.addEventListener('keydown', e => {
 
 /* ── Catch a moment (Feature 3) ────────────────────────────────────────────── */
 // Offline moon phase from synodic closed form (2000-01-06 18:14 UTC epoch)
-function moonPhase() {
+function moonPhase(when = Date.now()) {
   const EPOCH = 947182440000, SYN = 29.53059 * 86400000;
-  const frac = ((Date.now() - EPOCH) % SYN + SYN) % SYN / SYN;
+  const frac = ((when - EPOCH) % SYN + SYN) % SYN / SYN;
   const illum = frac < 0.5 ? frac * 2 : (1 - frac) * 2;
   const name = frac < 0.03 ? 'new moon' : frac < 0.25 ? 'waxing crescent' : frac < 0.28 ? 'first quarter' :
                frac < 0.5  ? 'waxing gibbous' : frac < 0.53 ? 'full moon' : frac < 0.75 ? 'waning gibbous' :
@@ -830,6 +836,91 @@ document.getElementById('btn-catch-geo').onclick = async () => {
       hint.textContent = 'couldn\u2019t reach the sky just now \u2014 try again?';
     }
     btn.textContent = '\uD83D\uDCCD use my weather'; btn.disabled = false;
+  }
+};
+
+// Path 3: chosen date → offline moon hatch (+ optional archive weather behind a second click)
+let _dateChosenWhen = null;
+document.getElementById('btn-catch-date').onclick = async () => {
+  const btn = document.getElementById('btn-catch-date');
+  const inp = document.getElementById('inp-date');
+  const chosen = inp.value;
+  if (!chosen) { document.getElementById('catch-hint').textContent = 'pick a date first'; return; }
+  const when = Date.parse(chosen);
+  if (isNaN(when)) return;
+  btn.disabled = true; btn.textContent = '\uD83D\uDCC5 hatching\u2026';
+  try {
+    const moon = moonPhase(when);
+    const genome = momentToGenome({ illuminated: moon.illuminated });
+    const id = await genomeId(genome);
+    const coord = '\u00b7' + when;
+    const d = new Date(when);
+    const MOS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const dateLabel = d.getDate() + ' ' + MOS[d.getMonth()] + ' ' + d.getFullYear();
+    const cart = {
+      schema: 'hologram-cartridge/1.0', id,
+      title: 'Sky of ' + dateLabel,
+      author: 'you',
+      born: { coord, from: 'moon \u00b7 ' + moon.illuminated + ' \u00b7 ' + moon.name },
+      parents: [], genome, sig: ''
+    };
+    const item = await ingestAdopted(cart);
+    breedMode = true; updateBreedUI(); selectBreedCreature(item.entry.id);
+    document.getElementById('adopted-strip').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    _dateChosenWhen = when;
+    document.getElementById('btn-date-geo').style.display = '';
+    document.getElementById('catch-hint').textContent = dateLabel + ' \u00b7 ' + moon.illuminated + '%, ' + moon.name;
+    btn.textContent = 'hatched \u2713';
+    setTimeout(() => { btn.textContent = '\uD83D\uDCC5 that sky'; btn.disabled = false; }, 2200);
+  } catch(e) { console.error('dateHatch:', e); btn.textContent = '\uD83D\uDCC5 that sky'; btn.disabled = false; }
+};
+// Optional archive weather for the chosen date + location
+document.getElementById('btn-date-geo').onclick = async () => {
+  const btn = document.getElementById('btn-date-geo');
+  if (!_dateChosenWhen) return;
+  btn.disabled = true; btn.textContent = '\uD83D\uDCCD locating\u2026';
+  try {
+    const pos = await new Promise((res, rej) => navigator.geolocation.getCurrentPosition(res, rej, { timeout: 10000 }));
+    const { latitude: lat, longitude: lng } = pos.coords;
+    btn.textContent = '\uD83C\uDF24 fetching archive\u2026';
+    const d = new Date(_dateChosenWhen);
+    const dateStr = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat.toFixed(4)}&longitude=${lng.toFixed(4)}&start_date=${dateStr}&end_date=${dateStr}&daily=temperature_2m_max,weathercode,wind_speed_10m_max&timezone=auto`;
+    const data = await (await fetch(url)).json();
+    const daily = data.daily || {};
+    const temp = (daily.temperature_2m_max || [])[0] ?? null;
+    const weathercode = (daily.weathercode || [])[0] ?? null;
+    const wind = (daily.wind_speed_10m_max || [])[0] ?? 0;
+    const genome = momentToGenome({ temp, weathercode, wind, isDay: 1 });
+    const id = await genomeId(genome);
+    const gh = geohashEncode(lat, lng);
+    const coord = gh + '\u00b7' + _dateChosenWhen;
+    const MOS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const dd = new Date(_dateChosenWhen);
+    const dateLabel = dd.getDate() + ' ' + MOS[dd.getMonth()] + ' ' + dd.getFullYear();
+    const sky = wmoWord(weathercode) || '';
+    const fromStr = `live ${temp !== null ? temp : '?'}\u00b0C \u00b7 code ${weathercode ?? '?'} \u00b7 wind ${Math.round(wind)} \u00b7 day`;
+    const cart = {
+      schema: 'hologram-cartridge/1.0', id,
+      title: 'Sky of ' + dateLabel + (sky ? ' \u2014 ' + sky : ''),
+      author: 'you',
+      born: { coord, from: fromStr },
+      parents: [], genome, sig: ''
+    };
+    const item = await ingestAdopted(cart);
+    breedMode = true; updateBreedUI(); selectBreedCreature(item.entry.id);
+    document.getElementById('adopted-strip').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    btn.textContent = 'hatched \u2713';
+    setTimeout(() => { btn.textContent = '\uD83D\uDCCD + weather'; btn.disabled = false; }, 2200);
+  } catch(e) {
+    console.error('dateGeo:', e);
+    const hint = document.getElementById('catch-hint');
+    if (e && typeof e.code === 'number') {
+      hint.textContent = e.code === 1 ? 'location denied' : 'location unavailable \u2014 try again?';
+    } else {
+      hint.textContent = 'couldn\u2019t reach the archive \u2014 try again?';
+    }
+    btn.textContent = '\uD83D\uDCCD + weather'; btn.disabled = false;
   }
 };
 

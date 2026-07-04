@@ -66,6 +66,7 @@
    <button id="btn-link">copy link</button>
    <button id="btn-qr">QR</button>
    <button id="btn-lantern">Lantern ↗</button>
+   <button id="btn-talk">💬 talk</button>
    <button id="btn-cabinet">raise at Cabinet ↗</button>
    <button id="btn-keep">🧺 Keep</button>
    <a href="index.html"><button>gallery →</button></a>
@@ -476,7 +477,11 @@ function renderScene(ctx, genome, time, view) {
     const center = V3.mid(face.pts);
     const diffuse = Math.max(0, V3.dot(normal, lightDir));
     const viewDot = Math.max(0, V3.dot(normal, V3.norm(V3.sub(camera.pos, center))));
-    polys.push({ proj, depth: proj.reduce((acc, p) => acc + p.z, 0) / proj.length, fill: colorCss(shadeFace(face.fill.color, diffuse, viewDot, face.fill.emissive, spec.surface.palette), face.alpha) });
+    const depth = proj.reduce((acc, p) => acc + p.z, 0) / proj.length;
+    const near = radius - built.size, far = radius + built.size;
+    const fog = clamp((depth - near) / (far - near), 0, 1);
+    const shadedColor = shadeFace(face.fill.color, diffuse, viewDot, face.fill.emissive, spec.surface.palette);
+    polys.push({ proj, depth, fill: colorCss(mixColor(shadedColor, parseHex('#04080f'), fog * 0.45), face.alpha) });
   }
   polys.sort((a, b) => b.depth - a.depth);
   for (const poly of polys) {
@@ -541,7 +546,8 @@ function bornDate(coord) {
   if (dy < 50) return 'last ' + mo[d.getMonth()];
   const sn = month => (month <= 1 || month === 11 ? 'winter' : month <= 4 ? 'spring' : month <= 7 ? 'summer' : 'autumn');
   if (dy < 330) return 'last ' + sn(d.getMonth());
-  return Math.floor(dy / 365) + ' year' + (dy < 730 ? '' : 's') + ' ago';
+  const MO_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return d.getDate() + ' ' + MO_SHORT[d.getMonth()] + ' ' + d.getFullYear();
 }
 function geohashDecode(hash) {
   const B = '0123456789bcdefghjkmnpqrstuvwxyz';
@@ -873,6 +879,11 @@ document.getElementById('btn-dl').onclick = () => {
 document.getElementById('btn-lantern').onclick = () => {
   if (!CART) return;
   window.open(LANTERN + '#' + b64enc(JSON.stringify(CART)));
+};
+
+document.getElementById('btn-talk').onclick = () => {
+  if (!CART) return;
+  window.open('../companion/index.html#' + b64enc(JSON.stringify(CART)));
 };
 
 document.getElementById('btn-cabinet').onclick = () => {
