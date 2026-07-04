@@ -121,8 +121,12 @@ let stream;
 let raf = 0;
 let running = false;
 let palette = [];
-const DEFAULT_VIDEO_HEIGHT = 3;
-const DEFAULT_VIDEO_WIDTH = 4;
+const DEFAULT_ASPECT_HEIGHT = 3;
+const DEFAULT_ASPECT_WIDTH = 4;
+const BRUSH_DRIFT_X_WEIGHT = 17;
+const BRUSH_DRIFT_Y_WEIGHT = 11;
+const BRUSH_DRIFT_MOD = 7;
+const BRUSH_DRIFT_CENTER = 3;
 
 function nearestColor(r, g, b) {
   let best = palette[0] || [r, g, b];
@@ -187,7 +191,7 @@ function paintFrame() {
   }
 
   const sw = 176;
-  const sh = Math.max(100, Math.round(sw * (video.videoHeight || DEFAULT_VIDEO_HEIGHT) / (video.videoWidth || DEFAULT_VIDEO_WIDTH)));
+  const sh = Math.max(100, Math.round(sw * (video.videoHeight || DEFAULT_ASPECT_HEIGHT) / (video.videoWidth || DEFAULT_ASPECT_WIDTH)));
   if (sample.width !== sw || sample.height !== sh) {
     sample.width = sw;
     sample.height = sh;
@@ -217,7 +221,7 @@ function paintFrame() {
       const col = nearestColor(frame[i], frame[i + 1], frame[i + 2]);
       const px = (x + 0.5) * scaleX;
       const py = (y + 0.5) * scaleY;
-      const drift = ((x * 17 + y * 11) % 7) - 3;
+      const drift = ((x * BRUSH_DRIFT_X_WEIGHT + y * BRUSH_DRIFT_Y_WEIGHT) % BRUSH_DRIFT_MOD) - BRUSH_DRIFT_CENTER;
       g.strokeStyle = `rgba(${col[0]},${col[1]},${col[2]},0.78)`;
       g.lineWidth = Math.max(1.5, scaleX * 1.4);
       g.beginPath();
