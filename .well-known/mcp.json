@@ -1,0 +1,78 @@
+{
+  "schema": "rapp-god-registry-mcp/1.0",
+  "name": "rapp-static-apis",
+  "protocolVersion": "2024-11-05",
+  "description": "Discovery manifest for the RAPP static-API commons. Each API is a read-only resource fetched from GitHub raw; no server.",
+  "generated": "2026-07-06T00:03:27Z",
+  "resources": [
+    {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion",
+      "name": "companion",
+      "description": "RAPP static API: companion",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/registry.json",
+      "name": "customer360",
+      "description": "rapp-static-customer360",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataverse/registry.json",
+      "name": "dataverse",
+      "description": "RAPP static Dataverse — a digital twin on OOTB Dataverse",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fn/registry.json",
+      "name": "fn",
+      "description": "rapp-static-fn — a static file that *runs*",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/registry.json",
+      "name": "hologram",
+      "description": "rapp-static-hologram",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/mcp/registry.json",
+      "name": "mcp",
+      "description": "rapp-static-mcp — a static MCP catalog",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/registry.json",
+      "name": "shortener",
+      "description": "rapp-static-shortener",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/catalog.json",
+      "name": "showcase",
+      "description": "The Library of Awesome",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/track/registry.json",
+      "name": "track",
+      "description": "rapp-static-track — a data tracker that runs in your friend's browser",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/vbrainstem-cell",
+      "name": "vbrainstem-cell",
+      "description": "vbrainstem-cell — a headless agent runtime in a sandboxed iframe",
+      "mimeType": "application/json"
+    }
+  ],
+  "servers": [
+    {
+      "name": "rapp-static-mcp",
+      "description": "A static MCP catalog served from this repo (tools as content-addressed cells).",
+      "catalog": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/mcp/registry.json",
+      "shim": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/mcp/shim.mjs"
+    }
+  ],
+  "root_registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/registry.json"
+}

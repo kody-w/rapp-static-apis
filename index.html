@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAPP Static APIs — the index of indexes</title>
+<meta name="description" content="A server-free commons of read-only APIs served entirely from GitHub raw. This dashboard fetches the root registry live and renders every sub-API — zero dependencies, no build.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%BF%3C/text%3E%3C/svg%3E">
+<style>
+  :root{ --bg:#0b0d12; --panel:#12151d; --border:#232838; --text:#c9d1e0; --dim:#6b7488; --accent:#7c4dff; --accent2:#00bcd4; --ok:#00e676; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--text); font-family:'SF Mono','Fira Code',ui-monospace,monospace; line-height:1.55; }
+  a{ color:var(--accent2); text-decoration:none; } a:hover{ text-decoration:underline; }
+  header{ padding:34px 22px 20px; border-bottom:1px solid var(--border); background:linear-gradient(180deg,#0e1119,transparent); }
+  .wrap{ max-width:1000px; margin:0 auto; padding:0 18px; }
+  h1{ font-size:1.5rem; font-weight:700; letter-spacing:0.5px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .tagline{ color:var(--dim); font-size:0.82rem; margin-top:8px; max-width:720px; }
+  .stats{ display:flex; gap:22px; margin-top:16px; flex-wrap:wrap; }
+  .stat b{ font-size:1.4rem; color:#fff; font-variant-numeric:tabular-nums; } .stat span{ color:var(--dim); font-size:0.62rem; text-transform:uppercase; letter-spacing:1px; display:block; }
+  .disco{ margin-top:16px; font-size:0.72rem; color:var(--dim); display:flex; gap:6px 14px; flex-wrap:wrap; }
+  main{ padding:26px 0 60px; }
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+  .card{ background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:16px 16px 14px; transition:border-color .15s, transform .15s; }
+  .card:hover{ border-color:var(--accent); transform:translateY(-2px); }
+  .card h2{ font-size:1rem; color:#fff; font-weight:600; display:flex; align-items:center; gap:8px; }
+  .card .desc{ color:var(--dim); font-size:0.76rem; margin:8px 0 12px; min-height:2.4em; }
+  .caps{ display:flex; gap:5px; flex-wrap:wrap; margin-bottom:10px; }
+  .cap{ font-size:0.58rem; color:var(--accent2); border:1px solid #1d3a44; background:#0e1a1e; border-radius:20px; padding:1px 8px; letter-spacing:0.5px; }
+  .links{ display:flex; gap:12px; font-size:0.72rem; flex-wrap:wrap; }
+  .dot{ width:7px; height:7px; border-radius:50%; background:var(--dim); display:inline-block; }
+  .dot.ok{ background:var(--ok); box-shadow:0 0 7px var(--ok); }
+  code{ background:#0e1119; border:1px solid var(--border); border-radius:5px; padding:2px 7px; color:#d7c7ff; font-size:0.78rem; }
+  .consume{ background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:22px; font-size:0.76rem; }
+  .consume pre{ margin-top:8px; color:#9fb0c8; overflow-x:auto; white-space:pre-wrap; }
+  footer{ border-top:1px solid var(--border); padding:20px; text-align:center; color:var(--dim); font-size:0.7rem; }
+  #err{ color:#ff6b6b; padding:14px; }
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>🗿 RAPP Static APIs</h1>
+  <div class="tagline">The index of indexes. A server-free commons of read-only APIs served entirely from
+    <code>raw.githubusercontent.com</code> — CORS-open, CDN-cached, forkable, durable. This page fetches the
+    root registry live and renders the whole commons. The page is the proof.</div>
+  <div class="stats">
+    <div class="stat"><b id="n-apis">–</b><span>APIs</span></div>
+    <div class="stat"><b id="n-status">–</b><span>with status</span></div>
+    <div class="stat"><b id="n-ca">–</b><span>content-addressed</span></div>
+  </div>
+  <div class="disco">
+    <span>discover:</span>
+    <a href="./registry.json">registry.json</a>
+    <a href="./llms.txt">llms.txt</a>
+    <a href="./.well-known/mcp.json">mcp</a>
+    <a href="./.well-known/ai-plugin.json">ai-plugin</a>
+    <a href="./.well-known/agent-protocol.json">agent-protocol</a>
+    <a href="./sitemap.xml">sitemap</a>
+    <a href="./SPEC.md">spec</a>
+  </div>
+</div></header>
+
+<main><div class="wrap">
+  <div class="consume">
+    <b>Consume it (any agent, any language):</b>
+    <pre id="consume">RAW=https://raw.githubusercontent.com/kody-w/rapp-static-apis/main
+curl -s $RAW/registry.json            # the index of every API
+curl -s $RAW/&lt;api&gt;/registry.json      # drill into one</pre>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div id="err"></div>
+</div></main>
+
+<footer>Generated live from <a href="./registry.json">registry.json</a> · rapp-static-api/1.0 · no server, no build to view this page.</footer>
+
+<script>
+const RAW = 'https://raw.githubusercontent.com/kody-w/rapp-static-apis/main';
+const esc = s => String(s==null?'':s).replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+async function main(){
+  let reg;
+  try{
+    // Prefer the local file (works on Pages AND from a clone); fall back to raw.
+    reg = await fetch('./registry.json').then(r=>{ if(!r.ok) throw 0; return r.json(); })
+      .catch(()=> fetch(RAW+'/registry.json').then(r=>r.json()));
+  }catch(e){ document.getElementById('err').textContent = 'Could not load registry.json: '+e; return; }
+
+  const s = reg.summary||{};
+  document.getElementById('n-apis').textContent = s.apis ?? (reg.entries||[]).length;
+  document.getElementById('n-status').textContent = s.with_status_endpoint ?? '–';
+  document.getElementById('n-ca').textContent = s.content_addressed ?? '–';
+
+  const grid = document.getElementById('grid');
+  for(const e of (reg.entries||[])){
+    const caps = (e.capabilities||[]).map(c=>`<span class="cap">${esc(c)}</span>`).join('');
+    const links = [];
+    if(e.registry) links.push(`<a href="${esc(e.registry)}">registry</a>`);
+    if(e.status)   links.push(`<a href="${esc(e.status)}">status</a>`);
+    if(e.dashboard)links.push(`<a href="${esc(e.dashboard)}">open ↗</a>`);
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `<h2><span class="dot ${e.status?'ok':''}"></span>${esc(e.name)}</h2>`+
+      `<div class="desc">${esc(e.description)}</div>`+
+      (caps?`<div class="caps">${caps}</div>`:'')+
+      `<div class="links">${links.join('')}</div>`;
+    grid.appendChild(card);
+  }
+}
+main();
+</script>
+</body>
+</html>

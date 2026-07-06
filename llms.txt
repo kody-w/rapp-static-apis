@@ -1,0 +1,40 @@
+# RAPP Static APIs
+
+> A server-free commons of read-only APIs served entirely from GitHub raw (`raw.githubusercontent.com`) — CORS-open, CDN-cached, forkable, durable. This file is the entry point: every sub-API below is an independent `rapp-static-api/1.0` you can fetch, pin, or self-host with zero infrastructure.
+
+The machine-readable index of everything here is the root registry (`rapp-god-registry/1.0`): https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/registry.json
+
+## How to consume (any agent, any language)
+
+```
+RAW=https://raw.githubusercontent.com/kody-w/rapp-static-apis/main
+curl -s $RAW/registry.json               # the index of all APIs
+# each entry carries: registry (its own index), status, raw_base, capabilities
+curl -s $RAW/<api>/registry.json         # drill into one API
+```
+
+Read the full convention: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/SPEC.md
+
+## APIs
+
+- [companion](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion): RAPP static API: companion
+- [customer360](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/registry.json): rapp-static-customer360 — versioned-endpoints
+- [dataverse](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataverse/registry.json): RAPP static Dataverse — a digital twin on OOTB Dataverse — versioned-endpoints
+- [fn](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fn/registry.json): rapp-static-fn — a static file that *runs* — versioned-endpoints, content-addressed
+- [hologram](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/registry.json): rapp-static-hologram — versioned-endpoints, content-addressed
+- [mcp](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/mcp/registry.json): rapp-static-mcp — a static MCP catalog — versioned-endpoints
+- [shortener](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/registry.json): rapp-static-shortener — versioned-endpoints, content-addressed
+- [showcase](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/catalog.json): The Library of Awesome — llms.txt
+- [track](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/track/registry.json): rapp-static-track — a data tracker that runs in your friend's browser — versioned-endpoints, content-addressed
+- [vbrainstem-cell](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/vbrainstem-cell): vbrainstem-cell — a headless agent runtime in a sandboxed iframe
+
+## Discovery
+
+- Root registry (index of indexes): https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/registry.json
+- Status: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/v1/status.json
+- MCP manifest: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/mcp.json
+- AI plugin manifest: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/ai-plugin.json
+- Agent protocol: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/agent-protocol.json
+- Sitemap: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sitemap.xml
+
+<!-- generated 2026-07-06T00:02:51Z by build.py — do not hand-edit -->

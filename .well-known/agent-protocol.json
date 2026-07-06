@@ -1,0 +1,48 @@
+{
+  "schema": "rapp-god-registry-agent-protocol/1.0",
+  "name": "rapp-static-apis",
+  "base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main",
+  "generated": "2026-07-06T00:03:27Z",
+  "actions": [
+    {
+      "name": "list_apis",
+      "method": "GET",
+      "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/registry.json",
+      "description": "Return the index of every API in the commons.",
+      "input": {},
+      "auth": "none"
+    },
+    {
+      "name": "get_api",
+      "method": "GET",
+      "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/{api}/registry.json",
+      "description": "Return one API's own registry/index.",
+      "input": {
+        "api": {
+          "type": "string",
+          "enum": [
+            "companion",
+            "customer360",
+            "dataverse",
+            "fn",
+            "hologram",
+            "mcp",
+            "shortener",
+            "showcase",
+            "track",
+            "vbrainstem-cell"
+          ]
+        }
+      },
+      "auth": "none"
+    },
+    {
+      "name": "get_status",
+      "method": "GET",
+      "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/v1/status.json",
+      "description": "Return commons-wide status and API count.",
+      "input": {},
+      "auth": "none"
+    }
+  ]
+}

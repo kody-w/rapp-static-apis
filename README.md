@@ -43,6 +43,29 @@ Enable GitHub Pages, and your API is live at
 `https://<owner>.github.io/<repo>/` with raw endpoints under
 `https://raw.githubusercontent.com/<owner>/<repo>/main/`.
 
+## Discover the whole commons (one URL)
+
+This repo now ships a **root discovery spine** — an index-of-indexes so any agent or crawler can find
+every sub-API from a single fetch, no server:
+
+```bash
+RAW=https://raw.githubusercontent.com/kody-w/rapp-static-apis/main
+curl -s $RAW/registry.json          # rapp-god-registry/1.0 — index of every sub-API
+```
+
+| Surface | URL |
+|---------|-----|
+| Root registry (index of indexes) | [`/registry.json`](./registry.json) |
+| Agent entry point | [`/llms.txt`](./llms.txt) |
+| MCP manifest | [`/.well-known/mcp.json`](./.well-known/mcp.json) |
+| AI-plugin manifest | [`/.well-known/ai-plugin.json`](./.well-known/ai-plugin.json) |
+| Agent protocol | [`/.well-known/agent-protocol.json`](./.well-known/agent-protocol.json) |
+| Sitemap | [`/sitemap.xml`](./sitemap.xml) |
+| Live dashboard | [`index.html`](https://kody-w.github.io/rapp-static-apis/) |
+
+Regenerate it all with the one build step: `python3 build.py` (idempotent). Score conformance with
+`python3 check.py`.
+
 ## Reference implementations
 
 | Repo | Variant |

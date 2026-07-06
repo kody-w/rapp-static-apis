@@ -1,0 +1,19 @@
+{
+  "schema": "rapp-god-registry-status/1.0",
+  "name": "rapp-static-apis",
+  "generated": "2026-07-06T00:02:09Z",
+  "ok": true,
+  "apis": 10,
+  "apis_list": [
+    "companion",
+    "customer360",
+    "dataverse",
+    "fn",
+    "hologram",
+    "mcp",
+    "shortener",
+    "showcase",
+    "track",
+    "vbrainstem-cell"
+  ]
+}
