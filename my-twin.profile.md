@@ -110,6 +110,24 @@ cryptographic and architectural, never contractual:
   pairings only — no timestamps finer than needed, no locations beyond what a cart already bakes).
   A years-long public history must not reconstruct a life. When in doubt, a datum is soul.
 
+**The street rule:** the public half is walking across the street — nothing sensitive, ALWAYS.
+The bones are safe to publish precisely because they are **semantically inert without the local
+key**: they render a body, but meaning — memories, relationships, depth of voice — exists only
+where the private half animates them on device. The test for any datum: if a stranger could make
+sense of it without your key, it may be public; if it needs your key to mean anything, it never
+leaves.
+
+**The trainer-avatar model (proven at planetary scale):** the privacy architecture this section
+demands has already run for a decade with a billion players — Pokémon Go. RAPP swaps the trainer
+avatar for YOUR TWIN. The mapping is canon for every public social surface (rapp-go Phase 3+):
+trainer codename + avatar → the twin's bones (body/outfit/card, never identity); account + precise
+GPS → the soul (on device, never shown); PokéStops/gyms → POI commons where bones-only interaction
+happens; friend codes by QR → the §5 Kite handshake; trading (bilateral, consented, recorded) →
+§6 splicing with lineage; raid co-presence → encounters (ephemeral, nothing exchanged beyond
+bones). Public social play is unlocked respectfully because the only thing ever on the street is
+the avatar — that is what we want to unlock publicly, and they proved it ships.
+
+
 ## §14 · The quarantine law (signature ≠ safety)
 Signature verification proves WHO sent a frame — never that it is safe. Therefore: **ALL
 foreign-sourced experience** — delegation reports (§7), captured variants (§6), received frames,
