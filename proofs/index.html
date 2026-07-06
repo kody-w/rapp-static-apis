@@ -1,0 +1,195 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Twin Proofs — press the button, the verdict shows here</title>
+<meta name="description" content="Every claim about the twin is a card with a button that runs the actual proof live in your own browser and renders a verdict. No trust required; your machine is the judge.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../showcase/lib/showcase.css">
+<link rel="stylesheet" href="proofs.css">
+</head><body>
+<div class="wrap">
+
+  <header class="site">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+      <div>
+        <h1>🔬 Twin Proofs</h1>
+        <p class="sub">Every claim is a card with a button. Press it — the proof runs <b>live in your own browser</b> and the verdict shows here. Links are still telling; this <em>shows</em>. No trust required — your machine is the judge.</p>
+      </div>
+      <button id="theme" class="btn ghost" title="toggle theme">◐</button>
+    </div>
+    <p class="lede">The moat memo says <strong>show, don't tell</strong>. A stranger will call every unproved claim fake — correctly. So each capability below ships with a door you can open: a button that fetches the real bones from the live twin repo, recomputes the hashes and signatures on <em>your</em> hardware, and renders what it found. Where a browser can't, there's a one-liner you can run yourself.</p>
+    <div class="legend">
+      <span><b>PROVES</b> live over the network</span>
+      <span><b>PROVES</b> offline, zero network</span>
+      <span data-ed-badge>Ed25519 in WebCrypto: …</span>
+    </div>
+    <div class="meta-row">
+      <a class="pill" href="https://kody-w.github.io/twin/" target="_blank" rel="noopener">the live twin →</a>
+      <a class="pill" href="https://kody-w.github.io/twin/feed.xml" target="_blank" rel="noopener">the pulse (feed.xml) →</a>
+      <a class="pill" href="../my-twin.profile.md">the canon · §17 the proof rule →</a>
+      <a class="pill" href="../showcase/">the showcase →</a>
+    </div>
+  </header>
+
+  <!-- ── CARD 1 ─────────────────────────────────────────────────────────── -->
+  <section class="panel proof" id="card1">
+    <div class="claimno">Proof 01 · the pulse · live</div>
+    <h2 class="claim">“The pulse is real.”</h2>
+    <p class="say">The public twin broadcasts as a static feed of signed, content-addressed frames — no server, just files. This button fetches <code>feed.xml</code> and the latest frame from the live repo and reads its sha, kind and timestamp back to you.</p>
+    <div class="controls"><button class="run">▶ run it live</button><span class="hint">fetches feed.xml + frames/HEAD + the latest frame</span></div>
+    <div class="verdict"><span class="v wait">idle</span></div>
+    <div class="out"><ul class="steps"></ul><div class="render"></div></div>
+    <details class="runself"><summary>run it yourself</summary>
+      <div class="cap">the whole pulse is just files — curl them:</div>
+      <button class="copy">copy</button><pre>curl -s https://kody-w.github.io/twin/feed.xml | head -20
+curl -s https://kody-w.github.io/twin/frames/HEAD</pre>
+    </details>
+  </section>
+
+  <!-- ── CARD 2 ─────────────────────────────────────────────────────────── -->
+  <section class="panel proof" id="card2">
+    <div class="claimno">Proof 02 · the signature · live</div>
+    <h2 class="claim">“The signature is real.”</h2>
+    <p class="say">Every frame is signed by the on-device twin with Ed25519; the verify key ships in the public bones. This button imports that key with WebCrypto and verifies the genesis frame's signature over the exact canonical bytes — the same layout as the repo's <code>tools/verify-frame.mjs</code>. <span data-ed-badge></span></p>
+    <div class="controls"><button class="run">▶ verify in my browser</button><span class="hint">card.json pubkey + the genesis frame → Ed25519.verify</span></div>
+    <div class="verdict"><span class="v wait">idle</span></div>
+    <div class="out"><ul class="steps"></ul><div class="render"></div></div>
+    <details class="runself"><summary>run it yourself</summary>
+      <div class="cap">self-contained — fetch, recompute the sha, verify the signature (Node ≥ 18):</div>
+      <button class="copy">copy</button><pre>node --input-type=module -e '
+import crypto from "node:crypto";
+const B="https://kody-w.github.io/twin";
+const f=await(await fetch(B+"/frames/0-f2b0bbd3.json")).json();
+const c=await(await fetch(B+"/card.json")).json();
+const can=v=&gt;v===null||typeof v!=="object"?JSON.stringify(v):Array.isArray(v)?"["+v.map(can).join(",")+"]":"{"+Object.keys(v).sort().map(k=&gt;JSON.stringify(k)+":"+can(v[k])).join(",")+"}";
+const {sha,sig,...core}=f, m=can(core);
+console.log("integrity", crypto.createHash("sha256").update(m).digest("hex")===sha);
+console.log("authenticity", crypto.verify(null,Buffer.from(m),crypto.createPublicKey(c.twin.pubkey.pem),Buffer.from(sig,"base64")));
+'</pre>
+      <div class="cap">…or the exact repo tool, byte-for-byte:</div>
+      <button class="copy">copy</button><pre>git clone --depth 1 https://github.com/kody-w/twin
+node twin/tools/verify-frame.mjs twin/frames/0-f2b0bbd3.json   # prints OK</pre>
+    </details>
+  </section>
+
+  <!-- ── CARD 3 ─────────────────────────────────────────────────────────── -->
+  <section class="panel proof" id="card3">
+    <div class="claimno">Proof 03 · tamper · live + offline</div>
+    <h2 class="claim">“Tamper dies.”</h2>
+    <p class="say">Take the verified frame, flip a single byte, and re-check. The clean frame passes; the tampered one is rejected — its content-address no longer matches, and the signature falls with it. Both verdicts render side by side.</p>
+    <div class="controls"><button class="run">▶ flip one byte</button><span class="hint">recompute sha + re-verify signature, clean vs tampered</span></div>
+    <div class="verdict"><span class="v wait">idle</span></div>
+    <div class="out"><ul class="steps"></ul><div class="render"></div></div>
+    <details class="runself"><summary>run it yourself</summary>
+      <div class="cap">flip one byte of the bones and watch the hash refuse it:</div>
+      <button class="copy">copy</button><pre>node --input-type=module -e '
+import crypto from "node:crypto";
+const f=await(await fetch("https://kody-w.github.io/twin/frames/0-f2b0bbd3.json")).json();
+const can=v=&gt;v===null||typeof v!=="object"?JSON.stringify(v):Array.isArray(v)?"["+v.map(can).join(",")+"]":"{"+Object.keys(v).sort().map(k=&gt;JSON.stringify(k)+":"+can(v[k])).join(",")+"}";
+f.cart.bones["soul.md"]=f.cart.bones["soul.md"].slice(0,-1)+"b";  // flip one byte
+const {sha,sig,...core}=f;
+console.log("recomputed==claimed?", crypto.createHash("sha256").update(can(core)).digest("hex")===sha, "-> tamper rejected");
+'</pre>
+    </details>
+  </section>
+
+  <!-- ── CARD 4 ─────────────────────────────────────────────────────────── -->
+  <section class="panel proof" id="card4">
+    <div class="claimno">Proof 04 · identity · offline</div>
+    <h2 class="claim">“The hash is the identity.”</h2>
+    <p class="say">Nothing assigns a twin frame or a hologram its name — the name <em>is</em> the sha of its canonical content. This button re-derives both, in your browser, and compares to the claimed ids. It needs no network: the bytes ship in the page.</p>
+    <div class="controls"><button class="run">▶ re-derive the ids</button><span class="hint">genomeId over a cartridge + sha over a pulse frame</span></div>
+    <div class="verdict"><span class="v wait">idle</span></div>
+    <div class="out"><ul class="steps"></ul><div class="render"></div></div>
+    <details class="runself"><summary>run it yourself</summary>
+      <div class="cap">the content hashes to its own id:</div>
+      <button class="copy">copy</button><pre>node --input-type=module -e '
+import crypto from "node:crypto";
+const f=await(await fetch("https://kody-w.github.io/twin/frames/0-f2b0bbd3.json")).json();
+const can=v=&gt;v===null||typeof v!=="object"?JSON.stringify(v):Array.isArray(v)?"["+v.map(can).join(",")+"]":"{"+Object.keys(v).sort().map(k=&gt;JSON.stringify(k)+":"+can(v[k])).join(",")+"}";
+const {sha,sig,...core}=f;
+console.log(crypto.createHash("sha256").update(can(core)).digest("hex")===sha);  // true: the hash IS the id
+'</pre>
+    </details>
+  </section>
+
+  <!-- ── CARD 5 ─────────────────────────────────────────────────────────── -->
+  <section class="panel proof" id="card5">
+    <div class="claimno">Proof 05 · any door · live</div>
+    <h2 class="claim">“Any door works.”</h2>
+    <p class="say">Content-addressing means the host is disposable. This button fetches the <em>same</em> frame from GitHub Pages and from raw.githubusercontent.com, hashes both byte streams on your machine, and shows they are identical. Kill any door; the content survives.</p>
+    <div class="controls"><button class="run">▶ knock on both doors</button><span class="hint">fetch from two hosts, compare sha-256 of the bytes</span></div>
+    <div class="verdict"><span class="v wait">idle</span></div>
+    <div class="out"><ul class="steps"></ul><div class="render"></div></div>
+    <details class="runself"><summary>run it yourself</summary>
+      <div class="cap">two hosts, one content:</div>
+      <button class="copy">copy</button><pre>curl -s https://kody-w.github.io/twin/frames/0-f2b0bbd3.json | shasum -a 256
+curl -s https://raw.githubusercontent.com/kody-w/twin/main/frames/0-f2b0bbd3.json | shasum -a 256</pre>
+    </details>
+  </section>
+
+  <!-- ── CARD 6 ─────────────────────────────────────────────────────────── -->
+  <section class="panel proof" id="card6">
+    <div class="claimno">Proof 06 · inert bones · offline</div>
+    <h2 class="claim">“Bones are inert.”</h2>
+    <p class="say">The public half is safe to publish because it is semantically inert without the private key. This button runs the real <code>exportBones()</code> (imported from <code>companion/twin.mjs</code>) on a full local twin — the public genome renders a body, while memories, agents, chat and keys simply <em>do not exist</em> in the output.</p>
+    <div class="controls"><button class="run">▶ split the halves</button><span class="hint">exportBones(fullCart) → public body, sealed soul absent</span></div>
+    <div class="verdict"><span class="v wait">idle</span></div>
+    <div class="out"><ul class="steps"></ul><div class="render"></div></div>
+    <details class="runself"><summary>run it yourself</summary>
+      <div class="cap">from the repo root — the soul never survives the split:</div>
+      <button class="copy">copy</button><pre>node --input-type=module -e '
+import { exportBones } from "./companion/twin.mjs";
+const { cart } = exportBones({ id:"x", title:"t", genome:{layers:[]}, sig:"", memory:["secret"], agents:[{}] }, "twin-1");
+console.log("mem in bones?", "memory" in cart, "| agents in bones?", "agents" in cart);  // false false
+'</pre>
+    </details>
+  </section>
+
+  <!-- ── CARD 7 ─────────────────────────────────────────────────────────── -->
+  <section class="panel proof" id="card7">
+    <div class="claimno">Proof 07 · the person survives · same-repo</div>
+    <h2 class="claim">“The person can't be polished away.”</h2>
+    <p class="say">The autonomous polish loop gates on fidelity to the human, not an LLM's taste. This button reads a <em>committed</em> sabotage run from this repo — a pass that corrupted a sacred id — and shows the judge's real verdicts: the fidelity gate caught it, every cycle was rejected, and the original was kept untouched.</p>
+    <div class="controls"><button class="run">▶ read the judge log</button><span class="hint">fetches tumbler/runs/…/log.jsonl (same repo)</span></div>
+    <div class="verdict"><span class="v wait">idle</span></div>
+    <div class="out"><ul class="steps"></ul><div class="render"></div></div>
+    <details class="runself"><summary>run it yourself</summary>
+      <div class="cap">the real verdicts are committed to this repo:</div>
+      <button class="copy">copy</button><pre>tail -1 tumbler/runs/2026-07-06T02-30-19-522Z-fd2e/log.jsonl | python3 -m json.tool | grep -E 'verdict|fidelity|regressions'
+cat tumbler/runs/2026-07-06T02-30-19-522Z-fd2e/summary.json</pre>
+    </details>
+  </section>
+
+  <!-- ── CARD 8 ─────────────────────────────────────────────────────────── -->
+  <section class="panel proof" id="card8">
+    <div class="claimno">Proof 08 · determinism · offline</div>
+    <h2 class="claim">“The moon is honest.”</h2>
+    <p class="say">Same moment in, same organism out — forever. This button imports <code>momentToGenome</code> and <code>genomeId</code> from <code>rapp-go/lib/genome.js</code> and runs a fixed moment through them twice. Identical ids, live, on your device. Determinism is what makes the hash an identity.</p>
+    <div class="controls"><button class="run">▶ run it twice</button><span class="hint">momentToGenome + genomeId ×2 on one fixed moment</span></div>
+    <div class="verdict"><span class="v wait">idle</span></div>
+    <div class="out"><ul class="steps"></ul><div class="render"></div></div>
+    <details class="runself"><summary>run it yourself</summary>
+      <div class="cap">from the repo root — two runs, one id:</div>
+      <button class="copy">copy</button><pre>node --input-type=module -e '
+import { momentToGenome, genomeId } from "./rapp-go/lib/genome.js";
+const m={temp:14,weathercode:3,wind:12,isDay:1,illuminated:82,tide:{kind:"spring",strength:0.6}};
+console.log(await genomeId(momentToGenome(m)) === await genomeId(momentToGenome(m)));  // true
+'</pre>
+    </details>
+  </section>
+
+  <footer class="site">
+    <p>Eight claims, eight doors. The reader's machine is the judge; trust is never requested, only made unnecessary — <a href="../my-twin.profile.md">§17, the proof rule</a>. Fetches touch only <code>kody-w.github.io</code> and <code>raw.githubusercontent.com</code>; everything else proves offline.</p>
+    <div class="foot-links">
+      <a class="pill" href="../SPEC.md">the spec →</a>
+      <a class="pill" href="../my-twin.profile.md">essays · the canon →</a>
+      <a class="pill" href="https://github.com/kody-w/twin/blob/main/TWIN-LICENSE.md" target="_blank" rel="noopener">TWIN LICENSE →</a>
+      <a class="pill" href="../PATENT-PLEDGE.md">patent pledge →</a>
+      <a class="pill" href="../LICENSING.md">licensing map →</a>
+    </div>
+    <p class="hostnote">Part of the RAPP ecosystem · zero deps, no CDN, no build step · welds the showcase narrator, genetics.mjs, twin.mjs and rapp-go/genome.js.</p>
+  </footer>
+
+</div>
+<script type="module" src="proofs.mjs"></script>
+</body></html>

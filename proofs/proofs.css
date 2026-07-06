@@ -1,0 +1,76 @@
+/* proofs.css — proof-specific additions layered on ../showcase/lib/showcase.css.
+   Reuses every showcase token (--good/--bad/--accent/--warn/--panel/--mono …) so
+   the visual language and dark/light theming are identical. Only the proof-card
+   organs (claim, verdict badge, side-by-side pair, run-it-yourself) live here. */
+
+.lede{color:var(--muted);font-size:16px;max-width:66ch;margin:14px 0 6px}
+.lede strong{color:var(--ink)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin:14px 0 26px;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+.legend b{color:var(--muted);font-weight:600}
+
+.proof{margin:16px 0}
+.proof .claimno{font-family:var(--mono);font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--faint)}
+.proof h2.claim{margin:4px 0 4px;font-size:20px;letter-spacing:-.3px;color:var(--ink);text-transform:none}
+.proof .say{color:var(--muted);font-size:14.5px;margin:0 0 14px;max-width:70ch}
+.proof .say code{font-size:.82em}
+
+.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:4px 0 12px}
+.controls .hint{font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+
+/* the verdict badge — the "verdict shows here" surface */
+.verdict{display:flex;align-items:center;gap:12px;min-height:30px;margin:2px 0 10px}
+.verdict .v{font-family:var(--mono);font-weight:700;font-size:13px;letter-spacing:.5px;
+  padding:5px 12px;border-radius:999px;border:1px solid var(--line-2);color:var(--muted);background:var(--panel-2);white-space:nowrap}
+.verdict .v.ok{color:var(--good);border-color:color-mix(in oklab,var(--good),transparent 45%);background:color-mix(in oklab,var(--good),transparent 88%)}
+.verdict .v.bad{color:var(--bad);border-color:color-mix(in oklab,var(--bad),transparent 45%);background:color-mix(in oklab,var(--bad),transparent 88%)}
+.verdict .v.info{color:var(--accent);border-color:color-mix(in oklab,var(--accent),transparent 45%);background:color-mix(in oklab,var(--accent),transparent 90%)}
+.verdict .v.warn{color:var(--warn);border-color:color-mix(in oklab,var(--warn),transparent 45%);background:color-mix(in oklab,var(--warn),transparent 88%)}
+.verdict .v.wait{color:var(--faint)}
+.verdict .v.pulse{animation:vpulse 1.1s ease-in-out infinite}
+@keyframes vpulse{50%{opacity:.55}}
+.verdict .vsub{font-size:13px;color:var(--muted)}
+.verdict .vsub .mono{font-size:12px}
+
+/* narrated steps live-out (reuses .steps from showcase.css) */
+.out{margin-top:10px}
+.out .steps{margin:0}
+.kv{font-family:var(--mono);font-size:12.5px;line-height:1.7;margin:8px 0 0}
+.kv .k{color:var(--faint);display:inline-block;min-width:74px}
+.kv .val{color:var(--ink);word-break:break-all}
+.kv .val.hash{color:var(--accent-2)}
+
+/* side-by-side (card 3 clean/tampered, card 5 two doors) */
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+@media(max-width:560px){.pair{grid-template-columns:1fr}}
+.slab{border:1px solid var(--line);border-radius:11px;background:var(--panel-2);padding:12px}
+.slab.ok{border-color:color-mix(in oklab,var(--good),transparent 55%)}
+.slab.bad{border-color:color-mix(in oklab,var(--bad),transparent 55%)}
+.slab h4{margin:0 0 6px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.slab h4 .mark{font-weight:700}
+.slab.ok h4 .mark{color:var(--good)}.slab.bad h4 .mark{color:var(--bad)}
+.slab .line{font-family:var(--mono);font-size:11.5px;color:var(--faint);word-break:break-all;line-height:1.65}
+.slab .line b{color:var(--ink);font-weight:600}
+
+/* card 6 body render */
+.bodybox{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.bodybox canvas{width:120px;height:120px;border:1px solid var(--line);border-radius:12px;background:radial-gradient(circle at 50% 40%,#0b1420,#05080e)}
+.checklist{list-style:none;margin:0;padding:0;font-family:var(--mono);font-size:12.5px}
+.checklist li{padding:3px 0;color:var(--muted)}
+.checklist li .m{display:inline-block;min-width:20px;font-weight:700}
+.checklist li.present .m{color:var(--good)}
+.checklist li.absent .m{color:var(--good)}
+.checklist li.leak .m{color:var(--bad)}
+
+/* run-it-yourself */
+.runself{margin-top:12px;border-top:1px solid var(--line);padding-top:8px}
+.runself>summary{cursor:pointer;font-family:var(--mono);font-size:12px;color:var(--muted);list-style:none}
+.runself>summary::-webkit-details-marker{display:none}
+.runself>summary::before{content:"▸ ";color:var(--faint)}
+.runself[open]>summary::before{content:"▾ "}
+.runself pre{margin:8px 0 4px;position:relative}
+.runself .cap{font-family:var(--mono);font-size:11px;color:var(--faint);margin:8px 0 2px}
+.copy{position:absolute;top:6px;right:6px;font-family:var(--mono);font-size:11px;cursor:pointer;background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:7px;padding:2px 8px}
+.copy:hover{color:var(--ink)}
+
+.hostnote{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:10px}
+.foot-links{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 2px}
