@@ -161,6 +161,20 @@ only made unnecessary. The proofs surface (`/proofs/`) is the living index of ev
 its proof; a claim missing from it is a bug.
 
 
+## §18 · The twin is a model; the app is its trainer
+Every surface in this ecosystem is a calibration instrument. The twin is best understood as a
+model under continuous training where **every user choice is a signal**: the starter inputs
+(image, time, bond, state of mind) are its initialization; conversations, catches, splices,
+shares, and care moments are training examples; a skip or a dismissal is a weaker signal but
+still signal; the frame chain is the training log — append-only, auditable, revertible (revert =
+checkpoint restore). Fidelity (§10/§16) is the loss function, measured against the human corpus,
+never a model prior. The tumbler is offline training with the OG dimension as ground truth.
+Vitality (care frames) calibrates on behavior, not just words. Design rule for every future
+feature brief: state explicitly WHAT SIGNAL it captures, WHERE it trains the twin (which store,
+which frame kind), and which side of the §13 line the signal lives on. Signals are soul by
+default; only their bones-safe derivatives may ever surface.
+
+
 ## Moat statement
 Every other AI stack ships one half — the model. RAPP ships the **whole twin**: the sealed on-device
 being plus the signed, content-addressed, planet-syncable public bones, with fidelity autonomously
