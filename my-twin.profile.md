@@ -150,6 +150,17 @@ share model priors and will otherwise converge the twin toward the model, not th
 dimension is immutable and permanent; every accepted frame proves fidelity against it; the ratchet
 is slow by default.
 
+## §17 · The proof rule (extraordinary claims require extraordinary proof)
+Everything unproved and undemoable will be called fake — correctly. Therefore: **no public claim
+without a runnable proof.** Every capability this canon asserts must ship with a door a stranger
+can open — a button that runs the actual verification in their own browser (the showcase
+pattern: press the button, the verdict shows), a committed log of a real run, or a one-liner
+they can execute themselves. Claims that cannot yet be demonstrated are published only as intent,
+visibly marked (🔨), never as fact. The reader's machine is the judge; trust is never requested,
+only made unnecessary. The proofs surface (`/proofs/`) is the living index of every claim and
+its proof; a claim missing from it is a bug.
+
+
 ## Moat statement
 Every other AI stack ships one half — the model. RAPP ships the **whole twin**: the sealed on-device
 being plus the signed, content-addressed, planet-syncable public bones, with fidelity autonomously
