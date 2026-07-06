@@ -14,12 +14,26 @@
 //   const field = new SpawnField({ ttlMs, cellPrecision, radiusM, maxVisible, spawnDensity });
 //   const spawns = await field.update({lat,lng}, { nowMs, poiAnchors });
 //   field.toContext(spawn) -> frozen EncounterContext {cart,id,rarity,source,anchor,weather,moon,catchHint}
-//   Each spawn carries .drawMarker(ctx,screen,now,map) drawing its OWN thumbnail.
+//   Each spawn carries .drawMarker(ctx,screen,now,map) — a WALKING 3D billboard.
+//
+// HOLO-FAUNA (holofauna-brief): a spawn is no longer a flat 2D blob. Its 3D species is
+// derived (never mutated) via fauna.speciesOf; its billboard frames are snaps of that
+// live model (fauna.spriteAtlas — the §19 one-body law); and it WALKS a deterministic
+// path fauna.faunaPath(seed,t) within ~20m of its anchor. The old blob painter is gone.
 
 import { momentToGenome, genomeId, geohashEncode, geohashDecode, mkRng, moonPhase, tideFromPhase, wmoWord, clamp } from './lib/genome.js';
 import { fetchSky } from './lib/weather.js';
+import { spriteAtlas, faunaPath, speciesOf } from './lib/fauna.js';
 
 const TAU = Math.PI * 2;
+
+// Shared logical clock for the walking billboards. index.html sets base = now() at boot
+// (FIXED_T under ?t=/?demo=1, else Date.now()) so pos(t)=f(seed,t) stays reproducible
+// AND, live, absolute-time-shared: two players in the same cell in the same minute
+// compute the SAME spot mid-step. drawMarker receives rAF's performance.now(); we lift it
+// onto this logical base so the wander advances smoothly without leaking the render clock.
+let CLOCK = { base: Date.now(), perf0: (typeof performance !== 'undefined' ? performance.now() : 0) };
+export function setFaunaClock(baseMs) { CLOCK = { base: baseMs, perf0: (typeof performance !== 'undefined' ? performance.now() : 0) }; }
 const RARITY_ORDER = ['common', 'uncommon', 'rare', 'storm'];
 
 // Quiet aura + stub-catch base rate per tier. Base rate is honest: a rarer sky is
@@ -36,7 +50,6 @@ function hexToRgb(h) { h = String(h).replace('#', ''); if (h.length === 3) h = h
 function rgbToHex(r, g, b) { const c = x => Math.max(0, Math.min(255, Math.round(x))).toString(16).padStart(2, '0'); return '#' + c(r) + c(g) + c(b); }
 function mixHex(a, b, t) { const A = hexToRgb(a), B = hexToRgb(b); return rgbToHex(A.r + (B.r - A.r) * t, A.g + (B.g - A.g) * t, A.b + (B.b - A.b) * t); }
 function hexA(hex, a) { const { r, g, b } = hexToRgb(hex); return `rgba(${r},${g},${b},${a})`; }
-function paletteSample(pal, t) { if (!pal || !pal.length) return '#4488ff'; if (pal.length === 1) return pal[0]; const x = clamp(t, 0, 1) * (pal.length - 1); const i = Math.floor(x), f = x - i; return mixHex(pal[i], pal[Math.min(i + 1, pal.length - 1)], f); }
 function hueRotate(hex, deg) {
   let { r, g, b } = hexToRgb(hex); r /= 255; g /= 255; b /= 255;
   const max = Math.max(r, g, b), min = Math.min(r, g, b); let h, s, l = (max + min) / 2;
@@ -118,81 +131,6 @@ function moonRarity(moon, rng) {
 function liveFrom(w) { return `live ${w.temp}\u00b0C \u00b7 code ${w.weathercode} \u00b7 wind ${Math.round(w.wind)} \u00b7 ${w.isDay ? 'day' : 'night'}`; }
 function moonFrom(moon, tideText) { return 'moon \u00b7 ' + moon.illuminated + ' \u00b7 ' + moon.name + ' \u00b7 ' + tideText; }
 function tideCaption(tide) { return !tide ? '' : (tide.kind === 'spring' ? 'spring tide \u2014 the sea pulls hardest' : 'neap tide \u2014 the sea slackens to a hush'); }
-
-// ── the creature miniature (a live 2D render of THIS creature) ──────────────────
-// Reads the genome the way player.html does (shape/palette/glow/pattern/segments/
-// motion) and paints a compact silhouette — the only saturated thing on the muted
-// map. One shared frame painter: markers prerender a static frame to a thumbnail;
-// the encounter panel calls it every rAF so the caught sky breathes and pulses.
-export function paintCreatureFrame(ctx, genome, cx, cy, R, now = 0) {
-  const s = roleMap(genome);
-  const form = s.form || {}, surface = s.surface || {}, motion = s.motion || {};
-  const pal = (surface.palette && surface.palette.length) ? surface.palette : ['#4488ff', '#2255cc'];
-  const glowBase = surface.glow == null ? 0.4 : surface.glow;
-  const shape = form.shape || 'blob';
-  const segments = clamp(Math.round(form.segments || 6), 3, 14);
-  const pattern = surface.pattern || 'solid';
-
-  // motion → life (same vocabulary as the hologram player: breathe ~0.65Hz, pulse)
-  const t = now / 1000;
-  const breathe = Math.sin(t * TAU * 0.65) * (motion.breathe || 0);
-  const pulseAmt = motion.pulse || 0;
-  const pulse = pulseAmt * (0.5 + 0.5 * Math.sin(t * TAU * Math.max(pulseAmt, 0.2) * 1.3));
-  const glow = clamp(glowBase + pulse * 0.3, 0, 1);
-  const spin = t * (motion.drift || 0) * 0.25;
-  R = R * (1 + breathe * 0.1);
-
-  // soft birth glow
-  const halo = ctx.createRadialGradient(cx, cy, 1, cx, cy, R * 1.9);
-  halo.addColorStop(0, hexA(pal[0], 0.24 + glow * 0.42));
-  halo.addColorStop(1, hexA(pal[0], 0));
-  ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(cx, cy, R * 1.9, 0, TAU); ctx.fill();
-
-  const bodyFill = () => { const g = ctx.createRadialGradient(cx - R * 0.3, cy - R * 0.3, R * 0.1, cx, cy, R); g.addColorStop(0, paletteSample(pal, 0.15)); g.addColorStop(0.6, paletteSample(pal, 0.55)); g.addColorStop(1, paletteSample(pal, 0.9)); return g; };
-
-  ctx.save();
-  if (shape === 'star') {
-    const pts = Math.max(5, segments); ctx.beginPath();
-    for (let i = 0; i < pts * 2; i++) { const a = (i / (pts * 2)) * TAU - Math.PI / 2 + spin; const rr = i % 2 ? R * 0.46 : R; ctx[i ? 'lineTo' : 'moveTo'](cx + Math.cos(a) * rr, cy + Math.sin(a) * rr); }
-    ctx.closePath(); ctx.fillStyle = bodyFill(); ctx.fill();
-  } else if (shape === 'ring') {
-    ctx.lineWidth = R * 0.42; ctx.strokeStyle = bodyFill();
-    ctx.beginPath(); ctx.arc(cx, cy, R * 0.74, 0, TAU); ctx.stroke();
-  } else if (shape === 'segment') {
-    const n = Math.max(3, Math.min(6, segments));
-    for (let i = 0; i < n; i++) { const f = n === 1 ? 0.5 : i / (n - 1); const x = cx + (f - 0.5) * R * 1.5; const rr = R * (0.32 + 0.18 * Math.sin(f * Math.PI)); ctx.beginPath(); ctx.arc(x, cy, rr, 0, TAU); ctx.fillStyle = bodyFill(); ctx.fill(); }
-  } else { // blob — subtly lobed by segments
-    ctx.beginPath();
-    const lobes = clamp(segments, 3, 9);
-    for (let i = 0; i <= 48; i++) { const a = (i / 48) * TAU; const rr = R * (1 + 0.06 * Math.sin(a * lobes + spin)); ctx[i ? 'lineTo' : 'moveTo'](cx + Math.cos(a) * rr, cy + Math.sin(a) * rr); }
-    ctx.closePath(); ctx.fillStyle = bodyFill(); ctx.fill();
-  }
-  ctx.restore();
-
-  // pattern hints
-  ctx.save();
-  if (shape !== 'ring') { ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip(); }
-  if (pattern === 'spot') { ctx.fillStyle = hexA('#ffffff', 0.35); for (let i = 0; i < 5; i++) { const a = i / 5 * TAU + 0.6; ctx.beginPath(); ctx.arc(cx + Math.cos(a) * R * 0.45, cy + Math.sin(a) * R * 0.4, R * 0.13, 0, TAU); ctx.fill(); } }
-  else if (pattern === 'stripe') { ctx.strokeStyle = hexA(paletteSample(pal, 0.95), 0.5); ctx.lineWidth = R * 0.14; for (let x = -R; x <= R; x += R * 0.42) { ctx.beginPath(); ctx.moveTo(cx + x, cy - R); ctx.lineTo(cx + x + R * 0.5, cy + R); ctx.stroke(); } }
-  else if (pattern === 'glow') { const g2 = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 0.7); g2.addColorStop(0, hexA('#ffffff', 0.3 + glow * 0.3)); g2.addColorStop(1, hexA('#ffffff', 0)); ctx.fillStyle = g2; ctx.beginPath(); ctx.arc(cx, cy, R * 0.7, 0, TAU); ctx.fill(); }
-  ctx.restore();
-
-  // rim highlight (soft top-left key light, like the player's rig)
-  ctx.beginPath(); ctx.arc(cx - R * 0.28, cy - R * 0.3, R * 0.5, 0, TAU); const rim = ctx.createRadialGradient(cx - R * 0.28, cy - R * 0.3, 0, cx - R * 0.28, cy - R * 0.3, R * 0.5); rim.addColorStop(0, 'rgba(255,255,255,0.28)'); rim.addColorStop(1, 'rgba(255,255,255,0)'); ctx.fillStyle = rim; ctx.fill();
-}
-
-// Prerender a static thumbnail (one frame) to an offscreen canvas for map markers.
-export function renderCreatureThumb(genome, size = 64) {
-  if (typeof document === 'undefined') return null; // headless-safe (e.g. node)
-  const cv = document.createElement('canvas');
-  const dpr = Math.min((typeof window !== 'undefined' && window.devicePixelRatio) || 1, 2);
-  cv.width = size * dpr; cv.height = size * dpr;
-  const ctx = cv.getContext('2d'); ctx.scale(dpr, dpr);
-  const form = roleMap(genome).form || {};
-  const R = clamp(size * 0.30 * (0.85 + (form.body_r || 0.3)), size * 0.2, size * 0.42);
-  paintCreatureFrame(ctx, genome, size / 2, size / 2, R, 0);
-  return cv;
-}
 
 // ── the field ────────────────────────────────────────────────────────────────────
 export class SpawnField {
@@ -303,32 +241,59 @@ export class SpawnField {
   }
 }
 
-// A single spawn. Immutable creature; carries its own thumbnail + marker painter.
+// A single spawn — an immutable creature that WALKS the map as a living 3D billboard.
+// Its species is derived (never mutated) via fauna.speciesOf; its billboard frames are
+// snaps of that live model (fauna.spriteAtlas — the §19 one-body law, rendered once per
+// creature per session and cached); its position is fauna.faunaPath(seed,t) — a pure,
+// deterministic, shared-world wander within ~20m of its anchor.
 class Spawn {
   constructor(o) {
     Object.assign(this, o);
-    this.thumb = renderCreatureThumb(o.cart.genome, 72);
+    this.anchor = { lat: o.lat, lng: o.lng };     // spawn origin (immutable); this.lat/lng walk
+    this.species = speciesOf(o.cart);
+    this._atlas = null;                            // lazy: rendered once, then cached in fauna
+    this._marker = null;
     this._phase = mkRng(o.key)() * TAU;
     const rar = RARITY[o.rarity] || RARITY.common;
     this.rarityTier = rar.tier;
     const pal = (o.cart.genome.layers.find(l => l.role === 'surface') || {}).palette || [rar.color];
     this._aura = pal[0] || rar.color;
   }
-  // draw(ctx, screen, now, map) — the marker painter (each spawn draws ITS creature)
+  bindMarker(mk) { this._marker = mk; }            // so the walk can move the hit-test target
+  // drawMarker(ctx, screen, now, map) — the WALKING billboard. Advances the deterministic
+  // path on the shared logical clock, updates its marker + own lat/lng (so tap hit-testing
+  // AND proximity follow the creature), then blits the current gait frame from the atlas.
   drawMarker(ctx, s, now, map) {
+    const tMs = CLOCK.base + (now - CLOCK.perf0);
+    const path = faunaPath(this.key, this.anchor, tMs, this.species.genes);
+    this.lat = path.lat; this.lng = path.lng;
+    if (this._marker) { this._marker.lat = path.lat; this._marker.lng = path.lng; }
+
     const t = now / 1000;
     const breathe = 0.5 + 0.5 * Math.sin(t * 1.6 + this._phase);
     const auraR = 20 + breathe * 4 + (RARITY[this.rarity] || RARITY.common).aura;
-    const aura = ctx.createRadialGradient(s.x, s.y, 2, s.x, s.y, auraR);
+    // a soft grounded oval aura (the only saturated thing on the muted map)
+    const aura = ctx.createRadialGradient(s.x, s.y + 8, 2, s.x, s.y + 8, auraR);
     aura.addColorStop(0, hexA(this._aura, 0.30)); aura.addColorStop(1, hexA(this._aura, 0));
-    ctx.beginPath(); ctx.arc(s.x, s.y, auraR, 0, TAU); ctx.fillStyle = aura; ctx.fill();
+    ctx.beginPath();
+    if (ctx.ellipse) ctx.ellipse(s.x, s.y + 8, auraR, auraR * 0.5, 0, 0, TAU); else ctx.arc(s.x, s.y + 8, auraR, 0, TAU);
+    ctx.fillStyle = aura; ctx.fill();
 
-    const sz = 46 * (0.95 + 0.05 * breathe);
-    if (this.thumb) ctx.drawImage(this.thumb, s.x - sz / 2, s.y - sz / 2, sz, sz);
-    else { ctx.beginPath(); ctx.arc(s.x, s.y, sz * 0.35, 0, TAU); ctx.fillStyle = this._aura; ctx.fill(); }
+    if (!this._atlas && typeof document !== 'undefined') this._atlas = spriteAtlas(this.cart, { frames: 10, size: 76 });
+    const frame = this._atlas ? this._atlas.frameAt(path.moving ? path.phase : 0) : null;
+    const sz = 60 * (0.96 + 0.04 * breathe);
+    if (frame) {
+      ctx.save();
+      ctx.translate(s.x, s.y - sz * 0.16);
+      if (path.faceLeft) ctx.scale(-1, 1);         // cheap facing flip along the walk direction
+      ctx.drawImage(frame, -sz / 2, -sz / 2, sz, sz);
+      ctx.restore();
+    } else {
+      ctx.beginPath(); ctx.arc(s.x, s.y, sz * 0.3, 0, TAU); ctx.fillStyle = this._aura; ctx.fill();
+    }
 
-    if (this.rarityTier >= 2) { // a quiet aura tier, not sparkle-spam
-      ctx.beginPath(); ctx.arc(s.x, s.y, sz * 0.56, 0, TAU); ctx.lineWidth = 1.5; ctx.strokeStyle = hexA(this._aura, 0.55); ctx.stroke();
+    if (this.rarityTier >= 2) { // a quiet rarity ring, not sparkle-spam
+      ctx.beginPath(); ctx.arc(s.x, s.y + 8, auraR * 0.92, 0, TAU); ctx.lineWidth = 1.5; ctx.strokeStyle = hexA(this._aura, 0.5); ctx.stroke();
     }
   }
 }

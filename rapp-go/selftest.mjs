@@ -7,8 +7,15 @@
 //   2. geohashEncode → geohashDecode round-trips within cell tolerance — the coord
 //      grammar the whole ecosystem parses.
 //   3. mkRng(seed) is deterministic — same seed, same field; different seed differs.
+//   4. HOLO-FAUNA: speciesOf is a deterministic pure derivation (two runs + a fresh module
+//      import agree), a ≥24-cart weather/cell/moon fixture reaches all 8 families, OLD
+//      committed carts derive a species without any modification, snap() is pixel-buffer
+//      deterministic (§19 one-body law), and the walk pos(t)=f(seed,t) is deterministic
+//      + bounded to ~20m.
 
 import { momentToGenome, genomeId, geohashEncode, geohashDecode, mkRng } from './lib/genome.js';
+import { speciesOf, FAMILIES, snapHash, faunaPath } from './lib/fauna.js';
+import { readFileSync } from 'node:fs';
 
 let pass = 0, fail = 0;
 const ok = (name, cond, detail = '') => {
@@ -70,6 +77,86 @@ const FIXTURE = { temp: 12.5, weathercode: 61, wind: 18, isDay: 0 }; // a fixed 
   ok('mkRng same seed → identical sequence', same, JSON.stringify([a[0], b[0]]));
   ok('mkRng different seed → different sequence', differ);
   ok('mkRng values in [0,1)', inRange);
+}
+
+// ── 4. HOLO-FAUNA — species is a PURE DERIVATION (never a genome mutation): determinism,
+//      full 8-family coverage, retroactive old-cart derivation, and the §19 snap() +
+//      walking-path proofs (holofauna-brief acceptance 1 + the one-body-law addendum). ──
+{
+  const liveFrom = w => `live ${w.temp}\u00b0C \u00b7 code ${w.weathercode} \u00b7 wind ${Math.round(w.wind)} \u00b7 ${w.isDay ? 'day' : 'night'}`;
+  const moonFrom = m => `moon \u00b7 ${m.illuminated} \u00b7 ${m.name} \u00b7 x`;
+  async function mkCart(datum, lat, lng, when) {
+    const g = momentToGenome(datum);
+    const id = await genomeId(g);
+    const from = datum.illuminated != null ? moonFrom(datum) : liveFrom(datum);
+    return { schema: 'hologram-cartridge/1.0', id, title: 't', author: 'you', born: { coord: geohashEncode(lat, lng, 9) + '\u00b7' + when, from }, parents: [], genome: g, sig: '' };
+  }
+  // a fixture that varies WEATHER CODES, CELLS, and MOONS (holofauna-brief acceptance 1)
+  const skies = [
+    { temp: 21, weathercode: 0, wind: 2, isDay: 1 }, { temp: 16, weathercode: 2, wind: 6, isDay: 1 },
+    { temp: 12, weathercode: 61, wind: 10, isDay: 0 }, { temp: 14, weathercode: 81, wind: 22, isDay: 1 },
+    { temp: 18, weathercode: 95, wind: 46, isDay: 1 }, { temp: -3, weathercode: 75, wind: 30, isDay: 1 },
+    { temp: 9, weathercode: 48, wind: 8, isDay: 0 }, { temp: 27, weathercode: 1, wind: 4, isDay: 1 },
+    { illuminated: 100, name: 'full moon' }, { illuminated: 0, name: 'new moon' }, { illuminated: 52, name: 'first quarter' }
+  ];
+  const places = [[40.7128, -74.0060], [51.5074, -0.1278], [-33.8688, 151.2093], [35.6762, 139.6503], [-1.2921, 36.8219], [48.8566, 2.3522]];
+  const carts = [];
+  let seed = 0;
+  for (const s of skies) for (const p of places) carts.push(await mkCart(s, p[0], p[1], 1783140000000 + (seed++) * 7331));
+
+  // 4a. determinism: same cart → identical species/genes across two runs AND module reload
+  const fauna2 = await import('./lib/fauna.js?reload=1');   // a fresh, independent module instance
+  let detOk = true, reloadOk = true;
+  const hist = {}; FAMILIES.forEach(f => hist[f] = 0);
+  for (const c of carts) {
+    const a = speciesOf(c), b = speciesOf(c);
+    if (a.family !== b.family || JSON.stringify(a.genes) !== JSON.stringify(b.genes)) detOk = false;
+    const r = fauna2.speciesOf(c);
+    if (r.family !== a.family || JSON.stringify(r.genes) !== JSON.stringify(a.genes)) reloadOk = false;
+    hist[a.family]++;
+  }
+  ok(`species deterministic across two runs (${carts.length} carts)`, detOk);
+  ok('species identical across module reload', reloadOk);
+
+  // 4b. the sampled fixture reaches ALL 8 families
+  const hit = FAMILIES.filter(f => hist[f] > 0);
+  ok('fixture ≥24 sampled carts', carts.length >= 24, `${carts.length}`);
+  ok('all 8 families reachable', hit.length === 8, `hit ${hit.length}/8 — ${JSON.stringify(hist)}`);
+
+  // 4c. OLD committed carts derive a species with NO cart modification (retroactive on any surface)
+  const oldFiles = ['capetown', 'tromso', 'miami'];
+  let oldOk = true, oldUnmodified = true; const oldFamilies = [];
+  for (const name of oldFiles) {
+    const raw = readFileSync(new URL(`../hologram/cartridges/${name}.json`, import.meta.url), 'utf8');
+    const cart = JSON.parse(raw);
+    const before = JSON.stringify(cart);
+    const sp = speciesOf(cart), sp2 = speciesOf(cart);
+    if (!FAMILIES.includes(sp.family) || sp.family !== sp2.family) oldOk = false;
+    if (JSON.stringify(cart) !== before) oldUnmodified = false;   // must never touch the content-hash cart
+    oldFamilies.push(name + '\u2192' + sp.family);
+  }
+  ok('OLD committed carts derive a valid species (retroactive)', oldOk, oldFamilies.join(' '));
+  ok('species derivation never mutates the cart', oldUnmodified);
+
+  // 4d. §19 one-body law — snap() determinism: same cart+pose → identical buffer hash
+  const pose = { yaw: 0.6, pitch: 0.22, gaitPhase: 0.3, breathePhase: 0.15, walk: 0.5 };
+  const c0 = carts[4], c1 = carts[5];
+  const h1 = snapHash(c0, pose, 96), h2 = snapHash(c0, pose, 96);
+  const hReload = fauna2.snapHash(c0, pose, 96), hOther = snapHash(c1, pose, 96);
+  ok('snap() determinism — identical buffer hash across two calls', h1 === h2, h1);
+  ok('snap() determinism — identical across module reload', h1 === hReload, `${h1} ${hReload}`);
+  ok('snap() distinguishes different creatures', h1 !== hOther);
+
+  // 4e. the walking path pos(t)=f(spawnSeed,t) — deterministic, moves, stays within ~20m
+  const anchor = { lat: 40.7128, lng: -74.0060 };
+  const g0 = speciesOf(carts[0]).genes;
+  const pa = faunaPath('cellX@42', anchor, 1783140000000, g0);
+  const pb = faunaPath('cellX@42', anchor, 1783140000000, g0);
+  let moved = false, maxR = 0;
+  for (let t = 0; t <= 3600000; t += 30000) { const q = faunaPath('cellX@42', anchor, 1783140000000 + t, g0); maxR = Math.max(maxR, Math.hypot(q.offM.x, q.offM.y)); if (Math.hypot(q.offM.x - pa.offM.x, q.offM.y - pa.offM.y) > 0.5) moved = true; }
+  ok('walk pos(t)=f(seed,t) deterministic', pa.lat === pb.lat && pa.lng === pb.lng);
+  ok('walk moves along its deterministic path', moved);
+  ok('walk stays within ~20m of anchor', maxR <= 20, `maxR=${maxR.toFixed(1)}m`);
 }
 
 // ── summary ──────────────────────────────────────────────────────────────────────

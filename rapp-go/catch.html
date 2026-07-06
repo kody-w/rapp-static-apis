@@ -107,7 +107,7 @@
 <script type="module">
 import { momentToGenome, genomeId, geohashEncode } from './lib/genome.js';
 import { fetchSky } from './lib/weather.js';
-import { paintCreatureFrame } from './spawn.js';
+import { renderLoop } from './lib/fauna.js';
 import { ORBS, AIDS, eggRarity, throwQuality, ringRadius, runCatch, mintCaught, talkHref, breedHref, runSelfTest, RING_MS } from './catch.js';
 
 const $ = id => document.getElementById(id);
@@ -131,21 +131,12 @@ function beep(freq, dur = 0.09, gain = 0.05){
 }
 function haptic(ms){ try{ navigator.vibrate && navigator.vibrate(ms); }catch{} }
 
-// ── creature render loop (reuses the real hologram painter from spawn.js) ──────────
-let glowPulse = 0;
+// ── creature render: the LIVE 3D model (fauna.renderLoop on #creature) — it turns
+//    slowly, breathes, and steps in place; no flat blob (holofauna §4 / §19 one-body
+//    law). The ring/sparkle overlay keeps its own rAF on #ring below; a wobble excites
+//    the model through the controller so it flares in time with the throw. ──────────
+let glowPulse = 0, creatureCtrl = null;
 function dpr(cvs){ const d=Math.min(window.devicePixelRatio||1,2); cvs.width=300*d; cvs.height=300*d; cvs.style.width=cvs.style.height='300px'; const x=cvs.getContext('2d'); x.setTransform(d,0,0,d,0,0); return x; }
-let cctx2 = dpr($('creature'));
-function drawCreature(t){
-  cctx2.clearRect(0,0,300,300);
-  if(!cart) return;
-  const R = CR * (1 + glowPulse*0.12);
-  if(glowPulse>0){ // birth-palette glow pulse during a wobble
-    cctx2.save(); const g=cctx2.createRadialGradient(RC,RC,1,RC,RC,R*2.1);
-    g.addColorStop(0, hexA(palette[0], 0.4*glowPulse)); g.addColorStop(1, hexA(palette[0],0));
-    cctx2.fillStyle=g; cctx2.beginPath(); cctx2.arc(RC,RC,R*2.1,0,7); cctx2.fill(); cctx2.restore();
-  }
-  paintCreatureFrame(cctx2, cart.genome, RC, RC, CR, t);
-}
 function hexA(hex,a){ let h=String(hex).replace('#',''); if(h.length===3)h=h.split('').map(c=>c+c).join(''); const n=parseInt(h,16); return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`; }
 
 // ── ring loop ───────────────────────────────────────────────────────────────────
@@ -165,7 +156,7 @@ function drawRing(now){
     s.x+=s.vx; s.y+=s.vy; }
   sparkles = sparkles.filter(s=>s.life>0);
 }
-function loop(now){ drawCreature(now); drawRing(now); requestAnimationFrame(loop); }
+function loop(now){ if(creatureCtrl) creatureCtrl.setExcite(glowPulse); drawRing(now); requestAnimationFrame(loop); }
 requestAnimationFrame(loop);
 
 // ── pouch UI ───────────────────────────────────────────────────────────────────
@@ -200,7 +191,8 @@ async function summon(datum, coordText, title){
   $('tierchip').style.display=''; $('tierchip').textContent = '· '+rarity.tier.toLowerCase()+' · '+(rarity.rarity01).toFixed(2);
   $('hint').textContent = 'tap the creature to throw';
   ringOn=true; ringT0=performance.now(); busy=false;
-  cctx2 = dpr($('creature'));
+  if(creatureCtrl) creatureCtrl.stop();
+  creatureCtrl = renderLoop(cart, $('creature'), { size:300, background:false, walk:0.4, turn:0.34 });
   renderPouch();
 }
 $('summon-demo').onclick = ()=> summon({ temp:15, weathercode:95, wind:44, isDay:1 }, geohashEncode(40.7128,-74.006,9)+'·'+Date.now(), 'a demo storm sky');

@@ -198,7 +198,8 @@
 
 <script type="module">
 import { TileMap } from './tilemap.js';
-import { SpawnField, RARITY, paintCreatureFrame } from './spawn.js';
+import { SpawnField, RARITY, setFaunaClock } from './spawn.js';
+import { renderLoop, faunaPath, atlasMemoryBytes } from './lib/fauna.js';
 import { b64enc } from './lib/genome.js';
 import { skyCacheKey } from './lib/weather.js';
 import { eggRarity, throwQuality, ringRadius, runCatch, mintCaught, talkHref, breedHref } from './catch.js';
@@ -234,6 +235,9 @@ const canvas = $('map');
 const startCenter = FIX || (DEMO ? { lat: 40.7128, lng: -74.0060 } : (LS.get('rapp-go.lastFix') || { lat: 40.7128, lng: -74.0060 }));
 const map = new TileMap(canvas, { center: startCenter });
 const field = new SpawnField();
+// Anchor the walking-billboard clock (holofauna): reproducible under ?t=/?demo=1, and
+// live it is absolute-time-shared, so two players in the same cell/minute agree on pos(t).
+setFaunaClock(now());
 
 // ── first-run / demo bag (Pokémon-Go-style starter vessels so the loop is enterable;
 //    once you spin real places the economy takes over) ─────────────────────────────
@@ -379,8 +383,9 @@ async function refreshSpawns(force){
     if (suppress.has(sp.key)) continue;
     if (!spawns.has(sp.key)){
       spawns.set(sp.key, sp);
-      map.addMarker({ id: sp.key, lat: sp.lat, lng: sp.lng, hitR: 28, zIndex: 2, animated: true,
+      const mk = map.addMarker({ id: sp.key, lat: sp.lat, lng: sp.lng, hitR: 28, zIndex: 2, animated: true,
         draw: (ctx, s, t, m) => sp.drawMarker(ctx, s, t, m), data: { spawn: sp } });
+      sp.bindMarker(mk);   // so the deterministic walk moves the tap hit-test target too
     }
   }
   for (const key of [...spawns.keys()]){
@@ -407,31 +412,33 @@ function checkProximity(){
 }
 
 // ── the encounter: the real ring-throw catch ──────────────────────────────────────
-let panelRAF = null, panelHidden = false;
+let creatureCtrl = null, ringRAF = null, panelHidden = false;
 let ringOn = false, ringT0 = 0, glowPulse = 0, sparkles = [];
 const ENC_SZ = 224, ENC_CX = ENC_SZ/2, ENC_R = ENC_SZ * 0.30;
 
-function encCtx(id){ const cvs = $(id); const d = Math.min(window.devicePixelRatio||1,2); cvs.width = ENC_SZ*d; cvs.height = ENC_SZ*d; cvs.style.width = cvs.style.height = ENC_SZ+'px'; const x = cvs.getContext('2d'); x.setTransform(d,0,0,d,0,0); return x; }
-function startCreatureRender(genome){
-  const cctx = encCtx('creature'), rctx = encCtx('enc-ring');
-  const pal = (genome.layers.find(l=>l.role==='surface')||{}).palette || ['#8fb3c9'];
+function ringCtx(){ const cvs = $('enc-ring'); const d = Math.min(window.devicePixelRatio||1,2); cvs.width = ENC_SZ*d; cvs.height = ENC_SZ*d; cvs.style.width = cvs.style.height = ENC_SZ+'px'; const x = cvs.getContext('2d'); x.setTransform(d,0,0,d,0,0); return x; }
+// The creature is the LIVE 3D model now (fauna.renderLoop on #creature): it turns slowly,
+// breathes, and steps in place — no flat blob (holofauna-brief §4, §19 one-body law). The
+// ring + sparkle overlay keeps its own lightweight rAF on #enc-ring; a wobble excites the
+// model through the controller so it flares in time with the throw.
+function startCreatureRender(cart){
+  stopCreatureRender();
+  creatureCtrl = renderLoop(cart, $('creature'), { size: ENC_SZ, background:false, walk:0.4, turn:0.34, zoom:1.02 });
+  const pal = (cart.genome.layers.find(l=>l.role==='surface')||{}).palette || ['#8fb3c9'];
+  const rctx = ringCtx();
   const loop = (t) => {
-    cctx.clearRect(0,0,ENC_SZ,ENC_SZ);
-    const R = ENC_R * (1 + glowPulse*0.12);
-    if (glowPulse > 0){ const g = cctx.createRadialGradient(ENC_CX,ENC_CX,1,ENC_CX,ENC_CX,R*2.1); g.addColorStop(0, hexA(pal[0], 0.4*glowPulse)); g.addColorStop(1, hexA(pal[0],0)); cctx.fillStyle = g; cctx.beginPath(); cctx.arc(ENC_CX,ENC_CX,R*2.1,0,TAU); cctx.fill(); }
-    paintCreatureFrame(cctx, genome, ENC_CX, ENC_CX, ENC_R, t);
-    // ring + sparkles
+    if (creatureCtrl) creatureCtrl.setExcite(glowPulse);
     rctx.clearRect(0,0,ENC_SZ,ENC_SZ);
     if (ringOn){ const r = ringRadius(t - ringT0, ENC_R*1.9);
       rctx.beginPath(); rctx.arc(ENC_CX,ENC_CX,r,0,TAU); rctx.lineWidth=2.5; rctx.strokeStyle=hexA(pal[0],0.8); rctx.stroke();
       rctx.beginPath(); rctx.arc(ENC_CX,ENC_CX,r,0,TAU); rctx.lineWidth=1; rctx.strokeStyle='rgba(255,255,255,.35)'; rctx.stroke(); }
     for (const sp of sparkles){ if (sp.life<=0) continue; rctx.globalAlpha=Math.max(0,sp.life); rctx.beginPath(); rctx.arc(sp.x,sp.y,sp.r,0,TAU); rctx.fillStyle=sp.c; rctx.fill(); rctx.globalAlpha=1; sp.x+=sp.vx; sp.y+=sp.vy; sp.life-=0.02; }
     sparkles = sparkles.filter(s=>s.life>0);
-    panelRAF = panelHidden ? null : requestAnimationFrame(loop);
+    ringRAF = panelHidden ? null : requestAnimationFrame(loop);
   };
-  panelRAF = requestAnimationFrame(loop);
+  ringRAF = requestAnimationFrame(loop);
 }
-function stopCreatureRender(){ if (panelRAF) cancelAnimationFrame(panelRAF); panelRAF = null; }
+function stopCreatureRender(){ if (creatureCtrl){ creatureCtrl.stop(); creatureCtrl = null; } if (ringRAF){ cancelAnimationFrame(ringRAF); ringRAF = null; } }
 
 async function openEncounter(sp){
   current = { spawn: sp, rarity: null, orbSel: null, aidSel: null, saltActive: false, resolved: false };
@@ -443,13 +450,13 @@ async function openEncounter(sp){
   $('enc-kit').style.display = '';
   $('enc-hint').textContent = 'tap the creature to throw';
   sparkles = []; glowPulse = 0; ringOn = true; ringT0 = performance.now();
-  startCreatureRender(sp.cart.genome);
+  startCreatureRender(sp.cart);
   const sh = $('sheet'); sh.classList.add('open'); sh.setAttribute('aria-hidden','false');
   // the honest catch tier is a pure function of the genome content-hash (catch.js)
   const eg = await eggRarity(sp.cart);
   if (!current || current.spawn !== sp) return;
   current.rarity = eg;
-  const rEl = $('enc-rarity'); rEl.textContent = '\u00b7 ' + eg.tier.toLowerCase() + ' \u00b7 ' + sp.rarity + ' sky \u00b7'; rEl.style.color = rar.color;
+  const rEl = $('enc-rarity'); rEl.textContent = '\u00b7 ' + eg.tier.toLowerCase() + ' \u00b7 ' + sp.species.family + ' \u00b7 ' + sp.rarity + ' sky \u00b7'; rEl.style.color = rar.color;
   renderPouch();
 }
 function closeEncounter(caught){
@@ -707,7 +714,7 @@ $('invite-btn').addEventListener('click', startWatch);
 document.addEventListener('visibilitychange', () => {
   panelHidden = document.hidden;
   if (document.hidden){ stopGeo(); stopCreatureRender(); }
-  else { panelHidden = false; if (!FIX && !DEMO){ statHist = []; startWatch(); } if (current) startCreatureRender(current.spawn.cart.genome); }
+  else { panelHidden = false; if (!FIX && !DEMO){ statHist = []; startWatch(); } if (current) startCreatureRender(current.spawn.cart); }
 });
 
 // ── boot ────────────────────────────────────────────────────────────────────────
@@ -732,7 +739,13 @@ if (params.get('debug') === '1' || DEMO) {
     map, field, poi, spawns, suppress, poiMarkers, cooldown,
     get poiList(){ return poiList; }, get playerPos(){ return playerPos; },
     openEncounter, closeEncounter, attemptThrow, openPoi, refreshSpawns, refreshPOIs,
-    eggRarity, get current(){ return current; }, get lastRoll(){ return window.__lastRoll; }
+    eggRarity, get current(){ return current; }, get lastRoll(){ return window.__lastRoll; },
+    // holofauna determinism hook: positions/poses of every spawn at an EXPLICIT logical
+    // time — pure fauna.faunaPath(seed,t), so two fresh loads at the same tMs return
+    // byte-identical data, and tMs vs tMs+Δ shows movement along the deterministic path.
+    faunaAt: (tMs) => [...spawns.values()].map(sp => { const p = faunaPath(sp.key, sp.anchor, tMs, sp.species.genes); return { key: sp.key, family: sp.species.family, lat: p.lat, lng: p.lng, phase: Math.round(p.phase*1e6)/1e6, moving: p.moving }; }),
+    faunaFamilies: () => [...spawns.values()].map(sp => sp.species.family),
+    faunaAtlasBytes: () => atlasMemoryBytes()
   };
 }
 </script>
