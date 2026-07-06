@@ -198,8 +198,11 @@ def live_link_integrity(reg):
     if not reg: return 0, 0
     ok = tot = 0
     urls = set()
+    # Only probe real FILE endpoints agents actually fetch. raw_base/base are
+    # directory URLs — raw.githubusercontent.com serves no directory listing, so
+    # they 404 by design and are used only to construct file paths, never fetched.
     for e in reg.get('entries', []):
-        for k in ('registry', 'status', 'raw_base', 'base'):
+        for k in ('registry', 'status', 'badge'):
             if e.get(k) and str(e[k]).startswith('http'): urls.add(e[k])
     for u in list(urls)[:40]:
         tot += 1
