@@ -32,6 +32,19 @@ try {
   } else add('correctness', 'catch.js imports clean', 0, 2, 'not landed');
 } catch { add('correctness', 'catch.js imports clean', 0, 2, 'import error'); }
 
+try {
+  const out = execFileSync('node', [R + 'rapp-go/catch.js'], { timeout: 60000 }).toString();
+  const m = out.match(/(\d+) passed, (\d+) failed/);
+  add('correctness', 'catch suite green', (m && +m[2]===0 && +m[1]>0) ? 4 : 0, 4, m ? `${m[1]} passed, ${m[2]} failed` : 'no verdict');
+} catch { add('correctness', 'catch suite green', 0, 4, 'errored or absent'); }
+try {
+  if (has('rapp-go/poi.test.mjs')) {
+    const out = execFileSync('node', [R + 'rapp-go/poi.test.mjs'], { timeout: 60000 }).toString();
+    const ok = /0 failed|ALL PASS/i.test(out) && /passed/i.test(out);
+    add('correctness', 'poi suite green', ok ? 4 : 0, 4, out.trim().split('\n').pop().slice(0,60));
+  } else add('correctness', 'poi suite green', 0, 4, 'not landed');
+} catch { add('correctness', 'poi suite green', 0, 4, 'errored'); }
+
 // ── capability (the chain, landed = file exists & referenced) ────────────────
 add('capability', 'P2 catch engine',        has('rapp-go/catch.js') ? 2 : 0, 2);
 add('capability', 'P3 poi economy',         has('rapp-go/poi.js') ? 2 : 0, 2);
