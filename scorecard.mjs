@@ -67,6 +67,18 @@ add('device', 'icon 512',        has('rapp-go/icon-512.png') ? 1 : 0, 1);
 add('device', 'apple-touch-icon',has('rapp-go/icon-180.png') || grep('rapp-go/index.html', /apple-touch-icon/) ? 1 : 0, 1);
 add('device', 'light default',   grep('rapp-go/index.html', /data-theme|rapp\.theme|rapp-go\.theme/) ? 1 : 0, 1);
 
+// ── deployment parity (what a phone actually loads vs committed HEAD) ───────
+try {
+  const local = execFileSync('git', ['show', 'HEAD:rapp-go/index.html'], { cwd: R }).toString();
+  const { createHash } = await import('node:crypto');
+  const lsha = createHash('sha256').update(local).digest('hex').slice(0, 12);
+  const live = execFileSync('curl', ['-s', '--max-time', '10',
+    'https://kody-w.github.io/rapp-static-apis/rapp-go/index.html']).toString();
+  const dsha = createHash('sha256').update(live).digest('hex').slice(0, 12);
+  add('deployed', 'Pages serves committed HEAD', lsha === dsha ? 2 : 0, 2,
+    lsha === dsha ? `sha ${lsha}` : `HEAD ${lsha} ≠ live ${dsha} (deploy lag or drift)`);
+} catch { add('deployed', 'Pages serves committed HEAD', 0, 2, 'offline/unreachable'); }
+
 const total = rows.reduce((a, r) => a + r.pts, 0);
 const max = rows.reduce((a, r) => a + r.max, 0);
 if (process.argv.includes('--json')) {
