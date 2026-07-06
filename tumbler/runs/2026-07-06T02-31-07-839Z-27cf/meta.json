@@ -1,0 +1,12 @@
+{
+  "runId": "2026-07-06T02-31-07-839Z-27cf",
+  "startedAt": "2026-07-06T02:31:07.841Z",
+  "target": "tumbler/demo/data",
+  "targetAbs": "/Users/kodywildfeuer/rapp-static-apis/tumbler/demo/data",
+  "mode": "data",
+  "model": "claude-opus-4.8",
+  "cycles": 2,
+  "goal": "tighten prose, fix inconsistencies, preserve every id",
+  "sabotage": false,
+  "ogSha": "721f205feafa12c690bb4af0e2d51a2f4ee601b99b020bb518e3dc3cf9fb8c01"
+}

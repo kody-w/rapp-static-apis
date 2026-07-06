@@ -1,0 +1,17 @@
+[
+  {
+    "id": "welds",
+    "name": "Welds",
+    "blurb": "posts that  weld two or more donors into somthing none of them could do alone."
+  },
+  {
+    "id": "seals",
+    "name": "Seals",
+    "blurb": "custody and provenence chains that seal a record so its origin can be checkd."
+  },
+  {
+    "id": "holograms",
+    "name": "Holograms",
+    "blurb": "content-adressed organisims rendered in-browser with no per-creature code."
+  }
+]

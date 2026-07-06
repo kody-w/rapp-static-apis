@@ -1,0 +1,23 @@
+[
+  {
+    "id": "post-001",
+    "channel": "welds",
+    "title": "taste the weather",
+    "summary": "a demo that fetches live weather data and verifies the hash before running it in the browser.",
+    "status": "live"
+  },
+  {
+    "id": "post-002",
+    "channel": "seals",
+    "title": "sealed storefront",
+    "summary": "an issue-backed menu welded with a seal and a provenance chain into a custody-tracked storefront.",
+    "status": "live"
+  },
+  {
+    "id": "post-003",
+    "channel": "holograms",
+    "title": "universal hologram player",
+    "summary": "renders any content-addressed hologram-cartridge/1.0 creature in-browser with zero per-creature code.",
+    "status": "walkthrough"
+  }
+]
