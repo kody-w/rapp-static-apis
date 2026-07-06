@@ -37,7 +37,7 @@ add('capability', 'P2 catch engine',        has('rapp-go/catch.js') ? 2 : 0, 2);
 add('capability', 'P3 poi economy',         has('rapp-go/poi.js') ? 2 : 0, 2);
 add('capability', 'HOLO fauna module',      has('rapp-go/lib/fauna.js') ? 3 : 0, 3);
 add('capability', 'GO-LIVE onboarding',     grep('rapp-go/index.html', /onboard/i) ? 2 : 0, 2);
-add('capability', 'GO-LIVE starters',       grep('rapp-go/index.html', /starter/i) ? 2 : 0, 2);
+add('capability', 'GO-LIVE starters',       grep('rapp-go/index.html', /starter.?ceremony|chooseStarter|starterTwin/i) ? 2 : 0, 2);
 add('capability', 'GO-LIVE share layer',    grep('rapp-go/index.html', /navigator\.share|#egg=/) ? 1 : 0, 1);
 add('capability', 'CARE moments',           has('rapp-go/care.js') ? 2 : 0, 2);
 add('capability', 'JOURNAL view',           grep('rapp-go/index.html', /journal/i) ? 1 : 0, 1);
