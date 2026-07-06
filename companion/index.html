@@ -104,6 +104,7 @@
 
  <div class="status"><span class="dot" id="dot"></span><span id="statusText">loading…</span></div>
  <div class="foot">Its mind is <b>real CPython</b>, cold-booted in a verified sandbox on your device — its whole self is the moment it was born. Its thinking and its voice run on-device; the mic uses your browser's own speech recognition. <span id="offnote"></span></div>
+ <div id="twin-root"></div>
 </div>
 
 <div id="call" aria-hidden="true">
@@ -146,17 +147,8 @@ const DEFAULT_CART={schema:'hologram-cartridge/1.0',id:'d45a79d29e99',title:'Lum
  {role:'surface',k:80,palette:['#7fd4ff','#b6e8ff','#4aa3e0','#e8f7ff'],pattern:'glow',glow:0.6,opacity:0.92},
  {role:'motion',k:55,breathe:0.2,drift:0.2,pulse:0.35,reach:0.25}],compose:{windows:[[0,1,2]],loop:true}}};
 
-function loadCart(){
- try{ const h=location.hash.slice(1);
-  if(h.startsWith('token=')) return JSON.parse(b64urlToStr(h.slice(6)));
-  if(h) return JSON.parse(b64urlToStr(h));
- }catch(e){}
- const u=new URLSearchParams(location.search).get('cart');
- if(u) return u; // a URL to fetch
- return DEFAULT_CART;
-}
-
 let CART=null;
+let IS_PRIMARY=false;   // true only when the companion is open ON the primary twin (not a per-egg visit)
 async function resolveCart(c){ if(typeof c==='string'){ const r=await fetch(c); return await r.json(); } return c; }
 
 function humanBorn(cart){
@@ -212,6 +204,7 @@ async function send(spoken){
   if(inCall() && reply) showCaption(reply,false);
  }
  thinking=false; $('send').disabled=false; setPtt('idle');
+ if(IS_PRIMARY && window.Twin){ try{ window.Twin.recordTalk(text); }catch(e){} }   // §3: a conversation appends a frame
  if(!voiceOn && !inCall()) $('say').focus();
 }
 
@@ -426,8 +419,9 @@ function signIn(){ return new Promise(async(resolve)=>{
  }catch(e){ status.textContent='could not start sign-in: '+e.message; setTimeout(()=>{box.classList.remove('show');resolve(false);},2500); }
 });}
 
-async function main(){
- CART=await resolveCart(loadCart());
+// ---------- boot: given a resolved CART, wake the whole companion ----------
+async function bootWithCart(cart){
+ CART=cart;
  $('name').textContent=CART.title||'a companion';
  $('born').textContent='· born under '+humanBorn(CART);
  $('creature').src='./player.html#'+b64url(JSON.stringify(CART));
@@ -441,6 +435,46 @@ async function main(){
   try{ await ensureCopilotToken(); startLLM(); return; }catch(e){ /* no Copilot / expired → on-device fallback */ }
  }
  bootFallback();
+}
+// lightweight re-render when the twin changes body (splice / revert / assimilate) — no full re-boot
+function rerenderCart(cart){ CART=cart;
+ $('name').textContent=cart.title||'a companion';
+ $('born').textContent='· born under '+humanBorn(cart);
+ $('creature').src='./player.html#'+b64url(JSON.stringify(cart));
+ document.title=(cart.title||'Companion')+' — companion';
+}
+// a GENUINE per-egg request (hash #token / #<b64cart> / ?cart=URL) — NOT twin/demo routing.
+// Returns the cart (object or URL string) to open, or null → the companion opens on the primary twin.
+function explicitCartRequest(){
+ try{ const h=location.hash.slice(1);
+  if(h.startsWith('token=')) return JSON.parse(b64urlToStr(h.slice(6)));
+  if(h && !/^(twin|demo)\b/.test(h)) return JSON.parse(b64urlToStr(h));
+ }catch(e){}
+ const u=new URLSearchParams(location.search).get('cart');
+ if(u) return u;   // a URL to fetch
+ return null;
+}
+const isDemo=()=>{ try{ return new URLSearchParams(location.search).get('demo')==='1'; }catch(e){ return false; } };
+
+// the surface the twin engine drives (kept small + explicit)
+const CompanionBridge={
+ DEFAULT_CART, isDemo, resolveCart, b64url, strToStdB64, humanBorn, keepToBasket, bubble,
+ bootWithCart:(cart,opts)=>{ IS_PRIMARY=!!(opts&&opts.primary); return bootWithCart(cart); },
+ rerender:(cart)=>{ rerenderCart(cart); }
+};
+
+async function main(){
+ const req=explicitCartRequest();
+ // load the twin engine (same-origin, SW-cached for offline); classic fallback if it can't
+ let Twin=null;
+ try{ Twin=(await import('./twin.mjs')).default; window.Twin=Twin; await Twin.init(CompanionBridge); }catch(e){ Twin=null; }
+ if(req!==null){                                   // per-egg flow stays reachable + unbroken
+  IS_PRIMARY=false; const cart=await resolveCart(req); bootWithCart(cart).catch(()=>{});
+  if(Twin){ try{ await Twin.onExplicitCart(cart); }catch(e){} }   // offer "capture as variant"
+  return;
+ }
+ if(Twin){ try{ await Twin.start(); return; }catch(e){ /* twin failed → classic default below */ } }
+ IS_PRIMARY=false; await bootWithCart(await resolveCart(DEFAULT_CART));
 }
 
 // real-LLM mode: enable input + greet in the creature's own voice via Copilot (no Pyodide)
@@ -553,10 +587,10 @@ function keepToBasket(cart){ return new Promise(res=>{ try{ const r=indexedDB.op
  r.onsuccess=()=>{ try{ const tx=r.result.transaction('eggs','readwrite'); tx.objectStore('eggs').put({id:cart.id, egg:cart, title:cart.title||'organism', born:(cart.born&&cart.born.from)||'', addedAt:Date.now()}); tx.oncomplete=()=>res(true); tx.onerror=()=>res(false); }catch(e){ res(false); } };
  r.onerror=()=>res(false); }catch(e){ res(false); } }); }
 function keptFlash(btn,label){ if(!btn)return; const t=btn.textContent; btn.textContent=label; btn.classList.add('done'); setTimeout(()=>{ btn.textContent=t; btn.classList.remove('done'); },1700); }
-function keepCurrent(btn){ if(!CART||!CART.id)return; keepToBasket(CART).then(ok=>{ if(ok) keptFlash(btn, btn&&btn.id==='call-keep'?'✓':'🧺 kept ✓'); }); }
+function keepCurrent(btn){ if(!CART||!CART.id)return; keepToBasket(CART).then(ok=>{ if(ok){ keptFlash(btn, btn&&btn.id==='call-keep'?'✓':'🧺 kept ✓'); if(IS_PRIMARY&&window.Twin){ try{ window.Twin.recordShare('basket'); }catch(e){} } } }); }
 $('act-keep').onclick=()=>keepCurrent($('act-keep'));
-$('act-lantern').onclick=()=>{ if(CART) window.open(LANTERN+'#'+b64url(JSON.stringify(CART))); };
-$('act-cabinet').onclick=()=>{ if(CART) window.open(CABINET+'#remix='+b64url(JSON.stringify(CART))); };
+$('act-lantern').onclick=()=>{ if(CART){ window.open(LANTERN+'#'+b64url(JSON.stringify(CART))); if(IS_PRIMARY&&window.Twin){ try{ window.Twin.recordShare('lantern'); }catch(e){} } } };
+$('act-cabinet').onclick=()=>{ if(CART){ window.open(CABINET+'#remix='+b64url(JSON.stringify(CART))); if(IS_PRIMARY&&window.Twin){ try{ window.Twin.recordShare('cabinet'); }catch(e){} } } };
 $('call-keep').onclick=()=>keepCurrent($('call-keep'));
 $('act-agent').onclick=()=>$('agent-file').click();
 $('agent-file').onchange=e=>{ const f=e.target.files[0]; e.target.value=''; if(f) uploadAgent(f); };
