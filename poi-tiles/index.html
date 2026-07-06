@@ -1,0 +1,237 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>poi-tiles — the static, ODbL-clean global POI layer</title>
+<style>
+ :root{--bg:#0d1117;--card:#161b22;--line:#30363d;--fg:#e6edf3;--mut:#8b949e;--blue:#58a6ff;--ok:#3fb950;--warn:#d29922;--err:#f85149;--ink:#010409}
+ *{box-sizing:border-box}
+ body{font-family:-apple-system,system-ui,Segoe UI,sans-serif;max-width:900px;margin:40px auto;padding:0 16px;background:var(--bg);color:var(--fg);line-height:1.55}
+ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+ h1{margin:0 0 4px}h2{margin:26px 0 8px;font-size:1.15rem}
+ .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+ .muted{color:var(--mut);font-size:13px}
+ .card{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:12px 0;background:var(--card)}
+ button{font:inherit;font-size:13px;cursor:pointer;background:#238636;color:#fff;border:0;border-radius:8px;padding:8px 14px}
+ button.alt{background:#21262d;border:1px solid var(--line);color:var(--fg)}
+ button:hover{filter:brightness(1.08)}
+ input{background:var(--ink);border:1px solid var(--line);border-radius:7px;color:var(--fg);padding:8px 10px;font:inherit;font-size:14px}
+ table{border-collapse:collapse;width:100%;margin-top:8px;font-size:13px}
+ th,td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line)}
+ th{color:var(--mut);font-weight:600}
+ td.n{text-align:right;font-family:ui-monospace,Menlo,monospace}
+ .bar{height:9px;border-radius:5px;background:linear-gradient(90deg,#1f6feb,#388bfd);display:inline-block;vertical-align:middle}
+ .chip{display:inline-block;font-size:12px;color:var(--fg);border:1px solid var(--line);border-radius:20px;padding:2px 10px;margin:3px 4px 0 0;cursor:pointer;background:#21262d}
+ .chip:hover{border-color:var(--blue)}
+ .kv{font-family:ui-monospace,Menlo,monospace;font-size:12px}
+ pre{background:var(--ink);border:1px solid var(--line);border-radius:9px;padding:10px 12px;overflow:auto;font-size:12px;position:relative}
+ pre button{position:absolute;top:7px;right:7px;font-size:11px;padding:3px 8px}
+ code{background:var(--ink);border:1px solid var(--line);padding:1px 6px;border-radius:5px;font-size:12px}
+ .ok{color:var(--ok)}.warn{color:var(--warn)}.err{color:var(--err)}
+ .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+ footer{color:var(--mut);font-size:12.5px;margin-top:34px;border-top:1px solid var(--line);padding-top:16px}
+ .glyph{font-size:15px}
+</style></head><body>
+
+<h1>🗺️ poi-tiles</h1>
+<p class="muted">A static, global <b>points-of-interest</b> layer built from <b>OpenStreetMap</b> — tiled by
+<span class="mono">geohash-5</span>, published as raw GitHub JSON. Any client looks up a tile file instantly
+(<b>static-first — the repo is the API</b>); live Overpass is only the fallback. Pokémon-Go-grade POI
+ubiquity, none of Niantic's proprietary data. <b>ODbL</b>, © OpenStreetMap contributors.
+<span class="mono" id="gen"></span></p>
+
+<div class="card">
+ <div class="row">
+  <button id="loadIdx">▶ Fetch Atlanta index + one tile (live)</button>
+  <button id="loadFix" class="alt">Render bundled fixture (offline, no network)</button>
+ </div>
+ <div id="idxOut" class="muted" style="margin-top:10px">Press a button — the verdict renders here. The
+ left button fetches this repo's <span class="mono">data/index.json</span> and one Atlanta tile over the
+ network; the right one renders an embedded fixture with <b>zero</b> network (the offline path).</div>
+</div>
+
+<h2>Look up YOUR gh5</h2>
+<div class="card">
+ <div class="row">
+  <input id="q" placeholder="a geohash-5 (e.g. dn5bt) — or 'lat,lng'" size="34" autocomplete="off">
+  <button id="lookup">Look up →</button>
+ </div>
+ <div class="muted" style="margin-top:8px">Seeded tiles (click to fetch one live):</div>
+ <div id="chips"></div>
+ <div id="lookOut" style="margin-top:10px"></div>
+ <div class="muted" style="margin-top:8px">A gh5 with no static tile returns <span class="mono">null</span> —
+ by design: a real client (rapp-go) then falls back to <b>live Overpass</b> for that cell. Static-first,
+ graceful miss.</div>
+</div>
+
+<h2>Run it yourself</h2>
+<div class="card">
+ <p class="muted" style="margin-top:0">No install, no account — the tiles are just files. Two doors, same bytes
+ (hash-trust, any door):</p>
+ <pre id="curl1"><button class="alt" data-copy>copy</button></pre>
+ <pre id="curl2"><button class="alt" data-copy>copy</button></pre>
+ <pre id="curl3"><button class="alt" data-copy>copy</button></pre>
+ <p class="muted">Or in Node: <code>import { fetchPoiTile } from './client.mjs'</code> →
+ <code>await fetchPoiTile('dn5bt')</code>. Self-test: <code>node poi-tiles/selftest.mjs</code>.</p>
+</div>
+
+<h2>The ODbL story, plainly</h2>
+<div class="card muted">
+ <p style="margin-top:0">This dataset is a <b>Produced Work</b> derived from a database of <b>OpenStreetMap</b>,
+ © OpenStreetMap contributors, licensed under the <b>Open Database License (ODbL) v1.0</b>. Every tile file and
+ <span class="mono">index.json</span> carries <span class="mono">source</span> + <span class="mono">license</span>
+ fields; the attribution string clients must render is
+ <span class="mono">“© OpenStreetMap contributors”</span>.</p>
+ <p>Using it means: <b>attribute</b> OpenStreetMap, and <b>share-alike</b> any derived database. rapp-go's
+ on-canvas credit already renders that attribution when it draws POIs on the map, which satisfies the display
+ requirement for that surface. No Niantic / Wayspot / proprietary data is used — ever. POIs are <b>public
+ places</b>: each carries only an allowlisted, <b>PII-free</b> tag subset (no addresses, phones, emails, contacts).
+ See <a href="./LICENSE-ODbL.md">LICENSE-ODbL.md</a> · <a href="./README.md">README</a>.</p>
+</div>
+
+<footer>
+ A <a href="https://github.com/kody-w/rapp-static-apis"><code>rapp-static-api/1.0</code></a> surface ·
+ data © OpenStreetMap contributors, <a href="https://opendatacommons.org/licenses/odbl/1-0/">ODbL 1.0</a> ·
+ static-first, live-Overpass fallback · no server, no tracking.
+</footer>
+
+<script type="module">
+import { fetchPoiTile, gh5For, tileUrl, summarizeTile, BASES } from './client.mjs';
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const GLYPH = { water: '💧', nature: '🌳', landmark: '🗽', worship: '⛪', civic: '📚', seat: '🪑' };
+const KINDS = ['water', 'nature', 'landmark', 'worship', 'civic', 'seat'];
+const REL = './data/';                 // this repo IS the API — relative so it works on Pages, a fork, or localhost
+
+// ── an embedded fixture tile: the OFFLINE path renders this with zero network ─────
+const FIXTURE = {
+  schema: 'rapp-poi-tile/1.0', gh5: 'dn5bt-fixture', region: 'fixture',
+  source: 'OpenStreetMap', license: 'ODbL', attribution: '© OpenStreetMap contributors',
+  pois: [
+    { id: 'node/1', lat: 33.86, lng: -84.47, name: 'Cedar Street Fountain', kind: 'water', tags: { amenity: 'fountain', name: 'Cedar Street Fountain' } },
+    { id: 'node/2', lat: 33.86, lng: -84.47, name: 'an old tree', kind: 'nature', tags: { natural: 'tree' } },
+    { id: 'node/3', lat: 33.86, lng: -84.47, name: 'War Memorial', kind: 'landmark', tags: { historic: 'monument', name: 'War Memorial' } },
+    { id: 'node/4', lat: 33.86, lng: -84.47, name: 'Vinings First Baptist', kind: 'worship', tags: { amenity: 'place_of_worship', religion: 'christian', name: 'Vinings First Baptist' } },
+    { id: 'node/5', lat: 33.86, lng: -84.47, name: 'Smyrna Library', kind: 'civic', tags: { amenity: 'library', name: 'Smyrna Library' } },
+    { id: 'node/6', lat: 33.86, lng: -84.47, name: 'a bench', kind: 'seat', tags: { amenity: 'bench' } }
+  ]
+};
+
+function kindsTable(kinds, total) {
+  const max = Math.max(1, ...KINDS.map(k => kinds[k] || 0));
+  const rows = KINDS.map(k => {
+    const n = kinds[k] || 0, w = Math.round((n / max) * 120);
+    return `<tr><td><span class="glyph">${GLYPH[k]}</span> ${k}</td>
+      <td class="n">${n}</td><td><span class="bar" style="width:${w}px"></span></td></tr>`;
+  }).join('');
+  return `<table><thead><tr><th>kind</th><th class="n">count</th><th>share</th></tr></thead>
+    <tbody>${rows}<tr><th>total</th><th class="n">${total}</th><th></th></tr></tbody></table>`;
+}
+
+function renderTile(tile, into, note = '') {
+  const s = summarizeTile(tile);
+  const names = (tile.pois || []).filter(p => p.tags && p.tags.name).slice(0, 6).map(p => esc(p.name));
+  into.innerHTML =
+    `<div class="kv">gh5 <b>${esc(tile.gh5)}</b> · ${s.total} POIs · source <b>${esc(s.source)}</b> ·
+     license <b>${esc(s.license)}</b></div>` +
+    (note ? `<div class="muted">${note}</div>` : '') +
+    kindsTable(s.kinds, s.total) +
+    (names.length ? `<div class="muted" style="margin-top:6px">named e.g.: ${names.join(' · ')}</div>` : '') +
+    `<div class="muted" style="margin-top:6px">${esc(tile.attribution || '© OpenStreetMap contributors')}</div>`;
+  return s;
+}
+
+// ── OFFLINE fixture path (also the headless proof: sets window.__poiProof) ────────
+function renderFixture() {
+  const s = renderTile(FIXTURE, $('idxOut'), 'Bundled fixture — rendered with <b>0</b> network requests.');
+  window.__poiProof = { rendered: true, gh5: FIXTURE.gh5, total: s.total, kinds: s.kinds, offline: true };
+  return s;
+}
+
+// ── LIVE: fetch this repo's index.json + one Atlanta tile ─────────────────────────
+async function loadIndexLive() {
+  const out = $('idxOut');
+  out.innerHTML = '<span class="muted">fetching data/index.json …</span>';
+  try {
+    const res = await fetch(REL + 'index.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('index.json HTTP ' + res.status);
+    const idx = out.__idx = await res.json();
+    const atl = idx.regions && idx.regions.atlanta;
+    const firstAtlTile = (atl && atl.tiles && atl.tiles[0]) || (idx.tiles[0] && idx.tiles[0].gh5);
+    let html = `<div class="kv">index <b>${esc(idx.schema)}</b> · ${idx.totals.tiles} tiles · ${idx.totals.pois} POIs ·
+      ${esc(idx.source)} / ${esc(idx.license)}</div>`;
+    html += `<div style="margin-top:6px" class="muted">regions:</div><table><thead><tr><th>region</th><th class="n">POIs</th><th class="n">tiles</th></tr></thead><tbody>`;
+    for (const [r, v] of Object.entries(idx.regions)) html += `<tr><td>${esc(r)}</td><td class="n">${v.pois}</td><td class="n">${v.tiles.length}</td></tr>`;
+    html += `</tbody></table>`;
+    out.innerHTML = html;
+    // fetch one Atlanta tile via the client (static-first) and render its kind histogram
+    if (firstAtlTile) {
+      const tile = await fetchPoiTile(firstAtlTile, { base: REL });
+      const tileOut = document.createElement('div');
+      tileOut.style.marginTop = '10px';
+      out.appendChild(tileOut);
+      if (tile) renderTile(tile, tileOut, `Atlanta tile <b>${esc(firstAtlTile)}</b>, fetched live via <span class="mono">client.fetchPoiTile()</span>:`);
+      else tileOut.innerHTML = `<span class="warn">tile ${esc(firstAtlTile)} missed — a client would fall back to live Overpass.</span>`;
+    }
+    buildChips(idx);
+    window.__poiProof = Object.assign(window.__poiProof || {}, { liveIndex: true, tiles: idx.totals.tiles });
+  } catch (e) {
+    out.innerHTML = `<span class="err">could not load live data (${esc(e.message)}).</span>
+      <span class="muted">If you opened this file directly, serve it: <code>python3 -m http.server</code> from the repo root, or use the offline fixture button.</span>`;
+  }
+}
+
+function buildChips(idx) {
+  const chips = $('chips');
+  chips.innerHTML = (idx.tiles || []).map(t => `<span class="chip" data-gh5="${esc(t.gh5)}">${esc(t.gh5)} <span class="muted">${t.count}</span></span>`).join('');
+  chips.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => { $('q').value = c.dataset.gh5; doLookup(); }));
+}
+
+// ── gh5 lookup (accepts a gh5 or "lat,lng") ──────────────────────────────────────
+async function doLookup() {
+  const out = $('lookOut');
+  let v = $('q').value.trim();
+  if (!v) { out.innerHTML = '<span class="muted">type a geohash-5 or lat,lng.</span>'; return; }
+  let gh5 = v;
+  const m = v.match(/^\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*$/);
+  if (m) { gh5 = gh5For(parseFloat(m[1]), parseFloat(m[2])); }
+  gh5 = gh5.toLowerCase().slice(0, 5);
+  out.innerHTML = `<span class="muted">looking up <b class="mono">${esc(gh5)}</b> …</span>`;
+  try {
+    const tile = await fetchPoiTile(gh5, { base: REL });
+    if (tile) renderTile(tile, out, `Static tile <b>${esc(gh5)}</b> — a direct hit:`);
+    else out.innerHTML = `<div class="warn">no static tile at <b class="mono">${esc(gh5)}</b> (returned <span class="mono">null</span>).</div>
+      <div class="muted">That's the graceful miss: a live client falls back to Overpass for this cell. Try a seeded chip above for a hit.</div>`;
+  } catch (e) {
+    out.innerHTML = `<span class="err">lookup error: ${esc(e.message)}</span>`;
+  }
+}
+
+// ── curl lines (built from a real Atlanta gh5) ───────────────────────────────────
+function curlLines() {
+  const atl = gh5For(33.8676, -84.4694);       // Vinings, GA → its gh5-5 tile
+  const set = (el, cmd) => { $(el).insertAdjacentHTML('afterbegin', esc(cmd)); $(el).dataset.cmd = cmd; };
+  set('curl1', `curl -s ${BASES.pages}index.json | head -c 400`);
+  set('curl2', `curl -s ${BASES.pages}gh5/${atl}.json | head -c 400`);
+  set('curl3', `# same bytes via the raw mirror (any door)\ncurl -s ${BASES.raw}gh5/${atl}.json | head -c 400`);
+}
+
+// ── wiring ───────────────────────────────────────────────────────────────────────
+$('loadIdx').addEventListener('click', loadIndexLive);
+$('loadFix').addEventListener('click', renderFixture);
+$('lookup').addEventListener('click', doLookup);
+$('q').addEventListener('keydown', e => { if (e.key === 'Enter') doLookup(); });
+document.querySelectorAll('[data-copy]').forEach(b => b.addEventListener('click', () => {
+  const cmd = b.parentElement.dataset.cmd || '';
+  navigator.clipboard?.writeText(cmd).then(() => { const o = b.textContent; b.textContent = 'copied ✓'; setTimeout(() => b.textContent = o, 1200); });
+}));
+$('gen').textContent = '';
+curlLines();
+$('q').value = gh5For(33.8676, -84.4694);       // prefill an Atlanta tile so the first lookup is a hit
+
+// headless/offline proof: ?selftest=1 renders the fixture with no network and flags __poiProof
+if (new URLSearchParams(location.search).has('selftest')) {
+  try { renderFixture(); } catch (e) { window.__poiProof = { rendered: false, error: String(e) }; }
+}
+</script>
+</body></html>

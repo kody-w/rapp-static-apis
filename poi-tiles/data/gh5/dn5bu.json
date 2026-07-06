@@ -1,0 +1,733 @@
+{
+ "schema": "rapp-poi-tile/1.0",
+ "gh5": "dn5bu",
+ "region": "atlanta",
+ "bounds": {
+  "s": 33.8818359375,
+  "w": -84.55078125,
+  "n": 33.92578125,
+  "e": -84.5068359375
+ },
+ "generated": "2026-07-06T14:58:53.034Z",
+ "source": "OpenStreetMap",
+ "license": "ODbL",
+ "attribution": "© OpenStreetMap contributors",
+ "counts": {
+  "total": 69,
+  "water": 5,
+  "nature": 3,
+  "landmark": 8,
+  "worship": 2,
+  "civic": 0,
+  "seat": 51
+ },
+ "pois": [
+  {
+   "id": "node/10604652207",
+   "lat": 33.8839868,
+   "lng": -84.515544,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/10604652209",
+   "lat": 33.8839559,
+   "lng": -84.5155454,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/10604652210",
+   "lat": 33.8839837,
+   "lng": -84.5156434,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/10604652211",
+   "lat": 33.8839464,
+   "lng": -84.5156471,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/10773238926",
+   "lat": 33.8848596,
+   "lng": -84.5260644,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/10793879996",
+   "lat": 33.8979428,
+   "lng": -84.5442126,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11229943492",
+   "lat": 33.88743,
+   "lng": -84.5085722,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11229976439",
+   "lat": 33.8874475,
+   "lng": -84.5089923,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11261107490",
+   "lat": 33.8853508,
+   "lng": -84.5168956,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/11813573298",
+   "lat": 33.8841028,
+   "lng": -84.5162443,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11813576420",
+   "lat": 33.8844259,
+   "lng": -84.5168361,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11813603062",
+   "lat": 33.8843085,
+   "lng": -84.5161037,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11813605415",
+   "lat": 33.8857572,
+   "lng": -84.5170541,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11813623342",
+   "lat": 33.8857637,
+   "lng": -84.51736,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11813624628",
+   "lat": 33.8843968,
+   "lng": -84.5168685,
+   "name": "a memorial",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "plaque"
+   }
+  },
+  {
+   "id": "node/11813626715",
+   "lat": 33.8849373,
+   "lng": -84.5164905,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11813626716",
+   "lat": 33.8859237,
+   "lng": -84.5160473,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/11813628495",
+   "lat": 33.8853545,
+   "lng": -84.5172749,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11813636074",
+   "lat": 33.8853282,
+   "lng": -84.5168979,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/11813637160",
+   "lat": 33.885037,
+   "lng": -84.5164897,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/11813637917",
+   "lat": 33.8851516,
+   "lng": -84.516748,
+   "name": "a fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain"
+   }
+  },
+  {
+   "id": "node/11813638110",
+   "lat": 33.8857406,
+   "lng": -84.5172268,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11813640644",
+   "lat": 33.8846121,
+   "lng": -84.5169166,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11813643713",
+   "lat": 33.8848963,
+   "lng": -84.516494,
+   "name": "Willow oak",
+   "kind": "nature",
+   "tags": {
+    "genus": "Quercus",
+    "name": "Willow oak",
+    "natural": "tree",
+    "species": "Quercus phellos"
+   }
+  },
+  {
+   "id": "node/11813645851",
+   "lat": 33.8847811,
+   "lng": -84.5164924,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/11815100732",
+   "lat": 33.8856101,
+   "lng": -84.5169242,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11822618357",
+   "lat": 33.8848988,
+   "lng": -84.5157565,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11822620336",
+   "lat": 33.885321,
+   "lng": -84.5161962,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11822622129",
+   "lat": 33.8853632,
+   "lng": -84.5161568,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11822627392",
+   "lat": 33.8851814,
+   "lng": -84.5160907,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11822628860",
+   "lat": 33.8852394,
+   "lng": -84.5160226,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11822630117",
+   "lat": 33.8849856,
+   "lng": -84.5156676,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11822632271",
+   "lat": 33.8854255,
+   "lng": -84.5160983,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11822632715",
+   "lat": 33.8852812,
+   "lng": -84.515956,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11822634582",
+   "lat": 33.8852812,
+   "lng": -84.515956,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11866454720",
+   "lat": 33.8940577,
+   "lng": -84.520651,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11866457249",
+   "lat": 33.8940033,
+   "lng": -84.5207205,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11866489552",
+   "lat": 33.8939652,
+   "lng": -84.5207716,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11866492988",
+   "lat": 33.8940432,
+   "lng": -84.5207936,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11866492989",
+   "lat": 33.8939957,
+   "lng": -84.5208167,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11866493414",
+   "lat": 33.8941094,
+   "lng": -84.5207253,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11866497099",
+   "lat": 33.8933896,
+   "lng": -84.5205115,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11870191623",
+   "lat": 33.8841214,
+   "lng": -84.5166085,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11882360982",
+   "lat": 33.8838019,
+   "lng": -84.5165882,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/12574634599",
+   "lat": 33.8979013,
+   "lng": -84.5226032,
+   "name": "Smyrna Coffee",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Smyrna Coffee"
+   }
+  },
+  {
+   "id": "node/12814894590",
+   "lat": 33.88376,
+   "lng": -84.5150943,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/12820385770",
+   "lat": 33.8832138,
+   "lng": -84.5138211,
+   "name": "a memorial",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "plaque"
+   }
+  },
+  {
+   "id": "node/12820387342",
+   "lat": 33.883249,
+   "lng": -84.5138149,
+   "name": "an artwork",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "statue",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/13662167690",
+   "lat": 33.9094979,
+   "lng": -84.523123,
+   "name": "a memorial",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial"
+   }
+  },
+  {
+   "id": "node/13666653704",
+   "lat": 33.8838608,
+   "lng": -84.5146827,
+   "name": "an artwork",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "sculpture",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/3301607811",
+   "lat": 33.8929356,
+   "lng": -84.5397076,
+   "name": "LifePoint Church",
+   "kind": "worship",
+   "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "baptist",
+    "name": "LifePoint Church",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/5359868243",
+   "lat": 33.8852654,
+   "lng": -84.5142614,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5359868244",
+   "lat": 33.8853857,
+   "lng": -84.5142848,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5359868245",
+   "lat": 33.885311,
+   "lng": -84.5142926,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5359868246",
+   "lat": 33.8853427,
+   "lng": -84.514299,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/616524970",
+   "lat": 33.8820818,
+   "lng": -84.5162496,
+   "name": "Smyrna First Baptist Church",
+   "kind": "worship",
+   "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "baptist",
+    "name": "Smyrna First Baptist Church",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/7836006605",
+   "lat": 33.8965053,
+   "lng": -84.5246002,
+   "name": "a monument",
+   "kind": "landmark",
+   "tags": {
+    "historic": "monument"
+   }
+  },
+  {
+   "id": "node/7836006606",
+   "lat": 33.8965246,
+   "lng": -84.5266445,
+   "name": "a monument",
+   "kind": "landmark",
+   "tags": {
+    "historic": "monument"
+   }
+  },
+  {
+   "id": "node/9469785397",
+   "lat": 33.8841116,
+   "lng": -84.5156715,
+   "name": "Café Lucia",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Café Lucia"
+   }
+  },
+  {
+   "id": "node/9798947513",
+   "lat": 33.8853343,
+   "lng": -84.5155895,
+   "name": "FruTea Bubbles Café",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "FruTea Bubbles Café"
+   }
+  },
+  {
+   "id": "node/9798955077",
+   "lat": 33.8838381,
+   "lng": -84.5158121,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/9798955078",
+   "lat": 33.8838428,
+   "lng": -84.5157972,
+   "name": "an artwork",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "sculpture",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/9798955081",
+   "lat": 33.8838612,
+   "lng": -84.5155191,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/9798955085",
+   "lat": 33.8838431,
+   "lng": -84.5157246,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/9798955090",
+   "lat": 33.8838679,
+   "lng": -84.5153299,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/9799024440",
+   "lat": 33.8840878,
+   "lng": -84.5157676,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/9799024445",
+   "lat": 33.8840974,
+   "lng": -84.5155007,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/9799024446",
+   "lat": 33.8840958,
+   "lng": -84.5154295,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/9799024447",
+   "lat": 33.8840875,
+   "lng": -84.515635,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  }
+ ]
+}

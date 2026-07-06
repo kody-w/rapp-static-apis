@@ -1,0 +1,1405 @@
+{
+ "schema": "rapp-poi-tile/1.0",
+ "gh5": "dn5by",
+ "region": "atlanta",
+ "bounds": {
+  "s": 33.8818359375,
+  "w": -84.462890625,
+  "n": 33.92578125,
+  "e": -84.4189453125
+ },
+ "generated": "2026-07-06T15:02:00.491Z",
+ "source": "OpenStreetMap",
+ "license": "ODbL",
+ "attribution": "© OpenStreetMap contributors",
+ "counts": {
+  "total": 127,
+  "water": 8,
+  "nature": 22,
+  "landmark": 5,
+  "worship": 0,
+  "civic": 75,
+  "seat": 17
+ },
+ "pois": [
+  {
+   "id": "node/10575781780",
+   "lat": 33.8914703,
+   "lng": -84.445148,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/11125231266",
+   "lat": 33.8965632,
+   "lng": -84.4450537,
+   "name": "Chattahoochee Coffee Company",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Chattahoochee Coffee Company"
+   }
+  },
+  {
+   "id": "node/13535654264",
+   "lat": 33.9013179,
+   "lng": -84.4383678,
+   "name": "a fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain"
+   }
+  },
+  {
+   "id": "node/13624236399",
+   "lat": 33.8987198,
+   "lng": -84.4455659,
+   "name": "a fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain"
+   }
+  },
+  {
+   "id": "node/13673722853",
+   "lat": 33.8897013,
+   "lng": -84.4395721,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/13673731401",
+   "lat": 33.889721,
+   "lng": -84.4395629,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/13744126693",
+   "lat": 33.9007614,
+   "lng": -84.4582745,
+   "name": "a fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain"
+   }
+  },
+  {
+   "id": "node/13939526891",
+   "lat": 33.8898736,
+   "lng": -84.4326195,
+   "name": "a fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain"
+   }
+  },
+  {
+   "id": "node/13939527007",
+   "lat": 33.9032708,
+   "lng": -84.4349253,
+   "name": "a fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain"
+   }
+  },
+  {
+   "id": "node/1810573872",
+   "lat": 33.902783,
+   "lng": -84.4447238,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/1810573875",
+   "lat": 33.912339,
+   "lng": -84.4477783,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/1810573879",
+   "lat": 33.9213252,
+   "lng": -84.4392994,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/1813353408",
+   "lat": 33.9031995,
+   "lng": -84.4447,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "board",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/2207216627",
+   "lat": 33.8867391,
+   "lng": -84.4426684,
+   "name": "EP 5",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 5",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/2207216660",
+   "lat": 33.8839411,
+   "lng": -84.442188,
+   "name": "EP 2",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 2",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/2207216671",
+   "lat": 33.8880453,
+   "lng": -84.4398035,
+   "name": "EP 8",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 8",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/2207216684",
+   "lat": 33.8897109,
+   "lng": -84.4395632,
+   "name": "a viewpoint",
+   "kind": "landmark",
+   "tags": {
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/2207216723",
+   "lat": 33.8859092,
+   "lng": -84.4427938,
+   "name": "EP 4",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 4",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/2207216734",
+   "lat": 33.8894503,
+   "lng": -84.4382378,
+   "name": "EP 14",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 14",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/2240391958",
+   "lat": 33.8853906,
+   "lng": -84.4412899,
+   "name": "EP 7",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 7",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/2240460499",
+   "lat": 33.894592,
+   "lng": -84.4357918,
+   "name": "EP 18",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 18",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/2240460515",
+   "lat": 33.8883803,
+   "lng": -84.437908,
+   "name": "EP 12",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 12",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/2727309303",
+   "lat": 33.9033422,
+   "lng": -84.4605161,
+   "name": "Planet Smoothie",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Planet Smoothie"
+   }
+  },
+  {
+   "id": "node/2882794759",
+   "lat": 33.8943716,
+   "lng": -84.4583062,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/3524667228",
+   "lat": 33.8838331,
+   "lng": -84.4369718,
+   "name": "EP 19",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 19",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/3524672822",
+   "lat": 33.8877051,
+   "lng": -84.4352167,
+   "name": "EP 21",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 21",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/3577838861",
+   "lat": 33.8843725,
+   "lng": -84.4417697,
+   "name": "EP 3",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 3",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/3577846744",
+   "lat": 33.8862898,
+   "lng": -84.4416262,
+   "name": "EP 6",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 6",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/3577863020",
+   "lat": 33.8874868,
+   "lng": -84.4433505,
+   "name": "EP 30",
+   "kind": "civic",
+   "tags": {
+    "information": "yes",
+    "name": "EP 30",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/3577863060",
+   "lat": 33.8886237,
+   "lng": -84.4373739,
+   "name": "EP 24",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 24",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/3649688572",
+   "lat": 33.8889396,
+   "lng": -84.4388896,
+   "name": "EP 10",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 10",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/3649688596",
+   "lat": 33.8908841,
+   "lng": -84.4376372,
+   "name": "EP 23",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 23",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/3649688601",
+   "lat": 33.8880151,
+   "lng": -84.4358616,
+   "name": "EP 22",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 22",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/3649688607",
+   "lat": 33.8868402,
+   "lng": -84.435091,
+   "name": "EP 13",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 13",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/3649719133",
+   "lat": 33.8826348,
+   "lng": -84.4426615,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/3681459123",
+   "lat": 33.8913706,
+   "lng": -84.4376004,
+   "name": "EP 17",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 17",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/3681491222",
+   "lat": 33.8908888,
+   "lng": -84.4400729,
+   "name": "EP 16",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 16",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/3681500771",
+   "lat": 33.8950703,
+   "lng": -84.4430302,
+   "name": "EP26",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP26",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/3681502253",
+   "lat": 33.8908361,
+   "lng": -84.4400316,
+   "name": "Old Mill Ruins",
+   "kind": "landmark",
+   "tags": {
+    "historic": "ruins",
+    "name": "Old Mill Ruins"
+   }
+  },
+  {
+   "id": "node/4033993686",
+   "lat": 33.8945818,
+   "lng": -84.4614872,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4033993687",
+   "lat": 33.8947309,
+   "lng": -84.4613195,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4053195931",
+   "lat": 33.8819225,
+   "lng": -84.4620526,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053195932",
+   "lat": 33.881861,
+   "lng": -84.4620777,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4156686487",
+   "lat": 33.885889,
+   "lng": -84.4537996,
+   "name": "Mile 1.14",
+   "kind": "civic",
+   "tags": {
+    "information": "marker",
+    "name": "Mile 1.14",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/4156693811",
+   "lat": 33.8828427,
+   "lng": -84.4515588,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4156693812",
+   "lat": 33.8829337,
+   "lng": -84.4515588,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4156693821",
+   "lat": 33.8839172,
+   "lng": -84.4521372,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4156693857",
+   "lat": 33.8898009,
+   "lng": -84.4558832,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4156693867",
+   "lat": 33.8937149,
+   "lng": -84.4572787,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4156693871",
+   "lat": 33.8937294,
+   "lng": -84.4573517,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4156693873",
+   "lat": 33.8937528,
+   "lng": -84.4573045,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/4794097989",
+   "lat": 33.900836,
+   "lng": -84.4572838,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4794097990",
+   "lat": 33.9009551,
+   "lng": -84.4569874,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4794097991",
+   "lat": 33.9004931,
+   "lng": -84.4577075,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4794097992",
+   "lat": 33.9001314,
+   "lng": -84.4580066,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4794097993",
+   "lat": 33.9001904,
+   "lng": -84.457961,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4794097994",
+   "lat": 33.9003696,
+   "lng": -84.4578068,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4794097995",
+   "lat": 33.8999132,
+   "lng": -84.4581608,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4794097996",
+   "lat": 33.8999555,
+   "lng": -84.4581394,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4794097997",
+   "lat": 33.8999944,
+   "lng": -84.4581112,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4794097998",
+   "lat": 33.9000779,
+   "lng": -84.4580509,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4794097999",
+   "lat": 33.9002872,
+   "lng": -84.4578792,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4794098000",
+   "lat": 33.901279,
+   "lng": -84.4563986,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4794098001",
+   "lat": 33.9013191,
+   "lng": -84.4563208,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4794098002",
+   "lat": 33.901122,
+   "lng": -84.4565569,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4794098003",
+   "lat": 33.9011432,
+   "lng": -84.4564536,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4794098004",
+   "lat": 33.9015261,
+   "lng": -84.4561398,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4794098005",
+   "lat": 33.9015851,
+   "lng": -84.4560204,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4794098006",
+   "lat": 33.9016886,
+   "lng": -84.455995,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4794098007",
+   "lat": 33.9018667,
+   "lng": -84.455893,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/538587835",
+   "lat": 33.8937704,
+   "lng": -84.4575992,
+   "name": "Mile 1.8",
+   "kind": "civic",
+   "tags": {
+    "information": "marker",
+    "name": "Mile 1.8",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/538587841",
+   "lat": 33.8926323,
+   "lng": -84.4569655,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/5850666752",
+   "lat": 33.8937062,
+   "lng": -84.4426839,
+   "name": "Bamboo Forest",
+   "kind": "nature",
+   "tags": {
+    "leisure": "park",
+    "name": "Bamboo Forest"
+   }
+  },
+  {
+   "id": "node/6711203150",
+   "lat": 33.8945189,
+   "lng": -84.458361,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/6711214950",
+   "lat": 33.8945182,
+   "lng": -84.4583194,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/6711225198",
+   "lat": 33.8944783,
+   "lng": -84.4582251,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/6711238752",
+   "lat": 33.8944562,
+   "lng": -84.4582541,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/7278272838",
+   "lat": 33.9082016,
+   "lng": -84.4433993,
+   "name": "a ruins",
+   "kind": "landmark",
+   "tags": {
+    "historic": "ruins"
+   }
+  },
+  {
+   "id": "node/7278326980",
+   "lat": 33.9098589,
+   "lng": -84.4462121,
+   "name": "a ruins",
+   "kind": "landmark",
+   "tags": {
+    "historic": "ruins"
+   }
+  },
+  {
+   "id": "node/7278379271",
+   "lat": 33.910411,
+   "lng": -84.4466954,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/7278379272",
+   "lat": 33.9082752,
+   "lng": -84.4455974,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/7278379273",
+   "lat": 33.9080581,
+   "lng": -84.4453637,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/7278379274",
+   "lat": 33.9075428,
+   "lng": -84.444774,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/7278379275",
+   "lat": 33.9032976,
+   "lng": -84.4426923,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/7278379276",
+   "lat": 33.9035185,
+   "lng": -84.4434775,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/7278379277",
+   "lat": 33.9035085,
+   "lng": -84.4421726,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/7278379278",
+   "lat": 33.9042342,
+   "lng": -84.4427372,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/7278379279",
+   "lat": 33.9045197,
+   "lng": -84.4419821,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/7784809979",
+   "lat": 33.8855581,
+   "lng": -84.4620729,
+   "name": "Cobb Galleria Bell Tower",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "sculpture",
+    "name": "Cobb Galleria Bell Tower",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/7890362668",
+   "lat": 33.8896583,
+   "lng": -84.4426276,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/7890362669",
+   "lat": 33.8913227,
+   "lng": -84.4459491,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/7890362670",
+   "lat": 33.88858,
+   "lng": -84.4436793,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/7890362671",
+   "lat": 33.8888735,
+   "lng": -84.4441071,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/7890362672",
+   "lat": 33.8887867,
+   "lng": -84.4442987,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/7890362673",
+   "lat": 33.8873021,
+   "lng": -84.4455032,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/7890362674",
+   "lat": 33.8884287,
+   "lng": -84.4477958,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/7890362675",
+   "lat": 33.8861726,
+   "lng": -84.4485234,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/7890392620",
+   "lat": 33.8893004,
+   "lng": -84.4427845,
+   "name": "Life Jacket Loaner Station",
+   "kind": "civic",
+   "tags": {
+    "information": "board",
+    "name": "Life Jacket Loaner Station",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/7890392621",
+   "lat": 33.8914679,
+   "lng": -84.4451257,
+   "name": "Palisades-Akers Mill Trails",
+   "kind": "civic",
+   "tags": {
+    "information": "board",
+    "name": "Palisades-Akers Mill Trails",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/7890392622",
+   "lat": 33.8916171,
+   "lng": -84.4450895,
+   "name": "Chattahoochee River National Recreation Area / Palisades / Fees and Safety",
+   "kind": "civic",
+   "tags": {
+    "information": "board",
+    "name": "Chattahoochee River National Recreation Area / Palisades / Fees and Safety",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8122300133",
+   "lat": 33.890667,
+   "lng": -84.445648,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/820012176",
+   "lat": 33.8898102,
+   "lng": -84.4558614,
+   "name": "Mile 1.46",
+   "kind": "civic",
+   "tags": {
+    "information": "marker",
+    "name": "Mile 1.46",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8332557668",
+   "lat": 33.8875576,
+   "lng": -84.433849,
+   "name": "EP 20",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "EP 20",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8870168970",
+   "lat": 33.9149567,
+   "lng": -84.4486811,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8870168971",
+   "lat": 33.9102756,
+   "lng": -84.4484998,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8870168973",
+   "lat": 33.920284,
+   "lng": -84.4408407,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8870168974",
+   "lat": 33.9089082,
+   "lng": -84.4489609,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8870168976",
+   "lat": 33.9213592,
+   "lng": -84.4397893,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8870168977",
+   "lat": 33.9158591,
+   "lng": -84.4468339,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8870168978",
+   "lat": 33.9127877,
+   "lng": -84.4470749,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8870168980",
+   "lat": 33.9213037,
+   "lng": -84.4398071,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "board",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8870314077",
+   "lat": 33.9218235,
+   "lng": -84.4403346,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8870314088",
+   "lat": 33.9118944,
+   "lng": -84.4507536,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8870314108",
+   "lat": 33.9097532,
+   "lng": -84.4565237,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8870346524",
+   "lat": 33.9079449,
+   "lng": -84.456449,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8870346536",
+   "lat": 33.9078248,
+   "lng": -84.4568154,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8870346537",
+   "lat": 33.9069345,
+   "lng": -84.4569308,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8870346538",
+   "lat": 33.9060416,
+   "lng": -84.455822,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8870346539",
+   "lat": 33.9085748,
+   "lng": -84.4531968,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8870346540",
+   "lat": 33.9092452,
+   "lng": -84.4508757,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/8870346541",
+   "lat": 33.9058712,
+   "lng": -84.4511041,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/9198414761",
+   "lat": 33.9056824,
+   "lng": -84.4587227,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/9198414762",
+   "lat": 33.9220793,
+   "lng": -84.4461372,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/9198414763",
+   "lat": 33.9189037,
+   "lng": -84.4516163,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/9198414764",
+   "lat": 33.9083199,
+   "lng": -84.4591816,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/9198414765",
+   "lat": 33.9097777,
+   "lng": -84.4590852,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/9198414766",
+   "lat": 33.9094371,
+   "lng": -84.4577097,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  }
+ ]
+}

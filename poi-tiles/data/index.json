@@ -1,0 +1,373 @@
+{
+ "schema": "rapp-poi-index/1.0",
+ "generated": "2026-07-06T15:17:22.816Z",
+ "source": "OpenStreetMap",
+ "license": "ODbL",
+ "attribution": "© OpenStreetMap contributors",
+ "bases": {
+  "pages": "https://kody-w.github.io/rapp-static-apis/poi-tiles/data/",
+  "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/poi-tiles/data/"
+ },
+ "totals": {
+  "tiles": 10,
+  "pois": 5841,
+  "kinds": {
+   "water": 347,
+   "nature": 2886,
+   "landmark": 662,
+   "worship": 92,
+   "civic": 343,
+   "seat": 1511
+  }
+ },
+ "regions": {
+  "atlanta": {
+   "label": "Atlanta metro — Vinings/Smyrna/Cumberland (home turf)",
+   "tiles": [
+    "dn5bs",
+    "dn5bt",
+    "dn5bu",
+    "dn5bw",
+    "dn5by"
+   ],
+   "pois": 841,
+   "kinds": {
+    "water": 29,
+    "nature": 527,
+    "landmark": 14,
+    "worship": 10,
+    "civic": 119,
+    "seat": 142
+   },
+   "bounds": {
+    "s": 33.837890625,
+    "w": -84.55078125,
+    "n": 33.92578125,
+    "e": -84.4189453125
+   },
+   "generated": "2026-07-06T15:02:00.491Z"
+  },
+  "nyc-midtown": {
+   "label": "New York — Midtown Manhattan",
+   "tiles": [
+    "dr5ru"
+   ],
+   "pois": 1000,
+   "kinds": {
+    "water": 77,
+    "nature": 405,
+    "landmark": 146,
+    "worship": 16,
+    "civic": 32,
+    "seat": 324
+   },
+   "bounds": {
+    "s": 40.7373046875,
+    "w": -74.00390625,
+    "n": 40.78125,
+    "e": -73.9599609375
+   },
+   "generated": "2026-07-06T15:08:24.813Z"
+  },
+  "london-center": {
+   "label": "London — Westminster / Soho",
+   "tiles": [
+    "gcpvj"
+   ],
+   "pois": 1000,
+   "kinds": {
+    "water": 22,
+    "nature": 621,
+    "landmark": 89,
+    "worship": 5,
+    "civic": 35,
+    "seat": 228
+   },
+   "bounds": {
+    "s": 51.50390625,
+    "w": -0.1318359375,
+    "n": 51.5478515625,
+    "e": -0.087890625
+   },
+   "generated": "2026-07-06T15:07:14.738Z"
+  },
+  "sydney-center": {
+   "label": "Sydney — CBD / Circular Quay",
+   "tiles": [
+    "r3gx2"
+   ],
+   "pois": 1000,
+   "kinds": {
+    "water": 106,
+    "nature": 479,
+    "landmark": 113,
+    "worship": 10,
+    "civic": 24,
+    "seat": 268
+   },
+   "bounds": {
+    "s": -33.8818359375,
+    "w": 151.171875,
+    "n": -33.837890625,
+    "e": 151.2158203125
+   },
+   "generated": "2026-07-06T15:07:32.993Z"
+  },
+  "paris-center": {
+   "label": "Paris — 1er / Louvre",
+   "tiles": [
+    "u09tv"
+   ],
+   "pois": 1000,
+   "kinds": {
+    "water": 69,
+    "nature": 449,
+    "landmark": 196,
+    "worship": 5,
+    "civic": 32,
+    "seat": 249
+   },
+   "bounds": {
+    "s": 48.8232421875,
+    "w": 2.3291015625,
+    "n": 48.8671875,
+    "e": 2.373046875
+   },
+   "generated": "2026-07-06T14:57:57.232Z"
+  },
+  "tokyo-shibuya": {
+   "label": "Tokyo — Shibuya",
+   "tiles": [
+    "xn76f"
+   ],
+   "pois": 1000,
+   "kinds": {
+    "water": 44,
+    "nature": 405,
+    "landmark": 104,
+    "worship": 46,
+    "civic": 101,
+    "seat": 300
+   },
+   "bounds": {
+    "s": 35.6396484375,
+    "w": 139.658203125,
+    "n": 35.68359375,
+    "e": 139.7021484375
+   },
+   "generated": "2026-07-06T15:07:28.891Z"
+  }
+ },
+ "tiles": [
+  {
+   "gh5": "dn5bs",
+   "region": "atlanta",
+   "count": 118,
+   "kinds": {
+    "water": 11,
+    "nature": 26,
+    "landmark": 1,
+    "worship": 5,
+    "civic": 31,
+    "seat": 44
+   },
+   "bounds": {
+    "s": 33.837890625,
+    "w": -84.55078125,
+    "n": 33.8818359375,
+    "e": -84.5068359375
+   },
+   "generated": "2026-07-06T14:58:40.418Z",
+   "path": "gh5/dn5bs.json"
+  },
+  {
+   "gh5": "dn5bt",
+   "region": "atlanta",
+   "count": 417,
+   "kinds": {
+    "water": 1,
+    "nature": 390,
+    "landmark": 0,
+    "worship": 2,
+    "civic": 1,
+    "seat": 23
+   },
+   "bounds": {
+    "s": 33.837890625,
+    "w": -84.5068359375,
+    "n": 33.8818359375,
+    "e": -84.462890625
+   },
+   "generated": "2026-07-06T14:58:45.667Z",
+   "path": "gh5/dn5bt.json"
+  },
+  {
+   "gh5": "dn5bu",
+   "region": "atlanta",
+   "count": 69,
+   "kinds": {
+    "water": 5,
+    "nature": 3,
+    "landmark": 8,
+    "worship": 2,
+    "civic": 0,
+    "seat": 51
+   },
+   "bounds": {
+    "s": 33.8818359375,
+    "w": -84.55078125,
+    "n": 33.92578125,
+    "e": -84.5068359375
+   },
+   "generated": "2026-07-06T14:58:53.034Z",
+   "path": "gh5/dn5bu.json"
+  },
+  {
+   "gh5": "dn5bw",
+   "region": "atlanta",
+   "count": 110,
+   "kinds": {
+    "water": 4,
+    "nature": 86,
+    "landmark": 0,
+    "worship": 1,
+    "civic": 12,
+    "seat": 7
+   },
+   "bounds": {
+    "s": 33.837890625,
+    "w": -84.462890625,
+    "n": 33.8818359375,
+    "e": -84.4189453125
+   },
+   "generated": "2026-07-06T15:01:59.432Z",
+   "path": "gh5/dn5bw.json"
+  },
+  {
+   "gh5": "dn5by",
+   "region": "atlanta",
+   "count": 127,
+   "kinds": {
+    "water": 8,
+    "nature": 22,
+    "landmark": 5,
+    "worship": 0,
+    "civic": 75,
+    "seat": 17
+   },
+   "bounds": {
+    "s": 33.8818359375,
+    "w": -84.462890625,
+    "n": 33.92578125,
+    "e": -84.4189453125
+   },
+   "generated": "2026-07-06T15:02:00.491Z",
+   "path": "gh5/dn5by.json"
+  },
+  {
+   "gh5": "dr5ru",
+   "region": "nyc-midtown",
+   "count": 1000,
+   "kinds": {
+    "water": 77,
+    "nature": 405,
+    "landmark": 146,
+    "worship": 16,
+    "civic": 32,
+    "seat": 324
+   },
+   "bounds": {
+    "s": 40.7373046875,
+    "w": -74.00390625,
+    "n": 40.78125,
+    "e": -73.9599609375
+   },
+   "generated": "2026-07-06T15:08:24.813Z",
+   "path": "gh5/dr5ru.json"
+  },
+  {
+   "gh5": "gcpvj",
+   "region": "london-center",
+   "count": 1000,
+   "kinds": {
+    "water": 22,
+    "nature": 621,
+    "landmark": 89,
+    "worship": 5,
+    "civic": 35,
+    "seat": 228
+   },
+   "bounds": {
+    "s": 51.50390625,
+    "w": -0.1318359375,
+    "n": 51.5478515625,
+    "e": -0.087890625
+   },
+   "generated": "2026-07-06T15:07:14.738Z",
+   "path": "gh5/gcpvj.json"
+  },
+  {
+   "gh5": "r3gx2",
+   "region": "sydney-center",
+   "count": 1000,
+   "kinds": {
+    "water": 106,
+    "nature": 479,
+    "landmark": 113,
+    "worship": 10,
+    "civic": 24,
+    "seat": 268
+   },
+   "bounds": {
+    "s": -33.8818359375,
+    "w": 151.171875,
+    "n": -33.837890625,
+    "e": 151.2158203125
+   },
+   "generated": "2026-07-06T15:07:32.993Z",
+   "path": "gh5/r3gx2.json"
+  },
+  {
+   "gh5": "u09tv",
+   "region": "paris-center",
+   "count": 1000,
+   "kinds": {
+    "water": 69,
+    "nature": 449,
+    "landmark": 196,
+    "worship": 5,
+    "civic": 32,
+    "seat": 249
+   },
+   "bounds": {
+    "s": 48.8232421875,
+    "w": 2.3291015625,
+    "n": 48.8671875,
+    "e": 2.373046875
+   },
+   "generated": "2026-07-06T14:57:57.232Z",
+   "path": "gh5/u09tv.json"
+  },
+  {
+   "gh5": "xn76f",
+   "region": "tokyo-shibuya",
+   "count": 1000,
+   "kinds": {
+    "water": 44,
+    "nature": 405,
+    "landmark": 104,
+    "worship": 46,
+    "civic": 101,
+    "seat": 300
+   },
+   "bounds": {
+    "s": 35.6396484375,
+    "w": 139.658203125,
+    "n": 35.68359375,
+    "e": 139.7021484375
+   },
+   "generated": "2026-07-06T15:07:28.891Z",
+   "path": "gh5/xn76f.json"
+  }
+ ]
+}

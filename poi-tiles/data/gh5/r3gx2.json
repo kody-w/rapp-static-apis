@@ -1,0 +1,10462 @@
+{
+ "schema": "rapp-poi-tile/1.0",
+ "gh5": "r3gx2",
+ "region": "sydney-center",
+ "bounds": {
+  "s": -33.8818359375,
+  "w": 151.171875,
+  "n": -33.837890625,
+  "e": 151.2158203125
+ },
+ "generated": "2026-07-06T15:07:32.993Z",
+ "source": "OpenStreetMap",
+ "license": "ODbL",
+ "attribution": "© OpenStreetMap contributors",
+ "counts": {
+  "total": 1000,
+  "water": 106,
+  "nature": 479,
+  "landmark": 113,
+  "worship": 10,
+  "civic": 24,
+  "seat": 268
+ },
+ "pois": [
+  {
+   "id": "node/1009670740",
+   "lat": -33.8749307,
+   "lng": 151.2121752,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/1114800736",
+   "lat": -33.8800333,
+   "lng": 151.2119167,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/1116469092",
+   "lat": -33.863199,
+   "lng": 151.2102163,
+   "name": "Macquarie Obelisk",
+   "kind": "landmark",
+   "tags": {
+    "historic": "milestone",
+    "man_made": "obelisk",
+    "name": "Macquarie Obelisk"
+   }
+  },
+  {
+   "id": "node/1117739786",
+   "lat": -33.8600915,
+   "lng": 151.2074289,
+   "name": "Susannah Place Museum",
+   "kind": "landmark",
+   "tags": {
+    "name": "Susannah Place Museum",
+    "tourism": "museum",
+    "wikidata": "Q7648734"
+   }
+  },
+  {
+   "id": "node/1262720397",
+   "lat": -33.8720808,
+   "lng": 151.2020132,
+   "name": "an artwork",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "statue",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/1266571187",
+   "lat": -33.8792881,
+   "lng": 151.2056916,
+   "name": "Starbucks",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee"
+   }
+  },
+  {
+   "id": "node/1268341013",
+   "lat": -33.8753277,
+   "lng": 151.2060452,
+   "name": "Chatime",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Chatime",
+    "name:en": "Chatime"
+   }
+  },
+  {
+   "id": "node/1343248622",
+   "lat": -33.8652075,
+   "lng": 151.205491,
+   "name": "Starbucks",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee"
+   }
+  },
+  {
+   "id": "node/1349741923",
+   "lat": -33.8765273,
+   "lng": 151.2118876,
+   "name": "HMAS Sydney I – SMS Emden Memorial",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "war_memorial",
+    "name": "HMAS Sydney I – SMS Emden Memorial"
+   }
+  },
+  {
+   "id": "node/13767762",
+   "lat": -33.8779638,
+   "lng": 151.1977698,
+   "name": "Ultimo Library",
+   "kind": "civic",
+   "tags": {
+    "amenity": "library",
+    "name": "Ultimo Library"
+   }
+  },
+  {
+   "id": "node/1422547406",
+   "lat": -33.8564364,
+   "lng": 151.2056575,
+   "name": "BarCycle Walsh Bay",
+   "kind": "seat",
+   "tags": {
+    "alt_name": "Bar Cycle",
+    "amenity": "cafe",
+    "name": "BarCycle Walsh Bay"
+   }
+  },
+  {
+   "id": "node/1431619030",
+   "lat": -33.8674933,
+   "lng": 151.2077773,
+   "name": "The Cenotaph War Memorial",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "war_memorial",
+    "name": "The Cenotaph War Memorial",
+    "wikidata": "Q7659860"
+   }
+  },
+  {
+   "id": "node/1460806958",
+   "lat": -33.8657615,
+   "lng": 151.1912492,
+   "name": "Zebra Lounge",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Zebra Lounge"
+   }
+  },
+  {
+   "id": "node/1471938484",
+   "lat": -33.8686444,
+   "lng": 151.205372,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/1613890757",
+   "lat": -33.8676523,
+   "lng": 151.1929004,
+   "name": "Banh Mi Co",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Banh Mi Co"
+   }
+  },
+  {
+   "id": "node/1613909625",
+   "lat": -33.8694825,
+   "lng": 151.1948307,
+   "name": "Quick Brown Fox Eatery",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Quick Brown Fox Eatery"
+   }
+  },
+  {
+   "id": "node/1613914572",
+   "lat": -33.8646591,
+   "lng": 151.1918902,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/1613914573",
+   "lat": -33.8648373,
+   "lng": 151.191866,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/1613914574",
+   "lat": -33.8638774,
+   "lng": 151.1928236,
+   "name": "a viewpoint",
+   "kind": "landmark",
+   "tags": {
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/1613915062",
+   "lat": -33.8627994,
+   "lng": 151.1938267,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/1613915063",
+   "lat": -33.8630466,
+   "lng": 151.1935961,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/1613915065",
+   "lat": -33.8629709,
+   "lng": 151.1935397,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/1613917321",
+   "lat": -33.8629575,
+   "lng": 151.1950418,
+   "name": "Two Fratelli",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Two Fratelli"
+   }
+  },
+  {
+   "id": "node/1613920260",
+   "lat": -33.867256,
+   "lng": 151.1887547,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/1613920339",
+   "lat": -33.8662136,
+   "lng": 151.1892829,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/1613920340",
+   "lat": -33.8662003,
+   "lng": 151.1896398,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/1613920341",
+   "lat": -33.8660355,
+   "lng": 151.1896022,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/1642680316",
+   "lat": -33.8589484,
+   "lng": 151.2135309,
+   "name": "a fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain"
+   }
+  },
+  {
+   "id": "node/1648027782",
+   "lat": -33.8594371,
+   "lng": 151.2047309,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/1648038773",
+   "lat": -33.8591654,
+   "lng": 151.2046912,
+   "name": "Hans Christian Andersen",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "bust",
+    "name": "Hans Christian Andersen"
+   }
+  },
+  {
+   "id": "node/1648038774",
+   "lat": -33.8590517,
+   "lng": 151.2047924,
+   "name": "South African War",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "stele",
+    "name": "South African War"
+   }
+  },
+  {
+   "id": "node/1648038781",
+   "lat": -33.8597845,
+   "lng": 151.2054683,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/1648068662",
+   "lat": -33.86142,
+   "lng": 151.2044455,
+   "name": "a cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe"
+   }
+  },
+  {
+   "id": "node/1648068684",
+   "lat": -33.8613698,
+   "lng": 151.2043368,
+   "name": "S.H. Ervin Gallery",
+   "kind": "landmark",
+   "tags": {
+    "name": "S.H. Ervin Gallery",
+    "tourism": "gallery",
+    "wikidata": "Q16938268"
+   }
+  },
+  {
+   "id": "node/1648148468",
+   "lat": -33.8585046,
+   "lng": 151.203965,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/1648156145",
+   "lat": -33.8584421,
+   "lng": 151.2052369,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/1648316521",
+   "lat": -33.855493,
+   "lng": 151.2069429,
+   "name": "a cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe"
+   }
+  },
+  {
+   "id": "node/1648316528",
+   "lat": -33.8567538,
+   "lng": 151.2039495,
+   "name": "Zupano",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Zupano"
+   }
+  },
+  {
+   "id": "node/1649875758",
+   "lat": -33.8580924,
+   "lng": 151.2018326,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/1652394239",
+   "lat": -33.8610709,
+   "lng": 151.2038494,
+   "name": "South Dowling Sandwiches",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "South Dowling Sandwiches"
+   }
+  },
+  {
+   "id": "node/168424970",
+   "lat": -33.8574842,
+   "lng": 151.1914975,
+   "name": "St Marys",
+   "kind": "worship",
+   "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "anglican",
+    "name": "St Marys",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/1727362152",
+   "lat": -33.8382644,
+   "lng": 151.1761423,
+   "name": "The Great North Walk",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "The Great North Walk",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/173339568",
+   "lat": -33.8769662,
+   "lng": 151.1982419,
+   "name": "City Map",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "name": "City Map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/173349878",
+   "lat": -33.8678833,
+   "lng": 151.1815556,
+   "name": "ANZAC memorial statue (Australia)",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "statue",
+    "name": "ANZAC memorial statue (Australia)"
+   }
+  },
+  {
+   "id": "node/173539972",
+   "lat": -33.8729638,
+   "lng": 151.1936361,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/173556961",
+   "lat": -33.8691936,
+   "lng": 151.1913451,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/173564030",
+   "lat": -33.8694669,
+   "lng": 151.1940217,
+   "name": "WWI",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "statue",
+    "name": "WWI"
+   }
+  },
+  {
+   "id": "node/174278512",
+   "lat": -33.8572282,
+   "lng": 151.1847959,
+   "name": "Campbell Street Presbyterian Church",
+   "kind": "worship",
+   "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "presbyterian",
+    "name": "Campbell Street Presbyterian Church",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/174278530",
+   "lat": -33.8579556,
+   "lng": 151.1836797,
+   "name": "a place of worship",
+   "kind": "worship",
+   "tags": {
+    "amenity": "place_of_worship",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/1815543231",
+   "lat": -33.8384539,
+   "lng": 151.1957838,
+   "name": "Bay Brew",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Bay Brew"
+   }
+  },
+  {
+   "id": "node/1815550983",
+   "lat": -33.8408286,
+   "lng": 151.1992496,
+   "name": "Shell midden",
+   "kind": "landmark",
+   "tags": {
+    "historic": "archaeological_site",
+    "name": "Shell midden"
+   }
+  },
+  {
+   "id": "node/1815550985",
+   "lat": -33.8412518,
+   "lng": 151.1982107,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/1833201916",
+   "lat": -33.8814129,
+   "lng": 151.2008939,
+   "name": "Chambers Coffee",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Chambers Coffee"
+   }
+  },
+  {
+   "id": "node/1833201928",
+   "lat": -33.8806013,
+   "lng": 151.200426,
+   "name": "Hippo's On Harris",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Hippo's On Harris"
+   }
+  },
+  {
+   "id": "node/1833201930",
+   "lat": -33.8794439,
+   "lng": 151.1997695,
+   "name": "Hannah's Pies",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Hannah's Pies"
+   }
+  },
+  {
+   "id": "node/1833228379",
+   "lat": -33.8768777,
+   "lng": 151.1946846,
+   "name": "Woolstore Cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Woolstore Cafe"
+   }
+  },
+  {
+   "id": "node/1833251518",
+   "lat": -33.8719136,
+   "lng": 151.1924648,
+   "name": "Fish Market Cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Fish Market Cafe"
+   }
+  },
+  {
+   "id": "node/1838533143",
+   "lat": -33.8442986,
+   "lng": 151.2069026,
+   "name": "Old Slipway",
+   "kind": "landmark",
+   "tags": {
+    "historic": "ruins",
+    "name": "Old Slipway"
+   }
+  },
+  {
+   "id": "node/1905132899",
+   "lat": -33.8695069,
+   "lng": 151.2083101,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/1909569729",
+   "lat": -33.8694312,
+   "lng": 151.2076346,
+   "name": "Strand Espresso",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Strand Espresso"
+   }
+  },
+  {
+   "id": "node/1911597074",
+   "lat": -33.8410796,
+   "lng": 151.2059678,
+   "name": "St Peters Presbyterian",
+   "kind": "worship",
+   "tags": {
+    "amenity": "place_of_worship",
+    "name": "St Peters Presbyterian",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/1941652134",
+   "lat": -33.8789175,
+   "lng": 151.2034778,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/1941652135",
+   "lat": -33.8789544,
+   "lng": 151.2150533,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/1986191921",
+   "lat": -33.8578774,
+   "lng": 151.2086071,
+   "name": "The Rocks Market",
+   "kind": "landmark",
+   "tags": {
+    "amenity": "marketplace",
+    "name": "The Rocks Market",
+    "tourism": "attraction"
+   }
+  },
+  {
+   "id": "node/19975279",
+   "lat": -33.8409667,
+   "lng": 151.189479,
+   "name": "a viewpoint",
+   "kind": "landmark",
+   "tags": {
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/19977237",
+   "lat": -33.8384911,
+   "lng": 151.1889812,
+   "name": "Aboriginal rock carvings",
+   "kind": "landmark",
+   "tags": {
+    "historic": "archaeological_site",
+    "name": "Aboriginal rock carvings"
+   }
+  },
+  {
+   "id": "node/2059153062",
+   "lat": -33.8688365,
+   "lng": 151.2057,
+   "name": "Mecca Sydney CBD Café",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Mecca Sydney CBD Café"
+   }
+  },
+  {
+   "id": "node/2073903728",
+   "lat": -33.8576641,
+   "lng": 151.1812623,
+   "name": "a memorial",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "obelisk"
+   }
+  },
+  {
+   "id": "node/20828204",
+   "lat": -33.8698442,
+   "lng": 151.19831,
+   "name": "Garden Island Signal Mask",
+   "kind": "landmark",
+   "tags": {
+    "historic": "yes",
+    "name": "Garden Island Signal Mask"
+   }
+  },
+  {
+   "id": "node/20930438",
+   "lat": -33.8764921,
+   "lng": 151.2098636,
+   "name": "Hydeaway",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Hydeaway"
+   }
+  },
+  {
+   "id": "node/20930443",
+   "lat": -33.8746704,
+   "lng": 151.2098544,
+   "name": "Hyde Park Obelisk",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "obelisk",
+    "name": "Hyde Park Obelisk"
+   }
+  },
+  {
+   "id": "node/20930445",
+   "lat": -33.8740842,
+   "lng": 151.2089287,
+   "name": "St. George's Presbyterian Church",
+   "kind": "worship",
+   "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "presbyterian",
+    "name": "St. George's Presbyterian Church",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/20930452",
+   "lat": -33.8767913,
+   "lng": 151.20776,
+   "name": "Kafe Kaz",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Kafe Kaz"
+   }
+  },
+  {
+   "id": "node/20930515",
+   "lat": -33.8786618,
+   "lng": 151.2053089,
+   "name": "St. Peter Julian's Catholic Church",
+   "kind": "worship",
+   "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "catholic",
+    "name": "St. Peter Julian's Catholic Church",
+    "religion": "christian",
+    "wikidata": "Q14935007"
+   }
+  },
+  {
+   "id": "node/20958865",
+   "lat": -33.8766716,
+   "lng": 151.1974515,
+   "name": "The BnG Cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "The BnG Cafe"
+   }
+  },
+  {
+   "id": "node/20958880",
+   "lat": -33.8730636,
+   "lng": 151.1925718,
+   "name": "Sydney Fish Market",
+   "kind": "landmark",
+   "tags": {
+    "name": "Sydney Fish Market",
+    "tourism": "attraction"
+   }
+  },
+  {
+   "id": "node/20959057",
+   "lat": -33.8620845,
+   "lng": 151.2122831,
+   "name": "Justice & Police Museum",
+   "kind": "landmark",
+   "tags": {
+    "name": "Justice & Police Museum",
+    "tourism": "museum",
+    "wikidata": "Q42915912",
+    "wikipedia": "en:Justice and Police Museum"
+   }
+  },
+  {
+   "id": "node/20959060",
+   "lat": -33.862135,
+   "lng": 151.2109299,
+   "name": "Customs House Library",
+   "kind": "civic",
+   "tags": {
+    "amenity": "library",
+    "name": "Customs House Library",
+    "wikidata": "Q5196499"
+   }
+  },
+  {
+   "id": "node/20959228",
+   "lat": -33.8587012,
+   "lng": 151.20831,
+   "name": "The Dose",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "The Dose"
+   }
+  },
+  {
+   "id": "node/2106608694",
+   "lat": -33.8681358,
+   "lng": 151.1810364,
+   "name": "ANZAC memorial statue (New Zealand)",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "statue",
+    "name": "ANZAC memorial statue (New Zealand)"
+   }
+  },
+  {
+   "id": "node/2126201874",
+   "lat": -33.8594094,
+   "lng": 151.2058908,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/2250356920",
+   "lat": -33.8717101,
+   "lng": 151.2068055,
+   "name": "Queen Victoria Building",
+   "kind": "landmark",
+   "tags": {
+    "historic": "monument",
+    "name": "Queen Victoria Building"
+   }
+  },
+  {
+   "id": "node/2312216870",
+   "lat": -33.8744885,
+   "lng": 151.2091929,
+   "name": "Nth Degree Cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Nth Degree Cafe"
+   }
+  },
+  {
+   "id": "node/2415920177",
+   "lat": -33.856344,
+   "lng": 151.1768214,
+   "name": "Balmain Library",
+   "kind": "civic",
+   "tags": {
+    "amenity": "library",
+    "name": "Balmain Library",
+    "wikidata": "Q63919175"
+   }
+  },
+  {
+   "id": "node/244967512",
+   "lat": -33.8612549,
+   "lng": 151.2106581,
+   "name": "Cahill Expressway Lookout",
+   "kind": "landmark",
+   "tags": {
+    "name": "Cahill Expressway Lookout",
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/247175999",
+   "lat": -33.852589,
+   "lng": 151.1795163,
+   "name": "St John",
+   "kind": "worship",
+   "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "anglican",
+    "name": "St John",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/2524208131",
+   "lat": -33.8746452,
+   "lng": 151.20207,
+   "name": "Chatime",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Chatime"
+   }
+  },
+  {
+   "id": "node/25843272",
+   "lat": -33.8675516,
+   "lng": 151.1995619,
+   "name": "Darling Harbour",
+   "kind": "landmark",
+   "tags": {
+    "name": "Darling Harbour",
+    "natural": "bay",
+    "tourism": "attraction",
+    "wikidata": "Q54488",
+    "wikipedia": "en:Darling Harbour"
+   }
+  },
+  {
+   "id": "node/2623121870",
+   "lat": -33.8800407,
+   "lng": 151.2147741,
+   "name": "The Cafe Lounge",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "The Cafe Lounge"
+   }
+  },
+  {
+   "id": "node/272305862",
+   "lat": -33.8533958,
+   "lng": 151.1742091,
+   "name": "a viewpoint",
+   "kind": "landmark",
+   "tags": {
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/2763616586",
+   "lat": -33.8741384,
+   "lng": 151.20662,
+   "name": "Town Hall Tourist Information Booth",
+   "kind": "civic",
+   "tags": {
+    "name": "Town Hall Tourist Information Booth",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/2817086410",
+   "lat": -33.8647395,
+   "lng": 151.2148949,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water",
+    "man_made": "drinking_fountain"
+   }
+  },
+  {
+   "id": "node/2817086414",
+   "lat": -33.8648972,
+   "lng": 151.2138142,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/2817086419",
+   "lat": -33.8649467,
+   "lng": 151.2137696,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/2817086428",
+   "lat": -33.8650807,
+   "lng": 151.2138068,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/2817086432",
+   "lat": -33.8651036,
+   "lng": 151.2138673,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/2838889105",
+   "lat": -33.8460872,
+   "lng": 151.2116796,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/2845384497",
+   "lat": -33.8692398,
+   "lng": 151.2147906,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water",
+    "man_made": "drinking_fountain"
+   }
+  },
+  {
+   "id": "node/2847430201",
+   "lat": -33.8655512,
+   "lng": 151.2133749,
+   "name": "Moreshead Fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain",
+    "name": "Moreshead Fountain"
+   }
+  },
+  {
+   "id": "node/2859245190",
+   "lat": -33.8648405,
+   "lng": 151.2150494,
+   "name": "Autum",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "statue",
+    "name": "Autum",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/2859245191",
+   "lat": -33.8589243,
+   "lng": 151.2155347,
+   "name": "Earth Mother",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "sculpture",
+    "name": "Earth Mother",
+    "name:en": "Earth Mother",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/2859245193",
+   "lat": -33.8663292,
+   "lng": 151.2126295,
+   "name": "Matthew Flinders",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "statue",
+    "memorial": "statue",
+    "name": "Matthew Flinders",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/2859245194",
+   "lat": -33.8649899,
+   "lng": 151.2138971,
+   "name": "a fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain"
+   }
+  },
+  {
+   "id": "node/2859245195",
+   "lat": -33.8660576,
+   "lng": 151.2128967,
+   "name": "Sir Richard Bourke, K.C.B.",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "statue",
+    "name": "Sir Richard Bourke, K.C.B."
+   }
+  },
+  {
+   "id": "node/2859245196",
+   "lat": -33.8647551,
+   "lng": 151.214949,
+   "name": "Spring",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "statue",
+    "name": "Spring",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/2859245197",
+   "lat": -33.864807,
+   "lng": 151.2149317,
+   "name": "Summer",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "statue",
+    "name": "Summer",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/2859245198",
+   "lat": -33.8648454,
+   "lng": 151.2143252,
+   "name": "The Boxers",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "statue",
+    "name": "The Boxers",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/2859245199",
+   "lat": -33.8649214,
+   "lng": 151.2143494,
+   "name": "The Boxers",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "statue",
+    "name": "The Boxers",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/2859245200",
+   "lat": -33.8654318,
+   "lng": 151.2129594,
+   "name": "To the Horses, WW1, Sinai Desert & Palestine",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "stele",
+    "name": "To the Horses, WW1, Sinai Desert & Palestine"
+   }
+  },
+  {
+   "id": "node/2859245201",
+   "lat": -33.8647883,
+   "lng": 151.215071,
+   "name": "Winter",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "statue",
+    "name": "Winter",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/2859245204",
+   "lat": -33.8586707,
+   "lng": 151.2150512,
+   "name": "a bench",
+   "kind": "landmark",
+   "tags": {
+    "amenity": "bench",
+    "historic": "memorial",
+    "memorial": "bench"
+   }
+  },
+  {
+   "id": "node/2859245205",
+   "lat": -33.8587828,
+   "lng": 151.2155215,
+   "name": "a bench",
+   "kind": "landmark",
+   "tags": {
+    "amenity": "bench",
+    "historic": "memorial",
+    "memorial": "bench"
+   }
+  },
+  {
+   "id": "node/2859245207",
+   "lat": -33.858865,
+   "lng": 151.2155621,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/2859245222",
+   "lat": -33.8628478,
+   "lng": 151.2152091,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/2859245269",
+   "lat": -33.8652126,
+   "lng": 151.2130369,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/2859245272",
+   "lat": -33.8652547,
+   "lng": 151.2130559,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/2877110061",
+   "lat": -33.8652401,
+   "lng": 151.2130275,
+   "name": "Captain Arthur Philip",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "plaque",
+    "name": "Captain Arthur Philip"
+   }
+  },
+  {
+   "id": "node/2877110065",
+   "lat": -33.8663536,
+   "lng": 151.2127677,
+   "name": "Matthew Flinders' Cat - Trim",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "statue",
+    "name": "Matthew Flinders' Cat - Trim"
+   }
+  },
+  {
+   "id": "node/2877114605",
+   "lat": -33.8638094,
+   "lng": 151.2156771,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/2877114613",
+   "lat": -33.8646176,
+   "lng": 151.2129029,
+   "name": "Wishing Well Fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain",
+    "name": "Wishing Well Fountain"
+   }
+  },
+  {
+   "id": "node/2877114622",
+   "lat": -33.8667083,
+   "lng": 151.2140954,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/2896460891",
+   "lat": -33.8608542,
+   "lng": 151.188162,
+   "name": "a cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe"
+   }
+  },
+  {
+   "id": "node/2918557454",
+   "lat": -33.8697332,
+   "lng": 151.2121865,
+   "name": "Albert the Good",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "statue",
+    "name": "Albert the Good"
+   }
+  },
+  {
+   "id": "node/2918557455",
+   "lat": -33.8696453,
+   "lng": 151.2148479,
+   "name": "Burns 1759-1796",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "statue",
+    "name": "Burns 1759-1796"
+   }
+  },
+  {
+   "id": "node/2918557458",
+   "lat": -33.8678891,
+   "lng": 151.2124419,
+   "name": "Il Porcellino",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain",
+    "artwork_type": "statue",
+    "name": "Il Porcellino",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/2918557459",
+   "lat": -33.8696848,
+   "lng": 151.2117984,
+   "name": "Queen Victoria",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "statue",
+    "name": "Queen Victoria"
+   }
+  },
+  {
+   "id": "node/2918557460",
+   "lat": -33.8679815,
+   "lng": 151.212822,
+   "name": "Robert Brough Fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain",
+    "name": "Robert Brough Fountain"
+   }
+  },
+  {
+   "id": "node/2918557464",
+   "lat": -33.8695819,
+   "lng": 151.2151664,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water",
+    "man_made": "drinking_fountain"
+   }
+  },
+  {
+   "id": "node/2918557466",
+   "lat": -33.8695586,
+   "lng": 151.215204,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/2936555120",
+   "lat": -33.8453737,
+   "lng": 151.1934678,
+   "name": "a viewpoint",
+   "kind": "landmark",
+   "tags": {
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/2972865055",
+   "lat": -33.8699441,
+   "lng": 151.1904419,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/2972865069",
+   "lat": -33.8713888,
+   "lng": 151.1951738,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/2999491659",
+   "lat": -33.877581,
+   "lng": 151.1983247,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/3119797806",
+   "lat": -33.8792896,
+   "lng": 151.2132039,
+   "name": "Bean Temple",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Bean Temple"
+   }
+  },
+  {
+   "id": "node/313692883",
+   "lat": -33.842223,
+   "lng": 151.1972204,
+   "name": "Will Ashton Lookout",
+   "kind": "landmark",
+   "tags": {
+    "name": "Will Ashton Lookout",
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/313692886",
+   "lat": -33.8417401,
+   "lng": 151.1976764,
+   "name": "a viewpoint",
+   "kind": "landmark",
+   "tags": {
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/313692902",
+   "lat": -33.8420146,
+   "lng": 151.1975201,
+   "name": "a viewpoint",
+   "kind": "landmark",
+   "tags": {
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/3248975814",
+   "lat": -33.8747035,
+   "lng": 151.2061719,
+   "name": "Oh! Matcha",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Oh! Matcha"
+   }
+  },
+  {
+   "id": "node/3281317022",
+   "lat": -33.8759205,
+   "lng": 151.212027,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/3283351486",
+   "lat": -33.8701034,
+   "lng": 151.21217,
+   "name": "Major General Lachlan Macquarie",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "statue",
+    "memorial": "statue",
+    "name": "Major General Lachlan Macquarie",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/332340685",
+   "lat": -33.8726309,
+   "lng": 151.179572,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/3335550403",
+   "lat": -33.8781282,
+   "lng": 151.2109248,
+   "name": "Joe Black",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Joe Black"
+   }
+  },
+  {
+   "id": "node/3338662966",
+   "lat": -33.8729361,
+   "lng": 151.2051947,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/3338909470",
+   "lat": -33.8442775,
+   "lng": 151.2045262,
+   "name": "Billi's Cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Billi's Cafe"
+   }
+  },
+  {
+   "id": "node/3338918285",
+   "lat": -33.8425788,
+   "lng": 151.2053557,
+   "name": "The Foliage Cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "The Foliage Cafe"
+   }
+  },
+  {
+   "id": "node/3338958594",
+   "lat": -33.839311,
+   "lng": 151.2070683,
+   "name": "Cafe Mia",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Cafe Mia"
+   }
+  },
+  {
+   "id": "node/3338959118",
+   "lat": -33.8393883,
+   "lng": 151.2065798,
+   "name": "Cafe La Luche",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Cafe La Luche"
+   }
+  },
+  {
+   "id": "node/3367000228",
+   "lat": -33.8718801,
+   "lng": 151.2066164,
+   "name": "Starbucks",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee"
+   }
+  },
+  {
+   "id": "node/3420470348",
+   "lat": -33.8413074,
+   "lng": 151.206312,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/3420470349",
+   "lat": -33.8413241,
+   "lng": 151.2064023,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/3429547524",
+   "lat": -33.8411394,
+   "lng": 151.1989937,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/3476198937",
+   "lat": -33.8590203,
+   "lng": 151.2067289,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/3476205569",
+   "lat": -33.8546463,
+   "lng": 151.2094847,
+   "name": "Pylon Lookout",
+   "kind": "landmark",
+   "tags": {
+    "name": "Pylon Lookout",
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/3476205573",
+   "lat": -33.8817004,
+   "lng": 151.2055121,
+   "name": "in cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "in cafe"
+   }
+  },
+  {
+   "id": "node/3541443488",
+   "lat": -33.8555098,
+   "lng": 151.2099606,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water",
+    "man_made": "drinking_fountain"
+   }
+  },
+  {
+   "id": "node/355847182",
+   "lat": -33.8456189,
+   "lng": 151.2114486,
+   "name": "Harbour Cycles",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "sculpture",
+    "name": "Harbour Cycles",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/3567413711",
+   "lat": -33.8678472,
+   "lng": 151.2118407,
+   "name": "a fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain"
+   }
+  },
+  {
+   "id": "node/3567413714",
+   "lat": -33.8678735,
+   "lng": 151.2118127,
+   "name": "a fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain"
+   }
+  },
+  {
+   "id": "node/3567413715",
+   "lat": -33.8678968,
+   "lng": 151.2118355,
+   "name": "a fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain"
+   }
+  },
+  {
+   "id": "node/357920650",
+   "lat": -33.8438695,
+   "lng": 151.2082515,
+   "name": "an artwork",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "sculpture",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/3589668917",
+   "lat": -33.8537635,
+   "lng": 151.2084421,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668918",
+   "lat": -33.8539631,
+   "lng": 151.2084259,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668919",
+   "lat": -33.8539677,
+   "lng": 151.2082949,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668920",
+   "lat": -33.8540838,
+   "lng": 151.2087016,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668921",
+   "lat": -33.8541363,
+   "lng": 151.208254,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668922",
+   "lat": -33.8537095,
+   "lng": 151.2086597,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668923",
+   "lat": -33.8543832,
+   "lng": 151.2081934,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668924",
+   "lat": -33.8545084,
+   "lng": 151.2081652,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668925",
+   "lat": -33.8545927,
+   "lng": 151.2081398,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668926",
+   "lat": -33.8547374,
+   "lng": 151.2096494,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668927",
+   "lat": -33.8547889,
+   "lng": 151.2095986,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668928",
+   "lat": -33.8549118,
+   "lng": 151.2079484,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668929",
+   "lat": -33.854973,
+   "lng": 151.2081849,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668930",
+   "lat": -33.8549901,
+   "lng": 151.2097613,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668931",
+   "lat": -33.8550089,
+   "lng": 151.2095704,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668932",
+   "lat": -33.8550555,
+   "lng": 151.2077601,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668933",
+   "lat": -33.8550807,
+   "lng": 151.2081272,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668934",
+   "lat": -33.8550971,
+   "lng": 151.2102462,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668935",
+   "lat": -33.855147,
+   "lng": 151.2093083,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668936",
+   "lat": -33.8551517,
+   "lng": 151.2099087,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668937",
+   "lat": -33.8551634,
+   "lng": 151.2096494,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668938",
+   "lat": -33.8551798,
+   "lng": 151.2092012,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668939",
+   "lat": -33.8551802,
+   "lng": 151.2080116,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668940",
+   "lat": -33.8551696,
+   "lng": 151.2102415,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668941",
+   "lat": -33.8552406,
+   "lng": 151.2093619,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668942",
+   "lat": -33.8557477,
+   "lng": 151.2103306,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668943",
+   "lat": -33.8552711,
+   "lng": 151.2090969,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668944",
+   "lat": -33.8552804,
+   "lng": 151.2096719,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668945",
+   "lat": -33.8552826,
+   "lng": 151.2076924,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668946",
+   "lat": -33.855244,
+   "lng": 151.2102566,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668947",
+   "lat": -33.8553224,
+   "lng": 151.2078531,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668948",
+   "lat": -33.8553249,
+   "lng": 151.2095986,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668949",
+   "lat": -33.8553393,
+   "lng": 151.2102134,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668950",
+   "lat": -33.8553645,
+   "lng": 151.2075571,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668951",
+   "lat": -33.8553834,
+   "lng": 151.2095141,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668952",
+   "lat": -33.8554114,
+   "lng": 151.2101441,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668953",
+   "lat": -33.8554045,
+   "lng": 151.2093111,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668954",
+   "lat": -33.8554092,
+   "lng": 151.209407,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668955",
+   "lat": -33.8554536,
+   "lng": 151.209111,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668956",
+   "lat": -33.8554607,
+   "lng": 151.2092491,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668957",
+   "lat": -33.8554628,
+   "lng": 151.2074641,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668958",
+   "lat": -33.8555121,
+   "lng": 151.2090208,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668959",
+   "lat": -33.8557009,
+   "lng": 151.210425,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668960",
+   "lat": -33.8555242,
+   "lng": 151.2101051,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668961",
+   "lat": -33.8555564,
+   "lng": 151.2073232,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668962",
+   "lat": -33.8556261,
+   "lng": 151.208013,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668963",
+   "lat": -33.8556252,
+   "lng": 151.2104939,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668964",
+   "lat": -33.8556571,
+   "lng": 151.2074669,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668965",
+   "lat": -33.8556986,
+   "lng": 151.207958,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668966",
+   "lat": -33.8557156,
+   "lng": 151.2025487,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668967",
+   "lat": -33.8556114,
+   "lng": 151.2102689,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668968",
+   "lat": -33.8558911,
+   "lng": 151.2025712,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668969",
+   "lat": -33.8558929,
+   "lng": 151.2077946,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668970",
+   "lat": -33.8559816,
+   "lng": 151.2077482,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668971",
+   "lat": -33.8560854,
+   "lng": 151.2025966,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668972",
+   "lat": -33.8561556,
+   "lng": 151.202481,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668973",
+   "lat": -33.8561749,
+   "lng": 151.2075198,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668974",
+   "lat": -33.8561884,
+   "lng": 151.2025881,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668975",
+   "lat": -33.8562565,
+   "lng": 151.2085332,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668976",
+   "lat": -33.8562604,
+   "lng": 151.2076706,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668977",
+   "lat": -33.8563213,
+   "lng": 151.2074068,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668978",
+   "lat": -33.8564343,
+   "lng": 151.2085952,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668980",
+   "lat": -33.8565115,
+   "lng": 151.2072047,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668981",
+   "lat": -33.8564806,
+   "lng": 151.2090592,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668982",
+   "lat": -33.8565654,
+   "lng": 151.2088517,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668983",
+   "lat": -33.8566403,
+   "lng": 151.2086713,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668984",
+   "lat": -33.8566747,
+   "lng": 151.2059555,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668985",
+   "lat": -33.8567215,
+   "lng": 151.2069279,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668986",
+   "lat": -33.8567414,
+   "lng": 151.2056929,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668987",
+   "lat": -33.8567723,
+   "lng": 151.2065514,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668988",
+   "lat": -33.8567977,
+   "lng": 151.2055912,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668989",
+   "lat": -33.856828,
+   "lng": 151.2057061,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668990",
+   "lat": -33.8568322,
+   "lng": 151.2087474,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668991",
+   "lat": -33.8568572,
+   "lng": 151.2068335,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589668992",
+   "lat": -33.8568622,
+   "lng": 151.2054916,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678493",
+   "lat": -33.8568944,
+   "lng": 151.2069882,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678500",
+   "lat": -33.8569368,
+   "lng": 151.2055473,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678504",
+   "lat": -33.8569364,
+   "lng": 151.2082021,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678506",
+   "lat": -33.8569563,
+   "lng": 151.2088292,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678507",
+   "lat": -33.8569579,
+   "lng": 151.2067095,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678511",
+   "lat": -33.8570874,
+   "lng": 151.2089053,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678514",
+   "lat": -33.8571135,
+   "lng": 151.2061443,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678515",
+   "lat": -33.8571476,
+   "lng": 151.2055481,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678516",
+   "lat": -33.8571439,
+   "lng": 151.2065122,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678517",
+   "lat": -33.8571494,
+   "lng": 151.2085882,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678518",
+   "lat": -33.8571517,
+   "lng": 151.208095,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678520",
+   "lat": -33.8572068,
+   "lng": 151.2060515,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678522",
+   "lat": -33.8573008,
+   "lng": 151.2060816,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678525",
+   "lat": -33.8572571,
+   "lng": 151.2078526,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678527",
+   "lat": -33.8572676,
+   "lng": 151.2090236,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678528",
+   "lat": -33.8572781,
+   "lng": 151.2086615,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678533",
+   "lat": -33.8572848,
+   "lng": 151.2059736,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678534",
+   "lat": -33.8573286,
+   "lng": 151.2063366,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678535",
+   "lat": -33.8573047,
+   "lng": 151.2056488,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678537",
+   "lat": -33.8573366,
+   "lng": 151.2078103,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678542",
+   "lat": -33.8572761,
+   "lng": 151.2089879,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678544",
+   "lat": -33.8573724,
+   "lng": 151.2062938,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678547",
+   "lat": -33.8574149,
+   "lng": 151.2062471,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678548",
+   "lat": -33.8574291,
+   "lng": 151.2091167,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678551",
+   "lat": -33.8574396,
+   "lng": 151.2077567,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678552",
+   "lat": -33.8574478,
+   "lng": 151.2096945,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678562",
+   "lat": -33.8575212,
+   "lng": 151.2054727,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678563",
+   "lat": -33.8575456,
+   "lng": 151.2060011,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678564",
+   "lat": -33.8575544,
+   "lng": 151.2056039,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678565",
+   "lat": -33.8575505,
+   "lng": 151.2057192,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678567",
+   "lat": -33.8575707,
+   "lng": 151.2083063,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678568",
+   "lat": -33.8575742,
+   "lng": 151.2092012,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678569",
+   "lat": -33.8575494,
+   "lng": 151.2059031,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678570",
+   "lat": -33.8575533,
+   "lng": 151.2058194,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678572",
+   "lat": -33.8575871,
+   "lng": 151.2076722,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678576",
+   "lat": -33.8576257,
+   "lng": 151.2093534,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678579",
+   "lat": -33.857662,
+   "lng": 151.2083289,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678580",
+   "lat": -33.857672,
+   "lng": 151.2062573,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678582",
+   "lat": -33.8576782,
+   "lng": 151.2054757,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678583",
+   "lat": -33.8576815,
+   "lng": 151.2052405,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678584",
+   "lat": -33.8576815,
+   "lng": 151.205366,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678585",
+   "lat": -33.8576848,
+   "lng": 151.2050671,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678587",
+   "lat": -33.857698,
+   "lng": 151.2049236,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678589",
+   "lat": -33.8577045,
+   "lng": 151.2037802,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678590",
+   "lat": -33.8577045,
+   "lng": 151.2039152,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678591",
+   "lat": -33.8577071,
+   "lng": 151.2036376,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678592",
+   "lat": -33.8577138,
+   "lng": 151.2066663,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678793",
+   "lat": -33.857744,
+   "lng": 151.2063517,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678798",
+   "lat": -33.8577746,
+   "lng": 151.203448,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678801",
+   "lat": -33.8577622,
+   "lng": 151.2066531,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678802",
+   "lat": -33.8578284,
+   "lng": 151.2058384,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678807",
+   "lat": -33.8578504,
+   "lng": 151.2090067,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678808",
+   "lat": -33.857904,
+   "lng": 151.2062424,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678809",
+   "lat": -33.8578913,
+   "lng": 151.2074749,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678810",
+   "lat": -33.857896,
+   "lng": 151.208109,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678811",
+   "lat": -33.857902,
+   "lng": 151.2034526,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678814",
+   "lat": -33.857912,
+   "lng": 151.2063968,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678815",
+   "lat": -33.8579662,
+   "lng": 151.2074213,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678818",
+   "lat": -33.8580079,
+   "lng": 151.2034646,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678819",
+   "lat": -33.8580833,
+   "lng": 151.2073509,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678821",
+   "lat": -33.8581199,
+   "lng": 151.2080822,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678823",
+   "lat": -33.8581587,
+   "lng": 151.203448,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678826",
+   "lat": -33.8581904,
+   "lng": 151.2054269,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678828",
+   "lat": -33.8581886,
+   "lng": 151.2072804,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678835",
+   "lat": -33.8583009,
+   "lng": 151.2072297,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678839",
+   "lat": -33.858338,
+   "lng": 151.2045394,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678840",
+   "lat": -33.858345,
+   "lng": 151.2047198,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678844",
+   "lat": -33.8583752,
+   "lng": 151.2080748,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678846",
+   "lat": -33.8583708,
+   "lng": 151.2050298,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678848",
+   "lat": -33.8583922,
+   "lng": 151.2071536,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678849",
+   "lat": -33.8583965,
+   "lng": 151.2046183,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678850",
+   "lat": -33.8584129,
+   "lng": 151.2046944,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678851",
+   "lat": -33.8584457,
+   "lng": 151.204965,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678854",
+   "lat": -33.8584929,
+   "lng": 151.2071198,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678856",
+   "lat": -33.8585046,
+   "lng": 151.2094591,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678863",
+   "lat": -33.8586118,
+   "lng": 151.206115,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678868",
+   "lat": -33.8586263,
+   "lng": 151.2070577,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678869",
+   "lat": -33.8586403,
+   "lng": 151.2094507,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678870",
+   "lat": -33.8586423,
+   "lng": 151.204872,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678878",
+   "lat": -33.8586727,
+   "lng": 151.2051031,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678887",
+   "lat": -33.8587312,
+   "lng": 151.2054977,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678890",
+   "lat": -33.8587503,
+   "lng": 151.2070888,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678891",
+   "lat": -33.8587523,
+   "lng": 151.2056499,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678993",
+   "lat": -33.8587761,
+   "lng": 151.2082021,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678997",
+   "lat": -33.8587991,
+   "lng": 151.2069464,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678998",
+   "lat": -33.8587995,
+   "lng": 151.2094957,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589678999",
+   "lat": -33.8588088,
+   "lng": 151.2090363,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679007",
+   "lat": -33.8588814,
+   "lng": 151.2081739,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679011",
+   "lat": -33.858926,
+   "lng": 151.2090425,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679014",
+   "lat": -33.8589797,
+   "lng": 151.207396,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679015",
+   "lat": -33.8589867,
+   "lng": 151.2069196,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679017",
+   "lat": -33.8590171,
+   "lng": 151.2076412,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679018",
+   "lat": -33.8590476,
+   "lng": 151.2078131,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679019",
+   "lat": -33.8590756,
+   "lng": 151.2091265,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679020",
+   "lat": -33.859078,
+   "lng": 151.2073368,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679021",
+   "lat": -33.8590897,
+   "lng": 151.2092985,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679022",
+   "lat": -33.8590912,
+   "lng": 151.2089539,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679023",
+   "lat": -33.8590944,
+   "lng": 151.2075679,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679024",
+   "lat": -33.8590967,
+   "lng": 151.2074608,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679025",
+   "lat": -33.8591131,
+   "lng": 151.2077116,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679026",
+   "lat": -33.859115,
+   "lng": 151.2071212,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679028",
+   "lat": -33.8591365,
+   "lng": 151.2082021,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679030",
+   "lat": -33.8591388,
+   "lng": 151.2078075,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679035",
+   "lat": -33.8591763,
+   "lng": 151.2084529,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679041",
+   "lat": -33.8592278,
+   "lng": 151.2089912,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679042",
+   "lat": -33.8592297,
+   "lng": 151.2070761,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679044",
+   "lat": -33.8592222,
+   "lng": 151.2082357,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679048",
+   "lat": -33.8592362,
+   "lng": 151.2083143,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679049",
+   "lat": -33.8592282,
+   "lng": 151.209135,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679052",
+   "lat": -33.8592746,
+   "lng": 151.2091068,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679056",
+   "lat": -33.859328,
+   "lng": 151.2070592,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679061",
+   "lat": -33.8593568,
+   "lng": 151.209808,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679068",
+   "lat": -33.8593682,
+   "lng": 151.2079202,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679070",
+   "lat": -33.8593646,
+   "lng": 151.2082334,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679071",
+   "lat": -33.8594029,
+   "lng": 151.2070986,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679075",
+   "lat": -33.8594595,
+   "lng": 151.2079033,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679076",
+   "lat": -33.8594912,
+   "lng": 151.2084572,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679078",
+   "lat": -33.8595005,
+   "lng": 151.2081766,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679084",
+   "lat": -33.8596303,
+   "lng": 151.2078779,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679195",
+   "lat": -33.8599674,
+   "lng": 151.2078469,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679201",
+   "lat": -33.860054,
+   "lng": 151.2078328,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679208",
+   "lat": -33.8602014,
+   "lng": 151.2077821,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679217",
+   "lat": -33.8602716,
+   "lng": 151.207768,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679218",
+   "lat": -33.8602993,
+   "lng": 151.2064616,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679229",
+   "lat": -33.8603737,
+   "lng": 151.2093377,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679230",
+   "lat": -33.8604027,
+   "lng": 151.2086643,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679231",
+   "lat": -33.860405,
+   "lng": 151.2077455,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679241",
+   "lat": -33.8604468,
+   "lng": 151.206394,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679258",
+   "lat": -33.860515,
+   "lng": 151.2088137,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679259",
+   "lat": -33.8604806,
+   "lng": 151.2068317,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679261",
+   "lat": -33.860524,
+   "lng": 151.2064081,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679263",
+   "lat": -33.8605361,
+   "lng": 151.2093182,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679264",
+   "lat": -33.8605455,
+   "lng": 151.2086474,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679265",
+   "lat": -33.860564,
+   "lng": 151.2089558,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679269",
+   "lat": -33.8605595,
+   "lng": 151.2076835,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679273",
+   "lat": -33.8605581,
+   "lng": 151.2069661,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679282",
+   "lat": -33.8606508,
+   "lng": 151.2087348,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679284",
+   "lat": -33.8606602,
+   "lng": 151.2076271,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679292",
+   "lat": -33.8606882,
+   "lng": 151.2086023,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679396",
+   "lat": -33.8607116,
+   "lng": 151.2087066,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679397",
+   "lat": -33.8607187,
+   "lng": 151.2076045,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679411",
+   "lat": -33.8607912,
+   "lng": 151.2085769,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679412",
+   "lat": -33.8607912,
+   "lng": 151.2087066,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679413",
+   "lat": -33.8607912,
+   "lng": 151.209228,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679422",
+   "lat": -33.8608451,
+   "lng": 151.207551,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679424",
+   "lat": -33.8608591,
+   "lng": 151.2086868,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679425",
+   "lat": -33.8608802,
+   "lng": 151.20856,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679431",
+   "lat": -33.8609082,
+   "lng": 151.2092111,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679432",
+   "lat": -33.8609246,
+   "lng": 151.208684,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679433",
+   "lat": -33.8609293,
+   "lng": 151.2072071,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679434",
+   "lat": -33.8609363,
+   "lng": 151.2073509,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679435",
+   "lat": -33.8609434,
+   "lng": 151.2074523,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679437",
+   "lat": -33.8609734,
+   "lng": 151.206549,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679438",
+   "lat": -33.8609761,
+   "lng": 151.20856,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679439",
+   "lat": -33.8609945,
+   "lng": 151.2066392,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679441",
+   "lat": -33.8610065,
+   "lng": 151.2086812,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679443",
+   "lat": -33.8610413,
+   "lng": 151.2066928,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679444",
+   "lat": -33.861299,
+   "lng": 151.2086593,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679445",
+   "lat": -33.8613217,
+   "lng": 151.2088096,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679446",
+   "lat": -33.8612867,
+   "lng": 151.2081864,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679447",
+   "lat": -33.8613333,
+   "lng": 151.2089426,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679448",
+   "lat": -33.8613769,
+   "lng": 151.2092665,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679449",
+   "lat": -33.8613963,
+   "lng": 151.2094652,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679450",
+   "lat": -33.8613536,
+   "lng": 151.2081397,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679451",
+   "lat": -33.8613377,
+   "lng": 151.2095349,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679454",
+   "lat": -33.8614659,
+   "lng": 151.2104307,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679456",
+   "lat": -33.8615348,
+   "lng": 151.2107278,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679463",
+   "lat": -33.8615547,
+   "lng": 151.2109908,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679464",
+   "lat": -33.8615762,
+   "lng": 151.2111632,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679466",
+   "lat": -33.8615938,
+   "lng": 151.2113018,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679481",
+   "lat": -33.86171,
+   "lng": 151.2106856,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679483",
+   "lat": -33.8617294,
+   "lng": 151.2114532,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679484",
+   "lat": -33.861734,
+   "lng": 151.2115998,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679485",
+   "lat": -33.8617815,
+   "lng": 151.21067,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679486",
+   "lat": -33.8617832,
+   "lng": 151.2114532,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679487",
+   "lat": -33.8618217,
+   "lng": 151.2111263,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679488",
+   "lat": -33.8618442,
+   "lng": 151.2106645,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679489",
+   "lat": -33.8618979,
+   "lng": 151.2111263,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679490",
+   "lat": -33.8619274,
+   "lng": 151.2106601,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679491",
+   "lat": -33.8621249,
+   "lng": 151.2104329,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3589679492",
+   "lat": -33.8622138,
+   "lng": 151.2104949,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062647",
+   "lat": -33.8588467,
+   "lng": 151.2045788,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062648",
+   "lat": -33.8589933,
+   "lng": 151.2053083,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062649",
+   "lat": -33.8590201,
+   "lng": 151.2042736,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062650",
+   "lat": -33.8590559,
+   "lng": 151.2056371,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062651",
+   "lat": -33.859235,
+   "lng": 151.205082,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062652",
+   "lat": -33.8592171,
+   "lng": 151.2041985,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062653",
+   "lat": -33.8592708,
+   "lng": 151.2055347,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062654",
+   "lat": -33.8593826,
+   "lng": 151.2056909,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062655",
+   "lat": -33.8594543,
+   "lng": 151.2039502,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062656",
+   "lat": -33.8594677,
+   "lng": 151.2056209,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062659",
+   "lat": -33.8596467,
+   "lng": 151.2055185,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062661",
+   "lat": -33.8597093,
+   "lng": 151.2053083,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062663",
+   "lat": -33.8598033,
+   "lng": 151.2041334,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062664",
+   "lat": -33.8598705,
+   "lng": 151.2051358,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062665",
+   "lat": -33.8599331,
+   "lng": 151.2043706,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062666",
+   "lat": -33.8599644,
+   "lng": 151.2050281,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062667",
+   "lat": -33.8600405,
+   "lng": 151.2044568,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062672",
+   "lat": -33.8605552,
+   "lng": 151.205055,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062675",
+   "lat": -33.8607342,
+   "lng": 151.2043598,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062676",
+   "lat": -33.8609714,
+   "lng": 151.2038209,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062678",
+   "lat": -33.8611593,
+   "lng": 151.2040688,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062679",
+   "lat": -33.8617501,
+   "lng": 151.2041227,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062680",
+   "lat": -33.8620186,
+   "lng": 151.2041927,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3591062681",
+   "lat": -33.8620499,
+   "lng": 151.2044029,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3604393791",
+   "lat": -33.8693061,
+   "lng": 151.2122422,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3604395296",
+   "lat": -33.8693464,
+   "lng": 151.2119027,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3604395297",
+   "lat": -33.86935,
+   "lng": 151.2117484,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3604395323",
+   "lat": -33.8697051,
+   "lng": 151.2116382,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3604395324",
+   "lat": -33.8697454,
+   "lng": 151.2112502,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3604395326",
+   "lat": -33.8697747,
+   "lng": 151.2128815,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3604395331",
+   "lat": -33.8697966,
+   "lng": 151.2110871,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3604395334",
+   "lat": -33.8698369,
+   "lng": 151.2109416,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3604395337",
+   "lat": -33.8698991,
+   "lng": 151.2125596,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3604395338",
+   "lat": -33.8698991,
+   "lng": 151.2127404,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3604395339",
+   "lat": -33.8700266,
+   "lng": 151.2127024,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3604395340",
+   "lat": -33.8703004,
+   "lng": 151.2130306,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3604395341",
+   "lat": -33.8703787,
+   "lng": 151.2132518,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3604957420",
+   "lat": -33.8549848,
+   "lng": 151.2093284,
+   "name": "a cannon",
+   "kind": "landmark",
+   "tags": {
+    "historic": "cannon"
+   }
+  },
+  {
+   "id": "node/3604957421",
+   "lat": -33.8550416,
+   "lng": 151.2093415,
+   "name": "a cannon",
+   "kind": "landmark",
+   "tags": {
+    "historic": "cannon"
+   }
+  },
+  {
+   "id": "node/3604957422",
+   "lat": -33.8550904,
+   "lng": 151.2093317,
+   "name": "a cannon",
+   "kind": "landmark",
+   "tags": {
+    "historic": "cannon"
+   }
+  },
+  {
+   "id": "node/362042374",
+   "lat": -33.8475588,
+   "lng": 151.1934152,
+   "name": "a viewpoint",
+   "kind": "landmark",
+   "tags": {
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/362042848",
+   "lat": -33.8473673,
+   "lng": 151.1948104,
+   "name": "a viewpoint",
+   "kind": "landmark",
+   "tags": {
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/362044736",
+   "lat": -33.8429889,
+   "lng": 151.1947521,
+   "name": "Aboriginal rock carving",
+   "kind": "landmark",
+   "tags": {
+    "historic": "archaeological_site",
+    "name": "Aboriginal rock carving"
+   }
+  },
+  {
+   "id": "node/362338130",
+   "lat": -33.8467912,
+   "lng": 151.197841,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "guidepost",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/364879876",
+   "lat": -33.8432653,
+   "lng": 151.1970771,
+   "name": "Berrys Bay Lookout",
+   "kind": "landmark",
+   "tags": {
+    "name": "Berrys Bay Lookout",
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/365205291",
+   "lat": -33.8396979,
+   "lng": 151.1876952,
+   "name": "Aboriginal rock carving",
+   "kind": "landmark",
+   "tags": {
+    "historic": "archaeological_site",
+    "name": "Aboriginal rock carving"
+   }
+  },
+  {
+   "id": "node/3826190732",
+   "lat": -33.8431435,
+   "lng": 151.21048,
+   "name": "Bay Ten Espresso",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Bay Ten Espresso"
+   }
+  },
+  {
+   "id": "node/3884427268",
+   "lat": -33.875952,
+   "lng": 151.2024194,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/3884430657",
+   "lat": -33.8764728,
+   "lng": 151.2017529,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water",
+    "man_made": "drinking_fountain"
+   }
+  },
+  {
+   "id": "node/3884430757",
+   "lat": -33.8777251,
+   "lng": 151.2025367,
+   "name": "Memory Lines",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "sculpture",
+    "name": "Memory Lines"
+   }
+  },
+  {
+   "id": "node/3885806258",
+   "lat": -33.8761963,
+   "lng": 151.2037975,
+   "name": "Australian Chinese Ex-Services Monument",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "sculpture",
+    "name": "Australian Chinese Ex-Services Monument"
+   }
+  },
+  {
+   "id": "node/3915727959",
+   "lat": -33.8782175,
+   "lng": 151.1986412,
+   "name": "Inspire Nature",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Inspire Nature"
+   }
+  },
+  {
+   "id": "node/3915727961",
+   "lat": -33.8777069,
+   "lng": 151.2027799,
+   "name": "A Place For Reflection",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "plaque",
+    "name": "A Place For Reflection"
+   }
+  },
+  {
+   "id": "node/3918016265",
+   "lat": -33.875556,
+   "lng": 151.1960068,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/3918035057",
+   "lat": -33.8756761,
+   "lng": 151.1953976,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/3918035058",
+   "lat": -33.8756028,
+   "lng": 151.1960024,
+   "name": "a fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain"
+   }
+  },
+  {
+   "id": "node/3924534663",
+   "lat": -33.8595298,
+   "lng": 151.2095227,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3924534666",
+   "lat": -33.8595601,
+   "lng": 151.2096198,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3924534682",
+   "lat": -33.8598151,
+   "lng": 151.2095522,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3924534683",
+   "lat": -33.8598238,
+   "lng": 151.2093908,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3924534684",
+   "lat": -33.8598382,
+   "lng": 151.209547,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3924534692",
+   "lat": -33.8603829,
+   "lng": 151.2094949,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3924534695",
+   "lat": -33.8604233,
+   "lng": 151.2094862,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3924534705",
+   "lat": -33.8608325,
+   "lng": 151.2093804,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3925009999",
+   "lat": -33.8759732,
+   "lng": 151.1936371,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/3925010000",
+   "lat": -33.8778639,
+   "lng": 151.1946132,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/3925010002",
+   "lat": -33.8786937,
+   "lng": 151.1943523,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/3925010003",
+   "lat": -33.8792251,
+   "lng": 151.1945041,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/3925010005",
+   "lat": -33.8793671,
+   "lng": 151.1924304,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/3925010008",
+   "lat": -33.8782747,
+   "lng": 151.1922207,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/3925010009",
+   "lat": -33.873437,
+   "lng": 151.187594,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/3925010010",
+   "lat": -33.8713426,
+   "lng": 151.1847905,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/3925010011",
+   "lat": -33.871838,
+   "lng": 151.1794122,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/3925022472",
+   "lat": -33.8781344,
+   "lng": 151.1921425,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/3925022473",
+   "lat": -33.8734483,
+   "lng": 151.1876468,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/3925022661",
+   "lat": -33.8758568,
+   "lng": 151.1892035,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/3925022662",
+   "lat": -33.8732286,
+   "lng": 151.1865426,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/3925022663",
+   "lat": -33.8732308,
+   "lng": 151.1865171,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/3925038959",
+   "lat": -33.8760586,
+   "lng": 151.1937246,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/3925069358",
+   "lat": -33.8778942,
+   "lng": 151.1946075,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/3930018359",
+   "lat": -33.8741276,
+   "lng": 151.2079023,
+   "name": "Cupcakes on Pitt",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Cupcakes on Pitt"
+   }
+  },
+  {
+   "id": "node/3930018457",
+   "lat": -33.8743504,
+   "lng": 151.2076978,
+   "name": "Café Tramezzini",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Café Tramezzini"
+   }
+  },
+  {
+   "id": "node/3937082220",
+   "lat": -33.8497993,
+   "lng": 151.2146139,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_cycle": "evergreen",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/3977391968",
+   "lat": -33.8755348,
+   "lng": 151.2063056,
+   "name": "Starbucks",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee"
+   }
+  },
+  {
+   "id": "node/3977392260",
+   "lat": -33.8748558,
+   "lng": 151.206271,
+   "name": "The Choc Pot Dessert Shop",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "The Choc Pot Dessert Shop"
+   }
+  },
+  {
+   "id": "node/3979136664",
+   "lat": -33.8744921,
+   "lng": 151.2054091,
+   "name": "6.AM by dedy's",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "6.AM by dedy's"
+   }
+  },
+  {
+   "id": "node/3979136668",
+   "lat": -33.8756504,
+   "lng": 151.2065925,
+   "name": "C'ya",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "C'ya"
+   }
+  },
+  {
+   "id": "node/3981230968",
+   "lat": -33.8726306,
+   "lng": 151.2071687,
+   "name": "Workshop Espresso",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Workshop Espresso"
+   }
+  },
+  {
+   "id": "node/4023188491",
+   "lat": -33.8675837,
+   "lng": 151.2086617,
+   "name": "a fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain",
+    "height": "2.5"
+   }
+  },
+  {
+   "id": "node/4027321790",
+   "lat": -33.8798865,
+   "lng": 151.2067649,
+   "name": "Gloria Jean's",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Gloria Jean's",
+    "official_name": "Gloria Jean's Coffees"
+   }
+  },
+  {
+   "id": "node/4027321791",
+   "lat": -33.8806056,
+   "lng": 151.2074456,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4027321793",
+   "lat": -33.8794436,
+   "lng": 151.2049307,
+   "name": "Golden Water Mouth",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain",
+    "artwork_type": "sculpture",
+    "name": "Golden Water Mouth",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/4036222200",
+   "lat": -33.8641929,
+   "lng": 151.2038195,
+   "name": "Tom & Gerry's Cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Tom & Gerry's Cafe"
+   }
+  },
+  {
+   "id": "node/4057783994",
+   "lat": -33.871503,
+   "lng": 151.2037599,
+   "name": "Signature Espresso",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Signature Espresso"
+   }
+  },
+  {
+   "id": "node/4057783996",
+   "lat": -33.8727696,
+   "lng": 151.2042134,
+   "name": "BrewBros",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "BrewBros"
+   }
+  },
+  {
+   "id": "node/4070811233",
+   "lat": -33.8496459,
+   "lng": 151.2139295,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4071162482",
+   "lat": -33.8504007,
+   "lng": 151.2127637,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4071167553",
+   "lat": -33.8496337,
+   "lng": 151.2140398,
+   "name": "Copes Lookout",
+   "kind": "landmark",
+   "tags": {
+    "name": "Copes Lookout",
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/4071167556",
+   "lat": -33.8490411,
+   "lng": 151.213667,
+   "name": "Stanton Lookout",
+   "kind": "landmark",
+   "tags": {
+    "name": "Stanton Lookout",
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/4071167568",
+   "lat": -33.8490801,
+   "lng": 151.2135369,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4071167569",
+   "lat": -33.8490912,
+   "lng": 151.2136415,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4071167570",
+   "lat": -33.8490979,
+   "lng": 151.2137569,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4071167571",
+   "lat": -33.849627,
+   "lng": 151.2132466,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4071167572",
+   "lat": -33.8497634,
+   "lng": 151.2129462,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4084121658",
+   "lat": -33.8751338,
+   "lng": 151.1771711,
+   "name": "an artwork",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "mural",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/4084617691",
+   "lat": -33.8738823,
+   "lng": 151.1923794,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "guidepost",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/4094596198",
+   "lat": -33.8797615,
+   "lng": 151.2011686,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4094596206",
+   "lat": -33.8799893,
+   "lng": 151.201143,
+   "name": "a railway",
+   "kind": "landmark",
+   "tags": {
+    "historic": "railway"
+   }
+  },
+  {
+   "id": "node/4094596207",
+   "lat": -33.8798556,
+   "lng": 151.2011324,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4094596208",
+   "lat": -33.8798798,
+   "lng": 151.201148,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4094596209",
+   "lat": -33.8799169,
+   "lng": 151.2011645,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4094596214",
+   "lat": -33.8800548,
+   "lng": 151.2012576,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4094596215",
+   "lat": -33.8800631,
+   "lng": 151.201218,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4094596216",
+   "lat": -33.8800692,
+   "lng": 151.2012004,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4094596217",
+   "lat": -33.880084,
+   "lng": 151.2011944,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4094596235",
+   "lat": -33.880456,
+   "lng": 151.2014739,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4094596239",
+   "lat": -33.8805092,
+   "lng": 151.2014957,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4094596250",
+   "lat": -33.881315,
+   "lng": 151.2016354,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "guidepost",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/4094596251",
+   "lat": -33.8797849,
+   "lng": 151.2011853,
+   "name": "Mary Ann Street Culvert",
+   "kind": "landmark",
+   "tags": {
+    "historic": "archaeological_site",
+    "name": "Mary Ann Street Culvert"
+   }
+  },
+  {
+   "id": "node/4094610793",
+   "lat": -33.8801787,
+   "lng": 151.2012789,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4094610794",
+   "lat": -33.8801994,
+   "lng": 151.2012797,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4094610795",
+   "lat": -33.8805678,
+   "lng": 151.2015339,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4094610796",
+   "lat": -33.8808996,
+   "lng": 151.201598,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "guidepost",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/4094610797",
+   "lat": -33.8810299,
+   "lng": 151.2016748,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "board",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/4094610798",
+   "lat": -33.8816886,
+   "lng": 151.2019651,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4094610799",
+   "lat": -33.8817051,
+   "lng": 151.2019768,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4094954495",
+   "lat": -33.8807762,
+   "lng": 151.1986792,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4094954694",
+   "lat": -33.8766742,
+   "lng": 151.1969976,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4101244488",
+   "lat": -33.859855,
+   "lng": 151.2097383,
+   "name": "Commissioners Steps",
+   "kind": "landmark",
+   "tags": {
+    "name": "Commissioners Steps",
+    "tourism": "attraction"
+   }
+  },
+  {
+   "id": "node/4108539190",
+   "lat": -33.8735725,
+   "lng": 151.2154052,
+   "name": "Flour and Stone",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Flour and Stone"
+   }
+  },
+  {
+   "id": "node/4119676543",
+   "lat": -33.8735491,
+   "lng": 151.2065889,
+   "name": "Anchor Sculpture",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "sculpture",
+    "name": "Anchor Sculpture",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/412649982",
+   "lat": -33.8440296,
+   "lng": 151.2139118,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/412649995",
+   "lat": -33.8436974,
+   "lng": 151.2068471,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4162467906",
+   "lat": -33.8471025,
+   "lng": 151.2138147,
+   "name": "Spirit of Life Unitarian Fellowship",
+   "kind": "worship",
+   "tags": {
+    "amenity": "place_of_worship",
+    "name": "Spirit of Life Unitarian Fellowship",
+    "religion": "unitarian_universalist"
+   }
+  },
+  {
+   "id": "node/416480036",
+   "lat": -33.8593124,
+   "lng": 151.2047254,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/416480040",
+   "lat": -33.8602467,
+   "lng": 151.204324,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4184416833",
+   "lat": -33.878627,
+   "lng": 151.211754,
+   "name": "Two Good Eggs Cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Two Good Eggs Cafe"
+   }
+  },
+  {
+   "id": "node/4184423426",
+   "lat": -33.8579241,
+   "lng": 151.2083947,
+   "name": "The Tea Cosy",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "The Tea Cosy"
+   }
+  },
+  {
+   "id": "node/4229955927",
+   "lat": -33.8585218,
+   "lng": 151.2016096,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water",
+    "man_made": "drinking_fountain"
+   }
+  },
+  {
+   "id": "node/4229961092",
+   "lat": -33.8579259,
+   "lng": 151.2003669,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4229962303",
+   "lat": -33.8556843,
+   "lng": 151.2009376,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water",
+    "man_made": "drinking_fountain"
+   }
+  },
+  {
+   "id": "node/4229988991",
+   "lat": -33.856155,
+   "lng": 151.2020945,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water",
+    "man_made": "drinking_fountain"
+   }
+  },
+  {
+   "id": "node/4233043889",
+   "lat": -33.8656869,
+   "lng": 151.2088693,
+   "name": "a memorial",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "plaque"
+   }
+  },
+  {
+   "id": "node/4242642657",
+   "lat": -33.8777245,
+   "lng": 151.2040713,
+   "name": "Heytea",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Heytea",
+    "name:en": "Heytea"
+   }
+  },
+  {
+   "id": "node/4242643117",
+   "lat": -33.8777228,
+   "lng": 151.2038721,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "office",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/4242643134",
+   "lat": -33.8593483,
+   "lng": 151.208637,
+   "name": "Guylian",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Guylian"
+   }
+  },
+  {
+   "id": "node/4242645770",
+   "lat": -33.8595809,
+   "lng": 151.2086003,
+   "name": "The Rocks Cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "The Rocks Cafe"
+   }
+  },
+  {
+   "id": "node/4242645778",
+   "lat": -33.8606181,
+   "lng": 151.2093102,
+   "name": "The Beacon",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "sculpture",
+    "name": "The Beacon",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/4242649247",
+   "lat": -33.8675521,
+   "lng": 151.2138881,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4242649248",
+   "lat": -33.8700278,
+   "lng": 151.2149939,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4242649250",
+   "lat": -33.8742025,
+   "lng": 151.2119369,
+   "name": "Captain Cook",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "statue",
+    "name": "Captain Cook",
+    "name:en": "Captain Cook"
+   }
+  },
+  {
+   "id": "node/4242649252",
+   "lat": -33.8774081,
+   "lng": 151.2077934,
+   "name": "caffe tiamo",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "caffe tiamo"
+   }
+  },
+  {
+   "id": "node/4242649403",
+   "lat": -33.8656143,
+   "lng": 151.1989439,
+   "name": "an artwork",
+   "kind": "landmark",
+   "tags": {
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/4242649426",
+   "lat": -33.8767498,
+   "lng": 151.2090914,
+   "name": "Jacobs Espresso",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Jacobs Espresso"
+   }
+  },
+  {
+   "id": "node/4242649489",
+   "lat": -33.8592985,
+   "lng": 151.2084246,
+   "name": "La Renaissance Pâtisserie and Cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "La Renaissance Pâtisserie and Cafe"
+   }
+  },
+  {
+   "id": "node/4242649692",
+   "lat": -33.860307,
+   "lng": 151.2082546,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4242649697",
+   "lat": -33.8635543,
+   "lng": 151.2059562,
+   "name": "a memorial",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "plaque"
+   }
+  },
+  {
+   "id": "node/4242649708",
+   "lat": -33.8799546,
+   "lng": 151.2042095,
+   "name": "Garden of Cloud and Stone",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "sculpture",
+    "name": "Garden of Cloud and Stone",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/4242650723",
+   "lat": -33.8706525,
+   "lng": 151.2109408,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4242650914",
+   "lat": -33.8612114,
+   "lng": 151.21016,
+   "name": "Rossini Cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Rossini Cafe"
+   }
+  },
+  {
+   "id": "node/4242650989",
+   "lat": -33.8668288,
+   "lng": 151.212987,
+   "name": "Library Cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Library Cafe"
+   }
+  },
+  {
+   "id": "node/4258197490",
+   "lat": -33.8569256,
+   "lng": 151.2103777,
+   "name": "a viewpoint",
+   "kind": "landmark",
+   "tags": {
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/4281295290",
+   "lat": -33.8565575,
+   "lng": 151.1778292,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/428754558",
+   "lat": -33.8432563,
+   "lng": 151.2088092,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/428754568",
+   "lat": -33.8476145,
+   "lng": 151.211791,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4303767636",
+   "lat": -33.8653895,
+   "lng": 151.2060615,
+   "name": "John Dunmore Lang",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "statue",
+    "name": "John Dunmore Lang",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/4338266002",
+   "lat": -33.8779626,
+   "lng": 151.2106215,
+   "name": "Parami",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Parami"
+   }
+  },
+  {
+   "id": "node/4338266021",
+   "lat": -33.878013,
+   "lng": 151.2105216,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4370860487",
+   "lat": -33.8680218,
+   "lng": 151.1921773,
+   "name": "Library Link Pyrmont",
+   "kind": "civic",
+   "tags": {
+    "amenity": "library",
+    "name": "Library Link Pyrmont"
+   }
+  },
+  {
+   "id": "node/4370860488",
+   "lat": -33.8729845,
+   "lng": 151.2052928,
+   "name": "Library Link Town Hall",
+   "kind": "civic",
+   "tags": {
+    "amenity": "library",
+    "name": "Library Link Town Hall"
+   }
+  },
+  {
+   "id": "node/4422281599",
+   "lat": -33.8580971,
+   "lng": 151.1824005,
+   "name": "The Warren",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "The Warren"
+   }
+  },
+  {
+   "id": "node/4424492852",
+   "lat": -33.8796771,
+   "lng": 151.2104452,
+   "name": "Corduroy Cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Corduroy Cafe"
+   }
+  },
+  {
+   "id": "node/4424603447",
+   "lat": -33.8453426,
+   "lng": 151.2116177,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4424603451",
+   "lat": -33.845542,
+   "lng": 151.211689,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4424603483",
+   "lat": -33.8463323,
+   "lng": 151.2123478,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4424603486",
+   "lat": -33.8463567,
+   "lng": 151.2123542,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4432441228",
+   "lat": -33.8549368,
+   "lng": 151.2093045,
+   "name": "a cannon",
+   "kind": "landmark",
+   "tags": {
+    "historic": "cannon"
+   }
+  },
+  {
+   "id": "node/4432441232",
+   "lat": -33.8550098,
+   "lng": 151.2090617,
+   "name": "a cannon",
+   "kind": "landmark",
+   "tags": {
+    "historic": "cannon"
+   }
+  },
+  {
+   "id": "node/4434402249",
+   "lat": -33.8671837,
+   "lng": 151.2078262,
+   "name": "Forgotten Songs",
+   "kind": "landmark",
+   "tags": {
+    "alt_name": "Angel Place Birdcages",
+    "artwork_type": "installation",
+    "name": "Forgotten Songs",
+    "tourism": "artwork",
+    "wikidata": "Q27116428",
+    "wikipedia": "en:Forgotten Songs"
+   }
+  },
+  {
+   "id": "node/4462688254",
+   "lat": -33.8791355,
+   "lng": 151.2064275,
+   "name": "an artwork",
+   "kind": "landmark",
+   "tags": {
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/4464216489",
+   "lat": -33.8731268,
+   "lng": 151.2018564,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4465728690",
+   "lat": -33.8716206,
+   "lng": 151.1952162,
+   "name": "Social Brew Cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Social Brew Cafe",
+    "name:en": "Social Brew Cafe"
+   }
+  },
+  {
+   "id": "node/4474643889",
+   "lat": -33.8614537,
+   "lng": 151.2110712,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4474643890",
+   "lat": -33.8613264,
+   "lng": 151.2110915,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4474643891",
+   "lat": -33.8614395,
+   "lng": 151.2109146,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4474643892",
+   "lat": -33.8613116,
+   "lng": 151.2109336,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4474643893",
+   "lat": -33.8612907,
+   "lng": 151.210889,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4474643894",
+   "lat": -33.8614477,
+   "lng": 151.2108628,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4474643895",
+   "lat": -33.8612501,
+   "lng": 151.2104578,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4474643896",
+   "lat": -33.8612568,
+   "lng": 151.2103909,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4474643897",
+   "lat": -33.8613874,
+   "lng": 151.2103736,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4474643898",
+   "lat": -33.8614075,
+   "lng": 151.2104359,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4480996894",
+   "lat": -33.8667102,
+   "lng": 151.20986,
+   "name": "The Naked Duck",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "The Naked Duck"
+   }
+  },
+  {
+   "id": "node/4501570718",
+   "lat": -33.8614242,
+   "lng": 151.2106309,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4502478348",
+   "lat": -33.8612914,
+   "lng": 151.2106619,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4509750402",
+   "lat": -33.8697905,
+   "lng": 151.2083305,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4509750498",
+   "lat": -33.8700788,
+   "lng": 151.2082302,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4516427089",
+   "lat": -33.8614819,
+   "lng": 151.2132957,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_cycle": "evergreen",
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427090",
+   "lat": -33.8613783,
+   "lng": 151.2132973,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427091",
+   "lat": -33.8612785,
+   "lng": 151.2133051,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "genus": "Phoenix",
+    "leaf_cycle": "evergreen",
+    "leaf_type": "broadleaved",
+    "natural": "tree",
+    "species": "Phoenix canariensis"
+   }
+  },
+  {
+   "id": "node/4516427092",
+   "lat": -33.8611773,
+   "lng": 151.2133272,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "genus": "Phoenix",
+    "leaf_cycle": "evergreen",
+    "leaf_type": "broadleaved",
+    "natural": "tree",
+    "species": "Phoenix canariensis"
+   }
+  },
+  {
+   "id": "node/4516427093",
+   "lat": -33.8610214,
+   "lng": 151.2134482,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_cycle": "evergreen",
+    "leaf_type": "broadleaved",
+    "natural": "tree",
+    "species": "Ficus microcarpa"
+   }
+  },
+  {
+   "id": "node/4516427094",
+   "lat": -33.8609024,
+   "lng": 151.2133912,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree",
+    "species": "Phoenix canariensis × sylvestris"
+   }
+  },
+  {
+   "id": "node/4516427095",
+   "lat": -33.8608538,
+   "lng": 151.2132834,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427096",
+   "lat": -33.8607912,
+   "lng": 151.2133959,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree",
+    "species": "Phoenix canariensis"
+   }
+  },
+  {
+   "id": "node/4516427097",
+   "lat": -33.8632374,
+   "lng": 151.2131581,
+   "name": "King Edward VII",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "statue",
+    "name": "King Edward VII",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/4516427098",
+   "lat": -33.8630272,
+   "lng": 151.2131632,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427099",
+   "lat": -33.8630132,
+   "lng": 151.213097,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427100",
+   "lat": -33.8629518,
+   "lng": 151.2130908,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427101",
+   "lat": -33.8629812,
+   "lng": 151.2132048,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427102",
+   "lat": -33.8629095,
+   "lng": 151.2131525,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427103",
+   "lat": -33.8628533,
+   "lng": 151.2131679,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427104",
+   "lat": -33.8629006,
+   "lng": 151.2132834,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427105",
+   "lat": -33.8628072,
+   "lng": 151.2131155,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427106",
+   "lat": -33.8628098,
+   "lng": 151.2133296,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427107",
+   "lat": -33.8627189,
+   "lng": 151.2133712,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427108",
+   "lat": -33.8626281,
+   "lng": 151.2134113,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427109",
+   "lat": -33.8627599,
+   "lng": 151.2131971,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427110",
+   "lat": -33.8627228,
+   "lng": 151.2131293,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427111",
+   "lat": -33.8626729,
+   "lng": 151.2132064,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427112",
+   "lat": -33.8626051,
+   "lng": 151.2131401,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427113",
+   "lat": -33.8625821,
+   "lng": 151.2132187,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427114",
+   "lat": -33.8625311,
+   "lng": 151.2134338,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427115",
+   "lat": -33.8624398,
+   "lng": 151.2134566,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427116",
+   "lat": -33.8623429,
+   "lng": 151.2134821,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427117",
+   "lat": -33.8622415,
+   "lng": 151.21347,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427118",
+   "lat": -33.8621513,
+   "lng": 151.2134405,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427119",
+   "lat": -33.8620656,
+   "lng": 151.213407,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427120",
+   "lat": -33.8619698,
+   "lng": 151.2133601,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427121",
+   "lat": -33.8619553,
+   "lng": 151.2132434,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427122",
+   "lat": -33.862001,
+   "lng": 151.2132823,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427123",
+   "lat": -33.8620489,
+   "lng": 151.2132192,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427124",
+   "lat": -33.8621034,
+   "lng": 151.213285,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427125",
+   "lat": -33.8621836,
+   "lng": 151.2132555,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427126",
+   "lat": -33.8622337,
+   "lng": 151.2131897,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427127",
+   "lat": -33.8622827,
+   "lng": 151.2132595,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427128",
+   "lat": -33.862334,
+   "lng": 151.213183,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427129",
+   "lat": -33.8623796,
+   "lng": 151.2132514,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427130",
+   "lat": -33.8624286,
+   "lng": 151.2131656,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427131",
+   "lat": -33.8624776,
+   "lng": 151.2132353,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427132",
+   "lat": -33.8625289,
+   "lng": 151.2131602,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427133",
+   "lat": -33.8630567,
+   "lng": 151.2128384,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427134",
+   "lat": -33.8628518,
+   "lng": 151.2130261,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427135",
+   "lat": -33.8627683,
+   "lng": 151.2128679,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427136",
+   "lat": -33.8634532,
+   "lng": 151.21277,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427137",
+   "lat": -33.8636881,
+   "lng": 151.2127391,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427138",
+   "lat": -33.8632282,
+   "lng": 151.2126037,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427139",
+   "lat": -33.8632483,
+   "lng": 151.2124025,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427140",
+   "lat": -33.8632683,
+   "lng": 151.2121303,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427141",
+   "lat": -33.8637494,
+   "lng": 151.2118849,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427142",
+   "lat": -33.8635801,
+   "lng": 151.2130114,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427143",
+   "lat": -33.863687,
+   "lng": 151.2129872,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427144",
+   "lat": -33.8637316,
+   "lng": 151.2130328,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427145",
+   "lat": -33.8637672,
+   "lng": 151.2129738,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427146",
+   "lat": -33.8638173,
+   "lng": 151.2130248,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427147",
+   "lat": -33.8638674,
+   "lng": 151.2129631,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427148",
+   "lat": -33.8639298,
+   "lng": 151.21301,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427149",
+   "lat": -33.8639721,
+   "lng": 151.2129577,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427150",
+   "lat": -33.86401,
+   "lng": 151.212998,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427151",
+   "lat": -33.864059,
+   "lng": 151.2129403,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427152",
+   "lat": -33.8641035,
+   "lng": 151.2129819,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427153",
+   "lat": -33.8641453,
+   "lng": 151.2129118,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427154",
+   "lat": -33.8642115,
+   "lng": 151.2129631,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427155",
+   "lat": -33.8642472,
+   "lng": 151.2129175,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427156",
+   "lat": -33.8642761,
+   "lng": 151.2142599,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427460",
+   "lat": -33.865896,
+   "lng": 151.2136226,
+   "name": "William Shakespeare",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "statue",
+    "name": "William Shakespeare",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/4516427818",
+   "lat": -33.8658776,
+   "lng": 151.212657,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427819",
+   "lat": -33.8656139,
+   "lng": 151.2126956,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427820",
+   "lat": -33.8660918,
+   "lng": 151.2125905,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427821",
+   "lat": -33.8660182,
+   "lng": 151.212664,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427822",
+   "lat": -33.8659455,
+   "lng": 151.2127703,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427823",
+   "lat": -33.8659319,
+   "lng": 151.212866,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4516427824",
+   "lat": -33.8659329,
+   "lng": 151.2129968,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4540207791",
+   "lat": -33.8649653,
+   "lng": 151.2084063,
+   "name": "Waiting",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "statue",
+    "name": "Waiting",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/4540207792",
+   "lat": -33.8631574,
+   "lng": 151.2100624,
+   "name": "H.M.S Sirius",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "sculpture",
+    "name": "H.M.S Sirius"
+   }
+  },
+  {
+   "id": "node/4540243591",
+   "lat": -33.8556874,
+   "lng": 151.2071743,
+   "name": "Still Life with Stone and Car",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "sculpture",
+    "name": "Still Life with Stone and Car",
+    "tourism": "artwork",
+    "wikidata": "Q28893166"
+   }
+  },
+  {
+   "id": "node/4545928830",
+   "lat": -33.8807226,
+   "lng": 151.188098,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4545928889",
+   "lat": -33.8802463,
+   "lng": 151.1863389,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4553460852",
+   "lat": -33.8787863,
+   "lng": 151.1927909,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/459424152",
+   "lat": -33.8402896,
+   "lng": 151.2026537,
+   "name": "Freshwater spring and 1860s cistern",
+   "kind": "landmark",
+   "tags": {
+    "historic": "ruins",
+    "name": "Freshwater spring and 1860s cistern"
+   }
+  },
+  {
+   "id": "node/4602259090",
+   "lat": -33.8731646,
+   "lng": 151.1997986,
+   "name": "a fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain"
+   }
+  },
+  {
+   "id": "node/460427759",
+   "lat": -33.837963,
+   "lng": 151.2022346,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/460427784",
+   "lat": -33.8383241,
+   "lng": 151.2014701,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/460427785",
+   "lat": -33.8383376,
+   "lng": 151.2014539,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/460427786",
+   "lat": -33.8383415,
+   "lng": 151.201228,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/460427797",
+   "lat": -33.8407317,
+   "lng": 151.2015202,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4608970226",
+   "lat": -33.8803326,
+   "lng": 151.1791163,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/461114868",
+   "lat": -33.838744,
+   "lng": 151.2047103,
+   "name": "Mary MacKillop Place Museum",
+   "kind": "landmark",
+   "tags": {
+    "name": "Mary MacKillop Place Museum",
+    "tourism": "museum",
+    "wikidata": "Q17009581",
+    "wikipedia": "en:Mary Mackillop Memorial Chapel and Museum"
+   }
+  },
+  {
+   "id": "node/4644007372",
+   "lat": -33.8782956,
+   "lng": 151.2144335,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water",
+    "historic": "yes"
+   }
+  },
+  {
+   "id": "node/4655094607",
+   "lat": -33.8682027,
+   "lng": 151.1980501,
+   "name": "Windjammer Sailors",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "statue",
+    "name": "Windjammer Sailors",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/4662876109",
+   "lat": -33.8713064,
+   "lng": 151.2115917,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4696568664",
+   "lat": -33.8641479,
+   "lng": 151.2011044,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4696568701",
+   "lat": -33.8647207,
+   "lng": 151.2011648,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4707664090",
+   "lat": -33.874217,
+   "lng": 151.2081435,
+   "name": "Doppio espresso",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Doppio espresso"
+   }
+  },
+  {
+   "id": "node/4719582990",
+   "lat": -33.8793053,
+   "lng": 151.2110456,
+   "name": "Paramount Coffee Project",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Paramount Coffee Project"
+   }
+  },
+  {
+   "id": "node/4722192689",
+   "lat": -33.8677697,
+   "lng": 151.1936963,
+   "name": "St Bedes Catholic Church",
+   "kind": "worship",
+   "tags": {
+    "amenity": "place_of_worship",
+    "name": "St Bedes Catholic Church",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/4726510889",
+   "lat": -33.8804613,
+   "lng": 151.2149001,
+   "name": "Lixie Chocolaterie",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Lixie Chocolaterie"
+   }
+  },
+  {
+   "id": "node/4726915741",
+   "lat": -33.8633906,
+   "lng": 151.2122678,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4729109689",
+   "lat": -33.8589504,
+   "lng": 151.2094095,
+   "name": "The Rocks Free Tour",
+   "kind": "landmark",
+   "tags": {
+    "name": "The Rocks Free Tour",
+    "tourism": "attraction"
+   }
+  },
+  {
+   "id": "node/4730152435",
+   "lat": -33.8755907,
+   "lng": 151.209848,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4730152617",
+   "lat": -33.8746321,
+   "lng": 151.2100798,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/473478662",
+   "lat": -33.8413519,
+   "lng": 151.206262,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/473478663",
+   "lat": -33.8414387,
+   "lng": 151.2061946,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/473483270",
+   "lat": -33.8444287,
+   "lng": 151.2064132,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/473483271",
+   "lat": -33.8444589,
+   "lng": 151.2064039,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/473483306",
+   "lat": -33.8450969,
+   "lng": 151.2093799,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/473487769",
+   "lat": -33.8483365,
+   "lng": 151.2118519,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4739118627",
+   "lat": -33.8614937,
+   "lng": 151.211145,
+   "name": "Stella's Coffee",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Stella's Coffee"
+   }
+  },
+  {
+   "id": "node/476253312",
+   "lat": -33.8405692,
+   "lng": 151.2155408,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/476253313",
+   "lat": -33.8405256,
+   "lng": 151.2156162,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/476253314",
+   "lat": -33.8406714,
+   "lng": 151.2155779,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/476253315",
+   "lat": -33.8405874,
+   "lng": 151.2157128,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/476253316",
+   "lat": -33.8407526,
+   "lng": 151.2154567,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/476253317",
+   "lat": -33.8408285,
+   "lng": 151.2153348,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/476253324",
+   "lat": -33.8396451,
+   "lng": 151.214342,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/476253342",
+   "lat": -33.838182,
+   "lng": 151.2131414,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/476253353",
+   "lat": -33.8440787,
+   "lng": 151.2154716,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4770749022",
+   "lat": -33.8737936,
+   "lng": 151.2004976,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4770796322",
+   "lat": -33.8708576,
+   "lng": 151.2023373,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4799669412",
+   "lat": -33.8697254,
+   "lng": 151.2016549,
+   "name": "Madame Tussauds Sydney",
+   "kind": "landmark",
+   "tags": {
+    "name": "Madame Tussauds Sydney",
+    "name:en": "Madame Tussauds Sydney",
+    "tourism": "museum",
+    "wikidata": "Q22271907"
+   }
+  },
+  {
+   "id": "node/4813486124",
+   "lat": -33.8486136,
+   "lng": 151.2097372,
+   "name": "a viewpoint",
+   "kind": "landmark",
+   "tags": {
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/4813503821",
+   "lat": -33.8588812,
+   "lng": 151.2141769,
+   "name": "a viewpoint",
+   "kind": "landmark",
+   "tags": {
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/4844904522",
+   "lat": -33.8589469,
+   "lng": 151.2073156,
+   "name": "Argyle Stairs",
+   "kind": "landmark",
+   "tags": {
+    "name": "Argyle Stairs",
+    "name:en": "Argyle Stairs",
+    "tourism": "attraction"
+   }
+  },
+  {
+   "id": "node/4844904524",
+   "lat": -33.8676568,
+   "lng": 151.2073995,
+   "name": "GPO Colonnade",
+   "kind": "landmark",
+   "tags": {
+    "name": "GPO Colonnade",
+    "name:en": "GPO Colonnade",
+    "tourism": "attraction"
+   }
+  },
+  {
+   "id": "node/4844908021",
+   "lat": -33.8591169,
+   "lng": 151.2069762,
+   "name": "The Bridge Stairs",
+   "kind": "landmark",
+   "tags": {
+    "name": "The Bridge Stairs",
+    "tourism": "attraction"
+   }
+  },
+  {
+   "id": "node/485948201",
+   "lat": -33.8808148,
+   "lng": 151.2093846,
+   "name": "Malibu",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Malibu"
+   }
+  },
+  {
+   "id": "node/4860750851",
+   "lat": -33.8630099,
+   "lng": 151.2091861,
+   "name": "Alpha Gourmet",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Alpha Gourmet"
+   }
+  },
+  {
+   "id": "node/4865627021",
+   "lat": -33.8788339,
+   "lng": 151.1957439,
+   "name": "Local Mbassy",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Local Mbassy",
+    "name:en": "Local Mbassy"
+   }
+  },
+  {
+   "id": "node/4881001610",
+   "lat": -33.8737288,
+   "lng": 151.1785496,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4881002354",
+   "lat": -33.8744788,
+   "lng": 151.1767785,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4896765554",
+   "lat": -33.8541126,
+   "lng": 151.2089254,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4896765555",
+   "lat": -33.8541459,
+   "lng": 151.209081,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4896765556",
+   "lat": -33.8542367,
+   "lng": 151.2088007,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_cycle": "evergreen",
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4896765557",
+   "lat": -33.8542635,
+   "lng": 151.2089177,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4896765558",
+   "lat": -33.8543633,
+   "lng": 151.2088407,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4971461421",
+   "lat": -33.8726967,
+   "lng": 151.1777047,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/4996811584",
+   "lat": -33.8388815,
+   "lng": 151.2071672,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/5029983717",
+   "lat": -33.8785721,
+   "lng": 151.2135911,
+   "name": "Ovo Cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Ovo Cafe"
+   }
+  },
+  {
+   "id": "node/5042081721",
+   "lat": -33.8573564,
+   "lng": 151.2078141,
+   "name": "BridgeClimb Sydney",
+   "kind": "landmark",
+   "tags": {
+    "name": "BridgeClimb Sydney",
+    "tourism": "attraction"
+   }
+  },
+  {
+   "id": "node/5042334322",
+   "lat": -33.8736764,
+   "lng": 151.2064032,
+   "name": "I'm Free Tours",
+   "kind": "civic",
+   "tags": {
+    "name": "I'm Free Tours",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/5099949421",
+   "lat": -33.85775,
+   "lng": 151.181143,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/5099958223",
+   "lat": -33.857723,
+   "lng": 151.181105,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5099960825",
+   "lat": -33.857398,
+   "lng": 151.181062,
+   "name": "Bertoni",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Bertoni"
+   }
+  },
+  {
+   "id": "node/5099993436",
+   "lat": -33.8574929,
+   "lng": 151.1814301,
+   "name": "Taste Baguette",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Taste Baguette"
+   }
+  },
+  {
+   "id": "node/5099993623",
+   "lat": -33.857784,
+   "lng": 151.181168,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5099993627",
+   "lat": -33.8576937,
+   "lng": 151.181159,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/510135100",
+   "lat": -33.8397569,
+   "lng": 151.2113749,
+   "name": "jb cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "jb cafe"
+   }
+  },
+  {
+   "id": "node/5104337696",
+   "lat": -33.8674874,
+   "lng": 151.2076404,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5104337697",
+   "lat": -33.8676,
+   "lng": 151.2083508,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5104337698",
+   "lat": -33.8674812,
+   "lng": 151.2083673,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5104337699",
+   "lat": -33.8675151,
+   "lng": 151.2078951,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5104337702",
+   "lat": -33.8675979,
+   "lng": 151.2083319,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5104337703",
+   "lat": -33.8674796,
+   "lng": 151.208349,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5104372340",
+   "lat": -33.8721714,
+   "lng": 151.2144237,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/5104435919",
+   "lat": -33.8797698,
+   "lng": 151.2024561,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5106516392",
+   "lat": -33.8769276,
+   "lng": 151.2073313,
+   "name": "The Challenge",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "statue",
+    "height": "3",
+    "name": "The Challenge",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/5110268608",
+   "lat": -33.875107,
+   "lng": 151.2008761,
+   "name": "an artwork",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "sculpture",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/5110291190",
+   "lat": -33.8661557,
+   "lng": 151.1935788,
+   "name": "a memorial",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "war_memorial"
+   }
+  },
+  {
+   "id": "node/5114260690",
+   "lat": -33.8578167,
+   "lng": 151.1801217,
+   "name": "a cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe"
+   }
+  },
+  {
+   "id": "node/5114279531",
+   "lat": -33.8578873,
+   "lng": 151.1821887,
+   "name": "a cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe"
+   }
+  },
+  {
+   "id": "node/5114279534",
+   "lat": -33.8578627,
+   "lng": 151.1819941,
+   "name": "a cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe"
+   }
+  },
+  {
+   "id": "node/5114279538",
+   "lat": -33.8578312,
+   "lng": 151.1818431,
+   "name": "a cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe"
+   }
+  },
+  {
+   "id": "node/5114396530",
+   "lat": -33.861102,
+   "lng": 151.1786245,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5114396531",
+   "lat": -33.8613131,
+   "lng": 151.1786497,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5114429697",
+   "lat": -33.8613048,
+   "lng": 151.178854,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5114429699",
+   "lat": -33.8610285,
+   "lng": 151.1792299,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5114429703",
+   "lat": -33.8611522,
+   "lng": 151.1790507,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5114429705",
+   "lat": -33.8607696,
+   "lng": 151.1787964,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5121284053",
+   "lat": -33.8640061,
+   "lng": 151.2010013,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5121284055",
+   "lat": -33.8640895,
+   "lng": 151.2010666,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5121284056",
+   "lat": -33.8639727,
+   "lng": 151.2010612,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5121284059",
+   "lat": -33.8639028,
+   "lng": 151.2010095,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5121284060",
+   "lat": -33.8640612,
+   "lng": 151.2010126,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5121284061",
+   "lat": -33.863846,
+   "lng": 151.2009802,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/512876529",
+   "lat": -33.8397743,
+   "lng": 151.2008007,
+   "name": "Henry Lawson",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "plaque",
+    "name": "Henry Lawson"
+   }
+  },
+  {
+   "id": "node/5129712049",
+   "lat": -33.8667738,
+   "lng": 151.2117049,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/5140740085",
+   "lat": -33.8800813,
+   "lng": 151.1866636,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5140740087",
+   "lat": -33.8803003,
+   "lng": 151.1862928,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5140740088",
+   "lat": -33.8804239,
+   "lng": 151.1863218,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5140740089",
+   "lat": -33.8801939,
+   "lng": 151.1864423,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5140777489",
+   "lat": -33.8799081,
+   "lng": 151.1872473,
+   "name": "Café Espresso",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Café Espresso"
+   }
+  },
+  {
+   "id": "node/5140777490",
+   "lat": -33.8799461,
+   "lng": 151.1872608,
+   "name": "Fish on Fire",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Fish on Fire"
+   }
+  },
+  {
+   "id": "node/5164281922",
+   "lat": -33.8732007,
+   "lng": 151.209415,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5164299651",
+   "lat": -33.8744547,
+   "lng": 151.2060958,
+   "name": "a fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "fountain"
+   }
+  },
+  {
+   "id": "node/5164417939",
+   "lat": -33.8697104,
+   "lng": 151.2064083,
+   "name": "Mr Bao",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Mr Bao"
+   }
+  },
+  {
+   "id": "node/5164417940",
+   "lat": -33.8697539,
+   "lng": 151.2064174,
+   "name": "Sushi Ok",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Sushi Ok"
+   }
+  },
+  {
+   "id": "node/5165151526",
+   "lat": -33.8783528,
+   "lng": 151.2143511,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5165260127",
+   "lat": -33.8796986,
+   "lng": 151.2154685,
+   "name": "The Pie Tin",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "The Pie Tin"
+   }
+  },
+  {
+   "id": "node/5168271324",
+   "lat": -33.8651131,
+   "lng": 151.2126738,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/5168271428",
+   "lat": -33.8654248,
+   "lng": 151.212488,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/5175883061",
+   "lat": -33.8428527,
+   "lng": 151.1866945,
+   "name": "Manns Point",
+   "kind": "landmark",
+   "tags": {
+    "name": "Manns Point",
+    "natural": "cape",
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/5181018275",
+   "lat": -33.8571247,
+   "lng": 151.2013893,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water",
+    "man_made": "drinking_fountain"
+   }
+  },
+  {
+   "id": "node/5181031633",
+   "lat": -33.8607149,
+   "lng": 151.204021,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/5195110236",
+   "lat": -33.8670832,
+   "lng": 151.2068614,
+   "name": "Royal Australian Regimental Memorial",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "war_memorial",
+    "name": "Royal Australian Regimental Memorial",
+    "wikidata": "Q7308405"
+   }
+  },
+  {
+   "id": "node/5203491722",
+   "lat": -33.8628703,
+   "lng": 151.2096627,
+   "name": "Three Bottle Man",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Three Bottle Man"
+   }
+  },
+  {
+   "id": "node/5203491723",
+   "lat": -33.8626413,
+   "lng": 151.2096218,
+   "name": "Cabrito",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Cabrito"
+   }
+  },
+  {
+   "id": "node/5203491921",
+   "lat": -33.8629415,
+   "lng": 151.2099106,
+   "name": "Tribunes",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Tribunes"
+   }
+  },
+  {
+   "id": "node/5205350324",
+   "lat": -33.8634634,
+   "lng": 151.2092665,
+   "name": "Barista Sisters",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Barista Sisters"
+   }
+  },
+  {
+   "id": "node/5211359434",
+   "lat": -33.8809767,
+   "lng": 151.1909063,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/5216819532",
+   "lat": -33.8637758,
+   "lng": 151.2091342,
+   "name": "Feedwell",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Feedwell"
+   }
+  },
+  {
+   "id": "node/5218814278",
+   "lat": -33.8748012,
+   "lng": 151.202635,
+   "name": "Alma",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Alma"
+   }
+  },
+  {
+   "id": "node/5218815814",
+   "lat": -33.8751666,
+   "lng": 151.2026486,
+   "name": "Vesta Cafe & Ristorante",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Vesta Cafe & Ristorante"
+   }
+  },
+  {
+   "id": "node/5222607323",
+   "lat": -33.8613784,
+   "lng": 151.2100817,
+   "name": "The Coffee Box Espresso Bar",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "The Coffee Box Espresso Bar"
+   }
+  },
+  {
+   "id": "node/5240558221",
+   "lat": -33.8622631,
+   "lng": 151.2098996,
+   "name": "Espresso Room",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Espresso Room"
+   }
+  },
+  {
+   "id": "node/5240571621",
+   "lat": -33.8632938,
+   "lng": 151.2094978,
+   "name": "Z's Espresso",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Z's Espresso"
+   }
+  },
+  {
+   "id": "node/5259188021",
+   "lat": -33.8640758,
+   "lng": 151.2141426,
+   "name": "Huntsman & Dogs",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "statue",
+    "name": "Huntsman & Dogs",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/5289309538",
+   "lat": -33.8588189,
+   "lng": 151.2022064,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "guidepost",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/5289309548",
+   "lat": -33.8585808,
+   "lng": 151.2019895,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5289309549",
+   "lat": -33.8586844,
+   "lng": 151.2020847,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5289309550",
+   "lat": -33.8585457,
+   "lng": 151.2015496,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "guidepost",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/5289309561",
+   "lat": -33.8583536,
+   "lng": 151.2006323,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "guidepost",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/5289309587",
+   "lat": -33.8579101,
+   "lng": 151.2003641,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "guidepost",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/5289309599",
+   "lat": -33.8566803,
+   "lng": 151.2005639,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "guidepost",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/5289309607",
+   "lat": -33.8558342,
+   "lng": 151.2006343,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5289309611",
+   "lat": -33.8562744,
+   "lng": 151.2022098,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "guidepost",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/5289309612",
+   "lat": -33.8562081,
+   "lng": 151.2021524,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "guidepost",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/5289309613",
+   "lat": -33.8557041,
+   "lng": 151.2008134,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "guidepost",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/5289309617",
+   "lat": -33.8557164,
+   "lng": 151.2010782,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5289309618",
+   "lat": -33.8557036,
+   "lng": 151.2013464,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5289309998",
+   "lat": -33.8588498,
+   "lng": 151.2059364,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5309791823",
+   "lat": -33.8720972,
+   "lng": 151.2071952,
+   "name": "Grounds of the City",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Grounds of the City"
+   }
+  },
+  {
+   "id": "node/5314518313",
+   "lat": -33.859072,
+   "lng": 151.2080758,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/5321021710",
+   "lat": -33.8769178,
+   "lng": 151.2092068,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/5326311622",
+   "lat": -33.8695577,
+   "lng": 151.2070149,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/5328160127",
+   "lat": -33.8678614,
+   "lng": 151.2116999,
+   "name": "a memorial",
+   "kind": "landmark",
+   "tags": {
+    "historic": "memorial",
+    "memorial": "war_memorial"
+   }
+  },
+  {
+   "id": "node/5334046021",
+   "lat": -33.8680966,
+   "lng": 151.21196,
+   "name": "Reserve Bank of Australia Museum",
+   "kind": "landmark",
+   "tags": {
+    "name": "Reserve Bank of Australia Museum",
+    "tourism": "museum"
+   }
+  },
+  {
+   "id": "node/5334124322",
+   "lat": -33.8642378,
+   "lng": 151.2151367,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5334124323",
+   "lat": -33.8638473,
+   "lng": 151.2151584,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5334124324",
+   "lat": -33.863714,
+   "lng": 151.2151605,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5334133128",
+   "lat": -33.8629802,
+   "lng": 151.215261,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5334143321",
+   "lat": -33.8643695,
+   "lng": 151.2151527,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5334144821",
+   "lat": -33.8639846,
+   "lng": 151.2151492,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5350221738",
+   "lat": -33.8565512,
+   "lng": 151.2025573,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221739",
+   "lat": -33.8565763,
+   "lng": 151.2026759,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221740",
+   "lat": -33.8566403,
+   "lng": 151.2028013,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221741",
+   "lat": -33.8567194,
+   "lng": 151.2029589,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221742",
+   "lat": -33.8567717,
+   "lng": 151.2031286,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221743",
+   "lat": -33.8568213,
+   "lng": 151.2032325,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221744",
+   "lat": -33.856887,
+   "lng": 151.2033606,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221745",
+   "lat": -33.8568013,
+   "lng": 151.2029421,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221746",
+   "lat": -33.8568909,
+   "lng": 151.2028925,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221747",
+   "lat": -33.8569694,
+   "lng": 151.2028288,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221748",
+   "lat": -33.8568363,
+   "lng": 151.2029824,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221749",
+   "lat": -33.8568113,
+   "lng": 151.2030313,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221750",
+   "lat": -33.8568798,
+   "lng": 151.2029717,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221751",
+   "lat": -33.8569455,
+   "lng": 151.2029924,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221752",
+   "lat": -33.8570279,
+   "lng": 151.2027966,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221816",
+   "lat": -33.8572369,
+   "lng": 151.2064315,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221835",
+   "lat": -33.8575064,
+   "lng": 151.2059662,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221836",
+   "lat": -33.8574435,
+   "lng": 151.2059655,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221837",
+   "lat": -33.8574218,
+   "lng": 151.2059159,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221846",
+   "lat": -33.8571912,
+   "lng": 151.2054954,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221891",
+   "lat": -33.8577027,
+   "lng": 151.2040477,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221892",
+   "lat": -33.8576993,
+   "lng": 151.2042073,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221893",
+   "lat": -33.8576926,
+   "lng": 151.2043723,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221894",
+   "lat": -33.8580067,
+   "lng": 151.2038305,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221895",
+   "lat": -33.8577829,
+   "lng": 151.203573,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221896",
+   "lat": -33.8579042,
+   "lng": 151.2035783,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221897",
+   "lat": -33.8581559,
+   "lng": 151.2035743,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221977",
+   "lat": -33.8596048,
+   "lng": 151.2029453,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221978",
+   "lat": -33.8595943,
+   "lng": 151.2030137,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221979",
+   "lat": -33.8596934,
+   "lng": 151.2029526,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350221980",
+   "lat": -33.8596438,
+   "lng": 151.2029466,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350391488",
+   "lat": -33.8570177,
+   "lng": 151.2083147,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350634018",
+   "lat": -33.8592834,
+   "lng": 151.2083174,
+   "name": "Cannon House Gallery",
+   "kind": "landmark",
+   "tags": {
+    "name": "Cannon House Gallery",
+    "tourism": "gallery"
+   }
+  },
+  {
+   "id": "node/5350785418",
+   "lat": -33.8613833,
+   "lng": 151.2072606,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350785419",
+   "lat": -33.8615676,
+   "lng": 151.2090403,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350785420",
+   "lat": -33.8615553,
+   "lng": 151.2089182,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350785421",
+   "lat": -33.8616121,
+   "lng": 151.2087573,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350785422",
+   "lat": -33.8615943,
+   "lng": 151.2086245,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350785423",
+   "lat": -33.8615731,
+   "lng": 151.2084837,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350785424",
+   "lat": -33.861523,
+   "lng": 151.2082624,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350785425",
+   "lat": -33.8614874,
+   "lng": 151.2090658,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350785426",
+   "lat": -33.861474,
+   "lng": 151.2089303,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350785427",
+   "lat": -33.8614662,
+   "lng": 151.2088244,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350785428",
+   "lat": -33.8614595,
+   "lng": 151.2087372,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350785429",
+   "lat": -33.8614573,
+   "lng": 151.2086286,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350785430",
+   "lat": -33.8614451,
+   "lng": 151.2084958,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5350785431",
+   "lat": -33.8614718,
+   "lng": 151.2083952,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5351907092",
+   "lat": -33.8657384,
+   "lng": 151.2080934,
+   "name": "Salad Works",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Salad Works"
+   }
+  },
+  {
+   "id": "node/5353603621",
+   "lat": -33.8625153,
+   "lng": 151.2075776,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/5353620221",
+   "lat": -33.8627955,
+   "lng": 151.2130071,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water",
+    "man_made": "drinking_fountain"
+   }
+  },
+  {
+   "id": "node/5353944085",
+   "lat": -33.840144,
+   "lng": 151.2076732,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5353944086",
+   "lat": -33.8403172,
+   "lng": 151.2077088,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5353944097",
+   "lat": -33.8400565,
+   "lng": 151.2073138,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5353944098",
+   "lat": -33.8401384,
+   "lng": 151.2071086,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5359695863",
+   "lat": -33.84745,
+   "lng": 151.2133881,
+   "name": "Pasture",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Pasture"
+   }
+  },
+  {
+   "id": "node/5359966708",
+   "lat": -33.8463517,
+   "lng": 151.212898,
+   "name": "Chatime",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Chatime"
+   }
+  },
+  {
+   "id": "node/5359966758",
+   "lat": -33.8461038,
+   "lng": 151.2133916,
+   "name": "Cool Mac",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Cool Mac"
+   }
+  },
+  {
+   "id": "node/5362630180",
+   "lat": -33.8441421,
+   "lng": 151.214345,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630181",
+   "lat": -33.8441599,
+   "lng": 151.214333,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630182",
+   "lat": -33.8442239,
+   "lng": 151.2143417,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630183",
+   "lat": -33.8442451,
+   "lng": 151.2143739,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630184",
+   "lat": -33.844117,
+   "lng": 151.2144215,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630185",
+   "lat": -33.8441243,
+   "lng": 151.2144449,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630186",
+   "lat": -33.8441348,
+   "lng": 151.2144644,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630187",
+   "lat": -33.8441967,
+   "lng": 151.2144858,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630188",
+   "lat": -33.8442217,
+   "lng": 151.2144751,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630189",
+   "lat": -33.8442384,
+   "lng": 151.214451,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630190",
+   "lat": -33.8443286,
+   "lng": 151.2146273,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630191",
+   "lat": -33.8443788,
+   "lng": 151.2147071,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630192",
+   "lat": -33.844714,
+   "lng": 151.2147051,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630193",
+   "lat": -33.844684,
+   "lng": 151.2147259,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630194",
+   "lat": -33.8446511,
+   "lng": 151.2147547,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630195",
+   "lat": -33.8446205,
+   "lng": 151.2147802,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630196",
+   "lat": -33.8445871,
+   "lng": 151.2148097,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630197",
+   "lat": -33.8445581,
+   "lng": 151.2148386,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630198",
+   "lat": -33.8445347,
+   "lng": 151.214856,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630199",
+   "lat": -33.8445108,
+   "lng": 151.2148748,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630200",
+   "lat": -33.8444896,
+   "lng": 151.2148922,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630201",
+   "lat": -33.8444657,
+   "lng": 151.2149157,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630202",
+   "lat": -33.8444434,
+   "lng": 151.2149331,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630203",
+   "lat": -33.8444211,
+   "lng": 151.2149579,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630204",
+   "lat": -33.8443971,
+   "lng": 151.214974,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630205",
+   "lat": -33.8443754,
+   "lng": 151.2149935,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630206",
+   "lat": -33.8443532,
+   "lng": 151.2150109,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630207",
+   "lat": -33.8443203,
+   "lng": 151.2150437,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630208",
+   "lat": -33.8442936,
+   "lng": 151.2150679,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630209",
+   "lat": -33.8442629,
+   "lng": 151.2150907,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630210",
+   "lat": -33.8439044,
+   "lng": 151.2139883,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630211",
+   "lat": -33.843969,
+   "lng": 151.2139172,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630212",
+   "lat": -33.8437863,
+   "lng": 151.2138864,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630213",
+   "lat": -33.843861,
+   "lng": 151.2138166,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630214",
+   "lat": -33.8439712,
+   "lng": 151.2137549,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362630215",
+   "lat": -33.8440771,
+   "lng": 151.2138421,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5362744322",
+   "lat": -33.8616945,
+   "lng": 151.2103106,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/5365596297",
+   "lat": -33.8811621,
+   "lng": 151.2134457,
+   "name": "Alive",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Alive"
+   }
+  },
+  {
+   "id": "node/5366908950",
+   "lat": -33.8816257,
+   "lng": 151.214865,
+   "name": "Paripe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Paripe"
+   }
+  },
+  {
+   "id": "node/5367304194",
+   "lat": -33.8814386,
+   "lng": 151.2158177,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5367304482",
+   "lat": -33.8798448,
+   "lng": 151.215777,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5367304483",
+   "lat": -33.8797524,
+   "lng": 151.2156724,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5367304484",
+   "lat": -33.8796505,
+   "lng": 151.2155444,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/5367304485",
+   "lat": -33.8795726,
+   "lng": 151.2154444,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "leaf_type": "broadleaved",
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/594438630",
+   "lat": -33.8811804,
+   "lng": 151.209681,
+   "name": "Single O",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Single O"
+   }
+  },
+  {
+   "id": "node/594438633",
+   "lat": -33.8813959,
+   "lng": 151.2099997,
+   "name": "Toast Cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Toast Cafe"
+   }
+  },
+  {
+   "id": "node/594438637",
+   "lat": -33.87996,
+   "lng": 151.2098657,
+   "name": "The Wall",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "The Wall"
+   }
+  },
+  {
+   "id": "node/669410502",
+   "lat": -33.864862,
+   "lng": 151.2062375,
+   "name": "Met Cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Met Cafe"
+   }
+  },
+  {
+   "id": "node/671365948",
+   "lat": -33.8679018,
+   "lng": 151.2101646,
+   "name": "Australian Securities Exchange",
+   "kind": "landmark",
+   "tags": {
+    "amenity": "stock_exchange",
+    "name": "Australian Securities Exchange",
+    "short_name": "ASX",
+    "tourism": "attraction",
+    "wikidata": "Q732670"
+   }
+  },
+  {
+   "id": "node/742381351",
+   "lat": -33.8440756,
+   "lng": 151.2108774,
+   "name": "Foxie",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "statue",
+    "name": "Foxie",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/742398911",
+   "lat": -33.8494053,
+   "lng": 151.2130255,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/742398912",
+   "lat": -33.8475748,
+   "lng": 151.2119924,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/742398916",
+   "lat": -33.8500661,
+   "lng": 151.2124395,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/742398917",
+   "lat": -33.8505013,
+   "lng": 151.2126779,
+   "name": "Australian Angel",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "sculpture",
+    "name": "Australian Angel",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/742398922",
+   "lat": -33.8493815,
+   "lng": 151.2130904,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/742398927",
+   "lat": -33.8493566,
+   "lng": 151.2131597,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/743322923",
+   "lat": -33.8588995,
+   "lng": 151.2086515,
+   "name": "The Rocks Discovery Museum",
+   "kind": "landmark",
+   "tags": {
+    "name": "The Rocks Discovery Museum",
+    "name:en": "The Rocks Discovery Museum",
+    "tourism": "museum",
+    "wikidata": "Q135263995"
+   }
+  },
+  {
+   "id": "node/743324238",
+   "lat": -33.8584249,
+   "lng": 151.2086166,
+   "name": "The Fine Food Store",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "The Fine Food Store"
+   }
+  },
+  {
+   "id": "node/842918374",
+   "lat": -33.8379789,
+   "lng": 151.1894525,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/871670129",
+   "lat": -33.8458277,
+   "lng": 151.2024279,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670136",
+   "lat": -33.8434033,
+   "lng": 151.2023227,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670143",
+   "lat": -33.8474068,
+   "lng": 151.2031657,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670149",
+   "lat": -33.8485372,
+   "lng": 151.2050106,
+   "name": "East Crescent Reserve Lookout",
+   "kind": "landmark",
+   "tags": {
+    "name": "East Crescent Reserve Lookout",
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/871670151",
+   "lat": -33.8489028,
+   "lng": 151.2055927,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670152",
+   "lat": -33.8461297,
+   "lng": 151.2021303,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670154",
+   "lat": -33.8487001,
+   "lng": 151.2042208,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670161",
+   "lat": -33.8498483,
+   "lng": 151.2035631,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670173",
+   "lat": -33.8483327,
+   "lng": 151.2050142,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670204",
+   "lat": -33.8489152,
+   "lng": 151.2058992,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670205",
+   "lat": -33.8458901,
+   "lng": 151.2021843,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670207",
+   "lat": -33.8485183,
+   "lng": 151.2050228,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670211",
+   "lat": -33.8487034,
+   "lng": 151.2044187,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670212",
+   "lat": -33.8458551,
+   "lng": 151.2024517,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670215",
+   "lat": -33.8495723,
+   "lng": 151.2035297,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670219",
+   "lat": -33.8456776,
+   "lng": 151.201195,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670223",
+   "lat": -33.8503112,
+   "lng": 151.203466,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670233",
+   "lat": -33.8438822,
+   "lng": 151.2019939,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670236",
+   "lat": -33.8434997,
+   "lng": 151.2022419,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670241",
+   "lat": -33.8453428,
+   "lng": 151.2009619,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670244",
+   "lat": -33.8457408,
+   "lng": 151.2018977,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670248",
+   "lat": -33.8487478,
+   "lng": 151.2050121,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670266",
+   "lat": -33.850122,
+   "lng": 151.2033749,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670277",
+   "lat": -33.8479899,
+   "lng": 151.2043365,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670278",
+   "lat": -33.8463907,
+   "lng": 151.2039103,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670304",
+   "lat": -33.8500011,
+   "lng": 151.2032083,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670305",
+   "lat": -33.8474147,
+   "lng": 151.203155,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670315",
+   "lat": -33.8488504,
+   "lng": 151.2061598,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670316",
+   "lat": -33.850522,
+   "lng": 151.2037826,
+   "name": "Blues Point Lookout",
+   "kind": "landmark",
+   "tags": {
+    "name": "Blues Point Lookout",
+    "tourism": "viewpoint"
+   }
+  },
+  {
+   "id": "node/871670318",
+   "lat": -33.8488117,
+   "lng": 151.2052419,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670323",
+   "lat": -33.8487083,
+   "lng": 151.2040458,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871670331",
+   "lat": -33.8485171,
+   "lng": 151.2049986,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871807122",
+   "lat": -33.8434109,
+   "lng": 151.2087567,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/871807162",
+   "lat": -33.8434079,
+   "lng": 151.2088537,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/936409848",
+   "lat": -33.8755087,
+   "lng": 151.2129414,
+   "name": "St Paul's Lutheran Church",
+   "kind": "worship",
+   "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "lutheran",
+    "name": "St Paul's Lutheran Church",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/936428754",
+   "lat": -33.8770386,
+   "lng": 151.2139446,
+   "name": "Quattro Passi",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Quattro Passi"
+   }
+  }
+ ]
+}

@@ -1,0 +1,4207 @@
+{
+ "schema": "rapp-poi-tile/1.0",
+ "gh5": "dn5bt",
+ "region": "atlanta",
+ "bounds": {
+  "s": 33.837890625,
+  "w": -84.5068359375,
+  "n": 33.8818359375,
+  "e": -84.462890625
+ },
+ "generated": "2026-07-06T14:58:45.667Z",
+ "source": "OpenStreetMap",
+ "license": "ODbL",
+ "attribution": "© OpenStreetMap contributors",
+ "counts": {
+  "total": 417,
+  "water": 1,
+  "nature": 390,
+  "landmark": 0,
+  "worship": 2,
+  "civic": 1,
+  "seat": 23
+ },
+ "pois": [
+  {
+   "id": "node/10568404990",
+   "lat": 33.8444205,
+   "lng": -84.4947612,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/10979283853",
+   "lat": 33.8747671,
+   "lng": -84.506626,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/10979283855",
+   "lat": 33.8753475,
+   "lng": -84.5064421,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "board",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/11902011347",
+   "lat": 33.8759219,
+   "lng": -84.5061033,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11902019858",
+   "lat": 33.8746383,
+   "lng": -84.5066335,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11902049069",
+   "lat": 33.8761775,
+   "lng": -84.506523,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11998930434",
+   "lat": 33.865208,
+   "lng": -84.4718406,
+   "name": "Cafe Comma",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Cafe Comma"
+   }
+  },
+  {
+   "id": "node/12122312543",
+   "lat": 33.8710624,
+   "lng": -84.4951929,
+   "name": "Covenant Church",
+   "kind": "worship",
+   "tags": {
+    "amenity": "place_of_worship",
+    "name": "Covenant Church",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/12472882647",
+   "lat": 33.8626333,
+   "lng": -84.4806764,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/12472882648",
+   "lat": 33.8625622,
+   "lng": -84.4807199,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/12472882649",
+   "lat": 33.8624761,
+   "lng": -84.4807289,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/12472882650",
+   "lat": 33.862405,
+   "lng": -84.4807695,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/12472882651",
+   "lat": 33.8623276,
+   "lng": -84.4807815,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/12472882656",
+   "lat": 33.865779,
+   "lng": -84.4784541,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/12472882657",
+   "lat": 33.8658609,
+   "lng": -84.478487,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/12472882658",
+   "lat": 33.86594,
+   "lng": -84.4784005,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/12472882659",
+   "lat": 33.8660435,
+   "lng": -84.4784299,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13353804631",
+   "lat": 33.8756493,
+   "lng": -84.5061531,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/13362912832",
+   "lat": 33.8741157,
+   "lng": -84.5047794,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912833",
+   "lat": 33.8740934,
+   "lng": -84.5048189,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912834",
+   "lat": 33.874094,
+   "lng": -84.5048638,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912835",
+   "lat": 33.874099,
+   "lng": -84.5049141,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912836",
+   "lat": 33.8741279,
+   "lng": -84.5049349,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912837",
+   "lat": 33.8753667,
+   "lng": -84.5066911,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912838",
+   "lat": 33.8755693,
+   "lng": -84.5064276,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912839",
+   "lat": 33.875576,
+   "lng": -84.506156,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912840",
+   "lat": 33.8756289,
+   "lng": -84.5063672,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/13362912841",
+   "lat": 33.8756679,
+   "lng": -84.5060259,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912842",
+   "lat": 33.8758399,
+   "lng": -84.5060266,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912843",
+   "lat": 33.875895,
+   "lng": -84.5061258,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912844",
+   "lat": 33.8759039,
+   "lng": -84.5058402,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912845",
+   "lat": 33.8759423,
+   "lng": -84.5058516,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912846",
+   "lat": 33.875983,
+   "lng": -84.5058603,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912847",
+   "lat": 33.8761539,
+   "lng": -84.5061077,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912848",
+   "lat": 33.8762368,
+   "lng": -84.5062519,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912849",
+   "lat": 33.8762546,
+   "lng": -84.5063082,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912850",
+   "lat": 33.8761812,
+   "lng": -84.5063122,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912858",
+   "lat": 33.8747359,
+   "lng": -84.5066891,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912859",
+   "lat": 33.8746312,
+   "lng": -84.5066958,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912877",
+   "lat": 33.8748311,
+   "lng": -84.5068098,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912878",
+   "lat": 33.8747843,
+   "lng": -84.5067508,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13364131328",
+   "lat": 33.8793129,
+   "lng": -84.493137,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13368499617",
+   "lat": 33.8803301,
+   "lng": -84.4985874,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/13368499618",
+   "lat": 33.8802506,
+   "lng": -84.4986523,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/13368499619",
+   "lat": 33.8801726,
+   "lng": -84.4986758,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/13368499620",
+   "lat": 33.8801406,
+   "lng": -84.4986473,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/13429193690",
+   "lat": 33.8789947,
+   "lng": -84.4935015,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429193691",
+   "lat": 33.8789246,
+   "lng": -84.4935543,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429193692",
+   "lat": 33.8787863,
+   "lng": -84.4932951,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429193693",
+   "lat": 33.8783137,
+   "lng": -84.4927788,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197537",
+   "lat": 33.8661264,
+   "lng": -84.4783546,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197538",
+   "lat": 33.8661833,
+   "lng": -84.4783939,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197539",
+   "lat": 33.866198,
+   "lng": -84.4783331,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197540",
+   "lat": 33.8665978,
+   "lng": -84.4790571,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197541",
+   "lat": 33.8665607,
+   "lng": -84.4791249,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197542",
+   "lat": 33.8664935,
+   "lng": -84.4791087,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197543",
+   "lat": 33.8664161,
+   "lng": -84.4791472,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197544",
+   "lat": 33.8664161,
+   "lng": -84.4792088,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197545",
+   "lat": 33.8663656,
+   "lng": -84.4791726,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197546",
+   "lat": 33.8663164,
+   "lng": -84.4792027,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197547",
+   "lat": 33.8662697,
+   "lng": -84.4792266,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197548",
+   "lat": 33.8662198,
+   "lng": -84.4792528,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197549",
+   "lat": 33.8661648,
+   "lng": -84.4792797,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197550",
+   "lat": 33.8662658,
+   "lng": -84.4792859,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197551",
+   "lat": 33.8663202,
+   "lng": -84.4792581,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197552",
+   "lat": 33.8663599,
+   "lng": -84.4792381,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197553",
+   "lat": 33.8664686,
+   "lng": -84.4791811,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197554",
+   "lat": 33.864637,
+   "lng": -84.4802846,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197555",
+   "lat": 33.8645416,
+   "lng": -84.4803524,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197556",
+   "lat": 33.8644334,
+   "lng": -84.480424,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197557",
+   "lat": 33.864712,
+   "lng": -84.480213,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197558",
+   "lat": 33.8657079,
+   "lng": -84.4784737,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197559",
+   "lat": 33.8657138,
+   "lng": -84.4785277,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197560",
+   "lat": 33.8656712,
+   "lng": -84.4784843,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197561",
+   "lat": 33.865655,
+   "lng": -84.4785516,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197562",
+   "lat": 33.8656198,
+   "lng": -84.4785003,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197563",
+   "lat": 33.8656043,
+   "lng": -84.4785622,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197564",
+   "lat": 33.8655514,
+   "lng": -84.4785861,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197565",
+   "lat": 33.8655088,
+   "lng": -84.4785321,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197566",
+   "lat": 33.8655044,
+   "lng": -84.478602,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197567",
+   "lat": 33.8654552,
+   "lng": -84.4785551,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197568",
+   "lat": 33.8654456,
+   "lng": -84.4786179,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197569",
+   "lat": 33.8654001,
+   "lng": -84.4785666,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197570",
+   "lat": 33.8653994,
+   "lng": -84.4786339,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197571",
+   "lat": 33.8653516,
+   "lng": -84.4785905,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197572",
+   "lat": 33.8652987,
+   "lng": -84.4786109,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197573",
+   "lat": 33.8653362,
+   "lng": -84.4786507,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197574",
+   "lat": 33.8652906,
+   "lng": -84.4786675,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197575",
+   "lat": 33.8652421,
+   "lng": -84.4786188,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197576",
+   "lat": 33.8651819,
+   "lng": -84.4786427,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197577",
+   "lat": 33.8652392,
+   "lng": -84.478687,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197601",
+   "lat": 33.8662373,
+   "lng": -84.4783794,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197602",
+   "lat": 33.8662539,
+   "lng": -84.4783162,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197603",
+   "lat": 33.8662898,
+   "lng": -84.4783702,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197604",
+   "lat": 33.8663077,
+   "lng": -84.4783062,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197605",
+   "lat": 33.8663428,
+   "lng": -84.4783578,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197606",
+   "lat": 33.8663607,
+   "lng": -84.4782924,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197607",
+   "lat": 33.8664132,
+   "lng": -84.4782839,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197608",
+   "lat": 33.8664439,
+   "lng": -84.478337,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197609",
+   "lat": 33.8664708,
+   "lng": -84.4782731,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197610",
+   "lat": 33.8665053,
+   "lng": -84.4783224,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197611",
+   "lat": 33.8665232,
+   "lng": -84.4782585,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197612",
+   "lat": 33.8665776,
+   "lng": -84.4782469,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197613",
+   "lat": 33.8666306,
+   "lng": -84.4782315,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197614",
+   "lat": 33.8666888,
+   "lng": -84.4782176,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197628",
+   "lat": 33.8647557,
+   "lng": -84.4801112,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197629",
+   "lat": 33.8647633,
+   "lng": -84.4800477,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197630",
+   "lat": 33.8648135,
+   "lng": -84.4800223,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197631",
+   "lat": 33.8648059,
+   "lng": -84.4800848,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197632",
+   "lat": 33.864803,
+   "lng": -84.4801478,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197633",
+   "lat": 33.8648659,
+   "lng": -84.4799989,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197634",
+   "lat": 33.8649131,
+   "lng": -84.4799715,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197635",
+   "lat": 33.8649123,
+   "lng": -84.4800345,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197636",
+   "lat": 33.8648604,
+   "lng": -84.4800609,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197637",
+   "lat": 33.8648515,
+   "lng": -84.480125,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197638",
+   "lat": 33.8649616,
+   "lng": -84.4800116,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197639",
+   "lat": 33.8649705,
+   "lng": -84.4799517,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197640",
+   "lat": 33.8650148,
+   "lng": -84.4799837,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197641",
+   "lat": 33.865068,
+   "lng": -84.4799593,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197642",
+   "lat": 33.8651186,
+   "lng": -84.4799369,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197643",
+   "lat": 33.865168,
+   "lng": -84.479909,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197644",
+   "lat": 33.8652802,
+   "lng": -84.479847,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197645",
+   "lat": 33.8653684,
+   "lng": -84.479783,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197646",
+   "lat": 33.8650189,
+   "lng": -84.47992,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197647",
+   "lat": 33.8654736,
+   "lng": -84.4797177,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197648",
+   "lat": 33.8655502,
+   "lng": -84.4796442,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197649",
+   "lat": 33.8627297,
+   "lng": -84.480719,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197650",
+   "lat": 33.8627347,
+   "lng": -84.480658,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197651",
+   "lat": 33.862793,
+   "lng": -84.4806397,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197652",
+   "lat": 33.8628512,
+   "lng": -84.4806204,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197653",
+   "lat": 33.8629044,
+   "lng": -84.480598,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197654",
+   "lat": 33.8629592,
+   "lng": -84.4805767,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197655",
+   "lat": 33.8630158,
+   "lng": -84.4805584,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197656",
+   "lat": 33.8630698,
+   "lng": -84.480534,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197657",
+   "lat": 33.8631204,
+   "lng": -84.4805147,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197658",
+   "lat": 33.8631601,
+   "lng": -84.4805005,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197659",
+   "lat": 33.863209,
+   "lng": -84.4805432,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197660",
+   "lat": 33.8631576,
+   "lng": -84.4805594,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197661",
+   "lat": 33.8630959,
+   "lng": -84.4805747,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197662",
+   "lat": 33.8630563,
+   "lng": -84.480595,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197663",
+   "lat": 33.8629997,
+   "lng": -84.4806204,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197664",
+   "lat": 33.8629466,
+   "lng": -84.4806428,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197665",
+   "lat": 33.8628925,
+   "lng": -84.480658,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197666",
+   "lat": 33.8628419,
+   "lng": -84.4806773,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197667",
+   "lat": 33.8627896,
+   "lng": -84.4806966,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13429197668",
+   "lat": 33.8632268,
+   "lng": -84.4804781,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/2773409689",
+   "lat": 33.8801003,
+   "lng": -84.4637817,
+   "name": "Barnes & Noble Cafe",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Barnes & Noble Cafe"
+   }
+  },
+  {
+   "id": "node/3838886596",
+   "lat": 33.8617881,
+   "lng": -84.4845688,
+   "name": "Cumberland United Methodist Church",
+   "kind": "worship",
+   "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "methodist",
+    "name": "Cumberland United Methodist Church",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/4052889818",
+   "lat": 33.8612844,
+   "lng": -84.4778195,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889819",
+   "lat": 33.8613431,
+   "lng": -84.4778493,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889820",
+   "lat": 33.8614445,
+   "lng": -84.4778208,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889821",
+   "lat": 33.8615156,
+   "lng": -84.4777991,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889822",
+   "lat": 33.8616114,
+   "lng": -84.4777502,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889823",
+   "lat": 33.8616768,
+   "lng": -84.477723,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889824",
+   "lat": 33.8617794,
+   "lng": -84.4776429,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889825",
+   "lat": 33.861837,
+   "lng": -84.477628,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889826",
+   "lat": 33.8619937,
+   "lng": -84.4775139,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889827",
+   "lat": 33.8620884,
+   "lng": -84.4774189,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889828",
+   "lat": 33.8621538,
+   "lng": -84.4773808,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889829",
+   "lat": 33.8623466,
+   "lng": -84.4773876,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889830",
+   "lat": 33.8622981,
+   "lng": -84.4772301,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889831",
+   "lat": 33.8622542,
+   "lng": -84.4771622,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889832",
+   "lat": 33.8622091,
+   "lng": -84.4770522,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889833",
+   "lat": 33.8620546,
+   "lng": -84.477097,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889834",
+   "lat": 33.8620805,
+   "lng": -84.4772138,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889835",
+   "lat": 33.8624391,
+   "lng": -84.477006,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889836",
+   "lat": 33.8623827,
+   "lng": -84.4766598,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889837",
+   "lat": 33.862323,
+   "lng": -84.4766815,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889838",
+   "lat": 33.8621719,
+   "lng": -84.4767114,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889839",
+   "lat": 33.8618888,
+   "lng": -84.4771405,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889840",
+   "lat": 33.8619204,
+   "lng": -84.4772505,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889841",
+   "lat": 33.8618629,
+   "lng": -84.4767996,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889842",
+   "lat": 33.8617964,
+   "lng": -84.4768187,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889843",
+   "lat": 33.8619655,
+   "lng": -84.4767711,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889844",
+   "lat": 33.8620287,
+   "lng": -84.4767603,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889845",
+   "lat": 33.8625857,
+   "lng": -84.476964,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889846",
+   "lat": 33.8625485,
+   "lng": -84.4766163,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889847",
+   "lat": 33.8624842,
+   "lng": -84.4766367,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889848",
+   "lat": 33.8627131,
+   "lng": -84.4765756,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889849",
+   "lat": 33.8626601,
+   "lng": -84.4765892,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889850",
+   "lat": 33.8627278,
+   "lng": -84.4769368,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889851",
+   "lat": 33.862774,
+   "lng": -84.4768974,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889852",
+   "lat": 33.8629343,
+   "lng": -84.4767995,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889853",
+   "lat": 33.8628809,
+   "lng": -84.476833,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889854",
+   "lat": 33.8630379,
+   "lng": -84.4767372,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052889855",
+   "lat": 33.8632105,
+   "lng": -84.4763072,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052993073",
+   "lat": 33.8629651,
+   "lng": -84.4723676,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052993074",
+   "lat": 33.8629401,
+   "lng": -84.4723676,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052993083",
+   "lat": 33.8631173,
+   "lng": -84.472473,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052993084",
+   "lat": 33.8630329,
+   "lng": -84.4724717,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052993085",
+   "lat": 33.8628989,
+   "lng": -84.4724711,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052993086",
+   "lat": 33.862822,
+   "lng": -84.4724608,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052993087",
+   "lat": 33.8627349,
+   "lng": -84.4724531,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052993088",
+   "lat": 33.8626445,
+   "lng": -84.4724415,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998689",
+   "lat": 33.8625292,
+   "lng": -84.4723245,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998690",
+   "lat": 33.8624244,
+   "lng": -84.4723396,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998691",
+   "lat": 33.8623167,
+   "lng": -84.4723685,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998692",
+   "lat": 33.8623244,
+   "lng": -84.4724658,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998693",
+   "lat": 33.8624426,
+   "lng": -84.4724345,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998694",
+   "lat": 33.8625292,
+   "lng": -84.4724287,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998695",
+   "lat": 33.8632079,
+   "lng": -84.4724704,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998696",
+   "lat": 33.8633079,
+   "lng": -84.47246,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998697",
+   "lat": 33.8634271,
+   "lng": -84.4724461,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998698",
+   "lat": 33.8634973,
+   "lng": -84.4724369,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998699",
+   "lat": 33.8635963,
+   "lng": -84.472423,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998700",
+   "lat": 33.8636973,
+   "lng": -84.4724102,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998701",
+   "lat": 33.8637934,
+   "lng": -84.4724473,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998702",
+   "lat": 33.8636954,
+   "lng": -84.4723025,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998703",
+   "lat": 33.8635887,
+   "lng": -84.4723176,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998704",
+   "lat": 33.8639902,
+   "lng": -84.4723749,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998705",
+   "lat": 33.8639902,
+   "lng": -84.47228,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998706",
+   "lat": 33.8640883,
+   "lng": -84.4722661,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998707",
+   "lat": 33.8641844,
+   "lng": -84.4722696,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998708",
+   "lat": 33.8641364,
+   "lng": -84.4723622,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998709",
+   "lat": 33.8640537,
+   "lng": -84.4723645,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998710",
+   "lat": 33.8642114,
+   "lng": -84.4723749,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998711",
+   "lat": 33.8642854,
+   "lng": -84.472405,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998712",
+   "lat": 33.8643777,
+   "lng": -84.4723587,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998713",
+   "lat": 33.8644556,
+   "lng": -84.4724525,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998714",
+   "lat": 33.8645084,
+   "lng": -84.4725162,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998715",
+   "lat": 33.8643575,
+   "lng": -84.472471,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998716",
+   "lat": 33.8644267,
+   "lng": -84.472544,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998717",
+   "lat": 33.8645017,
+   "lng": -84.4726296,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998718",
+   "lat": 33.8646027,
+   "lng": -84.4726146,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998719",
+   "lat": 33.8646671,
+   "lng": -84.4727744,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998720",
+   "lat": 33.8647507,
+   "lng": -84.4727941,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998721",
+   "lat": 33.8649497,
+   "lng": -84.4725822,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998722",
+   "lat": 33.8648555,
+   "lng": -84.472588,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998723",
+   "lat": 33.8649382,
+   "lng": -84.4722835,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4052998724",
+   "lat": 33.8648517,
+   "lng": -84.4722858,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053137884",
+   "lat": 33.8784327,
+   "lng": -84.4670496,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053137885",
+   "lat": 33.8784436,
+   "lng": -84.467138,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053137886",
+   "lat": 33.8784684,
+   "lng": -84.4673209,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053137887",
+   "lat": 33.8784833,
+   "lng": -84.4674381,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053137888",
+   "lat": 33.8785002,
+   "lng": -84.46756,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053138789",
+   "lat": 33.878529,
+   "lng": -84.467725,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053138790",
+   "lat": 33.8785498,
+   "lng": -84.4678576,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053138791",
+   "lat": 33.8785736,
+   "lng": -84.4679855,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053138792",
+   "lat": 33.8785349,
+   "lng": -84.467921,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053138793",
+   "lat": 33.8786014,
+   "lng": -84.4683119,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053138794",
+   "lat": 33.8785657,
+   "lng": -84.4683155,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053138795",
+   "lat": 33.8785349,
+   "lng": -84.4683298,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053138796",
+   "lat": 33.8785071,
+   "lng": -84.4683346,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053138797",
+   "lat": 33.8784724,
+   "lng": -84.4683406,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053138798",
+   "lat": 33.8785994,
+   "lng": -84.4684254,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053138799",
+   "lat": 33.8785458,
+   "lng": -84.4684374,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053138801",
+   "lat": 33.8785994,
+   "lng": -84.4685378,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053138802",
+   "lat": 33.8785647,
+   "lng": -84.4685426,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053138803",
+   "lat": 33.8785329,
+   "lng": -84.4685521,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053138804",
+   "lat": 33.8785051,
+   "lng": -84.4685593,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146123",
+   "lat": 33.878779,
+   "lng": -84.4694032,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146124",
+   "lat": 33.878782,
+   "lng": -84.4694462,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146125",
+   "lat": 33.8788039,
+   "lng": -84.4694797,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146126",
+   "lat": 33.8791998,
+   "lng": -84.4701252,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146127",
+   "lat": 33.8792217,
+   "lng": -84.4701885,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146128",
+   "lat": 33.8793149,
+   "lng": -84.4703738,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146129",
+   "lat": 33.8793874,
+   "lng": -84.470479,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146130",
+   "lat": 33.8794271,
+   "lng": -84.4705304,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146131",
+   "lat": 33.8794866,
+   "lng": -84.4709046,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146132",
+   "lat": 33.8794827,
+   "lng": -84.4707922,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146133",
+   "lat": 33.8794559,
+   "lng": -84.470693,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146134",
+   "lat": 33.8796265,
+   "lng": -84.4706344,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146135",
+   "lat": 33.8796176,
+   "lng": -84.4707767,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146136",
+   "lat": 33.8793249,
+   "lng": -84.4708101,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146137",
+   "lat": 33.8793407,
+   "lng": -84.4708842,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146138",
+   "lat": 33.8794281,
+   "lng": -84.4710647,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146139",
+   "lat": 33.8793725,
+   "lng": -84.4711305,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146140",
+   "lat": 33.8792743,
+   "lng": -84.471213,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146142",
+   "lat": 33.8790242,
+   "lng": -84.4711496,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146143",
+   "lat": 33.8794936,
+   "lng": -84.4713815,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146144",
+   "lat": 33.8794211,
+   "lng": -84.4714221,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146145",
+   "lat": 33.8793268,
+   "lng": -84.4715082,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146146",
+   "lat": 33.8793834,
+   "lng": -84.4716385,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146147",
+   "lat": 33.8795799,
+   "lng": -84.4714209,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146148",
+   "lat": 33.8796216,
+   "lng": -84.4715429,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146149",
+   "lat": 33.8796613,
+   "lng": -84.4716481,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146150",
+   "lat": 33.8796424,
+   "lng": -84.4717509,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146151",
+   "lat": 33.8794499,
+   "lng": -84.4717329,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146152",
+   "lat": 33.8795075,
+   "lng": -84.4718501,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146153",
+   "lat": 33.87957,
+   "lng": -84.4719565,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146154",
+   "lat": 33.8796315,
+   "lng": -84.4720581,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146155",
+   "lat": 33.879696,
+   "lng": -84.4721752,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146156",
+   "lat": 33.8797605,
+   "lng": -84.4722828,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146157",
+   "lat": 33.8798201,
+   "lng": -84.4723904,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146158",
+   "lat": 33.8799163,
+   "lng": -84.4721381,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146159",
+   "lat": 33.8798498,
+   "lng": -84.4720162,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146160",
+   "lat": 33.8797933,
+   "lng": -84.4719086,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146161",
+   "lat": 33.8799808,
+   "lng": -84.4722469,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146162",
+   "lat": 33.8800007,
+   "lng": -84.4723581,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146163",
+   "lat": 33.8798796,
+   "lng": -84.4724836,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146164",
+   "lat": 33.8800255,
+   "lng": -84.4719708,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146165",
+   "lat": 33.8799461,
+   "lng": -84.471929,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146166",
+   "lat": 33.8798915,
+   "lng": -84.4718274,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146167",
+   "lat": 33.8798796,
+   "lng": -84.471721,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146168",
+   "lat": 33.8798052,
+   "lng": -84.4715512,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146169",
+   "lat": 33.8797417,
+   "lng": -84.4714568,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146170",
+   "lat": 33.8797258,
+   "lng": -84.4713684,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146171",
+   "lat": 33.8797387,
+   "lng": -84.4712357,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146172",
+   "lat": 33.8798469,
+   "lng": -84.4711592,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146173",
+   "lat": 33.879954,
+   "lng": -84.4710707,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053146174",
+   "lat": 33.8798717,
+   "lng": -84.4709177,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147290",
+   "lat": 33.8802577,
+   "lng": -84.472119,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147291",
+   "lat": 33.8801624,
+   "lng": -84.4721764,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147292",
+   "lat": 33.880094,
+   "lng": -84.4721095,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147293",
+   "lat": 33.8801297,
+   "lng": -84.4718919,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147327",
+   "lat": 33.8790239,
+   "lng": -84.4698346,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147328",
+   "lat": 33.879006,
+   "lng": -84.4698085,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147329",
+   "lat": 33.8789849,
+   "lng": -84.4697715,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147330",
+   "lat": 33.8789689,
+   "lng": -84.4694639,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147331",
+   "lat": 33.8787576,
+   "lng": -84.46926,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147332",
+   "lat": 33.8787461,
+   "lng": -84.4692077,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147333",
+   "lat": 33.8787384,
+   "lng": -84.4691554,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147334",
+   "lat": 33.8787256,
+   "lng": -84.4690431,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147335",
+   "lat": 33.8787218,
+   "lng": -84.46899,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147336",
+   "lat": 33.8787173,
+   "lng": -84.4689508,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147337",
+   "lat": 33.8783996,
+   "lng": -84.4685925,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147338",
+   "lat": 33.8783837,
+   "lng": -84.4687216,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147339",
+   "lat": 33.8783698,
+   "lng": -84.4689857,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147340",
+   "lat": 33.8783758,
+   "lng": -84.4692296,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147341",
+   "lat": 33.8783916,
+   "lng": -84.4694017,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147342",
+   "lat": 33.8784006,
+   "lng": -84.4695153,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147343",
+   "lat": 33.8784125,
+   "lng": -84.4696396,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147344",
+   "lat": 33.8784333,
+   "lng": -84.4697794,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147345",
+   "lat": 33.878481,
+   "lng": -84.4700233,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147346",
+   "lat": 33.8786556,
+   "lng": -84.4705206,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147347",
+   "lat": 33.8787072,
+   "lng": -84.470621,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053147348",
+   "lat": 33.8787648,
+   "lng": -84.4707321,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053446695",
+   "lat": 33.8650695,
+   "lng": -84.4766011,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053446696",
+   "lat": 33.864975,
+   "lng": -84.4766428,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053446697",
+   "lat": 33.8648884,
+   "lng": -84.4766813,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053446698",
+   "lat": 33.8648078,
+   "lng": -84.4766701,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053446699",
+   "lat": 33.8646367,
+   "lng": -84.4766875,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053446700",
+   "lat": 33.864603,
+   "lng": -84.4765633,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053446701",
+   "lat": 33.864616,
+   "lng": -84.4765079,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053446702",
+   "lat": 33.8645851,
+   "lng": -84.4765253,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053446703",
+   "lat": 33.8645892,
+   "lng": -84.4764491,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053446704",
+   "lat": 33.8645755,
+   "lng": -84.4762595,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053446705",
+   "lat": 33.864603,
+   "lng": -84.4761759,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053446706",
+   "lat": 33.8648047,
+   "lng": -84.4760218,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053446707",
+   "lat": 33.8649393,
+   "lng": -84.4759613,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053446708",
+   "lat": 33.8650568,
+   "lng": -84.4759124,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053446709",
+   "lat": 33.8652961,
+   "lng": -84.4760423,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053446710",
+   "lat": 33.8652961,
+   "lng": -84.476225,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053446711",
+   "lat": 33.8651754,
+   "lng": -84.4758365,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053452414",
+   "lat": 33.8644718,
+   "lng": -84.4765737,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053452415",
+   "lat": 33.8643706,
+   "lng": -84.4766426,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053452416",
+   "lat": 33.864047,
+   "lng": -84.4766442,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053452417",
+   "lat": 33.8640467,
+   "lng": -84.4764984,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053452418",
+   "lat": 33.8639285,
+   "lng": -84.4766731,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053452419",
+   "lat": 33.8639245,
+   "lng": -84.4763812,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053452420",
+   "lat": 33.8642931,
+   "lng": -84.4768197,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053452421",
+   "lat": 33.8641572,
+   "lng": -84.4768238,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053452422",
+   "lat": 33.8640236,
+   "lng": -84.4768318,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053452423",
+   "lat": 33.8638844,
+   "lng": -84.4768439,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053452424",
+   "lat": 33.8639122,
+   "lng": -84.4762538,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053452425",
+   "lat": 33.8637274,
+   "lng": -84.4763021,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053452426",
+   "lat": 33.8643576,
+   "lng": -84.4761707,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053452427",
+   "lat": 33.8642597,
+   "lng": -84.4761787,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053452428",
+   "lat": 33.8643164,
+   "lng": -84.4760714,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053452429",
+   "lat": 33.8642407,
+   "lng": -84.4760741,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053452430",
+   "lat": 33.8641438,
+   "lng": -84.4760701,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053459209",
+   "lat": 33.8643893,
+   "lng": -84.4775016,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053459210",
+   "lat": 33.8642934,
+   "lng": -84.4774092,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053459211",
+   "lat": 33.8641987,
+   "lng": -84.4774655,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053459212",
+   "lat": 33.8640789,
+   "lng": -84.4774179,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053459213",
+   "lat": 33.8640249,
+   "lng": -84.4772966,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053459214",
+   "lat": 33.8643785,
+   "lng": -84.4772894,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053459215",
+   "lat": 33.8644624,
+   "lng": -84.4774568,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053459216",
+   "lat": 33.864478,
+   "lng": -84.477503,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053459217",
+   "lat": 33.8644504,
+   "lng": -84.4775305,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053459218",
+   "lat": 33.8636618,
+   "lng": -84.4773313,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463763",
+   "lat": 33.863852,
+   "lng": -84.4780415,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463764",
+   "lat": 33.8638278,
+   "lng": -84.4780034,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463765",
+   "lat": 33.8637614,
+   "lng": -84.4778664,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463766",
+   "lat": 33.8637406,
+   "lng": -84.4778204,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463767",
+   "lat": 33.8636809,
+   "lng": -84.4777245,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463768",
+   "lat": 33.8636568,
+   "lng": -84.4776765,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463769",
+   "lat": 33.8639357,
+   "lng": -84.4781903,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463770",
+   "lat": 33.863949,
+   "lng": -84.4783692,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463771",
+   "lat": 33.8639316,
+   "lng": -84.4784302,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463772",
+   "lat": 33.8635688,
+   "lng": -84.4784842,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463773",
+   "lat": 33.8635979,
+   "lng": -84.4783862,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463774",
+   "lat": 33.8635182,
+   "lng": -84.4782792,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463775",
+   "lat": 33.8634377,
+   "lng": -84.4782772,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463776",
+   "lat": 33.8634045,
+   "lng": -84.4781543,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463777",
+   "lat": 33.863431,
+   "lng": -84.4780553,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463778",
+   "lat": 33.8633555,
+   "lng": -84.4779594,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463779",
+   "lat": 33.8634128,
+   "lng": -84.4776865,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463780",
+   "lat": 33.8633804,
+   "lng": -84.4776255,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463781",
+   "lat": 33.8633223,
+   "lng": -84.4775196,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463782",
+   "lat": 33.8632982,
+   "lng": -84.4774646,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463783",
+   "lat": 33.8633256,
+   "lng": -84.4773256,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463784",
+   "lat": 33.8628268,
+   "lng": -84.4778329,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463785",
+   "lat": 33.8628537,
+   "lng": -84.477885,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463786",
+   "lat": 33.8629114,
+   "lng": -84.4779777,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463787",
+   "lat": 33.8629412,
+   "lng": -84.4780275,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463788",
+   "lat": 33.8630076,
+   "lng": -84.4781537,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463989",
+   "lat": 33.8630229,
+   "lng": -84.4781953,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463990",
+   "lat": 33.863096,
+   "lng": -84.4783158,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463991",
+   "lat": 33.863121,
+   "lng": -84.4783679,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463992",
+   "lat": 33.8631979,
+   "lng": -84.4785195,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463993",
+   "lat": 33.8631748,
+   "lng": -84.4784732,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463994",
+   "lat": 33.8632844,
+   "lng": -84.4787036,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463995",
+   "lat": 33.8633604,
+   "lng": -84.4788472,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4053463996",
+   "lat": 33.8633316,
+   "lng": -84.4788044,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/4697355860",
+   "lat": 33.8775737,
+   "lng": -84.4655283,
+   "name": "Starbucks",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee"
+   }
+  },
+  {
+   "id": "node/4698283410",
+   "lat": 33.8769666,
+   "lng": -84.4654222,
+   "name": "Cafe Copper Top",
+   "kind": "seat",
+   "tags": {
+    "amenity": "cafe",
+    "name": "Cafe Copper Top"
+   }
+  },
+  {
+   "id": "node/4699930134",
+   "lat": 33.8774308,
+   "lng": -84.4652678,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/4700000377",
+   "lat": 33.8767885,
+   "lng": -84.465654,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/6515502037",
+   "lat": 33.849517,
+   "lng": -84.4925527,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/6515513159",
+   "lat": 33.8495548,
+   "lng": -84.4926096,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/6515521763",
+   "lat": 33.8495947,
+   "lng": -84.4925668,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/6515523306",
+   "lat": 33.8495738,
+   "lng": -84.4924946,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/7043970206",
+   "lat": 33.8645972,
+   "lng": -84.4856366,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/7044033417",
+   "lat": 33.8615086,
+   "lng": -84.4828277,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/7044033418",
+   "lat": 33.8614652,
+   "lng": -84.4828366,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/7044033419",
+   "lat": 33.8614825,
+   "lng": -84.482795,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  }
+ ]
+}

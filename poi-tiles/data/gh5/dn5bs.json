@@ -1,0 +1,1254 @@
+{
+ "schema": "rapp-poi-tile/1.0",
+ "gh5": "dn5bs",
+ "region": "atlanta",
+ "bounds": {
+  "s": 33.837890625,
+  "w": -84.55078125,
+  "n": 33.8818359375,
+  "e": -84.5068359375
+ },
+ "generated": "2026-07-06T14:58:40.418Z",
+ "source": "OpenStreetMap",
+ "license": "ODbL",
+ "attribution": "© OpenStreetMap contributors",
+ "counts": {
+  "total": 118,
+  "water": 11,
+  "nature": 26,
+  "landmark": 1,
+  "worship": 5,
+  "civic": 31,
+  "seat": 44
+ },
+ "pois": [
+  {
+   "id": "node/10049102536",
+   "lat": 33.8715023,
+   "lng": -84.5232486,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/10589881619",
+   "lat": 33.8746134,
+   "lng": -84.5331051,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/10648740829",
+   "lat": 33.8808641,
+   "lng": -84.5274493,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/10648740830",
+   "lat": 33.8808641,
+   "lng": -84.5274416,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/10648740835",
+   "lat": 33.8810845,
+   "lng": -84.5273248,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/10648740836",
+   "lat": 33.8810096,
+   "lng": -84.5272747,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/10649024157",
+   "lat": 33.8807804,
+   "lng": -84.5269615,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/10689309653",
+   "lat": 33.8685797,
+   "lng": -84.5217956,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/10689340397",
+   "lat": 33.8684308,
+   "lng": -84.5214804,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/10689340398",
+   "lat": 33.8684148,
+   "lng": -84.5215463,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/10689368630",
+   "lat": 33.8680653,
+   "lng": -84.5219051,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/10689368632",
+   "lat": 33.8680165,
+   "lng": -84.5214183,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/10689368633",
+   "lat": 33.8681047,
+   "lng": -84.5214539,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/10689372135",
+   "lat": 33.8678451,
+   "lng": -84.5208067,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/10689372142",
+   "lat": 33.8680196,
+   "lng": -84.5211185,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/10709292262",
+   "lat": 33.8777447,
+   "lng": -84.5171144,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/10709325126",
+   "lat": 33.8764152,
+   "lng": -84.5172185,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/10709325127",
+   "lat": 33.8760148,
+   "lng": -84.5172464,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/10979276513",
+   "lat": 33.8749444,
+   "lng": -84.5070383,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "board",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/10979293534",
+   "lat": 33.8761919,
+   "lng": -84.5068538,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/10979293535",
+   "lat": 33.8762923,
+   "lng": -84.5069449,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/11073161706",
+   "lat": 33.852169,
+   "lng": -84.5352195,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11870181161",
+   "lat": 33.8759625,
+   "lng": -84.517169,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/11870218867",
+   "lat": 33.8759506,
+   "lng": -84.5178543,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11892505465",
+   "lat": 33.8683526,
+   "lng": -84.5309376,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/11896008571",
+   "lat": 33.8784762,
+   "lng": -84.5279354,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11901965701",
+   "lat": 33.8743341,
+   "lng": -84.5077077,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11902000734",
+   "lat": 33.8743514,
+   "lng": -84.5077091,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11902008934",
+   "lat": 33.8754538,
+   "lng": -84.5071903,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11902034750",
+   "lat": 33.8764739,
+   "lng": -84.5072661,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11902037884",
+   "lat": 33.876282,
+   "lng": -84.5069296,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11902041164",
+   "lat": 33.8763727,
+   "lng": -84.5072601,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11959088964",
+   "lat": 33.8817374,
+   "lng": -84.5177802,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/11959088965",
+   "lat": 33.8818074,
+   "lng": -84.517974,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/12323682324",
+   "lat": 33.8685756,
+   "lng": -84.5198454,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "map",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/13029849840",
+   "lat": 33.852183,
+   "lng": -84.5108687,
+   "name": "Vinings First Baptist Church",
+   "kind": "worship",
+   "tags": {
+    "amenity": "place_of_worship",
+    "name": "Vinings First Baptist Church",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/13362912851",
+   "lat": 33.8766633,
+   "lng": -84.5073241,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912852",
+   "lat": 33.8766961,
+   "lng": -84.5073469,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912853",
+   "lat": 33.8765425,
+   "lng": -84.5070941,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912854",
+   "lat": 33.8764974,
+   "lng": -84.507589,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912855",
+   "lat": 33.8764896,
+   "lng": -84.5074857,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912856",
+   "lat": 33.8758338,
+   "lng": -84.5070847,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912857",
+   "lat": 33.8759473,
+   "lng": -84.5069633,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912860",
+   "lat": 33.8747275,
+   "lng": -84.5072363,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912861",
+   "lat": 33.874629,
+   "lng": -84.5075119,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912862",
+   "lat": 33.8746596,
+   "lng": -84.5074897,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912863",
+   "lat": 33.874766,
+   "lng": -84.5074099,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912864",
+   "lat": 33.8748072,
+   "lng": -84.5073791,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912865",
+   "lat": 33.8751089,
+   "lng": -84.5076339,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912866",
+   "lat": 33.875159,
+   "lng": -84.5075098,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912867",
+   "lat": 33.8751289,
+   "lng": -84.5075313,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912868",
+   "lat": 33.8751056,
+   "lng": -84.5075507,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912869",
+   "lat": 33.87511,
+   "lng": -84.5073831,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912870",
+   "lat": 33.8750777,
+   "lng": -84.5074093,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912871",
+   "lat": 33.8750449,
+   "lng": -84.5074401,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912872",
+   "lat": 33.8750772,
+   "lng": -84.5073348,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912873",
+   "lat": 33.8749152,
+   "lng": -84.5072805,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912874",
+   "lat": 33.8743234,
+   "lng": -84.5069164,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912875",
+   "lat": 33.8748428,
+   "lng": -84.5071464,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/13362912876",
+   "lat": 33.8748701,
+   "lng": -84.5068936,
+   "name": "an old tree",
+   "kind": "nature",
+   "tags": {
+    "natural": "tree"
+   }
+  },
+  {
+   "id": "node/1570414828",
+   "lat": 33.841888,
+   "lng": -84.5178657,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/1570414830",
+   "lat": 33.841888,
+   "lng": -84.5178684,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/358711017",
+   "lat": 33.8808989,
+   "lng": -84.5271907,
+   "name": "Church Street Park",
+   "kind": "nature",
+   "tags": {
+    "ele": "295",
+    "leisure": "park",
+    "name": "Church Street Park"
+   }
+  },
+  {
+   "id": "node/358778402",
+   "lat": 33.8481603,
+   "lng": -84.5210429,
+   "name": "Faith Church",
+   "kind": "worship",
+   "tags": {
+    "amenity": "place_of_worship",
+    "ele": "306",
+    "name": "Faith Church",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/5362439955",
+   "lat": 33.8515455,
+   "lng": -84.5358324,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/5362439957",
+   "lat": 33.8515847,
+   "lng": -84.5358072,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "board",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/616524068",
+   "lat": 33.8706036,
+   "lng": -84.5271147,
+   "name": "Sharon Baptist Church",
+   "kind": "worship",
+   "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "baptist",
+    "name": "Sharon Baptist Church",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/616524490",
+   "lat": 33.874866,
+   "lng": -84.5271468,
+   "name": "Smyrna Christian Church",
+   "kind": "worship",
+   "tags": {
+    "amenity": "place_of_worship",
+    "name": "Smyrna Christian Church",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/616524893",
+   "lat": 33.88058,
+   "lng": -84.5148302,
+   "name": "First United Methodist Church",
+   "kind": "worship",
+   "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "united_methodist",
+    "name": "First United Methodist Church",
+    "religion": "christian"
+   }
+  },
+  {
+   "id": "node/6816006060",
+   "lat": 33.839729,
+   "lng": -84.5098832,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/6816020564",
+   "lat": 33.841784,
+   "lng": -84.517899,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/6816028220",
+   "lat": 33.8397192,
+   "lng": -84.5098101,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/6874331043",
+   "lat": 33.8524964,
+   "lng": -84.5352872,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "board",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6874333907",
+   "lat": 33.852691,
+   "lng": -84.535638,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/6874361018",
+   "lat": 33.8759877,
+   "lng": -84.5266268,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/6874361019",
+   "lat": 33.8762241,
+   "lng": -84.5262874,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/6874361020",
+   "lat": 33.8765209,
+   "lng": -84.526063,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/6874361021",
+   "lat": 33.8765264,
+   "lng": -84.5256941,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/6874361022",
+   "lat": 33.8764347,
+   "lng": -84.5250523,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/6874361023",
+   "lat": 33.8765246,
+   "lng": -84.5244003,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/6874361024",
+   "lat": 33.876362,
+   "lng": -84.5238309,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/6874361025",
+   "lat": 33.876435,
+   "lng": -84.5235873,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/6875946885",
+   "lat": 33.8510421,
+   "lng": -84.5323197,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6875947299",
+   "lat": 33.85039,
+   "lng": -84.5331268,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6875947302",
+   "lat": 33.8516302,
+   "lng": -84.5330052,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6875947303",
+   "lat": 33.8516256,
+   "lng": -84.5330557,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6875947795",
+   "lat": 33.8503815,
+   "lng": -84.5349492,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6875947807",
+   "lat": 33.8512961,
+   "lng": -84.536531,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6875947943",
+   "lat": 33.8511601,
+   "lng": -84.5364887,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6875947944",
+   "lat": 33.8513688,
+   "lng": -84.5354823,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6875947945",
+   "lat": 33.8506044,
+   "lng": -84.5350984,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6875948046",
+   "lat": 33.8503363,
+   "lng": -84.5340604,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6875948047",
+   "lat": 33.8505925,
+   "lng": -84.5349106,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6875948048",
+   "lat": 33.8506005,
+   "lng": -84.5349061,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6875948049",
+   "lat": 33.8507748,
+   "lng": -84.5350291,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6875948339",
+   "lat": 33.8520592,
+   "lng": -84.5352065,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/6876013922",
+   "lat": 33.8531912,
+   "lng": -84.5347309,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6876013923",
+   "lat": 33.8530621,
+   "lng": -84.5339161,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6876013935",
+   "lat": 33.8533964,
+   "lng": -84.5350895,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6876014618",
+   "lat": 33.8525105,
+   "lng": -84.5360604,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6876014619",
+   "lat": 33.853277,
+   "lng": -84.5349063,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6876014620",
+   "lat": 33.853218,
+   "lng": -84.5350548,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6876014621",
+   "lat": 33.8529056,
+   "lng": -84.5362118,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6876014622",
+   "lat": 33.8529201,
+   "lng": -84.5361977,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6876014623",
+   "lat": 33.8524924,
+   "lng": -84.5360724,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6876014624",
+   "lat": 33.8525684,
+   "lng": -84.53515,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6876014625",
+   "lat": 33.8525681,
+   "lng": -84.5352792,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/6876014626",
+   "lat": 33.8527506,
+   "lng": -84.5354611,
+   "name": "an information",
+   "kind": "civic",
+   "tags": {
+    "information": "route_marker",
+    "tourism": "information"
+   }
+  },
+  {
+   "id": "node/9469608194",
+   "lat": 33.8763532,
+   "lng": -84.5244637,
+   "name": "Willow Archway",
+   "kind": "landmark",
+   "tags": {
+    "artwork_type": "sculpture",
+    "name": "Willow Archway",
+    "tourism": "artwork"
+   }
+  },
+  {
+   "id": "node/9797491741",
+   "lat": 33.8693098,
+   "lng": -84.5310477,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/9797491742",
+   "lat": 33.8689028,
+   "lng": -84.5314306,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/9797491743",
+   "lat": 33.8693638,
+   "lng": -84.5312846,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/9797491745",
+   "lat": 33.8692712,
+   "lng": -84.5310351,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/9798701625",
+   "lat": 33.876214,
+   "lng": -84.52348,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/9801415648",
+   "lat": 33.8800577,
+   "lng": -84.512161,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/9801415649",
+   "lat": 33.8800315,
+   "lng": -84.512175,
+   "name": "a bench",
+   "kind": "seat",
+   "tags": {
+    "amenity": "bench"
+   }
+  },
+  {
+   "id": "node/9807597366",
+   "lat": 33.8693668,
+   "lng": -84.5311981,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "node/9849115236",
+   "lat": 33.8690076,
+   "lng": -84.5310159,
+   "name": "a drinking fountain",
+   "kind": "water",
+   "tags": {
+    "amenity": "drinking_water"
+   }
+  }
+ ]
+}
