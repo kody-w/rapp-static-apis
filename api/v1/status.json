@@ -1,9 +1,9 @@
 {
   "schema": "rapp-god-registry-status/1.0",
   "name": "rapp-static-apis",
-  "generated": "2026-07-06T00:02:09Z",
+  "generated": "2026-07-06T11:01:59Z",
   "ok": true,
-  "apis": 10,
+  "apis": 11,
   "apis_list": [
     "companion",
     "customer360",
@@ -11,6 +11,7 @@
     "fn",
     "hologram",
     "mcp",
+    "rapp-go",
     "shortener",
     "showcase",
     "track",

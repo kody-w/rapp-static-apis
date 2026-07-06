@@ -3,7 +3,7 @@
   "name": "rapp-static-apis",
   "protocolVersion": "2024-11-05",
   "description": "Discovery manifest for the RAPP static-API commons. Each API is a read-only resource fetched from GitHub raw; no server.",
-  "generated": "2026-07-06T00:03:27Z",
+  "generated": "2026-07-06T11:01:59Z",
   "resources": [
     {
       "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion",
@@ -39,6 +39,12 @@
       "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/mcp/registry.json",
       "name": "mcp",
       "description": "rapp-static-mcp — a static MCP catalog",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/rapp-go",
+      "name": "rapp-go",
+      "description": "RAPP static API: rapp-go",
       "mimeType": "application/json"
     },
     {

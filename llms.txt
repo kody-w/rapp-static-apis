@@ -23,6 +23,7 @@ Read the full convention: https://raw.githubusercontent.com/kody-w/rapp-static-a
 - [fn](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fn/registry.json): rapp-static-fn — a static file that *runs* — versioned-endpoints, content-addressed
 - [hologram](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/registry.json): rapp-static-hologram — versioned-endpoints, content-addressed
 - [mcp](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/mcp/registry.json): rapp-static-mcp — a static MCP catalog — versioned-endpoints
+- [rapp-go](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/rapp-go): RAPP static API: rapp-go
 - [shortener](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/registry.json): rapp-static-shortener — versioned-endpoints, content-addressed
 - [showcase](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/catalog.json): The Library of Awesome — llms.txt
 - [track](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/track/registry.json): rapp-static-track — a data tracker that runs in your friend's browser — versioned-endpoints, content-addressed
@@ -37,4 +38,4 @@ Read the full convention: https://raw.githubusercontent.com/kody-w/rapp-static-a
 - Agent protocol: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/agent-protocol.json
 - Sitemap: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sitemap.xml
 
-<!-- generated 2026-07-06T00:02:51Z by build.py — do not hand-edit -->
+<!-- generated 2026-07-06T11:01:59Z by build.py — do not hand-edit -->

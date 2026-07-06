@@ -6,9 +6,9 @@
   "spec": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/SPEC.md",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main",
   "pages_base": "https://kody-w.github.io/rapp-static-apis",
-  "generated": "2026-07-06T00:02:09Z",
+  "generated": "2026-07-06T11:01:59Z",
   "summary": {
-    "apis": 10,
+    "apis": 11,
     "with_status_endpoint": 7,
     "content_addressed": 4
   },
@@ -90,6 +90,14 @@
       "capabilities": [
         "versioned-endpoints"
       ]
+    },
+    {
+      "name": "rapp-go",
+      "description": "RAPP static API: rapp-go",
+      "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/rapp-go",
+      "pages_base": "https://kody-w.github.io/rapp-static-apis/rapp-go/",
+      "dashboard": "https://kody-w.github.io/rapp-static-apis/rapp-go/",
+      "capabilities": []
     },
     {
       "name": "shortener",
