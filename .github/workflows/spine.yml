@@ -1,0 +1,47 @@
+name: Build root discovery spine
+
+# Regenerates the root index-of-indexes (rapp-god-registry/1.0) + agent-discovery
+# surfaces whenever any sub-API's index changes, on a daily schedule (so adding or
+# removing a sub-API directory self-heals the index), or on demand. build.py is
+# idempotent + stable-write, so this only ever commits real changes.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/registry.json'
+      - '**/manifest.json'
+      - '**/catalog.json'
+      - 'build.py'
+      - '.github/workflows/spine.yml'
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: spine-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Build the root discovery spine
+        run: python build.py
+      - name: Score conformance (non-blocking)
+        run: python check.py || true
+      - name: Commit only real changes
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "RAPP Spine Bot"
+          git config user.email "rapp-bot@users.noreply.github.com"
+          git add registry.json api llms.txt sitemap.xml .well-known
+          git diff --cached --quiet || git commit -m "Rebuild root discovery spine [skip ci]"
+          git push
