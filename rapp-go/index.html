@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>rapp·go — catch the sky where you stand</title>
+<style>
+  :root{
+    --go-bg:#e9ebe6; --go-fg:#3a4048; --go-dim:#6b7280;
+    --go-panel:rgba(249,250,247,0.90); --go-line:rgba(60,66,74,0.16);
+    --go-accent:#5a96ff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --go-bg:#0b0d12; --go-fg:#c9d1d9; --go-dim:#8b93a1;
+      --go-panel:rgba(16,18,24,0.86); --go-line:rgba(140,150,170,0.18);
+      --go-accent:#6ea8ff;
+    }
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%;margin:0}
+  body{
+    background:var(--go-bg); color:var(--go-fg); overflow:hidden;
+    font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;
+    font-weight:400; letter-spacing:0.01em;
+  }
+  #map{position:fixed; inset:0; width:100%; height:100%; display:block; touch-action:none}
+
+  /* brand + status chips (quiet, upper corners) */
+  #brand{
+    position:fixed; top:calc(env(safe-area-inset-top,0) + 12px); left:14px; z-index:6;
+    font-size:13px; letter-spacing:0.16em; text-transform:lowercase; color:var(--go-dim);
+    user-select:none; pointer-events:none;
+  }
+  #brand b{color:var(--go-fg); font-weight:600}
+  #chips{
+    position:fixed; top:calc(env(safe-area-inset-top,0) + 10px); right:12px; z-index:6;
+    display:flex; flex-direction:column; gap:6px; align-items:flex-end; pointer-events:none;
+  }
+  .chip{
+    font-size:11.5px; padding:5px 10px; border-radius:999px;
+    background:var(--go-panel); border:1px solid var(--go-line); color:var(--go-fg);
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    max-width:72vw; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .chip.warn{color:#b6862a} .chip.muted{color:var(--go-dim)}
+  @media (prefers-color-scheme: dark){ .chip.warn{color:#e5b567} }
+
+  /* encounter sheet */
+  #sheet{
+    position:fixed; left:50%; bottom:0; transform:translate(-50%, 110%);
+    width:min(440px, 100vw); z-index:12;
+    background:var(--go-panel); border:1px solid var(--go-line); border-bottom:none;
+    border-radius:20px 20px 0 0; backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    box-shadow:0 -12px 48px rgba(0,0,0,0.28);
+    transition:transform .42s cubic-bezier(.22,.61,.36,1);
+    padding:14px 18px calc(env(safe-area-inset-bottom,0) + 18px);
+  }
+  #sheet.open{transform:translate(-50%,0)}
+  #sheet .grip{width:36px;height:4px;border-radius:999px;background:var(--go-line);margin:2px auto 8px}
+  #sheet .close{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--go-dim);font-size:20px;cursor:pointer;line-height:1;padding:4px}
+  .enc-stage{display:flex;justify-content:center;align-items:center;height:220px}
+  #creature{width:220px;height:220px;display:block}
+  .enc-title{font-size:17px;font-weight:600;text-align:center;margin:2px 0 2px;text-transform:lowercase}
+  .enc-from{font-size:12.5px;color:var(--go-dim);text-align:center;margin:0 0 2px}
+  .enc-rarity{font-size:11px;text-align:center;letter-spacing:0.14em;text-transform:lowercase;margin:0 0 12px}
+  .enc-actions{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+  button.act, a.act{
+    display:flex;align-items:center;justify-content:center;gap:9px;
+    font-size:14.5px;font-family:inherit;text-decoration:none;text-align:center;
+    padding:13px 14px;border-radius:14px;border:1px solid var(--go-line);cursor:pointer;
+    background:transparent;color:var(--go-fg);
+  }
+  button.act.primary{
+    background:linear-gradient(180deg, color-mix(in srgb, var(--go-accent) 26%, transparent), color-mix(in srgb, var(--go-accent) 14%, transparent));
+    border-color:color-mix(in srgb, var(--go-accent) 45%, var(--go-line));
+    font-weight:600;
+  }
+  button.act:active,a.act:active{transform:translateY(1px)}
+  .orb{width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #fff, var(--go-accent) 70%, transparent);box-shadow:0 0 10px color-mix(in srgb,var(--go-accent) 60%, transparent)}
+  .enc-note{font-size:12.5px;color:var(--go-dim);text-align:center;min-height:16px;margin:2px 0 8px}
+  .doors{display:none;flex-direction:column;gap:10px}
+  .doors.show{display:flex}
+  .doors .row{display:flex;gap:10px}
+  .doors .row a.act{flex:1}
+  /* first-load invitation when we have no location yet */
+  #invite{
+    position:fixed; inset:0; z-index:8; display:none; align-items:center; justify-content:center;
+    background:radial-gradient(circle at 50% 42%, transparent, rgba(0,0,0,0.12));
+    pointer-events:none;
+  }
+  #invite .card{
+    pointer-events:auto; text-align:center; max-width:300px; padding:22px;
+    background:var(--go-panel); border:1px solid var(--go-line); border-radius:18px;
+    backdrop-filter:blur(10px);
+  }
+  #invite h1{font-size:16px;font-weight:600;margin:0 0 6px;text-transform:lowercase}
+  #invite p{font-size:13px;color:var(--go-dim);margin:0 0 14px;line-height:1.5}
+  #invite button{font-family:inherit;font-size:14px;padding:11px 18px;border-radius:12px;border:1px solid var(--go-line);background:transparent;color:var(--go-fg);cursor:pointer}
+</style>
+</head>
+<body>
+  <canvas id="map"></canvas>
+  <div id="brand"><b>rapp</b>·go</div>
+  <div id="chips"></div>
+
+  <div id="invite"><div class="card">
+    <h1>catch the sky where you stand</h1>
+    <p>rapp·go grows a creature from the real weather of the exact place you walk to. share your location to begin — or add <code>?fix=lat,lng</code> to the url.</p>
+    <button id="invite-btn">share my location</button>
+  </div></div>
+
+  <div id="sheet" aria-hidden="true">
+    <div class="grip"></div>
+    <button class="close" id="enc-close" aria-label="let it be">×</button>
+    <div class="enc-stage"><canvas id="creature" width="220" height="220"></canvas></div>
+    <div class="enc-title" id="enc-title">a sky</div>
+    <div class="enc-from" id="enc-from"></div>
+    <div class="enc-rarity" id="enc-rarity"></div>
+    <div class="enc-note" id="enc-note"></div>
+    <div class="enc-actions">
+      <button class="act primary" id="enc-catch"><span class="orb"></span> keep this sky</button>
+      <div class="doors" id="enc-doors">
+        <a class="act" id="door-keep" href="#">◍ keep — it's in your basket</a>
+        <div class="row">
+          <a class="act" id="door-talk" target="_blank" rel="noopener">talk</a>
+          <a class="act" id="door-breed" target="_blank" rel="noopener">breed</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script type="module">
+import { TileMap } from './tilemap.js';
+import { SpawnField, RARITY, paintCreatureFrame } from './spawn.js';
+import { keepToBasket } from './lib/basket.js';
+import { b64enc } from './lib/genome.js';
+
+const $ = id => document.getElementById(id);
+const params = new URLSearchParams(location.search);
+
+// ── time source: ?t pins the 30-min bucket so spawns are reproducible for review ──
+const FIXED_T = params.has('t') ? Number(params.get('t')) : null;
+const now = () => (FIXED_T != null && !isNaN(FIXED_T)) ? FIXED_T : Date.now();
+
+// ── ?fix=LAT,LNG overrides geolocation (desktop verification) ──────────────────
+let FIX = null;
+if (params.has('fix')) {
+  const m = params.get('fix').split(',').map(Number);
+  if (m.length === 2 && m.every(n => !isNaN(n))) FIX = { lat: m[0], lng: m[1] };
+}
+
+// ── persisted last fix (never crash: wrapped) ──────────────────────────────────
+const LS = {
+  get(k){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : null; } catch { return null; } },
+  set(k,v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+};
+
+const canvas = $('map');
+const startCenter = FIX || LS.get('rapp-go.lastFix') || { lat: 40.7128, lng: -74.0060 };
+const map = new TileMap(canvas, { center: startCenter });
+const field = new SpawnField();
+
+// ── state ──────────────────────────────────────────────────────────────────────
+let playerPos = null;
+const spawns = new Map();       // key -> Spawn (also a map marker)
+const suppress = new Set();     // caught/fled this session
+const cooldown = new Set();     // shown-and-closed until player leaves 40m
+let current = null;             // {spawn, ctx}
+let lastRefresh = { bucket: null, lat: null, lng: null };
+
+const ENCOUNTER_M = 25, REARM_M = 40;
+
+// ── chips ────────────────────────────────────────────────────────────────────────
+function setChips(list){
+  const c = $('chips'); c.innerHTML = '';
+  for (const it of list){ const d = document.createElement('div'); d.className = 'chip' + (it.kind ? ' ' + it.kind : ''); d.textContent = it.text; c.appendChild(d); }
+}
+function skyChip(){
+  if (field.offline) return { text: 'off the map · the moon\u2019s creatures', kind: 'muted' };
+  const s = field.lastSky;
+  if (!s) return null;
+  const word = ({0:'clear',1:'clear',2:'partly cloudy',3:'cloudy',45:'fog',48:'fog',51:'drizzle',53:'drizzle',55:'drizzle',61:'rain',63:'rain',65:'rain',71:'snow',73:'snow',75:'snow',80:'showers',81:'showers',82:'showers',95:'storm',96:'storm',99:'storm'})[s.weathercode] || '';
+  return { text: `${Math.round(s.temp)}\u00b0 ${word}`.trim(), kind: 'muted' };
+}
+
+// ── geodesic distance ────────────────────────────────────────────────────────────
+function haversineM(a, b){
+  const R = 6371000, toR = x => x * Math.PI/180;
+  const dLat = toR(b.lat-a.lat), dLng = toR(b.lng-a.lng);
+  const s = Math.sin(dLat/2)**2 + Math.cos(toR(a.lat))*Math.cos(toR(b.lat))*Math.sin(dLng/2)**2;
+  return 2*R*Math.asin(Math.sqrt(s));
+}
+
+// ── spawn reconciliation ─────────────────────────────────────────────────────────
+let refreshing = false;
+async function refreshSpawns(force){
+  if (!playerPos || refreshing) return;
+  const bucket = Math.floor(now() / (30*60*1000));
+  const moved = lastRefresh.lat == null ? Infinity : haversineM(playerPos, { lat: lastRefresh.lat, lng: lastRefresh.lng });
+  if (!force && bucket === lastRefresh.bucket && moved < 60 && spawns.size) return;
+  refreshing = true;
+  let list = [];
+  try { list = await field.update(playerPos, { nowMs: now() }); }
+  catch(e){ console.warn('spawn update failed', e); refreshing = false; return; }
+  lastRefresh = { bucket, lat: playerPos.lat, lng: playerPos.lng };
+
+  const seen = new Set();
+  for (const sp of list){
+    seen.add(sp.key);
+    if (suppress.has(sp.key)) continue;
+    if (!spawns.has(sp.key)){
+      spawns.set(sp.key, sp);
+      map.addMarker({ id: sp.key, lat: sp.lat, lng: sp.lng, hitR: 28, zIndex: 2, animated: true,
+        draw: (ctx, s, t, m) => sp.drawMarker(ctx, s, t, m), data: { spawn: sp } });
+    }
+  }
+  // despawn creatures no longer in the field (weather changed) — keep the open one
+  for (const key of [...spawns.keys()]){
+    if (!seen.has(key) && (!current || current.spawn.key !== key)){
+      spawns.delete(key); map.removeMarker(key);
+    }
+  }
+  const chips = []; const sc = skyChip(); if (sc) chips.push(sc); setChips(chips);
+  refreshing = false;
+  checkProximity();
+}
+
+// ── proximity → encounter (25m enter, 40m re-arm) ─────────────────────────────────
+function checkProximity(){
+  if (current || !playerPos) return;
+  for (const k of [...cooldown]){ const sp = spawns.get(k); if (!sp || haversineM(playerPos, sp) > REARM_M) cooldown.delete(k); }
+  let best = null, bd = Infinity;
+  for (const sp of spawns.values()){
+    if (suppress.has(sp.key) || cooldown.has(sp.key)) continue;
+    const d = haversineM(playerPos, sp); if (d < bd){ bd = d; best = sp; }
+  }
+  if (best && bd <= ENCOUNTER_M) openEncounter(best);
+}
+
+// ── encounter panel ────────────────────────────────────────────────────────────
+let panelRAF = null, panelHidden = false;
+function startCreatureRender(genome){
+  const cvs = $('creature'), ctx = cvs.getContext('2d');
+  const dpr = Math.min(window.devicePixelRatio || 1, 2), size = 220;
+  cvs.width = size*dpr; cvs.height = size*dpr; cvs.style.width = cvs.style.height = size+'px';
+  const loop = (t) => {
+    ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,size,size);
+    paintCreatureFrame(ctx, genome, size/2, size/2, size*0.32, t);
+    panelRAF = panelHidden ? null : requestAnimationFrame(loop);
+  };
+  panelRAF = requestAnimationFrame(loop);
+}
+function stopCreatureRender(){ if (panelRAF) cancelAnimationFrame(panelRAF); panelRAF = null; }
+
+function openEncounter(sp){
+  current = { spawn: sp, ctx: field.toContext(sp) };
+  const rar = RARITY[sp.rarity] || RARITY.common;
+  $('enc-title').textContent = (sp.cart.title || 'a sky').toLowerCase();
+  $('enc-from').textContent = sp.cart.born.from;
+  const rEl = $('enc-rarity'); rEl.textContent = '· ' + sp.rarity + ' sky ·'; rEl.style.color = rar.color;
+  $('enc-note').textContent = '';
+  $('enc-doors').classList.remove('show');
+  $('enc-catch').style.display = '';
+  startCreatureRender(sp.cart.genome);
+  const sh = $('sheet'); sh.classList.add('open'); sh.setAttribute('aria-hidden','false');
+}
+function closeEncounter(caught){
+  const sh = $('sheet'); sh.classList.remove('open'); sh.setAttribute('aria-hidden','true');
+  stopCreatureRender();
+  if (current && !caught) cooldown.add(current.spawn.key);
+  current = null;
+}
+
+// ── the STUB catch: one hardcoded orb, one crypto roll against rarity ─────────────
+function rollUnit(){ const u = new Uint32Array(1); crypto.getRandomValues(u); return u[0] / 4294967296; }
+async function attemptCatch(){
+  if (!current) return;
+  const { spawn, ctx } = current;
+  $('enc-catch').disabled = true;
+  const roll = rollUnit();
+  const caught = roll < ctx.catchHint.baseRate;
+  if (!caught){
+    $('enc-note').textContent = 'it slipped back into the sky — the orb steadies… try once more.';
+    $('enc-catch').disabled = false;
+    return;
+  }
+  // keep the byte-identical egg into the shared rapp-basket store
+  try { await keepToBasket(spawn.cart); }
+  catch(e){ console.warn('keepToBasket failed (kept in memory only):', e); }
+  suppress.add(spawn.key); spawns.delete(spawn.key); map.removeMarker(spawn.key);
+
+  const b64 = b64enc(JSON.stringify(spawn.cart));
+  $('door-talk').href = '../companion/index.html#' + b64;              // talk to the weather you caught
+  $('door-breed').href = '../hologram/index.html#adopt=' + b64;        // breed it into the gene pool
+  $('enc-catch').style.display = 'none';
+  $('enc-catch').disabled = false;
+  $('enc-note').textContent = 'it\u2019s yours now — a real sky, pressed like a flower.';
+  $('enc-doors').classList.add('show');
+}
+
+// ── geolocation ────────────────────────────────────────────────────────────────
+let watchId = null, pollTimer = null, statHist = [];
+function applyFix(p){
+  playerPos = { lat: p.lat, lng: p.lng };
+  map.setPlayer({ lat: p.lat, lng: p.lng, accuracy: p.accuracy, heading: p.heading });
+  LS.set('rapp-go.lastFix', { lat: p.lat, lng: p.lng });
+  $('invite').style.display = 'none';
+  const chips = []; const sc = skyChip(); if (sc) chips.push(sc);
+  if (p.accuracy != null && p.accuracy > 50) chips.unshift({ text: 'finding you…', kind: 'muted' });
+  setChips(chips);
+  refreshSpawns();
+  checkProximity();
+  maybeDowngrade(p);
+}
+function onGeoError(err){
+  const last = LS.get('rapp-go.lastFix');
+  if (last){
+    playerPos = { ...last };
+    map.setPlayer({ lat: last.lat, lng: last.lng, accuracy: 120 });
+    $('invite').style.display = 'none';
+    setChips([{ text: 'location is hazy — showing your last place', kind: 'warn' }]);
+    refreshSpawns(true);
+  } else {
+    setChips([{ text: 'location is hazy', kind: 'warn' }]);
+    $('invite').style.display = 'flex';
+  }
+}
+// stationary → downgrade the high-accuracy watch to a 20s poll (battery)
+function maybeDowngrade(p){
+  const t = now();
+  statHist.push({ lat: p.lat, lng: p.lng, t });
+  statHist = statHist.filter(h => t - h.t < 32000);
+  if (watchId != null && statHist.length >= 3){
+    const far = statHist.some(h => haversineM({lat:p.lat,lng:p.lng}, h) > 10);
+    const span = t - statHist[0].t;
+    if (!far && span > 30000){ // still for ~30s → poll instead
+      navigator.geolocation.clearWatch(watchId); watchId = null;
+      pollTimer = setInterval(pollOnce, 20000);
+    }
+  }
+}
+function pollOnce(){
+  if (document.hidden || !navigator.geolocation) return;
+  navigator.geolocation.getCurrentPosition(pos => {
+    const moved = playerPos ? haversineM(playerPos, { lat: pos.coords.latitude, lng: pos.coords.longitude }) : Infinity;
+    applyFix({ lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: pos.coords.accuracy, heading: pos.coords.heading });
+    if (moved > 10){ clearInterval(pollTimer); pollTimer = null; statHist = []; startWatch(); } // moving again → high-accuracy
+  }, () => {}, { enableHighAccuracy: false, maximumAge: 15000, timeout: 15000 });
+}
+function startWatch(){
+  if (!navigator.geolocation || watchId != null) return;
+  watchId = navigator.geolocation.watchPosition(
+    pos => applyFix({ lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: pos.coords.accuracy, heading: pos.coords.heading }),
+    onGeoError,
+    { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 }
+  );
+}
+function stopGeo(){ if (watchId != null){ navigator.geolocation.clearWatch(watchId); watchId = null; } if (pollTimer){ clearInterval(pollTimer); pollTimer = null; } }
+
+// ── wiring ────────────────────────────────────────────────────────────────────────
+map.on('tap', (marker) => { if (marker && marker.data && marker.data.spawn && !current) openEncounter(marker.data.spawn); });
+$('enc-catch').addEventListener('click', attemptCatch);
+$('enc-close').addEventListener('click', () => closeEncounter(false));
+$('door-keep').addEventListener('click', e => { e.preventDefault(); closeEncounter(true); });
+$('invite-btn').addEventListener('click', startWatch);
+
+document.addEventListener('visibilitychange', () => {
+  panelHidden = document.hidden;
+  if (document.hidden){ stopGeo(); stopCreatureRender(); }
+  else { panelHidden = false; if (!FIX){ statHist = []; startWatch(); } if (current) startCreatureRender(current.spawn.cart.genome); }
+});
+
+// ── boot ────────────────────────────────────────────────────────────────────────
+if (FIX){
+  // desktop verification path — pinned position, tap a spawn to encounter
+  applyFix({ lat: FIX.lat, lng: FIX.lng, accuracy: 8 });
+  setChips([{ text: 'fixed location', kind: 'muted' }]);
+} else if (navigator.geolocation){
+  const last = LS.get('rapp-go.lastFix');
+  if (last){ playerPos = { ...last }; map.setPlayer({ lat: last.lat, lng: last.lng, accuracy: 90 }); refreshSpawns(true); }
+  else { $('invite').style.display = 'flex'; }
+  startWatch();
+} else {
+  setChips([{ text: 'no location on this device', kind: 'warn' }]);
+  $('invite').style.display = 'flex';
+}
+
+// ── optional debug surface (?debug=1) — for desktop/automated verification only ──
+if (params.get('debug') === '1') {
+  window.__rappgo = { map, field, spawns, suppress, openEncounter, attemptCatch, closeEncounter, keepToBasket, RARITY, get current(){ return current; } };
+}
+</script>
+</body>
+</html>
