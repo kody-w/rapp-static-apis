@@ -1,6 +1,6 @@
 {
  "schema": "rapp-poi-index/1.0",
- "generated": "2026-07-06T15:17:22.816Z",
+ "generated": "2026-07-06T15:25:27.897Z",
  "source": "OpenStreetMap",
  "license": "ODbL",
  "attribution": "© OpenStreetMap contributors",
@@ -10,10 +10,10 @@
  },
  "totals": {
   "tiles": 10,
-  "pois": 5841,
+  "pois": 5852,
   "kinds": {
    "water": 347,
-   "nature": 2886,
+   "nature": 2897,
    "landmark": 662,
    "worship": 92,
    "civic": 343,
@@ -30,10 +30,10 @@
     "dn5bw",
     "dn5by"
    ],
-   "pois": 841,
+   "pois": 852,
    "kinds": {
     "water": 29,
-    "nature": 527,
+    "nature": 538,
     "landmark": 14,
     "worship": 10,
     "civic": 119,
@@ -45,7 +45,7 @@
     "n": 33.92578125,
     "e": -84.4189453125
    },
-   "generated": "2026-07-06T15:02:00.491Z"
+   "generated": "2026-07-06T15:25:27.888Z"
   },
   "nyc-midtown": {
    "label": "New York — Midtown Manhattan",
@@ -162,10 +162,10 @@
   {
    "gh5": "dn5bs",
    "region": "atlanta",
-   "count": 118,
+   "count": 129,
    "kinds": {
     "water": 11,
-    "nature": 26,
+    "nature": 37,
     "landmark": 1,
     "worship": 5,
     "civic": 31,
@@ -177,7 +177,7 @@
     "n": 33.8818359375,
     "e": -84.5068359375
    },
-   "generated": "2026-07-06T14:58:40.418Z",
+   "generated": "2026-07-06T15:25:27.888Z",
    "path": "gh5/dn5bs.json"
   },
   {

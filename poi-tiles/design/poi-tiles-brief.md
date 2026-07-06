@@ -59,3 +59,13 @@ amenity inside it (playground, pitches, picnic areas, etc.). Report them by name
 exit report. If OSM is genuinely sparse there, say so explicitly and list what WAS found — the
 sparse-area design (own-location faint well + lures) covers gaps, and community nomination is
 the future Wayfarer-equivalent; do not fabricate stops.
+
+## BOUNCE-1 (2026-07-06, architect gate) — Tolleson Park is missing from dn5bs
+Defect: `data/gh5/dn5bs.json` has 118 POIs but NO "Tolleson Park" and only 1 stop within ~600m of
+33.856,-84.525 — yet OSM HAS the park (its label renders on CARTO basemaps). Diagnose the
+generator: likely dropping `leisure=park` ways/relations (missing `out center` handling, a
+node-only query, or the kind filter). Fix generate.mjs (and classify if implicated), reseed ONLY
+the affected Atlanta tiles (respect the 8s etiquette; the generator is resumable), and PROVE:
+node one-liner showing Tolleson Park present with kind+coords in dn5bs.json, plus its tagged
+amenities if OSM has them. Keep all 22 selftests green; add one regression test: a fixture
+`way+center leisure=park` classifies and lands in a tile. Do not commit.

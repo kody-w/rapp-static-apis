@@ -69,13 +69,18 @@ export function stripTags(tags = {}) {
 // ── Overpass QL (design 06 — node-focused, bounded payload) ───────────────────────
 // Same node/way filters as rapp-go/poi.js buildQL; only the `out center` cap is a param
 // (poi.js's default of 200 kept) so the static build can pull a fuller tile.
+// EXCEPTION (BOUNCE-1): parks & gardens are almost always mapped as AREAS (ways, or
+// multipolygon relations) — never nodes — so a node-only leisure filter silently drops
+// every park (e.g. Tolleson Park, Smyrna). We ask for `nwr` (node/way/relation) on the
+// leisure branch; `out center` (below) already yields a way/relation centroid, and
+// elementToPoi() already reads el.center — so the polygon lands as one point in its tile.
 export function buildQL(S, W, N, E, cap = 200) {
   return `[out:json][timeout:25];
 ( node["amenity"~"^(drinking_water|fountain|cafe|library|townhall|marketplace|clock|place_of_worship|bench)$"](${S},${W},${N},${E});
   node["tourism"~"^(artwork|attraction|viewpoint|museum|gallery|information)$"](${S},${W},${N},${E});
   node["historic"](${S},${W},${N},${E});
   node["natural"~"^(tree|spring|peak|rock)$"](${S},${W},${N},${E});
-  node["leisure"~"^(park|garden)$"](${S},${W},${N},${E});
+  nwr["leisure"~"^(park|garden)$"](${S},${W},${N},${E});
   way["tourism"="artwork"](${S},${W},${N},${E}); );
 out center ${cap};`;
 }

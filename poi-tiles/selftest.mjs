@@ -12,7 +12,7 @@ import { writeFile, readFile, unlink } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { classify, normalize, stripTags, TAG_ALLOW, kindHistogram, KINDS } from './lib/classify.mjs';
-import { geohashBounds } from './lib/geo.mjs';
+import { geohashBounds, geohashEncode } from './lib/geo.mjs';
 import { fetchPoiTile, _resetCache, summarizeTile, tileUrl, BASES } from './client.mjs';
 
 let pass = 0, fail = 0;
@@ -108,6 +108,23 @@ const FIXTURE = [
   // the invariant that lets the static layer be trusted: stripping never changes the kind
   const invariant = FIXTURE.concat([{ el: dirty }]).every(({ el }) => classify(el.tags) === classify(stripTags(el.tags)));
   ok('strip: classify(strip(tags)) === classify(tags) for all fixtures', invariant);
+}
+
+// ── 1d. BOUNCE-1 regression: a way+center leisure=park classifies AND lands in a tile ──
+// Parks are areas (ways / multipolygon relations), never nodes; the old node-only Overpass
+// filter silently dropped every park — Tolleson Park (Smyrna) vanished from tile dn5bs. This
+// locks the area→centroid→tile path: an `out center` way survives normalize() and, filtered
+// by its OWN geohash-5 (the exact step generate.mjs does), lands as one nature POI in dn5bs.
+{
+  const P = 5;
+  const parkWay = { type: 'way', id: 34567, center: { lat: 33.856, lon: -84.525 }, tags: { leisure: 'park', name: 'Tolleson Park' } };
+  const gh5 = geohashEncode(33.856, -84.525, P);                                            // → dn5bs
+  const landed = normalize([parkWay]).filter(p => geohashEncode(p.lat, p.lng, P) === gh5);  // generator's exact tile step
+  const park = landed.find(p => p.id === 'way/34567');
+  ok('regression: way+center leisure=park → classifies nature & lands in tile dn5bs',
+    classify(parkWay.tags) === 'nature' && gh5 === 'dn5bs' &&
+    !!park && park.kind === 'nature' && park.lat === 33.856 && park.lng === -84.525,
+    `gh5=${gh5} park=${park ? park.kind + ' ' + park.lat + ',' + park.lng : 'MISSING'}`);
 }
 
 // ── 2. tile read/write roundtrip on disk (source/license intact) ─────────────────

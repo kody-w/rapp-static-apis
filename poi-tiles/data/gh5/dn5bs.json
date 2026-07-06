@@ -8,14 +8,14 @@
   "n": 33.8818359375,
   "e": -84.5068359375
  },
- "generated": "2026-07-06T14:58:40.418Z",
+ "generated": "2026-07-06T15:25:27.888Z",
  "source": "OpenStreetMap",
  "license": "ODbL",
  "attribution": "© OpenStreetMap contributors",
  "counts": {
-  "total": 118,
+  "total": 129,
   "water": 11,
-  "nature": 26,
+  "nature": 37,
   "landmark": 1,
   "worship": 5,
   "civic": 31,
@@ -1248,6 +1248,133 @@
    "kind": "water",
    "tags": {
     "amenity": "drinking_water"
+   }
+  },
+  {
+   "id": "relation/143741",
+   "lat": 33.8509612,
+   "lng": -84.5352976,
+   "name": "North Cooper Lake Park",
+   "kind": "nature",
+   "tags": {
+    "alt_name": "North Cooper Lake Mountain Bike Park",
+    "leisure": "park",
+    "name": "North Cooper Lake Park"
+   }
+  },
+  {
+   "id": "relation/6190617",
+   "lat": 33.8763749,
+   "lng": -84.5179009,
+   "name": "Brinkley Park",
+   "kind": "nature",
+   "tags": {
+    "ele": "325",
+    "leisure": "park",
+    "name": "Brinkley Park"
+   }
+  },
+  {
+   "id": "way/34775570",
+   "lat": 33.8528633,
+   "lng": -84.5154319,
+   "name": "Rhyne Park",
+   "kind": "nature",
+   "tags": {
+    "ele": "274",
+    "leisure": "park",
+    "name": "Rhyne Park"
+   }
+  },
+  {
+   "id": "way/34830887",
+   "lat": 33.8678579,
+   "lng": -84.5208167,
+   "name": "Tolleson Park",
+   "kind": "nature",
+   "tags": {
+    "ele": "303",
+    "leisure": "park",
+    "name": "Tolleson Park"
+   }
+  },
+  {
+   "id": "way/544123054",
+   "lat": 33.868752,
+   "lng": -84.5316298,
+   "name": "Lake Court Park",
+   "kind": "nature",
+   "tags": {
+    "ele": "301",
+    "leisure": "park",
+    "name": "Lake Court Park"
+   }
+  },
+  {
+   "id": "way/544126308",
+   "lat": 33.8454171,
+   "lng": -84.5487232,
+   "name": "Heritage Park",
+   "kind": "nature",
+   "tags": {
+    "leisure": "park",
+    "name": "Heritage Park"
+   }
+  },
+  {
+   "id": "way/55207455",
+   "lat": 33.871486,
+   "lng": -84.5232392,
+   "name": "Askew Park",
+   "kind": "nature",
+   "tags": {
+    "ele": "309",
+    "leisure": "park",
+    "name": "Askew Park"
+   }
+  },
+  {
+   "id": "way/555497317",
+   "lat": 33.8645297,
+   "lng": -84.5106519,
+   "name": "Twin Oaks Park",
+   "kind": "nature",
+   "tags": {
+    "leisure": "park",
+    "name": "Twin Oaks Park",
+    "natural": "wood"
+   }
+  },
+  {
+   "id": "way/555851686",
+   "lat": 33.8521298,
+   "lng": -84.5360299,
+   "name": "Smyrna Community Garden",
+   "kind": "nature",
+   "tags": {
+    "leisure": "garden",
+    "name": "Smyrna Community Garden"
+   }
+  },
+  {
+   "id": "way/921188340",
+   "lat": 33.8445494,
+   "lng": -84.538472,
+   "name": "a park",
+   "kind": "nature",
+   "tags": {
+    "leisure": "park"
+   }
+  },
+  {
+   "id": "way/921188343",
+   "lat": 33.8416545,
+   "lng": -84.5166374,
+   "name": "Mavell Road Trail Head",
+   "kind": "nature",
+   "tags": {
+    "leisure": "park",
+    "name": "Mavell Road Trail Head"
    }
   }
  ]
