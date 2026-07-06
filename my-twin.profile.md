@@ -175,6 +175,17 @@ which frame kind), and which side of the §13 line the signal lives on. Signals 
 default; only their bones-safe derivatives may ever surface.
 
 
+## §19 · The one-body law (every image is a photograph of the model)
+The 3D model IS the twin's body — the single visual source of truth, everywhere. Whenever a 2D
+image of a twin/creature is needed (map billboard, thumbnail, card, share image, journal
+illustration, QR preview), it is produced by **dynamically snapping the live 3D model** —
+rendering the actual model and capturing the frame at a deterministic pose — never by drawing a
+separate 2D representation. This guards visual fidelity exactly the way the content-hash guards
+data fidelity: a parallel drawing is representational drift waiting to happen; a snapshot cannot
+disagree with the body it was taken from. Canonical API: `snap(cart, {pose, size})` in the fauna
+module; all raster appearances route through it.
+
+
 ## Moat statement
 Every other AI stack ships one half — the model. RAPP ships the **whole twin**: the sealed on-device
 being plus the signed, content-addressed, planet-syncable public bones, with fidelity autonomously
