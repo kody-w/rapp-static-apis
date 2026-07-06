@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>rapp·go — the catch (a real throw)</title>
+<!--
+  catch.html — the standalone CATCH-RNG harness (design/05-catch-rng), Phase 2.
+  It stands alone (no map / no AR / no POI inventory): summon ONE real .egg from the
+  live sky, grade its rarity, and run the whole throw→wobble→break/flee→mint loop
+  against a HARDCODED starter pouch (phase-3 wires the real POI inventory).
+
+  The self-test (Monte-Carlo tier table + known-sky tier asserts) runs on load and
+  renders below. The SAME assertions run in node:  node rapp-go/catch.js
+-->
+<style>
+  :root{
+    --go-bg:#e9ebe6; --go-fg:#3a4048; --go-dim:#6b7280;
+    --go-panel:rgba(249,250,247,0.92); --go-line:rgba(60,66,74,0.16); --go-accent:#5a96ff;
+    --ok:#3f9d5a; --bad:#c0553f;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --go-bg:#0b0d12; --go-fg:#c9d1d9; --go-dim:#8b93a1; --go-panel:rgba(16,18,24,0.9);
+      --go-line:rgba(140,150,170,0.18); --go-accent:#6ea8ff; --ok:#5fce7f; --bad:#e0745c; }
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;min-height:100%}
+  body{ background:var(--go-bg); color:var(--go-fg); font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;
+    letter-spacing:.01em; padding:calc(env(safe-area-inset-top,0) + 14px) 14px 40px; }
+  .wrap{max-width:460px;margin:0 auto}
+  h1{font-size:16px;font-weight:600;letter-spacing:.16em;text-transform:lowercase;color:var(--go-dim);margin:0 0 2px}
+  h1 b{color:var(--go-fg)}
+  .sub{font-size:12.5px;color:var(--go-dim);margin:0 0 14px;line-height:1.5}
+  .stage{position:relative;height:300px;border-radius:20px;border:1px solid var(--go-line);
+    background:radial-gradient(circle at 50% 42%, color-mix(in srgb,var(--go-accent) 8%, transparent), transparent 70%);
+    overflow:hidden;touch-action:none;display:flex;align-items:center;justify-content:center}
+  #creature,#ring{position:absolute;inset:0;margin:auto;width:300px;height:300px;display:block}
+  #ring{pointer-events:none}
+  .tierchip{position:absolute;top:10px;left:12px;font-size:11px;letter-spacing:.14em;text-transform:lowercase;
+    padding:4px 9px;border-radius:999px;background:var(--go-panel);border:1px solid var(--go-line);backdrop-filter:blur(6px)}
+  .grade{position:absolute;top:44%;left:0;right:0;text-align:center;font-size:15px;font-weight:600;
+    color:var(--go-fg);opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;pointer-events:none;text-shadow:0 1px 8px rgba(0,0,0,.35)}
+  .grade.show{opacity:1;transform:translateY(-10px)}
+  .hint{position:absolute;bottom:10px;left:0;right:0;text-align:center;font-size:12px;color:var(--go-dim);pointer-events:none}
+  .row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+  button,.btn{font-family:inherit;font-size:13.5px;padding:10px 13px;border-radius:12px;border:1px solid var(--go-line);
+    background:transparent;color:var(--go-fg);cursor:pointer}
+  button.primary{background:linear-gradient(180deg,color-mix(in srgb,var(--go-accent) 26%,transparent),color-mix(in srgb,var(--go-accent) 14%,transparent));
+    border-color:color-mix(in srgb,var(--go-accent) 45%,var(--go-line));font-weight:600}
+  button:disabled{opacity:.45;cursor:default}
+  .pouch{display:flex;gap:7px;flex-wrap:wrap;margin:4px 0 2px}
+  .orb{font-size:12px;padding:7px 10px;border-radius:11px;border:1px solid var(--go-line);background:var(--go-panel);cursor:pointer;user-select:none}
+  .orb.sel{border-color:var(--go-accent);box-shadow:0 0 0 1px var(--go-accent) inset}
+  .orb.off{opacity:.4;pointer-events:none}
+  .orb .n{color:var(--go-dim)}
+  .lab{font-size:11px;letter-spacing:.12em;text-transform:lowercase;color:var(--go-dim);margin:10px 0 2px}
+  .note{font-size:12.5px;color:var(--go-dim);min-height:18px;margin:8px 0;text-align:center}
+  .doors{display:none;gap:9px;margin-top:8px}
+  .doors.show{display:flex}
+  .doors a{flex:1;text-align:center;text-decoration:none;display:block;padding:11px;border-radius:12px;border:1px solid var(--go-line);color:var(--go-fg);font-size:13.5px}
+  details{margin-top:20px;border-top:1px solid var(--go-line);padding-top:12px}
+  summary{font-size:12.5px;color:var(--go-dim);cursor:pointer;letter-spacing:.04em}
+  #selftest{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;line-height:1.55;white-space:pre-wrap;margin-top:10px;color:var(--go-dim)}
+  #selftest .P{color:var(--ok)} #selftest .F{color:var(--bad)} #selftest .H{color:var(--go-fg);font-weight:600}
+  .verdict{font-weight:700;font-size:13px;margin:6px 0}
+  .verdict.ok{color:var(--ok)} .verdict.bad{color:var(--bad)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1><b>rapp</b>·go — the catch</h1>
+  <p class="sub">summon one real sky, then throw. the ring hugs the creature at its smallest — release then. a rarer sky shakes twice and breaks free; a rare one can flee and take your vessel. only rarity is fixed (from the genome's content-hash); every wobble is a live crypto roll.</p>
+
+  <div class="stage" id="stage">
+    <canvas id="creature" width="300" height="300"></canvas>
+    <canvas id="ring" width="300" height="300"></canvas>
+    <div class="tierchip" id="tierchip" style="display:none"></div>
+    <div class="grade" id="grade"></div>
+    <div class="hint" id="hint">summon a sky to begin</div>
+  </div>
+
+  <div class="row">
+    <button class="primary" id="summon">summon your sky</button>
+    <button id="summon-demo">summon a demo sky</button>
+  </div>
+
+  <div class="lab">vessel (tap to choose · tap the creature to throw)</div>
+  <div class="pouch" id="orbs"></div>
+  <div class="lab">offering (optional)</div>
+  <div class="pouch" id="aids"></div>
+
+  <div class="note" id="note"></div>
+  <div class="doors" id="doors">
+    <a id="door-talk" target="_blank" rel="noopener">💬 talk to it</a>
+    <a id="door-breed" target="_blank" rel="noopener">🧬 breed it</a>
+  </div>
+
+  <details open>
+    <summary>self-test — known skies land in expected tiers + expected orbs-to-catch (Monte-Carlo)</summary>
+    <div class="verdict" id="verdict">running…</div>
+    <div id="selftest"></div>
+  </details>
+</div>
+
+<script type="module">
+import { momentToGenome, genomeId, geohashEncode } from './lib/genome.js';
+import { fetchSky } from './lib/weather.js';
+import { paintCreatureFrame } from './spawn.js';
+import { ORBS, AIDS, eggRarity, throwQuality, ringRadius, runCatch, mintCaught, talkHref, breedHref, runSelfTest, RING_MS } from './catch.js';
+
+const $ = id => document.getElementById(id);
+
+// ── hardcoded starter pouch (design 05 mvp) — phase 3 wires the real POI inventory ─
+const pouch = { orbs: { dew: 3, standard: 5, bright: 2, storm: 2, dawn: 1 }, aids: { calm: 1, honey: 1 } };
+let orbSel = 'standard', aidSel = null;
+
+// ── state ─────────────────────────────────────────────────────────────────────────
+let cart = null, rarity = null, palette = ['#8fb3c9'], busy = false, caught = false, saltActive = false;
+const RC = 300 / 2, CR = 300 * 0.30; // creature centre + nominal radius on the stage canvas
+
+// ── audio (feature-guarded; unlocked by the throw gesture) ─────────────────────────
+let actx = null;
+function beep(freq, dur = 0.09, gain = 0.05){
+  try{ if(!actx) actx = new (window.AudioContext||window.webkitAudioContext)();
+    const o=actx.createOscillator(), g=actx.createGain(); o.frequency.value=freq; o.type='sine';
+    g.gain.value=gain; o.connect(g); g.connect(actx.destination); o.start();
+    g.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime+dur); o.stop(actx.currentTime+dur);
+  }catch{}
+}
+function haptic(ms){ try{ navigator.vibrate && navigator.vibrate(ms); }catch{} }
+
+// ── creature render loop (reuses the real hologram painter from spawn.js) ──────────
+let glowPulse = 0;
+function dpr(cvs){ const d=Math.min(window.devicePixelRatio||1,2); cvs.width=300*d; cvs.height=300*d; cvs.style.width=cvs.style.height='300px'; const x=cvs.getContext('2d'); x.setTransform(d,0,0,d,0,0); return x; }
+let cctx2 = dpr($('creature'));
+function drawCreature(t){
+  cctx2.clearRect(0,0,300,300);
+  if(!cart) return;
+  const R = CR * (1 + glowPulse*0.12);
+  if(glowPulse>0){ // birth-palette glow pulse during a wobble
+    cctx2.save(); const g=cctx2.createRadialGradient(RC,RC,1,RC,RC,R*2.1);
+    g.addColorStop(0, hexA(palette[0], 0.4*glowPulse)); g.addColorStop(1, hexA(palette[0],0));
+    cctx2.fillStyle=g; cctx2.beginPath(); cctx2.arc(RC,RC,R*2.1,0,7); cctx2.fill(); cctx2.restore();
+  }
+  paintCreatureFrame(cctx2, cart.genome, RC, RC, CR, t);
+}
+function hexA(hex,a){ let h=String(hex).replace('#',''); if(h.length===3)h=h.split('').map(c=>c+c).join(''); const n=parseInt(h,16); return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`; }
+
+// ── ring loop ───────────────────────────────────────────────────────────────────
+const rctx = dpr($('ring'));
+let ringOn = false, ringT0 = 0, sparkles = [];
+function drawRing(now){
+  rctx.clearRect(0,0,300,300);
+  if(ringOn && !busy){
+    const r = ringRadius(now - ringT0, CR*1.9);
+    rctx.beginPath(); rctx.arc(RC,RC,r,0,7); rctx.lineWidth=2.5;
+    rctx.strokeStyle = hexA(palette[0], 0.8); rctx.stroke();
+    rctx.beginPath(); rctx.arc(RC,RC,r,0,7); rctx.lineWidth=1; rctx.strokeStyle='rgba(255,255,255,.35)'; rctx.stroke();
+  }
+  // sparkles (catch) / puff (flee)
+  for(const s of sparkles){ s.life-=0.02; if(s.life<=0)continue; rctx.globalAlpha=Math.max(0,s.life);
+    rctx.beginPath(); rctx.arc(s.x,s.y,s.r,0,7); rctx.fillStyle=s.c; rctx.fill(); rctx.globalAlpha=1;
+    s.x+=s.vx; s.y+=s.vy; }
+  sparkles = sparkles.filter(s=>s.life>0);
+}
+function loop(now){ drawCreature(now); drawRing(now); requestAnimationFrame(loop); }
+requestAnimationFrame(loop);
+
+// ── pouch UI ───────────────────────────────────────────────────────────────────
+function renderPouch(){
+  const o=$('orbs'); o.innerHTML='';
+  for(const k of Object.keys(ORBS)){
+    const n = pouch.orbs[k]||0;
+    const d=document.createElement('div'); d.className='orb'+(k===orbSel?' sel':'')+(n<=0?' off':'');
+    d.innerHTML = `${ORBS[k].label} ·<span class="n"> ${n}</span>`;
+    d.onclick=()=>{ if(n>0){ orbSel=k; renderPouch(); } };
+    o.appendChild(d);
+  }
+  const a=$('aids'); a.innerHTML='';
+  const none=document.createElement('div'); none.className='orb'+(aidSel===null?' sel':''); none.textContent='none';
+  none.onclick=()=>{ aidSel=null; saltActive=false; renderPouch(); }; a.appendChild(none);
+  for(const k of Object.keys(AIDS)){ if(k==='none')continue;
+    const n=pouch.aids[k]||0;
+    const d=document.createElement('div'); d.className='orb'+(k===aidSel?' sel':'')+(n<=0?' off':'');
+    d.innerHTML=`${AIDS[k].label} ·<span class="n"> ${n}</span>`;
+    d.onclick=()=>{ if(n>0){ aidSel=k; renderPouch(); } }; a.appendChild(d);
+  }
+}
+
+// ── summon a sky → an immutable hologram-cartridge/1.0 ─────────────────────────────
+async function summon(datum, coordText, title){
+  const genome = momentToGenome(datum);
+  const id = await genomeId(genome);
+  cart = { schema:'hologram-cartridge/1.0', id, title, author:'you', born:{ coord: coordText, from: title }, parents:[], genome, sig:'' };
+  rarity = await eggRarity(cart);
+  const s = (genome.layers.find(l=>l.role==='surface')||{}).palette; palette = (s&&s.length)?s:['#8fb3c9'];
+  caught=false; saltActive=false; $('doors').classList.remove('show'); $('note').textContent='';
+  $('tierchip').style.display=''; $('tierchip').textContent = '· '+rarity.tier.toLowerCase()+' · '+(rarity.rarity01).toFixed(2);
+  $('hint').textContent = 'tap the creature to throw';
+  ringOn=true; ringT0=performance.now(); busy=false;
+  cctx2 = dpr($('creature'));
+  renderPouch();
+}
+$('summon-demo').onclick = ()=> summon({ temp:15, weathercode:95, wind:44, isDay:1 }, geohashEncode(40.7128,-74.006,9)+'·'+Date.now(), 'a demo storm sky');
+$('summon').onclick = async ()=>{
+  $('summon').disabled=true; $('hint').textContent='reading your sky…';
+  const fix = await new Promise(res=>{
+    if(!navigator.geolocation) return res(null);
+    navigator.geolocation.getCurrentPosition(p=>res({lat:p.coords.latitude,lng:p.coords.longitude}), ()=>res(null), {enableHighAccuracy:true,timeout:8000});
+  });
+  try{
+    const ll = fix || { lat:40.7128, lng:-74.006 };
+    const sky = await fetchSky(ll.lat, ll.lng, Date.now());
+    await summon({ temp:sky.temp, weathercode:sky.weathercode, wind:sky.wind, isDay:sky.isDay },
+      geohashEncode(ll.lat,ll.lng,9)+'·'+Date.now(),
+      'your sky — '+sky.temp+'° '+(({0:'clear',1:'clear',2:'partly cloudy',3:'cloudy',45:'fog',61:'rain',63:'rain',71:'snow',80:'showers',95:'storm'})[sky.weathercode]||''));
+  }catch{ $('hint').textContent='the sky was hazy — try a demo sky'; }
+  $('summon').disabled=false;
+};
+
+// ── the throw ──────────────────────────────────────────────────────────────────
+let down=null;
+$('stage').addEventListener('pointerdown', e=>{ if(!cart||busy||caught)return; down={x:e.offsetX,y:e.offsetY,t:performance.now()}; });
+$('stage').addEventListener('pointerup', e=>{
+  if(!cart||busy||caught||!down)return;
+  const dx=e.offsetX-down.x, dy=e.offsetY-down.y, dist=Math.hypot(dx,dy);
+  const releaseMs = performance.now() - ringT0;
+  down=null;
+  // aim: a quick tap is auto-true; a flick must land within the (forgiving 1.25×) creature circle
+  let hit=true;
+  if(dist>=8){ const ex=e.offsetX-RC, ey=e.offsetY-RC; hit = Math.hypot(ex,ey) <= CR*1.25; }
+  throwOrb(releaseMs, hit);
+});
+
+async function throwOrb(releaseMs, hit){
+  if(pouch.orbs[orbSel]<=0){ $('note').textContent='no '+ORBS[orbSel].label+' left — choose another vessel.'; return; }
+  const rNow = ringRadius(releaseMs, CR*1.9);
+  const ratio = rNow / CR;               // 1.0 = ring hugs the creature
+  const q = throwQuality(ratio, hit);
+  if(!actx) beep(1);                       // unlock audio on the gesture
+
+  if(!q.hit){ // a miss — the vessel bounces back, NOT consumed
+    showGrade('wide'); $('note').textContent='wide — the orb bounced back (no vessel spent).';
+    ringT0 = performance.now(); return;
+  }
+  busy=true; ringOn=false; showGrade(q.label);
+  pouch.orbs[orbSel]--;                    // a HIT always consumes one vessel
+  let aidCatch=1, aidFlee=1, aidKey='none';
+  if(aidSel){ aidKey=aidSel; aidCatch=AIDS[aidSel].catch; aidFlee=AIDS[aidSel].flee;
+    if(aidSel==='honey'){ pouch.aids.honey--; }               // honey: single-throw
+    else if(!saltActive){ pouch.aids[aidSel]--; saltActive=true; } // calm/golden: lasts the encounter
+  }
+  renderPouch();
+
+  const res = await runCatch(
+    { tier: rarity.tier, orb: orbSel, aidCatch, aidFlee },
+    {
+      onWobble:(i)=>{ glowPulse=1; setTimeout(()=>glowPulse=0.35,120); haptic(40); beep(520+i*90,0.06,0.04); },
+      onBreak:(shakes)=>{ glowPulse=0; whiteBurst(); $('note').textContent = shakes? `it shook ${shakes}× — then broke free!` : 'it broke free instantly!'; },
+      onFlee: ()=>{ greyPuff(); }
+    }
+  );
+  window.__lastRoll = res;
+  // terminal resolution (after the wobble timeline)
+  if(res.caught){ await onCaught(orbSel, aidKey, q.label, res.shakes); }
+  else if(res.fled){ endFlee(); }
+  else { busy=false; ringOn=true; ringT0=performance.now(); } // break-free → throw again
+}
+
+async function onCaught(orb, aidKey, throwLabel, shakes){
+  caught=true; busy=true; ringOn=false;
+  catchSparkle();
+  const rec = await mintCaught(cart, { geohash: (cart.born.coord||'').split('\u00b7')[0], tier: rarity.tier, orb, aid: aidKey, throwLabel, wobbles: shakes })
+    .catch(e=>{ console.warn('mint failed (kept in memory):', e); return null; });
+  $('note').textContent = 'kept — a real sky, pressed like a flower.' + (rec&&rec.idVerified===false?' (id check: mismatch!)':'');
+  $('door-talk').href = talkHref(cart); $('door-breed').href = breedHref(cart);
+  $('doors').classList.add('show');
+  beep(660,0.12,0.05); setTimeout(()=>beep(880,0.14,0.05),120); setTimeout(()=>beep(990,0.16,0.05),260);
+}
+function endFlee(){ caught=true; busy=true; ringOn=false; $('note').textContent='it fled — and took your vessel. that exact sky won\u2019t return.'; $('tierchip').style.display='none'; }
+
+function showGrade(label){ const g=$('grade'); g.textContent=label; g.classList.add('show'); setTimeout(()=>g.classList.remove('show'),900); }
+function catchSparkle(){ for(let i=0;i<22;i++){ const a=Math.random()*7, sp=2+Math.random()*3; sparkles.push({x:RC,y:RC,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,r:1.5+Math.random()*2,life:1,c:hexA(palette[i%palette.length],0.9)}); } }
+function whiteBurst(){ for(let i=0;i<14;i++){ const a=Math.random()*7, sp=3+Math.random()*3; sparkles.push({x:RC,y:RC,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,r:1.5+Math.random()*2,life:0.7,c:'rgba(255,255,255,.85)'}); } }
+function greyPuff(){ for(let i=0;i<16;i++){ const a=Math.random()*7, sp=1+Math.random()*2; sparkles.push({x:RC,y:RC,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-0.5,r:2+Math.random()*3,life:0.9,c:'rgba(150,150,160,.6)'}); } }
+
+renderPouch();
+
+// ── self-test panel (same asserts as `node rapp-go/catch.js`) ─────────────────────
+(async ()=>{
+  const el = $('selftest'); const lines=[];
+  const res = await runSelfTest({ log:(s)=>{ lines.push(s); } });
+  el.innerHTML = lines.map(l=>{
+    if(l.startsWith('PASS')) return '<span class="P">'+esc(l)+'</span>';
+    if(l.startsWith('FAIL')) return '<span class="F">'+esc(l)+'</span>';
+    if(l.includes('orbs-to-catch')||/^\s+tier/.test(l)||/^\s+(COMMON|UNCOMMON|RARE|LEGENDARY|MYTHIC)/.test(l)) return '<span class="H">'+esc(l)+'</span>';
+    return esc(l);
+  }).join('\n');
+  const v=$('verdict'); v.textContent = (res.fail===0?'ALL PASS':'FAILURES')+' — '+res.pass+' passed, '+res.fail+' failed';
+  v.className = 'verdict '+(res.fail===0?'ok':'bad');
+  window.__catchSelfTest = { pass:res.pass, fail:res.fail };
+})();
+function esc(s){ return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+</script>
+</body>
+</html>

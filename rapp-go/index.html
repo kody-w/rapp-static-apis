@@ -37,7 +37,7 @@
   #brand b{color:var(--go-fg); font-weight:600}
   #chips{
     position:fixed; top:calc(env(safe-area-inset-top,0) + 10px); right:12px; z-index:6;
-    display:flex; flex-direction:column; gap:6px; align-items:flex-end; pointer-events:none;
+    display:flex; flex-direction:column; gap:6px; align-items:flex-end;
   }
   .chip{
     font-size:11.5px; padding:5px 10px; border-radius:999px;
@@ -46,10 +46,11 @@
     max-width:72vw; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
   }
   .chip.warn{color:#b6862a} .chip.muted{color:var(--go-dim)}
+  .chip.tap{cursor:pointer; pointer-events:auto}
   @media (prefers-color-scheme: dark){ .chip.warn{color:#e5b567} }
 
-  /* encounter sheet */
-  #sheet{
+  /* bottom sheets (encounter + place) */
+  .sheet{
     position:fixed; left:50%; bottom:0; transform:translate(-50%, 110%);
     width:min(440px, 100vw); z-index:12;
     background:var(--go-panel); border:1px solid var(--go-line); border-bottom:none;
@@ -58,15 +59,25 @@
     transition:transform .42s cubic-bezier(.22,.61,.36,1);
     padding:14px 18px calc(env(safe-area-inset-bottom,0) + 18px);
   }
-  #sheet.open{transform:translate(-50%,0)}
-  #sheet .grip{width:36px;height:4px;border-radius:999px;background:var(--go-line);margin:2px auto 8px}
-  #sheet .close{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--go-dim);font-size:20px;cursor:pointer;line-height:1;padding:4px}
-  .enc-stage{display:flex;justify-content:center;align-items:center;height:220px}
-  #creature{width:220px;height:220px;display:block}
+  .sheet.open{transform:translate(-50%,0)}
+  .sheet .grip{width:36px;height:4px;border-radius:999px;background:var(--go-line);margin:2px auto 8px}
+  .sheet .close{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--go-dim);font-size:20px;cursor:pointer;line-height:1;padding:4px}
+  .enc-stage{position:relative;display:flex;justify-content:center;align-items:center;height:224px;touch-action:none}
+  #creature,#enc-ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:224px;height:224px;display:block}
+  #enc-ring{pointer-events:none}
+  .enc-grade{position:absolute;left:0;right:0;top:42%;text-align:center;font-size:15px;font-weight:600;opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;pointer-events:none;text-shadow:0 1px 8px rgba(0,0,0,.35)}
+  .enc-grade.show{opacity:1;transform:translateY(-8px)}
   .enc-title{font-size:17px;font-weight:600;text-align:center;margin:2px 0 2px;text-transform:lowercase}
   .enc-from{font-size:12.5px;color:var(--go-dim);text-align:center;margin:0 0 2px}
-  .enc-rarity{font-size:11px;text-align:center;letter-spacing:0.14em;text-transform:lowercase;margin:0 0 12px}
-  .enc-actions{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+  .enc-rarity{font-size:11px;text-align:center;letter-spacing:0.14em;text-transform:lowercase;margin:0 0 8px}
+  .lab{font-size:10.5px;letter-spacing:.12em;text-transform:lowercase;color:var(--go-dim);margin:8px 2px 3px}
+  .pouch{display:flex;gap:6px;flex-wrap:wrap}
+  .orb{font-size:12px;padding:6px 9px;border-radius:10px;border:1px solid var(--go-line);background:transparent;cursor:pointer;user-select:none;white-space:nowrap}
+  .orb.sel{border-color:var(--go-accent);box-shadow:0 0 0 1px var(--go-accent) inset}
+  .orb.off{opacity:.4;pointer-events:none}
+  .orb .n{color:var(--go-dim)}
+  .enc-hint{font-size:12px;color:var(--go-dim);text-align:center;margin:8px 0 2px;min-height:16px}
+  .enc-note{font-size:12.5px;color:var(--go-dim);text-align:center;min-height:16px;margin:2px 0 8px}
   button.act, a.act{
     display:flex;align-items:center;justify-content:center;gap:9px;
     font-size:14.5px;font-family:inherit;text-decoration:none;text-align:center;
@@ -78,13 +89,34 @@
     border-color:color-mix(in srgb, var(--go-accent) 45%, var(--go-line));
     font-weight:600;
   }
+  button.act:disabled{opacity:.45;cursor:default}
   button.act:active,a.act:active{transform:translateY(1px)}
-  .orb{width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #fff, var(--go-accent) 70%, transparent);box-shadow:0 0 10px color-mix(in srgb,var(--go-accent) 60%, transparent)}
-  .enc-note{font-size:12.5px;color:var(--go-dim);text-align:center;min-height:16px;margin:2px 0 8px}
-  .doors{display:none;flex-direction:column;gap:10px}
+  .doors{display:none;flex-direction:column;gap:10px;margin-top:4px}
   .doors.show{display:flex}
   .doors .row{display:flex;gap:10px}
   .doors .row a.act{flex:1}
+
+  /* place (POI) sheet */
+  .poi-kindline{font-size:11px;letter-spacing:.12em;text-transform:lowercase;color:var(--go-dim);text-align:center;margin:0 0 8px}
+  .poi-drops{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;min-height:20px;margin:8px 0}
+  .drop{font-size:13px;padding:6px 10px;border-radius:10px;border:1px solid var(--go-line);background:transparent}
+  .attrib{font-size:10.5px;color:var(--go-dim);text-align:center;margin:10px 0 2px;opacity:.85}
+
+  /* bag drawer */
+  #bag{position:fixed;left:50%;bottom:0;transform:translate(-50%,110%);width:min(440px,100vw);z-index:11;
+    background:var(--go-panel);border:1px solid var(--go-line);border-bottom:none;border-radius:20px 20px 0 0;
+    backdrop-filter:blur(16px);box-shadow:0 -12px 48px rgba(0,0,0,.28);transition:transform .42s cubic-bezier(.22,.61,.36,1);
+    padding:14px 18px calc(env(safe-area-inset-bottom,0) + 18px)}
+  #bag.open{transform:translate(-50%,0)}
+  #bag h2{font-size:14px;font-weight:600;text-transform:lowercase;margin:2px 0 2px;text-align:center}
+  #bag .cap{font-size:11px;color:var(--go-dim);text-align:center;margin:0 0 10px}
+  .bag-grid{display:flex;flex-direction:column;gap:8px;max-height:46vh;overflow:auto}
+  .bag-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--go-line);border-radius:12px}
+  .bag-row .g{font-size:18px;width:24px;text-align:center}
+  .bag-row .nm{flex:1;font-size:13px}
+  .bag-row .ct{font-size:13px;color:var(--go-dim)}
+  .bag-empty{font-size:12.5px;color:var(--go-dim);text-align:center;padding:16px}
+
   /* first-load invitation when we have no location yet */
   #invite{
     position:fixed; inset:0; z-index:8; display:none; align-items:center; justify-content:center;
@@ -112,37 +144,77 @@
     <button id="invite-btn">share my location</button>
   </div></div>
 
-  <div id="sheet" aria-hidden="true">
+  <!-- encounter sheet -->
+  <div id="sheet" class="sheet" aria-hidden="true">
     <div class="grip"></div>
     <button class="close" id="enc-close" aria-label="let it be">×</button>
-    <div class="enc-stage"><canvas id="creature" width="220" height="220"></canvas></div>
+    <div class="enc-stage" id="enc-stage">
+      <canvas id="creature" width="224" height="224"></canvas>
+      <canvas id="enc-ring" width="224" height="224"></canvas>
+      <div class="enc-grade" id="enc-grade"></div>
+    </div>
     <div class="enc-title" id="enc-title">a sky</div>
     <div class="enc-from" id="enc-from"></div>
     <div class="enc-rarity" id="enc-rarity"></div>
+
+    <div id="enc-kit">
+      <div class="lab">vessel</div>
+      <div class="pouch" id="enc-orbs"></div>
+      <div class="lab">offering (optional)</div>
+      <div class="pouch" id="enc-aids"></div>
+    </div>
+    <div class="enc-hint" id="enc-hint">tap the creature to throw</div>
     <div class="enc-note" id="enc-note"></div>
-    <div class="enc-actions">
-      <button class="act primary" id="enc-catch"><span class="orb"></span> keep this sky</button>
-      <div class="doors" id="enc-doors">
-        <a class="act" id="door-keep" href="#">◍ keep — it's in your basket</a>
-        <div class="row">
-          <a class="act" id="door-talk" target="_blank" rel="noopener">talk</a>
-          <a class="act" id="door-breed" target="_blank" rel="noopener">breed</a>
-        </div>
+
+    <div class="doors" id="enc-doors">
+      <a class="act" id="door-keep" href="#">◍ keep — it's in your basket</a>
+      <div class="row">
+        <a class="act" id="door-talk" target="_blank" rel="noopener">talk</a>
+        <a class="act" id="door-breed" target="_blank" rel="noopener">breed</a>
       </div>
     </div>
+  </div>
+
+  <!-- place (POI) sheet -->
+  <div id="poi-sheet" class="sheet" aria-hidden="true">
+    <div class="grip"></div>
+    <button class="close" id="poi-close" aria-label="close">×</button>
+    <div class="enc-title" id="poi-name">a place</div>
+    <div class="poi-kindline" id="poi-kind"></div>
+    <div class="poi-drops" id="poi-drops"></div>
+    <div class="enc-note" id="poi-note"></div>
+    <button class="act primary" id="poi-spin">spin this place</button>
+    <button class="act" id="poi-lure" style="margin-top:10px;display:none">✧ place a lure (quicken it)</button>
+    <div class="attrib">© OpenStreetMap contributors</div>
+  </div>
+
+  <!-- bag drawer -->
+  <div id="bag" aria-hidden="true">
+    <div class="grip"></div>
+    <h2>your bag</h2>
+    <div class="cap" id="bag-cap"></div>
+    <div class="bag-grid" id="bag-grid"></div>
   </div>
 
 <script type="module">
 import { TileMap } from './tilemap.js';
 import { SpawnField, RARITY, paintCreatureFrame } from './spawn.js';
-import { keepToBasket } from './lib/basket.js';
 import { b64enc } from './lib/genome.js';
+import { skyCacheKey } from './lib/weather.js';
+import { eggRarity, throwQuality, ringRadius, runCatch, mintCaught, talkHref, breedHref } from './catch.js';
+import * as poi from './poi.js';
 
 const $ = id => document.getElementById(id);
 const params = new URLSearchParams(location.search);
+const TAU = Math.PI * 2;
+
+// ── ?demo=1 — deterministic offline demo: fake POIs + seeded sky + starter bag,
+//    zero network / zero GPS, so the whole gather↔catch loop is reviewable ────────
+const DEMO = params.get('demo') === '1';
 
 // ── time source: ?t pins the 30-min bucket so spawns are reproducible for review ──
-const FIXED_T = params.has('t') ? Number(params.get('t')) : null;
+let FIXED_T = params.has('t') ? Number(params.get('t')) : null;
+if (DEMO && (FIXED_T == null || isNaN(FIXED_T))) FIXED_T = 1767700800000; // a fixed instant for the demo
 const now = () => (FIXED_T != null && !isNaN(FIXED_T)) ? FIXED_T : Date.now();
 
 // ── ?fix=LAT,LNG overrides geolocation (desktop verification) ──────────────────
@@ -159,24 +231,57 @@ const LS = {
 };
 
 const canvas = $('map');
-const startCenter = FIX || LS.get('rapp-go.lastFix') || { lat: 40.7128, lng: -74.0060 };
+const startCenter = FIX || (DEMO ? { lat: 40.7128, lng: -74.0060 } : (LS.get('rapp-go.lastFix') || { lat: 40.7128, lng: -74.0060 }));
 const map = new TileMap(canvas, { center: startCenter });
 const field = new SpawnField();
 
+// ── first-run / demo bag (Pokémon-Go-style starter vessels so the loop is enterable;
+//    once you spin real places the economy takes over) ─────────────────────────────
+if (!LS.get('rapp-go.started')) { poi.seedInventory({ 'vessel.glass': 20, 'vessel.dew': 3, 'offering.salt': 3 }); LS.set('rapp-go.started', 1); }
+
+// ── demo setup: seed the weather cache (offline creature), inject fake POIs ───────
+const DEMO_POIS = [];
+if (DEMO) {
+  poi.configure({ noNetwork: true });
+  const c = startCenter;
+  // seed this bucket's sky for the player's ~5km region so fetchSky never hits network
+  try {
+    const key = skyCacheKey(c.lat, c.lng, now());
+    if (!LS.get(key)) LS.set(key, { temp: 19, weathercode: 2, wind: 7, isDay: 1, key });
+  } catch {}
+  const off = (dlat, dlng, id, name, kind) => ({ id, name, kind, lat: c.lat + dlat, lng: c.lng + dlng, tags: { name } });
+  DEMO_POIS.push(
+    off( 0.00027,  0.00000, 'demo/fountain', 'Cedar Street Fountain', 'water'),    // ~30m N (in range)
+    off( 0.00000,  0.00065, 'demo/memorial', 'War Memorial',          'landmark'), // ~55m E (prism source)
+    off(-0.00100,  0.00000, 'demo/oak',      'an old oak',            'nature')     // ~110m S (walk to it)
+  );
+  poi.injectPOIs(DEMO_POIS);
+  poi.seedInventory({ 'vessel.glass': 8, 'vessel.dew': 2, 'offering.salt': 2, 'lure': 1 });
+}
+
 // ── state ──────────────────────────────────────────────────────────────────────
-let playerPos = null;
-const spawns = new Map();       // key -> Spawn (also a map marker)
-const suppress = new Set();     // caught/fled this session
-const cooldown = new Set();     // shown-and-closed until player leaves 40m
-let current = null;             // {spawn, ctx}
+let playerPos = null;                 // {lat,lng,accuracy}
+const spawns = new Map();             // key -> Spawn (also a map marker)
+const suppress = new Set();           // caught this session + fled-this-bucket (key embeds bucket)
+const cooldown = new Set();           // shown-and-closed until player leaves REARM_M
+let current = null;                   // { spawn, rarity, orbSel, aidSel, saltActive, resolved }
 let lastRefresh = { bucket: null, lat: null, lng: null };
+let poiList = [];                     // known POIs near the player (spawn anchors)
+const poiMarkers = new Set();         // poi ids currently on the map
+let currentPoi = null;                // the POI open in the place sheet
 
 const ENCOUNTER_M = 25, REARM_M = 40;
 
 // ── chips ────────────────────────────────────────────────────────────────────────
 function setChips(list){
   const c = $('chips'); c.innerHTML = '';
-  for (const it of list){ const d = document.createElement('div'); d.className = 'chip' + (it.kind ? ' ' + it.kind : ''); d.textContent = it.text; c.appendChild(d); }
+  for (const it of list){
+    const d = document.createElement('div');
+    d.className = 'chip' + (it.kind ? ' ' + it.kind : '') + (it.onTap ? ' tap' : '');
+    d.textContent = it.text;
+    if (it.onTap) d.addEventListener('click', it.onTap);
+    c.appendChild(d);
+  }
 }
 function skyChip(){
   if (field.offline) return { text: 'off the map · the moon\u2019s creatures', kind: 'muted' };
@@ -184,6 +289,13 @@ function skyChip(){
   if (!s) return null;
   const word = ({0:'clear',1:'clear',2:'partly cloudy',3:'cloudy',45:'fog',48:'fog',51:'drizzle',53:'drizzle',55:'drizzle',61:'rain',63:'rain',65:'rain',71:'snow',73:'snow',75:'snow',80:'showers',81:'showers',82:'showers',95:'storm',96:'storm',99:'storm'})[s.weathercode] || '';
   return { text: `${Math.round(s.temp)}\u00b0 ${word}`.trim(), kind: 'muted' };
+}
+function bagChip(){ return { text: '\u25c7 bag \u00b7 ' + poi.bagCount(), kind: 'muted', onTap: openBag }; }
+function refreshChips(extra){
+  const chips = []; if (extra) for (const e of extra) chips.push(e);
+  const sc = skyChip(); if (sc) chips.push(sc);
+  chips.push(bagChip());
+  setChips(chips);
 }
 
 // ── geodesic distance ────────────────────────────────────────────────────────────
@@ -194,16 +306,70 @@ function haversineM(a, b){
   return 2*R*Math.asin(Math.sqrt(s));
 }
 
-// ── spawn reconciliation ─────────────────────────────────────────────────────────
-let refreshing = false;
+// ── POIs → anchors + map markers with a refill arc ───────────────────────────────
+const KIND_COLOR = { water:'#7fd4ff', nature:'#8fd39a', landmark:'#c9a6ff', worship:'#ffd27f', civic:'#9fb4d0', seat:'#b8bcc4' };
+function hexA(hex,a){ let h=String(hex).replace('#',''); if(h.length===3)h=h.split('').map(c=>c+c).join(''); const n=parseInt(h,16); return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`; }
+
+let refreshingPOI = false;
+async function refreshPOIs(force){
+  if (!playerPos || refreshingPOI) return;
+  refreshingPOI = true;
+  try { poiList = await poi.refreshPOIs(playerPos.lat, playerPos.lng); }
+  catch(e){ console.warn('poi refresh failed', e); poiList = poi.knownPOIs(); }
+  refreshingPOI = false;
+  syncPoiMarkers();
+}
+function syncPoiMarkers(){
+  const near = poiList.filter(p => playerPos && haversineM(playerPos, p) < 800);
+  const seen = new Set();
+  for (const p of near){
+    seen.add(p.id);
+    if (!poiMarkers.has(p.id)){
+      poiMarkers.add(p.id);
+      map.addMarker({ id: 'poi:' + p.id, lat: p.lat, lng: p.lng, hitR: 24, zIndex: 1, animated: true,
+        data: { poi: p }, draw: (ctx, s) => drawPoiMarker(ctx, s, p) });
+    }
+  }
+  for (const id of [...poiMarkers]){
+    if (!seen.has(id)){ poiMarkers.delete(id); map.removeMarker('poi:' + id); }
+  }
+}
+function drawPoiMarker(ctx, s, p){
+  const st = poi.poiStatus(p, playerPos);
+  const col = KIND_COLOR[p.kind] || '#9fb4d0';
+  const R = 13;
+  // soft ground glow
+  const g = ctx.createRadialGradient(s.x, s.y, 1, s.x, s.y, R + 8);
+  g.addColorStop(0, hexA(col, st.ready ? 0.28 : 0.12)); g.addColorStop(1, hexA(col, 0));
+  ctx.beginPath(); ctx.arc(s.x, s.y, R + 8, 0, TAU); ctx.fillStyle = g; ctx.fill();
+  // base ring
+  ctx.beginPath(); ctx.arc(s.x, s.y, R, 0, TAU); ctx.lineWidth = 2;
+  ctx.strokeStyle = st.ready ? hexA(col, 0.9) : hexA(col, 0.32); ctx.stroke();
+  // refill arc while spent
+  if (!st.ready){
+    const frac = 1 - st.readyInMs / poi.COOLDOWN_MS;
+    ctx.beginPath(); ctx.arc(s.x, s.y, R, -Math.PI/2, -Math.PI/2 + frac * TAU);
+    ctx.lineWidth = 2.5; ctx.strokeStyle = hexA(col, 0.85); ctx.stroke();
+  }
+  // centre dot (brighter when in range + ready)
+  ctx.beginPath(); ctx.arc(s.x, s.y, st.inRange && st.ready ? 4.5 : 3, 0, TAU);
+  ctx.fillStyle = hexA(col, st.ready ? 0.95 : 0.5); ctx.fill();
+  // lured sparkle
+  if (st.lured){ ctx.beginPath(); ctx.arc(s.x, s.y, R + 4, 0, TAU); ctx.lineWidth = 1; ctx.strokeStyle = hexA('#ffffff', 0.5); ctx.stroke(); }
+}
+
+// ── spawn reconciliation (POI-anchored cells get +1 rarity + always spawn) ────────
+let refreshing = false, refreshQueuedForce = false;
 async function refreshSpawns(force){
-  if (!playerPos || refreshing) return;
+  if (!playerPos) return;
+  if (refreshing){ if (force) refreshQueuedForce = true; return; } // re-run after the in-flight pass
   const bucket = Math.floor(now() / (30*60*1000));
   const moved = lastRefresh.lat == null ? Infinity : haversineM(playerPos, { lat: lastRefresh.lat, lng: lastRefresh.lng });
   if (!force && bucket === lastRefresh.bucket && moved < 60 && spawns.size) return;
   refreshing = true;
+  const anchors = poiList.map(p => ({ lat: p.lat, lng: p.lng }));
   let list = [];
-  try { list = await field.update(playerPos, { nowMs: now() }); }
+  try { list = await field.update(playerPos, { nowMs: now(), poiAnchors: anchors }); }
   catch(e){ console.warn('spawn update failed', e); refreshing = false; return; }
   lastRefresh = { bucket, lat: playerPos.lat, lng: playerPos.lng };
 
@@ -217,14 +383,14 @@ async function refreshSpawns(force){
         draw: (ctx, s, t, m) => sp.drawMarker(ctx, s, t, m), data: { spawn: sp } });
     }
   }
-  // despawn creatures no longer in the field (weather changed) — keep the open one
   for (const key of [...spawns.keys()]){
     if (!seen.has(key) && (!current || current.spawn.key !== key)){
       spawns.delete(key); map.removeMarker(key);
     }
   }
-  const chips = []; const sc = skyChip(); if (sc) chips.push(sc); setChips(chips);
+  refreshChips();
   refreshing = false;
+  if (refreshQueuedForce){ refreshQueuedForce = false; return refreshSpawns(true); } // apply anchors that arrived mid-pass
   checkProximity();
 }
 
@@ -240,95 +406,263 @@ function checkProximity(){
   if (best && bd <= ENCOUNTER_M) openEncounter(best);
 }
 
-// ── encounter panel ────────────────────────────────────────────────────────────
+// ── the encounter: the real ring-throw catch ──────────────────────────────────────
 let panelRAF = null, panelHidden = false;
+let ringOn = false, ringT0 = 0, glowPulse = 0, sparkles = [];
+const ENC_SZ = 224, ENC_CX = ENC_SZ/2, ENC_R = ENC_SZ * 0.30;
+
+function encCtx(id){ const cvs = $(id); const d = Math.min(window.devicePixelRatio||1,2); cvs.width = ENC_SZ*d; cvs.height = ENC_SZ*d; cvs.style.width = cvs.style.height = ENC_SZ+'px'; const x = cvs.getContext('2d'); x.setTransform(d,0,0,d,0,0); return x; }
 function startCreatureRender(genome){
-  const cvs = $('creature'), ctx = cvs.getContext('2d');
-  const dpr = Math.min(window.devicePixelRatio || 1, 2), size = 220;
-  cvs.width = size*dpr; cvs.height = size*dpr; cvs.style.width = cvs.style.height = size+'px';
+  const cctx = encCtx('creature'), rctx = encCtx('enc-ring');
+  const pal = (genome.layers.find(l=>l.role==='surface')||{}).palette || ['#8fb3c9'];
   const loop = (t) => {
-    ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,size,size);
-    paintCreatureFrame(ctx, genome, size/2, size/2, size*0.32, t);
+    cctx.clearRect(0,0,ENC_SZ,ENC_SZ);
+    const R = ENC_R * (1 + glowPulse*0.12);
+    if (glowPulse > 0){ const g = cctx.createRadialGradient(ENC_CX,ENC_CX,1,ENC_CX,ENC_CX,R*2.1); g.addColorStop(0, hexA(pal[0], 0.4*glowPulse)); g.addColorStop(1, hexA(pal[0],0)); cctx.fillStyle = g; cctx.beginPath(); cctx.arc(ENC_CX,ENC_CX,R*2.1,0,TAU); cctx.fill(); }
+    paintCreatureFrame(cctx, genome, ENC_CX, ENC_CX, ENC_R, t);
+    // ring + sparkles
+    rctx.clearRect(0,0,ENC_SZ,ENC_SZ);
+    if (ringOn){ const r = ringRadius(t - ringT0, ENC_R*1.9);
+      rctx.beginPath(); rctx.arc(ENC_CX,ENC_CX,r,0,TAU); rctx.lineWidth=2.5; rctx.strokeStyle=hexA(pal[0],0.8); rctx.stroke();
+      rctx.beginPath(); rctx.arc(ENC_CX,ENC_CX,r,0,TAU); rctx.lineWidth=1; rctx.strokeStyle='rgba(255,255,255,.35)'; rctx.stroke(); }
+    for (const sp of sparkles){ if (sp.life<=0) continue; rctx.globalAlpha=Math.max(0,sp.life); rctx.beginPath(); rctx.arc(sp.x,sp.y,sp.r,0,TAU); rctx.fillStyle=sp.c; rctx.fill(); rctx.globalAlpha=1; sp.x+=sp.vx; sp.y+=sp.vy; sp.life-=0.02; }
+    sparkles = sparkles.filter(s=>s.life>0);
     panelRAF = panelHidden ? null : requestAnimationFrame(loop);
   };
   panelRAF = requestAnimationFrame(loop);
 }
 function stopCreatureRender(){ if (panelRAF) cancelAnimationFrame(panelRAF); panelRAF = null; }
 
-function openEncounter(sp){
-  current = { spawn: sp, ctx: field.toContext(sp) };
+async function openEncounter(sp){
+  current = { spawn: sp, rarity: null, orbSel: null, aidSel: null, saltActive: false, resolved: false };
   const rar = RARITY[sp.rarity] || RARITY.common;
   $('enc-title').textContent = (sp.cart.title || 'a sky').toLowerCase();
   $('enc-from').textContent = sp.cart.born.from;
-  const rEl = $('enc-rarity'); rEl.textContent = '· ' + sp.rarity + ' sky ·'; rEl.style.color = rar.color;
   $('enc-note').textContent = '';
   $('enc-doors').classList.remove('show');
-  $('enc-catch').style.display = '';
+  $('enc-kit').style.display = '';
+  $('enc-hint').textContent = 'tap the creature to throw';
+  sparkles = []; glowPulse = 0; ringOn = true; ringT0 = performance.now();
   startCreatureRender(sp.cart.genome);
   const sh = $('sheet'); sh.classList.add('open'); sh.setAttribute('aria-hidden','false');
+  // the honest catch tier is a pure function of the genome content-hash (catch.js)
+  const eg = await eggRarity(sp.cart);
+  if (!current || current.spawn !== sp) return;
+  current.rarity = eg;
+  const rEl = $('enc-rarity'); rEl.textContent = '\u00b7 ' + eg.tier.toLowerCase() + ' \u00b7 ' + sp.rarity + ' sky \u00b7'; rEl.style.color = rar.color;
+  renderPouch();
 }
 function closeEncounter(caught){
   const sh = $('sheet'); sh.classList.remove('open'); sh.setAttribute('aria-hidden','true');
-  stopCreatureRender();
-  if (current && !caught) cooldown.add(current.spawn.key);
+  stopCreatureRender(); ringOn = false;
+  if (current && !caught && !current.resolved) cooldown.add(current.spawn.key);
   current = null;
 }
 
-// ── the STUB catch: one hardcoded orb, one crypto roll against rarity ─────────────
-function rollUnit(){ const u = new Uint32Array(1); crypto.getRandomValues(u); return u[0] / 4294967296; }
-async function attemptCatch(){
+// pouch from the REAL POI inventory (vessels = orbs, offerings = aids)
+function renderPouch(){
   if (!current) return;
-  const { spawn, ctx } = current;
-  $('enc-catch').disabled = true;
-  const roll = rollUnit();
-  const caught = roll < ctx.catchHint.baseRate;
-  if (!caught){
-    $('enc-note').textContent = 'it slipped back into the sky — the orb steadies… try once more.';
-    $('enc-catch').disabled = false;
-    return;
+  const inv = poi.getInventory();
+  const vessels = ['vessel.glass','vessel.dew','vessel.prism'].filter(id => (inv[id]|0) > 0);
+  if (current.orbSel == null || (inv[current.orbSel]|0) <= 0) current.orbSel = vessels[0] || null;
+  const o = $('enc-orbs'); o.innerHTML = '';
+  if (!vessels.length){ const d = document.createElement('div'); d.className='orb off'; d.textContent='no vessels — spin a place'; o.appendChild(d); }
+  for (const id of vessels){ const it = poi.ITEMS[id];
+    const d = document.createElement('div'); d.className = 'orb' + (id===current.orbSel?' sel':'');
+    d.innerHTML = `${it.glyph} ${it.name.replace(' vessel','')} ·<span class="n"> ${inv[id]}</span>`;
+    d.onclick = () => { current.orbSel = id; renderPouch(); }; o.appendChild(d);
   }
-  // keep the byte-identical egg into the shared rapp-basket store
-  try { await keepToBasket(spawn.cart); }
-  catch(e){ console.warn('keepToBasket failed (kept in memory only):', e); }
-  suppress.add(spawn.key); spawns.delete(spawn.key); map.removeMarker(spawn.key);
-
-  const b64 = b64enc(JSON.stringify(spawn.cart));
-  $('door-talk').href = '../companion/index.html#' + b64;              // talk to the weather you caught
-  $('door-breed').href = '../hologram/index.html#adopt=' + b64;        // breed it into the gene pool
-  $('enc-catch').style.display = 'none';
-  $('enc-catch').disabled = false;
-  $('enc-note').textContent = 'it\u2019s yours now — a real sky, pressed like a flower.';
-  $('enc-doors').classList.add('show');
+  const offerings = ['offering.salt','offering.honey'].filter(id => (inv[id]|0) > 0);
+  const a = $('enc-aids'); a.innerHTML = '';
+  const none = document.createElement('div'); none.className='orb'+(current.aidSel==null?' sel':''); none.textContent='none';
+  none.onclick = () => { current.aidSel = null; renderPouch(); }; a.appendChild(none);
+  for (const id of offerings){ const it = poi.ITEMS[id];
+    const d = document.createElement('div'); d.className='orb'+(id===current.aidSel?' sel':'');
+    d.innerHTML = `${it.glyph} ${it.name} ·<span class="n"> ${inv[id]}</span>`;
+    d.onclick = () => { current.aidSel = id; renderPouch(); }; a.appendChild(d);
+  }
+  $('enc-hint').textContent = current.orbSel ? 'tap the creature to throw' : 'no vessels — spin a nearby place to gather';
 }
+
+// the throw gesture on the stage: tap = auto-true aim; flick must land in the creature
+let encDown = null;
+$('enc-stage').addEventListener('pointerdown', e => { if (!current || current.resolved || busyThrow) return; encDown = { x:e.offsetX, y:e.offsetY }; });
+$('enc-stage').addEventListener('pointerup', e => {
+  if (!current || current.resolved || busyThrow || !encDown) return;
+  const dx = e.offsetX - encDown.x, dy = e.offsetY - encDown.y, dist = Math.hypot(dx,dy);
+  const releaseMs = performance.now() - ringT0; encDown = null;
+  let hit = true;
+  if (dist >= 8){ const ex = e.offsetX - ENC_CX, ey = e.offsetY - ENC_CX; hit = Math.hypot(ex,ey) <= ENC_R*1.25; } // 1.25× forgiving
+  attemptThrow(releaseMs, hit);
+});
+
+let busyThrow = false;
+async function attemptThrow(releaseMs, hit){
+  if (!current || !current.rarity) return;
+  const orb = current.orbSel;
+  if (!orb || (poi.getInventory()[orb]|0) <= 0){ $('enc-note').textContent = 'no vessel to throw — spin a nearby place.'; return; }
+  const ratio = ringRadius(releaseMs, ENC_R*1.9) / ENC_R;
+  const q = throwQuality(ratio, hit);
+  if (!q.hit){ showGrade('wide'); $('enc-note').textContent = 'wide — the vessel bounced back (nothing spent).'; ringT0 = performance.now(); return; }
+
+  busyThrow = true; ringOn = false; showGrade(q.label);
+  // a HIT always consumes one vessel
+  poi.spendItem(orb, 1);
+  const vessel = poi.ITEMS[orb];
+  const orbHold = poi.VESSEL_HOLD[vessel.tier] != null ? poi.VESSEL_HOLD[vessel.tier] : 1.0;
+  let aidCatch = 1, aidFlee = 1, aidKey = 'none';
+  if (current.aidSel){ const off = poi.ITEMS[current.aidSel]; aidKey = current.aidSel; aidCatch = off.catchMult; aidFlee = off.fleeMult;
+    if (off.oneThrow){ poi.spendItem(current.aidSel, 1); if ((poi.getInventory()[current.aidSel]|0) <= 0) current.aidSel = null; }
+    else if (!current.saltActive){ poi.spendItem(current.aidSel, 1); current.saltActive = true; }
+  }
+  renderPouch(); refreshChips();
+
+  const pal = (current.spawn.cart.genome.layers.find(l=>l.role==='surface')||{}).palette || ['#8fb3c9'];
+  const res = await runCatch(
+    { tier: current.rarity.tier, orbMult: vessel.catchMult, orbHold, aidCatch, aidFlee, throwMult: q.mult },
+    {
+      onWobble: (i) => { glowPulse = 1; setTimeout(()=>glowPulse=0.35,120); try{ navigator.vibrate && navigator.vibrate(40); }catch{} beep(520+i*90); },
+      onBreak: (shakes) => { glowPulse = 0; whiteBurst(); $('enc-note').textContent = shakes ? `it shook ${shakes}× — then broke free!` : 'it broke free instantly!'; },
+      onFlee: () => { greyPuff(pal); }
+    }
+  );
+  window.__lastRoll = res;
+
+  if (res.caught){ await onCaught(orb, aidKey, q.label, res.shakes, pal); }
+  else if (res.fled){ onFled(); }
+  else { busyThrow = false; ringOn = true; ringT0 = performance.now(); if ((poi.getInventory()[orb]|0) <= 0) renderPouch(); }
+}
+
+async function onCaught(orb, aidKey, throwLabel, shakes, pal){
+  current.resolved = true; ringOn = false;
+  catchSparkle(pal);
+  const sp = current.spawn;
+  // POI provenance if this sky was caught at/near a named place
+  let near = null, nd = Infinity;
+  for (const p of poiList){ const d = haversineM(sp, p); if (d < nd){ nd = d; near = p; } }
+  const atPoi = near && nd <= 60 ? near : null;
+  const geohash = (sp.cart.born.coord || '').split('\u00b7')[0];
+  let rec = null;
+  try { rec = await mintCaught(sp.cart, { geohash, poiId: atPoi ? atPoi.id : null, poiName: atPoi ? atPoi.name : null, tier: current.rarity.tier, orb, aid: aidKey, throwLabel, wobbles: shakes }); }
+  catch(e){ console.warn('mint failed (kept in memory only):', e); }
+
+  suppress.add(sp.key); spawns.delete(sp.key); map.removeMarker(sp.key);
+  $('door-talk').href = talkHref(sp.cart);
+  $('door-breed').href = breedHref(sp.cart);
+  $('enc-kit').style.display = 'none'; $('enc-hint').textContent = '';
+  $('enc-note').textContent = 'it\u2019s yours now — a real sky, pressed like a flower.' + (rec && rec.idVerified === false ? ' (id check failed!)' : '');
+  $('enc-doors').classList.add('show');
+  beep(660,0.12); setTimeout(()=>beep(880,0.14),120); setTimeout(()=>beep(990,0.16),260);
+  busyThrow = false; refreshChips();
+}
+// flee suppresses THIS spawn for the current weather bucket (the key embeds the
+// bucket) — the creature/cart is NEVER mutated; a new bucket brings a new key.
+function onFled(){
+  current.resolved = true; ringOn = false;
+  const sp = current.spawn;
+  suppress.add(sp.key); spawns.delete(sp.key); map.removeMarker(sp.key);
+  $('enc-kit').style.display = 'none'; $('enc-hint').textContent = '';
+  $('enc-note').textContent = 'it fled — and took your vessel. that exact sky won\u2019t return this bucket.';
+  busyThrow = false; refreshChips();
+  setTimeout(() => { if (current && current.resolved && current.spawn === sp) closeEncounter(true); }, 1600);
+}
+
+// ── little feedback flourishes (birth-palette tinted; no arcade juice) ─────────────
+function showGrade(label){ const g = $('enc-grade'); g.textContent = label; g.classList.add('show'); setTimeout(()=>g.classList.remove('show'), 900); }
+function catchSparkle(pal){ for (let i=0;i<22;i++){ const a=Math.random()*TAU, sp=2+Math.random()*3; sparkles.push({ x:ENC_CX, y:ENC_CX, vx:Math.cos(a)*sp, vy:Math.sin(a)*sp, r:1.5+Math.random()*2, life:1, c:hexA(pal[i%pal.length], 0.9) }); } }
+function whiteBurst(){ for (let i=0;i<14;i++){ const a=Math.random()*TAU, sp=3+Math.random()*3; sparkles.push({ x:ENC_CX, y:ENC_CX, vx:Math.cos(a)*sp, vy:Math.sin(a)*sp, r:1.5+Math.random()*2, life:0.7, c:'rgba(255,255,255,.85)' }); } }
+function greyPuff(){ for (let i=0;i<16;i++){ const a=Math.random()*TAU, sp=1+Math.random()*2; sparkles.push({ x:ENC_CX, y:ENC_CX, vx:Math.cos(a)*sp, vy:Math.sin(a)*sp-0.5, r:2+Math.random()*3, life:0.9, c:'rgba(150,150,160,.6)' }); } }
+
+// ── audio (feature-guarded; the throw gesture is the unlock) ──────────────────────
+let actx = null;
+function beep(freq, dur = 0.06, gain = 0.04){
+  try{ if (!actx) actx = new (window.AudioContext||window.webkitAudioContext)();
+    const o = actx.createOscillator(), g = actx.createGain(); o.frequency.value = freq; o.type='sine';
+    g.gain.value = gain; o.connect(g); g.connect(actx.destination); o.start();
+    g.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime + dur); o.stop(actx.currentTime + dur);
+  }catch{}
+}
+
+// ── the place sheet (spin a POI for items) ───────────────────────────────────────
+function openPoi(p){
+  currentPoi = p;
+  $('poi-name').textContent = (p.name || 'a place').toLowerCase();
+  $('poi-kind').textContent = '\u00b7 ' + p.kind + ' \u00b7';
+  $('poi-drops').innerHTML = ''; $('poi-note').textContent = '';
+  updatePoiSheet();
+  const inv = poi.getInventory();
+  const lureBtn = $('poi-lure'); lureBtn.style.display = (inv['lure']|0) > 0 ? '' : 'none';
+  const sh = $('poi-sheet'); sh.classList.add('open'); sh.setAttribute('aria-hidden','false');
+}
+function updatePoiSheet(){
+  if (!currentPoi) return;
+  const st = poi.poiStatus(currentPoi, playerPos);
+  const btn = $('poi-spin');
+  if (!st.inRange){ btn.disabled = true; btn.textContent = 'walk closer to spin (' + Math.round(st.distanceM) + 'm)'; }
+  else if (!st.ready){ btn.disabled = true; btn.textContent = 'refilling · ' + Math.ceil(st.readyInMs/1000) + 's'; }
+  else { btn.disabled = false; btn.textContent = 'spin this place'; }
+}
+$('poi-spin').addEventListener('click', () => {
+  if (!currentPoi) return;
+  const r = poi.spinPOI(currentPoi, playerPos);
+  if (!r.ok){ $('poi-note').textContent = r.error === 'out of range' ? 'too far — walk closer.' : 'still refilling.'; updatePoiSheet(); return; }
+  const d = $('poi-drops'); d.innerHTML = '';
+  for (const drop of r.drops){ if (drop.granted <= 0) continue; const el = document.createElement('div'); el.className='drop'; el.innerHTML = `${drop.item.glyph} ${drop.item.name} ×${drop.granted}`; d.appendChild(el); }
+  $('poi-note').textContent = (r.bagFull ? 'your bag is full — some spilled. ' : '') + 'the place gives, then rests a while.';
+  updatePoiSheet(); refreshChips();
+  if (current) renderPouch();     // reflect new vessels in an open encounter
+});
+$('poi-lure').addEventListener('click', () => {
+  if (!currentPoi) return;
+  if (poi.placeLure(currentPoi)){ $('poi-note').textContent = 'a lure quickens this place for 20 minutes.'; $('poi-lure').style.display = 'none'; refreshChips(); refreshSpawns(true); }
+});
+$('poi-close').addEventListener('click', () => { const sh = $('poi-sheet'); sh.classList.remove('open'); sh.setAttribute('aria-hidden','true'); currentPoi = null; });
+setInterval(() => { if (currentPoi && $('poi-sheet').classList.contains('open')) updatePoiSheet(); }, 1000);
+
+// ── bag drawer ────────────────────────────────────────────────────────────────────
+function openBag(){
+  const inv = poi.getInventory();
+  const grid = $('bag-grid'); grid.innerHTML = '';
+  const ids = Object.keys(inv).filter(id => (inv[id]|0) > 0 && poi.ITEMS[id]);
+  if (!ids.length){ grid.innerHTML = '<div class="bag-empty">empty — spin a place to gather vessels and offerings.</div>'; }
+  else for (const id of ids){ const it = poi.ITEMS[id];
+    const row = document.createElement('div'); row.className='bag-row';
+    row.innerHTML = `<div class="g">${it.glyph}</div><div class="nm">${it.name}<br><span style="font-size:10.5px;color:var(--go-dim)">${it.desc||''}</span></div><div class="ct">×${inv[id]}</div>`;
+    grid.appendChild(row);
+  }
+  $('bag-cap').textContent = poi.bagCount() + ' / ' + poi.BAG + ' held';
+  const b = $('bag'); b.classList.add('open'); b.setAttribute('aria-hidden','false');
+}
+$('bag').addEventListener('click', e => { if (e.target === $('bag')) { const b=$('bag'); b.classList.remove('open'); b.setAttribute('aria-hidden','true'); } });
 
 // ── geolocation ────────────────────────────────────────────────────────────────
 let watchId = null, pollTimer = null, statHist = [];
 function applyFix(p){
-  playerPos = { lat: p.lat, lng: p.lng };
+  playerPos = { lat: p.lat, lng: p.lng, accuracy: p.accuracy };
   map.setPlayer({ lat: p.lat, lng: p.lng, accuracy: p.accuracy, heading: p.heading });
-  LS.set('rapp-go.lastFix', { lat: p.lat, lng: p.lng });
+  if (!DEMO) LS.set('rapp-go.lastFix', { lat: p.lat, lng: p.lng });
   $('invite').style.display = 'none';
-  const chips = []; const sc = skyChip(); if (sc) chips.push(sc);
-  if (p.accuracy != null && p.accuracy > 50) chips.unshift({ text: 'finding you…', kind: 'muted' });
-  setChips(chips);
-  refreshSpawns();
+  const extra = (p.accuracy != null && p.accuracy > 50) ? [{ text: 'finding you…', kind: 'muted' }] : null;
+  refreshChips(extra);
+  refreshSpawns();                                        // spawns appear immediately from the sky
+  refreshPOIs().then(() => refreshSpawns(true));          // POI anchors apply when they arrive (best-effort)
   checkProximity();
   maybeDowngrade(p);
 }
 function onGeoError(err){
   const last = LS.get('rapp-go.lastFix');
   if (last){
-    playerPos = { ...last };
+    playerPos = { lat: last.lat, lng: last.lng, accuracy: 120 };
     map.setPlayer({ lat: last.lat, lng: last.lng, accuracy: 120 });
     $('invite').style.display = 'none';
-    setChips([{ text: 'location is hazy — showing your last place', kind: 'warn' }]);
+    setChips([{ text: 'location is hazy — showing your last place', kind: 'warn' }, bagChip()]);
     refreshSpawns(true);
+    refreshPOIs().then(() => refreshSpawns(true));
   } else {
     setChips([{ text: 'location is hazy', kind: 'warn' }]);
     $('invite').style.display = 'flex';
   }
 }
-// stationary → downgrade the high-accuracy watch to a 20s poll (battery)
 function maybeDowngrade(p){
   const t = now();
   statHist.push({ lat: p.lat, lng: p.lng, t });
@@ -336,7 +670,7 @@ function maybeDowngrade(p){
   if (watchId != null && statHist.length >= 3){
     const far = statHist.some(h => haversineM({lat:p.lat,lng:p.lng}, h) > 10);
     const span = t - statHist[0].t;
-    if (!far && span > 30000){ // still for ~30s → poll instead
+    if (!far && span > 30000){
       navigator.geolocation.clearWatch(watchId); watchId = null;
       pollTimer = setInterval(pollOnce, 20000);
     }
@@ -347,7 +681,7 @@ function pollOnce(){
   navigator.geolocation.getCurrentPosition(pos => {
     const moved = playerPos ? haversineM(playerPos, { lat: pos.coords.latitude, lng: pos.coords.longitude }) : Infinity;
     applyFix({ lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: pos.coords.accuracy, heading: pos.coords.heading });
-    if (moved > 10){ clearInterval(pollTimer); pollTimer = null; statHist = []; startWatch(); } // moving again → high-accuracy
+    if (moved > 10){ clearInterval(pollTimer); pollTimer = null; statHist = []; startWatch(); }
   }, () => {}, { enableHighAccuracy: false, maximumAge: 15000, timeout: 15000 });
 }
 function startWatch(){
@@ -361,8 +695,11 @@ function startWatch(){
 function stopGeo(){ if (watchId != null){ navigator.geolocation.clearWatch(watchId); watchId = null; } if (pollTimer){ clearInterval(pollTimer); pollTimer = null; } }
 
 // ── wiring ────────────────────────────────────────────────────────────────────────
-map.on('tap', (marker) => { if (marker && marker.data && marker.data.spawn && !current) openEncounter(marker.data.spawn); });
-$('enc-catch').addEventListener('click', attemptCatch);
+map.on('tap', (marker) => {
+  if (!marker || !marker.data) return;
+  if (marker.data.spawn && !current){ openEncounter(marker.data.spawn); return; }
+  if (marker.data.poi){ openPoi(marker.data.poi); return; }
+});
 $('enc-close').addEventListener('click', () => closeEncounter(false));
 $('door-keep').addEventListener('click', e => { e.preventDefault(); closeEncounter(true); });
 $('invite-btn').addEventListener('click', startWatch);
@@ -370,17 +707,18 @@ $('invite-btn').addEventListener('click', startWatch);
 document.addEventListener('visibilitychange', () => {
   panelHidden = document.hidden;
   if (document.hidden){ stopGeo(); stopCreatureRender(); }
-  else { panelHidden = false; if (!FIX){ statHist = []; startWatch(); } if (current) startCreatureRender(current.spawn.cart.genome); }
+  else { panelHidden = false; if (!FIX && !DEMO){ statHist = []; startWatch(); } if (current) startCreatureRender(current.spawn.cart.genome); }
 });
 
 // ── boot ────────────────────────────────────────────────────────────────────────
-if (FIX){
-  // desktop verification path — pinned position, tap a spawn to encounter
+if (DEMO){
+  applyFix({ lat: startCenter.lat, lng: startCenter.lng, accuracy: 6 });
+  setChips([{ text: 'demo · offline', kind: 'muted' }, bagChip()]);
+} else if (FIX){
   applyFix({ lat: FIX.lat, lng: FIX.lng, accuracy: 8 });
-  setChips([{ text: 'fixed location', kind: 'muted' }]);
 } else if (navigator.geolocation){
   const last = LS.get('rapp-go.lastFix');
-  if (last){ playerPos = { ...last }; map.setPlayer({ lat: last.lat, lng: last.lng, accuracy: 90 }); refreshSpawns(true); }
+  if (last){ playerPos = { lat: last.lat, lng: last.lng, accuracy: 90 }; map.setPlayer({ lat: last.lat, lng: last.lng, accuracy: 90 }); refreshSpawns(true); refreshPOIs().then(()=>refreshSpawns(true)); }
   else { $('invite').style.display = 'flex'; }
   startWatch();
 } else {
@@ -389,8 +727,13 @@ if (FIX){
 }
 
 // ── optional debug surface (?debug=1) — for desktop/automated verification only ──
-if (params.get('debug') === '1') {
-  window.__rappgo = { map, field, spawns, suppress, openEncounter, attemptCatch, closeEncounter, keepToBasket, RARITY, get current(){ return current; } };
+if (params.get('debug') === '1' || DEMO) {
+  window.__rappgo = {
+    map, field, poi, spawns, suppress, poiMarkers, cooldown,
+    get poiList(){ return poiList; }, get playerPos(){ return playerPos; },
+    openEncounter, closeEncounter, attemptThrow, openPoi, refreshSpawns, refreshPOIs,
+    eggRarity, get current(){ return current; }, get lastRoll(){ return window.__lastRoll; }
+  };
 }
 </script>
 </body>
