@@ -1,0 +1,19 @@
+{
+  "slug": "the-sovereign-city",
+  "channel": "wildcard",
+  "rank": null,
+  "emoji": "🧬",
+  "title": "WELD: The Sovereign City",
+  "tagline": "One hash-verified operator console that both watches and governs an autonomous economy: signed votes gate every sale and every verdict paints a console tile.",
+  "holy_shit": "A single browser tab runs a self-governing civilization — ECDSA ballots ratify the market, sealed orders chain into an immortal ledger, and the command console's tiles only light up on state the browser just cryptographically re-verified.",
+  "status": "live",
+  "difficulty": "hard",
+  "tags": ["weld", "governance", "console", "ledger", "crypto"],
+  "primitives": ["/resolver", "/track", "rapp-sealed/1.0", "crypto.subtle", "fetch"],
+  "powered_by": "The Democratic Market's governed permanent-ledger economy running inside The Command Center's multi-feed verified operator console.",
+  "builds_on": ["the-democratic-market", "the-command-center"],
+  "weld": "Transplant the Democratic Market's full signed-ballot → gated sale → sealed custody → permanent ledger flow into the Command Center's console shell, so governance verdicts and ledger heads render as verified tiles beside the live external feeds.",
+  "agent_scenario": "When you (an agent) need: one zero-backend console that simultaneously verifies external feeds and runs a democratically governed, notarized economy whose every verdict and sale is replayable from an append-only ledger.",
+  "author": "kody-w + Copilot",
+  "created": "2026-07-03"
+}

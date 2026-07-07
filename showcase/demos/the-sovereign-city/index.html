@@ -1,0 +1,1159 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WELD: The Sovereign City — The Library of Awesome</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../../lib/showcase.css">
+<style>
+  /* ── donor: the-command-center ── */
+  .console-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:0 0 12px}
+  .tile{min-height:118px}
+  .tile .kicker{font-family:var(--mono);font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+  .tile .proof{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:8px;line-height:1.45;word-break:break-word}
+  .tile ul,.tile ol{margin:8px 0 0;padding-left:18px}
+  /* ── donor: the-democratic-market ── */
+  .menu-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;padding:10px 12px;background:var(--panel-2,#1a1a2e);border-radius:10px;border:1px solid var(--line)}
+  .menu-item input[type=checkbox]{width:16px;height:16px;margin-top:3px;flex-shrink:0;cursor:pointer;accent-color:var(--accent,#7ee8a2)}
+  .menu-item label{cursor:pointer;flex:1;line-height:1.4}
+  .menu-item.sold-out-item label{opacity:.45;text-decoration:line-through;cursor:not-allowed}
+  .badge{display:inline-block;padding:1px 7px;border-radius:6px;font-size:11px;font-family:var(--mono)}
+  .badge.avail{background:rgba(0,200,100,.15);color:#0c6}
+  .badge.sold{background:rgba(200,100,0,.15);color:var(--accent,#f5a623)}
+  .cipher{font-family:var(--mono);font-size:12px;word-break:break-all;overflow-wrap:anywhere;color:var(--accent-2,#7ee8a2);line-height:1.5}
+  .mirror-list,.ledger-list{display:grid;gap:10px}
+  .card{border:1px solid var(--line);border-radius:12px;background:var(--panel-2);padding:12px}
+  .card h3{margin:0 0 8px;font-size:15px}
+  .meta-line{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--muted);margin:4px 0}
+  .hash{word-break:break-all;color:var(--accent-2)}
+  .agent-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:12px}
+  .agent{border:1px solid var(--line);border-radius:10px;background:var(--panel-2);padding:9px 10px;font-family:var(--mono);font-size:12px}
+  .agent b{color:var(--text)}
+  .gov-ledger{display:grid;gap:8px;margin-top:12px}
+  .gov-ledger .row{border:1px solid var(--line);border-radius:11px;background:var(--panel-2);padding:10px 12px;font-family:var(--mono);font-size:12px}
+  .gov-ledger .top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  /* ── shared ── */
+  .field{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
+  .field label{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-family:var(--mono)}
+  .field input,.field textarea{width:100%;background:var(--panel-2,#1a1a2e);border:1px solid var(--line);border-radius:9px;color:var(--ink);padding:10px 12px;font:inherit;font-size:14px;font-family:var(--mono)}
+  .field textarea{min-height:56px;resize:vertical}
+  .weld-arrow{text-align:center;font-size:15px;margin:8px 0 14px;color:var(--muted)}
+  #citySection{display:none}
+</style>
+</head><body>
+<div class="wrap">
+  <p style="padding-top:18px"><a href="../../">← the Library of Awesome</a></p>
+
+  <div class="demo-head">
+    <div class="emoji" id="emoji">🧬</div>
+    <h1 id="title">WELD: The Sovereign City</h1>
+    <p class="holy" id="holy"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Live — run the sovereign city</h2>
+    <p style="margin:0 0 12px;color:var(--muted)">This weld keeps both donors alive on one screen. The full Democratic Market still runs end to end — mirror-surviving pinned cell, live Issues inventory, ECDSA-signed governance ballots racing append-only consensus, RSL1-sealed orders, custody stamps, seller-signed receipts, a tamper-evident permanent ledger — and The Command Center's console still refreshes verified weather, repo pulse, and leaderboard feeds. The weld point is the console itself: civic tiles that only paint governance and ledger state the browser just re-verified, beside outside-world tiles it verifies the same way.</p>
+
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap">
+      <button class="run" id="goCity">🏙️ Boot the sovereign city</button>
+      <button class="run" id="tamper" style="background:var(--panel);color:var(--text);border:1px solid var(--line)" disabled>✂️ Tamper latest ledger entry</button>
+      <span class="mono" style="font-size:12px;color:var(--faint)">mirrors + market + governance replay + weather + repo + JS board · no backend</span>
+    </div>
+
+    <div class="console-grid">
+      <div class="live-out tile" id="tile-market"><span class="mono" style="color:var(--faint)">market intake tile waiting…</span></div>
+      <div class="live-out tile" id="tile-governance"><span class="mono" style="color:var(--faint)">governance tile waiting…</span></div>
+      <div class="live-out tile" id="tile-custody"><span class="mono" style="color:var(--faint)">custody tile waiting…</span></div>
+      <div class="live-out tile" id="tile-ledger"><span class="mono" style="color:var(--faint)">permanent ledger tile waiting…</span></div>
+      <div class="live-out tile" id="tile-weather"><span class="mono" style="color:var(--faint)">weather tile waiting…</span></div>
+      <div class="live-out tile" id="tile-repo"><span class="mono" style="color:var(--faint)">repo tile waiting…</span></div>
+      <div class="live-out tile" id="tile-board"><span class="mono" style="color:var(--faint)">leaderboard tile waiting…</span></div>
+    </div>
+
+    <h2 style="margin-top:18px">Watch what's happening</h2>
+    <ul class="steps" id="centerSteps"></ul>
+
+    <div class="live-out" id="mirrorsOut" style="margin-top:14px"><span class="mono" style="color:var(--faint)">— boot the city to resolve the immortal mirrors —</span></div>
+    <div class="live-out" id="menuOut" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— live inventory appears here —</span></div>
+
+    <div id="citySection">
+      <div class="weld-arrow" style="font-size:18px;color:var(--accent)">🧬 <b>WELD POINT</b>: the console's verified tiles now render the Market's governance state</div>
+
+      <h2>Govern the city — trustless poll gates the market</h2>
+      <p style="margin:0 0 12px;color:var(--muted)">No admin, only signed ballots: 6 agents mint ECDSA P-256 ballots over the exact proposal bytes a pinned cell echoed back, then race append-only fast-forward consensus. The governance tile above only turns green after the full ballot chain re-verifies.</p>
+      <div id="cartItems" style="margin-bottom:14px"></div>
+      <div class="field">
+        <label for="poll">governance proposal (what voters are deciding)</label>
+        <textarea id="poll" spellcheck="false">Approve this selected cart for listing + fulfillment in the sovereign city's permanent market?</textarea>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px">
+        <button class="run" id="goGovern">🗳️ Run trustless governance poll</button>
+        <span class="mono" style="font-size:12px;color:var(--faint)">6 agents · ECDSA ballots · append-only consensus</span>
+      </div>
+      <div class="live-out" id="governOut" style="margin-top:10px"><span class="mono" style="color:var(--faint)">— run governance first: no admin, only signed ballots —</span></div>
+      <div class="agent-grid" id="agentGrid"></div>
+      <div class="gov-ledger" id="govLedger"></div>
+      <h2 style="margin-top:18px">Watch what's happening</h2>
+      <ul class="steps" id="governSteps"></ul>
+
+      <div class="weld-arrow">🔗 <b>weld point</b>: only a YES-ratified cart may be sealed — the vote outcome gates the sale</div>
+      <h2>Seal the governed order</h2>
+      <div class="field">
+        <label for="buyerNote">buyer note (optional)</label>
+        <textarea id="buyerNote" spellcheck="false" placeholder="e.g. Hold for pickup · include a paper receipt too"></textarea>
+      </div>
+      <div class="field">
+        <label for="sellerKey">seller's seal passphrase — the one key that opens this order</label>
+        <input id="sellerKey" type="text" value="" placeholder="type a seller-only passphrase for this run" spellcheck="false">
+      </div>
+      <button class="run" id="goSeal">🧾 Finalize governed order + append to permanent ledger</button>
+      <div class="live-out" id="sealOut" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— select item(s) and finalize the order —</span></div>
+      <div class="live-out" id="custodyOut" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— custody proof appears here —</span></div>
+      <div class="live-out" id="receiptOut" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— notarized receipt appears here —</span></div>
+      <h2 style="margin-top:18px">Watch what's happening</h2>
+      <ul class="steps" id="sealSteps"></ul>
+
+      <div class="weld-arrow">🔗 <b>weld point</b>: verdict + sale fuse into one permanent ledger entry, and the ledger tile paints only after full replay</div>
+      <h2>Permanent ledger — the city's immortal history</h2>
+      <div class="live-out" id="ledgerOut" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— immutable ledger entries appear here —</span></div>
+      <div class="live-out" id="out" style="margin-top:12px"><span class="mono" style="color:var(--faint)">— final verification verdict appears here —</span></div>
+      <h2 style="margin-top:18px">Watch what's happening</h2>
+      <ul class="steps" id="ledgerSteps"></ul>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Why it's cool</h2>
+    <p><b>The Democratic Market</b> already proves an unkillable, notarized economy where every sale is gated by ECDSA-signed, append-only governance votes. <b>The Command Center</b> already proves a one-screen operator console of hash-verified live tiles. This weld keeps both intact and fuses them at the console: the city's governance verdicts, custody heads, and permanent-ledger state now paint tiles beside the verified outside-world feeds.</p>
+    <p style="margin:12px 0 0">The tiles are not decorative. The governance tile only turns green after the whole ballot chain replays and re-verifies (including a replay of persisted history on every boot). The ledger tile only turns green after every entry's parent pointer, content hash, freshness proof, and seller signature re-verify. Tamper with one byte of history and the same tiles turn REFUSED — one tab both watches and governs an autonomous civilization, with no backend.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Run it yourself</h2>
+    <ol style="margin:0;padding-left:20px;color:var(--muted)">
+      <li>Press <b>Boot the sovereign city</b>. The console resolves the same pinned cell across dead and surviving mirrors, loads live sold-out labels from GitHub Issues, replays any persisted governance ledger, and refreshes the three verified external-feed tiles — all in one <code>Promise.allSettled</code>.</li>
+      <li>Select at least one available item and press <b>Run trustless governance poll</b>. Six agents mint ECDSA ballots, race append-only consensus, and the governance tile paints only from the re-verified tally.</li>
+      <li>Only after a YES majority ratifies the cart, type a seller passphrase and press <b>Finalize governed order + append to permanent ledger</b>.</li>
+      <li>Watch the order become an RSL1 envelope, a custody link, a seller-signed receipt, and a permanent ledger entry that embeds the governance verdict — then watch the ledger tile go green only after the full chain replays.</li>
+      <li>Press <b>Tamper latest ledger entry</b> to mutate stored content. Verification halts on that exact entry and the civic tiles flip to REFUSED.</li>
+    </ol>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin-top:10px">Local: <code>python3 -m http.server</code> in the repo root, then open <code>localhost:8000/showcase/demos/the-sovereign-city/</code> (<code>crypto.subtle</code> needs localhost or https, not file://).</p>
+  </div>
+
+  <div class="panel">
+    <h2>For agents 🤖</h2>
+    <p style="margin:0 0 8px;color:var(--muted)">Reusable pattern: <span id="scenario" class="mono" style="font-size:13px"></span></p>
+    <p style="margin:0 0 8px;color:var(--muted)">Weld pattern: transplant <b>the-democratic-market</b> entire as the governed permanent-ledger economy, transplant <b>the-command-center</b>'s console shell entire as the verified tile wall, then bind them so governance verdicts and ledger heads paint console tiles only after in-browser cryptographic re-verification — the console's verified tiles now render the Market's governance state.</p>
+    <p class="mono" style="font-size:12px;color:var(--faint);margin:0">record: <a href="demo.json">demo.json</a> · powered by <span id="prim"></span></p>
+  </div>
+
+  <footer class="site">Part of <a href="../../">the Library of Awesome</a> · RAPP static-API stack.</footer>
+</div>
+
+<script type="module">
+import { runVerifiedCell, mkNarrator, sha256hex } from '../../lib/showcase.js';
+import { IssuesDB } from '../../lib/issues-db.mjs';
+import { expand } from '../../../resolver/rapp-resolve.mjs';
+
+const meta = await fetch('demo.json').then(r => r.json());
+document.getElementById('emoji').textContent = meta.emoji;
+document.getElementById('title').textContent = meta.title;
+document.title = meta.title + ' — The Library of Awesome';
+document.getElementById('holy').textContent = meta.holy_shit;
+document.getElementById('meta').innerHTML =
+  `<span class="pill ${meta.status}">${meta.status}</span>` +
+  `<span class="pill">${meta.difficulty}</span>` +
+  meta.primitives.map(p => `<span class="pill mono">${p}</span>`).join('') +
+  meta.tags.map(t => `<span class="pill">#${t}</span>`).join('');
+document.getElementById('scenario').textContent = meta.agent_scenario;
+document.getElementById('prim').textContent = meta.primitives.join(' ');
+
+/* ── donor: the-democratic-market — constants ── */
+const OWNER = 'kody-w';
+const REPO = 'rapp-static-apis';
+const TRACK = '../../../track';
+const SOLD_OUT_PREFIX = 'sold-out:';
+const MENU = [
+  { key: 'margherita-pizza',   name: 'Margherita Pizza',   note: 'wood-fired · basil · fior di latte', price: '$14' },
+  { key: 'mushroom-ramen',     name: 'Mushroom Ramen',     note: 'miso broth · smoked shiitake',       price: '$13' },
+  { key: 'halloumi-tacos',     name: 'Halloumi Tacos',     note: 'charred pineapple salsa',            price: '$12' },
+  { key: 'charred-broccolini', name: 'Charred Broccolini', note: 'lemon chili oil',                    price: '$9'  },
+  { key: 'citrus-tonic',       name: 'Citrus Tonic',       note: 'grapefruit · rosemary',              price: '$6'  }
+];
+const PIN = '3fe23f859268';
+const ID = `track@${PIN}`;
+const GOV_AGENTS = 6;
+const GOV_CHOICES = ['YES', 'YES', 'NO', 'ABSTAIN', 'YES', 'NO'];
+const MIRRORS = [
+  { id: 'track@3fe23f859268', host: 'github.io', tag: 'origin repo', fate: 'dead' },
+  { id: 'someone-else/track@3fe23f859268', host: 'github.io', tag: "a stranger's fork", fate: 'alive' },
+  { id: 'eu-mirror/track@3fe23f859268', host: 'gitlab.io', tag: 'GitLab Pages mirror', fate: 'alive' }
+];
+const FRESHNESS_SPEC = {
+  title: 'catalog freshness witness',
+  source: new URL('../../catalog.json', location.href).href,
+  path: 'posts.length',
+  describe: value => `The live showcase catalog exposed ${value} published posts when this receipt was committed into the ledger.`
+};
+/* ── donor: the-command-center — external feed sources ── */
+const RANKING = 'https://raw.githubusercontent.com/EvanLi/Github-Ranking/master/Top100/JavaScript.md';
+const FARM = 'https://api.open-meteo.com/v1/forecast?latitude=2.53&longitude=-75.53&current=temperature_2m,precipitation';
+const GH_REPO = `https://api.github.com/repos/${OWNER}/${REPO}`;
+
+const enc = new TextEncoder();
+const MAGIC = 'RSL1';
+const ITER = 250000;
+const HEADER = 4 + 16 + 12;
+const db = new IssuesDB({ owner: OWNER, repo: REPO });
+const $ = id => document.getElementById(id);
+
+/* one narrator per section (donor B convention) */
+const centerNarrate = mkNarrator($('centerSteps'));
+const governNarrate = mkNarrator($('governSteps'));
+const sealNarrate   = mkNarrator($('sealSteps'));
+const ledgerNarrate = mkNarrator($('ledgerSteps'));
+
+let soldOut = new Map();
+let custodyChain = null;
+let sellerKeyPair = null;
+let mirrorWitness = null;
+let survivorEcho = null;
+let permanentLedger = null;
+let lastLedger = null;
+let governanceResult = null;
+
+/* ── shared helpers — ONE copy each (donors carried private near-duplicates) ── */
+function b64(bytes) {
+  let s = '';
+  for (let i = 0; i < bytes.length; i += 0x8000)
+    s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(s);
+}
+function b64url(bytes) {
+  return b64(bytes).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
+function fromB64url(str) {
+  const normalized = String(str).replace(/-/g, '+').replace(/_/g, '/');
+  const remainder = normalized.length % 4;
+  const padLength = remainder === 0 ? 0 : 4 - remainder;
+  const padded = normalized + '='.repeat(padLength);
+  const raw = atob(padded);
+  return Uint8Array.from(raw, ch => ch.charCodeAt(0));
+}
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+function short(h) { return `${String(h || '').slice(0, 12)}…`; }
+function rndHex(n = 6) {
+  return [...crypto.getRandomValues(new Uint8Array(n))]
+    .map(b => b.toString(16).padStart(2, '0')).join('');
+}
+async function sha12(value) {
+  // string-input digest (donor A local helper); sha256hex from the lib takes a BUFFER
+  const d = await crypto.subtle.digest('SHA-256', enc.encode(String(value)));
+  return [...new Uint8Array(d)].map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 12);
+}
+function randInt(maxExclusive) {
+  const limit = Math.floor(0x100000000 / maxExclusive) * maxExclusive;
+  let value = 0;
+  do value = crypto.getRandomValues(new Uint32Array(1))[0];
+  while (value >= limit);
+  return value % maxExclusive;
+}
+function shuffle(items) {
+  const copy = items.slice();
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = randInt(i + 1);
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+async function keyIdFor(jwk) {
+  return sha12(JSON.stringify({ crv: jwk.crv, kty: jwk.kty, x: jwk.x, y: jwk.y }));
+}
+function dig(obj, path) {
+  return String(path || '').split('.').reduce((cur, key) => (cur == null ? undefined : cur[key]), obj);
+}
+function toSoldOutMap(records) {
+  const byKey = new Map();
+  for (const issue of records) {
+    for (const label of issue.labels || []) {
+      if (!label.startsWith(SOLD_OUT_PREFIX)) continue;
+      const key = label.slice(SOLD_OUT_PREFIX.length).trim().toLowerCase();
+      if (key && !byKey.has(key)) byKey.set(key, issue);
+    }
+  }
+  return byKey;
+}
+function parseTopRows(md, n) {
+  const rows = String(md || '').split('\n').map(l => l.trim());
+  const parsed = [];
+  for (const line of rows) {
+    if (!/^\|\s*\d+\s*\|/.test(line)) continue;
+    const cols = line.split('|').map(s => s.trim());
+    if (cols.length < 9) continue;
+    const rank = Number(cols[1]);
+    const link = cols[2].match(/^\[(.+?)\]\((https?:\/\/[^)]+)\)$/);
+    if (!Number.isFinite(rank) || !link) continue;
+    parsed.push({ rank, name: link[1], url: link[2], stars: cols[3], forks: cols[4] });
+    if (parsed.length >= n) break;
+  }
+  return parsed;
+}
+function renderTile(id, html) { $(id).innerHTML = html; }
+function menuRow(item, prefix = 'chk') {
+  const so = soldOut.get(item.key);
+  const avail = !so;
+  const badge = avail
+    ? '<span class="badge avail">available</span>'
+    : '<span class="badge sold">sold out</span>';
+  const link = so
+    ? ` <a class="mono" style="font-size:11px" href="${so.url}" target="_blank" rel="noopener noreferrer">issue #${so.number}</a>`
+    : '';
+  return `<div class="menu-item${avail ? '' : ' sold-out-item'}">` +
+    `<input type="checkbox" id="${prefix}-${esc(item.key)}" value="${esc(item.key)}"${avail ? '' : ' disabled'}>` +
+    `<label for="${prefix}-${esc(item.key)}">` +
+    `<div><b>${esc(item.name)}</b> ${badge} <span class="mono" style="font-size:12px;color:var(--muted)">${esc(item.price)}</span>${link}</div>` +
+    `<div class="mono" style="font-size:12px;color:var(--muted)">${esc(item.note)}</div>` +
+    '</label></div>';
+}
+
+/* ── donor: the-democratic-market — RSL1 seal ── */
+async function deriveKey(passphrase, salt) {
+  const base = await crypto.subtle.importKey('raw', enc.encode(passphrase), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt, iterations: ITER, hash: 'SHA-256' },
+    base,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['encrypt', 'decrypt']
+  );
+}
+async function sealRSL1(plaintext, passphrase) {
+  sealNarrate('seal-salt', 'active', 'roll a random 16-byte salt', 'crypto.getRandomValues');
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  sealNarrate('seal-salt', 'ok', 'random salt ready', b64(salt).slice(0, 16) + '…');
+  sealNarrate('seal-key', 'active', `stretch passphrase → AES-256 key (${ITER.toLocaleString()} PBKDF2 rounds)`, '');
+  const key = await deriveKey(passphrase, salt);
+  sealNarrate('seal-key', 'ok', 'AES-256 key derived', 'the key never leaves this tab');
+  sealNarrate('seal-nonce', 'active', 'roll a random 12-byte nonce', '');
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  sealNarrate('seal-nonce', 'ok', 'random nonce ready', b64(iv));
+  sealNarrate('seal-enc', 'active', 'AES-256-GCM encrypt the order payload', '');
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, enc.encode(plaintext)));
+  sealNarrate('seal-enc', 'ok', 'order sealed', `${ct.length} bytes of ciphertext + auth tag`);
+  const env = new Uint8Array(HEADER + ct.length);
+  env.set(enc.encode(MAGIC), 0);
+  env.set(salt, 4);
+  env.set(iv, 20);
+  env.set(ct, 32);
+  const sealed = b64(env);
+  sealNarrate('seal-pack', 'ok', 'RSL1 envelope packed', `${sealed.length} chars`);
+  return sealed;
+}
+
+/* ── donor: the-democratic-market — immortal mirrors + live market ── */
+function renderMirrors(rows) {
+  $('mirrorsOut').innerHTML = rows.map(({ m, e }) => {
+    const dead = m.fate === 'dead';
+    const icon = dead ? '☠️' : '🟢';
+    const host = `${e.owner}.${m.host}/${e.name}`;
+    return `<div class="mono" style="display:flex;gap:10px;align-items:baseline;padding:4px 0;font-size:13px">` +
+      `<span style="flex:0 0 auto">${icon}</span>` +
+      `<span style="flex:1;min-width:0;${dead ? 'text-decoration:line-through;color:var(--faint)' : 'color:var(--ink)'};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${host} <span style="color:var(--faint)">· ${m.tag}</span></span>` +
+      `<span class="pill mono" style="flex:0 0 auto">@${e.sha8}</span>` +
+      `</div>`;
+  }).join('') +
+  `<div class="mono" style="font-size:12px;color:var(--muted);margin-top:8px;border-top:1px solid var(--line);padding-top:8px">one id · ${rows.length} hosts · <b style="color:var(--accent-2)">every sha8 identical</b></div>`;
+}
+
+async function resolvePermanentMirrors() {
+  const rows = MIRRORS.map(m => ({ m, e: expand(m.id, { host: m.host }) }));
+  if (!rows.every(r => r.e.sha8 === PIN)) throw new Error('resolver produced differing hashes');
+  renderMirrors(rows);
+  mirrorWitness = rows.map(({ m, e }) => ({ host: `${e.owner}.${m.host}/${e.name}`, sha8: e.sha8, fate: m.fate }));
+  centerNarrate('mirror-resolve', 'ok', 'same pinned cell resolved across dead + surviving mirrors', `${rows.length} hosts agree on ${PIN}`);
+
+  const survivor = await runVerifiedCell({
+    base: TRACK,
+    cell: 'extract',
+    fn: 'echo',
+    args: { ping: 'origin is dead — are you still there?', id: ID },
+    onStep: (k, s, t, d = '') => centerNarrate(`survivor-${k}`, s, `survivor cell: ${t}`, d)
+  });
+  survivorEcho = survivor.echo;
+  centerNarrate('survivor-proof', 'ok', 'surviving mirror answered from the pinned cell', JSON.stringify(survivorEcho));
+}
+
+async function loadLiveMarket() {
+  centerNarrate('market-probe', 'active', 'verify the local market witness path', 'catalog posts.length via pinned extract cell');
+  const probe = await runVerifiedCell({
+    base: TRACK,
+    cell: 'extract',
+    fn: 'extract',
+    args: { src: new URL('../../catalog.json', location.href).href, path: 'posts.length' },
+    onStep: (k, s, t, d = '') => centerNarrate(`market-${k}`, s, `market cell: ${t}`, d)
+  });
+  centerNarrate('market-probe', 'ok', 'verified compute path for the local witness', `catalog posts: ${probe.value}`);
+
+  let fallbackNote = '';
+  try {
+    centerNarrate('issues', 'active', 'read open issues via IssuesDB', 'scan labels for sold-out:* markers');
+    const records = await db.list({ state: 'open', per_page: 100 });
+    soldOut = toSoldOutMap(records);
+    centerNarrate('issues', 'ok', `loaded ${records.length} open issues`, `${soldOut.size} sold-out label(s) found`);
+  } catch (e) {
+    soldOut = new Map();
+    fallbackNote = ' · live Issues API unavailable here, so this run assumes no sold-out labels';
+    centerNarrate('issues', 'bad', 'live IssuesDB read failed in this browser', String(e.message || e));
+    centerNarrate('issues-fallback', 'ok', 'fallback: keep the market running with all items unsold', 'the primary donor path is still IssuesDB when reachable');
+  }
+
+  const rows = MENU.map(item => menuRow(item)).join('');
+  const cartRows = MENU.map(item => menuRow(item, 'cart')).join('');
+  $('menuOut').innerHTML =
+    `<div style="margin-bottom:10px"><span class="big">${MENU.length - soldOut.size}/${MENU.length}</span> <span style="color:var(--muted)">items available right now</span></div>` +
+    rows +
+    `<div class="mono" style="font-size:12px;color:var(--faint);margin-top:8px">live Issues availability gate${fallbackNote} · ${new Date().toLocaleTimeString()}</div>`;
+  $('cartItems').innerHTML = cartRows;
+  $('citySection').style.display = 'block';
+  renderTile('tile-market',
+    `<div class="kicker">civic intake · market</div>` +
+    `<div><span class="big">${MENU.length - soldOut.size}/${MENU.length}</span> <span style="color:var(--muted)">items available</span></div>` +
+    `<div class="proof">pinned extract cell verified · Issues availability gate${fallbackNote ? ' (fallback)' : ''}</div>`);
+}
+
+/* ── donor: the-democratic-market — ECDSA governance flow ── */
+async function mintBallot(agentId, poll, choice, cartKey) {
+  const kp = await crypto.subtle.generateKey(
+    { name: 'ECDSA', namedCurve: 'P-256' },
+    true,
+    ['sign', 'verify']
+  );
+  const message = JSON.stringify({
+    poll,
+    cart: cartKey,
+    agent: `agent-${agentId}`,
+    choice,
+    nonce: rndHex(4),
+    at: new Date().toISOString()
+  });
+  const payload = enc.encode(message);
+  const sig = new Uint8Array(await crypto.subtle.sign(
+    { name: 'ECDSA', hash: 'SHA-256' },
+    kp.privateKey,
+    payload
+  ));
+  const valid = await crypto.subtle.verify(
+    { name: 'ECDSA', hash: 'SHA-256' },
+    kp.publicKey,
+    sig,
+    payload
+  );
+  if (!valid) throw new Error(`agent-${agentId} signature self-check failed`);
+  const jwk = await crypto.subtle.exportKey('jwk', kp.publicKey);
+  return {
+    agentId,
+    choice,
+    message,
+    publicKeyJwk: jwk,
+    signatureB64url: b64url(sig),
+    keyId: await keyIdFor(jwk)
+  };
+}
+
+async function verifyBallot(ballot) {
+  const pub = await crypto.subtle.importKey(
+    'jwk',
+    ballot.publicKeyJwk,
+    { name: 'ECDSA', namedCurve: 'P-256' },
+    true,
+    ['verify']
+  );
+  const valid = await crypto.subtle.verify(
+    { name: 'ECDSA', hash: 'SHA-256' },
+    pub,
+    fromB64url(ballot.signatureB64url),
+    enc.encode(ballot.message)
+  );
+  if (!valid) throw new Error(`signature check failed for ${ballot.keyId}`);
+  const parsed = JSON.parse(ballot.message);
+  if (parsed.choice !== ballot.choice) throw new Error(`choice tamper detected for ${ballot.keyId}`);
+  if ((await keyIdFor(ballot.publicKeyJwk)) !== ballot.keyId) throw new Error(`key id mismatch for ${ballot.keyId}`);
+  return parsed;
+}
+
+function idbGovernanceStore() {
+  // RENAMED database (donor A used 'rapp-democratic-market') so this post and the donor
+  // post never mutate each other's governance HEAD when both are open in one browser.
+  const DB = 'rapp-sovereign-city', STORE = 'governance-ref', KEY = 'HEAD';
+  const dbp = new Promise((resolve, reject) => {
+    const rq = indexedDB.open(DB, 1);
+    rq.onupgradeneeded = () => {
+      const db = rq.result;
+      if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE);
+    };
+    rq.onsuccess = () => resolve(rq.result);
+    rq.onerror = () => reject(rq.error);
+  });
+  return {
+    async reset(genesis) {
+      const db = await dbp;
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE, 'readwrite');
+        tx.objectStore(STORE).put({ height: 0, sha8: genesis, parent: null, ballots: [] }, KEY);
+        tx.oncomplete = () => resolve();
+        tx.onerror = tx.onabort = () => reject(tx.error);
+      });
+    },
+    async read() {
+      const db = await dbp;
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE, 'readonly');
+        const g = tx.objectStore(STORE).get(KEY);
+        g.onsuccess = () => resolve(g.result);
+        g.onerror = () => reject(g.error);
+      });
+    },
+    async tryAppend(parent, ballot) {
+      const db = await dbp;
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE, 'readwrite');
+        const st = tx.objectStore(STORE);
+        const g = st.get(KEY);
+        let accepted = false;
+        let reason = 'non-fast-forward';
+        let head = null;
+        g.onsuccess = () => {
+          head = g.result;
+          if (!head || head.sha8 !== parent) return;
+          if (head.ballots.some(b => b.keyId === ballot.keyId)) {
+            reason = 'duplicate-key';
+            return;
+          }
+          accepted = true;
+          head = {
+            height: head.height + 1,
+            parent,
+            sha8: ballot.frameSha8,
+            ballots: [...head.ballots, ballot]
+          };
+          st.put(head, KEY);
+        };
+        tx.oncomplete = () => resolve(accepted ? { accepted: true, head } : { accepted: false, head, reason });
+        tx.onerror = tx.onabort = () => reject(tx.error);
+      });
+    }
+  };
+}
+
+async function settleGovernance(ballots, emit) {
+  const store = idbGovernanceStore();
+  const genesis = await sha12('gov-genesis|' + rndHex(6));
+  await store.reset(genesis);
+  let pending = ballots.slice();
+  while (pending.length) {
+    const base = await store.read();
+    const parent = base.sha8;
+    emit({ type: 'round', parent, pending: pending.length });
+    const proposals = await Promise.all(shuffle(pending).map(async ballot => ({
+      ...ballot,
+      parent,
+      frameSha8: await sha12(`${parent}|${ballot.keyId}|${ballot.signatureB64url}`)
+    })));
+    const results = await Promise.all(proposals.map(async proposal => {
+      const res = await store.tryAppend(parent, proposal);
+      emit({ type: res.accepted ? 'accepted' : res.reason, proposal, head: res.head });
+      return { proposal, ...res };
+    }));
+    const winner = results.find(r => r.accepted);
+    if (!winner) throw new Error('no ballot landed for this parent');
+    pending = pending.filter(ballot => ballot.keyId !== winner.proposal.keyId);
+  }
+  return { genesis, head: await store.read() };
+}
+
+async function verifyGovernanceLedger(genesis, head, cartKey) {
+  const tally = { YES: 0, NO: 0, ABSTAIN: 0 };
+  const seen = new Set();
+  let parent = genesis;
+  for (const ballot of head.ballots) {
+    if (ballot.parent !== parent) throw new Error(`broken parent chain before ${ballot.keyId}`);
+    const parsed = await verifyBallot(ballot);
+    if (parsed.cart !== cartKey) throw new Error(`cart mismatch in ballot ${ballot.keyId}`);
+    if (seen.has(ballot.keyId)) throw new Error(`duplicate key detected: ${ballot.keyId}`);
+    const expected = await sha12(`${ballot.parent}|${ballot.keyId}|${ballot.signatureB64url}`);
+    if (expected !== ballot.frameSha8) throw new Error(`frame hash mismatch for ${ballot.keyId}`);
+    tally[parsed.choice] = (tally[parsed.choice] || 0) + 1;
+    seen.add(ballot.keyId);
+    parent = ballot.frameSha8;
+  }
+  return { tally, count: head.ballots.length };
+}
+
+/* ── weld: the console tile paints ONLY on a replayed + re-verified governance ledger ── */
+async function replayGovernance(tile) {
+  centerNarrate('gov-replay', 'active', 'replay persisted governance ledger from IndexedDB', 'rapp-sovereign-city · governance-ref · HEAD');
+  const store = idbGovernanceStore();
+  const head = await store.read();
+  if (!head || !head.ballots || !head.ballots.length) {
+    tile.innerHTML = `<div class="kicker">civic ledger · governance</div>` +
+      `<div><span class="big">awaiting</span> <span style="color:var(--muted)">first poll</span></div>` +
+      `<div class="proof">no governance history in this browser yet — run the trustless poll below</div>`;
+    centerNarrate('gov-replay', 'ok', 'governance ledger empty — the city awaits its first poll', 'tile stays unpainted until a verified verdict exists');
+    return;
+  }
+  const genesis = head.ballots[0].parent;
+  const cartKey = JSON.parse(head.ballots[0].message).cart;
+  const verified = await verifyGovernanceLedger(genesis, head, cartKey);
+  const decision = verified.tally.YES > verified.tally.NO;
+  tile.innerHTML = `<div class="kicker">civic ledger · governance</div>` +
+    `<div><span class="big" style="color:var(--good)">${decision ? 'YES' : 'NO'}</span> <span style="color:var(--muted)">replayed verdict</span></div>` +
+    `<div class="proof">YES ${verified.tally.YES} · NO ${verified.tally.NO} · ABSTAIN ${verified.tally.ABSTAIN} · ${verified.count} signed ballots re-verified from genesis ${short(genesis)}</div>`;
+  centerNarrate('gov-replay', 'ok', 'persisted governance ledger replayed + every signature re-verified', `YES ${verified.tally.YES} · NO ${verified.tally.NO} · ABSTAIN ${verified.tally.ABSTAIN}`);
+}
+
+function renderAgents(ballots) {
+  $('agentGrid').innerHTML = ballots.map(ballot =>
+    `<div class="agent"><div><b>agent-${ballot.agentId}</b> → ${ballot.choice}</div>` +
+    `<div style="margin-top:4px;color:var(--muted)">key ${ballot.keyId}</div></div>`
+  ).join('');
+}
+
+function renderGovernanceLedger(genesis, head, tally) {
+  const total = tally.YES + tally.NO + tally.ABSTAIN;
+  $('govLedger').innerHTML =
+    `<div class="row"><div class="top"><span>genesis ${esc(genesis)}</span><span>${total} accepted ballots</span></div></div>` +
+    head.ballots.map((ballot, i) => {
+      const parsed = JSON.parse(ballot.message);
+      return `<div class="row">` +
+        `<div class="top"><span>#${i + 1} <b>${esc(ballot.choice)}</b></span><span>${esc(ballot.keyId)}</span></div>` +
+        `<div style="margin-top:4px;color:var(--faint)">agent ${esc(parsed.agent)} · parent ${esc(ballot.parent)} → ${esc(ballot.frameSha8)}</div>` +
+      `</div>`;
+    }).join('');
+}
+
+/* ── donor: the-democratic-market — custody, receipt, permanent ledger ── */
+async function stampCustody(sealedEnvelope) {
+  sealNarrate('custody-hash', 'active', 'SHA-256 hash the sealed envelope', 'the ciphertext becomes the custody content link');
+  const contentHash = await sha256hex(enc.encode(sealedEnvelope));
+  sealNarrate('custody-hash', 'ok', 'content hash computed', short(contentHash));
+
+  if (!custodyChain) {
+    const genesisSeed = `sovereign-city:genesis:${new Date().toISOString().slice(0, 10)}`;
+    const genesis = await sha256hex(enc.encode(genesisSeed));
+    custodyChain = { genesis, versions: [] };
+    sealNarrate('custody-genesis', 'ok', 'custody genesis anchor created for this session', short(genesis));
+  }
+
+  const versionId = `order-${custodyChain.versions.length + 1}`;
+  const parent = custodyChain.versions.length ? custodyChain.versions[custodyChain.versions.length - 1].hash : custodyChain.genesis;
+  custodyChain.versions.push({ id: versionId, parent, content: sealedEnvelope, hash: contentHash });
+  sealNarrate('custody-link', 'ok', `custody link ${versionId} added`, `parent ${short(parent)} → head ${short(contentHash)}`);
+
+  $('custodyOut').innerHTML =
+    `<div><span class="big">✓ custody stamped</span> <span style="color:var(--muted)">${versionId} entered the order chain</span></div>` +
+    `<div class="mono" style="margin-top:8px;color:var(--muted)">genesis: ${esc(custodyChain.genesis)}</div>` +
+    `<div class="mono" style="margin-top:4px;color:var(--muted)">head: ${esc(contentHash)}</div>` +
+    `<div class="mono" style="margin-top:6px;color:var(--faint);font-size:11px">${custodyChain.versions.length} sealed order(s) in this session.</div>`;
+  renderTile('tile-custody',
+    `<div class="kicker">civic ledger · custody</div>` +
+    `<div><span class="big">${esc(versionId)}</span> <span style="color:var(--muted)">custody link</span></div>` +
+    `<div class="proof">genesis ${short(custodyChain.genesis)} → head ${short(contentHash)}</div>`);
+
+  return { versionId, contentHash, parent };
+}
+
+async function getSellerKeyPair() {
+  if (sellerKeyPair) return sellerKeyPair;
+  sealNarrate('seller-keygen', 'active', 'generate seller ECDSA P-256 keypair in-browser', 'crypto.subtle.generateKey');
+  sellerKeyPair = await crypto.subtle.generateKey({ name: 'ECDSA', namedCurve: 'P-256' }, true, ['sign', 'verify']);
+  sealNarrate('seller-keygen', 'ok', 'seller keypair ready for this session', 'private key never leaves this tab');
+  return sellerKeyPair;
+}
+
+async function emitReceipt(order, sealedEnvelope, stamp) {
+  const kp = await getSellerKeyPair();
+  const sellerPublicKeyJwk = await crypto.subtle.exportKey('jwk', kp.publicKey);
+  const receiptPayload = {
+    version: 'notarized-receipt/1.0',
+    order,
+    sealedEnvelopeHash: stamp.contentHash,
+    custody: {
+      versionId: stamp.versionId,
+      parent: stamp.parent,
+      head: stamp.contentHash,
+      genesis: custodyChain?.genesis || null
+    },
+    sealedEnvelope,
+    signedAt: new Date().toISOString()
+  };
+  const payloadBytes = enc.encode(JSON.stringify(receiptPayload));
+  sealNarrate('receipt-sign', 'active', 'sign exact receipt payload bytes with seller key', `${payloadBytes.byteLength} bytes`);
+  const signature = new Uint8Array(await crypto.subtle.sign({ name: 'ECDSA', hash: 'SHA-256' }, kp.privateKey, payloadBytes));
+  sealNarrate('receipt-sign', 'ok', 'receipt signature produced', `${signature.byteLength} bytes`);
+  const verifiedNow = await crypto.subtle.verify({ name: 'ECDSA', hash: 'SHA-256' }, kp.publicKey, signature, payloadBytes);
+  if (!verifiedNow) throw new Error('receipt signature verify failed');
+  sealNarrate('receipt-verify', 'ok', 'receipt signature verified locally', 'seller key attests this exact sealed envelope + custody head');
+
+  const receipt = {
+    algo: 'ECDSA-P-256-SHA256',
+    sellerPublicKeyJwk,
+    receiptPayload,
+    signatureB64url: b64url(signature),
+    verifiedNow
+  };
+
+  $('receiptOut').innerHTML =
+    `<div><span class="big">🧾 notarized receipt emitted</span> <span style="color:var(--muted)">buyer can verify independently</span></div>` +
+    `<div class="mono" style="margin-top:8px;color:var(--muted)">seller key kid: ${(sellerPublicKeyJwk.x || '').slice(0, 12)}…</div>` +
+    `<pre class="mono" style="margin-top:10px;white-space:pre-wrap;word-break:break-word;background:var(--bg);padding:10px;border:1px solid var(--line);border-radius:8px;font-size:11px">${esc(JSON.stringify(receipt, null, 2))}</pre>`;
+  return receipt;
+}
+
+async function fetchFreshProof() {
+  ledgerNarrate('fresh-fetch', 'active', `fetch ${FRESHNESS_SPEC.title} bytes`, FRESHNESS_SPEC.source);
+  const res = await fetch(FRESHNESS_SPEC.source, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`fetch ${FRESHNESS_SPEC.source} -> ${res.status}`);
+  const fetchedAt = new Date().toISOString();
+  const bytes = await res.arrayBuffer();
+  ledgerNarrate('fresh-fetch', 'ok', 'fetched freshness witness bytes', `${bytes.byteLength} bytes @ ${fetchedAt}`);
+  ledgerNarrate('fresh-hash', 'active', 'recompute SHA-256 in your browser', 'crypto.subtle');
+  const payloadSha256 = await sha256hex(bytes);
+  ledgerNarrate('fresh-hash', 'ok', `freshness hash ${payloadSha256.slice(0, 12)}…`, payloadSha256);
+  const json = JSON.parse(new TextDecoder().decode(bytes));
+  const value = dig(json, FRESHNESS_SPEC.path);
+  ledgerNarrate('fresh-parse', 'ok', 'extracted the freshness witness value', `${value}`);
+
+  const cellValue = await runVerifiedCell({
+    base: TRACK,
+    cell: 'extract',
+    fn: 'extract',
+    args: { src: FRESHNESS_SPEC.source, path: FRESHNESS_SPEC.path },
+    onStep: (k, s, t, d = '') => ledgerNarrate(`fresh-cell-${k}`, s, `freshness cell: ${t}`, d)
+  });
+  if (String(cellValue.value) !== String(value)) {
+    throw new Error(`freshness witness mismatch: hashed payload says ${value}, verified cell says ${cellValue.value}`);
+  }
+  ledgerNarrate('fresh-agree', 'ok', 'hashed payload agrees with verified cell output', `${value}`);
+
+  return {
+    title: FRESHNESS_SPEC.title,
+    source: FRESHNESS_SPEC.source,
+    path: FRESHNESS_SPEC.path,
+    value,
+    statement: FRESHNESS_SPEC.describe(value),
+    fetched_at: fetchedAt,
+    payload_sha256: payloadSha256
+  };
+}
+
+async function entryHash(entry) {
+  return sha256hex(enc.encode(JSON.stringify({ id: entry.id, parent: entry.parent, content: entry.content, proof: entry.proof })));
+}
+
+function ensureLedger() {
+  if (permanentLedger) return permanentLedger;
+  permanentLedger = {
+    id: ID,
+    genesis: null,
+    mirrorWitness: mirrorWitness || [],
+    survivorEcho: survivorEcho || null,
+    entries: [],
+    head: null
+  };
+  return permanentLedger;
+}
+
+async function appendLedgerEntry(receipt, order, freshness, governance) {
+  const ledger = ensureLedger();
+  if (!ledger.genesis) {
+    ledger.genesis = await sha256hex(enc.encode('the-sovereign-city::genesis::trust-the-hash-not-the-host'));
+    ledger.head = ledger.genesis;
+    ledgerNarrate('ledger-genesis', 'ok', 'permanent ledger genesis anchored', short(ledger.genesis));
+  }
+
+  const entry = {
+    id: `entry-${ledger.entries.length + 1}`,
+    parent: ledger.head,
+    content: {
+      label: `completed order ${ledger.entries.length + 1}`,
+      statement: `${order.items.length} item(s) sealed, custody-stamped, seller-signed, and governance-ratified (YES ${governance.tally.YES} / NO ${governance.tally.NO}) at ${receipt.receiptPayload.signedAt}.`,
+      receipt,
+      governance
+    },
+    proof: {
+      mirror_id: ID,
+      mirrors: ledger.mirrorWitness,
+      survivor_echo: ledger.survivorEcho,
+      freshness
+    }
+  };
+  entry.hash = await entryHash(entry);
+  ledger.entries.push(entry);
+  ledger.head = entry.hash;
+  lastLedger = JSON.parse(JSON.stringify(ledger));
+  ledgerNarrate('ledger-append', 'ok', `${entry.id} appended to the immortal ledger`, `head ${short(entry.hash)}`);
+  return ledger;
+}
+
+function renderLedger(ledger) {
+  const mirrorBlock = (ledger.mirrorWitness || []).map(m =>
+    `<div class="mono" style="font-size:12px;color:var(--muted)">${m.fate === 'dead' ? '☠️' : '🟢'} ${esc(m.host)} · @${esc(m.sha8)}</div>`
+  ).join('');
+  $('ledgerOut').innerHTML =
+    `<div class="mono" style="margin-bottom:10px;color:var(--muted)">genesis: ${esc(ledger.genesis)}</div>` +
+    `<div class="card" style="margin-bottom:10px">` +
+    `<h3>mirror-surviving verifier</h3>` +
+    mirrorBlock +
+    `<div class="mono" style="font-size:12px;color:var(--faint);margin-top:8px">survivor echo: ${esc(JSON.stringify(ledger.survivorEcho))}</div>` +
+    `</div>` +
+    `<div class="ledger-list">` +
+    ledger.entries.map(entry => `
+      <div class="card">
+        <h3>${esc(entry.id)} · ${esc(entry.content.label)}</h3>
+        <div class="mono" style="color:var(--text);margin-bottom:8px">${esc(entry.content.statement)}</div>
+        <div class="meta-line"><span>parent</span><span class="hash">${esc(entry.parent)}</span></div>
+        <div class="meta-line"><span>hash</span><span class="hash">${esc(entry.hash)}</span></div>
+        <div class="meta-line"><span>signedAt</span><span>${esc(entry.content.receipt.receiptPayload.signedAt)}</span></div>
+        <div class="meta-line"><span>governance</span><span>YES ${esc(entry.content.governance?.tally?.YES)} · NO ${esc(entry.content.governance?.tally?.NO)} · ABSTAIN ${esc(entry.content.governance?.tally?.ABSTAIN)}</span></div>
+        <div class="meta-line"><span>custody head</span><span class="hash">${esc(entry.content.receipt.receiptPayload.custody.head)}</span></div>
+        <div class="meta-line"><span>fetched_at</span><span>${esc(entry.proof.freshness.fetched_at)}</span></div>
+        <div class="meta-line"><span>freshness value</span><span>${esc(entry.proof.freshness.value)}</span></div>
+        <div class="meta-line"><span>sha256(response_bytes)</span><span class="hash">${esc(entry.proof.freshness.payload_sha256)}</span></div>
+        <div class="meta-line"><span>signature</span><span class="hash">${esc(entry.content.receipt.signatureB64url)}</span></div>
+      </div>`).join('') +
+    `</div><div class="mono" style="margin-top:10px;color:var(--good)">head: ${esc(ledger.head)}</div>`;
+}
+
+async function verifyReceipt(receipt, prefix) {
+  const publicKey = await crypto.subtle.importKey(
+    'jwk',
+    receipt.sellerPublicKeyJwk,
+    { name: 'ECDSA', namedCurve: 'P-256' },
+    true,
+    ['verify']
+  );
+  const ok = await crypto.subtle.verify(
+    { name: 'ECDSA', hash: 'SHA-256' },
+    publicKey,
+    fromB64url(receipt.signatureB64url),
+    enc.encode(JSON.stringify(receipt.receiptPayload))
+  );
+  if (!ok) {
+    ledgerNarrate(prefix, 'bad', 'receipt signature no longer verifies', 'the seller attestation was forged or mutated');
+    throw new Error('Receipt signature verification failed');
+  }
+  ledgerNarrate(prefix, 'ok', 'receipt signature still verifies', `seller key ${(receipt.sellerPublicKeyJwk.x || '').slice(0, 12)}…`);
+}
+
+function hasFreshnessProof(freshness) {
+  return Boolean(freshness && freshness.fetched_at && freshness.payload_sha256 && freshness.value !== undefined);
+}
+
+async function verifyLedger(ledger) {
+  if (!ledger || !ledger.genesis) throw new Error('ledger not initialized');
+  ledgerNarrate('verify-genesis', 'ok', 'trusted genesis anchor', short(ledger.genesis));
+  ledgerNarrate('verify-mirrors', 'ok', 'mirror witness preserved with the ledger', `${(ledger.mirrorWitness || []).length} host(s)`);
+  let prev = String(ledger.genesis);
+
+  for (let i = 0; i < ledger.entries.length; i += 1) {
+    const entry = ledger.entries[i];
+    ledgerNarrate(`verify-link-${i}`, 'active', `verify ${entry.id}: parent pointer + content hash`, '');
+    if (String(entry.parent) !== prev) {
+      ledgerNarrate(`verify-link-${i}`, 'bad', `✗ ${entry.id} parent mismatch`, `expected ${short(prev)}, got ${short(entry.parent)}`);
+      throw new Error(`Broken lineage at ${entry.id}`);
+    }
+    const recomputed = await entryHash(entry);
+    if (String(entry.hash) !== recomputed) {
+      ledgerNarrate(`verify-link-${i}`, 'bad', `✗ ${entry.id} content hash mismatch`, `declared ${short(entry.hash)}, computed ${short(recomputed)}`);
+      throw new Error(`Tamper detected at ${entry.id}`);
+    }
+    const freshness = entry.proof?.freshness || {};
+    if (!hasFreshnessProof(freshness)) {
+      ledgerNarrate(`verify-fresh-${i}`, 'bad', `✗ ${entry.id} freshness proof missing`, 'expected fetched_at + payload_sha256 + value');
+      throw new Error(`Freshness proof missing at ${entry.id}`);
+    }
+    ledgerNarrate(`verify-fresh-${i}`, 'ok', `${entry.id} freshness proof present`, `${freshness.value} @ ${freshness.fetched_at}`);
+    await verifyReceipt(entry.content.receipt, `verify-receipt-${i}`);
+    prev = recomputed;
+    ledgerNarrate(`verify-link-${i}`, 'ok', `✓ ${entry.id} linked`, `head now ${short(prev)}`);
+  }
+  return prev;
+}
+
+/* ── donor: the-command-center — verified external-feed tiles ── */
+async function refreshWeather(tile) {
+  const temp = await runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract',
+    args: { src: FARM, path: 'current.temperature_2m' }, onStep: centerNarrate });
+  const rain = await runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract',
+    args: { src: FARM, path: 'current.precipitation' }, onStep: () => {} });
+  const wet = Number(rain.value) > 0;
+  tile.innerHTML = `<div class="kicker">external feed · weather</div>` +
+    `<div><span class="big">${temp.value}°C</span> <span style="color:var(--muted)">Huila farm</span></div>` +
+    `<div class="proof">${wet ? '🌧️ rain now (' + rain.value + ' mm)' : '☀️ dry now'} · verified by pinned extract cell</div>`;
+}
+
+async function refreshRepo(tile) {
+  const stars = await runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract',
+    args: { src: GH_REPO, path: 'stargazers_count' }, onStep: centerNarrate });
+  const forks = await runVerifiedCell({ base: TRACK, cell: 'extract', fn: 'extract',
+    args: { src: GH_REPO, path: 'forks_count' }, onStep: () => {} });
+  tile.innerHTML = `<div class="kicker">external feed · repo pulse</div>` +
+    `<div><span class="big">${Number(stars.value).toLocaleString()}★</span> <span style="color:var(--muted)">rapp-static-apis</span></div>` +
+    `<div class="proof">${Number(forks.value).toLocaleString()} forks · verified by pinned extract cell</div>`;
+}
+
+async function refreshBoard(tile) {
+  const feed = await runVerifiedCell({
+    base: TRACK,
+    cell: 'extract',
+    fn: 'extract',
+    args: { src: RANKING, path: '' },
+    onStep: centerNarrate
+  });
+  centerNarrate('parse', 'active', 'parse ranking rows from markdown', 'build live top N in-page');
+  const top = parseTopRows(feed.value, 5);
+  if (!top.length) throw new Error('ranking feed returned no rows');
+  centerNarrate('parse', 'ok', 'parsed live leaderboard rows', top.map(r => `#${r.rank} ${r.name}`).join(' · '));
+  const rows = top.map(row => `<li style="margin-bottom:6px"><a href="${row.url}" target="_blank" rel="noopener noreferrer">${esc(row.name)}</a><div class="mono" style="font-size:12px;color:var(--muted)">#${row.rank} · ${esc(row.stars)} ★</div></li>`).join('');
+  tile.innerHTML = `<div class="kicker">external feed · ranking</div>` +
+    `<div><span class="big">Top ${top.length}</span> <span style="color:var(--muted)">JS repos</span></div>` +
+    `<ol>${rows}</ol>` +
+    `<div class="proof">verified markdown fetch + in-page parse</div>`;
+}
+
+function resetCivicTiles() {
+  renderTile('tile-market', '<div class="kicker">civic intake · market</div><div class="mono" style="color:var(--faint)">reading live availability…</div>');
+  renderTile('tile-governance', '<div class="kicker">civic ledger · governance</div><div class="mono" style="color:var(--faint)">replaying governance ledger…</div>');
+  renderTile('tile-custody', '<div class="kicker">civic ledger · custody</div><div class="mono" style="color:var(--faint)">waiting for a custody stamp…</div>');
+  renderTile('tile-ledger', '<div class="kicker">civic ledger · permanent</div><div class="mono" style="color:var(--faint)">waiting for a verified ledger head…</div>');
+}
+function setFeedWaiting() {
+  renderTile('tile-weather', '<div class="kicker">external feed · weather</div><div class="mono" style="color:var(--faint)">refreshing weather…</div>');
+  renderTile('tile-repo', '<div class="kicker">external feed · repo</div><div class="mono" style="color:var(--faint)">refreshing repo pulse…</div>');
+  renderTile('tile-board', '<div class="kicker">external feed · ranking</div><div class="mono" style="color:var(--faint)">refreshing leaderboard…</div>');
+}
+
+async function bootCivics() {
+  await resolvePermanentMirrors();
+  await loadLiveMarket();
+}
+
+/* ── master refresh: feeds AND governance replay in one Promise.allSettled ── */
+$('goCity').onclick = async () => {
+  $('centerSteps').innerHTML = '';
+  $('mirrorsOut').innerHTML = '<span class="mono" style="color:var(--faint)">resolving immortal mirrors…</span>';
+  $('menuOut').innerHTML = '<span class="mono" style="color:var(--faint)">loading live market…</span>';
+  $('governSteps').innerHTML = '';
+  $('sealSteps').innerHTML = '';
+  $('ledgerSteps').innerHTML = '';
+  $('governOut').innerHTML = '<span class="mono" style="color:var(--faint)">— run governance first: no admin, only signed ballots —</span>';
+  $('agentGrid').innerHTML = '';
+  $('govLedger').innerHTML = '';
+  $('sealOut').innerHTML = '<span class="mono" style="color:var(--faint)">— select item(s) and finalize the order —</span>';
+  $('custodyOut').innerHTML = '<span class="mono" style="color:var(--faint)">— custody proof appears here —</span>';
+  $('receiptOut').innerHTML = '<span class="mono" style="color:var(--faint)">— notarized receipt appears here —</span>';
+  $('ledgerOut').innerHTML = '<span class="mono" style="color:var(--faint)">— immutable ledger entries appear here —</span>';
+  $('out').innerHTML = '<span class="mono" style="color:var(--faint)">— final verification verdict appears here —</span>';
+  $('citySection').style.display = 'none';
+  governanceResult = null;
+  resetCivicTiles();
+  setFeedWaiting();
+
+  const jobs = await Promise.allSettled([
+    bootCivics(),
+    replayGovernance($('tile-governance')),
+    refreshWeather($('tile-weather')),
+    refreshRepo($('tile-repo')),
+    refreshBoard($('tile-board'))
+  ]);
+  const failures = [
+    ['tile-market', jobs[0]],
+    ['tile-governance', jobs[1]],
+    ['tile-weather', jobs[2]],
+    ['tile-repo', jobs[3]],
+    ['tile-board', jobs[4]]
+  ];
+  for (const [id, result] of failures) {
+    if (result.status === 'fulfilled') continue;
+    const err = result.reason || new Error('unknown failure');
+    const msg = err.refused ? 'verify-before-exec REFUSED (hash mismatch)' : esc(err.message || String(err));
+    const kicker = $(id).querySelector('.kicker')?.textContent || 'tile';
+    if (id === 'tile-market' || id === 'tile-governance') {
+      $(id).innerHTML = `<div class="kicker">${kicker}</div><div><span class="big" style="color:var(--bad)">REFUSED</span></div><div class="proof" style="color:var(--bad)">${msg}</div>`;
+    } else {
+      $(id).innerHTML = `<div class="kicker">${kicker}</div><div class="mono" style="color:var(--bad)">${msg}</div>`;
+    }
+    if (id === 'tile-market') $('menuOut').innerHTML = `<span class="mono" style="color:var(--bad)">${msg}</span>`;
+    centerNarrate(id, 'bad', `${kicker} failed`, msg);
+  }
+};
+
+/* ── donor: the-democratic-market — governance poll, now painting a console tile ── */
+$('goGovern').onclick = async () => {
+  const selected = MENU.filter(item => {
+    const el = $('cartItems')?.querySelector(`[id="cart-${item.key}"]`);
+    return el && el.checked;
+  });
+  if (!selected.length) {
+    $('governOut').innerHTML = '<span class="mono" style="color:var(--warn)">select at least one available item before governance.</span>';
+    return;
+  }
+  const poll = ($('poll').value || '').trim();
+  if (!poll) {
+    $('governOut').innerHTML = '<span class="mono" style="color:var(--warn)">type a governance proposal first.</span>';
+    return;
+  }
+  try {
+    $('governSteps').innerHTML = '';
+    $('agentGrid').innerHTML = '';
+    $('govLedger').innerHTML = '';
+    $('governOut').innerHTML = '<span class="mono" style="color:var(--faint)">running trustless governance…</span>';
+    const cartKey = selected.map(s => s.key).sort().join('|');
+    const gate = await runVerifiedCell({
+      base: TRACK,
+      cell: 'extract',
+      fn: 'echo',
+      args: poll,
+      onStep: governNarrate
+    });
+    const canonicalPoll = String(gate.echo ?? poll);
+    governNarrate('poll', 'ok', 'pinned cell echoed canonical governance proposal bytes', canonicalPoll);
+    const ballots = await Promise.all(Array.from({ length: GOV_AGENTS }, (_, i) =>
+      mintBallot(i + 1, canonicalPoll, GOV_CHOICES[i % GOV_CHOICES.length], cartKey)
+    ));
+    governNarrate('mint', 'ok', `${GOV_AGENTS} signed governance ballots minted`, ballots.map(b => `${b.agentId}:${b.choice}`).join(' · '));
+    await Promise.all(ballots.map(verifyBallot));
+    governNarrate('self-verify', 'ok', 'all governance signatures verified before consensus', `${ballots.length} valid ballots`);
+    renderAgents(ballots);
+    const { genesis, head } = await settleGovernance(ballots, () => {});
+    governNarrate('consensus', 'ok', 'append-only consensus ratified ballot order', `${head.ballots.length} accepted fast-forwards`);
+    const verified = await verifyGovernanceLedger(genesis, head, cartKey);
+    renderGovernanceLedger(genesis, head, verified.tally);
+    const decision = verified.tally.YES > verified.tally.NO;
+    governanceResult = {
+      cartKey,
+      poll: canonicalPoll,
+      tally: verified.tally,
+      count: verified.count,
+      genesis,
+      head: head.sha8,
+      approved: decision
+    };
+    $('governOut').innerHTML =
+      `<div><span class="big">${decision ? '✅ governance approved' : '⛔ governance rejected'}</span></div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--muted)">YES ${verified.tally.YES} · NO ${verified.tally.NO} · ABSTAIN ${verified.tally.ABSTAIN} · ${verified.count} distinct keys</div>` +
+      `<div class="mono" style="margin-top:4px;color:${decision ? 'var(--good)' : 'var(--warn)'}">${decision ? 'cart is ratified for fulfillment' : 'cart is blocked until governance changes'}</div>`;
+    /* weld: the console tile paints ONLY from the re-verified ledger tally */
+    renderTile('tile-governance',
+      `<div class="kicker">civic ledger · governance</div>` +
+      `<div><span class="big" style="color:${decision ? 'var(--good)' : 'var(--warn)'}">${decision ? 'YES' : 'NO'}</span> <span style="color:var(--muted)">ratified verdict</span></div>` +
+      `<div class="proof">YES ${verified.tally.YES} · NO ${verified.tally.NO} · ABSTAIN ${verified.tally.ABSTAIN} · ${verified.count} signed ballots · genesis ${short(genesis)} → head ${short(head.sha8)}</div>`);
+  } catch (e) {
+    governanceResult = null;
+    const msg = e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : esc(e.message || String(e));
+    $('governOut').innerHTML = `<span class="mono" style="color:var(--bad)">${msg}</span>`;
+    renderTile('tile-governance',
+      `<div class="kicker">civic ledger · governance</div><div><span class="big" style="color:var(--bad)">REFUSED</span></div><div class="proof" style="color:var(--bad)">${msg}</div>`);
+  }
+};
+
+/* ── donor: the-democratic-market — governed seal → custody → receipt → permanent ledger ── */
+$('goSeal').onclick = async () => {
+  const selected = MENU.filter(item => {
+    const el = $('cartItems')?.querySelector(`[id="cart-${item.key}"]`);
+    return el && el.checked;
+  });
+  if (!selected.length) {
+    $('sealOut').innerHTML = '<span class="mono" style="color:var(--warn)">select at least one available item first.</span>';
+    return;
+  }
+  const passphrase = $('sellerKey').value.trim();
+  if (!passphrase) {
+    $('sealOut').innerHTML = '<span class="mono" style="color:var(--warn)">a seal needs a passphrase — it becomes the only key.</span>';
+    return;
+  }
+  if (!mirrorWitness || !survivorEcho) {
+    $('sealOut').innerHTML = '<span class="mono" style="color:var(--warn)">boot the city (mirrors) before finalizing an order.</span>';
+    return;
+  }
+  if (!governanceResult) {
+    $('sealOut').innerHTML = '<span class="mono" style="color:var(--warn)">run the trustless governance poll first.</span>';
+    return;
+  }
+  const cartKey = selected.map(s => s.key).sort().join('|');
+  if (governanceResult.cartKey !== cartKey) {
+    $('sealOut').innerHTML = '<span class="mono" style="color:var(--warn)">cart changed after voting — rerun governance poll.</span>';
+    return;
+  }
+  if (!governanceResult.approved) {
+    $('sealOut').innerHTML = '<span class="mono" style="color:var(--warn)">governance rejected this cart, so fulfillment is blocked.</span>';
+    return;
+  }
+
+  try {
+    $('sealSteps').innerHTML = '';
+    $('ledgerSteps').innerHTML = '';
+    $('sealOut').innerHTML = '<span class="mono" style="color:var(--faint)">building permanent order…</span>';
+    const order = {
+      version: 'sovereign-city-order/1.0',
+      items: selected.map(i => ({ key: i.key, name: i.name, price: i.price })),
+      note: $('buyerNote').value.trim() || null,
+      submitted_at: new Date().toISOString(),
+      mirror_id: ID,
+      governance: governanceResult
+    };
+    sealNarrate('order', 'ok', 'order payload assembled', `${selected.length} item(s): ${selected.map(i => i.name).join(', ')}`);
+    const sealedEnvelope = await sealRSL1(JSON.stringify(order), passphrase);
+    $('sealOut').innerHTML =
+      '<div class="mono" style="font-size:12px;color:var(--muted);margin-bottom:8px">RSL1 sealed order — only the seller passphrase opens this:</div>' +
+      `<div class="cipher">${esc(sealedEnvelope)}</div>`;
+    const stamp = await stampCustody(sealedEnvelope);
+    const receipt = await emitReceipt(order, sealedEnvelope, stamp);
+    sealNarrate('weld-point', 'ok', 'weld point reached', "the console's verified tiles now render the Market's governance state — verdict + sale fuse into one ledger entry");
+    const freshness = await fetchFreshProof();
+    const ledger = await appendLedgerEntry(receipt, order, freshness, governanceResult);
+    renderLedger(ledger);
+    const head = await verifyLedger(ledger);
+    /* weld: the ledger tile paints ONLY after the full chain replays green */
+    renderTile('tile-ledger',
+      `<div class="kicker">civic ledger · permanent</div>` +
+      `<div><span class="big" style="color:var(--good)">VERIFIED</span> <span style="color:var(--muted)">${ledger.entries.length} entr${ledger.entries.length === 1 ? 'y' : 'ies'}</span></div>` +
+      `<div class="proof">head ${short(head)} · every entry replayed: parent chain + content hash + freshness + seller signature + governance verdict</div>`);
+    $('tamper').disabled = false;
+    $('out').innerHTML =
+      `<div><span class="big" style="color:var(--good)">✓ sovereign city verified</span></div>` +
+      `<div class="mono" style="margin-top:8px;color:var(--muted)">every completed order is now governance-ratified, sealed, custody-linked, seller-signed, freshness-witnessed, chained into a mirror-surviving ledger — and painted onto the console only after re-verification.</div>` +
+      `<div class="mono" style="margin-top:6px;color:var(--good)">head: ${esc(head)}</div>`;
+  } catch (e) {
+    const msg = e.refused ? 'verify-before-exec REFUSED (hash mismatch)' : esc(e.message || String(e));
+    $('out').innerHTML = `<span class="mono" style="color:var(--bad)">${msg}</span>`;
+    renderTile('tile-ledger',
+      `<div class="kicker">civic ledger · permanent</div><div><span class="big" style="color:var(--bad)">REFUSED</span></div><div class="proof" style="color:var(--bad)">${msg}</div>`);
+  }
+};
+
+/* ── donor: the-democratic-market — the falsification path ── */
+$('tamper').onclick = async () => {
+  if (!lastLedger?.entries?.length) return;
+  $('ledgerSteps').innerHTML = '';
+  $('out').innerHTML = '<span class="mono" style="color:var(--faint)">tampering…</span>';
+  try {
+    const latest = lastLedger.entries[lastLedger.entries.length - 1];
+    latest.content.statement = `${latest.content.statement} (mutated)`;
+    renderLedger(lastLedger);
+    ledgerNarrate('tamper', 'ok', 'mutated the latest ledger entry while leaving its stored hash unchanged', 'verification should fail at that entry');
+    await verifyLedger(lastLedger);
+    $('out').innerHTML = '<span class="mono" style="color:var(--accent)">unexpectedly passed after tamper</span>';
+  } catch (e) {
+    const msg = esc(e.message || String(e));
+    $('out').innerHTML = `<span class="mono" style="color:var(--bad)">${msg}</span>`;
+    /* weld: tampered history must repaint the civic tiles REFUSED — never stale-green */
+    renderTile('tile-ledger',
+      `<div class="kicker">civic ledger · permanent</div><div><span class="big" style="color:var(--bad)">REFUSED</span></div><div class="proof" style="color:var(--bad)">${msg} — the chain no longer replays</div>`);
+    renderTile('tile-governance',
+      `<div class="kicker">civic ledger · governance</div><div><span class="big" style="color:var(--bad)">REFUSED</span></div><div class="proof" style="color:var(--bad)">the ratified verdict lives inside the tampered entry — it can no longer be trusted</div>`);
+  }
+};
+</script>
+</body></html>
