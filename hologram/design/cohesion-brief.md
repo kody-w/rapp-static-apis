@@ -62,10 +62,11 @@ door" moat claim as a tool); (c) it adopts fauna species + light-default theming
 ## 8 · ALL pages are rapp·go rooms (added 2026-07-06)
 Kody's directive: every one of these pages IS part of the rapp·go application now. Adopt the
 room-switcher nav component GO-LIVE ships (read its landed contract; import, don't fork), so
-cabinet/gallery/player carry the same nav as the map + twin rooms. Note: rapp-lantern is a
-SEPARATE repo — a follow-up LANTERN-1 brief will align it (same nav via absolute-URL import,
-same theme key, fauna species via https ES-module import from this repo's pages). Do not edit
-the lantern repo in this brief.
+cabinet/gallery/player carry the same nav as the map + twin rooms. SUPERSEDED (Kody, 2026-07-06): build the lantern room IN THIS APP instead — add `lantern/**`
+to your write scope and create `lantern/index.html` in THIS repo: the universal .egg loader room
+adapting rapp-lantern's UX (drop/paste/URL any egg, verified id, §14 disguise refusal, example
+eggs), rendering via fauna (§19), wearing the room-switcher nav + light-default theme. The
+external rapp-lantern repo stays untouched as the standalone mirror.
 
 ## 9 · §19 one-body law (added 2026-07-06)
 Cabinet gallery cards, breed previews, and any raster creature image in hologram/** route

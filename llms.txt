@@ -22,6 +22,7 @@ Read the full convention: https://raw.githubusercontent.com/kody-w/rapp-static-a
 - [dataverse](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataverse/registry.json): RAPP static Dataverse — a digital twin on OOTB Dataverse — versioned-endpoints
 - [fn](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fn/registry.json): rapp-static-fn — a static file that *runs* — versioned-endpoints, content-addressed
 - [hologram](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/registry.json): rapp-static-hologram — versioned-endpoints, content-addressed
+- [lantern](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/lantern/registry.json): the lantern — the universal .egg loader room; disguises are refused — versioned-endpoints
 - [legal](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/legal/registry.json): legal — the licensing, patent-pledge, and attribution doors — versioned-endpoints
 - [mcp](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/mcp/registry.json): rapp-static-mcp — a static MCP catalog — versioned-endpoints
 - [poi-tiles](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/poi-tiles/registry.json): poi-tiles — the static, ODbL-clean global POI layer — versioned-endpoints
@@ -41,4 +42,4 @@ Read the full convention: https://raw.githubusercontent.com/kody-w/rapp-static-a
 - Agent protocol: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/agent-protocol.json
 - Sitemap: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sitemap.xml
 
-<!-- generated 2026-07-07T02:13:33Z by build.py — do not hand-edit -->
+<!-- generated 2026-07-07T02:43:27Z by build.py — do not hand-edit -->

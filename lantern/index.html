@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="data:,">
+<title>the lantern — bring any egg</title>
+<script>
+// Theme boot (cohesion-brief §1 key amendment): shared key `rapp.theme`, with a
+// fallback READ of the legacy `rapp-go.theme`. No stored choice → LIGHT, even if
+// the OS prefers dark. Runs inline before first paint. Storage in try/catch (house law).
+(function () {
+  var t = null;
+  try { t = localStorage.getItem('rapp.theme') || localStorage.getItem('rapp-go.theme'); } catch (e) {}
+  document.documentElement.dataset.theme = (t === 'dark') ? 'dark' : 'light';
+})();
+</script>
+<style>
+  /* rapp-go's CSS var names so the imported nav inherits cleanly */
+  :root{
+    --go-bg:#e9ebe6; --go-fg:#3a4048; --go-dim:#6b7280;
+    --go-panel:rgba(249,250,247,0.90); --go-line:rgba(60,66,74,0.16);
+    --go-accent:#5a96ff;
+    --lan-ok:#1a7f37; --lan-bad:#b35900; --lan-stage:#10131a;
+  }
+  html[data-theme="dark"]{
+    --go-bg:#0b0d12; --go-fg:#c9d1d9; --go-dim:#8b93a1;
+    --go-panel:rgba(16,18,24,0.86); --go-line:rgba(140,150,170,0.18);
+    --go-accent:#6ea8ff;
+    --lan-ok:#3fb950; --lan-bad:#d29922; --lan-stage:#05070c;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:24px 16px 110px;background:var(--go-bg);color:var(--go-fg);
+    font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;line-height:1.5;
+    max-width:720px;margin-inline:auto}
+  h1{margin:0;font-size:20px;letter-spacing:.06em;text-transform:lowercase;font-weight:600}
+  .tag{color:var(--go-dim);font-size:13px;margin:4px 0 18px}
+  .panel{background:var(--go-panel);border:1px solid var(--go-line);border-radius:14px;padding:16px;margin-top:14px}
+  label{display:block;font-size:12px;color:var(--go-dim);margin-bottom:6px;letter-spacing:.04em}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  input,textarea{background:transparent;border:1px solid var(--go-line);border-radius:8px;
+    color:var(--go-fg);padding:7px 10px;font:inherit;font-size:13px;flex:1;min-width:0}
+  textarea{width:100%;min-height:84px;font-family:ui-monospace,Menlo,monospace;font-size:12px;resize:vertical}
+  button{font:inherit;font-size:13px;cursor:pointer;border:1px solid var(--go-line);
+    background:var(--go-panel);color:var(--go-fg);border-radius:8px;padding:7px 14px}
+  button:hover{border-color:var(--go-accent)}
+  button.primary{background:var(--go-accent);border-color:var(--go-accent);color:#fff}
+  /* stage — dark by design in both themes: an unlit lantern until an egg proves itself */
+  #stage-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px;
+    background:var(--lan-stage);border:1px solid var(--go-line);border-radius:14px;margin-top:16px}
+  #stage-wrap.dropping{outline:2px dashed var(--go-accent);outline-offset:-6px}
+  #stage{width:280px;height:280px;max-width:100%;display:block}
+  #verdict{font-family:ui-monospace,Menlo,monospace;font-size:14px;min-height:20px;text-align:center}
+  #verdict.ok{color:var(--lan-ok)}
+  #verdict.bad{color:var(--lan-bad)}
+  #verdict-title{color:#e6e8ee;font-size:13px;text-align:center;min-height:18px}
+  #reasons{font-size:11px;color:var(--lan-bad);font-family:ui-monospace,Menlo,monospace;
+    max-width:100%;overflow-x:auto;text-align:center}
+  #reasons:empty{display:none}
+  #doors{display:none;gap:8px;flex-wrap:wrap;justify-content:center}
+  #doors.open{display:flex}
+  #doors a,#doors button{font-size:12px;padding:6px 12px;border-radius:999px;text-decoration:none;
+    color:#e6e8ee;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18)}
+  #doors a:hover,#doors button:hover{border-color:var(--go-accent)}
+  #stage-hint{color:#8b93a1;font-size:12px;text-align:center}
+  #shelf{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+  .shelf-egg{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px;
+    border:1px solid var(--go-line);border-radius:12px;background:transparent;cursor:pointer;width:116px}
+  .shelf-egg:hover{border-color:var(--go-accent)}
+  .shelf-egg canvas{width:96px;height:96px;display:block;background:var(--lan-stage);border-radius:8px}
+  .shelf-egg span{font-size:11px;color:var(--go-dim);max-width:100px;overflow:hidden;
+    text-overflow:ellipsis;white-space:nowrap}
+  .note{font-size:12px;color:var(--go-dim);margin-top:16px}
+  .mono{font-family:ui-monospace,Menlo,monospace}
+</style>
+</head>
+<body>
+<h1>○ the lantern</h1>
+<p class="tag">bring any egg; it will only hatch if it is really itself.</p>
+
+<div id="stage-wrap">
+  <canvas id="stage" width="280" height="280" aria-label="the lantern stage"></canvas>
+  <div id="verdict" class="mono"></div>
+  <div id="verdict-title"></div>
+  <div id="reasons"></div>
+  <div id="doors">
+    <button id="door-keep" type="button">keep</button>
+    <a id="door-talk" target="_blank" rel="noopener">talk</a>
+    <a id="door-raise" target="_blank" rel="noopener">raise at the cabinet</a>
+    <button id="door-dl" type="button">download .egg</button>
+  </div>
+  <div id="stage-hint">drop an .egg or .json here — or paste one below</div>
+</div>
+
+<div class="panel">
+  <label for="paste">paste an egg — raw cartridge JSON or a <span class="mono">#egg=</span> link</label>
+  <textarea id="paste" spellcheck="false" placeholder='{"schema":"hologram-cartridge/1.0", …}  or  …/index.html#egg=eyJ…'></textarea>
+  <div class="row" style="margin-top:8px">
+    <button id="btn-light" class="primary" type="button">light it</button>
+  </div>
+</div>
+
+<div class="panel">
+  <label for="egg-url">load an egg from a URL</label>
+  <div class="row">
+    <input id="egg-url" type="url" placeholder="https://…/versions/tokyo/ba7edf956ae7.json">
+    <button id="btn-fetch" type="button">fetch</button>
+  </div>
+</div>
+
+<div class="panel">
+  <label>example eggs — pinned in the cabinet's registry; a first press must succeed</label>
+  <div id="shelf"><span class="note" id="shelf-empty">lighting the shelf…</span></div>
+</div>
+
+<p class="note">every egg is interrogated before it may hatch (twin-profile §14): schema,
+injection scan, and the content hash — <span class="mono">id = sha256(canonical(genome))[:12]</span>.
+a mismatch is refused, quietly. this page needs to be served over <span class="mono">http(s)://</span> —
+module imports and the registry shelf cannot load from <span class="mono">file://</span>.</p>
+
+<script type="module">
+import { mountNav } from '../rapp-go/lib/nav.js';                     // the one room-switcher — import, don't fork (cohesion-brief §5)
+import { interrogate, INJECTION_PATTERNS, sha8 } from '../companion/twin.mjs';  // §14 doorman — pure functions only, never the Twin store
+import { renderLoop, snap } from '../rapp-go/lib/fauna.js';           // §19 one body (note: fauna has a SPECIES named 'lantern' — unrelated to this room)
+import { keepToBasket } from '../rapp-go/lib/basket.js';              // shared rapp-basket IndexedDB, byte-identical record shape
+import { b64enc, b64dec, genomeId } from '../rapp-go/lib/genome.js';  // landed base64url + content-hash
+
+mountNav({ active: 'lantern', root: '..' });
+
+const stage = document.getElementById('stage');
+const wrap = document.getElementById('stage-wrap');
+const verdictEl = document.getElementById('verdict');
+const titleEl = document.getElementById('verdict-title');
+const reasonsEl = document.getElementById('reasons');
+const doors = document.getElementById('doors');
+const hintEl = document.getElementById('stage-hint');
+
+let LOOP = null;   // live fauna renderLoop controller
+let CART = null;   // the currently hatched (verified) cart
+
+// headless-proof hook: mirrors every verdict for the QA driver
+window.__lantern = { last: null, rendered: false, kept: 0, shelf: 0 };
+
+/* ── §14 sidecar rule ─────────────────────────────────────────────────────────
+   interrogate()'s CART_KEYS whitelist (companion/twin.mjs:121) REJECTS carts
+   carrying `note` — yet the cabinet's note composer legitimately writes
+   cart.note. Doorman decision: strip the known mutable sidecar field(s) BEFORE
+   interrogating, scan the sidecar for injection OURSELVES (it skipped the main
+   interrogation), and reattach ONLY after a green verdict. We never loosen
+   twin.mjs's whitelist, and we never re-stamp `id` on a foreign egg — the id
+   stays sha256(canonical(genome))[:12]; hashes are recomputed only to COMPARE. */
+const SIDECAR_KEYS = ['note'];
+function splitSidecar(raw) {
+  const cart = Object.assign({}, raw), sidecar = {};
+  for (const k of SIDECAR_KEYS) if (k in cart) { sidecar[k] = cart[k]; delete cart[k]; }
+  return { cart, sidecar };
+}
+function scanSidecar(sidecar) {
+  const reasons = [];
+  if (!Object.keys(sidecar).length) return reasons;
+  const text = JSON.stringify(sidecar);
+  if (text.length > 4096) reasons.push({ code: 'schema', detail: 'oversized sidecar (' + text.length + 'B)' });
+  for (const re of INJECTION_PATTERNS) if (re.test(text)) { reasons.push({ code: 'injection', detail: 'sidecar matches /' + re.source + '/' }); break; }
+  return reasons;
+}
+
+function stopStage() {
+  if (LOOP) { try { LOOP.stop(); } catch {} LOOP = null; }
+  const ctx = stage.getContext('2d');
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, stage.width, stage.height);
+}
+
+/* refuse — the stage stays dark. The exact quiet line, the reason codes, and
+   NO render, NO basket write, NO doors. Stricter than the cabinet player's
+   amber "(remix)" tolerance on purpose: the player is the codec, the lantern
+   is the doorman. */
+function refuse(reasons) {
+  stopStage();
+  CART = null;
+  doors.classList.remove('open');
+  verdictEl.className = 'mono bad';
+  verdictEl.textContent = 'this one is wearing a disguise';
+  titleEl.textContent = '';
+  const codes = [...new Set(reasons.map(r => r.code))];
+  reasonsEl.textContent = codes.join(' · ') + ' — ' + reasons.map(r => r.detail).join(' ; ');
+  hintEl.textContent = 'the stage stays dark. bring the real one.';
+  window.__lantern.last = { status: 'quarantined', reasons, id: null };
+  window.__lantern.rendered = false;
+}
+
+function loadError(e) {
+  stopStage();
+  CART = null;
+  doors.classList.remove('open');
+  verdictEl.className = 'mono bad';
+  verdictEl.textContent = '✗ could not read that egg';
+  titleEl.textContent = '';
+  reasonsEl.textContent = String(e && e.message || e);
+  window.__lantern.last = { status: 'unreadable', reasons: [{ code: 'read', detail: String(e && e.message || e) }], id: null };
+  window.__lantern.rendered = false;
+}
+
+async function hatch(cart) {
+  stopStage();
+  CART = cart;
+  const id = (typeof cart.id === 'string' && cart.id) ? cart.id : await genomeId(cart.genome);
+  verdictEl.className = 'mono ok';
+  verdictEl.textContent = sha8(id) + ' ✓';
+  titleEl.textContent = cart.title || 'organism';
+  reasonsEl.textContent = '';
+  hintEl.textContent = 'verified — it is really itself.';
+  LOOP = renderLoop(cart, stage, { size: 280, background: false, ground: true });
+  const payload = b64enc(JSON.stringify(cart));
+  document.getElementById('door-talk').href = '../companion/index.html#' + payload;
+  document.getElementById('door-raise').href = '../hologram/index.html#adopt=' + payload;
+  const keepBtn = document.getElementById('door-keep');
+  keepBtn.textContent = 'keep';
+  keepBtn.disabled = false;
+  doors.classList.add('open');
+  window.__lantern.last = { status: 'cleared', reasons: [], id };
+  window.__lantern.rendered = true;
+}
+
+/* verify-then-hatch: EVERY loaded object passes interrogate() before a single
+   pixel renders (twin-profile §14 — signature ≠ safety, provenance is never trusted). */
+async function present(raw) {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) { refuse([{ code: 'schema', detail: 'not a cartridge object' }]); return; }
+  const { cart, sidecar } = splitSidecar(raw);
+  const sideReasons = scanSidecar(sidecar);
+  let verdict;
+  try { verdict = await interrogate(cart, 'cart'); }
+  catch (e) { refuse([{ code: 'schema', detail: 'interrogation failed: ' + (e && e.message || e) }]); return; }
+  const reasons = verdict.reasons.concat(sideReasons);
+  if (!verdict.ok || sideReasons.length) { refuse(reasons); return; }
+  for (const k of SIDECAR_KEYS) if (k in sidecar) cart[k] = sidecar[k];   // reattach after the green verdict
+  await hatch(cart);
+}
+
+/* ── doors ─────────────────────────────────────────────────────────────────── */
+document.getElementById('door-keep').onclick = async () => {
+  if (!CART) return;
+  const btn = document.getElementById('door-keep');
+  try {
+    await keepToBasket(CART);
+    btn.textContent = 'kept ✓'; btn.disabled = true;
+    window.__lantern.kept++;
+  } catch (e) { btn.textContent = 'keep failed'; }
+};
+document.getElementById('door-dl').onclick = () => {
+  if (!CART) return;
+  const blob = new Blob([JSON.stringify(CART, null, 2)], { type: 'application/json' });   // the landed .egg convention (player.html)
+  const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: (CART.title || 'cartridge') + '.egg' });
+  a.click(); URL.revokeObjectURL(a.href);
+};
+
+/* ── loader 1: drop ────────────────────────────────────────────────────────── */
+for (const ev of ['dragover', 'dragenter']) wrap.addEventListener(ev, e => { e.preventDefault(); wrap.classList.add('dropping'); });
+for (const ev of ['dragleave', 'dragend']) wrap.addEventListener(ev, () => wrap.classList.remove('dropping'));
+wrap.addEventListener('drop', e => {
+  e.preventDefault(); wrap.classList.remove('dropping');
+  const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+  if (!f) return;
+  if (!/\.(egg|json)$/i.test(f.name)) { loadError(new Error('bring a .egg or .json file')); return; }
+  const rd = new FileReader();
+  rd.onload = () => { try { present(JSON.parse(rd.result)); } catch (err) { loadError(err); } };
+  rd.onerror = () => loadError(rd.error || new Error('file read failed'));
+  rd.readAsText(f);
+});
+
+/* ── loader 2: paste (raw JSON, #egg=<b64url> link, or bare #<b64url>) ─────── */
+function parsePaste(text) {
+  text = String(text || '').trim();
+  if (!text) return null;
+  if (text[0] === '{') return JSON.parse(text);
+  // link grammar: take the fragment after the LAST '#', then strip a leading `name=`
+  const hi = text.lastIndexOf('#');
+  let payload = hi >= 0 ? text.slice(hi + 1) : text;
+  const m = payload.match(/^[a-z][a-z0-9_-]*=(.*)$/i);
+  if (m) payload = m[1];
+  return JSON.parse(b64dec(payload));                                  // landed base64url semantics — never hand-rolled
+}
+document.getElementById('btn-light').onclick = () => {
+  try {
+    const cart = parsePaste(document.getElementById('paste').value);
+    if (cart) present(cart);
+  } catch (e) { loadError(e); }
+};
+
+/* ── loader 3: URL (user gesture only — never auto-fetch from clipboard) ───── */
+document.getElementById('btn-fetch').onclick = async () => {
+  const v = document.getElementById('egg-url').value.trim();
+  if (!v) return;
+  try {
+    const res = await fetch(new URL(v, location.href).href);
+    if (!res.ok) throw new Error('fetch → ' + res.status);
+    present(await res.json());
+  } catch (e) { loadError(e); }
+};
+document.getElementById('egg-url').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('btn-fetch').click(); });
+
+/* ── example eggs shelf — resolved against the REGISTRY's URL (pin paths are
+      relative to /hologram/, not to /lantern/) ─────────────────────────────── */
+(async () => {
+  const shelf = document.getElementById('shelf');
+  const empty = document.getElementById('shelf-empty');
+  const regUrl = new URL('../hologram/registry.json', location.href);
+  try {
+    const reg = await (await fetch(regUrl, { cache: 'no-store' })).json();
+    const entries = (reg.entries || []).slice(0, 6);
+    if (!entries.length) throw new Error('registry has no entries');
+    empty.remove();
+    for (const entry of entries) {
+      let cart;
+      try { cart = await (await fetch(new URL(entry.pin_path, regUrl).href)).json(); } catch { continue; }
+      const btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'shelf-egg'; btn.title = entry.title || entry.name;
+      const s = snap(cart, { size: 96, background: false, dataURL: false });
+      if (s.canvas) { s.canvas.removeAttribute('style'); btn.appendChild(s.canvas); }
+      const cap = document.createElement('span');
+      cap.textContent = entry.title || entry.name;                      // textContent only — foreign strings never touch innerHTML
+      btn.appendChild(cap);
+      btn.addEventListener('click', () => present(cart));
+      shelf.appendChild(btn);
+      window.__lantern.shelf++;
+    }
+  } catch (e) {
+    empty.textContent = 'shelf unreachable — serve this repo over http(s):// (file:// blocks fetch + module imports).';
+  }
+})();
+
+/* ── boot deep links — byte-compatible with the landed grammars:
+      #egg=<b64url>, bare #<b64url>, and ?cart=<url> ──────────────────────────── */
+(async () => {
+  const h = (location.hash || '').slice(1);
+  if (h) {
+    let payload = h;
+    const m = h.match(/^egg=(.*)$/);
+    if (m) payload = m[1];
+    try { await present(JSON.parse(b64dec(payload))); return; } catch (e) { /* fall through to ?cart= */ }
+  }
+  const p = new URLSearchParams(location.search);
+  if (p.has('cart')) {
+    try {
+      const res = await fetch(new URL(p.get('cart'), location.href).href);
+      if (!res.ok) throw new Error('fetch → ' + res.status);
+      await present(await res.json());
+    } catch (e) { loadError(e); }
+  }
+})();
+</script>
+</body>
+</html>

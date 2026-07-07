@@ -3,7 +3,7 @@
   "name": "rapp-static-apis",
   "protocolVersion": "2024-11-05",
   "description": "Discovery manifest for the RAPP static-API commons. Each API is a read-only resource fetched from GitHub raw; no server.",
-  "generated": "2026-07-07T02:13:33Z",
+  "generated": "2026-07-07T02:43:27Z",
   "resources": [
     {
       "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion/registry.json",
@@ -33,6 +33,12 @@
       "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/registry.json",
       "name": "hologram",
       "description": "rapp-static-hologram",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/lantern/registry.json",
+      "name": "lantern",
+      "description": "the lantern — the universal .egg loader room; disguises are refused",
       "mimeType": "application/json"
     },
     {

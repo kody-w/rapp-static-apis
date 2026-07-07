@@ -1,0 +1,10 @@
+{
+  "schema": "lantern-status/1.0",
+  "generated": "2026-07-07T02:42:36Z",
+  "ok": true,
+  "summary": {
+    "room": "lantern",
+    "loaders": 3,
+    "verify": "interrogate (companion/twin.mjs §14) before every hatch"
+  }
+}

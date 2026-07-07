@@ -3,7 +3,7 @@
 <link rel="icon" href="data:,">
 <title>rapp-static-hologram — hologram organism gallery</title>
 <style>
- body{font-family:-apple-system,system-ui,Segoe UI,sans-serif;max-width:860px;margin:40px auto;padding:0 16px;background:#0d1117;color:#e6edf3;line-height:1.5}
+ body{font-family:-apple-system,system-ui,Segoe UI,sans-serif;max-width:860px;margin:40px auto;padding:0 16px 96px;background:#0d1117;color:#e6edf3;line-height:1.5}
  a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
  h1{margin:0 0 4px} .muted{color:#8b949e;font-size:13px} .mono{font-family:ui-monospace,Menlo,monospace}
  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-top:18px}
@@ -171,6 +171,24 @@
 </div>
 
 <script type="module">
+import { mountNav } from '../rapp-go/lib/nav.js';
+import { snap as faunaSnap } from '../rapp-go/lib/fauna.js';
+// cohesion-brief §5 — the one room-switcher nav (rappgo-nav): import, don't fork.
+mountNav({ active: 'basket', root: '..' });
+// cohesion-brief §19 one body — cabinet raster creatures route through fauna's
+// snap() (background:false so the card's dark styling shows through). The legacy
+// renderThumb below stays DEFINED for reference/other paths, but every call site
+// now goes through faunaThumb.
+function faunaThumb(ctx, cart) {
+  const canvas = ctx.canvas;
+  sizeThumbCanvas(canvas);
+  const rect = canvas.getBoundingClientRect();
+  const css = Math.max(32, Math.round(rect.width || canvas.clientWidth || canvas.width));
+  const s = faunaSnap(cart, { size: css, background: false, dataURL: false });
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if (s.canvas) ctx.drawImage(s.canvas, 0, 0, canvas.width, canvas.height);
+}
 const TAU = Math.PI * 2;
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -475,7 +493,7 @@ async function loadKeptStrip() {
           kgrid.appendChild(card);
           const thumbCtx = card.querySelector('canvas').getContext('2d');
           thumbs.push({ ctx: thumbCtx, cart });
-          renderThumb(thumbCtx, cart);
+          faunaThumb(thumbCtx, cart);
         }
         strip.style.display = '';
         resolve();
@@ -593,9 +611,9 @@ const thumbs = [];
 let pedigreeThumbs = [];
 let thumbRenderQueued = false;
 function rerenderThumbs() {
-  thumbs.forEach(thumb => renderThumb(thumb.ctx, thumb.cart));
-  if (breedThumb) renderThumb(breedThumb.ctx, breedThumb.cart);
-  if (document.getElementById('pedigree-modal').classList.contains('show')) pedigreeThumbs.forEach(thumb => renderThumb(thumb.ctx, thumb.cart));
+  thumbs.forEach(thumb => faunaThumb(thumb.ctx, thumb.cart));
+  if (breedThumb) faunaThumb(breedThumb.ctx, breedThumb.cart);
+  if (document.getElementById('pedigree-modal').classList.contains('show')) pedigreeThumbs.forEach(thumb => faunaThumb(thumb.ctx, thumb.cart));
 }
 function scheduleThumbRender() {
   if (thumbRenderQueued) return;
@@ -633,7 +651,7 @@ async function ingestAdopted(cart, opts = {}) {
   adopted.appendChild(card);
   const thumbCtx = card.querySelector('canvas').getContext('2d');
   thumbs.push({ ctx: thumbCtx, cart });
-  renderThumb(thumbCtx, cart);
+  faunaThumb(thumbCtx, cart);
   if (opts.offerNote) mountNoteComposer(card.querySelector('.card-note-host'), cart, () => refreshCardNote(card, cart));
   strip.style.display = '';
   return { cart, entry };
@@ -691,7 +709,7 @@ loadKeptStrip();
     grid.appendChild(card);
     const thumbCtx = card.querySelector('canvas').getContext('2d');
     thumbs.push({ ctx: thumbCtx, cart });
-    renderThumb(thumbCtx, cart);
+    faunaThumb(thumbCtx, cart);
   }
   if(!reg.entries||!reg.entries.length) grid.innerHTML = '<p class="muted">No cartridges yet — run build.py to index them.</p>';
 })();
@@ -870,7 +888,7 @@ function buildPedigree(id) {
     nodeLayer.appendChild(a);
     const thumbCtx = a.querySelector('canvas').getContext('2d');
     pedigreeThumbs.push({ ctx: thumbCtx, cart: node.item.cart });
-    renderThumb(thumbCtx, node.item.cart);
+    faunaThumb(thumbCtx, node.item.cart);
   }
   const lineCtx = lineCanvas.getContext('2d');
   lineCtx.clearRect(0, 0, stageW, stageH);
@@ -921,7 +939,7 @@ function renderBreedResult() {
   document.getElementById('breed-lineage').style.display = breedChild.parents.length ? '' : 'none';
   const canvas = document.getElementById('breed-canvas');
   breedThumb = { ctx: canvas.getContext('2d'), cart: breedChild };
-  renderThumb(breedThumb.ctx, breedThumb.cart);
+  faunaThumb(breedThumb.ctx, breedThumb.cart);
   mountNoteComposer(document.getElementById('breed-note'), breedChild, () => {});
   const result = document.getElementById('breed-result');
   result.classList.add('show');

@@ -6,10 +6,10 @@
   "spec": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/SPEC.md",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main",
   "pages_base": "https://kody-w.github.io/rapp-static-apis",
-  "generated": "2026-07-07T02:13:33Z",
+  "generated": "2026-07-07T02:43:27Z",
   "summary": {
-    "apis": 14,
-    "with_status_endpoint": 14,
+    "apis": 15,
+    "with_status_endpoint": 15,
     "content_addressed": 4
   },
   "entries": [
@@ -81,6 +81,20 @@
       "capabilities": [
         "versioned-endpoints",
         "content-addressed"
+      ]
+    },
+    {
+      "name": "lantern",
+      "description": "the lantern — the universal .egg loader room; disguises are refused",
+      "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/lantern",
+      "pages_base": "https://kody-w.github.io/rapp-static-apis/lantern/",
+      "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/lantern/registry.json",
+      "api_schema": "rapp-lantern-room/1.0",
+      "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/lantern/api/v1/status.json",
+      "badge": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/lantern/api/v1/badge.json",
+      "dashboard": "https://kody-w.github.io/rapp-static-apis/lantern/",
+      "capabilities": [
+        "versioned-endpoints"
       ]
     },
     {

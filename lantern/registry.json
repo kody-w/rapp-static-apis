@@ -1,0 +1,8 @@
+{
+  "schema": "rapp-lantern-room/1.0",
+  "generated": "2026-07-07T02:42:36Z",
+  "description": "the lantern — the universal .egg loader room; disguises are refused",
+  "files": [
+    "index.html"
+  ]
+}
