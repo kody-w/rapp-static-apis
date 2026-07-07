@@ -389,6 +389,16 @@ class TileMap {
     }
   }
 
+  // Theme hook (golive-brief §B): swap the basemap live (positron ↔ dark_matter).
+  // Safe: memory + IDB tile keys embed the provider name, so no cache poisoning.
+  setProvider(name) {
+    if (!PROVIDERS[name] || name === this.providerName) return;
+    this.providerName = name;
+    this._netFails = 0; this._netOk = 0;
+    this.cache.clear(); this.state.clear(); this.queue.length = 0;
+    this._markDirty();
+  }
+
   // Guaranteed fallback: if the CARTO basemap won't load, swap to OSM standard.
   _maybeFailover() {
     if (this.providerName !== 'osm' && this._netOk === 0 && this._netFails >= 3) {

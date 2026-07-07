@@ -5,19 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:,">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#e9ebe6">
 <title>rapp·go — catch the sky where you stand</title>
+<script>
+// theme boot (§B): LIGHT for everyone until a choice is made. Shared key
+// rapp.theme (cohesion §1), legacy fallback rapp-go.theme. Inline + first so
+// there is no flash; prefers-color-scheme only seeds the toggle, never the render.
+try {
+  var _t = JSON.parse(localStorage.getItem('rapp.theme') || localStorage.getItem('rapp-go.theme') || '"light"');
+  document.documentElement.dataset.theme = (_t === 'dark') ? 'dark' : 'light';
+} catch (e) { document.documentElement.dataset.theme = 'light'; }
+</script>
 <style>
   :root{
     --go-bg:#e9ebe6; --go-fg:#3a4048; --go-dim:#6b7280;
     --go-panel:rgba(249,250,247,0.90); --go-line:rgba(60,66,74,0.16);
     --go-accent:#5a96ff;
   }
-  @media (prefers-color-scheme: dark){
-    :root{
-      --go-bg:#0b0d12; --go-fg:#c9d1d9; --go-dim:#8b93a1;
-      --go-panel:rgba(16,18,24,0.86); --go-line:rgba(140,150,170,0.18);
-      --go-accent:#6ea8ff;
-    }
+  /* dark is a CHOICE (html[data-theme]), not a system default — golive §B */
+  :root[data-theme="dark"]{
+    --go-bg:#0b0d12; --go-fg:#c9d1d9; --go-dim:#8b93a1;
+    --go-panel:rgba(16,18,24,0.86); --go-line:rgba(140,150,170,0.18);
+    --go-accent:#6ea8ff;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{height:100%;margin:0}
@@ -47,7 +60,7 @@
   }
   .chip.warn{color:#b6862a} .chip.muted{color:var(--go-dim)}
   .chip.tap{cursor:pointer; pointer-events:auto}
-  @media (prefers-color-scheme: dark){ .chip.warn{color:#e5b567} }
+  :root[data-theme="dark"] .chip.warn{color:#e5b567}
 
   /* bottom sheets (encounter + place) */
   .sheet{
@@ -235,9 +248,20 @@ const LS = {
   set(k,v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
 };
 
+// ── theming (§B): html[data-theme] was set by the inline boot; the toggle
+//    persists rapp.theme (shared key, cohesion §1) and swaps the basemap live ──
+const theme = () => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+function setTheme(t){
+  document.documentElement.dataset.theme = t;
+  LS.set('rapp.theme', t); LS.set('rapp-go.theme', t);   // legacy key kept in step
+  try { document.querySelector('meta[name="theme-color"]').content = t === 'dark' ? '#0b0d12' : '#e9ebe6'; } catch {}
+  map.setProvider(t === 'dark' ? 'dark_matter' : 'positron');
+  refreshChips();
+}
+
 const canvas = $('map');
 const startCenter = FIX || (DEMO ? { lat: 40.7128, lng: -74.0060 } : (LS.get('rapp-go.lastFix') || { lat: 40.7128, lng: -74.0060 }));
-const map = new TileMap(canvas, { center: startCenter });
+const map = new TileMap(canvas, { center: startCenter, provider: theme() === 'dark' ? 'dark_matter' : 'positron' });
 const field = new SpawnField();
 // Anchor the walking-billboard clock (holofauna): reproducible under ?t=/?demo=1, and
 // live it is absolute-time-shared, so two players in the same cell/minute agree on pos(t).
@@ -300,10 +324,12 @@ function skyChip(){
   return { text: `${Math.round(s.temp)}\u00b0 ${word}`.trim(), kind: 'muted' };
 }
 function bagChip(){ return { text: '\u25c7 bag \u00b7 ' + poi.bagCount(), kind: 'muted', onTap: openBag }; }
+function themeChip(){ return { text: theme() === 'dark' ? '\u263e' : '\u2600', kind: 'muted', onTap: () => setTheme(theme() === 'dark' ? 'light' : 'dark') }; }
 function refreshChips(extra){
   const chips = []; if (extra) for (const e of extra) chips.push(e);
   const sc = skyChip(); if (sc) chips.push(sc);
   chips.push(bagChip());
+  chips.push(themeChip());
   setChips(chips);
 }
 
@@ -736,6 +762,17 @@ window.addEventListener('hashchange', checkEgg);
 
 // ── the one nav (§H.3): this page is the map room of the one app ──────────────────
 mountNav({ active: 'map', root: '..' });
+
+// ── installable (§A): sw scoped to /rapp-go/ — §H.2's "root sw.js exists" premise
+//    was stale (there is none); the brief's documented fallback applies ────────────
+if ('serviceWorker' in navigator) { try { navigator.serviceWorker.register('./sw.js'); } catch {} }
+// iOS has no install prompt: a one-time quiet card, only when NOT standalone (§A.4)
+try {
+  const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  if (!standalone && /iphone|ipad/i.test(navigator.userAgent)) {
+    setTimeout(() => tip('install', 'keep rapp·go: tap share ⎋ then “add to home screen”.'), 12000);
+  }
+} catch {}
 
 document.addEventListener('visibilitychange', () => {
   panelHidden = document.hidden;

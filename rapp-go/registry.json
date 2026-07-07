@@ -1,6 +1,6 @@
 {
   "schema": "rapp-go-index/1.0",
-  "generated": "2026-07-07T02:22:04Z",
+  "generated": "2026-07-07T02:43:27Z",
   "description": "rapp-go — the explorer: a quiet, no-backend Pokémon-Go-like PWA",
   "files": [
     "index.html",
@@ -16,6 +16,12 @@
     "lib/genome.js",
     "lib/nav.js",
     "lib/weather.js",
-    "selftest.mjs"
+    "selftest.mjs",
+    "manifest.webmanifest",
+    "sw.js",
+    "icon-180.png",
+    "icon-192.png",
+    "icon-512.png",
+    "tools/icon.html"
   ]
 }

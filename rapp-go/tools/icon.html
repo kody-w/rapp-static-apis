@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>rapp·go icon generator</title>
+<style>html,body{margin:0;height:100%;overflow:hidden}canvas{display:block}</style>
+</head>
+<body>
+<script type="module">
+// Draws the app icon edge-to-edge at the current window size, so
+// `chrome --headless --screenshot --window-size=N,N` captures icon-N.png.
+// §19 one-body law: the creature is a live snap() of the 3D model (the guide
+// from onboard.js), composed over a quiet halo — never an independent drawing.
+import { snap } from '../lib/fauna.js';
+
+const GUIDE_CART = {
+  schema: 'hologram-cartridge/1.0', id: 'guide00000go', title: 'the guide', author: 'rapp·go',
+  born: { coord: '·0', from: 'the first sky' }, parents: [],
+  genome: { layers: [
+    { role: 'form', shape: 'ring', limbs: 3, segments: 6, symmetry: 'radial', body_r: 0.32, limb_len: 0.34, spikes: 1 },
+    { role: 'surface', palette: ['#8fb3c9', '#dcebf3', '#5d8aa5', '#f2f8fb'], pattern: 'glow', glow: 0.5, opacity: 0.92 },
+    { role: 'motion', breathe: 0.24, drift: 0.2, pulse: 0.34, reach: 0.26 }
+  ], compose: { windows: [[0, 1, 2]], loop: true } }
+};
+
+const S = Math.min(innerWidth, innerHeight);
+const cvs = document.createElement('canvas');
+cvs.width = cvs.height = S; cvs.style.width = cvs.style.height = S + 'px';
+document.body.appendChild(cvs);
+const x = cvs.getContext('2d');
+
+// quiet light ground (maskable-safe: content within the inner 80%)
+const g = x.createLinearGradient(0, 0, 0, S);
+g.addColorStop(0, '#eef2ee'); g.addColorStop(1, '#dfe6e0');
+x.fillStyle = g; x.fillRect(0, 0, S, S);
+// the halo
+const halo = x.createRadialGradient(S/2, S/2, S*0.12, S/2, S/2, S*0.40);
+halo.addColorStop(0, 'rgba(90,150,255,0.20)'); halo.addColorStop(1, 'rgba(90,150,255,0)');
+x.fillStyle = halo; x.beginPath(); x.arc(S/2, S/2, S*0.40, 0, Math.PI*2); x.fill();
+x.strokeStyle = 'rgba(93,138,165,0.55)'; x.lineWidth = Math.max(2, S*0.012);
+x.beginPath(); x.arc(S/2, S/2, S*0.355, 0, Math.PI*2); x.stroke();
+
+const r = snap(GUIDE_CART, { size: Math.round(S * 0.62), pose: { yaw: 0.72, pitch: 0.24, zoom: 1.1 }, background: false });
+x.drawImage(r.canvas, (S - r.size) / 2, (S - r.size) / 2 - S*0.01);
+document.title = 'icon-ready';
+</script>
+</body>
+</html>

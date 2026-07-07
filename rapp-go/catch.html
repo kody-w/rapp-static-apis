@@ -6,6 +6,13 @@
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:,">
 <title>rapp·go — the catch (a real throw)</title>
+<script>
+// theme boot — same contract as index.html (§B): light until chosen, rapp.theme shared key
+try {
+  var _t = JSON.parse(localStorage.getItem('rapp.theme') || localStorage.getItem('rapp-go.theme') || '"light"');
+  document.documentElement.dataset.theme = (_t === 'dark') ? 'dark' : 'light';
+} catch (e) { document.documentElement.dataset.theme = 'light'; }
+</script>
 <!--
   catch.html — the standalone CATCH-RNG harness (design/05-catch-rng), Phase 2.
   It stands alone (no map / no AR / no POI inventory): summon ONE real .egg from the
@@ -21,10 +28,8 @@
     --go-panel:rgba(249,250,247,0.92); --go-line:rgba(60,66,74,0.16); --go-accent:#5a96ff;
     --ok:#3f9d5a; --bad:#c0553f;
   }
-  @media (prefers-color-scheme: dark){
-    :root{ --go-bg:#0b0d12; --go-fg:#c9d1d9; --go-dim:#8b93a1; --go-panel:rgba(16,18,24,0.9);
-      --go-line:rgba(140,150,170,0.18); --go-accent:#6ea8ff; --ok:#5fce7f; --bad:#e0745c; }
-  }
+  :root[data-theme="dark"]{ --go-bg:#0b0d12; --go-fg:#c9d1d9; --go-dim:#8b93a1; --go-panel:rgba(16,18,24,0.9);
+    --go-line:rgba(140,150,170,0.18); --go-accent:#6ea8ff; --ok:#5fce7f; --bad:#e0745c; }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;min-height:100%}
   body{ background:var(--go-bg); color:var(--go-fg); font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;
