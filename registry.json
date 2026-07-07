@@ -6,20 +6,26 @@
   "spec": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/SPEC.md",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main",
   "pages_base": "https://kody-w.github.io/rapp-static-apis",
-  "generated": "2026-07-06T11:01:59Z",
+  "generated": "2026-07-07T02:13:33Z",
   "summary": {
-    "apis": 11,
-    "with_status_endpoint": 7,
+    "apis": 14,
+    "with_status_endpoint": 14,
     "content_addressed": 4
   },
   "entries": [
     {
       "name": "companion",
-      "description": "RAPP static API: companion",
+      "description": "companion — the twin companion: genetics, breeding, and bones",
       "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion",
       "pages_base": "https://kody-w.github.io/rapp-static-apis/companion/",
+      "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion/registry.json",
+      "api_schema": "rapp-companion/1.0",
+      "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion/api/v1/status.json",
+      "badge": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion/api/v1/badge.json",
       "dashboard": "https://kody-w.github.io/rapp-static-apis/companion/",
-      "capabilities": []
+      "capabilities": [
+        "versioned-endpoints"
+      ]
     },
     {
       "name": "customer360",
@@ -78,6 +84,20 @@
       ]
     },
     {
+      "name": "legal",
+      "description": "legal — the licensing, patent-pledge, and attribution doors",
+      "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/legal",
+      "pages_base": "https://kody-w.github.io/rapp-static-apis/legal/",
+      "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/legal/registry.json",
+      "api_schema": "rapp-legal/1.0",
+      "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/legal/api/v1/status.json",
+      "badge": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/legal/api/v1/badge.json",
+      "dashboard": "https://kody-w.github.io/rapp-static-apis/legal/",
+      "capabilities": [
+        "versioned-endpoints"
+      ]
+    },
+    {
       "name": "mcp",
       "description": "rapp-static-mcp — a static MCP catalog",
       "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/mcp",
@@ -92,12 +112,46 @@
       ]
     },
     {
+      "name": "poi-tiles",
+      "description": "poi-tiles — the static, ODbL-clean global POI layer",
+      "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/poi-tiles",
+      "pages_base": "https://kody-w.github.io/rapp-static-apis/poi-tiles/",
+      "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/poi-tiles/registry.json",
+      "api_schema": "rapp-poi-tiles/1.0",
+      "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/poi-tiles/api/v1/status.json",
+      "badge": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/poi-tiles/api/v1/badge.json",
+      "dashboard": "https://kody-w.github.io/rapp-static-apis/poi-tiles/",
+      "capabilities": [
+        "versioned-endpoints"
+      ]
+    },
+    {
+      "name": "proofs",
+      "description": "proofs — every claim is a button; your browser is the judge",
+      "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/proofs",
+      "pages_base": "https://kody-w.github.io/rapp-static-apis/proofs/",
+      "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/proofs/registry.json",
+      "api_schema": "rapp-proofs/1.0",
+      "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/proofs/api/v1/status.json",
+      "badge": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/proofs/api/v1/badge.json",
+      "dashboard": "https://kody-w.github.io/rapp-static-apis/proofs/",
+      "capabilities": [
+        "versioned-endpoints"
+      ]
+    },
+    {
       "name": "rapp-go",
-      "description": "RAPP static API: rapp-go",
+      "description": "rapp-go — the explorer: a quiet, no-backend Pokémon-Go-like PWA",
       "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/rapp-go",
       "pages_base": "https://kody-w.github.io/rapp-static-apis/rapp-go/",
+      "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/rapp-go/registry.json",
+      "api_schema": "rapp-go-index/1.0",
+      "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/rapp-go/api/v1/status.json",
+      "badge": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/rapp-go/api/v1/badge.json",
       "dashboard": "https://kody-w.github.io/rapp-static-apis/rapp-go/",
-      "capabilities": []
+      "capabilities": [
+        "versioned-endpoints"
+      ]
     },
     {
       "name": "shortener",
@@ -121,8 +175,11 @@
       "pages_base": "https://kody-w.github.io/rapp-static-apis/showcase/",
       "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/catalog.json",
       "api_schema": "rapp-showcase/1.0",
+      "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/api/v1/status.json",
+      "badge": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/api/v1/badge.json",
       "dashboard": "https://kody-w.github.io/rapp-static-apis/showcase/",
       "capabilities": [
+        "versioned-endpoints",
         "llms.txt"
       ]
     },
@@ -146,8 +203,14 @@
       "description": "vbrainstem-cell — a headless agent runtime in a sandboxed iframe",
       "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/vbrainstem-cell",
       "pages_base": "https://kody-w.github.io/rapp-static-apis/vbrainstem-cell/",
+      "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/vbrainstem-cell/registry.json",
+      "api_schema": "rapp-vbrainstem-cell/1.0",
+      "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/vbrainstem-cell/api/v1/status.json",
+      "badge": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/vbrainstem-cell/api/v1/badge.json",
       "dashboard": "https://kody-w.github.io/rapp-static-apis/vbrainstem-cell/",
-      "capabilities": []
+      "capabilities": [
+        "versioned-endpoints"
+      ]
     }
   ]
 }

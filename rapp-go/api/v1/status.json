@@ -1,0 +1,9 @@
+{
+  "schema": "rapp-go-status/1.0",
+  "generated": "2026-07-07T02:12:32Z",
+  "ok": true,
+  "summary": {
+    "rooms": 2,
+    "modules": 9
+  }
+}

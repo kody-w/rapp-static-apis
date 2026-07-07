@@ -1,0 +1,15 @@
+{
+  "schema": "rapp-legal/1.0",
+  "generated": "2026-07-07T02:12:32Z",
+  "description": "legal — the licensing, patent-pledge, and attribution doors",
+  "documents": [
+    "../LICENSE",
+    "../LICENSING.md",
+    "../PATENT-PLEDGE.md"
+  ],
+  "files": [
+    "index.html",
+    "legal.css",
+    "legal.mjs"
+  ]
+}

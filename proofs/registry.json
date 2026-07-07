@@ -1,0 +1,15 @@
+{
+  "schema": "rapp-proofs/1.0",
+  "generated": "2026-07-07T02:12:32Z",
+  "description": "proofs \u2014 every claim is a button; your browser is the judge",
+  "claims": [
+    "The pulse is real.",
+    "The signature is real.",
+    "Tamper dies.",
+    "The hash is the identity.",
+    "Any door works.",
+    "Bones are inert.",
+    "The person can't be polished away.",
+    "The moon is honest."
+  ]
+}

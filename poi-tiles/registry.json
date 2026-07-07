@@ -1,0 +1,7 @@
+{
+  "schema": "rapp-poi-tiles/1.0",
+  "generated": "2026-07-07T02:12:32Z",
+  "index": "data/index.json",
+  "index_schema": "rapp-poi-index/1.0",
+  "note": "canonical index lives at data/index.json; this file exists for spine discovery"
+}

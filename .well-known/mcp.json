@@ -3,12 +3,12 @@
   "name": "rapp-static-apis",
   "protocolVersion": "2024-11-05",
   "description": "Discovery manifest for the RAPP static-API commons. Each API is a read-only resource fetched from GitHub raw; no server.",
-  "generated": "2026-07-06T11:01:59Z",
+  "generated": "2026-07-07T02:13:33Z",
   "resources": [
     {
-      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion",
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion/registry.json",
       "name": "companion",
-      "description": "RAPP static API: companion",
+      "description": "companion — the twin companion: genetics, breeding, and bones",
       "mimeType": "application/json"
     },
     {
@@ -36,15 +36,33 @@
       "mimeType": "application/json"
     },
     {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/legal/registry.json",
+      "name": "legal",
+      "description": "legal — the licensing, patent-pledge, and attribution doors",
+      "mimeType": "application/json"
+    },
+    {
       "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/mcp/registry.json",
       "name": "mcp",
       "description": "rapp-static-mcp — a static MCP catalog",
       "mimeType": "application/json"
     },
     {
-      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/rapp-go",
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/poi-tiles/registry.json",
+      "name": "poi-tiles",
+      "description": "poi-tiles — the static, ODbL-clean global POI layer",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/proofs/registry.json",
+      "name": "proofs",
+      "description": "proofs — every claim is a button; your browser is the judge",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/rapp-go/registry.json",
       "name": "rapp-go",
-      "description": "RAPP static API: rapp-go",
+      "description": "rapp-go — the explorer: a quiet, no-backend Pokémon-Go-like PWA",
       "mimeType": "application/json"
     },
     {
@@ -66,7 +84,7 @@
       "mimeType": "application/json"
     },
     {
-      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/vbrainstem-cell",
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/vbrainstem-cell/registry.json",
       "name": "vbrainstem-cell",
       "description": "vbrainstem-cell — a headless agent runtime in a sandboxed iframe",
       "mimeType": "application/json"

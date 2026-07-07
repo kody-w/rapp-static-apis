@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-go-index/1.0",
+  "generated": "2026-07-07T02:12:32Z",
+  "description": "rapp-go \u2014 the explorer: a quiet, no-backend Pok\u00e9mon-Go-like PWA",
+  "files": [
+    "index.html",
+    "catch.html",
+    "catch.js",
+    "poi.js",
+    "spawn.js",
+    "tilemap.js",
+    "lib/basket.js",
+    "lib/fauna.js",
+    "lib/genome.js",
+    "lib/weather.js",
+    "selftest.mjs"
+  ]
+}

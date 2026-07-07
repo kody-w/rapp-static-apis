@@ -1,0 +1,9 @@
+{
+  "schema": "poi-tiles-status/1.0",
+  "generated": "2026-07-07T02:12:32Z",
+  "ok": true,
+  "summary": {
+    "tiles": 10,
+    "pois": 5852
+  }
+}

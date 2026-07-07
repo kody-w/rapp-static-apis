@@ -1,0 +1,9 @@
+{
+  "schema": "rapp-vbrainstem-cell/1.0",
+  "generated": "2026-07-07T02:12:32Z",
+  "description": "vbrainstem-cell \u2014 a headless agent runtime in a sandboxed iframe",
+  "files": [
+    "index.html",
+    "sandbox.html"
+  ]
+}
