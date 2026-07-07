@@ -171,6 +171,7 @@
       <div class="row">
         <a class="act" id="door-talk" target="_blank" rel="noopener">talk</a>
         <a class="act" id="door-breed" target="_blank" rel="noopener">breed</a>
+        <a class="act" id="door-share" href="#">share</a>
       </div>
     </div>
   </div>
@@ -204,6 +205,9 @@ import { b64enc } from './lib/genome.js';
 import { skyCacheKey } from './lib/weather.js';
 import { eggRarity, throwQuality, ringRadius, runCatch, mintCaught, talkHref, breedHref } from './catch.js';
 import * as poi from './poi.js';
+import { mountNav } from './lib/nav.js';
+// GO-LIVE §C/§D/§E — onboarding, the starter ceremony, and the share layer
+import { maybeOnboard, onboarded, starterCeremony, shareCaught, receiveEgg, receivePanel, tip } from './onboard.js';
 
 const $ = id => document.getElementById(id);
 const params = new URLSearchParams(location.search);
@@ -269,6 +273,7 @@ const spawns = new Map();             // key -> Spawn (also a map marker)
 const suppress = new Set();           // caught this session + fled-this-bucket (key embeds bucket)
 const cooldown = new Set();           // shown-and-closed until player leaves REARM_M
 let current = null;                   // { spawn, rarity, orbSel, aidSel, saltActive, resolved }
+let lastCaught = null;                // { cart, place } — feeds the share door (§E.2)
 let lastRefresh = { bucket: null, lat: null, lng: null };
 let poiList = [];                     // known POIs near the player (spawn anchors)
 const poiMarkers = new Set();         // poi ids currently on the map
@@ -457,6 +462,7 @@ async function openEncounter(sp){
   if (!current || current.spawn !== sp) return;
   current.rarity = eg;
   const rEl = $('enc-rarity'); rEl.textContent = '\u00b7 ' + eg.tier.toLowerCase() + ' \u00b7 ' + sp.species.family + ' \u00b7 ' + sp.rarity + ' sky \u00b7'; rEl.style.color = rar.color;
+  if (sp.rarity && sp.rarity !== 'common') tip('rare', 'a rarer sky holds on harder \u2014 a true throw and an offering help.');
   renderPouch();
 }
 function closeEncounter(caught){
@@ -554,6 +560,7 @@ async function onCaught(orb, aidKey, throwLabel, shakes, pal){
   catch(e){ console.warn('mint failed (kept in memory only):', e); }
 
   suppress.add(sp.key); spawns.delete(sp.key); map.removeMarker(sp.key);
+  lastCaught = { cart: (rec && rec.egg) || sp.cart, place: atPoi ? atPoi.name : null };
   $('door-talk').href = talkHref(sp.cart);
   $('door-breed').href = breedHref(sp.cart);
   $('enc-kit').style.display = 'none'; $('enc-hint').textContent = '';
@@ -570,6 +577,7 @@ function onFled(){
   suppress.add(sp.key); spawns.delete(sp.key); map.removeMarker(sp.key);
   $('enc-kit').style.display = 'none'; $('enc-hint').textContent = '';
   $('enc-note').textContent = 'it fled — and took your vessel. that exact sky won\u2019t return this bucket.';
+  tip('flee', 'when one flees, that exact sky is gone for this half-hour \u2014 a new sky brings new creatures.');
   busyThrow = false; refreshChips();
   setTimeout(() => { if (current && current.resolved && current.spawn === sp) closeEncounter(true); }, 1600);
 }
@@ -593,6 +601,7 @@ function beep(freq, dur = 0.06, gain = 0.04){
 // ── the place sheet (spin a POI for items) ───────────────────────────────────────
 function openPoi(p){
   currentPoi = p;
+  tip('poi', 'places give, then rest — spin them as you walk for vessels and offerings.');
   $('poi-name').textContent = (p.name || 'a place').toLowerCase();
   $('poi-kind').textContent = '\u00b7 ' + p.kind + ' \u00b7';
   $('poi-drops').innerHTML = ''; $('poi-note').textContent = '';
@@ -638,6 +647,7 @@ function openBag(){
     grid.appendChild(row);
   }
   $('bag-cap').textContent = poi.bagCount() + ' / ' + poi.BAG + ' held';
+  if (poi.bagCount() > poi.BAG * 0.9) tip('bag', 'your bag is nearly full — thrown vessels make room.');
   const b = $('bag'); b.classList.add('open'); b.setAttribute('aria-hidden','false');
 }
 $('bag').addEventListener('click', e => { if (e.target === $('bag')) { const b=$('bag'); b.classList.remove('open'); b.setAttribute('aria-hidden','true'); } });
@@ -667,7 +677,7 @@ function onGeoError(err){
     refreshPOIs().then(() => refreshSpawns(true));
   } else {
     setChips([{ text: 'location is hazy', kind: 'warn' }]);
-    $('invite').style.display = 'flex';
+    if (onboarded()) $('invite').style.display = 'flex';   // onboarding owns the first ask
   }
 }
 function maybeDowngrade(p){
@@ -711,6 +721,22 @@ $('enc-close').addEventListener('click', () => closeEncounter(false));
 $('door-keep').addEventListener('click', e => { e.preventDefault(); closeEncounter(true); });
 $('invite-btn').addEventListener('click', startWatch);
 
+// ── the share layer (§E): bones-only deep link; native sheet when navigator.share
+//    exists, QR modal fallback lives in onboard.js ─────────────────────────────────
+$('door-share').addEventListener('click', e => {
+  e.preventDefault();
+  if (lastCaught) shareCaught(lastCaught.cart, lastCaught.place);
+});
+// receive: opening with #egg=<b64url> verifies the id from source and refuses disguises
+function checkEgg(){
+  const h = location.hash || '';
+  if (h.startsWith('#egg=')) receiveEgg(h.slice(5), { demo: DEMO });
+}
+window.addEventListener('hashchange', checkEgg);
+
+// ── the one nav (§H.3): this page is the map room of the one app ──────────────────
+mountNav({ active: 'map', root: '..' });
+
 document.addEventListener('visibilitychange', () => {
   panelHidden = document.hidden;
   if (document.hidden){ stopGeo(); stopCreatureRender(); }
@@ -718,20 +744,29 @@ document.addEventListener('visibilitychange', () => {
 });
 
 // ── boot ────────────────────────────────────────────────────────────────────────
+// first run: the onboarding overlay owns the location ask (§C.2 — the permission
+// prompt fires on ITS button tap, never automatically; #invite stays suppressed)
 if (DEMO){
   applyFix({ lat: startCenter.lat, lng: startCenter.lng, accuracy: 6 });
   setChips([{ text: 'demo · offline', kind: 'muted' }, bagChip()]);
+  maybeOnboard({ demo: true, nowMs: now(), requestLocation: startWatch });
 } else if (FIX){
   applyFix({ lat: FIX.lat, lng: FIX.lng, accuracy: 8 });
 } else if (navigator.geolocation){
   const last = LS.get('rapp-go.lastFix');
   if (last){ playerPos = { lat: last.lat, lng: last.lng, accuracy: 90 }; map.setPlayer({ lat: last.lat, lng: last.lng, accuracy: 90 }); refreshSpawns(true); refreshPOIs().then(()=>refreshSpawns(true)); }
-  else { $('invite').style.display = 'flex'; }
-  startWatch();
+  if (!onboarded()){
+    maybeOnboard({ demo: false, nowMs: now(), requestLocation: startWatch });
+  } else {
+    if (!last) $('invite').style.display = 'flex';
+    startWatch();
+  }
 } else {
   setChips([{ text: 'no location on this device', kind: 'warn' }]);
-  $('invite').style.display = 'flex';
+  if (onboarded()) $('invite').style.display = 'flex';
+  else maybeOnboard({ demo: false, nowMs: now(), requestLocation: startWatch });
 }
+checkEgg();
 
 // ── optional debug surface (?debug=1) — for desktop/automated verification only ──
 if (params.get('debug') === '1' || DEMO) {
@@ -745,7 +780,9 @@ if (params.get('debug') === '1' || DEMO) {
     // byte-identical data, and tMs vs tMs+Δ shows movement along the deterministic path.
     faunaAt: (tMs) => [...spawns.values()].map(sp => { const p = faunaPath(sp.key, sp.anchor, tMs, sp.species.genes); return { key: sp.key, family: sp.species.family, lat: p.lat, lng: p.lng, phase: Math.round(p.phase*1e6)/1e6, moving: p.moving }; }),
     faunaFamilies: () => [...spawns.values()].map(sp => sp.species.family),
-    faunaAtlasBytes: () => atlasMemoryBytes()
+    faunaAtlasBytes: () => atlasMemoryBytes(),
+    // GO-LIVE hooks: re-run the ceremony / share / receive from the console
+    starterCeremony, receiveEgg, receivePanel, get lastCaught(){ return lastCaught; }
   };
 }
 </script>
