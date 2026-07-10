@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "market_data_api",
+  "resource_id": "risk_alerts",
+  "record": {
+    "record_id": "ref_157d686f7421e4a145a2",
+    "alert_id": "ref_157d686f7421e4a145a2",
+    "risk_type": "risk_1",
+    "severity_code": "severity_1",
+    "status": "active"
+  }
+}

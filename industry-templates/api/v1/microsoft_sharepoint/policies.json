@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_sharepoint",
+  "resource_id": "policies",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_17dcdba35d17fb3c3270",
+      "policy_id": "ref_17dcdba35d17fb3c3270",
+      "policy_type": "policy_1",
+      "version": 10,
+      "effective_date": "2026-01-10"
+    },
+    {
+      "record_id": "ref_b4070223a95b88f6135d",
+      "policy_id": "ref_b4070223a95b88f6135d",
+      "policy_type": "policy_2",
+      "version": 11,
+      "effective_date": "2026-01-11"
+    },
+    {
+      "record_id": "ref_70edbfe4f1a5530c9fc5",
+      "policy_id": "ref_70edbfe4f1a5530c9fc5",
+      "policy_type": "policy_3",
+      "version": 12,
+      "effective_date": "2026-01-12"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "ncino",
+  "resource_id": "transactions",
+  "record": {
+    "record_id": "ref_62ea01b73c680fb60c13",
+    "transaction_id": "ref_62ea01b73c680fb60c13",
+    "transaction_type": "transaction_1",
+    "amount": 100.0,
+    "risk_score": 100.0
+  }
+}

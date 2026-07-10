@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "osisoft_pi",
+  "resource_id": "inspections",
+  "record": {
+    "record_id": "ref_2a1c9f545cb241625415",
+    "inspection_id": "ref_2a1c9f545cb241625415",
+    "asset_id": "ref_84ca25620592d03e7903",
+    "result_code": "result_2",
+    "inspected_at": "2026-01-11T10:00:00Z"
+  }
+}

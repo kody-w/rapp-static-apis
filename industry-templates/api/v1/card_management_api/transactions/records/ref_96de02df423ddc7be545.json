@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "card_management_api",
+  "resource_id": "transactions",
+  "record": {
+    "record_id": "ref_96de02df423ddc7be545",
+    "transaction_id": "ref_96de02df423ddc7be545",
+    "transaction_type": "transaction_1",
+    "amount": 100.0,
+    "risk_score": 100.0
+  }
+}

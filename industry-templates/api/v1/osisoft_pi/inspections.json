@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "osisoft_pi",
+  "resource_id": "inspections",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_689f7114d0fb99e98bc9",
+      "inspection_id": "ref_689f7114d0fb99e98bc9",
+      "asset_id": "ref_67a6af9d1704c96b7285",
+      "result_code": "result_1",
+      "inspected_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_2a1c9f545cb241625415",
+      "inspection_id": "ref_2a1c9f545cb241625415",
+      "asset_id": "ref_84ca25620592d03e7903",
+      "result_code": "result_2",
+      "inspected_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_3ddc014265133ba82548",
+      "inspection_id": "ref_3ddc014265133ba82548",
+      "asset_id": "ref_010ba35f5886f86c1cd8",
+      "result_code": "result_3",
+      "inspected_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

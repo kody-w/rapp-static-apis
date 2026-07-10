@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "eia_923",
+  "resource_id": "grants",
+  "record": {
+    "record_id": "ref_3692afcccff146c31afb",
+    "grant_id": "ref_3692afcccff146c31afb",
+    "program_code": "program_2",
+    "amount": 125.0,
+    "status": "pending"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "fis_core_banking",
+  "resource_id": "payments",
+  "record": {
+    "record_id": "ref_7135f55c1a7f9a131a90",
+    "payment_id": "ref_7135f55c1a7f9a131a90",
+    "amount": 150.0,
+    "currency_code": "currency_3",
+    "status": "complete"
+  }
+}

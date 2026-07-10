@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "epic_clarity",
+  "resource_id": "encounters",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_3d442148b924f6bebfe9",
+      "encounter_id": "ref_3d442148b924f6bebfe9",
+      "encounter_type": "encounter_1",
+      "care_program_code": "care_program_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_d00c966cc5c747dffd8c",
+      "encounter_id": "ref_d00c966cc5c747dffd8c",
+      "encounter_type": "encounter_2",
+      "care_program_code": "care_program_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_52bfa3a10f8ca2950b5b",
+      "encounter_id": "ref_52bfa3a10f8ca2950b5b",
+      "encounter_type": "encounter_3",
+      "care_program_code": "care_program_3",
+      "status": "complete"
+    }
+  ]
+}

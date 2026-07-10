@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "klaviyo",
+  "resource_id": "notifications",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_7bcea21d68a8ff987175",
+      "notification_id": "ref_7bcea21d68a8ff987175",
+      "channel_code": "channel_1",
+      "template_code": "template_1",
+      "delivery_status": "value_601aec69ebde39043877"
+    },
+    {
+      "record_id": "ref_5f1dcf139967822d1e96",
+      "notification_id": "ref_5f1dcf139967822d1e96",
+      "channel_code": "channel_2",
+      "template_code": "template_2",
+      "delivery_status": "value_d3996be11b7a266a964b"
+    },
+    {
+      "record_id": "ref_72787f15eedc75a121f7",
+      "notification_id": "ref_72787f15eedc75a121f7",
+      "channel_code": "channel_3",
+      "template_code": "template_3",
+      "delivery_status": "value_e19e06a5c5baac13e802"
+    }
+  ]
+}

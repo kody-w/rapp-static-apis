@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dun_bradstreet",
+  "resource_id": "risk_alerts",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_28fe330dde45e05abd7c",
+      "alert_id": "ref_28fe330dde45e05abd7c",
+      "risk_type": "risk_1",
+      "severity_code": "severity_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_9dfea77b24ed791a4dfd",
+      "alert_id": "ref_9dfea77b24ed791a4dfd",
+      "risk_type": "risk_2",
+      "severity_code": "severity_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_9b02a2e432d7f8cd0be5",
+      "alert_id": "ref_9b02a2e432d7f8cd0be5",
+      "risk_type": "risk_3",
+      "severity_code": "severity_3",
+      "status": "complete"
+    }
+  ]
+}

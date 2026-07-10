@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_sql",
+  "capability_code": "report",
+  "route_count": 4,
+  "write_intent_count": 0,
+  "receipt": {
+    "receipt_id": "receipt_c59f3e44a0e910bf792f",
+    "operation": "simulate_report",
+    "resource_id": "metrics",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_b31c372aa0e6e3e64f44"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "epic_clarity",
+  "resource_id": "care_gaps",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_d50f31f796d93acd7fef",
+      "gap_id": "ref_d50f31f796d93acd7fef",
+      "measure_code": "measure_1",
+      "priority_code": "priority_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_c6e25b2e650a69a1dce4",
+      "gap_id": "ref_c6e25b2e650a69a1dce4",
+      "measure_code": "measure_2",
+      "priority_code": "priority_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_77a3fdce2c5500ff23c2",
+      "gap_id": "ref_77a3fdce2c5500ff23c2",
+      "measure_code": "measure_3",
+      "priority_code": "priority_3",
+      "status": "complete"
+    }
+  ]
+}

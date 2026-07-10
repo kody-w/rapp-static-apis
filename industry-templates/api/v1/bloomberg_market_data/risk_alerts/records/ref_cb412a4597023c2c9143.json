@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "bloomberg_market_data",
+  "resource_id": "risk_alerts",
+  "record": {
+    "record_id": "ref_cb412a4597023c2c9143",
+    "alert_id": "ref_cb412a4597023c2c9143",
+    "risk_type": "risk_3",
+    "severity_code": "severity_3",
+    "status": "complete"
+  }
+}

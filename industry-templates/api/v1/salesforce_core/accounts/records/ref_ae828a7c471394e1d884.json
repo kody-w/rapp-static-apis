@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_core",
+  "resource_id": "accounts",
+  "record": {
+    "record_id": "ref_ae828a7c471394e1d884",
+    "organization_id": "ref_ae828a7c471394e1d884",
+    "industry_code": "industry_3",
+    "tier_code": "tier_3",
+    "status": "complete"
+  }
+}

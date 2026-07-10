@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_outlook",
+  "resource_id": "notifications",
+  "record": {
+    "record_id": "ref_f9ebd2ca532552d56ef2",
+    "notification_id": "ref_f9ebd2ca532552d56ef2",
+    "channel_code": "channel_3",
+    "template_code": "template_3",
+    "delivery_status": "value_3db8ef562c5e05a389d6"
+  }
+}

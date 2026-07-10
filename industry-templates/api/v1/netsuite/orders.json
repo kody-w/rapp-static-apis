@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "netsuite",
+  "resource_id": "orders",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_33a5840797d3bf6fd777",
+      "order_id": "ref_33a5840797d3bf6fd777",
+      "order_type": "order_1",
+      "amount": 100.0,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_68546b1dc2f2d48ca410",
+      "order_id": "ref_68546b1dc2f2d48ca410",
+      "order_type": "order_2",
+      "amount": 125.0,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_c4c686b2c6ef55cfb0f6",
+      "order_id": "ref_c4c686b2c6ef55cfb0f6",
+      "order_type": "order_3",
+      "amount": 150.0,
+      "status": "complete"
+    }
+  ]
+}

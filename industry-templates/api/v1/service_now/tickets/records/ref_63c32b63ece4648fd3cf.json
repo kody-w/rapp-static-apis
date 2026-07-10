@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "service_now",
+  "resource_id": "tickets",
+  "record": {
+    "record_id": "ref_63c32b63ece4648fd3cf",
+    "ticket_id": "ref_63c32b63ece4648fd3cf",
+    "category_code": "category_1",
+    "priority_code": "priority_1",
+    "status": "active"
+  }
+}

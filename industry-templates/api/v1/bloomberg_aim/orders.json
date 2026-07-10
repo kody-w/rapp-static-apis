@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "bloomberg_aim",
+  "resource_id": "orders",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_c2f3903a0cd22f09a5fe",
+      "order_id": "ref_c2f3903a0cd22f09a5fe",
+      "order_type": "order_1",
+      "amount": 100.0,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_1a99068dbf2a506058dd",
+      "order_id": "ref_1a99068dbf2a506058dd",
+      "order_type": "order_2",
+      "amount": 125.0,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_fdd68c2a2d0e351a5e3e",
+      "order_id": "ref_fdd68c2a2d0e351a5e3e",
+      "order_type": "order_3",
+      "amount": 150.0,
+      "status": "complete"
+    }
+  ]
+}

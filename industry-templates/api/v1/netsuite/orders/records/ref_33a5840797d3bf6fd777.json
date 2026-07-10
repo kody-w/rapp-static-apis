@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "netsuite",
+  "resource_id": "orders",
+  "record": {
+    "record_id": "ref_33a5840797d3bf6fd777",
+    "order_id": "ref_33a5840797d3bf6fd777",
+    "order_type": "order_1",
+    "amount": 100.0,
+    "status": "active"
+  }
+}

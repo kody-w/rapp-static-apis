@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "bloomberg_aim",
+  "resource_id": "portfolios",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_a0ec1252741eca205f2c",
+      "portfolio_id": "ref_a0ec1252741eca205f2c",
+      "strategy_code": "strategy_1",
+      "drift_percent": 100.0,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_4422f522dfdf0792a61a",
+      "portfolio_id": "ref_4422f522dfdf0792a61a",
+      "strategy_code": "strategy_2",
+      "drift_percent": 125.0,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_cf6ff2b14839b77a15f3",
+      "portfolio_id": "ref_cf6ff2b14839b77a15f3",
+      "strategy_code": "strategy_3",
+      "drift_percent": 150.0,
+      "status": "complete"
+    }
+  ]
+}

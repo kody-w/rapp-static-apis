@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_word",
+  "resource_id": "policies",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_66b511cb94747d6f3190",
+      "policy_id": "ref_66b511cb94747d6f3190",
+      "policy_type": "policy_1",
+      "version": 10,
+      "effective_date": "2026-01-10"
+    },
+    {
+      "record_id": "ref_75522de37d71ca55f3f0",
+      "policy_id": "ref_75522de37d71ca55f3f0",
+      "policy_type": "policy_2",
+      "version": 11,
+      "effective_date": "2026-01-11"
+    },
+    {
+      "record_id": "ref_d95ef627a8be2fdd35f5",
+      "policy_id": "ref_d95ef627a8be2fdd35f5",
+      "policy_type": "policy_3",
+      "version": 12,
+      "effective_date": "2026-01-12"
+    }
+  ]
+}

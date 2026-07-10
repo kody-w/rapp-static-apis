@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "netsuite",
+  "resource_id": "inventory_items",
+  "record": {
+    "record_id": "ref_d47e597f36ac6cc3acb8",
+    "item_id": "ref_d47e597f36ac6cc3acb8",
+    "location_code": "location_3",
+    "quantity_available": 12,
+    "status": "complete"
+  }
+}

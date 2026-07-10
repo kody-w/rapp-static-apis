@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "availity",
+  "resource_id": "authorizations",
+  "record": {
+    "record_id": "ref_febfdceda13413998abf",
+    "authorization_id": "ref_febfdceda13413998abf",
+    "service_code": "service_2",
+    "decision_code": "decision_2",
+    "status": "pending"
+  }
+}

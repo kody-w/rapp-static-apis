@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "netsuite",
+  "resource_id": "suppliers",
+  "record": {
+    "record_id": "ref_1892b00e0c0970da5fd3",
+    "supplier_id": "ref_1892b00e0c0970da5fd3",
+    "category_code": "category_2",
+    "risk_tier": "value_ed71248b16b2ebb3b274",
+    "status": "pending"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "cpars",
+  "resource_id": "grants",
+  "record": {
+    "record_id": "ref_5689f4d4d4ef3f16d74c",
+    "grant_id": "ref_5689f4d4d4ef3f16d74c",
+    "program_code": "program_1",
+    "amount": 100.0,
+    "status": "active"
+  }
+}

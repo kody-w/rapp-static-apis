@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_field_service",
+  "resource_id": "work_orders",
+  "record": {
+    "record_id": "ref_f986112d44e320dc91b1",
+    "work_order_id": "ref_f986112d44e320dc91b1",
+    "asset_id": "ref_6771761b97eae82ed0bc",
+    "priority_code": "priority_1",
+    "status": "active"
+  }
+}

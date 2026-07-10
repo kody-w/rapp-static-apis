@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "nppes_npi",
+  "resource_id": "encounters",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_e702abc0a831ccf2448c",
+      "encounter_id": "ref_e702abc0a831ccf2448c",
+      "encounter_type": "encounter_1",
+      "care_program_code": "care_program_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_9b2c000e9488d4833694",
+      "encounter_id": "ref_9b2c000e9488d4833694",
+      "encounter_type": "encounter_2",
+      "care_program_code": "care_program_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_230935550b7b706199bc",
+      "encounter_id": "ref_230935550b7b706199bc",
+      "encounter_type": "encounter_3",
+      "care_program_code": "care_program_3",
+      "status": "complete"
+    }
+  ]
+}

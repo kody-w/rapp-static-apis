@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_sql",
+  "resource_id": "audit_events",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_03727bb8d64b24f77381",
+      "event_id": "ref_03727bb8d64b24f77381",
+      "event_type": "event_1",
+      "result_code": "result_1",
+      "occurred_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_cda051bdf5ffe28668de",
+      "event_id": "ref_cda051bdf5ffe28668de",
+      "event_type": "event_2",
+      "result_code": "result_2",
+      "occurred_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_e3399431a5324b71aa63",
+      "event_id": "ref_e3399431a5324b71aa63",
+      "event_type": "event_3",
+      "result_code": "result_3",
+      "occurred_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

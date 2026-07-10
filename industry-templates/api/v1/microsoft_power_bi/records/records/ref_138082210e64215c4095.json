@@ -1,0 +1,12 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_power_bi",
+  "resource_id": "records",
+  "record": {
+    "record_id": "ref_138082210e64215c4095",
+    "category_code": "category_2",
+    "status": "pending",
+    "effective_at": "2026-01-11T10:00:00Z"
+  }
+}

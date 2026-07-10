@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "project44",
+  "resource_id": "orders",
+  "record": {
+    "record_id": "ref_429833fabe553d199b2d",
+    "order_id": "ref_429833fabe553d199b2d",
+    "order_type": "order_2",
+    "amount": 125.0,
+    "status": "pending"
+  }
+}

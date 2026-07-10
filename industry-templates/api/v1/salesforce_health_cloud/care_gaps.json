@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_health_cloud",
+  "resource_id": "care_gaps",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_d233bd1974c7fa111f8b",
+      "gap_id": "ref_d233bd1974c7fa111f8b",
+      "measure_code": "measure_1",
+      "priority_code": "priority_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_e5a11d6097b804a200b7",
+      "gap_id": "ref_e5a11d6097b804a200b7",
+      "measure_code": "measure_2",
+      "priority_code": "priority_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_9542220d746b4df6a491",
+      "gap_id": "ref_9542220d746b4df6a491",
+      "measure_code": "measure_3",
+      "priority_code": "priority_3",
+      "status": "complete"
+    }
+  ]
+}

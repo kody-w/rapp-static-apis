@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_service_cloud",
+  "resource_id": "changes",
+  "record": {
+    "record_id": "ref_3d8b0c1568318f2e3a95",
+    "change_id": "ref_3d8b0c1568318f2e3a95",
+    "change_type": "change_1",
+    "risk_code": "risk_1",
+    "status": "active"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_commerce",
+  "resource_id": "shipments",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_ac4e8f7fea87a8573c9e",
+      "shipment_id": "ref_ac4e8f7fea87a8573c9e",
+      "carrier_code": "carrier_1",
+      "milestone_code": "milestone_1",
+      "estimated_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_5f609046b40cac344b88",
+      "shipment_id": "ref_5f609046b40cac344b88",
+      "carrier_code": "carrier_2",
+      "milestone_code": "milestone_2",
+      "estimated_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_ea36a1aaa1868a59e9d8",
+      "shipment_id": "ref_ea36a1aaa1868a59e9d8",
+      "carrier_code": "carrier_3",
+      "milestone_code": "milestone_3",
+      "estimated_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

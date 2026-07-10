@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "project44",
+  "resource_id": "shipments",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_3748650e91e555002d10",
+      "shipment_id": "ref_3748650e91e555002d10",
+      "carrier_code": "carrier_1",
+      "milestone_code": "milestone_1",
+      "estimated_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_c7251c282b09d84202f1",
+      "shipment_id": "ref_c7251c282b09d84202f1",
+      "carrier_code": "carrier_2",
+      "milestone_code": "milestone_2",
+      "estimated_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_7d41c1fa132289de6b83",
+      "shipment_id": "ref_7d41c1fa132289de6b83",
+      "carrier_code": "carrier_3",
+      "milestone_code": "milestone_3",
+      "estimated_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

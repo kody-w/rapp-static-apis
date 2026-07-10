@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_erp",
+  "resource_id": "suppliers",
+  "record": {
+    "record_id": "ref_fc91200f7968f23b3a54",
+    "supplier_id": "ref_fc91200f7968f23b3a54",
+    "category_code": "category_1",
+    "risk_tier": "value_32822105cc526f760e66",
+    "status": "active"
+  }
+}

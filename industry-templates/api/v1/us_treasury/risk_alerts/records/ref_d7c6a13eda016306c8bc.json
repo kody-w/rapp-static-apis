@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "us_treasury",
+  "resource_id": "risk_alerts",
+  "record": {
+    "record_id": "ref_d7c6a13eda016306c8bc",
+    "alert_id": "ref_d7c6a13eda016306c8bc",
+    "risk_type": "risk_2",
+    "severity_code": "severity_2",
+    "status": "pending"
+  }
+}

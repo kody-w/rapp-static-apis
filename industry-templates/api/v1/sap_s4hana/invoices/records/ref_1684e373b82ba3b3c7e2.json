@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_s4hana",
+  "resource_id": "invoices",
+  "record": {
+    "record_id": "ref_1684e373b82ba3b3c7e2",
+    "invoice_id": "ref_1684e373b82ba3b3c7e2",
+    "amount": 150.0,
+    "currency_code": "currency_3",
+    "status": "complete"
+  }
+}

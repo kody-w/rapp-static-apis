@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "oracle_core_banking",
+  "resource_id": "invoices",
+  "record": {
+    "record_id": "ref_73fecf1d6c59fe47cf3f",
+    "invoice_id": "ref_73fecf1d6c59fe47cf3f",
+    "amount": 100.0,
+    "currency_code": "currency_1",
+    "status": "active"
+  }
+}

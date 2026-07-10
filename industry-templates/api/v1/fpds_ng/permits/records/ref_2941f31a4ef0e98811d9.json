@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "fpds_ng",
+  "resource_id": "permits",
+  "record": {
+    "record_id": "ref_2941f31a4ef0e98811d9",
+    "permit_id": "ref_2941f31a4ef0e98811d9",
+    "permit_type": "permit_1",
+    "jurisdiction_code": "jurisdiction_1",
+    "status": "active"
+  }
+}

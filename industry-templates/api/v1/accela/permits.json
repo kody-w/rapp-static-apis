@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "accela",
+  "resource_id": "permits",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_73be8b82b027dfe0113d",
+      "permit_id": "ref_73be8b82b027dfe0113d",
+      "permit_type": "permit_1",
+      "jurisdiction_code": "jurisdiction_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_c027a69da3ce401e08f7",
+      "permit_id": "ref_c027a69da3ce401e08f7",
+      "permit_type": "permit_2",
+      "jurisdiction_code": "jurisdiction_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_7e490d7b157348cb888c",
+      "permit_id": "ref_7e490d7b157348cb888c",
+      "permit_type": "permit_3",
+      "jurisdiction_code": "jurisdiction_3",
+      "status": "complete"
+    }
+  ]
+}

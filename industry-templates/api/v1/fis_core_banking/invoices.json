@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "fis_core_banking",
+  "resource_id": "invoices",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_d3005b249c1d028ef36a",
+      "invoice_id": "ref_d3005b249c1d028ef36a",
+      "amount": 100.0,
+      "currency_code": "currency_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_9b4de0f2a8c934079736",
+      "invoice_id": "ref_9b4de0f2a8c934079736",
+      "amount": 125.0,
+      "currency_code": "currency_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_b2415d452b45f597d2fb",
+      "invoice_id": "ref_b2415d452b45f597d2fb",
+      "amount": 150.0,
+      "currency_code": "currency_3",
+      "status": "complete"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_sales",
+  "resource_id": "opportunities",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_24a263d449d5b863cb7d",
+      "opportunity_id": "ref_24a263d449d5b863cb7d",
+      "stage_code": "stage_1",
+      "amount": 100.0,
+      "close_date": "2026-01-10"
+    },
+    {
+      "record_id": "ref_8e8c9b2170f3abc3ea36",
+      "opportunity_id": "ref_8e8c9b2170f3abc3ea36",
+      "stage_code": "stage_2",
+      "amount": 125.0,
+      "close_date": "2026-01-11"
+    },
+    {
+      "record_id": "ref_10dfc134f09863eb8028",
+      "opportunity_id": "ref_10dfc134f09863eb8028",
+      "stage_code": "stage_3",
+      "amount": 150.0,
+      "close_date": "2026-01-12"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "state_puc",
+  "resource_id": "permits",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_dc7a2cc19278d6fe3b21",
+      "permit_id": "ref_dc7a2cc19278d6fe3b21",
+      "permit_type": "permit_1",
+      "jurisdiction_code": "jurisdiction_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_39eaf7da3865215cc21b",
+      "permit_id": "ref_39eaf7da3865215cc21b",
+      "permit_type": "permit_2",
+      "jurisdiction_code": "jurisdiction_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_d93e8d5f8fbb69320802",
+      "permit_id": "ref_d93e8d5f8fbb69320802",
+      "permit_type": "permit_3",
+      "jurisdiction_code": "jurisdiction_3",
+      "status": "complete"
+    }
+  ]
+}

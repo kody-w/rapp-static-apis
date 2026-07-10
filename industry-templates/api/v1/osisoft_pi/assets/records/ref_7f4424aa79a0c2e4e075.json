@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "osisoft_pi",
+  "resource_id": "assets",
+  "record": {
+    "record_id": "ref_7f4424aa79a0c2e4e075",
+    "asset_id": "ref_7f4424aa79a0c2e4e075",
+    "asset_type": "asset_3",
+    "health_score": 150.0,
+    "status": "complete"
+  }
+}

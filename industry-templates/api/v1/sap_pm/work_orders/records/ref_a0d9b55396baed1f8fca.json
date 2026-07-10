@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_pm",
+  "resource_id": "work_orders",
+  "record": {
+    "record_id": "ref_a0d9b55396baed1f8fca",
+    "work_order_id": "ref_a0d9b55396baed1f8fca",
+    "asset_id": "ref_718bbb7b163b487f8948",
+    "priority_code": "priority_2",
+    "status": "pending"
+  }
+}

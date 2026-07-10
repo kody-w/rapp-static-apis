@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "tyler_munis",
+  "resource_id": "permits",
+  "record": {
+    "record_id": "ref_464a7e2f90793ea535cd",
+    "permit_id": "ref_464a7e2f90793ea535cd",
+    "permit_type": "permit_3",
+    "jurisdiction_code": "jurisdiction_3",
+    "status": "complete"
+  }
+}

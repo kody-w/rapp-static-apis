@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "charles_river_ims",
+  "resource_id": "portfolios",
+  "record": {
+    "record_id": "ref_0c72476cdbda2c67e99b",
+    "portfolio_id": "ref_0c72476cdbda2c67e99b",
+    "strategy_code": "strategy_3",
+    "drift_percent": 150.0,
+    "status": "complete"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "accela",
+  "resource_id": "compliance_findings",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_e90dd75c9a18cebbe422",
+      "finding_id": "ref_e90dd75c9a18cebbe422",
+      "control_code": "control_1",
+      "severity_code": "severity_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_1c697212ba60771d1e38",
+      "finding_id": "ref_1c697212ba60771d1e38",
+      "control_code": "control_2",
+      "severity_code": "severity_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_094f5c5a6d1782af9c3c",
+      "finding_id": "ref_094f5c5a6d1782af9c3c",
+      "control_code": "control_3",
+      "severity_code": "severity_3",
+      "status": "complete"
+    }
+  ]
+}

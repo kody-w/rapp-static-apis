@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "market_data_api",
+  "resource_id": "orders",
+  "record": {
+    "record_id": "ref_22b97c8450b19da67274",
+    "order_id": "ref_22b97c8450b19da67274",
+    "order_type": "order_1",
+    "amount": 100.0,
+    "status": "active"
+  }
+}

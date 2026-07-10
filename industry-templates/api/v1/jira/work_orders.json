@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "jira",
+  "resource_id": "work_orders",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_98ace387a03d7e3c0cdd",
+      "work_order_id": "ref_98ace387a03d7e3c0cdd",
+      "asset_id": "ref_ebf32915042a651d4e9f",
+      "priority_code": "priority_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_d1e445410902092e3669",
+      "work_order_id": "ref_d1e445410902092e3669",
+      "asset_id": "ref_c55ebc704060939245c4",
+      "priority_code": "priority_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_b123cbd90314f1f6c2d5",
+      "work_order_id": "ref_b123cbd90314f1f6c2d5",
+      "asset_id": "ref_48fb4a206e16241a8987",
+      "priority_code": "priority_3",
+      "status": "complete"
+    }
+  ]
+}

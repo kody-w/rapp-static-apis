@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_teams",
+  "resource_id": "activities",
+  "record": {
+    "record_id": "ref_ee6721b99a3bbaaed904",
+    "activity_id": "ref_ee6721b99a3bbaaed904",
+    "activity_type": "activity_1",
+    "outcome_code": "outcome_1",
+    "occurred_at": "2026-01-10T09:00:00Z"
+  }
+}

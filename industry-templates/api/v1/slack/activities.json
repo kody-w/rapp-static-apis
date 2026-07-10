@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "slack",
+  "resource_id": "activities",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_af8d73f65887e2f56dd4",
+      "activity_id": "ref_af8d73f65887e2f56dd4",
+      "activity_type": "activity_1",
+      "outcome_code": "outcome_1",
+      "occurred_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_f79557f81d1b248249e3",
+      "activity_id": "ref_f79557f81d1b248249e3",
+      "activity_type": "activity_2",
+      "outcome_code": "outcome_2",
+      "occurred_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_28e104b7fe0f5353611d",
+      "activity_id": "ref_28e104b7fe0f5353611d",
+      "activity_type": "activity_3",
+      "outcome_code": "outcome_3",
+      "occurred_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

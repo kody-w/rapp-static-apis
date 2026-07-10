@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_service_cloud",
+  "resource_id": "tickets",
+  "record": {
+    "record_id": "ref_97ee7b316f6b3e403299",
+    "ticket_id": "ref_97ee7b316f6b3e403299",
+    "category_code": "category_3",
+    "priority_code": "priority_3",
+    "status": "complete"
+  }
+}

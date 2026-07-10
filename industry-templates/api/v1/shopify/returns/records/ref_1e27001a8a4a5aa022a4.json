@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "shopify",
+  "resource_id": "returns",
+  "record": {
+    "record_id": "ref_1e27001a8a4a5aa022a4",
+    "return_id": "ref_1e27001a8a4a5aa022a4",
+    "reason_code": "reason_2",
+    "resolution_code": "resolution_2",
+    "status": "pending"
+  }
+}

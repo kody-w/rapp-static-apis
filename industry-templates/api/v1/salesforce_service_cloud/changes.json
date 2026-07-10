@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_service_cloud",
+  "resource_id": "changes",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_3d8b0c1568318f2e3a95",
+      "change_id": "ref_3d8b0c1568318f2e3a95",
+      "change_type": "change_1",
+      "risk_code": "risk_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_33f334e73d8c110544ff",
+      "change_id": "ref_33f334e73d8c110544ff",
+      "change_type": "change_2",
+      "risk_code": "risk_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_4725272da9d27f403f18",
+      "change_id": "ref_4725272da9d27f403f18",
+      "change_type": "change_3",
+      "risk_code": "risk_3",
+      "status": "complete"
+    }
+  ]
+}

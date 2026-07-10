@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "encompass",
+  "resource_id": "transactions",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_ceb43103362b32beb4f7",
+      "transaction_id": "ref_ceb43103362b32beb4f7",
+      "transaction_type": "transaction_1",
+      "amount": 100.0,
+      "risk_score": 100.0
+    },
+    {
+      "record_id": "ref_b0a074e8e5aa1568843a",
+      "transaction_id": "ref_b0a074e8e5aa1568843a",
+      "transaction_type": "transaction_2",
+      "amount": 125.0,
+      "risk_score": 125.0
+    },
+    {
+      "record_id": "ref_699f701a4ee29f27d74b",
+      "transaction_id": "ref_699f701a4ee29f27d74b",
+      "transaction_type": "transaction_3",
+      "amount": 150.0,
+      "risk_score": 150.0
+    }
+  ]
+}

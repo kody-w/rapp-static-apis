@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_customer_service",
+  "resource_id": "tickets",
+  "record": {
+    "record_id": "ref_6ae1f48e94589aa9f0a4",
+    "ticket_id": "ref_6ae1f48e94589aa9f0a4",
+    "category_code": "category_2",
+    "priority_code": "priority_2",
+    "status": "pending"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "fis_core_banking",
+  "resource_id": "payments",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_cefb72645fef25cc2261",
+      "payment_id": "ref_cefb72645fef25cc2261",
+      "amount": 100.0,
+      "currency_code": "currency_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_b3d8e0443cf56c314611",
+      "payment_id": "ref_b3d8e0443cf56c314611",
+      "amount": 125.0,
+      "currency_code": "currency_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_7135f55c1a7f9a131a90",
+      "payment_id": "ref_7135f55c1a7f9a131a90",
+      "amount": 150.0,
+      "currency_code": "currency_3",
+      "status": "complete"
+    }
+  ]
+}

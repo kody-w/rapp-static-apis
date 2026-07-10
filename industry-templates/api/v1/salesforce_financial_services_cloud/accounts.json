@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_financial_services_cloud",
+  "resource_id": "accounts",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_f4843ffb03f2de254a47",
+      "organization_id": "ref_f4843ffb03f2de254a47",
+      "industry_code": "industry_1",
+      "tier_code": "tier_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_3df32ff3f1ade340f71f",
+      "organization_id": "ref_3df32ff3f1ade340f71f",
+      "industry_code": "industry_2",
+      "tier_code": "tier_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_6f9c41386903ccff1f46",
+      "organization_id": "ref_6f9c41386903ccff1f46",
+      "industry_code": "industry_3",
+      "tier_code": "tier_3",
+      "status": "complete"
+    }
+  ]
+}

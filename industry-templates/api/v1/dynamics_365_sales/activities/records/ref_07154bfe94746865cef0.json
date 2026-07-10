@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_sales",
+  "resource_id": "activities",
+  "record": {
+    "record_id": "ref_07154bfe94746865cef0",
+    "activity_id": "ref_07154bfe94746865cef0",
+    "activity_type": "activity_3",
+    "outcome_code": "outcome_3",
+    "occurred_at": "2026-01-12T11:00:00Z"
+  }
+}

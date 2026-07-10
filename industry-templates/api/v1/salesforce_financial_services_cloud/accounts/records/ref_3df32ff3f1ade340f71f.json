@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_financial_services_cloud",
+  "resource_id": "accounts",
+  "record": {
+    "record_id": "ref_3df32ff3f1ade340f71f",
+    "organization_id": "ref_3df32ff3f1ade340f71f",
+    "industry_code": "industry_2",
+    "tier_code": "tier_2",
+    "status": "pending"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_s4hana",
+  "resource_id": "inventory_items",
+  "record": {
+    "record_id": "ref_c4e8b4516cf29b962cc3",
+    "item_id": "ref_c4e8b4516cf29b962cc3",
+    "location_code": "location_2",
+    "quantity_available": 11,
+    "status": "pending"
+  }
+}

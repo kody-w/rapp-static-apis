@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_loyalty_cloud",
+  "resource_id": "campaigns",
+  "record": {
+    "record_id": "ref_18646426f46012bf84a6",
+    "campaign_id": "ref_18646426f46012bf84a6",
+    "channel_code": "channel_1",
+    "segment_code": "segment_1",
+    "status": "active"
+  }
+}

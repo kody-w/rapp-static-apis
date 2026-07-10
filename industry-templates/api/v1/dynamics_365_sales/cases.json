@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_sales",
+  "resource_id": "cases",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_511ab1b07c827a41b286",
+      "case_id": "ref_511ab1b07c827a41b286",
+      "case_type": "case_1",
+      "priority_code": "priority_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_1783977fe65f1d5f0a01",
+      "case_id": "ref_1783977fe65f1d5f0a01",
+      "case_type": "case_2",
+      "priority_code": "priority_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_ee458566fd4502645a7f",
+      "case_id": "ref_ee458566fd4502645a7f",
+      "case_type": "case_3",
+      "priority_code": "priority_3",
+      "status": "complete"
+    }
+  ]
+}

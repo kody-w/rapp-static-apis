@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "confluence",
+  "resource_id": "documents",
+  "record": {
+    "record_id": "ref_08490431ddd29f2f5156",
+    "document_id": "ref_08490431ddd29f2f5156",
+    "classification_code": "classification_2",
+    "version": 11,
+    "status": "pending"
+  }
+}

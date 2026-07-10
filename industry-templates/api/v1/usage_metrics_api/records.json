@@ -1,0 +1,27 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "usage_metrics_api",
+  "resource_id": "records",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_b303e44377edb55da13e",
+      "category_code": "category_1",
+      "status": "active",
+      "effective_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_57e6c31264a510ca5fb6",
+      "category_code": "category_2",
+      "status": "pending",
+      "effective_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_31105ebcd50083d912a1",
+      "category_code": "category_3",
+      "status": "complete",
+      "effective_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

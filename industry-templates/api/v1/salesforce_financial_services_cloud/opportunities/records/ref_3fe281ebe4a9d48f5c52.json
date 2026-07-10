@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_financial_services_cloud",
+  "resource_id": "opportunities",
+  "record": {
+    "record_id": "ref_3fe281ebe4a9d48f5c52",
+    "opportunity_id": "ref_3fe281ebe4a9d48f5c52",
+    "stage_code": "stage_1",
+    "amount": 100.0,
+    "close_date": "2026-01-10"
+  }
+}

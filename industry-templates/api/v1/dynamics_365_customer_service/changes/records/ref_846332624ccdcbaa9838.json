@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_customer_service",
+  "resource_id": "changes",
+  "record": {
+    "record_id": "ref_846332624ccdcbaa9838",
+    "change_id": "ref_846332624ccdcbaa9838",
+    "change_type": "change_3",
+    "risk_code": "risk_3",
+    "status": "complete"
+  }
+}

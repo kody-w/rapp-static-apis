@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_ecc",
+  "resource_id": "suppliers",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_3894a24d8bd5bd36559b",
+      "supplier_id": "ref_3894a24d8bd5bd36559b",
+      "category_code": "category_1",
+      "risk_tier": "value_58a83d088c3981d986e1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_b5b485aa31cbb0dee09e",
+      "supplier_id": "ref_b5b485aa31cbb0dee09e",
+      "category_code": "category_2",
+      "risk_tier": "value_b3e7d8954f9f67fe9d55",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_cee642db39af9aca047e",
+      "supplier_id": "ref_cee642db39af9aca047e",
+      "category_code": "category_3",
+      "risk_tier": "value_3d5c5efb1c8434568e38",
+      "status": "complete"
+    }
+  ]
+}

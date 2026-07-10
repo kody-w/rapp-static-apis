@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_financial_services_cloud",
+  "resource_id": "cases",
+  "record": {
+    "record_id": "ref_3e47986cfd7c6454977e",
+    "case_id": "ref_3e47986cfd7c6454977e",
+    "case_type": "case_3",
+    "priority_code": "priority_3",
+    "status": "complete"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "openair",
+  "resource_id": "role_allocations",
+  "record": {
+    "record_id": "ref_c5f76d05c047bb6120c8",
+    "allocation_id": "ref_c5f76d05c047bb6120c8",
+    "role_code": "role_3",
+    "capacity_percent": 150.0,
+    "status": "complete"
+  }
+}

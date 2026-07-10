@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "netsuite",
+  "resource_id": "payments",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_c44af62e6192e7b99549",
+      "payment_id": "ref_c44af62e6192e7b99549",
+      "amount": 100.0,
+      "currency_code": "currency_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_4b38f838bee94e021658",
+      "payment_id": "ref_4b38f838bee94e021658",
+      "amount": 125.0,
+      "currency_code": "currency_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_59b80711cc3963fdd6d4",
+      "payment_id": "ref_59b80711cc3963fdd6d4",
+      "amount": 150.0,
+      "currency_code": "currency_3",
+      "status": "complete"
+    }
+  ]
+}

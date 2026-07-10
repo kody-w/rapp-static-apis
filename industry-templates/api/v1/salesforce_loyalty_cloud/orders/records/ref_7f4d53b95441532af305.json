@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_loyalty_cloud",
+  "resource_id": "orders",
+  "record": {
+    "record_id": "ref_7f4d53b95441532af305",
+    "order_id": "ref_7f4d53b95441532af305",
+    "order_type": "order_2",
+    "amount": 125.0,
+    "status": "pending"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "klaviyo",
+  "resource_id": "notifications",
+  "record": {
+    "record_id": "ref_72787f15eedc75a121f7",
+    "notification_id": "ref_72787f15eedc75a121f7",
+    "channel_code": "channel_3",
+    "template_code": "template_3",
+    "delivery_status": "value_e19e06a5c5baac13e802"
+  }
+}

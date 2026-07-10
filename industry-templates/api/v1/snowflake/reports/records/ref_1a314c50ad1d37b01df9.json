@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "snowflake",
+  "resource_id": "reports",
+  "record": {
+    "record_id": "ref_1a314c50ad1d37b01df9",
+    "report_id": "ref_1a314c50ad1d37b01df9",
+    "report_type": "report_2",
+    "period_code": "period_2",
+    "status": "pending"
+  }
+}

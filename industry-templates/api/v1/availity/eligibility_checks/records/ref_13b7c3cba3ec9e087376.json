@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "availity",
+  "resource_id": "eligibility_checks",
+  "record": {
+    "record_id": "ref_13b7c3cba3ec9e087376",
+    "check_id": "ref_13b7c3cba3ec9e087376",
+    "plan_code": "plan_3",
+    "result_code": "result_3",
+    "checked_at": "2026-01-12T11:00:00Z"
+  }
+}

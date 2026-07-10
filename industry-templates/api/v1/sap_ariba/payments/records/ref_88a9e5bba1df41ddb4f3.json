@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_ariba",
+  "resource_id": "payments",
+  "record": {
+    "record_id": "ref_88a9e5bba1df41ddb4f3",
+    "payment_id": "ref_88a9e5bba1df41ddb4f3",
+    "amount": 125.0,
+    "currency_code": "currency_2",
+    "status": "pending"
+  }
+}

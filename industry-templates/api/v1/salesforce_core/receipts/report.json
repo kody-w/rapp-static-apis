@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_core",
+  "capability_code": "report",
+  "route_count": 7,
+  "write_intent_count": 0,
+  "receipt": {
+    "receipt_id": "receipt_0f2db6d1cfd124364f97",
+    "operation": "simulate_report",
+    "resource_id": "multiple_resources",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_e97d0ae61f88bd759cd5"
+  }
+}

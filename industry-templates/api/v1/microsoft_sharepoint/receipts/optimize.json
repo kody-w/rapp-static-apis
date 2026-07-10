@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_sharepoint",
+  "capability_code": "optimize",
+  "route_count": 7,
+  "write_intent_count": 0,
+  "receipt": {
+    "receipt_id": "receipt_2caf95bd1302ea02f065",
+    "operation": "simulate_optimize",
+    "resource_id": "documents",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_48514e7e16c6abfaa38b"
+  }
+}

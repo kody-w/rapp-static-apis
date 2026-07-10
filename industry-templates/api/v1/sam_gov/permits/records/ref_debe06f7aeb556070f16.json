@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sam_gov",
+  "resource_id": "permits",
+  "record": {
+    "record_id": "ref_debe06f7aeb556070f16",
+    "permit_id": "ref_debe06f7aeb556070f16",
+    "permit_type": "permit_1",
+    "jurisdiction_code": "jurisdiction_1",
+    "status": "active"
+  }
+}

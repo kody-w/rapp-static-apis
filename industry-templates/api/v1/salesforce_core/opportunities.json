@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_core",
+  "resource_id": "opportunities",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_36d368d49d66ff7dd329",
+      "opportunity_id": "ref_36d368d49d66ff7dd329",
+      "stage_code": "stage_1",
+      "amount": 100.0,
+      "close_date": "2026-01-10"
+    },
+    {
+      "record_id": "ref_13c6d79480328e6e813f",
+      "opportunity_id": "ref_13c6d79480328e6e813f",
+      "stage_code": "stage_2",
+      "amount": 125.0,
+      "close_date": "2026-01-11"
+    },
+    {
+      "record_id": "ref_665e1bf124f45b370ac5",
+      "opportunity_id": "ref_665e1bf124f45b370ac5",
+      "stage_code": "stage_3",
+      "amount": 150.0,
+      "close_date": "2026-01-12"
+    }
+  ]
+}

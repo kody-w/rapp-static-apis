@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_customer_service",
+  "resource_id": "tickets",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_2f302c8e918638202e25",
+      "ticket_id": "ref_2f302c8e918638202e25",
+      "category_code": "category_1",
+      "priority_code": "priority_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_6ae1f48e94589aa9f0a4",
+      "ticket_id": "ref_6ae1f48e94589aa9f0a4",
+      "category_code": "category_2",
+      "priority_code": "priority_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_5935ed876eae79629aae",
+      "ticket_id": "ref_5935ed876eae79629aae",
+      "category_code": "category_3",
+      "priority_code": "priority_3",
+      "status": "complete"
+    }
+  ]
+}

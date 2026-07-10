@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_ecc",
+  "resource_id": "inventory_items",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_f85b3e777f100e33883e",
+      "item_id": "ref_f85b3e777f100e33883e",
+      "location_code": "location_1",
+      "quantity_available": 10,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_ddd0d33d63af640e7485",
+      "item_id": "ref_ddd0d33d63af640e7485",
+      "location_code": "location_2",
+      "quantity_available": 11,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_2cdcddfabc72c2fcf514",
+      "item_id": "ref_2cdcddfabc72c2fcf514",
+      "location_code": "location_3",
+      "quantity_available": 12,
+      "status": "complete"
+    }
+  ]
+}

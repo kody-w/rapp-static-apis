@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "fedex",
+  "resource_id": "shipments",
+  "record": {
+    "record_id": "ref_4ac221357d06043736a6",
+    "shipment_id": "ref_4ac221357d06043736a6",
+    "carrier_code": "carrier_1",
+    "milestone_code": "milestone_1",
+    "estimated_at": "2026-01-10T09:00:00Z"
+  }
+}

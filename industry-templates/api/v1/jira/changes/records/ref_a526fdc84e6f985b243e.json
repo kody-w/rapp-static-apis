@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "jira",
+  "resource_id": "changes",
+  "record": {
+    "record_id": "ref_a526fdc84e6f985b243e",
+    "change_id": "ref_a526fdc84e6f985b243e",
+    "change_type": "change_1",
+    "risk_code": "risk_1",
+    "status": "active"
+  }
+}

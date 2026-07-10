@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "esri_arcgis",
+  "resource_id": "permits",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_aee1af4916bc81041913",
+      "permit_id": "ref_aee1af4916bc81041913",
+      "permit_type": "permit_1",
+      "jurisdiction_code": "jurisdiction_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_4adc146d09cfc0a4fdeb",
+      "permit_id": "ref_4adc146d09cfc0a4fdeb",
+      "permit_type": "permit_2",
+      "jurisdiction_code": "jurisdiction_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_8e763f03622684aa0fa0",
+      "permit_id": "ref_8e763f03622684aa0fa0",
+      "permit_type": "permit_3",
+      "jurisdiction_code": "jurisdiction_3",
+      "status": "complete"
+    }
+  ]
+}

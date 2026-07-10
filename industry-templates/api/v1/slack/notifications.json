@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "slack",
+  "resource_id": "notifications",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_78738b9dcb2f31c66471",
+      "notification_id": "ref_78738b9dcb2f31c66471",
+      "channel_code": "channel_1",
+      "template_code": "template_1",
+      "delivery_status": "value_c6329a5767aafdb8fd61"
+    },
+    {
+      "record_id": "ref_e465f677b29fd040fbc3",
+      "notification_id": "ref_e465f677b29fd040fbc3",
+      "channel_code": "channel_2",
+      "template_code": "template_2",
+      "delivery_status": "value_ed2d2ac28dbadbc59ade"
+    },
+    {
+      "record_id": "ref_f1a74f1aed6bcd222b83",
+      "notification_id": "ref_f1a74f1aed6bcd222b83",
+      "channel_code": "channel_3",
+      "template_code": "template_3",
+      "delivery_status": "value_aa5e747703ca675c52e7"
+    }
+  ]
+}

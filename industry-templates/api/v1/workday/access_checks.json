@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "workday",
+  "resource_id": "access_checks",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_1d593f6cf2c20f75d8ee",
+      "check_id": "ref_1d593f6cf2c20f75d8ee",
+      "role_code": "role_1",
+      "resource_code": "resource_1",
+      "decision_code": "decision_1"
+    },
+    {
+      "record_id": "ref_9c3f29c7bcbd0ed3e03c",
+      "check_id": "ref_9c3f29c7bcbd0ed3e03c",
+      "role_code": "role_2",
+      "resource_code": "resource_2",
+      "decision_code": "decision_2"
+    },
+    {
+      "record_id": "ref_48241f868553e6872d96",
+      "check_id": "ref_48241f868553e6872d96",
+      "role_code": "role_3",
+      "resource_code": "resource_3",
+      "decision_code": "decision_3"
+    }
+  ]
+}

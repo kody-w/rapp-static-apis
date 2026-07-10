@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "osisoft_pi",
+  "resource_id": "assets",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_9e60b4d046150726d218",
+      "asset_id": "ref_9e60b4d046150726d218",
+      "asset_type": "asset_1",
+      "health_score": 100.0,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_c4d344a8ecfbdda1e58f",
+      "asset_id": "ref_c4d344a8ecfbdda1e58f",
+      "asset_type": "asset_2",
+      "health_score": 125.0,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_7f4424aa79a0c2e4e075",
+      "asset_id": "ref_7f4424aa79a0c2e4e075",
+      "asset_type": "asset_3",
+      "health_score": 150.0,
+      "status": "complete"
+    }
+  ]
+}

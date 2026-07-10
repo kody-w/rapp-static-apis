@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_ecc",
+  "resource_id": "inventory_items",
+  "record": {
+    "record_id": "ref_ddd0d33d63af640e7485",
+    "item_id": "ref_ddd0d33d63af640e7485",
+    "location_code": "location_2",
+    "quantity_available": 11,
+    "status": "pending"
+  }
+}

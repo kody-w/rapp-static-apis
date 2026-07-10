@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "bloomberg_market_data",
+  "resource_id": "portfolios",
+  "record": {
+    "record_id": "ref_83eae18566d1ab619a6f",
+    "portfolio_id": "ref_83eae18566d1ab619a6f",
+    "strategy_code": "strategy_2",
+    "drift_percent": 125.0,
+    "status": "pending"
+  }
+}

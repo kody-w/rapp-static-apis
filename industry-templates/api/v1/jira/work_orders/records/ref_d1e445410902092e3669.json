@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "jira",
+  "resource_id": "work_orders",
+  "record": {
+    "record_id": "ref_d1e445410902092e3669",
+    "work_order_id": "ref_d1e445410902092e3669",
+    "asset_id": "ref_c55ebc704060939245c4",
+    "priority_code": "priority_2",
+    "status": "pending"
+  }
+}

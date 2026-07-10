@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "encompass",
+  "resource_id": "invoices",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_d32a6b4d254f5b3e58b3",
+      "invoice_id": "ref_d32a6b4d254f5b3e58b3",
+      "amount": 100.0,
+      "currency_code": "currency_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_d43277f2e99d2a2b7b09",
+      "invoice_id": "ref_d43277f2e99d2a2b7b09",
+      "amount": 125.0,
+      "currency_code": "currency_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_51695aa3b0a97f178d80",
+      "invoice_id": "ref_51695aa3b0a97f178d80",
+      "amount": 150.0,
+      "currency_code": "currency_3",
+      "status": "complete"
+    }
+  ]
+}

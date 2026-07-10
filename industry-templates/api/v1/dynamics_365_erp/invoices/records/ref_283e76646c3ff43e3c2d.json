@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_erp",
+  "resource_id": "invoices",
+  "record": {
+    "record_id": "ref_283e76646c3ff43e3c2d",
+    "invoice_id": "ref_283e76646c3ff43e3c2d",
+    "amount": 100.0,
+    "currency_code": "currency_1",
+    "status": "active"
+  }
+}

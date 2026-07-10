@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sam_gov",
+  "resource_id": "compliance_findings",
+  "record": {
+    "record_id": "ref_b13fe8959526f3c9b9f0",
+    "finding_id": "ref_b13fe8959526f3c9b9f0",
+    "control_code": "control_3",
+    "severity_code": "severity_3",
+    "status": "complete"
+  }
+}

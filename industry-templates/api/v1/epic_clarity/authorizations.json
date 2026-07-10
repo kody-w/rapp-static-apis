@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "epic_clarity",
+  "resource_id": "authorizations",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_f4bb782353a13ec46f38",
+      "authorization_id": "ref_f4bb782353a13ec46f38",
+      "service_code": "service_1",
+      "decision_code": "decision_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_c82f1ddc59fdedd3581c",
+      "authorization_id": "ref_c82f1ddc59fdedd3581c",
+      "service_code": "service_2",
+      "decision_code": "decision_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_cb430555a428ba2f9da3",
+      "authorization_id": "ref_cb430555a428ba2f9da3",
+      "service_code": "service_3",
+      "decision_code": "decision_3",
+      "status": "complete"
+    }
+  ]
+}

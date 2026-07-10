@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "public_city_website",
+  "resource_id": "permits",
+  "record": {
+    "record_id": "ref_e2042fbda9450c6c240b",
+    "permit_id": "ref_e2042fbda9450c6c240b",
+    "permit_type": "permit_3",
+    "jurisdiction_code": "jurisdiction_3",
+    "status": "complete"
+  }
+}

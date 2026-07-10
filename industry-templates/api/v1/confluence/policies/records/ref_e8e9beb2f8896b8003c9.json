@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "confluence",
+  "resource_id": "policies",
+  "record": {
+    "record_id": "ref_e8e9beb2f8896b8003c9",
+    "policy_id": "ref_e8e9beb2f8896b8003c9",
+    "policy_type": "policy_2",
+    "version": 11,
+    "effective_date": "2026-01-11"
+  }
+}

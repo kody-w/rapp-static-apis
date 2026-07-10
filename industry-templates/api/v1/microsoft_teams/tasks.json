@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_teams",
+  "resource_id": "tasks",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_28e68c0d7ecb5f7cd88d",
+      "task_id": "ref_28e68c0d7ecb5f7cd88d",
+      "task_type": "task_1",
+      "status": "active",
+      "due_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_86d30dedbc056b882c29",
+      "task_id": "ref_86d30dedbc056b882c29",
+      "task_type": "task_2",
+      "status": "pending",
+      "due_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_8dd01d1c966502df1b81",
+      "task_id": "ref_8dd01d1c966502df1b81",
+      "task_type": "task_3",
+      "status": "complete",
+      "due_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

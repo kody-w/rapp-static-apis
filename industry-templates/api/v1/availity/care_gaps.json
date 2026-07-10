@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "availity",
+  "resource_id": "care_gaps",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_345fb4630e9d336eccc9",
+      "gap_id": "ref_345fb4630e9d336eccc9",
+      "measure_code": "measure_1",
+      "priority_code": "priority_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_ebdbdddaef5d0e73da6f",
+      "gap_id": "ref_ebdbdddaef5d0e73da6f",
+      "measure_code": "measure_2",
+      "priority_code": "priority_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_87c4ded863766c2f6f6c",
+      "gap_id": "ref_87c4ded863766c2f6f6c",
+      "measure_code": "measure_3",
+      "priority_code": "priority_3",
+      "status": "complete"
+    }
+  ]
+}

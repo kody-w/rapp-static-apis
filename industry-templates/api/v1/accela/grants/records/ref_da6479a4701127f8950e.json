@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "accela",
+  "resource_id": "grants",
+  "record": {
+    "record_id": "ref_da6479a4701127f8950e",
+    "grant_id": "ref_da6479a4701127f8950e",
+    "program_code": "program_3",
+    "amount": 150.0,
+    "status": "complete"
+  }
+}

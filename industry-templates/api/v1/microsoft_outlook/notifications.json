@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_outlook",
+  "resource_id": "notifications",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_a5c186d05490cfd65440",
+      "notification_id": "ref_a5c186d05490cfd65440",
+      "channel_code": "channel_1",
+      "template_code": "template_1",
+      "delivery_status": "value_0343e1ee07ce5f94b44d"
+    },
+    {
+      "record_id": "ref_3c25dd997070c09809a4",
+      "notification_id": "ref_3c25dd997070c09809a4",
+      "channel_code": "channel_2",
+      "template_code": "template_2",
+      "delivery_status": "value_14e835f9345805cb3d32"
+    },
+    {
+      "record_id": "ref_f9ebd2ca532552d56ef2",
+      "notification_id": "ref_f9ebd2ca532552d56ef2",
+      "channel_code": "channel_3",
+      "template_code": "template_3",
+      "delivery_status": "value_3db8ef562c5e05a389d6"
+    }
+  ]
+}

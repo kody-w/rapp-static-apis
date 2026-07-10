@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "epa_echo",
+  "resource_id": "permits",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_f892ec6937d8e7e2301c",
+      "permit_id": "ref_f892ec6937d8e7e2301c",
+      "permit_type": "permit_1",
+      "jurisdiction_code": "jurisdiction_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_74e60300256ac95ab510",
+      "permit_id": "ref_74e60300256ac95ab510",
+      "permit_type": "permit_2",
+      "jurisdiction_code": "jurisdiction_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_e8576e02937d3136bfce",
+      "permit_id": "ref_e8576e02937d3136bfce",
+      "permit_type": "permit_3",
+      "jurisdiction_code": "jurisdiction_3",
+      "status": "complete"
+    }
+  ]
+}

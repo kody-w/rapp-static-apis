@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "encompass",
+  "resource_id": "risk_alerts",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_d54bd2ce42b35b1c95a6",
+      "alert_id": "ref_d54bd2ce42b35b1c95a6",
+      "risk_type": "risk_1",
+      "severity_code": "severity_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_9c0e506e8275ba6e9d2e",
+      "alert_id": "ref_9c0e506e8275ba6e9d2e",
+      "risk_type": "risk_2",
+      "severity_code": "severity_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_a15849510ebd0b8081b7",
+      "alert_id": "ref_a15849510ebd0b8081b7",
+      "risk_type": "risk_3",
+      "severity_code": "severity_3",
+      "status": "complete"
+    }
+  ]
+}

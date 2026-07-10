@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_field_service",
+  "resource_id": "assets",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_ec0691ab6d269e169d63",
+      "asset_id": "ref_ec0691ab6d269e169d63",
+      "asset_type": "asset_1",
+      "health_score": 100.0,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_9e67135ca7da78360b27",
+      "asset_id": "ref_9e67135ca7da78360b27",
+      "asset_type": "asset_2",
+      "health_score": 125.0,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_b2d49fe1e7609f2682f5",
+      "asset_id": "ref_b2d49fe1e7609f2682f5",
+      "asset_type": "asset_3",
+      "health_score": 150.0,
+      "status": "complete"
+    }
+  ]
+}

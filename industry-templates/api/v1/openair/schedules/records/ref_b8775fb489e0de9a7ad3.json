@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "openair",
+  "resource_id": "schedules",
+  "record": {
+    "record_id": "ref_b8775fb489e0de9a7ad3",
+    "schedule_id": "ref_b8775fb489e0de9a7ad3",
+    "resource_code": "resource_3",
+    "window_code": "window_3",
+    "status": "complete"
+  }
+}

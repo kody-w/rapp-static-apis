@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "news_api",
+  "resource_id": "audit_events",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_b4e70a1affe30d9d137e",
+      "event_id": "ref_b4e70a1affe30d9d137e",
+      "event_type": "event_1",
+      "result_code": "result_1",
+      "occurred_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_67d54f3e6722001032f8",
+      "event_id": "ref_67d54f3e6722001032f8",
+      "event_type": "event_2",
+      "result_code": "result_2",
+      "occurred_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_ace9733434dccb66ce19",
+      "event_id": "ref_ace9733434dccb66ce19",
+      "event_type": "event_3",
+      "result_code": "result_3",
+      "occurred_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

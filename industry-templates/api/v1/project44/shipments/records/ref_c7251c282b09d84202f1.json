@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "project44",
+  "resource_id": "shipments",
+  "record": {
+    "record_id": "ref_c7251c282b09d84202f1",
+    "shipment_id": "ref_c7251c282b09d84202f1",
+    "carrier_code": "carrier_2",
+    "milestone_code": "milestone_2",
+    "estimated_at": "2026-01-11T10:00:00Z"
+  }
+}

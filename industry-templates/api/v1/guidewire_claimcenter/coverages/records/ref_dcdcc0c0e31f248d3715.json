@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "guidewire_claimcenter",
+  "resource_id": "coverages",
+  "record": {
+    "record_id": "ref_dcdcc0c0e31f248d3715",
+    "coverage_id": "ref_dcdcc0c0e31f248d3715",
+    "coverage_type": "coverage_1",
+    "limit_amount": 100.0,
+    "status": "active"
+  }
+}

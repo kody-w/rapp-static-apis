@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "accela",
+  "capability_code": "execute",
+  "route_count": 2,
+  "write_intent_count": 2,
+  "receipt": {
+    "receipt_id": "receipt_9509b3f3ddfaaed51c21",
+    "operation": "simulate_execute",
+    "resource_id": "multiple_resources",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_be4bfac28d623f41f332"
+  }
+}

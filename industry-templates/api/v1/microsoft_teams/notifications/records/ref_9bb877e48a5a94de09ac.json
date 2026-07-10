@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_teams",
+  "resource_id": "notifications",
+  "record": {
+    "record_id": "ref_9bb877e48a5a94de09ac",
+    "notification_id": "ref_9bb877e48a5a94de09ac",
+    "channel_code": "channel_1",
+    "template_code": "template_1",
+    "delivery_status": "value_0836261b834137fa25e7"
+  }
+}

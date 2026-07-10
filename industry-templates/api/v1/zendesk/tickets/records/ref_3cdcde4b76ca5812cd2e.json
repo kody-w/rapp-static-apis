@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "zendesk",
+  "resource_id": "tickets",
+  "record": {
+    "record_id": "ref_3cdcde4b76ca5812cd2e",
+    "ticket_id": "ref_3cdcde4b76ca5812cd2e",
+    "category_code": "category_3",
+    "priority_code": "priority_3",
+    "status": "complete"
+  }
+}

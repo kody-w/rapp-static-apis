@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "nice_actimize",
+  "resource_id": "compliance_findings",
+  "record": {
+    "record_id": "ref_b4f871e089dbd58d4f54",
+    "finding_id": "ref_b4f871e089dbd58d4f54",
+    "control_code": "control_2",
+    "severity_code": "severity_2",
+    "status": "pending"
+  }
+}

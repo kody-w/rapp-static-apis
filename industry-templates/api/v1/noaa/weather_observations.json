@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "noaa",
+  "resource_id": "weather_observations",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "rec_3e97ab5ce2c1e71742db",
+      "station_code": "station_1",
+      "condition_code": "condition_1",
+      "severity_code": "severity_1",
+      "observed_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "rec_2b3153ce34f37eabacd2",
+      "station_code": "station_2",
+      "condition_code": "condition_2",
+      "severity_code": "severity_2",
+      "observed_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "rec_33a2114df6c2f44490e1",
+      "station_code": "station_3",
+      "condition_code": "condition_3",
+      "severity_code": "severity_3",
+      "observed_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

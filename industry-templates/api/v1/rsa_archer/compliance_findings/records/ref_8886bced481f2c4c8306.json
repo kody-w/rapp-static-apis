@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "rsa_archer",
+  "resource_id": "compliance_findings",
+  "record": {
+    "record_id": "ref_8886bced481f2c4c8306",
+    "finding_id": "ref_8886bced481f2c4c8306",
+    "control_code": "control_2",
+    "severity_code": "severity_2",
+    "status": "pending"
+  }
+}

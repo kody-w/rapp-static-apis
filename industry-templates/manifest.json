@@ -1,0 +1,25 @@
+{
+  "schema": "rapp-industry-templates-manifest/1.0",
+  "name": "rapp-static-industry-templates",
+  "description": "No-PII static product adapters for 64 canonical industry-agent templates.",
+  "generated": "2026-07-10T20:30:00Z",
+  "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates",
+  "pages_base": "https://kody-w.github.io/rapp-static-apis/industry-templates",
+  "source_catalog": {
+    "path": "seed/static_api_catalog.json",
+    "schema": "rapp-static-industry-api-catalog/1.0",
+    "sha256": "8da4c36ff27f508dc746c2e09396846f6df0e73c29d9df5b9f9f1e9cb965693d"
+  },
+  "records_per_collection": 3,
+  "boundary": {
+    "inputs": [
+      "manifest.json",
+      "seed/static_api_catalog.json"
+    ],
+    "generated": [
+      "registry.json",
+      "api/",
+      "connectors/"
+    ]
+  }
+}

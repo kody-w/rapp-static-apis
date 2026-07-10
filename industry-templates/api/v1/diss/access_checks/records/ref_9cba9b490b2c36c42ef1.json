@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "diss",
+  "resource_id": "access_checks",
+  "record": {
+    "record_id": "ref_9cba9b490b2c36c42ef1",
+    "check_id": "ref_9cba9b490b2c36c42ef1",
+    "role_code": "role_1",
+    "resource_code": "resource_1",
+    "decision_code": "decision_1"
+  }
+}

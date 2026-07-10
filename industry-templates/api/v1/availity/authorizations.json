@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "availity",
+  "resource_id": "authorizations",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_6f21ba46ff922f7e64ab",
+      "authorization_id": "ref_6f21ba46ff922f7e64ab",
+      "service_code": "service_1",
+      "decision_code": "decision_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_febfdceda13413998abf",
+      "authorization_id": "ref_febfdceda13413998abf",
+      "service_code": "service_2",
+      "decision_code": "decision_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_cb7893ce47867ed5c0aa",
+      "authorization_id": "ref_cb7893ce47867ed5c0aa",
+      "service_code": "service_3",
+      "decision_code": "decision_3",
+      "status": "complete"
+    }
+  ]
+}

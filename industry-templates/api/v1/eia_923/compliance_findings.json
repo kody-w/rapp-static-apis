@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "eia_923",
+  "resource_id": "compliance_findings",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_7246963c74a14333097f",
+      "finding_id": "ref_7246963c74a14333097f",
+      "control_code": "control_1",
+      "severity_code": "severity_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_d95b31fc538643b7f8e6",
+      "finding_id": "ref_d95b31fc538643b7f8e6",
+      "control_code": "control_2",
+      "severity_code": "severity_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_26fb4adc89ceefa7f510",
+      "finding_id": "ref_26fb4adc89ceefa7f510",
+      "control_code": "control_3",
+      "severity_code": "severity_3",
+      "status": "complete"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "snowflake",
+  "resource_id": "audit_events",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_cefac987aba90b6bed46",
+      "event_id": "ref_cefac987aba90b6bed46",
+      "event_type": "event_1",
+      "result_code": "result_1",
+      "occurred_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_ee0a1775cd3254e3d94b",
+      "event_id": "ref_ee0a1775cd3254e3d94b",
+      "event_type": "event_2",
+      "result_code": "result_2",
+      "occurred_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_598d3bf142b6f68edfbe",
+      "event_id": "ref_598d3bf142b6f68edfbe",
+      "event_type": "event_3",
+      "result_code": "result_3",
+      "occurred_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "guidewire_claimcenter",
+  "resource_id": "risk_alerts",
+  "record": {
+    "record_id": "ref_945d3035d5e4999bc224",
+    "alert_id": "ref_945d3035d5e4999bc224",
+    "risk_type": "risk_1",
+    "severity_code": "severity_1",
+    "status": "active"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "diss",
+  "resource_id": "access_checks",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_9cba9b490b2c36c42ef1",
+      "check_id": "ref_9cba9b490b2c36c42ef1",
+      "role_code": "role_1",
+      "resource_code": "resource_1",
+      "decision_code": "decision_1"
+    },
+    {
+      "record_id": "ref_30f5e98bd09d2f837481",
+      "check_id": "ref_30f5e98bd09d2f837481",
+      "role_code": "role_2",
+      "resource_code": "resource_2",
+      "decision_code": "decision_2"
+    },
+    {
+      "record_id": "ref_a411a90dc1ee004b37ac",
+      "check_id": "ref_a411a90dc1ee004b37ac",
+      "role_code": "role_3",
+      "resource_code": "resource_3",
+      "decision_code": "decision_3"
+    }
+  ]
+}

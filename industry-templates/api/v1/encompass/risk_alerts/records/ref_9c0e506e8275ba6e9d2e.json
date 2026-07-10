@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "encompass",
+  "resource_id": "risk_alerts",
+  "record": {
+    "record_id": "ref_9c0e506e8275ba6e9d2e",
+    "alert_id": "ref_9c0e506e8275ba6e9d2e",
+    "risk_type": "risk_2",
+    "severity_code": "severity_2",
+    "status": "pending"
+  }
+}

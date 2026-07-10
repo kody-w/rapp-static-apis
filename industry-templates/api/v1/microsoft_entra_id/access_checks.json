@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_entra_id",
+  "resource_id": "access_checks",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_fd0c3c038949a1212e85",
+      "check_id": "ref_fd0c3c038949a1212e85",
+      "role_code": "role_1",
+      "resource_code": "resource_1",
+      "decision_code": "decision_1"
+    },
+    {
+      "record_id": "ref_ac165692d4b563b9a20f",
+      "check_id": "ref_ac165692d4b563b9a20f",
+      "role_code": "role_2",
+      "resource_code": "resource_2",
+      "decision_code": "decision_2"
+    },
+    {
+      "record_id": "ref_6cdc1465ab15b8dec09b",
+      "check_id": "ref_6cdc1465ab15b8dec09b",
+      "role_code": "role_3",
+      "resource_code": "resource_3",
+      "decision_code": "decision_3"
+    }
+  ]
+}

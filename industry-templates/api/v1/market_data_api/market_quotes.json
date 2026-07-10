@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "market_data_api",
+  "resource_id": "market_quotes",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "rec_bf4b1880775f0dc05820",
+      "instrument_code": "code_d94d1cbb059ea67947e7",
+      "price": 100.0,
+      "currency_code": "currency_1",
+      "as_of": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "rec_0f252da78c2ea6a9bea9",
+      "instrument_code": "code_713a4a2e66eec8110266",
+      "price": 125.0,
+      "currency_code": "currency_2",
+      "as_of": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "rec_359d805c70bb746821ab",
+      "instrument_code": "code_3fd181640cfdec3ecedf",
+      "price": 150.0,
+      "currency_code": "currency_3",
+      "as_of": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

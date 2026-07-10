@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "workday",
+  "resource_id": "schedules",
+  "record": {
+    "record_id": "ref_964fb74294735b91198b",
+    "schedule_id": "ref_964fb74294735b91198b",
+    "resource_code": "resource_1",
+    "window_code": "window_1",
+    "status": "active"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "openair",
+  "resource_id": "access_checks",
+  "record": {
+    "record_id": "ref_2908f984f3110daba372",
+    "check_id": "ref_2908f984f3110daba372",
+    "role_code": "role_2",
+    "resource_code": "resource_2",
+    "decision_code": "decision_2"
+  }
+}

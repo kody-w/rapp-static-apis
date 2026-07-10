@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "tyler_munis",
+  "resource_id": "grants",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_c887e48e75eef1339a10",
+      "grant_id": "ref_c887e48e75eef1339a10",
+      "program_code": "program_1",
+      "amount": 100.0,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_f8ea4fb061c1ad137d73",
+      "grant_id": "ref_f8ea4fb061c1ad137d73",
+      "program_code": "program_2",
+      "amount": 125.0,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_5fc90cb307a85e1c9cb5",
+      "grant_id": "ref_5fc90cb307a85e1c9cb5",
+      "program_code": "program_3",
+      "amount": 150.0,
+      "status": "complete"
+    }
+  ]
+}

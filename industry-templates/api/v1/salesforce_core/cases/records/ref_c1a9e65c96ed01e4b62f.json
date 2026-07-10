@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_core",
+  "resource_id": "cases",
+  "record": {
+    "record_id": "ref_c1a9e65c96ed01e4b62f",
+    "case_id": "ref_c1a9e65c96ed01e4b62f",
+    "case_type": "case_3",
+    "priority_code": "priority_3",
+    "status": "complete"
+  }
+}

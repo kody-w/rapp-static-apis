@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "postgresql",
+  "resource_id": "reports",
+  "record": {
+    "record_id": "ref_69cba6cc9f1e8696a3c2",
+    "report_id": "ref_69cba6cc9f1e8696a3c2",
+    "report_type": "report_3",
+    "period_code": "period_3",
+    "status": "complete"
+  }
+}

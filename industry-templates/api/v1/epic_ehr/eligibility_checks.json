@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "epic_ehr",
+  "resource_id": "eligibility_checks",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_d178be43b8ffae494d2f",
+      "check_id": "ref_d178be43b8ffae494d2f",
+      "plan_code": "plan_1",
+      "result_code": "result_1",
+      "checked_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_46b6af76d719f12ecf0b",
+      "check_id": "ref_46b6af76d719f12ecf0b",
+      "plan_code": "plan_2",
+      "result_code": "result_2",
+      "checked_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_b75bbd295ed33019fa47",
+      "check_id": "ref_b75bbd295ed33019fa47",
+      "plan_code": "plan_3",
+      "result_code": "result_3",
+      "checked_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

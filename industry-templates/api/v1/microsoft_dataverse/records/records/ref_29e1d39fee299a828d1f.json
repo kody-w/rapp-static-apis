@@ -1,0 +1,12 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_dataverse",
+  "resource_id": "records",
+  "record": {
+    "record_id": "ref_29e1d39fee299a828d1f",
+    "category_code": "category_2",
+    "status": "pending",
+    "effective_at": "2026-01-11T10:00:00Z"
+  }
+}

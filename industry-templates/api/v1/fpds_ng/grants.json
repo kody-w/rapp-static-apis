@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "fpds_ng",
+  "resource_id": "grants",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_42210382e121ba949b36",
+      "grant_id": "ref_42210382e121ba949b36",
+      "program_code": "program_1",
+      "amount": 100.0,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_c7dc1887bd4220adafee",
+      "grant_id": "ref_c7dc1887bd4220adafee",
+      "program_code": "program_2",
+      "amount": 125.0,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_c7f183a7ff04469fff1c",
+      "grant_id": "ref_c7f183a7ff04469fff1c",
+      "program_code": "program_3",
+      "amount": 150.0,
+      "status": "complete"
+    }
+  ]
+}

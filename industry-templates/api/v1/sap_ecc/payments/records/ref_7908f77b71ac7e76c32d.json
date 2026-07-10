@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_ecc",
+  "resource_id": "payments",
+  "record": {
+    "record_id": "ref_7908f77b71ac7e76c32d",
+    "payment_id": "ref_7908f77b71ac7e76c32d",
+    "amount": 150.0,
+    "currency_code": "currency_3",
+    "status": "complete"
+  }
+}

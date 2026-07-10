@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "experian",
+  "resource_id": "compliance_findings",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_20e589351bd560c5dc51",
+      "finding_id": "ref_20e589351bd560c5dc51",
+      "control_code": "control_1",
+      "severity_code": "severity_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_5c6556d7f285b2e98100",
+      "finding_id": "ref_5c6556d7f285b2e98100",
+      "control_code": "control_2",
+      "severity_code": "severity_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_a40d4455df8964645020",
+      "finding_id": "ref_a40d4455df8964645020",
+      "control_code": "control_3",
+      "severity_code": "severity_3",
+      "status": "complete"
+    }
+  ]
+}

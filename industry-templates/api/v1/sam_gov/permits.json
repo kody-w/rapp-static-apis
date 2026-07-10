@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sam_gov",
+  "resource_id": "permits",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_debe06f7aeb556070f16",
+      "permit_id": "ref_debe06f7aeb556070f16",
+      "permit_type": "permit_1",
+      "jurisdiction_code": "jurisdiction_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_f4691f80da29b4c10ad3",
+      "permit_id": "ref_f4691f80da29b4c10ad3",
+      "permit_type": "permit_2",
+      "jurisdiction_code": "jurisdiction_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_44ee2d154d788b245322",
+      "permit_id": "ref_44ee2d154d788b245322",
+      "permit_type": "permit_3",
+      "jurisdiction_code": "jurisdiction_3",
+      "status": "complete"
+    }
+  ]
+}

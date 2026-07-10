@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_word",
+  "resource_id": "documents",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_114df68f4c4f42c90cb3",
+      "document_id": "ref_114df68f4c4f42c90cb3",
+      "classification_code": "classification_1",
+      "version": 10,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_4701fb27128890ef9268",
+      "document_id": "ref_4701fb27128890ef9268",
+      "classification_code": "classification_2",
+      "version": 11,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_47a5ade9c2e7049b3c0d",
+      "document_id": "ref_47a5ade9c2e7049b3c0d",
+      "classification_code": "classification_3",
+      "version": 12,
+      "status": "complete"
+    }
+  ]
+}

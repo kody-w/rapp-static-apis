@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "epa_echo",
+  "resource_id": "permits",
+  "record": {
+    "record_id": "ref_74e60300256ac95ab510",
+    "permit_id": "ref_74e60300256ac95ab510",
+    "permit_type": "permit_2",
+    "jurisdiction_code": "jurisdiction_2",
+    "status": "pending"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "slack",
+  "resource_id": "tasks",
+  "record": {
+    "record_id": "ref_2cf8611c6571e723762b",
+    "task_id": "ref_2cf8611c6571e723762b",
+    "task_type": "task_1",
+    "status": "active",
+    "due_at": "2026-01-10T09:00:00Z"
+  }
+}

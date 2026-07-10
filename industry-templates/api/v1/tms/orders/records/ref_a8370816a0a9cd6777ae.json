@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "tms",
+  "resource_id": "orders",
+  "record": {
+    "record_id": "ref_a8370816a0a9cd6777ae",
+    "order_id": "ref_a8370816a0a9cd6777ae",
+    "order_type": "order_1",
+    "amount": 100.0,
+    "status": "active"
+  }
+}

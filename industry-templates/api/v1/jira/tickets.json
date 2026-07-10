@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "jira",
+  "resource_id": "tickets",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_efccfe604e880c5ed987",
+      "ticket_id": "ref_efccfe604e880c5ed987",
+      "category_code": "category_1",
+      "priority_code": "priority_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_c516d1094b8f6d607bd7",
+      "ticket_id": "ref_c516d1094b8f6d607bd7",
+      "category_code": "category_2",
+      "priority_code": "priority_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_7963d51583afa11ab543",
+      "ticket_id": "ref_7963d51583afa11ab543",
+      "category_code": "category_3",
+      "priority_code": "priority_3",
+      "status": "complete"
+    }
+  ]
+}

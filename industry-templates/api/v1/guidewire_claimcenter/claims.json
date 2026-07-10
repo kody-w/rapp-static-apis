@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "guidewire_claimcenter",
+  "resource_id": "claims",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_a405a3021c75439e5c78",
+      "claim_id": "ref_a405a3021c75439e5c78",
+      "claim_type": "claim_1",
+      "severity_code": "severity_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_8b3b8fbe8dce29f4a705",
+      "claim_id": "ref_8b3b8fbe8dce29f4a705",
+      "claim_type": "claim_2",
+      "severity_code": "severity_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_28a828d9ed85ae7eb9e4",
+      "claim_id": "ref_28a828d9ed85ae7eb9e4",
+      "claim_type": "claim_3",
+      "severity_code": "severity_3",
+      "status": "complete"
+    }
+  ]
+}

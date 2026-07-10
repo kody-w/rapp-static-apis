@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "public_city_website",
+  "resource_id": "compliance_findings",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_e74c39cc0eb9729de2a7",
+      "finding_id": "ref_e74c39cc0eb9729de2a7",
+      "control_code": "control_1",
+      "severity_code": "severity_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_7de93fbcaf38abcee7e1",
+      "finding_id": "ref_7de93fbcaf38abcee7e1",
+      "control_code": "control_2",
+      "severity_code": "severity_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_46a7355fc058e630c71e",
+      "finding_id": "ref_46a7355fc058e630c71e",
+      "control_code": "control_3",
+      "severity_code": "severity_3",
+      "status": "complete"
+    }
+  ]
+}

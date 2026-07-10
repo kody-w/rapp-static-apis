@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "service_now",
+  "capability_code": "report",
+  "route_count": 3,
+  "write_intent_count": 0,
+  "receipt": {
+    "receipt_id": "receipt_b7b6a12a8749fce510d7",
+    "operation": "simulate_report",
+    "resource_id": "tickets",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_e02e7a6f77b27b8137f2"
+  }
+}

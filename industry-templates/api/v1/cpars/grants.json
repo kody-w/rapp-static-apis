@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "cpars",
+  "resource_id": "grants",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_5689f4d4d4ef3f16d74c",
+      "grant_id": "ref_5689f4d4d4ef3f16d74c",
+      "program_code": "program_1",
+      "amount": 100.0,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_98c8c5ccfcffa57ddad3",
+      "grant_id": "ref_98c8c5ccfcffa57ddad3",
+      "program_code": "program_2",
+      "amount": 125.0,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_8e09cc3f41ec5a808865",
+      "grant_id": "ref_8e09cc3f41ec5a808865",
+      "program_code": "program_3",
+      "amount": 150.0,
+      "status": "complete"
+    }
+  ]
+}

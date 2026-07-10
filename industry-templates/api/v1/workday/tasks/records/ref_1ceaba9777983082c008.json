@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "workday",
+  "resource_id": "tasks",
+  "record": {
+    "record_id": "ref_1ceaba9777983082c008",
+    "task_id": "ref_1ceaba9777983082c008",
+    "task_type": "task_3",
+    "status": "complete",
+    "due_at": "2026-01-12T11:00:00Z"
+  }
+}

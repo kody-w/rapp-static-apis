@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "guidewire_claimcenter",
+  "resource_id": "authorizations",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_3a3417c4dc4722867c05",
+      "authorization_id": "ref_3a3417c4dc4722867c05",
+      "service_code": "service_1",
+      "decision_code": "decision_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_487327e79a9b42dd2ade",
+      "authorization_id": "ref_487327e79a9b42dd2ade",
+      "service_code": "service_2",
+      "decision_code": "decision_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_ede788995658225f799b",
+      "authorization_id": "ref_ede788995658225f799b",
+      "service_code": "service_3",
+      "decision_code": "decision_3",
+      "status": "complete"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "fedwire",
+  "resource_id": "transactions",
+  "record": {
+    "record_id": "ref_61823098c36dd331352a",
+    "transaction_id": "ref_61823098c36dd331352a",
+    "transaction_type": "transaction_3",
+    "amount": 150.0,
+    "risk_score": 150.0
+  }
+}

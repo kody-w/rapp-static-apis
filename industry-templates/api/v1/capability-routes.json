@@ -1,0 +1,2837 @@
+{
+  "schema": "rapp-static-industry-capability-routes/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "count": 283,
+  "routes": [
+    {
+      "route_id": "b2b_sales/account_intelligence:accountbriefing",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/accountbriefing.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:actionplan",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/actionplan.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:competitiveintelligence",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/competitiveintelligence.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:dealdashboard",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/dealdashboard.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:generatemessaging",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/generatemessaging.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:getactionagent",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/getactionagent.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:getcompetitiveagent",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/getcompetitiveagent.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:getdealtrackingagent",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/getdealtrackingagent.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:getdynamics365account",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/getdynamics365account.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:getmeetingprepagent",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/getmeetingprepagent.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:getmessagingagent",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/getmessagingagent.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:getriskagent",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/getriskagent.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:getstakeholderagent",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/getstakeholderagent.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:meetingprep",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/meetingprep.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:riskassessment",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/riskassessment.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:stakeholderanalysis",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/stakeholderanalysis.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/account_intelligence:synthesizebriefing",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/synthesizebriefing.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/proposal_generation:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/proposal_generation:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "b2b_sales/proposal_generation:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/proposal_generation:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/sales_qualification:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "opportunities",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/opportunities.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/opportunities/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/sales_qualification:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "opportunities",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/opportunities.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/opportunities/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "b2b_sales/sales_qualification:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "opportunities",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/opportunities.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/opportunities/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/sales_qualification:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "opportunities",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/opportunities.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/opportunities/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/win_loss_analysis:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sql",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/win_loss_analysis:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sql",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "b2b_sales/win_loss_analysis:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sql",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2b_sales/win_loss_analysis:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sql",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2c_sales/cart_abandonment_recovery:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sql",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2c_sales/cart_abandonment_recovery:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sql",
+      "resource_id": "records",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/records.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/records/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "b2c_sales/cart_abandonment_recovery:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sql",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2c_sales/cart_abandonment_recovery:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sql",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2c_sales/customer_loyalty_rewards:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2c_sales/customer_loyalty_rewards:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "b2c_sales/customer_loyalty_rewards:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2c_sales/customer_loyalty_rewards:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2c_sales/omnichannel_engagement:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "fedex",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedex/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedex/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedex/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2c_sales/omnichannel_engagement:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "fedex",
+      "resource_id": "shipments",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedex/shipments.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedex/shipments/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedex/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "b2c_sales/omnichannel_engagement:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "fedex",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedex/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedex/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedex/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2c_sales/omnichannel_engagement:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "fedex",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedex/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedex/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedex/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2c_sales/personalized_shopping_assistant:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "snowflake",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/snowflake/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/snowflake/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/snowflake/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2c_sales/personalized_shopping_assistant:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "snowflake",
+      "resource_id": "records",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/snowflake/records.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/snowflake/records/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/snowflake/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "b2c_sales/personalized_shopping_assistant:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "snowflake",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/snowflake/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/snowflake/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/snowflake/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2c_sales/personalized_shopping_assistant:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "snowflake",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/snowflake/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/snowflake/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/snowflake/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2c_sales/returns_exchange:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "shopify",
+      "resource_id": "returns",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/shopify/returns.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/shopify/returns/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/shopify/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2c_sales/returns_exchange:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "shopify",
+      "resource_id": "returns",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/shopify/returns.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/shopify/returns/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/shopify/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "b2c_sales/returns_exchange:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "shopify",
+      "resource_id": "returns",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/shopify/returns.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/shopify/returns/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/shopify/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "b2c_sales/returns_exchange:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "shopify",
+      "resource_id": "returns",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/shopify/returns.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/shopify/returns/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/shopify/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/asset_maintenance_forecast:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/asset_maintenance_forecast:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "energy_and_utilities/asset_maintenance_forecast:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/asset_maintenance_forecast:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/emission_tracking:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_dataverse",
+      "resource_id": "records",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/records.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/records/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/emission_tracking:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_dataverse",
+      "resource_id": "records",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/records.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/records/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "energy_and_utilities/emission_tracking:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_dataverse",
+      "resource_id": "records",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/records.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/records/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/emission_tracking:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_dataverse",
+      "resource_id": "records",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/records.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/records/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/field_crew_safety_and_work_permit_management:crewacceptance",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "ibm_maximo",
+      "resource_id": "assets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/assets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/assets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/receipts/crewacceptance.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "energy_and_utilities/field_crew_safety_and_work_permit_management:isolationplanvalidator",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "ibm_maximo",
+      "resource_id": "assets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/assets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/assets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/receipts/isolationplanvalidator.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/field_crew_safety_and_work_permit_management:liveisolationconfirmation",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "ibm_maximo",
+      "resource_id": "assets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/assets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/assets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/receipts/liveisolationconfirmation.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/field_crew_safety_and_work_permit_management:permitauthorisationworkflow",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "ibm_maximo",
+      "resource_id": "assets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/assets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/assets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/receipts/permitauthorisationworkflow.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/field_crew_safety_and_work_permit_management:permitclearance",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "ibm_maximo",
+      "resource_id": "assets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/assets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/assets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/receipts/permitclearance.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "energy_and_utilities/field_crew_safety_and_work_permit_management:permitrequestcapture",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "ibm_maximo",
+      "resource_id": "assets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/assets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/assets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/receipts/permitrequestcapture.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/field_crew_safety_and_work_permit_management:riskassessment",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "ibm_maximo",
+      "resource_id": "assets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/assets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/assets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/receipts/riskassessment.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/field_crew_safety_and_work_permit_management:safetyanalytics",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "ibm_maximo",
+      "resource_id": "assets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/assets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/assets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/receipts/safetyanalytics.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/field_crew_safety_and_work_permit_management:stableseed",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "ibm_maximo",
+      "resource_id": "assets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/assets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/assets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/ibm_maximo/receipts/stableseed.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/field_service_dispatch:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "dynamics_365_field_service",
+      "resource_id": "assets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dynamics_365_field_service/assets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dynamics_365_field_service/assets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dynamics_365_field_service/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/field_service_dispatch:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "dynamics_365_field_service",
+      "resource_id": "assets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dynamics_365_field_service/assets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dynamics_365_field_service/assets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dynamics_365_field_service/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "energy_and_utilities/field_service_dispatch:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "dynamics_365_field_service",
+      "resource_id": "assets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dynamics_365_field_service/assets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dynamics_365_field_service/assets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dynamics_365_field_service/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/field_service_dispatch:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "dynamics_365_field_service",
+      "resource_id": "assets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dynamics_365_field_service/assets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dynamics_365_field_service/assets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dynamics_365_field_service/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/permit_license_management:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "state_puc",
+      "resource_id": "permits",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/state_puc/permits.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/state_puc/permits/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/state_puc/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/permit_license_management:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "state_puc",
+      "resource_id": "permits",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/state_puc/permits.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/state_puc/permits/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/state_puc/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "energy_and_utilities/permit_license_management:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "state_puc",
+      "resource_id": "permits",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/state_puc/permits.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/state_puc/permits/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/state_puc/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/permit_license_management:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "state_puc",
+      "resource_id": "permits",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/state_puc/permits.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/state_puc/permits/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/state_puc/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/predictive_asset_maintenance_intelligence:drivers",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/drivers.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/predictive_asset_maintenance_intelligence:dueby",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/dueby.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/predictive_asset_maintenance_intelligence:fiscalyearoffset",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/fiscalyearoffset.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/predictive_asset_maintenance_intelligence:norm",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/norm.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/predictive_asset_maintenance_intelligence:performassethealthscorer",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/performassethealthscorer.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "energy_and_utilities/predictive_asset_maintenance_intelligence:performassetregisterwriteback",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/performassetregisterwriteback.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "energy_and_utilities/predictive_asset_maintenance_intelligence:performassetsensoraggregator",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/performassetsensoraggregator.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "energy_and_utilities/predictive_asset_maintenance_intelligence:performfailureprobabilityranker",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/performfailureprobabilityranker.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "energy_and_utilities/predictive_asset_maintenance_intelligence:performfieldexecutioncapture",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/performfieldexecutioncapture.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "energy_and_utilities/predictive_asset_maintenance_intelligence:performlifecyclecapexplanner",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/performlifecyclecapexplanner.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "energy_and_utilities/predictive_asset_maintenance_intelligence:performmaintenanceworkorder",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/performmaintenanceworkorder.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "energy_and_utilities/predictive_asset_maintenance_intelligence:performpartsplanner",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/performpartsplanner.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "energy_and_utilities/predictive_asset_maintenance_intelligence:prob",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/prob.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/predictive_asset_maintenance_intelligence:scoresnapshot",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/scoresnapshot.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/predictive_asset_maintenance_intelligence:stableseed",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/stableseed.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/predictive_asset_maintenance_intelligence:synthasset",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/synthasset.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/predictive_asset_maintenance_intelligence:woid",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "osisoft_pi",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/osisoft_pi/receipts/woid.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/procurement_and_supplier_collaboration_portal:norm",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sap_ariba",
+      "resource_id": "orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_ariba/orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_ariba/orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_ariba/receipts/norm.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/regulatory_reporting:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "eia_923",
+      "resource_id": "compliance_findings",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/eia_923/compliance_findings.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/eia_923/compliance_findings/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/eia_923/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/regulatory_reporting:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "eia_923",
+      "resource_id": "compliance_findings",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/eia_923/compliance_findings.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/eia_923/compliance_findings/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/eia_923/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "energy_and_utilities/regulatory_reporting:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "eia_923",
+      "resource_id": "compliance_findings",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/eia_923/compliance_findings.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/eia_923/compliance_findings/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/eia_923/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "energy_and_utilities/regulatory_reporting:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "eia_923",
+      "resource_id": "compliance_findings",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/eia_923/compliance_findings.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/eia_923/compliance_findings/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/eia_923/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "federal_government/acquisition_support:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "service_now",
+      "resource_id": "tickets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "federal_government/acquisition_support:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "service_now",
+      "resource_id": "tickets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "federal_government/acquisition_support:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "service_now",
+      "resource_id": "tickets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "federal_government/acquisition_support:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "service_now",
+      "resource_id": "tickets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "federal_government/federal_grants_oversight:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "asap_gov",
+      "resource_id": "transactions",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/asap_gov/transactions.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/asap_gov/transactions/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/asap_gov/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "federal_government/federal_grants_oversight:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "asap_gov",
+      "resource_id": "transactions",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/asap_gov/transactions.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/asap_gov/transactions/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/asap_gov/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "federal_government/federal_grants_oversight:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "asap_gov",
+      "resource_id": "transactions",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/asap_gov/transactions.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/asap_gov/transactions/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/asap_gov/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "federal_government/federal_grants_oversight:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "asap_gov",
+      "resource_id": "transactions",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/asap_gov/transactions.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/asap_gov/transactions/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/asap_gov/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "federal_government/mission_reporting_assistant:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_dataverse",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "federal_government/mission_reporting_assistant:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_dataverse",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "federal_government/mission_reporting_assistant:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_dataverse",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "federal_government/mission_reporting_assistant:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_dataverse",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "federal_government/regulatory_compliance_fed:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "epa_echo",
+      "resource_id": "compliance_findings",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epa_echo/compliance_findings.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epa_echo/compliance_findings/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epa_echo/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "federal_government/regulatory_compliance_fed:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "epa_echo",
+      "resource_id": "compliance_findings",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epa_echo/compliance_findings.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epa_echo/compliance_findings/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epa_echo/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "federal_government/regulatory_compliance_fed:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "epa_echo",
+      "resource_id": "compliance_findings",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epa_echo/compliance_findings.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epa_echo/compliance_findings/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epa_echo/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "federal_government/regulatory_compliance_fed:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "epa_echo",
+      "resource_id": "compliance_findings",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epa_echo/compliance_findings.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epa_echo/compliance_findings/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epa_echo/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "federal_government/workforce_clearance_onboarding:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "diss",
+      "resource_id": "access_checks",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/diss/access_checks.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/diss/access_checks/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/diss/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "federal_government/workforce_clearance_onboarding:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "diss",
+      "resource_id": "access_checks",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/diss/access_checks.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/diss/access_checks/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/diss/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "federal_government/workforce_clearance_onboarding:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "diss",
+      "resource_id": "access_checks",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/diss/access_checks.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/diss/access_checks/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/diss/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "federal_government/workforce_clearance_onboarding:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "diss",
+      "resource_id": "access_checks",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/diss/access_checks.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/diss/access_checks/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/diss/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/claims_processing:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "guidewire_claimcenter",
+      "resource_id": "claims",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/guidewire_claimcenter/claims.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/guidewire_claimcenter/claims/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/guidewire_claimcenter/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/claims_processing:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "guidewire_claimcenter",
+      "resource_id": "claims",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/guidewire_claimcenter/claims.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/guidewire_claimcenter/claims/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/guidewire_claimcenter/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "financial_services/claims_processing:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "guidewire_claimcenter",
+      "resource_id": "claims",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/guidewire_claimcenter/claims.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/guidewire_claimcenter/claims/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/guidewire_claimcenter/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/claims_processing:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "guidewire_claimcenter",
+      "resource_id": "claims",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/guidewire_claimcenter/claims.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/guidewire_claimcenter/claims/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/guidewire_claimcenter/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/customer_onboarding_fs:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/customer_onboarding_fs:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "financial_services/customer_onboarding_fs:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/customer_onboarding_fs:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/customer_sentiment_churn:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_dataverse",
+      "resource_id": "records",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/records.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/records/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/customer_sentiment_churn:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_dataverse",
+      "resource_id": "records",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/records.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/records/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "financial_services/customer_sentiment_churn:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_dataverse",
+      "resource_id": "records",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/records.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/records/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/customer_sentiment_churn:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_dataverse",
+      "resource_id": "records",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/records.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/records/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_dataverse/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/financial_advisor_copilot:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "market_data_api",
+      "resource_id": "market_quotes",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/market_data_api/market_quotes.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/market_data_api/market_quotes/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/market_data_api/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/financial_advisor_copilot:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "market_data_api",
+      "resource_id": "market_quotes",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/market_data_api/market_quotes.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/market_data_api/market_quotes/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/market_data_api/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "financial_services/financial_advisor_copilot:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "market_data_api",
+      "resource_id": "market_quotes",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/market_data_api/market_quotes.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/market_data_api/market_quotes/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/market_data_api/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/financial_advisor_copilot:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "market_data_api",
+      "resource_id": "market_quotes",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/market_data_api/market_quotes.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/market_data_api/market_quotes/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/market_data_api/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/fraud_detection_alert:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "card_management_api",
+      "resource_id": "risk_alerts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/card_management_api/risk_alerts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/card_management_api/risk_alerts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/card_management_api/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/fraud_detection_alert:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "card_management_api",
+      "resource_id": "risk_alerts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/card_management_api/risk_alerts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/card_management_api/risk_alerts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/card_management_api/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "financial_services/fraud_detection_alert:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "card_management_api",
+      "resource_id": "risk_alerts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/card_management_api/risk_alerts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/card_management_api/risk_alerts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/card_management_api/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/fraud_detection_alert:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "card_management_api",
+      "resource_id": "risk_alerts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/card_management_api/risk_alerts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/card_management_api/risk_alerts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/card_management_api/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/loan_origination_assistant:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "encompass",
+      "resource_id": "transactions",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/encompass/transactions.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/encompass/transactions/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/encompass/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/loan_origination_assistant:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "encompass",
+      "resource_id": "transactions",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/encompass/transactions.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/encompass/transactions/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/encompass/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "financial_services/loan_origination_assistant:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "encompass",
+      "resource_id": "transactions",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/encompass/transactions.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/encompass/transactions/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/encompass/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/loan_origination_assistant:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "encompass",
+      "resource_id": "transactions",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/encompass/transactions.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/encompass/transactions/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/encompass/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/payments_operations_excellence:correspondentbankingmonitor",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "fedwire",
+      "resource_id": "payments",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/payments.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/payments/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/receipts/correspondentbankingmonitor.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/payments_operations_excellence:nostroreconciliation",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "fedwire",
+      "resource_id": "payments",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/payments.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/payments/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/receipts/nostroreconciliation.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/payments_operations_excellence:paymentexceptionrepair",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "fedwire",
+      "resource_id": "payments",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/payments.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/payments/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/receipts/paymentexceptionrepair.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/payments_operations_excellence:paymentingestionvalidator",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "fedwire",
+      "resource_id": "payments",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/payments.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/payments/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/receipts/paymentingestionvalidator.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/payments_operations_excellence:paymentsanalytics",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "fedwire",
+      "resource_id": "payments",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/payments.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/payments/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/receipts/paymentsanalytics.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/payments_operations_excellence:paymentstatustracker",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "fedwire",
+      "resource_id": "payments",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/payments.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/payments/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/receipts/paymentstatustracker.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/payments_operations_excellence:prereleasefraudscorer",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "fedwire",
+      "resource_id": "risk_alerts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/risk_alerts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/risk_alerts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/receipts/prereleasefraudscorer.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/payments_operations_excellence:sanctionsscreening",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "fedwire",
+      "resource_id": "payments",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/payments.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/payments/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/receipts/sanctionsscreening.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/payments_operations_excellence:stableseed",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "fedwire",
+      "resource_id": "payments",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/payments.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/payments/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/fedwire/receipts/stableseed.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/portfolio_rebalancing:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "bloomberg_aim",
+      "resource_id": "portfolios",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_aim/portfolios.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_aim/portfolios/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_aim/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/portfolio_rebalancing:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "bloomberg_aim",
+      "resource_id": "portfolios",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_aim/portfolios.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_aim/portfolios/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_aim/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "financial_services/portfolio_rebalancing:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "bloomberg_aim",
+      "resource_id": "portfolios",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_aim/portfolios.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_aim/portfolios/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_aim/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/portfolio_rebalancing:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "bloomberg_aim",
+      "resource_id": "portfolios",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_aim/portfolios.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_aim/portfolios/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_aim/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/regulatory_compliance_fs:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "nice_actimize",
+      "resource_id": "compliance_findings",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/nice_actimize/compliance_findings.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/nice_actimize/compliance_findings/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/nice_actimize/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/regulatory_compliance_fs:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "nice_actimize",
+      "resource_id": "compliance_findings",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/nice_actimize/compliance_findings.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/nice_actimize/compliance_findings/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/nice_actimize/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "financial_services/regulatory_compliance_fs:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "nice_actimize",
+      "resource_id": "compliance_findings",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/nice_actimize/compliance_findings.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/nice_actimize/compliance_findings/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/nice_actimize/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/regulatory_compliance_fs:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "nice_actimize",
+      "resource_id": "compliance_findings",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/nice_actimize/compliance_findings.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/nice_actimize/compliance_findings/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/nice_actimize/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/underwriting_support:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "service_now",
+      "resource_id": "tickets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/underwriting_support:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "service_now",
+      "resource_id": "tickets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "financial_services/underwriting_support:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "service_now",
+      "resource_id": "tickets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/underwriting_support:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "service_now",
+      "resource_id": "tickets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/wealth_insights_generator:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "bloomberg_market_data",
+      "resource_id": "portfolios",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_market_data/portfolios.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_market_data/portfolios/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_market_data/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/wealth_insights_generator:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "bloomberg_market_data",
+      "resource_id": "portfolios",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_market_data/portfolios.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_market_data/portfolios/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_market_data/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "financial_services/wealth_insights_generator:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "bloomberg_market_data",
+      "resource_id": "portfolios",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_market_data/portfolios.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_market_data/portfolios/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_market_data/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "financial_services/wealth_insights_generator:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "bloomberg_market_data",
+      "resource_id": "portfolios",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_market_data/portfolios.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_market_data/portfolios/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/bloomberg_market_data/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "general_stacks/it_ticket_management:analyzepriority",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "service_now",
+      "resource_id": "tickets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/receipts/analyzepriority.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "general_stacks/it_ticket_management:calculatepriority",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "service_now",
+      "resource_id": "tickets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/receipts/calculatepriority.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "general_stacks/it_ticket_management:determinerouting",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "service_now",
+      "resource_id": "tickets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/receipts/determinerouting.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "general_stacks/it_ticket_management:processticket",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "service_now",
+      "resource_id": "tickets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/receipts/processticket.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "general_stacks/simulationsalesanalysis:simulatescenario",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "opportunities",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/opportunities.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/opportunities/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/simulatescenario.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "healthcare/care_gap_closure:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "epic_ehr",
+      "resource_id": "care_gaps",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_ehr/care_gaps.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_ehr/care_gaps/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_ehr/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "healthcare/care_gap_closure:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "epic_ehr",
+      "resource_id": "care_gaps",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_ehr/care_gaps.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_ehr/care_gaps/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_ehr/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "healthcare/care_gap_closure:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "epic_ehr",
+      "resource_id": "care_gaps",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_ehr/care_gaps.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_ehr/care_gaps/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_ehr/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "healthcare/care_gap_closure:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "epic_ehr",
+      "resource_id": "care_gaps",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_ehr/care_gaps.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_ehr/care_gaps/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_ehr/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "healthcare/clinical_notes_summarizer:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "epic_clarity",
+      "resource_id": "encounters",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_clarity/encounters.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_clarity/encounters/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_clarity/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "healthcare/clinical_notes_summarizer:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "epic_clarity",
+      "resource_id": "encounters",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_clarity/encounters.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_clarity/encounters/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_clarity/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "healthcare/clinical_notes_summarizer:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "epic_clarity",
+      "resource_id": "encounters",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_clarity/encounters.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_clarity/encounters/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_clarity/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "healthcare/clinical_notes_summarizer:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "epic_clarity",
+      "resource_id": "encounters",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_clarity/encounters.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_clarity/encounters/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/epic_clarity/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "healthcare/patient_intake:checkavailability",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "availity",
+      "resource_id": "encounters",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/encounters.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/encounters/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/receipts/checkavailability.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "healthcare/patient_intake:patientintake",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "availity",
+      "resource_id": "encounters",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/encounters.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/encounters/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/receipts/patientintake.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "healthcare/patient_intake:scheduleappointment",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "availity",
+      "resource_id": "encounters",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/encounters.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/encounters/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/receipts/scheduleappointment.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "healthcare/patient_intake:sendreminder",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "availity",
+      "resource_id": "encounters",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/encounters.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/encounters/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/receipts/sendreminder.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "healthcare/patient_intake:updaterecord",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "availity",
+      "resource_id": "encounters",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/encounters.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/encounters/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/receipts/updaterecord.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "healthcare/prior_authorization:appeal",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "availity",
+      "resource_id": "authorizations",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/authorizations.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/authorizations/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/receipts/appeal.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "healthcare/prior_authorization:checkstatus",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "availity",
+      "resource_id": "authorizations",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/authorizations.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/authorizations/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/receipts/checkstatus.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "healthcare/prior_authorization:getrequirements",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "availity",
+      "resource_id": "authorizations",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/authorizations.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/authorizations/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/receipts/getrequirements.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "healthcare/prior_authorization:submit",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "availity",
+      "resource_id": "authorizations",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/authorizations.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/authorizations/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/availity/receipts/submit.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "healthcare/staff_credentialing:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "healthcare/staff_credentialing:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "healthcare/staff_credentialing:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "healthcare/staff_credentialing:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "manufacturing_stacks/inventory_rebalancing:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sap_ecc",
+      "resource_id": "inventory_items",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_ecc/inventory_items.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_ecc/inventory_items/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_ecc/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "manufacturing_stacks/inventory_rebalancing:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sap_ecc",
+      "resource_id": "inventory_items",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_ecc/inventory_items.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_ecc/inventory_items/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_ecc/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "manufacturing_stacks/inventory_rebalancing:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sap_ecc",
+      "resource_id": "inventory_items",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_ecc/inventory_items.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_ecc/inventory_items/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_ecc/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "manufacturing_stacks/inventory_rebalancing:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sap_ecc",
+      "resource_id": "inventory_items",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_ecc/inventory_items.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_ecc/inventory_items/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_ecc/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "manufacturing_stacks/maintenance_scheduling:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sap_pm",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_pm/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_pm/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_pm/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "manufacturing_stacks/maintenance_scheduling:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sap_pm",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_pm/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_pm/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_pm/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "manufacturing_stacks/maintenance_scheduling:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sap_pm",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_pm/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_pm/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_pm/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "manufacturing_stacks/maintenance_scheduling:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sap_pm",
+      "resource_id": "work_orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_pm/work_orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_pm/work_orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_pm/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "manufacturing_stacks/order_status_communication:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sap_s4hana",
+      "resource_id": "orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_s4hana/orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_s4hana/orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_s4hana/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "manufacturing_stacks/order_status_communication:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sap_s4hana",
+      "resource_id": "orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_s4hana/orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_s4hana/orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_s4hana/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "manufacturing_stacks/order_status_communication:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sap_s4hana",
+      "resource_id": "orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_s4hana/orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_s4hana/orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_s4hana/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "manufacturing_stacks/order_status_communication:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sap_s4hana",
+      "resource_id": "orders",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_s4hana/orders.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_s4hana/orders/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_s4hana/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "manufacturing_stacks/production_line_optimization:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "azure_iot_hub",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/azure_iot_hub/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/azure_iot_hub/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/azure_iot_hub/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "manufacturing_stacks/production_line_optimization:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "azure_iot_hub",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/azure_iot_hub/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/azure_iot_hub/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/azure_iot_hub/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "manufacturing_stacks/production_line_optimization:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "azure_iot_hub",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/azure_iot_hub/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/azure_iot_hub/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/azure_iot_hub/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "manufacturing_stacks/production_line_optimization:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "azure_iot_hub",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/azure_iot_hub/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/azure_iot_hub/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/azure_iot_hub/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "manufacturing_stacks/supplier_risk_monitoring:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "dun_bradstreet",
+      "resource_id": "risk_alerts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dun_bradstreet/risk_alerts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dun_bradstreet/risk_alerts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dun_bradstreet/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "manufacturing_stacks/supplier_risk_monitoring:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "dun_bradstreet",
+      "resource_id": "risk_alerts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dun_bradstreet/risk_alerts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dun_bradstreet/risk_alerts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dun_bradstreet/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "manufacturing_stacks/supplier_risk_monitoring:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "dun_bradstreet",
+      "resource_id": "risk_alerts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dun_bradstreet/risk_alerts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dun_bradstreet/risk_alerts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dun_bradstreet/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "manufacturing_stacks/supplier_risk_monitoring:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "dun_bradstreet",
+      "resource_id": "risk_alerts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dun_bradstreet/risk_alerts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dun_bradstreet/risk_alerts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/dun_bradstreet/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "professional_services/client_health_score:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "professional_services/client_health_score:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "professional_services/client_health_score:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "professional_services/client_health_score:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "professional_services/contract_risk_review:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "professional_services/contract_risk_review:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "professional_services/contract_risk_review:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "professional_services/contract_risk_review:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "professional_services/proposal_copilot:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "professional_services/proposal_copilot:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "professional_services/proposal_copilot:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "professional_services/proposal_copilot:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "professional_services/resource_utilization:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "openair",
+      "resource_id": "role_allocations",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/openair/role_allocations.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/openair/role_allocations/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/openair/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "professional_services/resource_utilization:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "openair",
+      "resource_id": "role_allocations",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/openair/role_allocations.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/openair/role_allocations/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/openair/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "professional_services/resource_utilization:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "openair",
+      "resource_id": "role_allocations",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/openair/role_allocations.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/openair/role_allocations/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/openair/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "professional_services/resource_utilization:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "openair",
+      "resource_id": "role_allocations",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/openair/role_allocations.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/openair/role_allocations/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/openair/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "professional_services/time_entry_billing:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sap_erp",
+      "resource_id": "payments",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_erp/payments.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_erp/payments/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_erp/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "professional_services/time_entry_billing:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sap_erp",
+      "resource_id": "payments",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_erp/payments.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_erp/payments/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_erp/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "professional_services/time_entry_billing:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sap_erp",
+      "resource_id": "payments",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_erp/payments.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_erp/payments/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_erp/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "professional_services/time_entry_billing:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sap_erp",
+      "resource_id": "payments",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_erp/payments.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_erp/payments/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sap_erp/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "retail_cpg/inventory_visibility:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "project44",
+      "resource_id": "inventory_items",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/project44/inventory_items.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/project44/inventory_items/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/project44/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "retail_cpg/inventory_visibility:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "project44",
+      "resource_id": "inventory_items",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/project44/inventory_items.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/project44/inventory_items/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/project44/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "retail_cpg/inventory_visibility:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "project44",
+      "resource_id": "inventory_items",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/project44/inventory_items.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/project44/inventory_items/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/project44/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "retail_cpg/inventory_visibility:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "project44",
+      "resource_id": "inventory_items",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/project44/inventory_items.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/project44/inventory_items/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/project44/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "retail_cpg/returns_complaints_resolution:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "retail_cpg/returns_complaints_resolution:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "retail_cpg/returns_complaints_resolution:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "retail_cpg/returns_complaints_resolution:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "retail_cpg/store_associate_copilot:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sql",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "retail_cpg/store_associate_copilot:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sql",
+      "resource_id": "records",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/records.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/records/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "retail_cpg/store_associate_copilot:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sql",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "retail_cpg/store_associate_copilot:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sql",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "software_dp/competitive_intel:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sql",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "software_dp/competitive_intel:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sql",
+      "resource_id": "records",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/records.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/records/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "software_dp/competitive_intel:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sql",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "software_dp/competitive_intel:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sql",
+      "resource_id": "metrics",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/metrics/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sql/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "software_dp/customer_onboarding:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "software_dp/customer_onboarding:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "software_dp/customer_onboarding:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "software_dp/customer_onboarding:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "software_dp/license_renewal_expansion:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "software_dp/license_renewal_expansion:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "software_dp/license_renewal_expansion:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "software_dp/license_renewal_expansion:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "salesforce_core",
+      "resource_id": "accounts",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/accounts/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/salesforce_core/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "software_dp/support_ticket_resolution:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "service_now",
+      "resource_id": "tickets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "software_dp/support_ticket_resolution:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "service_now",
+      "resource_id": "tickets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "software_dp/support_ticket_resolution:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "service_now",
+      "resource_id": "tickets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "software_dp/support_ticket_resolution:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "service_now",
+      "resource_id": "tickets",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/tickets/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/service_now/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "state_local_government/building_permit_processing:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "accela",
+      "resource_id": "permits",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/permits.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/permits/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "state_local_government/building_permit_processing:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "accela",
+      "resource_id": "permits",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/permits.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/permits/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "state_local_government/building_permit_processing:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "accela",
+      "resource_id": "permits",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/permits.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/permits/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "state_local_government/building_permit_processing:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "accela",
+      "resource_id": "permits",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/permits.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/permits/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "state_local_government/citizen_service_request:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "accela",
+      "resource_id": "records",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/records.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/records/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "state_local_government/citizen_service_request:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "accela",
+      "resource_id": "records",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/records.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/records/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "state_local_government/citizen_service_request:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "accela",
+      "resource_id": "records",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/records.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/records/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "state_local_government/citizen_service_request:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "accela",
+      "resource_id": "records",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/records.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/records/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/accela/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "state_local_government/foia_request_assistant:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "state_local_government/foia_request_assistant:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "state_local_government/foia_request_assistant:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "state_local_government/foia_request_assistant:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "state_local_government/grants_management:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sam_gov",
+      "resource_id": "grants",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sam_gov/grants.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sam_gov/grants/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sam_gov/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "state_local_government/grants_management:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sam_gov",
+      "resource_id": "grants",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sam_gov/grants.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sam_gov/grants/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sam_gov/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "state_local_government/grants_management:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sam_gov",
+      "resource_id": "grants",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sam_gov/grants.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sam_gov/grants/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sam_gov/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "state_local_government/grants_management:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "sam_gov",
+      "resource_id": "grants",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sam_gov/grants.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sam_gov/grants/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/sam_gov/receipts/report.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "state_local_government/utility_billing_assistance:analyze",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/analyze.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "state_local_government/utility_billing_assistance:execute",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/execute.json",
+      "write_intent": true
+    },
+    {
+      "route_id": "state_local_government/utility_billing_assistance:optimize",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/optimize.json",
+      "write_intent": false
+    },
+    {
+      "route_id": "state_local_government/utility_billing_assistance:report",
+      "mapping_status": "inferred_adapter",
+      "adapter_id": "microsoft_sharepoint",
+      "resource_id": "documents",
+      "collection_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents.json",
+      "record_url_template": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/documents/records/{record_id}.json",
+      "receipt_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/microsoft_sharepoint/receipts/report.json",
+      "write_intent": false
+    }
+  ]
+}

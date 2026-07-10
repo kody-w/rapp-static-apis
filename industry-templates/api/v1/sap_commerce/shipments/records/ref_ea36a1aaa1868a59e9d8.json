@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_commerce",
+  "resource_id": "shipments",
+  "record": {
+    "record_id": "ref_ea36a1aaa1868a59e9d8",
+    "shipment_id": "ref_ea36a1aaa1868a59e9d8",
+    "carrier_code": "carrier_3",
+    "milestone_code": "milestone_3",
+    "estimated_at": "2026-01-12T11:00:00Z"
+  }
+}

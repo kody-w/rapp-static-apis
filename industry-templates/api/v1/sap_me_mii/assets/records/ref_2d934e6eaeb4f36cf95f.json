@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_me_mii",
+  "resource_id": "assets",
+  "record": {
+    "record_id": "ref_2d934e6eaeb4f36cf95f",
+    "asset_id": "ref_2d934e6eaeb4f36cf95f",
+    "asset_type": "asset_2",
+    "health_score": 125.0,
+    "status": "pending"
+  }
+}

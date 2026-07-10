@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_sales",
+  "resource_id": "cases",
+  "record": {
+    "record_id": "ref_511ab1b07c827a41b286",
+    "case_id": "ref_511ab1b07c827a41b286",
+    "case_type": "case_1",
+    "priority_code": "priority_1",
+    "status": "active"
+  }
+}

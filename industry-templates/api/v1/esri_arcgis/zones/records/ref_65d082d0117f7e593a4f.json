@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "esri_arcgis",
+  "resource_id": "zones",
+  "record": {
+    "record_id": "ref_65d082d0117f7e593a4f",
+    "zone_id": "ref_65d082d0117f7e593a4f",
+    "classification_code": "classification_1",
+    "jurisdiction_code": "jurisdiction_1",
+    "status": "active"
+  }
+}

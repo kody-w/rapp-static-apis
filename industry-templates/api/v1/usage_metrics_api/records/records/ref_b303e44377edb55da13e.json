@@ -1,0 +1,12 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "usage_metrics_api",
+  "resource_id": "records",
+  "record": {
+    "record_id": "ref_b303e44377edb55da13e",
+    "category_code": "category_1",
+    "status": "active",
+    "effective_at": "2026-01-10T09:00:00Z"
+  }
+}

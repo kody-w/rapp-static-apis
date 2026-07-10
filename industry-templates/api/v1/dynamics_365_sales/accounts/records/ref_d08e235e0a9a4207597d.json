@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_sales",
+  "resource_id": "accounts",
+  "record": {
+    "record_id": "ref_d08e235e0a9a4207597d",
+    "organization_id": "ref_d08e235e0a9a4207597d",
+    "industry_code": "industry_3",
+    "tier_code": "tier_3",
+    "status": "complete"
+  }
+}

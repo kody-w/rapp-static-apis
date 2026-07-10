@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_me_mii",
+  "resource_id": "work_orders",
+  "record": {
+    "record_id": "ref_759ac433c276c2d5f956",
+    "work_order_id": "ref_759ac433c276c2d5f956",
+    "asset_id": "ref_67aff43e810edeec7493",
+    "priority_code": "priority_1",
+    "status": "active"
+  }
+}
