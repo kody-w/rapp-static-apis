@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_financial_services_cloud",
+  "resource_id": "opportunities",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_3fe281ebe4a9d48f5c52",
+      "opportunity_id": "ref_3fe281ebe4a9d48f5c52",
+      "stage_code": "stage_1",
+      "amount": 100.0,
+      "close_date": "2026-01-10"
+    },
+    {
+      "record_id": "ref_65dbdfeccdd603b56abf",
+      "opportunity_id": "ref_65dbdfeccdd603b56abf",
+      "stage_code": "stage_2",
+      "amount": 125.0,
+      "close_date": "2026-01-11"
+    },
+    {
+      "record_id": "ref_29e62eb32893b9da09ee",
+      "opportunity_id": "ref_29e62eb32893b9da09ee",
+      "stage_code": "stage_3",
+      "amount": 150.0,
+      "close_date": "2026-01-12"
+    }
+  ]
+}

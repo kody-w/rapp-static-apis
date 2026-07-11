@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_core",
+  "capability_code": "getmessagingagent",
+  "route_count": 1,
+  "write_intent_count": 0,
+  "receipt": {
+    "receipt_id": "receipt_234a9a53027c34b65655",
+    "operation": "simulate_getmessagingagent",
+    "resource_id": "accounts",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_a6e7da20ddd35ca7b94d"
+  }
+}

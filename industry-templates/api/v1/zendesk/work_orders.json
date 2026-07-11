@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "zendesk",
+  "resource_id": "work_orders",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_9b49d2c288901b89de1a",
+      "work_order_id": "ref_9b49d2c288901b89de1a",
+      "asset_id": "ref_41758e7a74ffc95d398a",
+      "priority_code": "priority_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_86b04d082a6afa6bdb4c",
+      "work_order_id": "ref_86b04d082a6afa6bdb4c",
+      "asset_id": "ref_83dc6447a2e88a5750ed",
+      "priority_code": "priority_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_2723d11c79221a09ef09",
+      "work_order_id": "ref_2723d11c79221a09ef09",
+      "asset_id": "ref_221ba4d7a70919c4b915",
+      "priority_code": "priority_3",
+      "status": "complete"
+    }
+  ]
+}

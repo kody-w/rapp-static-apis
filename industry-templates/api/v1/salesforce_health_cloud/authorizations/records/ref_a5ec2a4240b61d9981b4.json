@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_health_cloud",
+  "resource_id": "authorizations",
+  "record": {
+    "record_id": "ref_a5ec2a4240b61d9981b4",
+    "authorization_id": "ref_a5ec2a4240b61d9981b4",
+    "service_code": "service_2",
+    "decision_code": "decision_2",
+    "status": "pending"
+  }
+}

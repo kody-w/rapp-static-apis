@@ -1,0 +1,734 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "RAPP Static Workday",
+    "description": "Unauthenticated no-PII static GET adapter. Write operations are receipt previews and never mutate an external product.",
+    "version": "1.0.0"
+  },
+  "host": "raw.githubusercontent.com",
+  "basePath": "/kody-w/rapp-static-apis/main/industry-templates",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/workday/access_checks.json": {
+      "get": {
+        "operationId": "GetWorkdayAccessChecksCollection",
+        "summary": "List static access_checks",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "workday"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "access_checks"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "check_id",
+                      "role_code",
+                      "resource_code",
+                      "decision_code"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "check_id": {
+                        "type": "string"
+                      },
+                      "role_code": {
+                        "type": "string"
+                      },
+                      "resource_code": {
+                        "type": "string"
+                      },
+                      "decision_code": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/workday/access_checks/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetWorkdayAccessChecksRecord",
+        "summary": "Get one static access_checks record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "workday"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "access_checks"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "check_id",
+                    "role_code",
+                    "resource_code",
+                    "decision_code"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "check_id": {
+                      "type": "string"
+                    },
+                    "role_code": {
+                      "type": "string"
+                    },
+                    "resource_code": {
+                      "type": "string"
+                    },
+                    "decision_code": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/workday/role_allocations.json": {
+      "get": {
+        "operationId": "GetWorkdayRoleAllocationsCollection",
+        "summary": "List static role_allocations",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "workday"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "role_allocations"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "allocation_id",
+                      "role_code",
+                      "capacity_percent",
+                      "status"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "allocation_id": {
+                        "type": "string"
+                      },
+                      "role_code": {
+                        "type": "string"
+                      },
+                      "capacity_percent": {
+                        "type": "number"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/workday/role_allocations/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetWorkdayRoleAllocationsRecord",
+        "summary": "Get one static role_allocations record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "workday"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "role_allocations"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "allocation_id",
+                    "role_code",
+                    "capacity_percent",
+                    "status"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "allocation_id": {
+                      "type": "string"
+                    },
+                    "role_code": {
+                      "type": "string"
+                    },
+                    "capacity_percent": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/workday/schedules.json": {
+      "get": {
+        "operationId": "GetWorkdaySchedulesCollection",
+        "summary": "List static schedules",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "workday"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "schedules"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "schedule_id",
+                      "resource_code",
+                      "window_code",
+                      "status"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "schedule_id": {
+                        "type": "string"
+                      },
+                      "resource_code": {
+                        "type": "string"
+                      },
+                      "window_code": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/workday/schedules/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetWorkdaySchedulesRecord",
+        "summary": "Get one static schedules record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "workday"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "schedules"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "schedule_id",
+                    "resource_code",
+                    "window_code",
+                    "status"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "schedule_id": {
+                      "type": "string"
+                    },
+                    "resource_code": {
+                      "type": "string"
+                    },
+                    "window_code": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/workday/tasks.json": {
+      "get": {
+        "operationId": "GetWorkdayTasksCollection",
+        "summary": "List static tasks",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "workday"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "tasks"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "task_id",
+                      "task_type",
+                      "status",
+                      "due_at"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "task_id": {
+                        "type": "string"
+                      },
+                      "task_type": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "due_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/workday/tasks/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetWorkdayTasksRecord",
+        "summary": "Get one static tasks record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "workday"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "tasks"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "task_id",
+                    "task_type",
+                    "status",
+                    "due_at"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "task_id": {
+                      "type": "string"
+                    },
+                    "task_type": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "due_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    }
+  },
+  "securityDefinitions": {},
+  "security": [],
+  "x-rapp-schema": "rapp-static-industry-connector/1.0",
+  "x-rapp-adapter-id": "workday",
+  "x-rapp-generated": "2026-07-10T20:30:00Z"
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "guidewire_claimcenter",
+  "resource_id": "claims",
+  "record": {
+    "record_id": "ref_8b3b8fbe8dce29f4a705",
+    "claim_id": "ref_8b3b8fbe8dce29f4a705",
+    "claim_type": "claim_2",
+    "severity_code": "severity_2",
+    "status": "pending"
+  }
+}

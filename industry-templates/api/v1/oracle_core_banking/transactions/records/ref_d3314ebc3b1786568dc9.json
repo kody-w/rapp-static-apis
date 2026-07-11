@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "oracle_core_banking",
+  "resource_id": "transactions",
+  "record": {
+    "record_id": "ref_d3314ebc3b1786568dc9",
+    "transaction_id": "ref_d3314ebc3b1786568dc9",
+    "transaction_type": "transaction_3",
+    "amount": 150.0,
+    "risk_score": 150.0
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "asap_gov",
+  "resource_id": "transactions",
+  "record": {
+    "record_id": "ref_055be5b7c5bcba155973",
+    "transaction_id": "ref_055be5b7c5bcba155973",
+    "transaction_type": "transaction_2",
+    "amount": 125.0,
+    "risk_score": 125.0
+  }
+}

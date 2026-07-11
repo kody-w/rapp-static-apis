@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "ibm_maximo",
+  "resource_id": "assets",
+  "record": {
+    "record_id": "ref_8444b23d55c8bf67585d",
+    "asset_id": "ref_8444b23d55c8bf67585d",
+    "asset_type": "asset_1",
+    "health_score": 100.0,
+    "status": "active"
+  }
+}

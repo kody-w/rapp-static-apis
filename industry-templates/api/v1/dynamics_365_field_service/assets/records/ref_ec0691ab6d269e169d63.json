@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_field_service",
+  "resource_id": "assets",
+  "record": {
+    "record_id": "ref_ec0691ab6d269e169d63",
+    "asset_id": "ref_ec0691ab6d269e169d63",
+    "asset_type": "asset_1",
+    "health_score": 100.0,
+    "status": "active"
+  }
+}

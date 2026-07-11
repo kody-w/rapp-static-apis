@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_health_cloud",
+  "resource_id": "encounters",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_78b88a8eb3a5bf321960",
+      "encounter_id": "ref_78b88a8eb3a5bf321960",
+      "encounter_type": "encounter_1",
+      "care_program_code": "care_program_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_61dc1ccae8a255379f5d",
+      "encounter_id": "ref_61dc1ccae8a255379f5d",
+      "encounter_type": "encounter_2",
+      "care_program_code": "care_program_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_ff135fb6165bc206b3ad",
+      "encounter_id": "ref_ff135fb6165bc206b3ad",
+      "encounter_type": "encounter_3",
+      "care_program_code": "care_program_3",
+      "status": "complete"
+    }
+  ]
+}

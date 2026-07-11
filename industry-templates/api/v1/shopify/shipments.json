@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "shopify",
+  "resource_id": "shipments",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_47de739a6f5aedaa51c4",
+      "shipment_id": "ref_47de739a6f5aedaa51c4",
+      "carrier_code": "carrier_1",
+      "milestone_code": "milestone_1",
+      "estimated_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_43ebd82883725e94178d",
+      "shipment_id": "ref_43ebd82883725e94178d",
+      "carrier_code": "carrier_2",
+      "milestone_code": "milestone_2",
+      "estimated_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_fab33add4da90d47ad07",
+      "shipment_id": "ref_fab33add4da90d47ad07",
+      "carrier_code": "carrier_3",
+      "milestone_code": "milestone_3",
+      "estimated_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

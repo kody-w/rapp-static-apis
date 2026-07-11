@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "tyler_munis",
+  "resource_id": "grants",
+  "record": {
+    "record_id": "ref_f8ea4fb061c1ad137d73",
+    "grant_id": "ref_f8ea4fb061c1ad137d73",
+    "program_code": "program_2",
+    "amount": 125.0,
+    "status": "pending"
+  }
+}

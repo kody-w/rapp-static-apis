@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_service_cloud",
+  "resource_id": "work_orders",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_aaa11e7c48703c854a3c",
+      "work_order_id": "ref_aaa11e7c48703c854a3c",
+      "asset_id": "ref_cc7ce6cc45e3b2f70dd3",
+      "priority_code": "priority_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_321aa7b2e5c8e323eed9",
+      "work_order_id": "ref_321aa7b2e5c8e323eed9",
+      "asset_id": "ref_2136f6e5a60122d35c26",
+      "priority_code": "priority_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_fb3e90836dd003525cb7",
+      "work_order_id": "ref_fb3e90836dd003525cb7",
+      "asset_id": "ref_b96839c0df9edf4b17df",
+      "priority_code": "priority_3",
+      "status": "complete"
+    }
+  ]
+}

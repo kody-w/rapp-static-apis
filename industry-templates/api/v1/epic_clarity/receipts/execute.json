@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "epic_clarity",
+  "capability_code": "execute",
+  "route_count": 1,
+  "write_intent_count": 1,
+  "receipt": {
+    "receipt_id": "receipt_633254ee7e36e6d5032e",
+    "operation": "simulate_execute",
+    "resource_id": "encounters",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_a008d3f9d1901ac5d765"
+  }
+}

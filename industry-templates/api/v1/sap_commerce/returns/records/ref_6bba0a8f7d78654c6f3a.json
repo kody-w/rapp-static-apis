@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_commerce",
+  "resource_id": "returns",
+  "record": {
+    "record_id": "ref_6bba0a8f7d78654c6f3a",
+    "return_id": "ref_6bba0a8f7d78654c6f3a",
+    "reason_code": "reason_2",
+    "resolution_code": "resolution_2",
+    "status": "pending"
+  }
+}

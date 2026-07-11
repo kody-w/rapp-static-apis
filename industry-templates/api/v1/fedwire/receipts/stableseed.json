@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "fedwire",
+  "capability_code": "stableseed",
+  "route_count": 1,
+  "write_intent_count": 0,
+  "receipt": {
+    "receipt_id": "receipt_f646629ddc45feed8d8d",
+    "operation": "simulate_stableseed",
+    "resource_id": "payments",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_7b1f001290ba9efcfbf1"
+  }
+}

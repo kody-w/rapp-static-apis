@@ -1,0 +1,734 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "RAPP Static Charles River IMS",
+    "description": "Unauthenticated no-PII static GET adapter. Write operations are receipt previews and never mutate an external product.",
+    "version": "1.0.0"
+  },
+  "host": "raw.githubusercontent.com",
+  "basePath": "/kody-w/rapp-static-apis/main/industry-templates",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/charles_river_ims/market_quotes.json": {
+      "get": {
+        "operationId": "GetCharlesRiverImsMarketQuotesCollection",
+        "summary": "List static market_quotes",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "charles_river_ims"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "market_quotes"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "instrument_code",
+                      "price",
+                      "currency_code",
+                      "as_of"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "instrument_code": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": "number"
+                      },
+                      "currency_code": {
+                        "type": "string"
+                      },
+                      "as_of": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/charles_river_ims/market_quotes/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetCharlesRiverImsMarketQuotesRecord",
+        "summary": "Get one static market_quotes record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "charles_river_ims"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "market_quotes"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "instrument_code",
+                    "price",
+                    "currency_code",
+                    "as_of"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "instrument_code": {
+                      "type": "string"
+                    },
+                    "price": {
+                      "type": "number"
+                    },
+                    "currency_code": {
+                      "type": "string"
+                    },
+                    "as_of": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/charles_river_ims/orders.json": {
+      "get": {
+        "operationId": "GetCharlesRiverImsOrdersCollection",
+        "summary": "List static orders",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "charles_river_ims"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "orders"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "order_id",
+                      "order_type",
+                      "amount",
+                      "status"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "order_id": {
+                        "type": "string"
+                      },
+                      "order_type": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "number"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/charles_river_ims/orders/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetCharlesRiverImsOrdersRecord",
+        "summary": "Get one static orders record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "charles_river_ims"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "orders"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "order_id",
+                    "order_type",
+                    "amount",
+                    "status"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "order_id": {
+                      "type": "string"
+                    },
+                    "order_type": {
+                      "type": "string"
+                    },
+                    "amount": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/charles_river_ims/portfolios.json": {
+      "get": {
+        "operationId": "GetCharlesRiverImsPortfoliosCollection",
+        "summary": "List static portfolios",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "charles_river_ims"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "portfolios"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "portfolio_id",
+                      "strategy_code",
+                      "drift_percent",
+                      "status"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "portfolio_id": {
+                        "type": "string"
+                      },
+                      "strategy_code": {
+                        "type": "string"
+                      },
+                      "drift_percent": {
+                        "type": "number"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/charles_river_ims/portfolios/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetCharlesRiverImsPortfoliosRecord",
+        "summary": "Get one static portfolios record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "charles_river_ims"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "portfolios"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "portfolio_id",
+                    "strategy_code",
+                    "drift_percent",
+                    "status"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "portfolio_id": {
+                      "type": "string"
+                    },
+                    "strategy_code": {
+                      "type": "string"
+                    },
+                    "drift_percent": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/charles_river_ims/risk_alerts.json": {
+      "get": {
+        "operationId": "GetCharlesRiverImsRiskAlertsCollection",
+        "summary": "List static risk_alerts",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "charles_river_ims"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "risk_alerts"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "alert_id",
+                      "risk_type",
+                      "severity_code",
+                      "status"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "alert_id": {
+                        "type": "string"
+                      },
+                      "risk_type": {
+                        "type": "string"
+                      },
+                      "severity_code": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/charles_river_ims/risk_alerts/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetCharlesRiverImsRiskAlertsRecord",
+        "summary": "Get one static risk_alerts record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "charles_river_ims"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "risk_alerts"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "alert_id",
+                    "risk_type",
+                    "severity_code",
+                    "status"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "alert_id": {
+                      "type": "string"
+                    },
+                    "risk_type": {
+                      "type": "string"
+                    },
+                    "severity_code": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    }
+  },
+  "securityDefinitions": {},
+  "security": [],
+  "x-rapp-schema": "rapp-static-industry-connector/1.0",
+  "x-rapp-adapter-id": "charles_river_ims",
+  "x-rapp-generated": "2026-07-10T20:30:00Z"
+}

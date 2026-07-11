@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "oracle_core_banking",
+  "resource_id": "payments",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_a9e63db6425ae029078c",
+      "payment_id": "ref_a9e63db6425ae029078c",
+      "amount": 100.0,
+      "currency_code": "currency_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_e1dc4ec5b56eb17ca3e5",
+      "payment_id": "ref_e1dc4ec5b56eb17ca3e5",
+      "amount": 125.0,
+      "currency_code": "currency_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_3c6ba5f5f54f1878730d",
+      "payment_id": "ref_3c6ba5f5f54f1878730d",
+      "amount": 150.0,
+      "currency_code": "currency_3",
+      "status": "complete"
+    }
+  ]
+}

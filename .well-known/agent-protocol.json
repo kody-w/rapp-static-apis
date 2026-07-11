@@ -2,7 +2,7 @@
   "schema": "rapp-god-registry-agent-protocol/1.0",
   "name": "rapp-static-apis",
   "base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main",
-  "generated": "2026-07-07T02:43:27Z",
+  "generated": "2026-07-10T20:38:47Z",
   "actions": [
     {
       "name": "list_apis",
@@ -26,6 +26,7 @@
             "dataverse",
             "fn",
             "hologram",
+            "industry-templates",
             "lantern",
             "legal",
             "mcp",

@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sam_gov",
+  "capability_code": "execute",
+  "route_count": 1,
+  "write_intent_count": 1,
+  "receipt": {
+    "receipt_id": "receipt_20b69597b06d9e34998f",
+    "operation": "simulate_execute",
+    "resource_id": "grants",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_0ce3fff2ac34f5cdd527"
+  }
+}

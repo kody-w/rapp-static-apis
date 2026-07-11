@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "charles_river_ims",
+  "resource_id": "orders",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_26ea75978c72796f1293",
+      "order_id": "ref_26ea75978c72796f1293",
+      "order_type": "order_1",
+      "amount": 100.0,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_944f03be89b483e758fc",
+      "order_id": "ref_944f03be89b483e758fc",
+      "order_type": "order_2",
+      "amount": 125.0,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_dfa9661138c822fc9c6a",
+      "order_id": "ref_dfa9661138c822fc9c6a",
+      "order_type": "order_3",
+      "amount": 150.0,
+      "status": "complete"
+    }
+  ]
+}

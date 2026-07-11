@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_power_bi",
+  "resource_id": "reports",
+  "record": {
+    "record_id": "ref_7a055dde15f3a91e6527",
+    "report_id": "ref_7a055dde15f3a91e6527",
+    "report_type": "report_3",
+    "period_code": "period_3",
+    "status": "complete"
+  }
+}

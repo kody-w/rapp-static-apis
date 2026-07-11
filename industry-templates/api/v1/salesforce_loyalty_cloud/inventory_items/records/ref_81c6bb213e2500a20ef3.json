@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_loyalty_cloud",
+  "resource_id": "inventory_items",
+  "record": {
+    "record_id": "ref_81c6bb213e2500a20ef3",
+    "item_id": "ref_81c6bb213e2500a20ef3",
+    "location_code": "location_2",
+    "quantity_available": 11,
+    "status": "pending"
+  }
+}

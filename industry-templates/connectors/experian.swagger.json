@@ -1,0 +1,734 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "RAPP Static Experian",
+    "description": "Unauthenticated no-PII static GET adapter. Write operations are receipt previews and never mutate an external product.",
+    "version": "1.0.0"
+  },
+  "host": "raw.githubusercontent.com",
+  "basePath": "/kody-w/rapp-static-apis/main/industry-templates",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/experian/audit_events.json": {
+      "get": {
+        "operationId": "GetExperianAuditEventsCollection",
+        "summary": "List static audit_events",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "experian"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "audit_events"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "event_id",
+                      "event_type",
+                      "result_code",
+                      "occurred_at"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "event_id": {
+                        "type": "string"
+                      },
+                      "event_type": {
+                        "type": "string"
+                      },
+                      "result_code": {
+                        "type": "string"
+                      },
+                      "occurred_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/experian/audit_events/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetExperianAuditEventsRecord",
+        "summary": "Get one static audit_events record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "experian"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "audit_events"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "event_id",
+                    "event_type",
+                    "result_code",
+                    "occurred_at"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "event_id": {
+                      "type": "string"
+                    },
+                    "event_type": {
+                      "type": "string"
+                    },
+                    "result_code": {
+                      "type": "string"
+                    },
+                    "occurred_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/experian/cases.json": {
+      "get": {
+        "operationId": "GetExperianCasesCollection",
+        "summary": "List static cases",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "experian"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "cases"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "case_id",
+                      "case_type",
+                      "priority_code",
+                      "status"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "case_id": {
+                        "type": "string"
+                      },
+                      "case_type": {
+                        "type": "string"
+                      },
+                      "priority_code": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/experian/cases/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetExperianCasesRecord",
+        "summary": "Get one static cases record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "experian"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "cases"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "case_id",
+                    "case_type",
+                    "priority_code",
+                    "status"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "case_id": {
+                      "type": "string"
+                    },
+                    "case_type": {
+                      "type": "string"
+                    },
+                    "priority_code": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/experian/compliance_findings.json": {
+      "get": {
+        "operationId": "GetExperianComplianceFindingsCollection",
+        "summary": "List static compliance_findings",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "experian"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "compliance_findings"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "finding_id",
+                      "control_code",
+                      "severity_code",
+                      "status"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "finding_id": {
+                        "type": "string"
+                      },
+                      "control_code": {
+                        "type": "string"
+                      },
+                      "severity_code": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/experian/compliance_findings/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetExperianComplianceFindingsRecord",
+        "summary": "Get one static compliance_findings record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "experian"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "compliance_findings"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "finding_id",
+                    "control_code",
+                    "severity_code",
+                    "status"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "finding_id": {
+                      "type": "string"
+                    },
+                    "control_code": {
+                      "type": "string"
+                    },
+                    "severity_code": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/experian/risk_alerts.json": {
+      "get": {
+        "operationId": "GetExperianRiskAlertsCollection",
+        "summary": "List static risk_alerts",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "experian"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "risk_alerts"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "alert_id",
+                      "risk_type",
+                      "severity_code",
+                      "status"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "alert_id": {
+                        "type": "string"
+                      },
+                      "risk_type": {
+                        "type": "string"
+                      },
+                      "severity_code": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/experian/risk_alerts/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetExperianRiskAlertsRecord",
+        "summary": "Get one static risk_alerts record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "experian"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "risk_alerts"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "alert_id",
+                    "risk_type",
+                    "severity_code",
+                    "status"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "alert_id": {
+                      "type": "string"
+                    },
+                    "risk_type": {
+                      "type": "string"
+                    },
+                    "severity_code": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    }
+  },
+  "securityDefinitions": {},
+  "security": [],
+  "x-rapp-schema": "rapp-static-industry-connector/1.0",
+  "x-rapp-adapter-id": "experian",
+  "x-rapp-generated": "2026-07-10T20:30:00Z"
+}

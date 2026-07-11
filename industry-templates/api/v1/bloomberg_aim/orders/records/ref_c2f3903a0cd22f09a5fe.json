@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "bloomberg_aim",
+  "resource_id": "orders",
+  "record": {
+    "record_id": "ref_c2f3903a0cd22f09a5fe",
+    "order_id": "ref_c2f3903a0cd22f09a5fe",
+    "order_type": "order_1",
+    "amount": 100.0,
+    "status": "active"
+  }
+}

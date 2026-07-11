@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "card_management_api",
+  "capability_code": "optimize",
+  "route_count": 1,
+  "write_intent_count": 0,
+  "receipt": {
+    "receipt_id": "receipt_4f070670ab721e30da17",
+    "operation": "simulate_optimize",
+    "resource_id": "risk_alerts",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_6d63da03d6acb6c3eb83"
+  }
+}

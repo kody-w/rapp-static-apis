@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_erp",
+  "resource_id": "inventory_items",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_bc7118505f2ff203bd58",
+      "item_id": "ref_bc7118505f2ff203bd58",
+      "location_code": "location_1",
+      "quantity_available": 10,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_6b7449f3dd430467b9ac",
+      "item_id": "ref_6b7449f3dd430467b9ac",
+      "location_code": "location_2",
+      "quantity_available": 11,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_13ba839aea19b963cd23",
+      "item_id": "ref_13ba839aea19b963cd23",
+      "location_code": "location_3",
+      "quantity_available": 12,
+      "status": "complete"
+    }
+  ]
+}

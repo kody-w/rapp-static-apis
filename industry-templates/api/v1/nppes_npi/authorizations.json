@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "nppes_npi",
+  "resource_id": "authorizations",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_f7a021551c31c3bcd8db",
+      "authorization_id": "ref_f7a021551c31c3bcd8db",
+      "service_code": "service_1",
+      "decision_code": "decision_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_e446fcb27025e119fdca",
+      "authorization_id": "ref_e446fcb27025e119fdca",
+      "service_code": "service_2",
+      "decision_code": "decision_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_8b05296168574f02099c",
+      "authorization_id": "ref_8b05296168574f02099c",
+      "service_code": "service_3",
+      "decision_code": "decision_3",
+      "status": "complete"
+    }
+  ]
+}

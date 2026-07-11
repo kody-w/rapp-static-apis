@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "market_data_api",
+  "capability_code": "optimize",
+  "route_count": 1,
+  "write_intent_count": 0,
+  "receipt": {
+    "receipt_id": "receipt_1c7d8cb88ff7ec33c18a",
+    "operation": "simulate_optimize",
+    "resource_id": "market_quotes",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_28bdd72ad8f9fc72b9c4"
+  }
+}

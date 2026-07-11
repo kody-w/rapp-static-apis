@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_sql",
+  "resource_id": "reports",
+  "record": {
+    "record_id": "ref_6a4f7124d804b6c2060f",
+    "report_id": "ref_6a4f7124d804b6c2060f",
+    "report_type": "report_2",
+    "period_code": "period_2",
+    "status": "pending"
+  }
+}

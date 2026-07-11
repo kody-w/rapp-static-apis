@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "oracle_core_banking",
+  "resource_id": "risk_alerts",
+  "record": {
+    "record_id": "ref_566d57e70cccc9aa67b8",
+    "alert_id": "ref_566d57e70cccc9aa67b8",
+    "risk_type": "risk_2",
+    "severity_code": "severity_2",
+    "status": "pending"
+  }
+}

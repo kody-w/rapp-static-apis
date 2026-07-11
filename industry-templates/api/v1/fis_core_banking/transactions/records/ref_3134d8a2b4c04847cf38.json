@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "fis_core_banking",
+  "resource_id": "transactions",
+  "record": {
+    "record_id": "ref_3134d8a2b4c04847cf38",
+    "transaction_id": "ref_3134d8a2b4c04847cf38",
+    "transaction_type": "transaction_3",
+    "amount": 150.0,
+    "risk_score": 150.0
+  }
+}

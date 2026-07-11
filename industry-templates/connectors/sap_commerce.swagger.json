@@ -1,0 +1,911 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "RAPP Static SAP Commerce",
+    "description": "Unauthenticated no-PII static GET adapter. Write operations are receipt previews and never mutate an external product.",
+    "version": "1.0.0"
+  },
+  "host": "raw.githubusercontent.com",
+  "basePath": "/kody-w/rapp-static-apis/main/industry-templates",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/sap_commerce/campaigns.json": {
+      "get": {
+        "operationId": "GetSapCommerceCampaignsCollection",
+        "summary": "List static campaigns",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "sap_commerce"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "campaigns"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "campaign_id",
+                      "channel_code",
+                      "segment_code",
+                      "status"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "campaign_id": {
+                        "type": "string"
+                      },
+                      "channel_code": {
+                        "type": "string"
+                      },
+                      "segment_code": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/sap_commerce/campaigns/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetSapCommerceCampaignsRecord",
+        "summary": "Get one static campaigns record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "sap_commerce"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "campaigns"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "campaign_id",
+                    "channel_code",
+                    "segment_code",
+                    "status"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "campaign_id": {
+                      "type": "string"
+                    },
+                    "channel_code": {
+                      "type": "string"
+                    },
+                    "segment_code": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/sap_commerce/inventory_items.json": {
+      "get": {
+        "operationId": "GetSapCommerceInventoryItemsCollection",
+        "summary": "List static inventory_items",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "sap_commerce"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "inventory_items"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "item_id",
+                      "location_code",
+                      "quantity_available",
+                      "status"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "item_id": {
+                        "type": "string"
+                      },
+                      "location_code": {
+                        "type": "string"
+                      },
+                      "quantity_available": {
+                        "type": "integer"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/sap_commerce/inventory_items/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetSapCommerceInventoryItemsRecord",
+        "summary": "Get one static inventory_items record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "sap_commerce"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "inventory_items"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "item_id",
+                    "location_code",
+                    "quantity_available",
+                    "status"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "item_id": {
+                      "type": "string"
+                    },
+                    "location_code": {
+                      "type": "string"
+                    },
+                    "quantity_available": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/sap_commerce/orders.json": {
+      "get": {
+        "operationId": "GetSapCommerceOrdersCollection",
+        "summary": "List static orders",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "sap_commerce"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "orders"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "order_id",
+                      "order_type",
+                      "amount",
+                      "status"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "order_id": {
+                        "type": "string"
+                      },
+                      "order_type": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "number"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/sap_commerce/orders/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetSapCommerceOrdersRecord",
+        "summary": "Get one static orders record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "sap_commerce"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "orders"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "order_id",
+                    "order_type",
+                    "amount",
+                    "status"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "order_id": {
+                      "type": "string"
+                    },
+                    "order_type": {
+                      "type": "string"
+                    },
+                    "amount": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/sap_commerce/returns.json": {
+      "get": {
+        "operationId": "GetSapCommerceReturnsCollection",
+        "summary": "List static returns",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "sap_commerce"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "returns"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "return_id",
+                      "reason_code",
+                      "resolution_code",
+                      "status"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "return_id": {
+                        "type": "string"
+                      },
+                      "reason_code": {
+                        "type": "string"
+                      },
+                      "resolution_code": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/sap_commerce/returns/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetSapCommerceReturnsRecord",
+        "summary": "Get one static returns record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "sap_commerce"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "returns"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "return_id",
+                    "reason_code",
+                    "resolution_code",
+                    "status"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "return_id": {
+                      "type": "string"
+                    },
+                    "reason_code": {
+                      "type": "string"
+                    },
+                    "resolution_code": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/sap_commerce/shipments.json": {
+      "get": {
+        "operationId": "GetSapCommerceShipmentsCollection",
+        "summary": "List static shipments",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "sap_commerce"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "shipments"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "shipment_id",
+                      "carrier_code",
+                      "milestone_code",
+                      "estimated_at"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "shipment_id": {
+                        "type": "string"
+                      },
+                      "carrier_code": {
+                        "type": "string"
+                      },
+                      "milestone_code": {
+                        "type": "string"
+                      },
+                      "estimated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/sap_commerce/shipments/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetSapCommerceShipmentsRecord",
+        "summary": "Get one static shipments record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "sap_commerce"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "shipments"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "shipment_id",
+                    "carrier_code",
+                    "milestone_code",
+                    "estimated_at"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "shipment_id": {
+                      "type": "string"
+                    },
+                    "carrier_code": {
+                      "type": "string"
+                    },
+                    "milestone_code": {
+                      "type": "string"
+                    },
+                    "estimated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    }
+  },
+  "securityDefinitions": {},
+  "security": [],
+  "x-rapp-schema": "rapp-static-industry-connector/1.0",
+  "x-rapp-adapter-id": "sap_commerce",
+  "x-rapp-generated": "2026-07-10T20:30:00Z"
+}

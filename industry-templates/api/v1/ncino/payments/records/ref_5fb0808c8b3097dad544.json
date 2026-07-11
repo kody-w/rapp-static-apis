@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "ncino",
+  "resource_id": "payments",
+  "record": {
+    "record_id": "ref_5fb0808c8b3097dad544",
+    "payment_id": "ref_5fb0808c8b3097dad544",
+    "amount": 150.0,
+    "currency_code": "currency_3",
+    "status": "complete"
+  }
+}

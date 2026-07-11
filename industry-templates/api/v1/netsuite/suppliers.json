@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "netsuite",
+  "resource_id": "suppliers",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_f6417be702843b3743f9",
+      "supplier_id": "ref_f6417be702843b3743f9",
+      "category_code": "category_1",
+      "risk_tier": "value_bb1126346f1e8c64e34a",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_1892b00e0c0970da5fd3",
+      "supplier_id": "ref_1892b00e0c0970da5fd3",
+      "category_code": "category_2",
+      "risk_tier": "value_ed71248b16b2ebb3b274",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_1318bd2af0d12a2ac121",
+      "supplier_id": "ref_1318bd2af0d12a2ac121",
+      "category_code": "category_3",
+      "risk_tier": "value_ced83df5567c1710d0da",
+      "status": "complete"
+    }
+  ]
+}

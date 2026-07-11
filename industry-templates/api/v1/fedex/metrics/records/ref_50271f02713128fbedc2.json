@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "fedex",
+  "resource_id": "metrics",
+  "record": {
+    "record_id": "ref_50271f02713128fbedc2",
+    "metric_id": "ref_50271f02713128fbedc2",
+    "metric_code": "metric_2",
+    "value": 125.0,
+    "measured_at": "2026-01-11T10:00:00Z"
+  }
+}

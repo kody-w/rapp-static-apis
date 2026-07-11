@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "service_now",
+  "resource_id": "changes",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_ee7d3381228ed9fca0b5",
+      "change_id": "ref_ee7d3381228ed9fca0b5",
+      "change_type": "change_1",
+      "risk_code": "risk_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_7979ff18943004b17dc4",
+      "change_id": "ref_7979ff18943004b17dc4",
+      "change_type": "change_2",
+      "risk_code": "risk_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_aa49c756bc913bedef86",
+      "change_id": "ref_aa49c756bc913bedef86",
+      "change_type": "change_3",
+      "risk_code": "risk_3",
+      "status": "complete"
+    }
+  ]
+}

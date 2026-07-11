@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "openair",
+  "capability_code": "execute",
+  "route_count": 1,
+  "write_intent_count": 1,
+  "receipt": {
+    "receipt_id": "receipt_e02cf546f6df8018137f",
+    "operation": "simulate_execute",
+    "resource_id": "role_allocations",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_acd1c4849f15a4c1f0f2"
+  }
+}

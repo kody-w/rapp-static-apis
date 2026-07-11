@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_word",
+  "resource_id": "reports",
+  "record": {
+    "record_id": "ref_2c2a47de2b91e5fbf206",
+    "report_id": "ref_2c2a47de2b91e5fbf206",
+    "report_type": "report_1",
+    "period_code": "period_1",
+    "status": "active"
+  }
+}

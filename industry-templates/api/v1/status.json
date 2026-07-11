@@ -1,0 +1,17 @@
+{
+  "schema": "rapp-static-industry-templates-status/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "ok": true,
+  "pii": false,
+  "mutation": false,
+  "summary": {
+    "agents": 64,
+    "adapters": 79,
+    "resource_schemas": 43,
+    "collections": 322,
+    "records": 966,
+    "capability_routes": 283,
+    "receipt_endpoints": 203,
+    "swagger_connectors": 79
+  }
+}

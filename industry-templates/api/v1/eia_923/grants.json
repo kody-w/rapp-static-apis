@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "eia_923",
+  "resource_id": "grants",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_639be522746949c67457",
+      "grant_id": "ref_639be522746949c67457",
+      "program_code": "program_1",
+      "amount": 100.0,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_3692afcccff146c31afb",
+      "grant_id": "ref_3692afcccff146c31afb",
+      "program_code": "program_2",
+      "amount": 125.0,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_a207b3cd0b8dd56ef985",
+      "grant_id": "ref_a207b3cd0b8dd56ef985",
+      "program_code": "program_3",
+      "amount": 150.0,
+      "status": "complete"
+    }
+  ]
+}

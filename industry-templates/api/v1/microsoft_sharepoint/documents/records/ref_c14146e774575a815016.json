@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_sharepoint",
+  "resource_id": "documents",
+  "record": {
+    "record_id": "ref_c14146e774575a815016",
+    "document_id": "ref_c14146e774575a815016",
+    "classification_code": "classification_2",
+    "version": 11,
+    "status": "pending"
+  }
+}

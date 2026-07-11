@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "noaa",
+  "resource_id": "risk_alerts",
+  "record": {
+    "record_id": "ref_d2db7eb2d5b1f937bc40",
+    "alert_id": "ref_d2db7eb2d5b1f937bc40",
+    "risk_type": "risk_2",
+    "severity_code": "severity_2",
+    "status": "pending"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "ibm_maximo",
+  "resource_id": "metrics",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_824ddffeedd90734e6f9",
+      "metric_id": "ref_824ddffeedd90734e6f9",
+      "metric_code": "metric_1",
+      "value": 100.0,
+      "measured_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_eb56f99141e40d856948",
+      "metric_id": "ref_eb56f99141e40d856948",
+      "metric_code": "metric_2",
+      "value": 125.0,
+      "measured_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_a67a409120037ddab3a6",
+      "metric_id": "ref_a67a409120037ddab3a6",
+      "metric_code": "metric_3",
+      "value": 150.0,
+      "measured_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

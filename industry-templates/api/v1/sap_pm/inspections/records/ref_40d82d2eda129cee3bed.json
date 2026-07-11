@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_pm",
+  "resource_id": "inspections",
+  "record": {
+    "record_id": "ref_40d82d2eda129cee3bed",
+    "inspection_id": "ref_40d82d2eda129cee3bed",
+    "asset_id": "ref_c8bf7ccd22d806852f3c",
+    "result_code": "result_1",
+    "inspected_at": "2026-01-10T09:00:00Z"
+  }
+}

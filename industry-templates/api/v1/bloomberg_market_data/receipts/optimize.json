@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "bloomberg_market_data",
+  "capability_code": "optimize",
+  "route_count": 1,
+  "write_intent_count": 0,
+  "receipt": {
+    "receipt_id": "receipt_e5fd24576fa550b5fa1e",
+    "operation": "simulate_optimize",
+    "resource_id": "portfolios",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_7d7ccfc5f6c7590aaed7"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_entra_id",
+  "resource_id": "tasks",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_db6d5f62dc06fef32cd2",
+      "task_id": "ref_db6d5f62dc06fef32cd2",
+      "task_type": "task_1",
+      "status": "active",
+      "due_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_062356bee5519853bc92",
+      "task_id": "ref_062356bee5519853bc92",
+      "task_type": "task_2",
+      "status": "pending",
+      "due_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_6c3f5a68a49fa356c4d1",
+      "task_id": "ref_6c3f5a68a49fa356c4d1",
+      "task_type": "task_3",
+      "status": "complete",
+      "due_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

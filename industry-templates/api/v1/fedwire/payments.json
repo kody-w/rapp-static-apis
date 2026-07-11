@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "fedwire",
+  "resource_id": "payments",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_a401c949a2718a9391a4",
+      "payment_id": "ref_a401c949a2718a9391a4",
+      "amount": 100.0,
+      "currency_code": "currency_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_5c0aba72ff37ff9accfe",
+      "payment_id": "ref_5c0aba72ff37ff9accfe",
+      "amount": 125.0,
+      "currency_code": "currency_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_cd3d55b6dc71aee2ed77",
+      "payment_id": "ref_cd3d55b6dc71aee2ed77",
+      "amount": 150.0,
+      "currency_code": "currency_3",
+      "status": "complete"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_service_cloud",
+  "resource_id": "work_orders",
+  "record": {
+    "record_id": "ref_fb3e90836dd003525cb7",
+    "work_order_id": "ref_fb3e90836dd003525cb7",
+    "asset_id": "ref_b96839c0df9edf4b17df",
+    "priority_code": "priority_3",
+    "status": "complete"
+  }
+}

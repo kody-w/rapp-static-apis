@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "market_data_api",
+  "resource_id": "portfolios",
+  "record": {
+    "record_id": "ref_bcc0b6df4869488bb2d7",
+    "portfolio_id": "ref_bcc0b6df4869488bb2d7",
+    "strategy_code": "strategy_1",
+    "drift_percent": 100.0,
+    "status": "active"
+  }
+}

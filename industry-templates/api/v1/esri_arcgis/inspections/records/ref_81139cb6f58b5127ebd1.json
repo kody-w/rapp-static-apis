@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "esri_arcgis",
+  "resource_id": "inspections",
+  "record": {
+    "record_id": "ref_81139cb6f58b5127ebd1",
+    "inspection_id": "ref_81139cb6f58b5127ebd1",
+    "asset_id": "ref_fb47e0e98b45e44e0bcb",
+    "result_code": "result_2",
+    "inspected_at": "2026-01-11T10:00:00Z"
+  }
+}

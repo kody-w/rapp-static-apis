@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "ibm_maximo",
+  "capability_code": "permitclearance",
+  "route_count": 1,
+  "write_intent_count": 1,
+  "receipt": {
+    "receipt_id": "receipt_cb9fdab6eaa38218b4b6",
+    "operation": "simulate_permitclearance",
+    "resource_id": "assets",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_f931d3bd52e0a9abe169"
+  }
+}

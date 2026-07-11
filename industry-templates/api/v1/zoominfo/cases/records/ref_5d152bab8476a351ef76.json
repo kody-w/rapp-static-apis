@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "zoominfo",
+  "resource_id": "cases",
+  "record": {
+    "record_id": "ref_5d152bab8476a351ef76",
+    "case_id": "ref_5d152bab8476a351ef76",
+    "case_type": "case_2",
+    "priority_code": "priority_2",
+    "status": "pending"
+  }
+}

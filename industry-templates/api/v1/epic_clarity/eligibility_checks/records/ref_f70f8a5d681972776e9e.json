@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "epic_clarity",
+  "resource_id": "eligibility_checks",
+  "record": {
+    "record_id": "ref_f70f8a5d681972776e9e",
+    "check_id": "ref_f70f8a5d681972776e9e",
+    "plan_code": "plan_1",
+    "result_code": "result_1",
+    "checked_at": "2026-01-10T09:00:00Z"
+  }
+}

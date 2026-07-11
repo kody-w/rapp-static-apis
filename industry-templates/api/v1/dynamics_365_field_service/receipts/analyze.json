@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_field_service",
+  "capability_code": "analyze",
+  "route_count": 1,
+  "write_intent_count": 0,
+  "receipt": {
+    "receipt_id": "receipt_b93e0f9f6f68ec5cc38f",
+    "operation": "simulate_analyze",
+    "resource_id": "assets",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_fe72055c3341b4e1fbbc"
+  }
+}

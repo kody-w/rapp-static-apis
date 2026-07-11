@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_core",
+  "capability_code": "optimize",
+  "route_count": 7,
+  "write_intent_count": 0,
+  "receipt": {
+    "receipt_id": "receipt_d8ffafe75c2d8c142d6c",
+    "operation": "simulate_optimize",
+    "resource_id": "multiple_resources",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_bd47463987fac414bacf"
+  }
+}

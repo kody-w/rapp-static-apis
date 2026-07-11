@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "jira",
+  "resource_id": "changes",
+  "record": {
+    "record_id": "ref_1e402d8a4f27a7199706",
+    "change_id": "ref_1e402d8a4f27a7199706",
+    "change_type": "change_2",
+    "risk_code": "risk_2",
+    "status": "pending"
+  }
+}

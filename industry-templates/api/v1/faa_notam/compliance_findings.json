@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "faa_notam",
+  "resource_id": "compliance_findings",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_bbd8ab0a9ffcde3934ac",
+      "finding_id": "ref_bbd8ab0a9ffcde3934ac",
+      "control_code": "control_1",
+      "severity_code": "severity_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_52d1947401d125dbc587",
+      "finding_id": "ref_52d1947401d125dbc587",
+      "control_code": "control_2",
+      "severity_code": "severity_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_71da2f38c1c21e1bb204",
+      "finding_id": "ref_71da2f38c1c21e1bb204",
+      "control_code": "control_3",
+      "severity_code": "severity_3",
+      "status": "complete"
+    }
+  ]
+}

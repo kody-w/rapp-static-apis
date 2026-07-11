@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "noaa",
+  "resource_id": "weather_observations",
+  "record": {
+    "record_id": "rec_33a2114df6c2f44490e1",
+    "station_code": "station_3",
+    "condition_code": "condition_3",
+    "severity_code": "severity_3",
+    "observed_at": "2026-01-12T11:00:00Z"
+  }
+}

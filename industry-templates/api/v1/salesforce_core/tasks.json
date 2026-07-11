@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_core",
+  "resource_id": "tasks",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_9569235785a7918b0e5a",
+      "task_id": "ref_9569235785a7918b0e5a",
+      "task_type": "task_1",
+      "status": "active",
+      "due_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_2a6adacf15ed99fdcd86",
+      "task_id": "ref_2a6adacf15ed99fdcd86",
+      "task_type": "task_2",
+      "status": "pending",
+      "due_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_aeba52ef9da19733d4b7",
+      "task_id": "ref_aeba52ef9da19733d4b7",
+      "task_type": "task_3",
+      "status": "complete",
+      "due_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

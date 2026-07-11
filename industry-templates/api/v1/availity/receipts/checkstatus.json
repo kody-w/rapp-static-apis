@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "availity",
+  "capability_code": "checkstatus",
+  "route_count": 1,
+  "write_intent_count": 0,
+  "receipt": {
+    "receipt_id": "receipt_b08cbc5846821a27f9ae",
+    "operation": "simulate_checkstatus",
+    "resource_id": "authorizations",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_22e6b2b9dd104014917d"
+  }
+}

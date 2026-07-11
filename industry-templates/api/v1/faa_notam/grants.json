@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "faa_notam",
+  "resource_id": "grants",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_530cab3b43af206af5a2",
+      "grant_id": "ref_530cab3b43af206af5a2",
+      "program_code": "program_1",
+      "amount": 100.0,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_a80e865b5aaf5965266d",
+      "grant_id": "ref_a80e865b5aaf5965266d",
+      "program_code": "program_2",
+      "amount": 125.0,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_ae0dd66da736570cd7a9",
+      "grant_id": "ref_ae0dd66da736570cd7a9",
+      "program_code": "program_3",
+      "amount": 150.0,
+      "status": "complete"
+    }
+  ]
+}

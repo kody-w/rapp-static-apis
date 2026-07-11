@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dun_bradstreet",
+  "resource_id": "compliance_findings",
+  "record": {
+    "record_id": "ref_1d909c962aa268b0cf7d",
+    "finding_id": "ref_1d909c962aa268b0cf7d",
+    "control_code": "control_2",
+    "severity_code": "severity_2",
+    "status": "pending"
+  }
+}

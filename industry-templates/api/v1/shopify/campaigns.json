@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "shopify",
+  "resource_id": "campaigns",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_24f8bb4908057f4289cd",
+      "campaign_id": "ref_24f8bb4908057f4289cd",
+      "channel_code": "channel_1",
+      "segment_code": "segment_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_ec38739ee7df7d856a3d",
+      "campaign_id": "ref_ec38739ee7df7d856a3d",
+      "channel_code": "channel_2",
+      "segment_code": "segment_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_3435c8de12febd6bcb2a",
+      "campaign_id": "ref_3435c8de12febd6bcb2a",
+      "channel_code": "channel_3",
+      "segment_code": "segment_3",
+      "status": "complete"
+    }
+  ]
+}

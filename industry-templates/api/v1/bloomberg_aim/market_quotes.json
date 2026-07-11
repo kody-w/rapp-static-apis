@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "bloomberg_aim",
+  "resource_id": "market_quotes",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "rec_cc7ba3fbe7f58233736b",
+      "instrument_code": "code_d98605842431995aa77c",
+      "price": 100.0,
+      "currency_code": "currency_1",
+      "as_of": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "rec_dab82e55da05e78f3c44",
+      "instrument_code": "code_a1062c47e146e82bf18c",
+      "price": 125.0,
+      "currency_code": "currency_2",
+      "as_of": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "rec_be2ad12b9a295e4e0786",
+      "instrument_code": "code_5090ac78fb2fad382ac6",
+      "price": 150.0,
+      "currency_code": "currency_3",
+      "as_of": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

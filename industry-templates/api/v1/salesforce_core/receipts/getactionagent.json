@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_core",
+  "capability_code": "getactionagent",
+  "route_count": 1,
+  "write_intent_count": 0,
+  "receipt": {
+    "receipt_id": "receipt_fff260c0e6e9039d431d",
+    "operation": "simulate_getactionagent",
+    "resource_id": "accounts",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_8b5e5287dd3553ce2d05"
+  }
+}

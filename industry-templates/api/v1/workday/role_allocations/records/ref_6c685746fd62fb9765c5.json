@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "workday",
+  "resource_id": "role_allocations",
+  "record": {
+    "record_id": "ref_6c685746fd62fb9765c5",
+    "allocation_id": "ref_6c685746fd62fb9765c5",
+    "role_code": "role_1",
+    "capacity_percent": 100.0,
+    "status": "active"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "rsa_archer",
+  "resource_id": "risk_alerts",
+  "record": {
+    "record_id": "ref_ebb2195fa68088e37a2d",
+    "alert_id": "ref_ebb2195fa68088e37a2d",
+    "risk_type": "risk_1",
+    "severity_code": "severity_1",
+    "status": "active"
+  }
+}

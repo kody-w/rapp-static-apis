@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_sales",
+  "resource_id": "opportunities",
+  "record": {
+    "record_id": "ref_10dfc134f09863eb8028",
+    "opportunity_id": "ref_10dfc134f09863eb8028",
+    "stage_code": "stage_3",
+    "amount": 150.0,
+    "close_date": "2026-01-12"
+  }
+}

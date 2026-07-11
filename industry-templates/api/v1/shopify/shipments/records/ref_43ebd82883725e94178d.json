@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "shopify",
+  "resource_id": "shipments",
+  "record": {
+    "record_id": "ref_43ebd82883725e94178d",
+    "shipment_id": "ref_43ebd82883725e94178d",
+    "carrier_code": "carrier_2",
+    "milestone_code": "milestone_2",
+    "estimated_at": "2026-01-11T10:00:00Z"
+  }
+}

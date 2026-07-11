@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_dataverse",
+  "resource_id": "metrics",
+  "record": {
+    "record_id": "ref_1fd826a23736c77db047",
+    "metric_id": "ref_1fd826a23736c77db047",
+    "metric_code": "metric_2",
+    "value": 125.0,
+    "measured_at": "2026-01-11T10:00:00Z"
+  }
+}

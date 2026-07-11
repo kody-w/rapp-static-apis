@@ -1,0 +1,2986 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "RAPP Static Salesforce",
+    "description": "Unauthenticated no-PII static GET adapter. Write operations are receipt previews and never mutate an external product.",
+    "version": "1.0.0"
+  },
+  "host": "raw.githubusercontent.com",
+  "basePath": "/kody-w/rapp-static-apis/main/industry-templates",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/salesforce_core/accounts.json": {
+      "get": {
+        "operationId": "GetSalesforceCoreAccountsCollection",
+        "summary": "List static accounts",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "accounts"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "organization_id",
+                      "industry_code",
+                      "tier_code",
+                      "status"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "organization_id": {
+                        "type": "string"
+                      },
+                      "industry_code": {
+                        "type": "string"
+                      },
+                      "tier_code": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/salesforce_core/accounts/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetSalesforceCoreAccountsRecord",
+        "summary": "Get one static accounts record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "accounts"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "organization_id",
+                    "industry_code",
+                    "tier_code",
+                    "status"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "organization_id": {
+                      "type": "string"
+                    },
+                    "industry_code": {
+                      "type": "string"
+                    },
+                    "tier_code": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/salesforce_core/activities.json": {
+      "get": {
+        "operationId": "GetSalesforceCoreActivitiesCollection",
+        "summary": "List static activities",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "activities"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "activity_id",
+                      "activity_type",
+                      "outcome_code",
+                      "occurred_at"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "activity_id": {
+                        "type": "string"
+                      },
+                      "activity_type": {
+                        "type": "string"
+                      },
+                      "outcome_code": {
+                        "type": "string"
+                      },
+                      "occurred_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/salesforce_core/activities/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetSalesforceCoreActivitiesRecord",
+        "summary": "Get one static activities record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "activities"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "activity_id",
+                    "activity_type",
+                    "outcome_code",
+                    "occurred_at"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "activity_id": {
+                      "type": "string"
+                    },
+                    "activity_type": {
+                      "type": "string"
+                    },
+                    "outcome_code": {
+                      "type": "string"
+                    },
+                    "occurred_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/salesforce_core/cases.json": {
+      "get": {
+        "operationId": "GetSalesforceCoreCasesCollection",
+        "summary": "List static cases",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "cases"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "case_id",
+                      "case_type",
+                      "priority_code",
+                      "status"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "case_id": {
+                        "type": "string"
+                      },
+                      "case_type": {
+                        "type": "string"
+                      },
+                      "priority_code": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/salesforce_core/cases/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetSalesforceCoreCasesRecord",
+        "summary": "Get one static cases record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "cases"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "case_id",
+                    "case_type",
+                    "priority_code",
+                    "status"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "case_id": {
+                      "type": "string"
+                    },
+                    "case_type": {
+                      "type": "string"
+                    },
+                    "priority_code": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/salesforce_core/opportunities.json": {
+      "get": {
+        "operationId": "GetSalesforceCoreOpportunitiesCollection",
+        "summary": "List static opportunities",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "opportunities"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "opportunity_id",
+                      "stage_code",
+                      "amount",
+                      "close_date"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "opportunity_id": {
+                        "type": "string"
+                      },
+                      "stage_code": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "number"
+                      },
+                      "close_date": {
+                        "type": "string",
+                        "format": "date"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/salesforce_core/opportunities/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetSalesforceCoreOpportunitiesRecord",
+        "summary": "Get one static opportunities record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "opportunities"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "opportunity_id",
+                    "stage_code",
+                    "amount",
+                    "close_date"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "opportunity_id": {
+                      "type": "string"
+                    },
+                    "stage_code": {
+                      "type": "string"
+                    },
+                    "amount": {
+                      "type": "number"
+                    },
+                    "close_date": {
+                      "type": "string",
+                      "format": "date"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/salesforce_core/receipts/accountbriefing.json": {
+      "get": {
+        "operationId": "SimulateSalesforceCoreAccountbriefing",
+        "summary": "Get a deterministic write-simulation receipt; no mutation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Static simulated-write receipt",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "capability_code",
+                "route_count",
+                "write_intent_count",
+                "receipt"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-write-receipt/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "capability_code": {
+                  "type": "string",
+                  "enum": [
+                    "accountbriefing"
+                  ]
+                },
+                "route_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "write_intent_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "receipt": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "receipt_id",
+                    "operation",
+                    "resource_id",
+                    "accepted",
+                    "simulated",
+                    "status",
+                    "processed_at",
+                    "idempotency_key"
+                  ],
+                  "properties": {
+                    "receipt_id": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "simulated": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "accepted",
+                        "rejected",
+                        "validation_failed"
+                      ]
+                    },
+                    "processed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "idempotency_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "advanced"
+      }
+    },
+    "/api/v1/salesforce_core/receipts/actionplan.json": {
+      "get": {
+        "operationId": "SimulateSalesforceCoreActionplan",
+        "summary": "Get a deterministic write-simulation receipt; no mutation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Static simulated-write receipt",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "capability_code",
+                "route_count",
+                "write_intent_count",
+                "receipt"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-write-receipt/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "capability_code": {
+                  "type": "string",
+                  "enum": [
+                    "actionplan"
+                  ]
+                },
+                "route_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "write_intent_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "receipt": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "receipt_id",
+                    "operation",
+                    "resource_id",
+                    "accepted",
+                    "simulated",
+                    "status",
+                    "processed_at",
+                    "idempotency_key"
+                  ],
+                  "properties": {
+                    "receipt_id": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "simulated": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "accepted",
+                        "rejected",
+                        "validation_failed"
+                      ]
+                    },
+                    "processed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "idempotency_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "advanced"
+      }
+    },
+    "/api/v1/salesforce_core/receipts/analyze.json": {
+      "get": {
+        "operationId": "SimulateSalesforceCoreAnalyze",
+        "summary": "Get a deterministic write-simulation receipt; no mutation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Static simulated-write receipt",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "capability_code",
+                "route_count",
+                "write_intent_count",
+                "receipt"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-write-receipt/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "capability_code": {
+                  "type": "string",
+                  "enum": [
+                    "analyze"
+                  ]
+                },
+                "route_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "write_intent_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "receipt": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "receipt_id",
+                    "operation",
+                    "resource_id",
+                    "accepted",
+                    "simulated",
+                    "status",
+                    "processed_at",
+                    "idempotency_key"
+                  ],
+                  "properties": {
+                    "receipt_id": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "simulated": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "accepted",
+                        "rejected",
+                        "validation_failed"
+                      ]
+                    },
+                    "processed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "idempotency_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "advanced"
+      }
+    },
+    "/api/v1/salesforce_core/receipts/competitiveintelligence.json": {
+      "get": {
+        "operationId": "SimulateSalesforceCoreCompetitiveintelligence",
+        "summary": "Get a deterministic write-simulation receipt; no mutation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Static simulated-write receipt",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "capability_code",
+                "route_count",
+                "write_intent_count",
+                "receipt"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-write-receipt/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "capability_code": {
+                  "type": "string",
+                  "enum": [
+                    "competitiveintelligence"
+                  ]
+                },
+                "route_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "write_intent_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "receipt": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "receipt_id",
+                    "operation",
+                    "resource_id",
+                    "accepted",
+                    "simulated",
+                    "status",
+                    "processed_at",
+                    "idempotency_key"
+                  ],
+                  "properties": {
+                    "receipt_id": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "simulated": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "accepted",
+                        "rejected",
+                        "validation_failed"
+                      ]
+                    },
+                    "processed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "idempotency_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "advanced"
+      }
+    },
+    "/api/v1/salesforce_core/receipts/dealdashboard.json": {
+      "get": {
+        "operationId": "SimulateSalesforceCoreDealdashboard",
+        "summary": "Get a deterministic write-simulation receipt; no mutation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Static simulated-write receipt",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "capability_code",
+                "route_count",
+                "write_intent_count",
+                "receipt"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-write-receipt/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "capability_code": {
+                  "type": "string",
+                  "enum": [
+                    "dealdashboard"
+                  ]
+                },
+                "route_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "write_intent_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "receipt": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "receipt_id",
+                    "operation",
+                    "resource_id",
+                    "accepted",
+                    "simulated",
+                    "status",
+                    "processed_at",
+                    "idempotency_key"
+                  ],
+                  "properties": {
+                    "receipt_id": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "simulated": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "accepted",
+                        "rejected",
+                        "validation_failed"
+                      ]
+                    },
+                    "processed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "idempotency_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "advanced"
+      }
+    },
+    "/api/v1/salesforce_core/receipts/execute.json": {
+      "get": {
+        "operationId": "SimulateSalesforceCoreExecute",
+        "summary": "Get a deterministic write-simulation receipt; no mutation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Static simulated-write receipt",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "capability_code",
+                "route_count",
+                "write_intent_count",
+                "receipt"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-write-receipt/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "capability_code": {
+                  "type": "string",
+                  "enum": [
+                    "execute"
+                  ]
+                },
+                "route_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "write_intent_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "receipt": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "receipt_id",
+                    "operation",
+                    "resource_id",
+                    "accepted",
+                    "simulated",
+                    "status",
+                    "processed_at",
+                    "idempotency_key"
+                  ],
+                  "properties": {
+                    "receipt_id": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "simulated": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "accepted",
+                        "rejected",
+                        "validation_failed"
+                      ]
+                    },
+                    "processed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "idempotency_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "advanced"
+      }
+    },
+    "/api/v1/salesforce_core/receipts/generatemessaging.json": {
+      "get": {
+        "operationId": "SimulateSalesforceCoreGeneratemessaging",
+        "summary": "Get a deterministic write-simulation receipt; no mutation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Static simulated-write receipt",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "capability_code",
+                "route_count",
+                "write_intent_count",
+                "receipt"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-write-receipt/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "capability_code": {
+                  "type": "string",
+                  "enum": [
+                    "generatemessaging"
+                  ]
+                },
+                "route_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "write_intent_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "receipt": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "receipt_id",
+                    "operation",
+                    "resource_id",
+                    "accepted",
+                    "simulated",
+                    "status",
+                    "processed_at",
+                    "idempotency_key"
+                  ],
+                  "properties": {
+                    "receipt_id": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "simulated": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "accepted",
+                        "rejected",
+                        "validation_failed"
+                      ]
+                    },
+                    "processed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "idempotency_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "advanced"
+      }
+    },
+    "/api/v1/salesforce_core/receipts/getactionagent.json": {
+      "get": {
+        "operationId": "SimulateSalesforceCoreGetactionagent",
+        "summary": "Get a deterministic write-simulation receipt; no mutation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Static simulated-write receipt",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "capability_code",
+                "route_count",
+                "write_intent_count",
+                "receipt"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-write-receipt/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "capability_code": {
+                  "type": "string",
+                  "enum": [
+                    "getactionagent"
+                  ]
+                },
+                "route_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "write_intent_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "receipt": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "receipt_id",
+                    "operation",
+                    "resource_id",
+                    "accepted",
+                    "simulated",
+                    "status",
+                    "processed_at",
+                    "idempotency_key"
+                  ],
+                  "properties": {
+                    "receipt_id": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "simulated": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "accepted",
+                        "rejected",
+                        "validation_failed"
+                      ]
+                    },
+                    "processed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "idempotency_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "advanced"
+      }
+    },
+    "/api/v1/salesforce_core/receipts/getcompetitiveagent.json": {
+      "get": {
+        "operationId": "SimulateSalesforceCoreGetcompetitiveagent",
+        "summary": "Get a deterministic write-simulation receipt; no mutation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Static simulated-write receipt",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "capability_code",
+                "route_count",
+                "write_intent_count",
+                "receipt"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-write-receipt/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "capability_code": {
+                  "type": "string",
+                  "enum": [
+                    "getcompetitiveagent"
+                  ]
+                },
+                "route_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "write_intent_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "receipt": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "receipt_id",
+                    "operation",
+                    "resource_id",
+                    "accepted",
+                    "simulated",
+                    "status",
+                    "processed_at",
+                    "idempotency_key"
+                  ],
+                  "properties": {
+                    "receipt_id": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "simulated": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "accepted",
+                        "rejected",
+                        "validation_failed"
+                      ]
+                    },
+                    "processed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "idempotency_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "advanced"
+      }
+    },
+    "/api/v1/salesforce_core/receipts/getdynamics365account.json": {
+      "get": {
+        "operationId": "SimulateSalesforceCoreGetdynamics365account",
+        "summary": "Get a deterministic write-simulation receipt; no mutation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Static simulated-write receipt",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "capability_code",
+                "route_count",
+                "write_intent_count",
+                "receipt"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-write-receipt/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "capability_code": {
+                  "type": "string",
+                  "enum": [
+                    "getdynamics365account"
+                  ]
+                },
+                "route_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "write_intent_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "receipt": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "receipt_id",
+                    "operation",
+                    "resource_id",
+                    "accepted",
+                    "simulated",
+                    "status",
+                    "processed_at",
+                    "idempotency_key"
+                  ],
+                  "properties": {
+                    "receipt_id": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "simulated": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "accepted",
+                        "rejected",
+                        "validation_failed"
+                      ]
+                    },
+                    "processed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "idempotency_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "advanced"
+      }
+    },
+    "/api/v1/salesforce_core/receipts/getmeetingprepagent.json": {
+      "get": {
+        "operationId": "SimulateSalesforceCoreGetmeetingprepagent",
+        "summary": "Get a deterministic write-simulation receipt; no mutation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Static simulated-write receipt",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "capability_code",
+                "route_count",
+                "write_intent_count",
+                "receipt"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-write-receipt/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "capability_code": {
+                  "type": "string",
+                  "enum": [
+                    "getmeetingprepagent"
+                  ]
+                },
+                "route_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "write_intent_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "receipt": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "receipt_id",
+                    "operation",
+                    "resource_id",
+                    "accepted",
+                    "simulated",
+                    "status",
+                    "processed_at",
+                    "idempotency_key"
+                  ],
+                  "properties": {
+                    "receipt_id": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "simulated": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "accepted",
+                        "rejected",
+                        "validation_failed"
+                      ]
+                    },
+                    "processed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "idempotency_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "advanced"
+      }
+    },
+    "/api/v1/salesforce_core/receipts/getmessagingagent.json": {
+      "get": {
+        "operationId": "SimulateSalesforceCoreGetmessagingagent",
+        "summary": "Get a deterministic write-simulation receipt; no mutation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Static simulated-write receipt",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "capability_code",
+                "route_count",
+                "write_intent_count",
+                "receipt"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-write-receipt/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "capability_code": {
+                  "type": "string",
+                  "enum": [
+                    "getmessagingagent"
+                  ]
+                },
+                "route_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "write_intent_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "receipt": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "receipt_id",
+                    "operation",
+                    "resource_id",
+                    "accepted",
+                    "simulated",
+                    "status",
+                    "processed_at",
+                    "idempotency_key"
+                  ],
+                  "properties": {
+                    "receipt_id": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "simulated": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "accepted",
+                        "rejected",
+                        "validation_failed"
+                      ]
+                    },
+                    "processed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "idempotency_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "advanced"
+      }
+    },
+    "/api/v1/salesforce_core/receipts/getstakeholderagent.json": {
+      "get": {
+        "operationId": "SimulateSalesforceCoreGetstakeholderagent",
+        "summary": "Get a deterministic write-simulation receipt; no mutation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Static simulated-write receipt",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "capability_code",
+                "route_count",
+                "write_intent_count",
+                "receipt"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-write-receipt/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "capability_code": {
+                  "type": "string",
+                  "enum": [
+                    "getstakeholderagent"
+                  ]
+                },
+                "route_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "write_intent_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "receipt": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "receipt_id",
+                    "operation",
+                    "resource_id",
+                    "accepted",
+                    "simulated",
+                    "status",
+                    "processed_at",
+                    "idempotency_key"
+                  ],
+                  "properties": {
+                    "receipt_id": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "simulated": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "accepted",
+                        "rejected",
+                        "validation_failed"
+                      ]
+                    },
+                    "processed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "idempotency_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "advanced"
+      }
+    },
+    "/api/v1/salesforce_core/receipts/meetingprep.json": {
+      "get": {
+        "operationId": "SimulateSalesforceCoreMeetingprep",
+        "summary": "Get a deterministic write-simulation receipt; no mutation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Static simulated-write receipt",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "capability_code",
+                "route_count",
+                "write_intent_count",
+                "receipt"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-write-receipt/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "capability_code": {
+                  "type": "string",
+                  "enum": [
+                    "meetingprep"
+                  ]
+                },
+                "route_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "write_intent_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "receipt": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "receipt_id",
+                    "operation",
+                    "resource_id",
+                    "accepted",
+                    "simulated",
+                    "status",
+                    "processed_at",
+                    "idempotency_key"
+                  ],
+                  "properties": {
+                    "receipt_id": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "simulated": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "accepted",
+                        "rejected",
+                        "validation_failed"
+                      ]
+                    },
+                    "processed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "idempotency_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "advanced"
+      }
+    },
+    "/api/v1/salesforce_core/receipts/optimize.json": {
+      "get": {
+        "operationId": "SimulateSalesforceCoreOptimize",
+        "summary": "Get a deterministic write-simulation receipt; no mutation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Static simulated-write receipt",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "capability_code",
+                "route_count",
+                "write_intent_count",
+                "receipt"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-write-receipt/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "capability_code": {
+                  "type": "string",
+                  "enum": [
+                    "optimize"
+                  ]
+                },
+                "route_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "write_intent_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "receipt": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "receipt_id",
+                    "operation",
+                    "resource_id",
+                    "accepted",
+                    "simulated",
+                    "status",
+                    "processed_at",
+                    "idempotency_key"
+                  ],
+                  "properties": {
+                    "receipt_id": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "simulated": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "accepted",
+                        "rejected",
+                        "validation_failed"
+                      ]
+                    },
+                    "processed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "idempotency_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "advanced"
+      }
+    },
+    "/api/v1/salesforce_core/receipts/report.json": {
+      "get": {
+        "operationId": "SimulateSalesforceCoreReport",
+        "summary": "Get a deterministic write-simulation receipt; no mutation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Static simulated-write receipt",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "capability_code",
+                "route_count",
+                "write_intent_count",
+                "receipt"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-write-receipt/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "capability_code": {
+                  "type": "string",
+                  "enum": [
+                    "report"
+                  ]
+                },
+                "route_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "write_intent_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "receipt": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "receipt_id",
+                    "operation",
+                    "resource_id",
+                    "accepted",
+                    "simulated",
+                    "status",
+                    "processed_at",
+                    "idempotency_key"
+                  ],
+                  "properties": {
+                    "receipt_id": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "simulated": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "accepted",
+                        "rejected",
+                        "validation_failed"
+                      ]
+                    },
+                    "processed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "idempotency_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "advanced"
+      }
+    },
+    "/api/v1/salesforce_core/receipts/simulatescenario.json": {
+      "get": {
+        "operationId": "SimulateSalesforceCoreSimulatescenario",
+        "summary": "Get a deterministic write-simulation receipt; no mutation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Static simulated-write receipt",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "capability_code",
+                "route_count",
+                "write_intent_count",
+                "receipt"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-write-receipt/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "capability_code": {
+                  "type": "string",
+                  "enum": [
+                    "simulatescenario"
+                  ]
+                },
+                "route_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "write_intent_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "receipt": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "receipt_id",
+                    "operation",
+                    "resource_id",
+                    "accepted",
+                    "simulated",
+                    "status",
+                    "processed_at",
+                    "idempotency_key"
+                  ],
+                  "properties": {
+                    "receipt_id": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "simulated": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "accepted",
+                        "rejected",
+                        "validation_failed"
+                      ]
+                    },
+                    "processed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "idempotency_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "advanced"
+      }
+    },
+    "/api/v1/salesforce_core/receipts/stakeholderanalysis.json": {
+      "get": {
+        "operationId": "SimulateSalesforceCoreStakeholderanalysis",
+        "summary": "Get a deterministic write-simulation receipt; no mutation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Static simulated-write receipt",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "capability_code",
+                "route_count",
+                "write_intent_count",
+                "receipt"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-write-receipt/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "capability_code": {
+                  "type": "string",
+                  "enum": [
+                    "stakeholderanalysis"
+                  ]
+                },
+                "route_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "write_intent_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "receipt": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "receipt_id",
+                    "operation",
+                    "resource_id",
+                    "accepted",
+                    "simulated",
+                    "status",
+                    "processed_at",
+                    "idempotency_key"
+                  ],
+                  "properties": {
+                    "receipt_id": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "simulated": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "accepted",
+                        "rejected",
+                        "validation_failed"
+                      ]
+                    },
+                    "processed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "idempotency_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "advanced"
+      }
+    },
+    "/api/v1/salesforce_core/receipts/synthesizebriefing.json": {
+      "get": {
+        "operationId": "SimulateSalesforceCoreSynthesizebriefing",
+        "summary": "Get a deterministic write-simulation receipt; no mutation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Static simulated-write receipt",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "capability_code",
+                "route_count",
+                "write_intent_count",
+                "receipt"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-write-receipt/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "capability_code": {
+                  "type": "string",
+                  "enum": [
+                    "synthesizebriefing"
+                  ]
+                },
+                "route_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "write_intent_count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "receipt": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "receipt_id",
+                    "operation",
+                    "resource_id",
+                    "accepted",
+                    "simulated",
+                    "status",
+                    "processed_at",
+                    "idempotency_key"
+                  ],
+                  "properties": {
+                    "receipt_id": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string"
+                    },
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "accepted": {
+                      "type": "boolean"
+                    },
+                    "simulated": {
+                      "type": "boolean",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "accepted",
+                        "rejected",
+                        "validation_failed"
+                      ]
+                    },
+                    "processed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "idempotency_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "advanced"
+      }
+    },
+    "/api/v1/salesforce_core/tasks.json": {
+      "get": {
+        "operationId": "GetSalesforceCoreTasksCollection",
+        "summary": "List static tasks",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII collection",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "count",
+                "value"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-collection/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "tasks"
+                  ]
+                },
+                "count": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "record_id",
+                      "task_id",
+                      "task_type",
+                      "status",
+                      "due_at"
+                    ],
+                    "properties": {
+                      "record_id": {
+                        "type": "string",
+                        "description": "Stable deterministic record identifier."
+                      },
+                      "task_id": {
+                        "type": "string"
+                      },
+                      "task_type": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "due_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    },
+    "/api/v1/salesforce_core/tasks/records/{record_id}.json": {
+      "get": {
+        "operationId": "GetSalesforceCoreTasksRecord",
+        "summary": "Get one static tasks record",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic no-PII record",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "schema",
+                "generated",
+                "adapter_id",
+                "resource_id",
+                "record"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "rapp-static-industry-record/1.0"
+                  ]
+                },
+                "generated": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "adapter_id": {
+                  "type": "string",
+                  "enum": [
+                    "salesforce_core"
+                  ]
+                },
+                "resource_id": {
+                  "type": "string",
+                  "enum": [
+                    "tasks"
+                  ]
+                },
+                "record": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "record_id",
+                    "task_id",
+                    "task_type",
+                    "status",
+                    "due_at"
+                  ],
+                  "properties": {
+                    "record_id": {
+                      "type": "string",
+                      "description": "Stable deterministic record identifier."
+                    },
+                    "task_id": {
+                      "type": "string"
+                    },
+                    "task_type": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "due_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown deterministic record ID"
+          }
+        },
+        "x-ms-visibility": "important"
+      }
+    }
+  },
+  "securityDefinitions": {},
+  "security": [],
+  "x-rapp-schema": "rapp-static-industry-connector/1.0",
+  "x-rapp-adapter-id": "salesforce_core",
+  "x-rapp-generated": "2026-07-10T20:30:00Z"
+}

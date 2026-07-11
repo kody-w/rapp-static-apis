@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "state_puc",
+  "resource_id": "compliance_findings",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_bc0ac548d2259d832e77",
+      "finding_id": "ref_bc0ac548d2259d832e77",
+      "control_code": "control_1",
+      "severity_code": "severity_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_b3a93cd905ecb803e3b2",
+      "finding_id": "ref_b3a93cd905ecb803e3b2",
+      "control_code": "control_2",
+      "severity_code": "severity_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_b7a40092a3993041d3d3",
+      "finding_id": "ref_b7a40092a3993041d3d3",
+      "control_code": "control_3",
+      "severity_code": "severity_3",
+      "status": "complete"
+    }
+  ]
+}

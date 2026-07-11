@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "oracle_core_banking",
+  "resource_id": "invoices",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_73fecf1d6c59fe47cf3f",
+      "invoice_id": "ref_73fecf1d6c59fe47cf3f",
+      "amount": 100.0,
+      "currency_code": "currency_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_ef218377e0798dcca2d0",
+      "invoice_id": "ref_ef218377e0798dcca2d0",
+      "amount": 125.0,
+      "currency_code": "currency_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_cf188ba2b142c50219b2",
+      "invoice_id": "ref_cf188ba2b142c50219b2",
+      "amount": 150.0,
+      "currency_code": "currency_3",
+      "status": "complete"
+    }
+  ]
+}

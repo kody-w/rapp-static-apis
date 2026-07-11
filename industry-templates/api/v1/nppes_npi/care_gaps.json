@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "nppes_npi",
+  "resource_id": "care_gaps",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_b7cb29ccb82c06d1e4e6",
+      "gap_id": "ref_b7cb29ccb82c06d1e4e6",
+      "measure_code": "measure_1",
+      "priority_code": "priority_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_cdb3d276710c20c47f1d",
+      "gap_id": "ref_cdb3d276710c20c47f1d",
+      "measure_code": "measure_2",
+      "priority_code": "priority_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_74ed579ace1a03a69033",
+      "gap_id": "ref_74ed579ace1a03a69033",
+      "measure_code": "measure_3",
+      "priority_code": "priority_3",
+      "status": "complete"
+    }
+  ]
+}

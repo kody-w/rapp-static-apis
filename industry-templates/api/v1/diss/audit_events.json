@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "diss",
+  "resource_id": "audit_events",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_f7eadb500eae7bc1ab83",
+      "event_id": "ref_f7eadb500eae7bc1ab83",
+      "event_type": "event_1",
+      "result_code": "result_1",
+      "occurred_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_64c3b5454753e36bc09b",
+      "event_id": "ref_64c3b5454753e36bc09b",
+      "event_type": "event_2",
+      "result_code": "result_2",
+      "occurred_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_6d4ed59c3746a9928aea",
+      "event_id": "ref_6d4ed59c3746a9928aea",
+      "event_type": "event_3",
+      "result_code": "result_3",
+      "occurred_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

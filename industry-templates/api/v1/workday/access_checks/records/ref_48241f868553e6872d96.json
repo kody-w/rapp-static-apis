@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "workday",
+  "resource_id": "access_checks",
+  "record": {
+    "record_id": "ref_48241f868553e6872d96",
+    "check_id": "ref_48241f868553e6872d96",
+    "role_code": "role_3",
+    "resource_code": "resource_3",
+    "decision_code": "decision_3"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "ncino",
+  "resource_id": "risk_alerts",
+  "record": {
+    "record_id": "ref_7f55a3772ef817b18506",
+    "alert_id": "ref_7f55a3772ef817b18506",
+    "risk_type": "risk_2",
+    "severity_code": "severity_2",
+    "status": "pending"
+  }
+}

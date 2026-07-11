@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_teams",
+  "resource_id": "notifications",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_9bb877e48a5a94de09ac",
+      "notification_id": "ref_9bb877e48a5a94de09ac",
+      "channel_code": "channel_1",
+      "template_code": "template_1",
+      "delivery_status": "value_0836261b834137fa25e7"
+    },
+    {
+      "record_id": "ref_bccdbf3795c68b6c80b7",
+      "notification_id": "ref_bccdbf3795c68b6c80b7",
+      "channel_code": "channel_2",
+      "template_code": "template_2",
+      "delivery_status": "value_57954fbaf8caa0bb1765"
+    },
+    {
+      "record_id": "ref_fa2b3a1852f7a79c8260",
+      "notification_id": "ref_fa2b3a1852f7a79c8260",
+      "channel_code": "channel_3",
+      "template_code": "template_3",
+      "delivery_status": "value_04a0acec9c48caf1f979"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "fedwire",
+  "resource_id": "invoices",
+  "record": {
+    "record_id": "ref_d616660a9f44d7b48e56",
+    "invoice_id": "ref_d616660a9f44d7b48e56",
+    "amount": 150.0,
+    "currency_code": "currency_3",
+    "status": "complete"
+  }
+}

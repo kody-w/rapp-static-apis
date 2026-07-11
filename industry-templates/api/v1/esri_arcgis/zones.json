@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "esri_arcgis",
+  "resource_id": "zones",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_65d082d0117f7e593a4f",
+      "zone_id": "ref_65d082d0117f7e593a4f",
+      "classification_code": "classification_1",
+      "jurisdiction_code": "jurisdiction_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_7cc0b3f7f060468e3894",
+      "zone_id": "ref_7cc0b3f7f060468e3894",
+      "classification_code": "classification_2",
+      "jurisdiction_code": "jurisdiction_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_b73e3eed77774a2e3773",
+      "zone_id": "ref_b73e3eed77774a2e3773",
+      "classification_code": "classification_3",
+      "jurisdiction_code": "jurisdiction_3",
+      "status": "complete"
+    }
+  ]
+}

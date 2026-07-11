@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "openair",
+  "resource_id": "role_allocations",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_04ac57d5284ee7c79e59",
+      "allocation_id": "ref_04ac57d5284ee7c79e59",
+      "role_code": "role_1",
+      "capacity_percent": 100.0,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_556a843163504fa57c4e",
+      "allocation_id": "ref_556a843163504fa57c4e",
+      "role_code": "role_2",
+      "capacity_percent": 125.0,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_c5f76d05c047bb6120c8",
+      "allocation_id": "ref_c5f76d05c047bb6120c8",
+      "role_code": "role_3",
+      "capacity_percent": 150.0,
+      "status": "complete"
+    }
+  ]
+}

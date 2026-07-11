@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sam_gov",
+  "resource_id": "grants",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_5ce12e47fd9b3c96bebd",
+      "grant_id": "ref_5ce12e47fd9b3c96bebd",
+      "program_code": "program_1",
+      "amount": 100.0,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_aeab86651fb25d740a37",
+      "grant_id": "ref_aeab86651fb25d740a37",
+      "program_code": "program_2",
+      "amount": 125.0,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_33a29318bfa094d45938",
+      "grant_id": "ref_33a29318bfa094d45938",
+      "program_code": "program_3",
+      "amount": 150.0,
+      "status": "complete"
+    }
+  ]
+}

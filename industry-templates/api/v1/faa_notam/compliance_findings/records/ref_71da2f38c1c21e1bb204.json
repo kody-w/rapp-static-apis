@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "faa_notam",
+  "resource_id": "compliance_findings",
+  "record": {
+    "record_id": "ref_71da2f38c1c21e1bb204",
+    "finding_id": "ref_71da2f38c1c21e1bb204",
+    "control_code": "control_3",
+    "severity_code": "severity_3",
+    "status": "complete"
+  }
+}

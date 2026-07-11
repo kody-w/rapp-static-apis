@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_customer_service",
+  "resource_id": "work_orders",
+  "record": {
+    "record_id": "ref_9f3b235bc42d9be1fef8",
+    "work_order_id": "ref_9f3b235bc42d9be1fef8",
+    "asset_id": "ref_944d2570f66ed7198d40",
+    "priority_code": "priority_2",
+    "status": "pending"
+  }
+}

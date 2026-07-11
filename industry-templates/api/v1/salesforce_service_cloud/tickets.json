@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_service_cloud",
+  "resource_id": "tickets",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_3419b650cc674845ffba",
+      "ticket_id": "ref_3419b650cc674845ffba",
+      "category_code": "category_1",
+      "priority_code": "priority_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_c0a6d8a9b9a0d4d3ee01",
+      "ticket_id": "ref_c0a6d8a9b9a0d4d3ee01",
+      "category_code": "category_2",
+      "priority_code": "priority_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_97ee7b316f6b3e403299",
+      "ticket_id": "ref_97ee7b316f6b3e403299",
+      "category_code": "category_3",
+      "priority_code": "priority_3",
+      "status": "complete"
+    }
+  ]
+}

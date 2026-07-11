@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "charles_river_ims",
+  "resource_id": "market_quotes",
+  "record": {
+    "record_id": "rec_947f1ced7a583316dc38",
+    "instrument_code": "code_f8f4e73edab4f9e9ae5d",
+    "price": 100.0,
+    "currency_code": "currency_1",
+    "as_of": "2026-01-10T09:00:00Z"
+  }
+}

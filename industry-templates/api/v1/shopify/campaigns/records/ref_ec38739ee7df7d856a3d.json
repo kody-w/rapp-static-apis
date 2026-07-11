@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "shopify",
+  "resource_id": "campaigns",
+  "record": {
+    "record_id": "ref_ec38739ee7df7d856a3d",
+    "campaign_id": "ref_ec38739ee7df7d856a3d",
+    "channel_code": "channel_2",
+    "segment_code": "segment_2",
+    "status": "pending"
+  }
+}

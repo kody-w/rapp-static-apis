@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "slack",
+  "resource_id": "notifications",
+  "record": {
+    "record_id": "ref_e465f677b29fd040fbc3",
+    "notification_id": "ref_e465f677b29fd040fbc3",
+    "channel_code": "channel_2",
+    "template_code": "template_2",
+    "delivery_status": "value_ed2d2ac28dbadbc59ade"
+  }
+}

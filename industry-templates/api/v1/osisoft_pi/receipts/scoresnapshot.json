@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "osisoft_pi",
+  "capability_code": "scoresnapshot",
+  "route_count": 1,
+  "write_intent_count": 0,
+  "receipt": {
+    "receipt_id": "receipt_9fb95f43073da1e9173b",
+    "operation": "simulate_scoresnapshot",
+    "resource_id": "work_orders",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_51ac2f0707ddddc48bea"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_health_cloud",
+  "resource_id": "care_gaps",
+  "record": {
+    "record_id": "ref_9542220d746b4df6a491",
+    "gap_id": "ref_9542220d746b4df6a491",
+    "measure_code": "measure_3",
+    "priority_code": "priority_3",
+    "status": "complete"
+  }
+}

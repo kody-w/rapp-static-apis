@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_core",
+  "resource_id": "cases",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_a5f418b341746c2ccaeb",
+      "case_id": "ref_a5f418b341746c2ccaeb",
+      "case_type": "case_1",
+      "priority_code": "priority_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_07f9e0704ce99d7813f9",
+      "case_id": "ref_07f9e0704ce99d7813f9",
+      "case_type": "case_2",
+      "priority_code": "priority_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_c1a9e65c96ed01e4b62f",
+      "case_id": "ref_c1a9e65c96ed01e4b62f",
+      "case_type": "case_3",
+      "priority_code": "priority_3",
+      "status": "complete"
+    }
+  ]
+}

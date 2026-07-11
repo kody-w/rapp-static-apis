@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "nice_actimize",
+  "resource_id": "cases",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_fc31f68a6bb4d73d99ed",
+      "case_id": "ref_fc31f68a6bb4d73d99ed",
+      "case_type": "case_1",
+      "priority_code": "priority_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_4bad881e36d93e7c1d5d",
+      "case_id": "ref_4bad881e36d93e7c1d5d",
+      "case_type": "case_2",
+      "priority_code": "priority_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_d57cd292b096ddfba24f",
+      "case_id": "ref_d57cd292b096ddfba24f",
+      "case_type": "case_3",
+      "priority_code": "priority_3",
+      "status": "complete"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "accela",
+  "capability_code": "optimize",
+  "route_count": 2,
+  "write_intent_count": 0,
+  "receipt": {
+    "receipt_id": "receipt_6b3924899fb20b9f06a5",
+    "operation": "simulate_optimize",
+    "resource_id": "multiple_resources",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_eeabca0b112ff7b8fc8e"
+  }
+}

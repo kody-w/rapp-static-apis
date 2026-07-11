@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "nppes_npi",
+  "resource_id": "encounters",
+  "record": {
+    "record_id": "ref_230935550b7b706199bc",
+    "encounter_id": "ref_230935550b7b706199bc",
+    "encounter_type": "encounter_3",
+    "care_program_code": "care_program_3",
+    "status": "complete"
+  }
+}

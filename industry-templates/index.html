@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>RAPP Industry API Tester</title>
+  <script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("scoutTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --cp-bg: #f7f4ef;
+      --cp-bg-elevated: #fcfbf8;
+      --cp-surface: #ffffff;
+      --cp-surface-soft: #f5f5f5;
+      --cp-border: #dedede;
+      --cp-border-strong: #919191;
+      --cp-text: #242424;
+      --cp-text-muted: #5c5c5c;
+      --cp-text-soft: #6f6f6f;
+      --cp-accent: #b11f4b;
+      --cp-accent-hover: #9a1a41;
+      --cp-accent-soft: rgba(177, 31, 75, 0.08);
+      --cp-accent-fg: #ffffff;
+      --cp-success: #16a34a;
+      --cp-danger: #dc2626;
+      --cp-warning: #f59e0b;
+      --cp-link: #0078d4;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+      --cp-overlay: rgba(255, 255, 255, 0.8);
+      --cp-panel: rgba(255, 255, 255, 0.86);
+      --cp-panel-strong: rgba(255, 255, 255, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.55);
+      --cp-highlight: rgba(177, 31, 75, 0.12);
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --cp-bg: #3d3b3a;
+      --cp-bg-elevated: #343231;
+      --cp-surface: #292929;
+      --cp-surface-soft: #2e2e2e;
+      --cp-border: #474747;
+      --cp-border-strong: #5f5f5f;
+      --cp-text: #dedede;
+      --cp-text-muted: #919191;
+      --cp-text-soft: #b0b0b0;
+      --cp-accent: #fd8ea1;
+      --cp-accent-hover: #fb7b91;
+      --cp-accent-soft: rgba(253, 142, 161, 0.14);
+      --cp-accent-fg: #1a1a1a;
+      --cp-success: #4ade80;
+      --cp-danger: #f87171;
+      --cp-warning: #fbbf24;
+      --cp-link: #4da6ff;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+      --cp-overlay: rgba(41, 41, 41, 0.88);
+      --cp-panel: rgba(41, 41, 41, 0.72);
+      --cp-panel-strong: rgba(41, 41, 41, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.04);
+      --cp-highlight: rgba(253, 142, 161, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--cp-bg);
+      color: var(--cp-text);
+      font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.45;
+    }
+    code, pre { font-family: Consolas, "Courier New", Courier, monospace; }
+    button, input, select { font: inherit; }
+    button {
+      border: 1px solid var(--cp-border-strong);
+      border-radius: 0.625rem;
+      background: var(--cp-surface);
+      color: var(--cp-text);
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+    button:hover { border-color: var(--cp-accent); color: var(--cp-accent); }
+    button.primary { background: var(--cp-accent); color: var(--cp-accent-fg); border-color: var(--cp-accent); }
+    button:disabled { cursor: wait; color: var(--cp-text-muted); border-color: var(--cp-border); }
+    input, select {
+      width: 100%;
+      border: 1px solid var(--cp-border);
+      border-radius: 0.625rem;
+      padding: 9px 10px;
+      background: var(--cp-surface);
+      color: var(--cp-text);
+    }
+    a { color: var(--cp-link); }
+    .shell { width: min(1320px, calc(100% - 28px)); margin: auto; padding: 24px 0 60px; }
+    .hero, .card {
+      background: var(--cp-surface);
+      border: 1px solid var(--cp-border);
+      border-radius: 16px;
+      box-shadow: 0 1px 2px var(--cp-border);
+    }
+    .hero { padding: 26px; display: grid; grid-template-columns: 1fr auto; gap: 20px; }
+    h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.08; }
+    h2 { margin: 0 0 12px; font-size: 1.35rem; }
+    h3 { margin: 0; font-size: 1rem; }
+    .eyebrow { color: var(--cp-accent); font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 6px; }
+    .muted { color: var(--cp-text-muted); }
+    .metrics { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .metric { padding: 14px; }
+    .metric strong { display: block; font-size: 1.55rem; }
+    .metric span { color: var(--cp-text-muted); font-size: .8rem; }
+    .card { padding: 18px; margin-top: 14px; }
+    .controls { display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 10px; }
+    .toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .progress { height: 12px; border: 1px solid var(--cp-border); border-radius: .625rem; background: var(--cp-surface-soft); overflow: hidden; margin-top: 12px; }
+    .progress span { display: block; height: 100%; width: 0; background: var(--cp-accent); transition: width .2s; }
+    .grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(360px, .85fr); gap: 14px; margin-top: 14px; }
+    .table-wrap { overflow: auto; max-height: 720px; border: 1px solid var(--cp-border); border-radius: .625rem; }
+    table { width: 100%; border-collapse: collapse; min-width: 820px; }
+    th, td { padding: 10px; border-bottom: 1px solid var(--cp-border); text-align: left; vertical-align: top; }
+    th { position: sticky; top: 0; background: var(--cp-surface-soft); color: var(--cp-text-muted); font-size: .75rem; text-transform: uppercase; }
+    tr:hover td { background: var(--cp-accent-soft); }
+    .endpoint { max-width: 340px; word-break: break-all; color: var(--cp-link); }
+    .badge { display: inline-block; padding: 2px 7px; border: 1px solid currentColor; border-radius: .625rem; font-size: .72rem; font-weight: 700; text-transform: uppercase; }
+    .ok { color: var(--cp-success); }
+    .bad { color: var(--cp-danger); }
+    .pending { color: var(--cp-warning); }
+    pre { margin: 0; min-height: 340px; max-height: 680px; overflow: auto; white-space: pre-wrap; word-break: break-word; color: var(--cp-text-soft); background: var(--cp-surface-soft); border: 1px solid var(--cp-border); border-radius: .625rem; padding: 12px; }
+    .result-head { display: flex; justify-content: space-between; gap: 8px; align-items: center; margin-bottom: 10px; }
+    .status-line { margin-top: 8px; color: var(--cp-text-muted); }
+    .hide { display: none; }
+    @media (max-width: 980px) {
+      .metrics { grid-template-columns: repeat(3, 1fr); }
+      .controls { grid-template-columns: repeat(2, 1fr); }
+      .grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .hero { grid-template-columns: 1fr; }
+      .metrics, .controls { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header class="hero">
+    <div>
+      <p class="eyebrow">rapp-static-api/1.0</p>
+      <h1>Industry API endpoint tester</h1>
+      <p class="muted">Browse and exercise every public no-PII collection, record, and simulated-write endpoint used by the canonical AIBAST industry agents.</p>
+    </div>
+    <div><a href="registry.json">registry.json</a><br><a href="api/v1/capability-routes.json">capability routes</a></div>
+  </header>
+
+  <section class="metrics">
+    <article class="card metric"><strong id="m-agents">-</strong><span>agents</span></article>
+    <article class="card metric"><strong id="m-adapters">-</strong><span>adapters</span></article>
+    <article class="card metric"><strong id="m-resources">-</strong><span>resource schemas</span></article>
+    <article class="card metric"><strong id="m-routes">-</strong><span>agent routes</span></article>
+    <article class="card metric"><strong id="m-endpoints">-</strong><span>unique endpoints</span></article>
+    <article class="card metric"><strong id="m-results">0 / 0</strong><span>bulk pass / tested</span></article>
+  </section>
+
+  <section class="card">
+    <div class="controls">
+      <label>Search<input id="search" placeholder="agent, capability, adapter, resource"></label>
+      <label>Adapter<select id="adapter"><option value="">All adapters</option></select></label>
+      <label>Resource<select id="resource"><option value="">All resources</option></select></label>
+      <label>Surface<select id="surface">
+        <option value="pages">GitHub Pages</option>
+        <option value="raw">GitHub raw</option>
+        <option value="jsdelivr">Pinned jsDelivr</option>
+      </select></label>
+    </div>
+    <div class="toolbar">
+      <button class="primary" id="test-filtered">Test filtered collections</button>
+      <button id="test-receipts">Test filtered receipts</button>
+      <button id="test-all">Test all used endpoints</button>
+      <button id="stop" disabled>Stop</button>
+      <button id="clear">Clear results</button>
+    </div>
+    <div class="progress"><span id="bar"></span></div>
+    <div id="status" class="status-line">Loading registry...</div>
+  </section>
+
+  <section class="grid">
+    <article class="card">
+      <div class="result-head"><h2>Agent endpoint routes</h2><span id="visible-count" class="muted"></span></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Agent / capability</th><th>Adapter / resource</th><th>Endpoint</th><th>Result</th><th>Action</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </article>
+    <aside class="card">
+      <div class="result-head"><h2>Response viewer</h2><button id="copy">Copy JSON</button></div>
+      <pre id="viewer">Select or test an endpoint to inspect its public response.</pre>
+    </aside>
+  </section>
+</main>
+
+<script>
+(() => {
+  const RAW = "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates";
+  const PAGES = "https://kody-w.github.io/rapp-static-apis/industry-templates";
+  const COMMIT = "6d025c4bf55c396cf41328e65800b64c68cc9e06";
+  const JSD = "https://cdn.jsdelivr.net/gh/kody-w/rapp-static-apis@" + COMMIT + "/industry-templates";
+  const state = { routes: [], filtered: [], registry: null, results: new Map(), stopped: false };
+  const $ = id => document.getElementById(id);
+
+  function base() {
+    return $("surface").value === "raw" ? RAW : $("surface").value === "jsdelivr" ? JSD : PAGES;
+  }
+  function endpoint(path) {
+    return base() + "/" + path.replace(/^industry-templates\//, "");
+  }
+  function esc(value) {
+    return String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));
+  }
+  function unique(values) { return [...new Set(values)].sort(); }
+  function endpointKey(route, kind) {
+    const spec = kind === "receipt" ? route.receipt_url : route.collection_url;
+    return spec;
+  }
+  function routeUrl(route, kind) {
+    const path = kind === "receipt"
+      ? route.receipt_url.split("/industry-templates/").pop()
+      : route.collection_url.split("/industry-templates/").pop();
+    return endpoint(path);
+  }
+  function setOptions(select, values, label) {
+    const current = select.value;
+    select.innerHTML = `<option value="">All ${label}</option>` + values.map(v => `<option>${esc(v)}</option>`).join("");
+    select.value = values.includes(current) ? current : "";
+  }
+  function filter() {
+    const q = $("search").value.trim().toLowerCase();
+    const adapter = $("adapter").value;
+    const resource = $("resource").value;
+    state.filtered = state.routes.filter(r => {
+      const hay = [r.agent_id, r.capability, r.adapter_id, r.resource_id].join(" ").toLowerCase();
+      return (!q || hay.includes(q)) && (!adapter || r.adapter_id === adapter) && (!resource || r.resource_id === resource);
+    });
+    render();
+  }
+  function resultBadge(url) {
+    const result = state.results.get(url);
+    if (!result) return `<span class="badge pending">not tested</span>`;
+    return result.ok
+      ? `<span class="badge ok">${result.status} ${result.ms}ms</span>`
+      : `<span class="badge bad">${result.status || "error"}</span>`;
+  }
+  function render() {
+    $("visible-count").textContent = `${state.filtered.length} of ${state.routes.length}`;
+    $("rows").innerHTML = state.filtered.map((route, index) => {
+      const url = routeUrl(route, "collection");
+      return `<tr>
+        <td><strong>${esc(route.agent_id)}</strong><br><code>${esc(route.capability)}</code></td>
+        <td><code>${esc(route.adapter_id)}</code><br>${esc(route.resource_id)}</td>
+        <td class="endpoint">${esc(url)}</td>
+        <td>${resultBadge(url)}</td>
+        <td><button data-test="${index}">Test</button> <button data-view="${index}">View</button></td>
+      </tr>`;
+    }).join("");
+    document.querySelectorAll("[data-test]").forEach(button => button.onclick = () => testOne(state.filtered[Number(button.dataset.test)], "collection"));
+    document.querySelectorAll("[data-view]").forEach(button => button.onclick = () => showRoute(state.filtered[Number(button.dataset.view)]));
+  }
+  function showRoute(route) {
+    $("viewer").textContent = JSON.stringify({
+      agent_id: route.agent_id,
+      capability: route.capability,
+      mapping_status: route.mapping_status,
+      adapter_id: route.adapter_id,
+      resource_id: route.resource_id,
+      collection: routeUrl(route, "collection"),
+      record_url_template: route.record_url_template,
+      simulated_write_receipt: routeUrl(route, "receipt"),
+      write_intent: route.write_intent
+    }, null, 2);
+  }
+  async function fetchJson(url) {
+    const started = performance.now();
+    try {
+      const response = await fetch(url, { headers: { "Accept": "application/json" }, cache: "no-store" });
+      const text = await response.text();
+      let body;
+      try { body = JSON.parse(text); } catch { body = text; }
+      return { ok: response.ok, status: response.status, ms: Math.round(performance.now() - started), body, url };
+    } catch (error) {
+      return { ok: false, status: 0, ms: Math.round(performance.now() - started), body: { error: error.message }, url };
+    }
+  }
+  async function testOne(route, kind) {
+    const url = routeUrl(route, kind);
+    $("status").textContent = `Testing ${url}`;
+    const result = await fetchJson(url);
+    state.results.set(url, result);
+    $("viewer").textContent = JSON.stringify(result, null, 2);
+    updateMetrics();
+    render();
+    return result;
+  }
+  function filteredTargets(kind) {
+    const map = new Map();
+    for (const route of state.filtered) map.set(routeUrl(route, kind), { route, kind });
+    return [...map.values()];
+  }
+  async function testMany(targets) {
+    state.stopped = false;
+    $("stop").disabled = false;
+    const concurrency = 6;
+    let cursor = 0, completed = 0, passed = 0;
+    async function worker() {
+      while (!state.stopped && cursor < targets.length) {
+        const current = targets[cursor++];
+        const url = routeUrl(current.route, current.kind);
+        const result = await fetchJson(url);
+        state.results.set(url, result);
+        completed++;
+        if (result.ok) passed++;
+        $("bar").style.width = `${Math.round(completed / targets.length * 100)}%`;
+        $("status").textContent = `Tested ${completed}/${targets.length}; ${passed} passed`;
+        updateMetrics();
+        if (completed % 10 === 0 || completed === targets.length) render();
+      }
+    }
+    await Promise.all(Array.from({length: Math.min(concurrency, targets.length)}, worker));
+    $("stop").disabled = true;
+    render();
+    $("status").textContent = state.stopped ? `Stopped at ${completed}/${targets.length}` : `Complete: ${passed}/${targets.length} endpoints passed`;
+  }
+  function updateMetrics() {
+    const values = [...state.results.values()];
+    $("m-results").textContent = `${values.filter(x => x.ok).length} / ${values.length}`;
+  }
+  async function load() {
+    const [registryResponse, routesResponse] = await Promise.all([
+      fetch("registry.json", { cache: "no-store" }),
+      fetch("api/v1/capability-routes.json", { cache: "no-store" })
+    ]);
+    state.registry = await registryResponse.json();
+    const routeDoc = await routesResponse.json();
+    state.routes = routeDoc.routes || [];
+    $("m-agents").textContent = state.registry.summary.agents;
+    $("m-adapters").textContent = state.registry.summary.adapters;
+    $("m-resources").textContent = state.registry.summary.resource_schemas;
+    $("m-routes").textContent = state.routes.length;
+    const allEndpoints = new Set(state.routes.flatMap(r => [r.collection_url, r.receipt_url]));
+    $("m-endpoints").textContent = allEndpoints.size;
+    setOptions($("adapter"), unique(state.routes.map(r => r.adapter_id)), "adapters");
+    setOptions($("resource"), unique(state.routes.map(r => r.resource_id)), "resources");
+    state.filtered = [...state.routes];
+    render();
+    $("status").textContent = "Ready. Select an endpoint or run a bulk test.";
+  }
+
+  ["search","adapter","resource","surface"].forEach(id => $(id).addEventListener(id === "search" ? "input" : "change", filter));
+  $("test-filtered").onclick = () => testMany(filteredTargets("collection"));
+  $("test-receipts").onclick = () => testMany(filteredTargets("receipt"));
+  $("test-all").onclick = () => testMany([...filteredTargets("collection"), ...filteredTargets("receipt")]);
+  $("stop").onclick = () => { state.stopped = true; $("stop").disabled = true; };
+  $("clear").onclick = () => { state.results.clear(); $("bar").style.width = "0"; updateMetrics(); render(); $("status").textContent = "Results cleared."; };
+  $("copy").onclick = async () => { await navigator.clipboard.writeText($("viewer").textContent); $("status").textContent = "Response JSON copied."; };
+  load().catch(error => { $("status").textContent = "Failed to load registry: " + error.message; });
+})();
+</script>
+</body>
+</html>

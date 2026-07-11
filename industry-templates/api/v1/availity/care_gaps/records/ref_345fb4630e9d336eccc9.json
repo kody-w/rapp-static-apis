@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "availity",
+  "resource_id": "care_gaps",
+  "record": {
+    "record_id": "ref_345fb4630e9d336eccc9",
+    "gap_id": "ref_345fb4630e9d336eccc9",
+    "measure_code": "measure_1",
+    "priority_code": "priority_1",
+    "status": "active"
+  }
+}

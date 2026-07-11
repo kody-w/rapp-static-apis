@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "service_now",
+  "resource_id": "work_orders",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_aab59ee35e221475b0ef",
+      "work_order_id": "ref_aab59ee35e221475b0ef",
+      "asset_id": "ref_cca7a81220f6d6c96afd",
+      "priority_code": "priority_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_738370b2d2a103b7af2c",
+      "work_order_id": "ref_738370b2d2a103b7af2c",
+      "asset_id": "ref_cc4573c09daa970d0994",
+      "priority_code": "priority_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_eb73fb8bc95be34cd8c2",
+      "work_order_id": "ref_eb73fb8bc95be34cd8c2",
+      "asset_id": "ref_021f73e56db2ec73f5c6",
+      "priority_code": "priority_3",
+      "status": "complete"
+    }
+  ]
+}

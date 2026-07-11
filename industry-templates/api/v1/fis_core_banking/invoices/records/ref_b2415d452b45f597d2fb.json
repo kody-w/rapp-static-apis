@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "fis_core_banking",
+  "resource_id": "invoices",
+  "record": {
+    "record_id": "ref_b2415d452b45f597d2fb",
+    "invoice_id": "ref_b2415d452b45f597d2fb",
+    "amount": 150.0,
+    "currency_code": "currency_3",
+    "status": "complete"
+  }
+}

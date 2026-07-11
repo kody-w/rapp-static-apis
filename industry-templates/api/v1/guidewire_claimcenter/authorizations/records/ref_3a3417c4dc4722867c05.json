@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "guidewire_claimcenter",
+  "resource_id": "authorizations",
+  "record": {
+    "record_id": "ref_3a3417c4dc4722867c05",
+    "authorization_id": "ref_3a3417c4dc4722867c05",
+    "service_code": "service_1",
+    "decision_code": "decision_1",
+    "status": "active"
+  }
+}

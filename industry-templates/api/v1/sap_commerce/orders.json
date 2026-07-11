@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_commerce",
+  "resource_id": "orders",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_1b966bc21c176d01efe7",
+      "order_id": "ref_1b966bc21c176d01efe7",
+      "order_type": "order_1",
+      "amount": 100.0,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_08d436c843fd3572360a",
+      "order_id": "ref_08d436c843fd3572360a",
+      "order_type": "order_2",
+      "amount": 125.0,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_440a187f1f0641c8a90b",
+      "order_id": "ref_440a187f1f0641c8a90b",
+      "order_type": "order_3",
+      "amount": 150.0,
+      "status": "complete"
+    }
+  ]
+}

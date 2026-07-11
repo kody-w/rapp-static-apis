@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "service_now",
+  "resource_id": "tasks",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_095120e7b89d1fc5af52",
+      "task_id": "ref_095120e7b89d1fc5af52",
+      "task_type": "task_1",
+      "status": "active",
+      "due_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_6e0bbb5f8138135b523d",
+      "task_id": "ref_6e0bbb5f8138135b523d",
+      "task_type": "task_2",
+      "status": "pending",
+      "due_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_39a493feda2cdbb2908b",
+      "task_id": "ref_39a493feda2cdbb2908b",
+      "task_type": "task_3",
+      "status": "complete",
+      "due_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

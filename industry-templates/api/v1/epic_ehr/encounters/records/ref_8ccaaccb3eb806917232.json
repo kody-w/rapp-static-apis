@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "epic_ehr",
+  "resource_id": "encounters",
+  "record": {
+    "record_id": "ref_8ccaaccb3eb806917232",
+    "encounter_id": "ref_8ccaaccb3eb806917232",
+    "encounter_type": "encounter_1",
+    "care_program_code": "care_program_1",
+    "status": "active"
+  }
+}

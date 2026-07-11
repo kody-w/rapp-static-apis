@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_sharepoint",
+  "resource_id": "documents",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_b44c3c1d59049518e849",
+      "document_id": "ref_b44c3c1d59049518e849",
+      "classification_code": "classification_1",
+      "version": 10,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_c14146e774575a815016",
+      "document_id": "ref_c14146e774575a815016",
+      "classification_code": "classification_2",
+      "version": 11,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_1c7facc40be12f53ec2f",
+      "document_id": "ref_1c7facc40be12f53ec2f",
+      "classification_code": "classification_3",
+      "version": 12,
+      "status": "complete"
+    }
+  ]
+}

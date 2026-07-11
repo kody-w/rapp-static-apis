@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "asap_gov",
+  "resource_id": "payments",
+  "record": {
+    "record_id": "ref_8b6c137744d1da1c8dc7",
+    "payment_id": "ref_8b6c137744d1da1c8dc7",
+    "amount": 100.0,
+    "currency_code": "currency_1",
+    "status": "active"
+  }
+}

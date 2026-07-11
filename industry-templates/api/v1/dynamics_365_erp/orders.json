@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_erp",
+  "resource_id": "orders",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_172714d144e0596dd28a",
+      "order_id": "ref_172714d144e0596dd28a",
+      "order_type": "order_1",
+      "amount": 100.0,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_c12a6809f05e4aacc2dc",
+      "order_id": "ref_c12a6809f05e4aacc2dc",
+      "order_type": "order_2",
+      "amount": 125.0,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_fc0b03ed033acf0bfbf5",
+      "order_id": "ref_fc0b03ed033acf0bfbf5",
+      "order_type": "order_3",
+      "amount": 150.0,
+      "status": "complete"
+    }
+  ]
+}

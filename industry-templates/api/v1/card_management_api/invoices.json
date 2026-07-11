@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "card_management_api",
+  "resource_id": "invoices",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_45f377184bae27993ea2",
+      "invoice_id": "ref_45f377184bae27993ea2",
+      "amount": 100.0,
+      "currency_code": "currency_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_6d205c11513fa48c6829",
+      "invoice_id": "ref_6d205c11513fa48c6829",
+      "amount": 125.0,
+      "currency_code": "currency_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_4d5c0f2464b263f02810",
+      "invoice_id": "ref_4d5c0f2464b263f02810",
+      "amount": 150.0,
+      "currency_code": "currency_3",
+      "status": "complete"
+    }
+  ]
+}

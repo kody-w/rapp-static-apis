@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "project44",
+  "resource_id": "inventory_items",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_165661505c3d83ed43b0",
+      "item_id": "ref_165661505c3d83ed43b0",
+      "location_code": "location_1",
+      "quantity_available": 10,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_ecb4ecb7038023526869",
+      "item_id": "ref_ecb4ecb7038023526869",
+      "location_code": "location_2",
+      "quantity_available": 11,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_688ba896b782c259463b",
+      "item_id": "ref_688ba896b782c259463b",
+      "location_code": "location_3",
+      "quantity_available": 12,
+      "status": "complete"
+    }
+  ]
+}

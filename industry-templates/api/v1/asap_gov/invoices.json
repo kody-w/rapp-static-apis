@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "asap_gov",
+  "resource_id": "invoices",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_71f678e5f42f39a5f11c",
+      "invoice_id": "ref_71f678e5f42f39a5f11c",
+      "amount": 100.0,
+      "currency_code": "currency_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_d9a7f8f9290eccdd1073",
+      "invoice_id": "ref_d9a7f8f9290eccdd1073",
+      "amount": 125.0,
+      "currency_code": "currency_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_c7567374a39b18432267",
+      "invoice_id": "ref_c7567374a39b18432267",
+      "amount": 150.0,
+      "currency_code": "currency_3",
+      "status": "complete"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_commerce",
+  "resource_id": "campaigns",
+  "record": {
+    "record_id": "ref_66fedda52f6c06ecd848",
+    "campaign_id": "ref_66fedda52f6c06ecd848",
+    "channel_code": "channel_1",
+    "segment_code": "segment_1",
+    "status": "active"
+  }
+}

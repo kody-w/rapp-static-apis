@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sam_gov",
+  "resource_id": "grants",
+  "record": {
+    "record_id": "ref_33a29318bfa094d45938",
+    "grant_id": "ref_33a29318bfa094d45938",
+    "program_code": "program_3",
+    "amount": 150.0,
+    "status": "complete"
+  }
+}

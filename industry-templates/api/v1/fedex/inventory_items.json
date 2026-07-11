@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "fedex",
+  "resource_id": "inventory_items",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_09800de58f09780dcc90",
+      "item_id": "ref_09800de58f09780dcc90",
+      "location_code": "location_1",
+      "quantity_available": 10,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_73e5f77c1fbe1f9e6b6b",
+      "item_id": "ref_73e5f77c1fbe1f9e6b6b",
+      "location_code": "location_2",
+      "quantity_available": 11,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_88d3f2a611980b2d89fa",
+      "item_id": "ref_88d3f2a611980b2d89fa",
+      "location_code": "location_3",
+      "quantity_available": 12,
+      "status": "complete"
+    }
+  ]
+}

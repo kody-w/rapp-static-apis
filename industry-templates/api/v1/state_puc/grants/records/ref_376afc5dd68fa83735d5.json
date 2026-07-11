@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "state_puc",
+  "resource_id": "grants",
+  "record": {
+    "record_id": "ref_376afc5dd68fa83735d5",
+    "grant_id": "ref_376afc5dd68fa83735d5",
+    "program_code": "program_3",
+    "amount": 150.0,
+    "status": "complete"
+  }
+}

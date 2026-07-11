@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_s4hana",
+  "resource_id": "suppliers",
+  "record": {
+    "record_id": "ref_1311a24e0f512d246105",
+    "supplier_id": "ref_1311a24e0f512d246105",
+    "category_code": "category_3",
+    "risk_tier": "value_6fc18eede0bdc5bc4335",
+    "status": "complete"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "card_management_api",
+  "resource_id": "transactions",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_96de02df423ddc7be545",
+      "transaction_id": "ref_96de02df423ddc7be545",
+      "transaction_type": "transaction_1",
+      "amount": 100.0,
+      "risk_score": 100.0
+    },
+    {
+      "record_id": "ref_46a0a1b44cb5f7a5f66c",
+      "transaction_id": "ref_46a0a1b44cb5f7a5f66c",
+      "transaction_type": "transaction_2",
+      "amount": 125.0,
+      "risk_score": 125.0
+    },
+    {
+      "record_id": "ref_b7d39d7692109f37d2f9",
+      "transaction_id": "ref_b7d39d7692109f37d2f9",
+      "transaction_type": "transaction_3",
+      "amount": 150.0,
+      "risk_score": 150.0
+    }
+  ]
+}

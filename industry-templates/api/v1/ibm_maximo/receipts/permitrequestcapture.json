@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "ibm_maximo",
+  "capability_code": "permitrequestcapture",
+  "route_count": 1,
+  "write_intent_count": 0,
+  "receipt": {
+    "receipt_id": "receipt_e61053a5d1be87568649",
+    "operation": "simulate_permitrequestcapture",
+    "resource_id": "assets",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_30a3016606a1fd3715a1"
+  }
+}

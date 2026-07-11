@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "nice_actimize",
+  "capability_code": "analyze",
+  "route_count": 1,
+  "write_intent_count": 0,
+  "receipt": {
+    "receipt_id": "receipt_dbf580a2abfe4d66cba7",
+    "operation": "simulate_analyze",
+    "resource_id": "compliance_findings",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_8802a33956c04563da08"
+  }
+}

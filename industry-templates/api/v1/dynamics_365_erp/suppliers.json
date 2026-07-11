@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_erp",
+  "resource_id": "suppliers",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_fc91200f7968f23b3a54",
+      "supplier_id": "ref_fc91200f7968f23b3a54",
+      "category_code": "category_1",
+      "risk_tier": "value_32822105cc526f760e66",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_d5943d1b4e5d70b8d882",
+      "supplier_id": "ref_d5943d1b4e5d70b8d882",
+      "category_code": "category_2",
+      "risk_tier": "value_fb003f6ab2db0631dc0b",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_f5cc55f1918ac2e28d13",
+      "supplier_id": "ref_f5cc55f1918ac2e28d13",
+      "category_code": "category_3",
+      "risk_tier": "value_d0a9b021af2307544583",
+      "status": "complete"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "workday",
+  "resource_id": "schedules",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_964fb74294735b91198b",
+      "schedule_id": "ref_964fb74294735b91198b",
+      "resource_code": "resource_1",
+      "window_code": "window_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_b333190143e2a32a036f",
+      "schedule_id": "ref_b333190143e2a32a036f",
+      "resource_code": "resource_2",
+      "window_code": "window_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_6c65100ac59a6294a531",
+      "schedule_id": "ref_6c65100ac59a6294a531",
+      "resource_code": "resource_3",
+      "window_code": "window_3",
+      "status": "complete"
+    }
+  ]
+}

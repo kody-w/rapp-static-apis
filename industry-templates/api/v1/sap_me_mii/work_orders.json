@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_me_mii",
+  "resource_id": "work_orders",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_759ac433c276c2d5f956",
+      "work_order_id": "ref_759ac433c276c2d5f956",
+      "asset_id": "ref_67aff43e810edeec7493",
+      "priority_code": "priority_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_d663e3968d74274c8ddd",
+      "work_order_id": "ref_d663e3968d74274c8ddd",
+      "asset_id": "ref_f306872c05b03cd6a331",
+      "priority_code": "priority_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_9c7a9e98efb8f8a4d386",
+      "work_order_id": "ref_9c7a9e98efb8f8a4d386",
+      "asset_id": "ref_e0cafaa82bb530c41ad7",
+      "priority_code": "priority_3",
+      "status": "complete"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_ecc",
+  "resource_id": "suppliers",
+  "record": {
+    "record_id": "ref_cee642db39af9aca047e",
+    "supplier_id": "ref_cee642db39af9aca047e",
+    "category_code": "category_3",
+    "risk_tier": "value_3d5c5efb1c8434568e38",
+    "status": "complete"
+  }
+}

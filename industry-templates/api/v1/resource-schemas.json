@@ -1,0 +1,1837 @@
+{
+  "schema": "rapp-static-industry-resource-schemas/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "pii": false,
+  "resource_schemas": {
+    "access_checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "check_id",
+        "role_code",
+        "resource_code",
+        "decision_code"
+      ],
+      "properties": {
+        "check_id": {
+          "type": "string"
+        },
+        "role_code": {
+          "type": "string"
+        },
+        "resource_code": {
+          "type": "string"
+        },
+        "decision_code": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "check_id",
+          "type": "string"
+        },
+        {
+          "name": "role_code",
+          "type": "string"
+        },
+        {
+          "name": "resource_code",
+          "type": "string"
+        },
+        {
+          "name": "decision_code",
+          "type": "string"
+        }
+      ]
+    },
+    "accounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "organization_id",
+        "industry_code",
+        "tier_code",
+        "status"
+      ],
+      "properties": {
+        "organization_id": {
+          "type": "string"
+        },
+        "industry_code": {
+          "type": "string"
+        },
+        "tier_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "organization_id",
+          "type": "string"
+        },
+        {
+          "name": "industry_code",
+          "type": "string"
+        },
+        {
+          "name": "tier_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "activities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "activity_id",
+        "activity_type",
+        "outcome_code",
+        "occurred_at"
+      ],
+      "properties": {
+        "activity_id": {
+          "type": "string"
+        },
+        "activity_type": {
+          "type": "string"
+        },
+        "outcome_code": {
+          "type": "string"
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "fields": [
+        {
+          "name": "activity_id",
+          "type": "string"
+        },
+        {
+          "name": "activity_type",
+          "type": "string"
+        },
+        {
+          "name": "outcome_code",
+          "type": "string"
+        },
+        {
+          "name": "occurred_at",
+          "type": "string",
+          "format": "date-time"
+        }
+      ]
+    },
+    "assets": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "asset_id",
+        "asset_type",
+        "health_score",
+        "status"
+      ],
+      "properties": {
+        "asset_id": {
+          "type": "string"
+        },
+        "asset_type": {
+          "type": "string"
+        },
+        "health_score": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "asset_id",
+          "type": "string"
+        },
+        {
+          "name": "asset_type",
+          "type": "string"
+        },
+        {
+          "name": "health_score",
+          "type": "number"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "audit_events": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_id",
+        "event_type",
+        "result_code",
+        "occurred_at"
+      ],
+      "properties": {
+        "event_id": {
+          "type": "string"
+        },
+        "event_type": {
+          "type": "string"
+        },
+        "result_code": {
+          "type": "string"
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "fields": [
+        {
+          "name": "event_id",
+          "type": "string"
+        },
+        {
+          "name": "event_type",
+          "type": "string"
+        },
+        {
+          "name": "result_code",
+          "type": "string"
+        },
+        {
+          "name": "occurred_at",
+          "type": "string",
+          "format": "date-time"
+        }
+      ]
+    },
+    "authorizations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorization_id",
+        "service_code",
+        "decision_code",
+        "status"
+      ],
+      "properties": {
+        "authorization_id": {
+          "type": "string"
+        },
+        "service_code": {
+          "type": "string"
+        },
+        "decision_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "authorization_id",
+          "type": "string"
+        },
+        {
+          "name": "service_code",
+          "type": "string"
+        },
+        {
+          "name": "decision_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "campaigns": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "campaign_id",
+        "channel_code",
+        "segment_code",
+        "status"
+      ],
+      "properties": {
+        "campaign_id": {
+          "type": "string"
+        },
+        "channel_code": {
+          "type": "string"
+        },
+        "segment_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "campaign_id",
+          "type": "string"
+        },
+        {
+          "name": "channel_code",
+          "type": "string"
+        },
+        {
+          "name": "segment_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "care_gaps": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gap_id",
+        "measure_code",
+        "priority_code",
+        "status"
+      ],
+      "properties": {
+        "gap_id": {
+          "type": "string"
+        },
+        "measure_code": {
+          "type": "string"
+        },
+        "priority_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "gap_id",
+          "type": "string"
+        },
+        {
+          "name": "measure_code",
+          "type": "string"
+        },
+        {
+          "name": "priority_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "cases": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "case_type",
+        "priority_code",
+        "status"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string"
+        },
+        "case_type": {
+          "type": "string"
+        },
+        "priority_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "case_id",
+          "type": "string"
+        },
+        {
+          "name": "case_type",
+          "type": "string"
+        },
+        {
+          "name": "priority_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "changes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "change_id",
+        "change_type",
+        "risk_code",
+        "status"
+      ],
+      "properties": {
+        "change_id": {
+          "type": "string"
+        },
+        "change_type": {
+          "type": "string"
+        },
+        "risk_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "change_id",
+          "type": "string"
+        },
+        {
+          "name": "change_type",
+          "type": "string"
+        },
+        {
+          "name": "risk_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "claims": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim_id",
+        "claim_type",
+        "severity_code",
+        "status"
+      ],
+      "properties": {
+        "claim_id": {
+          "type": "string"
+        },
+        "claim_type": {
+          "type": "string"
+        },
+        "severity_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "claim_id",
+          "type": "string"
+        },
+        {
+          "name": "claim_type",
+          "type": "string"
+        },
+        {
+          "name": "severity_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "compliance_findings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "finding_id",
+        "control_code",
+        "severity_code",
+        "status"
+      ],
+      "properties": {
+        "finding_id": {
+          "type": "string"
+        },
+        "control_code": {
+          "type": "string"
+        },
+        "severity_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "finding_id",
+          "type": "string"
+        },
+        {
+          "name": "control_code",
+          "type": "string"
+        },
+        {
+          "name": "severity_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "coverages": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "coverage_id",
+        "coverage_type",
+        "limit_amount",
+        "status"
+      ],
+      "properties": {
+        "coverage_id": {
+          "type": "string"
+        },
+        "coverage_type": {
+          "type": "string"
+        },
+        "limit_amount": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "coverage_id",
+          "type": "string"
+        },
+        {
+          "name": "coverage_type",
+          "type": "string"
+        },
+        {
+          "name": "limit_amount",
+          "type": "number"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "documents": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "document_id",
+        "classification_code",
+        "version",
+        "status"
+      ],
+      "properties": {
+        "document_id": {
+          "type": "string"
+        },
+        "classification_code": {
+          "type": "string"
+        },
+        "version": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "document_id",
+          "type": "string"
+        },
+        {
+          "name": "classification_code",
+          "type": "string"
+        },
+        {
+          "name": "version",
+          "type": "integer"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "eligibility_checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "check_id",
+        "plan_code",
+        "result_code",
+        "checked_at"
+      ],
+      "properties": {
+        "check_id": {
+          "type": "string"
+        },
+        "plan_code": {
+          "type": "string"
+        },
+        "result_code": {
+          "type": "string"
+        },
+        "checked_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "fields": [
+        {
+          "name": "check_id",
+          "type": "string"
+        },
+        {
+          "name": "plan_code",
+          "type": "string"
+        },
+        {
+          "name": "result_code",
+          "type": "string"
+        },
+        {
+          "name": "checked_at",
+          "type": "string",
+          "format": "date-time"
+        }
+      ]
+    },
+    "encounters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "encounter_id",
+        "encounter_type",
+        "care_program_code",
+        "status"
+      ],
+      "properties": {
+        "encounter_id": {
+          "type": "string"
+        },
+        "encounter_type": {
+          "type": "string"
+        },
+        "care_program_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "encounter_id",
+          "type": "string"
+        },
+        {
+          "name": "encounter_type",
+          "type": "string"
+        },
+        {
+          "name": "care_program_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "grants": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "grant_id",
+        "program_code",
+        "amount",
+        "status"
+      ],
+      "properties": {
+        "grant_id": {
+          "type": "string"
+        },
+        "program_code": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "grant_id",
+          "type": "string"
+        },
+        {
+          "name": "program_code",
+          "type": "string"
+        },
+        {
+          "name": "amount",
+          "type": "number"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "inspections": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "inspection_id",
+        "asset_id",
+        "result_code",
+        "inspected_at"
+      ],
+      "properties": {
+        "inspection_id": {
+          "type": "string"
+        },
+        "asset_id": {
+          "type": "string"
+        },
+        "result_code": {
+          "type": "string"
+        },
+        "inspected_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "fields": [
+        {
+          "name": "inspection_id",
+          "type": "string"
+        },
+        {
+          "name": "asset_id",
+          "type": "string"
+        },
+        {
+          "name": "result_code",
+          "type": "string"
+        },
+        {
+          "name": "inspected_at",
+          "type": "string",
+          "format": "date-time"
+        }
+      ]
+    },
+    "inventory_items": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "item_id",
+        "location_code",
+        "quantity_available",
+        "status"
+      ],
+      "properties": {
+        "item_id": {
+          "type": "string"
+        },
+        "location_code": {
+          "type": "string"
+        },
+        "quantity_available": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "item_id",
+          "type": "string"
+        },
+        {
+          "name": "location_code",
+          "type": "string"
+        },
+        {
+          "name": "quantity_available",
+          "type": "integer"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "invoices": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "invoice_id",
+        "amount",
+        "currency_code",
+        "status"
+      ],
+      "properties": {
+        "invoice_id": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "currency_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "invoice_id",
+          "type": "string"
+        },
+        {
+          "name": "amount",
+          "type": "number"
+        },
+        {
+          "name": "currency_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "market_quotes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "instrument_code",
+        "price",
+        "currency_code",
+        "as_of"
+      ],
+      "properties": {
+        "instrument_code": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        },
+        "currency_code": {
+          "type": "string"
+        },
+        "as_of": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "fields": [
+        {
+          "name": "instrument_code",
+          "type": "string"
+        },
+        {
+          "name": "price",
+          "type": "number"
+        },
+        {
+          "name": "currency_code",
+          "type": "string"
+        },
+        {
+          "name": "as_of",
+          "type": "string",
+          "format": "date-time"
+        }
+      ]
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metric_id",
+        "metric_code",
+        "value",
+        "measured_at"
+      ],
+      "properties": {
+        "metric_id": {
+          "type": "string"
+        },
+        "metric_code": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number"
+        },
+        "measured_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "fields": [
+        {
+          "name": "metric_id",
+          "type": "string"
+        },
+        {
+          "name": "metric_code",
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "type": "number"
+        },
+        {
+          "name": "measured_at",
+          "type": "string",
+          "format": "date-time"
+        }
+      ]
+    },
+    "notifications": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "notification_id",
+        "channel_code",
+        "template_code",
+        "delivery_status"
+      ],
+      "properties": {
+        "notification_id": {
+          "type": "string"
+        },
+        "channel_code": {
+          "type": "string"
+        },
+        "template_code": {
+          "type": "string"
+        },
+        "delivery_status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "notification_id",
+          "type": "string"
+        },
+        {
+          "name": "channel_code",
+          "type": "string"
+        },
+        {
+          "name": "template_code",
+          "type": "string"
+        },
+        {
+          "name": "delivery_status",
+          "type": "string"
+        }
+      ]
+    },
+    "opportunities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "opportunity_id",
+        "stage_code",
+        "amount",
+        "close_date"
+      ],
+      "properties": {
+        "opportunity_id": {
+          "type": "string"
+        },
+        "stage_code": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "close_date": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "fields": [
+        {
+          "name": "opportunity_id",
+          "type": "string"
+        },
+        {
+          "name": "stage_code",
+          "type": "string"
+        },
+        {
+          "name": "amount",
+          "type": "number"
+        },
+        {
+          "name": "close_date",
+          "type": "string",
+          "format": "date"
+        }
+      ]
+    },
+    "orders": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "order_id",
+        "order_type",
+        "amount",
+        "status"
+      ],
+      "properties": {
+        "order_id": {
+          "type": "string"
+        },
+        "order_type": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "order_id",
+          "type": "string"
+        },
+        {
+          "name": "order_type",
+          "type": "string"
+        },
+        {
+          "name": "amount",
+          "type": "number"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "payments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "payment_id",
+        "amount",
+        "currency_code",
+        "status"
+      ],
+      "properties": {
+        "payment_id": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "currency_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "payment_id",
+          "type": "string"
+        },
+        {
+          "name": "amount",
+          "type": "number"
+        },
+        {
+          "name": "currency_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "permits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "permit_id",
+        "permit_type",
+        "jurisdiction_code",
+        "status"
+      ],
+      "properties": {
+        "permit_id": {
+          "type": "string"
+        },
+        "permit_type": {
+          "type": "string"
+        },
+        "jurisdiction_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "permit_id",
+          "type": "string"
+        },
+        {
+          "name": "permit_type",
+          "type": "string"
+        },
+        {
+          "name": "jurisdiction_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "policies": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy_id",
+        "policy_type",
+        "version",
+        "effective_date"
+      ],
+      "properties": {
+        "policy_id": {
+          "type": "string"
+        },
+        "policy_type": {
+          "type": "string"
+        },
+        "version": {
+          "type": "integer"
+        },
+        "effective_date": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "fields": [
+        {
+          "name": "policy_id",
+          "type": "string"
+        },
+        {
+          "name": "policy_type",
+          "type": "string"
+        },
+        {
+          "name": "version",
+          "type": "integer"
+        },
+        {
+          "name": "effective_date",
+          "type": "string",
+          "format": "date"
+        }
+      ]
+    },
+    "portfolios": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "portfolio_id",
+        "strategy_code",
+        "drift_percent",
+        "status"
+      ],
+      "properties": {
+        "portfolio_id": {
+          "type": "string"
+        },
+        "strategy_code": {
+          "type": "string"
+        },
+        "drift_percent": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "portfolio_id",
+          "type": "string"
+        },
+        {
+          "name": "strategy_code",
+          "type": "string"
+        },
+        {
+          "name": "drift_percent",
+          "type": "number"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "records": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_id",
+        "category_code",
+        "status",
+        "effective_at"
+      ],
+      "properties": {
+        "record_id": {
+          "type": "string"
+        },
+        "category_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "effective_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "fields": [
+        {
+          "name": "record_id",
+          "type": "string"
+        },
+        {
+          "name": "category_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        },
+        {
+          "name": "effective_at",
+          "type": "string",
+          "format": "date-time"
+        }
+      ]
+    },
+    "reports": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "report_id",
+        "report_type",
+        "period_code",
+        "status"
+      ],
+      "properties": {
+        "report_id": {
+          "type": "string"
+        },
+        "report_type": {
+          "type": "string"
+        },
+        "period_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "report_id",
+          "type": "string"
+        },
+        {
+          "name": "report_type",
+          "type": "string"
+        },
+        {
+          "name": "period_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "returns": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "return_id",
+        "reason_code",
+        "resolution_code",
+        "status"
+      ],
+      "properties": {
+        "return_id": {
+          "type": "string"
+        },
+        "reason_code": {
+          "type": "string"
+        },
+        "resolution_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "return_id",
+          "type": "string"
+        },
+        {
+          "name": "reason_code",
+          "type": "string"
+        },
+        {
+          "name": "resolution_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "risk_alerts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "alert_id",
+        "risk_type",
+        "severity_code",
+        "status"
+      ],
+      "properties": {
+        "alert_id": {
+          "type": "string"
+        },
+        "risk_type": {
+          "type": "string"
+        },
+        "severity_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "alert_id",
+          "type": "string"
+        },
+        {
+          "name": "risk_type",
+          "type": "string"
+        },
+        {
+          "name": "severity_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "role_allocations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allocation_id",
+        "role_code",
+        "capacity_percent",
+        "status"
+      ],
+      "properties": {
+        "allocation_id": {
+          "type": "string"
+        },
+        "role_code": {
+          "type": "string"
+        },
+        "capacity_percent": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "allocation_id",
+          "type": "string"
+        },
+        {
+          "name": "role_code",
+          "type": "string"
+        },
+        {
+          "name": "capacity_percent",
+          "type": "number"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "schedules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schedule_id",
+        "resource_code",
+        "window_code",
+        "status"
+      ],
+      "properties": {
+        "schedule_id": {
+          "type": "string"
+        },
+        "resource_code": {
+          "type": "string"
+        },
+        "window_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "schedule_id",
+          "type": "string"
+        },
+        {
+          "name": "resource_code",
+          "type": "string"
+        },
+        {
+          "name": "window_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "shipments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "shipment_id",
+        "carrier_code",
+        "milestone_code",
+        "estimated_at"
+      ],
+      "properties": {
+        "shipment_id": {
+          "type": "string"
+        },
+        "carrier_code": {
+          "type": "string"
+        },
+        "milestone_code": {
+          "type": "string"
+        },
+        "estimated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "fields": [
+        {
+          "name": "shipment_id",
+          "type": "string"
+        },
+        {
+          "name": "carrier_code",
+          "type": "string"
+        },
+        {
+          "name": "milestone_code",
+          "type": "string"
+        },
+        {
+          "name": "estimated_at",
+          "type": "string",
+          "format": "date-time"
+        }
+      ]
+    },
+    "suppliers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "supplier_id",
+        "category_code",
+        "risk_tier",
+        "status"
+      ],
+      "properties": {
+        "supplier_id": {
+          "type": "string"
+        },
+        "category_code": {
+          "type": "string"
+        },
+        "risk_tier": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "supplier_id",
+          "type": "string"
+        },
+        {
+          "name": "category_code",
+          "type": "string"
+        },
+        {
+          "name": "risk_tier",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "tasks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "task_id",
+        "task_type",
+        "status",
+        "due_at"
+      ],
+      "properties": {
+        "task_id": {
+          "type": "string"
+        },
+        "task_type": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "due_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "fields": [
+        {
+          "name": "task_id",
+          "type": "string"
+        },
+        {
+          "name": "task_type",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        },
+        {
+          "name": "due_at",
+          "type": "string",
+          "format": "date-time"
+        }
+      ]
+    },
+    "tickets": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ticket_id",
+        "category_code",
+        "priority_code",
+        "status"
+      ],
+      "properties": {
+        "ticket_id": {
+          "type": "string"
+        },
+        "category_code": {
+          "type": "string"
+        },
+        "priority_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "ticket_id",
+          "type": "string"
+        },
+        {
+          "name": "category_code",
+          "type": "string"
+        },
+        {
+          "name": "priority_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "transactions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transaction_id",
+        "transaction_type",
+        "amount",
+        "risk_score"
+      ],
+      "properties": {
+        "transaction_id": {
+          "type": "string"
+        },
+        "transaction_type": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "risk_score": {
+          "type": "number"
+        }
+      },
+      "fields": [
+        {
+          "name": "transaction_id",
+          "type": "string"
+        },
+        {
+          "name": "transaction_type",
+          "type": "string"
+        },
+        {
+          "name": "amount",
+          "type": "number"
+        },
+        {
+          "name": "risk_score",
+          "type": "number"
+        }
+      ]
+    },
+    "weather_observations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "station_code",
+        "condition_code",
+        "severity_code",
+        "observed_at"
+      ],
+      "properties": {
+        "station_code": {
+          "type": "string"
+        },
+        "condition_code": {
+          "type": "string"
+        },
+        "severity_code": {
+          "type": "string"
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "fields": [
+        {
+          "name": "station_code",
+          "type": "string"
+        },
+        {
+          "name": "condition_code",
+          "type": "string"
+        },
+        {
+          "name": "severity_code",
+          "type": "string"
+        },
+        {
+          "name": "observed_at",
+          "type": "string",
+          "format": "date-time"
+        }
+      ]
+    },
+    "work_orders": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "work_order_id",
+        "asset_id",
+        "priority_code",
+        "status"
+      ],
+      "properties": {
+        "work_order_id": {
+          "type": "string"
+        },
+        "asset_id": {
+          "type": "string"
+        },
+        "priority_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "work_order_id",
+          "type": "string"
+        },
+        {
+          "name": "asset_id",
+          "type": "string"
+        },
+        {
+          "name": "priority_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    },
+    "zones": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "zone_id",
+        "classification_code",
+        "jurisdiction_code",
+        "status"
+      ],
+      "properties": {
+        "zone_id": {
+          "type": "string"
+        },
+        "classification_code": {
+          "type": "string"
+        },
+        "jurisdiction_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "fields": [
+        {
+          "name": "zone_id",
+          "type": "string"
+        },
+        {
+          "name": "classification_code",
+          "type": "string"
+        },
+        {
+          "name": "jurisdiction_code",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        }
+      ]
+    }
+  }
+}

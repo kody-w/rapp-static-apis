@@ -1,0 +1,27 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "accela",
+  "resource_id": "records",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_236be346634496721a60",
+      "category_code": "category_1",
+      "status": "active",
+      "effective_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_eebdcd91db57f8fbb49c",
+      "category_code": "category_2",
+      "status": "pending",
+      "effective_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_7e80ca88b794f9772e3a",
+      "category_code": "category_3",
+      "status": "complete",
+      "effective_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

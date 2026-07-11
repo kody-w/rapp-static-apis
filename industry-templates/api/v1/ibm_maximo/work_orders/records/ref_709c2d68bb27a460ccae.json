@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "ibm_maximo",
+  "resource_id": "work_orders",
+  "record": {
+    "record_id": "ref_709c2d68bb27a460ccae",
+    "work_order_id": "ref_709c2d68bb27a460ccae",
+    "asset_id": "ref_8abcd8d8cac57377fea9",
+    "priority_code": "priority_2",
+    "status": "pending"
+  }
+}

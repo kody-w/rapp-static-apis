@@ -1,0 +1,12 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "news_api",
+  "resource_id": "records",
+  "record": {
+    "record_id": "ref_07faf146c7b4ead25875",
+    "category_code": "category_2",
+    "status": "pending",
+    "effective_at": "2026-01-11T10:00:00Z"
+  }
+}

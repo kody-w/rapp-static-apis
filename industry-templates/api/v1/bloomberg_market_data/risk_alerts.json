@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "bloomberg_market_data",
+  "resource_id": "risk_alerts",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_0afaf47b9f4cde51a320",
+      "alert_id": "ref_0afaf47b9f4cde51a320",
+      "risk_type": "risk_1",
+      "severity_code": "severity_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_41465e5a7b6987446d86",
+      "alert_id": "ref_41465e5a7b6987446d86",
+      "risk_type": "risk_2",
+      "severity_code": "severity_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_cb412a4597023c2c9143",
+      "alert_id": "ref_cb412a4597023c2c9143",
+      "risk_type": "risk_3",
+      "severity_code": "severity_3",
+      "status": "complete"
+    }
+  ]
+}

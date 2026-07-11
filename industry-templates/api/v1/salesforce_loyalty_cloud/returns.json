@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_loyalty_cloud",
+  "resource_id": "returns",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_cacd76fc4d7537186217",
+      "return_id": "ref_cacd76fc4d7537186217",
+      "reason_code": "reason_1",
+      "resolution_code": "resolution_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_cef0809baa839cff05d7",
+      "return_id": "ref_cef0809baa839cff05d7",
+      "reason_code": "reason_2",
+      "resolution_code": "resolution_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_066a54af5f1d3b5f14bc",
+      "return_id": "ref_066a54af5f1d3b5f14bc",
+      "reason_code": "reason_3",
+      "resolution_code": "resolution_3",
+      "status": "complete"
+    }
+  ]
+}

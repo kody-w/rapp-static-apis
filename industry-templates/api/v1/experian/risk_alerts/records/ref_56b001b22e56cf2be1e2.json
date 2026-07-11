@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "experian",
+  "resource_id": "risk_alerts",
+  "record": {
+    "record_id": "ref_56b001b22e56cf2be1e2",
+    "alert_id": "ref_56b001b22e56cf2be1e2",
+    "risk_type": "risk_2",
+    "severity_code": "severity_2",
+    "status": "pending"
+  }
+}

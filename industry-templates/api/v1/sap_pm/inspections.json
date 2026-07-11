@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_pm",
+  "resource_id": "inspections",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_40d82d2eda129cee3bed",
+      "inspection_id": "ref_40d82d2eda129cee3bed",
+      "asset_id": "ref_c8bf7ccd22d806852f3c",
+      "result_code": "result_1",
+      "inspected_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_5cd1f382e7a80704b684",
+      "inspection_id": "ref_5cd1f382e7a80704b684",
+      "asset_id": "ref_82a63dd83aed1b23fc04",
+      "result_code": "result_2",
+      "inspected_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_32c70d46d1e3a4fe4f85",
+      "inspection_id": "ref_32c70d46d1e3a4fe4f85",
+      "asset_id": "ref_40f1f7c16d40a4f87740",
+      "result_code": "result_3",
+      "inspected_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

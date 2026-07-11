@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "osisoft_pi",
+  "capability_code": "fiscalyearoffset",
+  "route_count": 1,
+  "write_intent_count": 0,
+  "receipt": {
+    "receipt_id": "receipt_9a3c2c815b7402c65c7e",
+    "operation": "simulate_fiscalyearoffset",
+    "resource_id": "work_orders",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_148c5b5f660a7f307fe5"
+  }
+}

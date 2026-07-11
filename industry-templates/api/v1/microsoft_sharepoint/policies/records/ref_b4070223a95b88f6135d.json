@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_sharepoint",
+  "resource_id": "policies",
+  "record": {
+    "record_id": "ref_b4070223a95b88f6135d",
+    "policy_id": "ref_b4070223a95b88f6135d",
+    "policy_type": "policy_2",
+    "version": 11,
+    "effective_date": "2026-01-11"
+  }
+}

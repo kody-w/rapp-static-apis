@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "public_city_website",
+  "resource_id": "compliance_findings",
+  "record": {
+    "record_id": "ref_46a7355fc058e630c71e",
+    "finding_id": "ref_46a7355fc058e630c71e",
+    "control_code": "control_3",
+    "severity_code": "severity_3",
+    "status": "complete"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_erp",
+  "resource_id": "invoices",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_835472d6f5edb658e738",
+      "invoice_id": "ref_835472d6f5edb658e738",
+      "amount": 100.0,
+      "currency_code": "currency_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_e8103f6de145e95c59bd",
+      "invoice_id": "ref_e8103f6de145e95c59bd",
+      "amount": 125.0,
+      "currency_code": "currency_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_91e0559a941cbde0ca33",
+      "invoice_id": "ref_91e0559a941cbde0ca33",
+      "amount": 150.0,
+      "currency_code": "currency_3",
+      "status": "complete"
+    }
+  ]
+}

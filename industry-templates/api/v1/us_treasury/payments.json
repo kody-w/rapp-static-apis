@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "us_treasury",
+  "resource_id": "payments",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_ccbdf6803c555bd7341b",
+      "payment_id": "ref_ccbdf6803c555bd7341b",
+      "amount": 100.0,
+      "currency_code": "currency_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_036a91271d5fbf75e6fd",
+      "payment_id": "ref_036a91271d5fbf75e6fd",
+      "amount": 125.0,
+      "currency_code": "currency_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_dc4e6492cad1ec60bcfe",
+      "payment_id": "ref_dc4e6492cad1ec60bcfe",
+      "amount": 150.0,
+      "currency_code": "currency_3",
+      "status": "complete"
+    }
+  ]
+}

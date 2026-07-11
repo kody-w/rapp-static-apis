@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "fis_core_banking",
+  "resource_id": "transactions",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_e4a391be92a54b9ba6e7",
+      "transaction_id": "ref_e4a391be92a54b9ba6e7",
+      "transaction_type": "transaction_1",
+      "amount": 100.0,
+      "risk_score": 100.0
+    },
+    {
+      "record_id": "ref_4d1ea3ac8809070d64db",
+      "transaction_id": "ref_4d1ea3ac8809070d64db",
+      "transaction_type": "transaction_2",
+      "amount": 125.0,
+      "risk_score": 125.0
+    },
+    {
+      "record_id": "ref_3134d8a2b4c04847cf38",
+      "transaction_id": "ref_3134d8a2b4c04847cf38",
+      "transaction_type": "transaction_3",
+      "amount": 150.0,
+      "risk_score": 150.0
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "state_puc",
+  "resource_id": "records",
+  "record": {
+    "record_id": "ref_1ca58f9863ffb4e8e1d2",
+    "category_code": "category_2",
+    "status": "pending",
+    "effective_at": "2026-01-11T10:00:00Z"
+  }
+}

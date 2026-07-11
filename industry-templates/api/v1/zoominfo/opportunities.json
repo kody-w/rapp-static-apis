@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "zoominfo",
+  "resource_id": "opportunities",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_02aed224e50fcb7ecdb2",
+      "opportunity_id": "ref_02aed224e50fcb7ecdb2",
+      "stage_code": "stage_1",
+      "amount": 100.0,
+      "close_date": "2026-01-10"
+    },
+    {
+      "record_id": "ref_a890247851e0eea09a5f",
+      "opportunity_id": "ref_a890247851e0eea09a5f",
+      "stage_code": "stage_2",
+      "amount": 125.0,
+      "close_date": "2026-01-11"
+    },
+    {
+      "record_id": "ref_b2216b780982cc2c24d8",
+      "opportunity_id": "ref_b2216b780982cc2c24d8",
+      "stage_code": "stage_3",
+      "amount": 150.0,
+      "close_date": "2026-01-12"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_health_cloud",
+  "resource_id": "authorizations",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_77a3157cc46735f4d842",
+      "authorization_id": "ref_77a3157cc46735f4d842",
+      "service_code": "service_1",
+      "decision_code": "decision_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_a5ec2a4240b61d9981b4",
+      "authorization_id": "ref_a5ec2a4240b61d9981b4",
+      "service_code": "service_2",
+      "decision_code": "decision_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_9736429ba82a86ad9525",
+      "authorization_id": "ref_9736429ba82a86ad9525",
+      "service_code": "service_3",
+      "decision_code": "decision_3",
+      "status": "complete"
+    }
+  ]
+}

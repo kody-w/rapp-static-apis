@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_ariba",
+  "resource_id": "invoices",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_45e7e7de80d6991a3623",
+      "invoice_id": "ref_45e7e7de80d6991a3623",
+      "amount": 100.0,
+      "currency_code": "currency_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_cde26c3fbe518a5af4d4",
+      "invoice_id": "ref_cde26c3fbe518a5af4d4",
+      "amount": 125.0,
+      "currency_code": "currency_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_12712a8f8fd4ae57a454",
+      "invoice_id": "ref_12712a8f8fd4ae57a454",
+      "amount": 150.0,
+      "currency_code": "currency_3",
+      "status": "complete"
+    }
+  ]
+}

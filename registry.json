@@ -6,10 +6,10 @@
   "spec": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/SPEC.md",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main",
   "pages_base": "https://kody-w.github.io/rapp-static-apis",
-  "generated": "2026-07-07T02:43:27Z",
+  "generated": "2026-07-10T22:15:01Z",
   "summary": {
-    "apis": 15,
-    "with_status_endpoint": 15,
+    "apis": 16,
+    "with_status_endpoint": 16,
     "content_addressed": 4
   },
   "entries": [
@@ -81,6 +81,20 @@
       "capabilities": [
         "versioned-endpoints",
         "content-addressed"
+      ]
+    },
+    {
+      "name": "industry-templates",
+      "description": "RAPP static industry-template APIs",
+      "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates",
+      "pages_base": "https://kody-w.github.io/rapp-static-apis/industry-templates/",
+      "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/registry.json",
+      "api_schema": "rapp-static-api/1.0",
+      "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/status.json",
+      "badge": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/api/v1/badge.json",
+      "dashboard": "https://kody-w.github.io/rapp-static-apis/industry-templates/",
+      "capabilities": [
+        "versioned-endpoints"
       ]
     },
     {

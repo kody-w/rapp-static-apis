@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dun_bradstreet",
+  "resource_id": "risk_alerts",
+  "record": {
+    "record_id": "ref_28fe330dde45e05abd7c",
+    "alert_id": "ref_28fe330dde45e05abd7c",
+    "risk_type": "risk_1",
+    "severity_code": "severity_1",
+    "status": "active"
+  }
+}

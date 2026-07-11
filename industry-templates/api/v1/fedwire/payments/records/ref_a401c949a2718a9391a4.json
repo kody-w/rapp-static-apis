@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "fedwire",
+  "resource_id": "payments",
+  "record": {
+    "record_id": "ref_a401c949a2718a9391a4",
+    "payment_id": "ref_a401c949a2718a9391a4",
+    "amount": 100.0,
+    "currency_code": "currency_1",
+    "status": "active"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "market_data_api",
+  "resource_id": "risk_alerts",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_157d686f7421e4a145a2",
+      "alert_id": "ref_157d686f7421e4a145a2",
+      "risk_type": "risk_1",
+      "severity_code": "severity_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_55793f3ebf2e5e3ea86a",
+      "alert_id": "ref_55793f3ebf2e5e3ea86a",
+      "risk_type": "risk_2",
+      "severity_code": "severity_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_03bdd0226bb316d89c02",
+      "alert_id": "ref_03bdd0226bb316d89c02",
+      "risk_type": "risk_3",
+      "severity_code": "severity_3",
+      "status": "complete"
+    }
+  ]
+}

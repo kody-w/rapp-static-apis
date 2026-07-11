@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "osisoft_pi",
+  "capability_code": "performassetsensoraggregator",
+  "route_count": 1,
+  "write_intent_count": 1,
+  "receipt": {
+    "receipt_id": "receipt_d36597e56b02e17b272b",
+    "operation": "simulate_performassetsensoraggregator",
+    "resource_id": "work_orders",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_2940c7863d63139615db"
+  }
+}

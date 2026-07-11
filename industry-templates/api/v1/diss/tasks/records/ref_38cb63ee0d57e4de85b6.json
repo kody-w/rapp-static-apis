@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "diss",
+  "resource_id": "tasks",
+  "record": {
+    "record_id": "ref_38cb63ee0d57e4de85b6",
+    "task_id": "ref_38cb63ee0d57e4de85b6",
+    "task_type": "task_1",
+    "status": "active",
+    "due_at": "2026-01-10T09:00:00Z"
+  }
+}

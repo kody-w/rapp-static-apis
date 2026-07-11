@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_health_cloud",
+  "resource_id": "eligibility_checks",
+  "record": {
+    "record_id": "ref_ca053b92e43d29fc4611",
+    "check_id": "ref_ca053b92e43d29fc4611",
+    "plan_code": "plan_2",
+    "result_code": "result_2",
+    "checked_at": "2026-01-11T10:00:00Z"
+  }
+}

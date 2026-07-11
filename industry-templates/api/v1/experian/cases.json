@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "experian",
+  "resource_id": "cases",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_e03cc8d1ebea36d237ed",
+      "case_id": "ref_e03cc8d1ebea36d237ed",
+      "case_type": "case_1",
+      "priority_code": "priority_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_8959bd44310cab9c5732",
+      "case_id": "ref_8959bd44310cab9c5732",
+      "case_type": "case_2",
+      "priority_code": "priority_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_3817060eb6a7b158246a",
+      "case_id": "ref_3817060eb6a7b158246a",
+      "case_type": "case_3",
+      "priority_code": "priority_3",
+      "status": "complete"
+    }
+  ]
+}

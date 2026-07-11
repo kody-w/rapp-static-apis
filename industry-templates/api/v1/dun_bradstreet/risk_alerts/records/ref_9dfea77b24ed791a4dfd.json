@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dun_bradstreet",
+  "resource_id": "risk_alerts",
+  "record": {
+    "record_id": "ref_9dfea77b24ed791a4dfd",
+    "alert_id": "ref_9dfea77b24ed791a4dfd",
+    "risk_type": "risk_2",
+    "severity_code": "severity_2",
+    "status": "pending"
+  }
+}

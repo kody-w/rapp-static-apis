@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "klaviyo",
+  "resource_id": "tasks",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_4315d71ca8bca7475bd6",
+      "task_id": "ref_4315d71ca8bca7475bd6",
+      "task_type": "task_1",
+      "status": "active",
+      "due_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_bc37973cd0cbd243ad50",
+      "task_id": "ref_bc37973cd0cbd243ad50",
+      "task_type": "task_2",
+      "status": "pending",
+      "due_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_a30e98bc095c127c7f29",
+      "task_id": "ref_a30e98bc095c127c7f29",
+      "task_type": "task_3",
+      "status": "complete",
+      "due_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

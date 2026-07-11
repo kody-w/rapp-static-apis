@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "osisoft_pi",
+  "resource_id": "work_orders",
+  "record": {
+    "record_id": "ref_22c87caab2b20d436810",
+    "work_order_id": "ref_22c87caab2b20d436810",
+    "asset_id": "ref_95c51e7f7938ed901b6d",
+    "priority_code": "priority_3",
+    "status": "complete"
+  }
+}

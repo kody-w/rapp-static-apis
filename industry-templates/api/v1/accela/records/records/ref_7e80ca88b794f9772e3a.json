@@ -1,0 +1,12 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "accela",
+  "resource_id": "records",
+  "record": {
+    "record_id": "ref_7e80ca88b794f9772e3a",
+    "category_code": "category_3",
+    "status": "complete",
+    "effective_at": "2026-01-12T11:00:00Z"
+  }
+}

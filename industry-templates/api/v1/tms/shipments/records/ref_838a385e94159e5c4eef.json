@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "tms",
+  "resource_id": "shipments",
+  "record": {
+    "record_id": "ref_838a385e94159e5c4eef",
+    "shipment_id": "ref_838a385e94159e5c4eef",
+    "carrier_code": "carrier_3",
+    "milestone_code": "milestone_3",
+    "estimated_at": "2026-01-12T11:00:00Z"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_sharepoint",
+  "resource_id": "reports",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_965e593dd0291921a7f7",
+      "report_id": "ref_965e593dd0291921a7f7",
+      "report_type": "report_1",
+      "period_code": "period_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_cb586e92c839707f995b",
+      "report_id": "ref_cb586e92c839707f995b",
+      "report_type": "report_2",
+      "period_code": "period_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_9be50f9f90251c532029",
+      "report_id": "ref_9be50f9f90251c532029",
+      "report_type": "report_3",
+      "period_code": "period_3",
+      "status": "complete"
+    }
+  ]
+}

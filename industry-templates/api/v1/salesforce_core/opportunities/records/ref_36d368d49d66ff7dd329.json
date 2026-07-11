@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_core",
+  "resource_id": "opportunities",
+  "record": {
+    "record_id": "ref_36d368d49d66ff7dd329",
+    "opportunity_id": "ref_36d368d49d66ff7dd329",
+    "stage_code": "stage_1",
+    "amount": 100.0,
+    "close_date": "2026-01-10"
+  }
+}

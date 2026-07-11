@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "project44",
+  "resource_id": "metrics",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_5091bc8d623c12f2aebc",
+      "metric_id": "ref_5091bc8d623c12f2aebc",
+      "metric_code": "metric_1",
+      "value": 100.0,
+      "measured_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_81cd0e1c59dd3f9ac93c",
+      "metric_id": "ref_81cd0e1c59dd3f9ac93c",
+      "metric_code": "metric_2",
+      "value": 125.0,
+      "measured_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_8b7f53171572f6860c69",
+      "metric_id": "ref_8b7f53171572f6860c69",
+      "metric_code": "metric_3",
+      "value": 150.0,
+      "measured_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "us_treasury",
+  "resource_id": "payments",
+  "record": {
+    "record_id": "ref_dc4e6492cad1ec60bcfe",
+    "payment_id": "ref_dc4e6492cad1ec60bcfe",
+    "amount": 150.0,
+    "currency_code": "currency_3",
+    "status": "complete"
+  }
+}

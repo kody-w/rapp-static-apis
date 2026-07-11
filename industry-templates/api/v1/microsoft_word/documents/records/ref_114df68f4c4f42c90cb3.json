@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_word",
+  "resource_id": "documents",
+  "record": {
+    "record_id": "ref_114df68f4c4f42c90cb3",
+    "document_id": "ref_114df68f4c4f42c90cb3",
+    "classification_code": "classification_1",
+    "version": 10,
+    "status": "active"
+  }
+}

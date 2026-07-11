@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "us_treasury",
+  "resource_id": "invoices",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_e2fa49bf0ca17bbe50af",
+      "invoice_id": "ref_e2fa49bf0ca17bbe50af",
+      "amount": 100.0,
+      "currency_code": "currency_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_d2a5137689982d71c74d",
+      "invoice_id": "ref_d2a5137689982d71c74d",
+      "amount": 125.0,
+      "currency_code": "currency_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_90226c5e16edd927fc9b",
+      "invoice_id": "ref_90226c5e16edd927fc9b",
+      "amount": 150.0,
+      "currency_code": "currency_3",
+      "status": "complete"
+    }
+  ]
+}

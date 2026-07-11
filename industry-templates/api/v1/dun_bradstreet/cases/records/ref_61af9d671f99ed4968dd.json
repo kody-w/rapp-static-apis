@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dun_bradstreet",
+  "resource_id": "cases",
+  "record": {
+    "record_id": "ref_61af9d671f99ed4968dd",
+    "case_id": "ref_61af9d671f99ed4968dd",
+    "case_type": "case_3",
+    "priority_code": "priority_3",
+    "status": "complete"
+  }
+}

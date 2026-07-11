@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "bloomberg_aim",
+  "resource_id": "market_quotes",
+  "record": {
+    "record_id": "rec_be2ad12b9a295e4e0786",
+    "instrument_code": "code_5090ac78fb2fad382ac6",
+    "price": 150.0,
+    "currency_code": "currency_3",
+    "as_of": "2026-01-12T11:00:00Z"
+  }
+}

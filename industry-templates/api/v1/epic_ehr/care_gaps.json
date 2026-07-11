@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "epic_ehr",
+  "resource_id": "care_gaps",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_f045f6d227d0c395dcfe",
+      "gap_id": "ref_f045f6d227d0c395dcfe",
+      "measure_code": "measure_1",
+      "priority_code": "priority_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_e19b8f1a3a5519deddcb",
+      "gap_id": "ref_e19b8f1a3a5519deddcb",
+      "measure_code": "measure_2",
+      "priority_code": "priority_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_391f81b43efb6a2b4081",
+      "gap_id": "ref_391f81b43efb6a2b4081",
+      "measure_code": "measure_3",
+      "priority_code": "priority_3",
+      "status": "complete"
+    }
+  ]
+}

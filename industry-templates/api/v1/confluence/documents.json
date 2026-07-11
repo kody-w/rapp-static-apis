@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "confluence",
+  "resource_id": "documents",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_ce7135569a0c5c3bbd0d",
+      "document_id": "ref_ce7135569a0c5c3bbd0d",
+      "classification_code": "classification_1",
+      "version": 10,
+      "status": "active"
+    },
+    {
+      "record_id": "ref_08490431ddd29f2f5156",
+      "document_id": "ref_08490431ddd29f2f5156",
+      "classification_code": "classification_2",
+      "version": 11,
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_0735c1ba1e9d60eb0741",
+      "document_id": "ref_0735c1ba1e9d60eb0741",
+      "classification_code": "classification_3",
+      "version": 12,
+      "status": "complete"
+    }
+  ]
+}

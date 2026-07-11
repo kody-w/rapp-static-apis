@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_loyalty_cloud",
+  "resource_id": "campaigns",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_18646426f46012bf84a6",
+      "campaign_id": "ref_18646426f46012bf84a6",
+      "channel_code": "channel_1",
+      "segment_code": "segment_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_cc2f313b7ffefa27d79f",
+      "campaign_id": "ref_cc2f313b7ffefa27d79f",
+      "channel_code": "channel_2",
+      "segment_code": "segment_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_9e6474d3b738e979c864",
+      "campaign_id": "ref_9e6474d3b738e979c864",
+      "channel_code": "channel_3",
+      "segment_code": "segment_3",
+      "status": "complete"
+    }
+  ]
+}

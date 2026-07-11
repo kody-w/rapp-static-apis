@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "dynamics_365_erp",
+  "resource_id": "orders",
+  "record": {
+    "record_id": "ref_fc0b03ed033acf0bfbf5",
+    "order_id": "ref_fc0b03ed033acf0bfbf5",
+    "order_type": "order_3",
+    "amount": 150.0,
+    "status": "complete"
+  }
+}

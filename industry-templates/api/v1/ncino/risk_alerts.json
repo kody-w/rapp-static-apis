@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "ncino",
+  "resource_id": "risk_alerts",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_ccceb0a61e5192cc7fe7",
+      "alert_id": "ref_ccceb0a61e5192cc7fe7",
+      "risk_type": "risk_1",
+      "severity_code": "severity_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_7f55a3772ef817b18506",
+      "alert_id": "ref_7f55a3772ef817b18506",
+      "risk_type": "risk_2",
+      "severity_code": "severity_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_781f96731f70b8dc1228",
+      "alert_id": "ref_781f96731f70b8dc1228",
+      "risk_type": "risk_3",
+      "severity_code": "severity_3",
+      "status": "complete"
+    }
+  ]
+}

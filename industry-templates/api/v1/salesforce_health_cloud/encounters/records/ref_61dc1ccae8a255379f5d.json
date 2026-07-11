@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "salesforce_health_cloud",
+  "resource_id": "encounters",
+  "record": {
+    "record_id": "ref_61dc1ccae8a255379f5d",
+    "encounter_id": "ref_61dc1ccae8a255379f5d",
+    "encounter_type": "encounter_2",
+    "care_program_code": "care_program_2",
+    "status": "pending"
+  }
+}

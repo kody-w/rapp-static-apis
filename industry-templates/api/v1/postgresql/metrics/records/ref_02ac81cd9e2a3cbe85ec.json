@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "postgresql",
+  "resource_id": "metrics",
+  "record": {
+    "record_id": "ref_02ac81cd9e2a3cbe85ec",
+    "metric_id": "ref_02ac81cd9e2a3cbe85ec",
+    "metric_code": "metric_1",
+    "value": 100.0,
+    "measured_at": "2026-01-10T09:00:00Z"
+  }
+}

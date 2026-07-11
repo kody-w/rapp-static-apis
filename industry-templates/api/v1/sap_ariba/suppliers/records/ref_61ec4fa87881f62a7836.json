@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sap_ariba",
+  "resource_id": "suppliers",
+  "record": {
+    "record_id": "ref_61ec4fa87881f62a7836",
+    "supplier_id": "ref_61ec4fa87881f62a7836",
+    "category_code": "category_2",
+    "risk_tier": "value_56b1af1959e1115bdcba",
+    "status": "pending"
+  }
+}

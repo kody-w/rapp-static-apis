@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "azure_iot_hub",
+  "resource_id": "reports",
+  "record": {
+    "record_id": "ref_3b51380597d8210b2924",
+    "report_id": "ref_3b51380597d8210b2924",
+    "report_type": "report_3",
+    "period_code": "period_3",
+    "status": "complete"
+  }
+}

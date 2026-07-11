@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "asap_gov",
+  "resource_id": "risk_alerts",
+  "record": {
+    "record_id": "ref_ef968962de3fdbca71cd",
+    "alert_id": "ref_ef968962de3fdbca71cd",
+    "risk_type": "risk_1",
+    "severity_code": "severity_1",
+    "status": "active"
+  }
+}

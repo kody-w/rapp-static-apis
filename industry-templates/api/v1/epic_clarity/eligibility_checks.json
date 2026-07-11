@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "epic_clarity",
+  "resource_id": "eligibility_checks",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_f70f8a5d681972776e9e",
+      "check_id": "ref_f70f8a5d681972776e9e",
+      "plan_code": "plan_1",
+      "result_code": "result_1",
+      "checked_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "record_id": "ref_ff6c8f4436c32a30cf46",
+      "check_id": "ref_ff6c8f4436c32a30cf46",
+      "plan_code": "plan_2",
+      "result_code": "result_2",
+      "checked_at": "2026-01-11T10:00:00Z"
+    },
+    {
+      "record_id": "ref_442f90fb5cb1dcc51ac6",
+      "check_id": "ref_442f90fb5cb1dcc51ac6",
+      "plan_code": "plan_3",
+      "result_code": "result_3",
+      "checked_at": "2026-01-12T11:00:00Z"
+    }
+  ]
+}

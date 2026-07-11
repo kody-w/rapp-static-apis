@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "news_api",
+  "resource_id": "reports",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_04e3065e7aff609a5311",
+      "report_id": "ref_04e3065e7aff609a5311",
+      "report_type": "report_1",
+      "period_code": "period_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_f985b9841853661e923f",
+      "report_id": "ref_f985b9841853661e923f",
+      "report_type": "report_2",
+      "period_code": "period_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_2d8424bac1a1120b38e6",
+      "report_id": "ref_2d8424bac1a1120b38e6",
+      "report_type": "report_3",
+      "period_code": "period_3",
+      "status": "complete"
+    }
+  ]
+}

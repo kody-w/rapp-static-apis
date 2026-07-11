@@ -1,0 +1,12 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "sam_gov",
+  "resource_id": "records",
+  "record": {
+    "record_id": "ref_199e8ded80323d9d0480",
+    "category_code": "category_1",
+    "status": "active",
+    "effective_at": "2026-01-10T09:00:00Z"
+  }
+}

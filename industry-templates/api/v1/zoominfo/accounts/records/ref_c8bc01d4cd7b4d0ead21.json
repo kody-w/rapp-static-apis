@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "zoominfo",
+  "resource_id": "accounts",
+  "record": {
+    "record_id": "ref_c8bc01d4cd7b4d0ead21",
+    "organization_id": "ref_c8bc01d4cd7b4d0ead21",
+    "industry_code": "industry_2",
+    "tier_code": "tier_2",
+    "status": "pending"
+  }
+}

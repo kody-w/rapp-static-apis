@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "nppes_npi",
+  "resource_id": "authorizations",
+  "record": {
+    "record_id": "ref_8b05296168574f02099c",
+    "authorization_id": "ref_8b05296168574f02099c",
+    "service_code": "service_3",
+    "decision_code": "decision_3",
+    "status": "complete"
+  }
+}

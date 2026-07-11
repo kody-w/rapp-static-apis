@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "epic_clarity",
+  "resource_id": "care_gaps",
+  "record": {
+    "record_id": "ref_c6e25b2e650a69a1dce4",
+    "gap_id": "ref_c6e25b2e650a69a1dce4",
+    "measure_code": "measure_2",
+    "priority_code": "priority_2",
+    "status": "pending"
+  }
+}

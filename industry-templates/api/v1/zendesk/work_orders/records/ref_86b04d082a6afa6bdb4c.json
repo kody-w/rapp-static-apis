@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "zendesk",
+  "resource_id": "work_orders",
+  "record": {
+    "record_id": "ref_86b04d082a6afa6bdb4c",
+    "work_order_id": "ref_86b04d082a6afa6bdb4c",
+    "asset_id": "ref_83dc6447a2e88a5750ed",
+    "priority_code": "priority_2",
+    "status": "pending"
+  }
+}

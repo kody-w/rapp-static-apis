@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "azure_iot_hub",
+  "resource_id": "reports",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_d601bdffa000873d1d9c",
+      "report_id": "ref_d601bdffa000873d1d9c",
+      "report_type": "report_1",
+      "period_code": "period_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_ef2243a705f4a0d537d0",
+      "report_id": "ref_ef2243a705f4a0d537d0",
+      "report_type": "report_2",
+      "period_code": "period_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_3b51380597d8210b2924",
+      "report_id": "ref_3b51380597d8210b2924",
+      "report_type": "report_3",
+      "period_code": "period_3",
+      "status": "complete"
+    }
+  ]
+}

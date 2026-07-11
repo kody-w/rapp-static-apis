@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "asap_gov",
+  "resource_id": "risk_alerts",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_ef968962de3fdbca71cd",
+      "alert_id": "ref_ef968962de3fdbca71cd",
+      "risk_type": "risk_1",
+      "severity_code": "severity_1",
+      "status": "active"
+    },
+    {
+      "record_id": "ref_2e4c878fdaee949c42da",
+      "alert_id": "ref_2e4c878fdaee949c42da",
+      "risk_type": "risk_2",
+      "severity_code": "severity_2",
+      "status": "pending"
+    },
+    {
+      "record_id": "ref_cc43a35197e45d0842af",
+      "alert_id": "ref_cc43a35197e45d0842af",
+      "risk_type": "risk_3",
+      "severity_code": "severity_3",
+      "status": "complete"
+    }
+  ]
+}

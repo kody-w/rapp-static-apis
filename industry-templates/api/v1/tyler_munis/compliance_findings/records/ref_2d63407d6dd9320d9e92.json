@@ -1,0 +1,13 @@
+{
+  "schema": "rapp-static-industry-record/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "tyler_munis",
+  "resource_id": "compliance_findings",
+  "record": {
+    "record_id": "ref_2d63407d6dd9320d9e92",
+    "finding_id": "ref_2d63407d6dd9320d9e92",
+    "control_code": "control_2",
+    "severity_code": "severity_2",
+    "status": "pending"
+  }
+}

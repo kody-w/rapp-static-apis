@@ -1,0 +1,30 @@
+{
+  "schema": "rapp-static-industry-collection/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "oracle_core_banking",
+  "resource_id": "transactions",
+  "count": 3,
+  "value": [
+    {
+      "record_id": "ref_2eef44f1d610f08b746f",
+      "transaction_id": "ref_2eef44f1d610f08b746f",
+      "transaction_type": "transaction_1",
+      "amount": 100.0,
+      "risk_score": 100.0
+    },
+    {
+      "record_id": "ref_65e482df0ff6a17f51d9",
+      "transaction_id": "ref_65e482df0ff6a17f51d9",
+      "transaction_type": "transaction_2",
+      "amount": 125.0,
+      "risk_score": 125.0
+    },
+    {
+      "record_id": "ref_d3314ebc3b1786568dc9",
+      "transaction_id": "ref_d3314ebc3b1786568dc9",
+      "transaction_type": "transaction_3",
+      "amount": 150.0,
+      "risk_score": 150.0
+    }
+  ]
+}

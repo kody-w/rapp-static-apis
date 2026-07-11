@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-static-industry-write-receipt/1.0",
+  "generated": "2026-07-10T20:30:00Z",
+  "adapter_id": "microsoft_dataverse",
+  "capability_code": "optimize",
+  "route_count": 3,
+  "write_intent_count": 0,
+  "receipt": {
+    "receipt_id": "receipt_d0c8a0528b0ff7b7a641",
+    "operation": "simulate_optimize",
+    "resource_id": "multiple_resources",
+    "accepted": true,
+    "simulated": true,
+    "status": "accepted",
+    "processed_at": "2026-07-10T20:30:00Z",
+    "idempotency_key": "idem_a53054162d39c10ecab1"
+  }
+}
