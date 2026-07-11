@@ -32,6 +32,14 @@
 import { genomeId, sha256hex, clamp, b64enc, momentToGenome } from './lib/genome.js';
 import { keepToBasket } from './lib/basket.js';
 
+export class CaughtIntegrityError extends Error {
+  constructor(message, cause) {
+    super(message);
+    this.name = 'CaughtIntegrityError';
+    if (cause) this.cause = cause;
+  }
+}
+
 // ── crypto unit roll — the throw is NEVER deterministic ──────────────────────────
 export function rand() { const u = new Uint32Array(1); crypto.getRandomValues(u); return u[0] / 4294967296; }
 
@@ -176,12 +184,19 @@ export async function runCatch(o, cbs = {}) {
 // ── MINT-ON-CATCH — provenance OUTSIDE the genome; id stays honest (design 05) ────
 // Verifies the recomputed content-hash equals cart.id, then keepToBasket({...cart, caught}).
 export async function mintCaught(cart, meta = {}) {
-  let idOk = true;
-  try { idOk = (await genomeId(cart.genome)) === cart.id; } catch { idOk = true; }
+  let computedId;
+  try {
+    computedId = await genomeId(cart.genome);
+  } catch (cause) {
+    throw new CaughtIntegrityError('caught genome could not be verified', cause);
+  }
+  if (computedId !== cart.id) {
+    throw new CaughtIntegrityError(`caught genome id mismatch: expected ${cart.id}, got ${computedId}`);
+  }
   const stampedCart = {
     ...cart,                                     // schema/id/title/author/born/parents/genome/sig untouched
     caught: {
-      at: Date.now(),
+      at: meta.at == null ? Date.now() : meta.at,
       geohash: meta.geohash || null,
       place: meta.poiName || null,
       poi: meta.poiId || null,
@@ -192,9 +207,9 @@ export async function mintCaught(cart, meta = {}) {
       wobbles: meta.wobbles == null ? null : meta.wobbles
     }
   };
-  await keepToBasket(stampedCart);               // same record shape the cabinet/companion read
+  await keepToBasket(stampedCart, { demo:!!meta.demo }); // demo catches never contaminate the live basket
   return {
-    id: cart.id, egg: stampedCart, idVerified: idOk,
+    id: cart.id, egg: stampedCart, idVerified: true,
     title: stampedCart.title || 'organism',
     born: (cart.born && cart.born.from) || '', addedAt: Date.now()
   };
@@ -356,6 +371,10 @@ export async function runSelfTest(opts = {}) {
     ok('mint: genome untouched by stamp', canonical(stamped.genome) === before);
     ok('mint: id unchanged by stamp', idAfter === id && stamped.id === id, `${idAfter} vs ${id}`);
     ok('mint: caught{} lives OUTSIDE genome', stamped.caught && !('caught' in stamped.genome));
+    let rejectedMismatch = false;
+    try { await mintCaught({ ...cart, id: 'not-the-genome' }, { at: 1 }); }
+    catch (e) { rejectedMismatch = e instanceof CaughtIntegrityError; }
+    ok('mint: rejects an id mismatch before basket write', rejectedMismatch);
   }
 
   log(''); log(`${fail === 0 ? 'ALL PASS' : 'FAILURES'} — ${pass} passed, ${fail} failed`);
@@ -373,4 +392,4 @@ const _isNodeMain = (() => {
 })();
 if (_isNodeMain) runSelfTest().then(r => { if (typeof process !== 'undefined' && process.exit) process.exit(r.fail === 0 ? 0 : 1); });
 
-export default { ORBS, AIDS, TIERS, rand, eggRarity, throwQuality, rollCatch, runCatch, mintCaught, runSelfTest };
+export default { ORBS, AIDS, TIERS, rand, eggRarity, throwQuality, rollCatch, runCatch, mintCaught, runSelfTest, CaughtIntegrityError };

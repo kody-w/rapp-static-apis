@@ -377,7 +377,8 @@ function geoOf(cart) {
   const coord = String((cart && cart.born && cart.born.coord) || '');
   if (!coord) return '';
   if (coord.startsWith('cross:')) return coord.slice(6, 14);
-  return coord.split('\u00b7')[0].split(',')[0]; // geohash before ·epoch, or '0' from '0,0'
+  const head = coord.split('\u00b7')[0].split(',')[0]; // geohash before ·epoch, or '0' from '0,0'
+  return /^[0-9b-hjkmnp-z]{5,}$/i.test(head) ? head.slice(0, 5) : head;
 }
 
 // Weather-code modulates FAMILY WEIGHTS only (decision 1). Every weight stays ≥1 so no
@@ -808,15 +809,25 @@ export function snapHash(cart, pose, size) { return snap(cart, { pose, size: siz
  * creature per session and cached in memory (DPR≤2).
  * ════════════════════════════════════════════════════════════════════════════ */
 const _atlasCache = new Map();
+export const ATLAS_BUDGET_BYTES = 16 * 1024 * 1024;
 export function clearAtlasCache() { _atlasCache.clear(); }
 export function atlasMemoryBytes() { let b = 0; for (const a of _atlasCache.values()) b += a.bytes; return b; }
+function trimAtlasCache() {
+  let bytes = atlasMemoryBytes();
+  while (bytes > ATLAS_BUDGET_BYTES && _atlasCache.size > 1) {
+    const oldest = _atlasCache.keys().next().value;
+    const atlas = _atlasCache.get(oldest);
+    _atlasCache.delete(oldest);
+    bytes -= atlas ? atlas.bytes : 0;
+  }
+}
 
 export function spriteAtlas(cart, opts = {}) {
   const frames = opts.frames || 10;
   const size = opts.size || 80;
   const key = (cart.id || cartHash(cart)) + ':' + size + ':' + frames;
   const cached = _atlasCache.get(key);
-  if (cached) return cached;
+  if (cached) { _atlasCache.delete(key); _atlasCache.set(key, cached); return cached; }
   const species = speciesOf(cart);
   const dpr = _dpr();
   const canvases = [];
@@ -841,6 +852,7 @@ export function spriteAtlas(cart, opts = {}) {
     frameAt(phase) { const i = ((Math.floor(fract(phase) * frames) % frames) + frames) % frames; return canvases[i]; }
   };
   _atlasCache.set(key, atlas);
+  trimAtlasCache();
   return atlas;
 }
 
@@ -891,8 +903,15 @@ export function renderLoop(cart, canvas, opts = {}) {
   function pause() { if (state.raf != null) { cancelAnimationFrame(state.raf); state.raf = null; } }
 
   const onVis = () => { if (typeof document !== 'undefined' && document.hidden) pause(); else start(); };
+  const onResize = () => { dpr = size(); };
+  const onPageHide = () => pause();
+  const onPageShow = () => start();
   if (typeof document !== 'undefined') document.addEventListener('visibilitychange', onVis);
-  if (typeof window !== 'undefined') window.addEventListener('resize', () => { dpr = size(); });
+  if (typeof window !== 'undefined') {
+    window.addEventListener('resize', onResize);
+    window.addEventListener('pagehide', onPageHide);
+    window.addEventListener('pageshow', onPageShow);
+  }
   start();
 
   return {
@@ -900,7 +919,16 @@ export function renderLoop(cart, canvas, opts = {}) {
     canvas,
     setExcite(v) { state.excite = clamp(v, 0, 1.4); },
     setWalk(v) { state.walk = clamp(v, 0, 1); },
-    stop() { state.stopped = true; pause(); if (typeof document !== 'undefined') document.removeEventListener('visibilitychange', onVis); }
+    stop() {
+      if (state.stopped) return;
+      state.stopped = true; pause();
+      if (typeof document !== 'undefined') document.removeEventListener('visibilitychange', onVis);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', onResize);
+        window.removeEventListener('pagehide', onPageHide);
+        window.removeEventListener('pageshow', onPageShow);
+      }
+    }
   };
 }
 

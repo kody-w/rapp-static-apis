@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:,">
 <title>rapp·go — the catch (a real throw)</title>
@@ -65,6 +65,8 @@ try {
   .doors{display:none;gap:9px;margin-top:8px}
   .doors.show{display:flex}
   .doors a{flex:1;text-align:center;text-decoration:none;display:block;padding:11px;border-radius:12px;border:1px solid var(--go-line);color:var(--go-fg);font-size:13.5px}
+  .save-actions{display:none;gap:8px}
+  .save-actions button{flex:1}
   details{margin-top:20px;border-top:1px solid var(--go-line);padding-top:12px}
   summary{font-size:12.5px;color:var(--go-dim);cursor:pointer;letter-spacing:.04em}
   #selftest{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;line-height:1.55;white-space:pre-wrap;margin-top:10px;color:var(--go-dim)}
@@ -78,7 +80,7 @@ try {
   <h1><b>rapp</b>·go — the catch</h1>
   <p class="sub">summon one real sky, then throw. the ring hugs the creature at its smallest — release then. a rarer sky shakes twice and breaks free; a rare one can flee and take your vessel. only rarity is fixed (from the genome's content-hash); every wobble is a live crypto roll.</p>
 
-  <div class="stage" id="stage">
+  <div class="stage" id="stage" role="button" tabindex="0" aria-label="throw selected vessel" aria-disabled="true">
     <canvas id="creature" width="300" height="300"></canvas>
     <canvas id="ring" width="300" height="300"></canvas>
     <div class="tierchip" id="tierchip" style="display:none"></div>
@@ -96,8 +98,14 @@ try {
   <div class="lab">offering (optional)</div>
   <div class="pouch" id="aids"></div>
 
-  <div class="note" id="note"></div>
+  <div class="note" id="note" role="status" aria-live="polite" aria-atomic="true"></div>
+  <button class="primary" id="throw-button">throw selected vessel</button>
+  <div class="save-actions" id="save-actions">
+    <button class="primary" id="retry-save">retry saving</button>
+    <button id="discard-save">let it go</button>
+  </div>
   <div class="doors" id="doors">
+    <a id="door-keep">🧺 view keepsake</a>
     <a id="door-talk" target="_blank" rel="noopener">💬 talk to it</a>
     <a id="door-breed" target="_blank" rel="noopener">🧬 breed it</a>
   </div>
@@ -122,7 +130,7 @@ const pouch = { orbs: { dew: 3, standard: 5, bright: 2, storm: 2, dawn: 1 }, aid
 let orbSel = 'standard', aidSel = null;
 
 // ── state ─────────────────────────────────────────────────────────────────────────
-let cart = null, rarity = null, palette = ['#8fb3c9'], busy = false, caught = false, saltActive = false;
+let cart = null, rarity = null, palette = ['#8fb3c9'], busy = false, caught = false, saltActive = false, pendingCatch = null;
 const RC = 300 / 2, CR = 300 * 0.30; // creature centre + nominal radius on the stage canvas
 
 // ── audio (feature-guarded; unlocked by the throw gesture) ─────────────────────────
@@ -146,7 +154,7 @@ function hexA(hex,a){ let h=String(hex).replace('#',''); if(h.length===3)h=h.spl
 
 // ── ring loop ───────────────────────────────────────────────────────────────────
 const rctx = dpr($('ring'));
-let ringOn = false, ringT0 = 0, sparkles = [];
+let ringOn = false, ringT0 = 0, sparkles = [], ringRAF = null;
 function drawRing(now){
   rctx.clearRect(0,0,300,300);
   if(ringOn && !busy){
@@ -161,41 +169,59 @@ function drawRing(now){
     s.x+=s.vx; s.y+=s.vy; }
   sparkles = sparkles.filter(s=>s.life>0);
 }
-function loop(now){ if(creatureCtrl) creatureCtrl.setExcite(glowPulse); drawRing(now); requestAnimationFrame(loop); }
-requestAnimationFrame(loop);
+function loop(now){
+  ringRAF=null;
+  if(creatureCtrl) creatureCtrl.setExcite(glowPulse);
+  drawRing(now);
+  if(!document.hidden&&(ringOn||sparkles.length||glowPulse>0)) ensureRingLoop();
+}
+function ensureRingLoop(){ if(ringRAF==null&&!document.hidden)ringRAF=requestAnimationFrame(loop); }
+function pauseRingLoop(){ if(ringRAF!=null){cancelAnimationFrame(ringRAF);ringRAF=null;} }
+document.addEventListener('visibilitychange',()=>document.hidden?pauseRingLoop():ensureRingLoop());
+addEventListener('pagehide',pauseRingLoop);
+addEventListener('pageshow',ensureRingLoop);
 
 // ── pouch UI ───────────────────────────────────────────────────────────────────
 function renderPouch(){
   const o=$('orbs'); o.innerHTML='';
   for(const k of Object.keys(ORBS)){
     const n = pouch.orbs[k]||0;
-    const d=document.createElement('div'); d.className='orb'+(k===orbSel?' sel':'')+(n<=0?' off':'');
+    const d=document.createElement('button'); d.type='button'; d.className='orb'+(k===orbSel?' sel':'')+(n<=0?' off':'');
+    d.disabled=n<=0;d.setAttribute('aria-pressed',k===orbSel?'true':'false');
     d.innerHTML = `${ORBS[k].label} ·<span class="n"> ${n}</span>`;
-    d.onclick=()=>{ if(n>0){ orbSel=k; renderPouch(); } };
+    d.onclick=()=>{ if(!busy&&n>0){ orbSel=k; renderPouch(); } };
     o.appendChild(d);
   }
   const a=$('aids'); a.innerHTML='';
-  const none=document.createElement('div'); none.className='orb'+(aidSel===null?' sel':''); none.textContent='none';
-  none.onclick=()=>{ aidSel=null; saltActive=false; renderPouch(); }; a.appendChild(none);
+  const none=document.createElement('button'); none.type='button'; none.className='orb'+(aidSel===null?' sel':''); none.textContent='none';none.setAttribute('aria-pressed',aidSel===null?'true':'false');
+  none.onclick=()=>{ if(!busy){ aidSel=null; saltActive=false; renderPouch(); } }; a.appendChild(none);
   for(const k of Object.keys(AIDS)){ if(k==='none')continue;
     const n=pouch.aids[k]||0;
-    const d=document.createElement('div'); d.className='orb'+(k===aidSel?' sel':'')+(n<=0?' off':'');
+    const d=document.createElement('button'); d.type='button'; d.className='orb'+(k===aidSel?' sel':'')+(n<=0?' off':'');d.disabled=n<=0;d.setAttribute('aria-pressed',k===aidSel?'true':'false');
     d.innerHTML=`${AIDS[k].label} ·<span class="n"> ${n}</span>`;
-    d.onclick=()=>{ if(n>0){ aidSel=k; renderPouch(); } }; a.appendChild(d);
+    d.onclick=()=>{ if(!busy&&n>0){ aidSel=k; renderPouch(); } }; a.appendChild(d);
   }
+  $('throw-button').disabled=!cart||busy||caught||(pouch.orbs[orbSel]||0)<=0;
 }
 
 // ── summon a sky → an immutable hologram-cartridge/1.0 ─────────────────────────────
 async function summon(datum, coordText, title){
+  if(busy){ $('note').textContent='finish this throw before summoning another sky.'; return; }
+  if(pendingCatch){
+    $('note').textContent = pendingCatch.saving ? 'still sealing this catch into your basket…' : 'retry this catch or choose “let it go” first.';
+    return;
+  }
   const genome = momentToGenome(datum);
   const id = await genomeId(genome);
   cart = { schema:'hologram-cartridge/1.0', id, title, author:'you', born:{ coord: coordText, from: title }, parents:[], genome, sig:'' };
   rarity = await eggRarity(cart);
   const s = (genome.layers.find(l=>l.role==='surface')||{}).palette; palette = (s&&s.length)?s:['#8fb3c9'];
-  caught=false; saltActive=false; $('doors').classList.remove('show'); $('note').textContent='';
+  caught=false; saltActive=false; $('doors').classList.remove('show'); $('door-keep').removeAttribute('href'); $('note').textContent=''; $('save-actions').style.display='none';
+  $('stage').setAttribute('aria-disabled','false');
   $('tierchip').style.display=''; $('tierchip').textContent = '· '+rarity.tier.toLowerCase()+' · '+(rarity.rarity01).toFixed(2);
   $('hint').textContent = 'tap the creature to throw';
   ringOn=true; ringT0=performance.now(); busy=false;
+  ensureRingLoop();
   if(creatureCtrl) creatureCtrl.stop();
   creatureCtrl = renderLoop(cart, $('creature'), { size:300, background:false, walk:0.4, turn:0.34 });
   renderPouch();
@@ -230,9 +256,13 @@ $('stage').addEventListener('pointerup', e=>{
   if(dist>=8){ const ex=e.offsetX-RC, ey=e.offsetY-RC; hit = Math.hypot(ex,ey) <= CR*1.25; }
   throwOrb(releaseMs, hit);
 });
+$('stage').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&cart&&rarity&&!busy&&!caught){e.preventDefault();throwOrb(RING_MS/2,true);}});
+$('throw-button').onclick=()=>{if(!busy&&!caught)throwOrb(RING_MS/2,true);};
 
 async function throwOrb(releaseMs, hit){
-  if(pouch.orbs[orbSel]<=0){ $('note').textContent='no '+ORBS[orbSel].label+' left — choose another vessel.'; return; }
+  if(!cart||!rarity)return;
+  const thrownCart=cart, thrownRarity=rarity, thrownOrb=orbSel;
+  if(pouch.orbs[thrownOrb]<=0){ $('note').textContent='no '+ORBS[thrownOrb].label+' left — choose another vessel.'; return; }
   const rNow = ringRadius(releaseMs, CR*1.9);
   const ratio = rNow / CR;               // 1.0 = ring hugs the creature
   const q = throwQuality(ratio, hit);
@@ -243,7 +273,7 @@ async function throwOrb(releaseMs, hit){
     ringT0 = performance.now(); return;
   }
   busy=true; ringOn=false; showGrade(q.label);
-  pouch.orbs[orbSel]--;                    // a HIT always consumes one vessel
+  pouch.orbs[thrownOrb]--;                    // a HIT always consumes one vessel
   let aidCatch=1, aidFlee=1, aidKey='none';
   if(aidSel){ aidKey=aidSel; aidCatch=AIDS[aidSel].catch; aidFlee=AIDS[aidSel].flee;
     if(aidSel==='honey'){ pouch.aids.honey--; }               // honey: single-throw
@@ -252,31 +282,60 @@ async function throwOrb(releaseMs, hit){
   renderPouch();
 
   const res = await runCatch(
-    { tier: rarity.tier, orb: orbSel, aidCatch, aidFlee },
+    { tier: thrownRarity.tier, orb: thrownOrb, aidCatch, aidFlee },
     {
       onWobble:(i)=>{ glowPulse=1; setTimeout(()=>glowPulse=0.35,120); haptic(40); beep(520+i*90,0.06,0.04); },
       onBreak:(shakes)=>{ glowPulse=0; whiteBurst(); $('note').textContent = shakes? `it shook ${shakes}× — then broke free!` : 'it broke free instantly!'; },
       onFlee: ()=>{ greyPuff(); }
     }
   );
+  if(cart!==thrownCart){ busy=false; return; }
   window.__lastRoll = res;
   // terminal resolution (after the wobble timeline)
-  if(res.caught){ await onCaught(orbSel, aidKey, q.label, res.shakes); }
+  if(res.caught){ await onCaught(thrownCart, thrownRarity, thrownOrb, aidKey, q.label, res.shakes); }
   else if(res.fled){ endFlee(); }
-  else { busy=false; ringOn=true; ringT0=performance.now(); } // break-free → throw again
+  else { busy=false; ringOn=true; ringT0=performance.now(); renderPouch(); } // break-free → throw again
 }
 
-async function onCaught(orb, aidKey, throwLabel, shakes){
-  caught=true; busy=true; ringOn=false;
+async function onCaught(caughtCart, caughtRarity, orb, aidKey, throwLabel, shakes){
+  caught=true; busy=true; ringOn=false; glowPulse=0;
   catchSparkle();
-  const rec = await mintCaught(cart, { geohash: (cart.born.coord||'').split('\u00b7')[0], tier: rarity.tier, orb, aid: aidKey, throwLabel, wobbles: shakes })
-    .catch(e=>{ console.warn('mint failed (kept in memory):', e); return null; });
-  $('note').textContent = 'kept — a real sky, pressed like a flower.' + (rec&&rec.idVerified===false?' (id check: mismatch!)':'');
-  $('door-talk').href = talkHref(cart); $('door-breed').href = breedHref(cart);
+  pendingCatch = {
+    cart:caughtCart,
+    saving: false,
+    meta: { at:Date.now(), geohash:(caughtCart.born.coord||'').split('\u00b7')[0], tier:caughtRarity.tier, orb, aid:aidKey, throwLabel, wobbles:shakes }
+  };
+  await saveCaught();
+}
+async function saveCaught(){
+  const pending = pendingCatch;
+  if(!pending || pending.saving)return;
+  pending.saving=true; $('save-actions').style.display='none'; $('retry-save').disabled=true;
+  $('note').textContent='caught — sealing it into your basket…';
+  let rec;
+  try{ rec=await mintCaught(pending.cart,pending.meta); }
+  catch(e){
+    pending.saving=false; console.error('caught creature could not be saved:',e);
+    if(pendingCatch!==pending)return;
+    $('note').textContent='caught, but the basket could not save it. retry before summoning another sky.';
+    $('retry-save').disabled=false; $('save-actions').style.display='flex';
+    return;
+  }
+  if(pendingCatch!==pending)return;
+  pending.saving=false; pendingCatch=null; busy=false; $('save-actions').style.display='none';
+  $('note').textContent='kept — a real sky, pressed like a flower.';
+  $('door-keep').href='../hologram/index.html#kept='+encodeURIComponent(rec.id);
+  $('door-talk').href=talkHref(rec.egg); $('door-breed').href=breedHref(rec.egg);
   $('doors').classList.add('show');
   beep(660,0.12,0.05); setTimeout(()=>beep(880,0.14,0.05),120); setTimeout(()=>beep(990,0.16,0.05),260);
 }
-function endFlee(){ caught=true; busy=true; ringOn=false; $('note').textContent='it fled — and took your vessel. that exact sky won\u2019t return.'; $('tierchip').style.display='none'; }
+$('retry-save').onclick=saveCaught;
+$('discard-save').onclick=()=>{
+  if(!pendingCatch || pendingCatch.saving)return;
+  pendingCatch=null; busy=false; $('save-actions').style.display='none';
+  $('note').textContent='the unsaved catch was let go — summon another sky when you are ready.';
+};
+function endFlee(){ caught=true; busy=false; ringOn=false; glowPulse=0; $('note').textContent='it fled — and took your vessel. that exact sky won\u2019t return.'; $('tierchip').style.display='none'; }
 
 function showGrade(label){ const g=$('grade'); g.textContent=label; g.classList.add('show'); setTimeout(()=>g.classList.remove('show'),900); }
 function catchSparkle(){ for(let i=0;i<22;i++){ const a=Math.random()*7, sp=2+Math.random()*3; sparkles.push({x:RC,y:RC,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,r:1.5+Math.random()*2,life:1,c:hexA(palette[i%palette.length],0.9)}); } }

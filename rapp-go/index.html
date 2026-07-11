@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:,">
 <link rel="manifest" href="manifest.webmanifest">
@@ -53,7 +53,7 @@ try {
     display:flex; flex-direction:column; gap:6px; align-items:flex-end;
   }
   .chip{
-    font-size:11.5px; padding:5px 10px; border-radius:999px;
+    font:inherit;font-size:11.5px; padding:5px 10px; border-radius:999px;
     background:var(--go-panel); border:1px solid var(--go-line); color:var(--go-fg);
     backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
     max-width:72vw; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
@@ -61,6 +61,11 @@ try {
   .chip.warn{color:#b6862a} .chip.muted{color:var(--go-dim)}
   .chip.tap{cursor:pointer; pointer-events:auto}
   :root[data-theme="dark"] .chip.warn{color:#e5b567}
+  #nearby{position:fixed;left:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 76px);z-index:7;width:min(280px,72vw);
+    background:var(--go-panel);border:1px solid var(--go-line);border-radius:14px;padding:7px;backdrop-filter:blur(10px)}
+  #nearby summary{cursor:pointer;font-size:11px;color:var(--go-dim);letter-spacing:.08em;text-transform:lowercase}
+  #nearby-list{display:flex;flex-direction:column;gap:5px;margin-top:6px;max-height:32vh;overflow:auto}
+  #nearby-list button{font:inherit;font-size:12px;text-align:left;padding:8px 9px;border-radius:9px;border:1px solid var(--go-line);background:transparent;color:var(--go-fg);cursor:pointer}
 
   /* bottom sheets (encounter + place) */
   .sheet{
@@ -71,10 +76,12 @@ try {
     box-shadow:0 -12px 48px rgba(0,0,0,0.28);
     transition:transform .42s cubic-bezier(.22,.61,.36,1);
     padding:14px 18px calc(env(safe-area-inset-bottom,0) + 18px);
+    max-height:calc(100dvh - env(safe-area-inset-top,0px) - 12px);
+    overflow-y:auto;overscroll-behavior:contain;
   }
   .sheet.open{transform:translate(-50%,0)}
   .sheet .grip{width:36px;height:4px;border-radius:999px;background:var(--go-line);margin:2px auto 8px}
-  .sheet .close{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--go-dim);font-size:20px;cursor:pointer;line-height:1;padding:4px}
+  .sheet .close,#bag .close{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--go-dim);font-size:20px;cursor:pointer;line-height:1;padding:4px}
   .enc-stage{position:relative;display:flex;justify-content:center;align-items:center;height:224px;touch-action:none}
   #creature,#enc-ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:224px;height:224px;display:block}
   #enc-ring{pointer-events:none}
@@ -85,7 +92,7 @@ try {
   .enc-rarity{font-size:11px;text-align:center;letter-spacing:0.14em;text-transform:lowercase;margin:0 0 8px}
   .lab{font-size:10.5px;letter-spacing:.12em;text-transform:lowercase;color:var(--go-dim);margin:8px 2px 3px}
   .pouch{display:flex;gap:6px;flex-wrap:wrap}
-  .orb{font-size:12px;padding:6px 9px;border-radius:10px;border:1px solid var(--go-line);background:transparent;cursor:pointer;user-select:none;white-space:nowrap}
+  .orb{font:inherit;font-size:12px;padding:6px 9px;border-radius:10px;border:1px solid var(--go-line);background:transparent;color:var(--go-fg);cursor:pointer;user-select:none;white-space:nowrap}
   .orb.sel{border-color:var(--go-accent);box-shadow:0 0 0 1px var(--go-accent) inset}
   .orb.off{opacity:.4;pointer-events:none}
   .orb .n{color:var(--go-dim)}
@@ -119,7 +126,7 @@ try {
   #bag{position:fixed;left:50%;bottom:0;transform:translate(-50%,110%);width:min(440px,100vw);z-index:11;
     background:var(--go-panel);border:1px solid var(--go-line);border-bottom:none;border-radius:20px 20px 0 0;
     backdrop-filter:blur(16px);box-shadow:0 -12px 48px rgba(0,0,0,.28);transition:transform .42s cubic-bezier(.22,.61,.36,1);
-    padding:14px 18px calc(env(safe-area-inset-bottom,0) + 18px)}
+    padding:14px 18px calc(env(safe-area-inset-bottom,0) + 18px);max-height:calc(100dvh - env(safe-area-inset-top,0px) - 12px);overflow-y:auto;overscroll-behavior:contain}
   #bag.open{transform:translate(-50%,0)}
   #bag h2{font-size:14px;font-weight:600;text-transform:lowercase;margin:2px 0 2px;text-align:center}
   #bag .cap{font-size:11px;color:var(--go-dim);text-align:center;margin:0 0 10px}
@@ -143,22 +150,37 @@ try {
   }
   #invite h1{font-size:16px;font-weight:600;margin:0 0 6px;text-transform:lowercase}
   #invite p{font-size:13px;color:var(--go-dim);margin:0 0 14px;line-height:1.5}
-  #invite button{font-family:inherit;font-size:14px;padding:11px 18px;border-radius:12px;border:1px solid var(--go-line);background:transparent;color:var(--go-fg);cursor:pointer}
+  #invite .actions{display:flex;flex-direction:column;gap:8px}
+  #invite button,#invite a{font-family:inherit;font-size:14px;padding:11px 18px;border-radius:12px;border:1px solid var(--go-line);background:transparent;color:var(--go-fg);cursor:pointer;text-decoration:none}
+  #invite a{font-size:12.5px;color:var(--go-dim)}
+  .save-actions{display:none;gap:8px;margin-top:8px}
+  .save-actions.show{display:flex}
+  .save-actions button{flex:1}
+  #sheet.pending-save{z-index:22}
+  .rappgo-nav.pending-catch{opacity:.45}
+  .rappgo-nav.surface-open{opacity:0;pointer-events:none}
 </style>
 </head>
 <body>
   <canvas id="map"></canvas>
   <div id="brand"><b>rapp</b>·go</div>
   <div id="chips"></div>
+  <details id="nearby">
+    <summary>nearby places and creatures</summary>
+    <div id="nearby-list"></div>
+  </details>
 
   <div id="invite"><div class="card">
-    <h1>catch the sky where you stand</h1>
-    <p>rapp·go grows a creature from the real weather of the exact place you walk to. share your location to begin — or add <code>?fix=lat,lng</code> to the url.</p>
-    <button id="invite-btn">share my location</button>
+    <h1 id="invite-title">catch the sky where you stand</h1>
+    <p id="invite-copy">rapp·go grows a creature from the real weather of the exact place you walk to. share your location to begin.</p>
+    <div class="actions">
+      <button id="invite-btn">share my location</button>
+      <a id="invite-demo" href="./?demo=1">open the offline demo sky</a>
+    </div>
   </div></div>
 
   <!-- encounter sheet -->
-  <div id="sheet" class="sheet" aria-hidden="true">
+  <div id="sheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="enc-title" aria-hidden="true" tabindex="-1" inert>
     <div class="grip"></div>
     <button class="close" id="enc-close" aria-label="let it be">×</button>
     <div class="enc-stage" id="enc-stage">
@@ -177,7 +199,12 @@ try {
       <div class="pouch" id="enc-aids"></div>
     </div>
     <div class="enc-hint" id="enc-hint">tap the creature to throw</div>
-    <div class="enc-note" id="enc-note"></div>
+    <button class="act primary" id="enc-throw">throw selected vessel</button>
+    <div class="enc-note" id="enc-note" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="save-actions" id="enc-save-actions">
+      <button class="act primary" id="enc-retry-save">retry saving</button>
+      <button class="act" id="enc-discard-save">let it go</button>
+    </div>
 
     <div class="doors" id="enc-doors">
       <a class="act" id="door-keep" href="#">◍ keep — it's in your basket</a>
@@ -190,22 +217,23 @@ try {
   </div>
 
   <!-- place (POI) sheet -->
-  <div id="poi-sheet" class="sheet" aria-hidden="true">
+  <div id="poi-sheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="poi-name" aria-hidden="true" tabindex="-1" inert>
     <div class="grip"></div>
     <button class="close" id="poi-close" aria-label="close">×</button>
     <div class="enc-title" id="poi-name">a place</div>
     <div class="poi-kindline" id="poi-kind"></div>
     <div class="poi-drops" id="poi-drops"></div>
-    <div class="enc-note" id="poi-note"></div>
+    <div class="enc-note" id="poi-note" role="status" aria-live="polite" aria-atomic="true"></div>
     <button class="act primary" id="poi-spin">spin this place</button>
     <button class="act" id="poi-lure" style="margin-top:10px;display:none">✧ place a lure (quicken it)</button>
     <div class="attrib">© OpenStreetMap contributors</div>
   </div>
 
   <!-- bag drawer -->
-  <div id="bag" aria-hidden="true">
+  <div id="bag" role="dialog" aria-modal="true" aria-labelledby="bag-title" aria-hidden="true" tabindex="-1" inert>
     <div class="grip"></div>
-    <h2>your bag</h2>
+    <button class="close" id="bag-close" aria-label="close bag">×</button>
+    <h2 id="bag-title">your bag</h2>
     <div class="cap" id="bag-cap"></div>
     <div class="bag-grid" id="bag-grid"></div>
   </div>
@@ -215,12 +243,12 @@ import { TileMap } from './tilemap.js';
 import { SpawnField, RARITY, setFaunaClock } from './spawn.js';
 import { renderLoop, faunaPath, atlasMemoryBytes } from './lib/fauna.js';
 import { b64enc } from './lib/genome.js';
-import { skyCacheKey } from './lib/weather.js';
-import { eggRarity, throwQuality, ringRadius, runCatch, mintCaught, talkHref, breedHref } from './catch.js';
+import { BUCKET_MS, skyCacheKey } from './lib/weather.js';
+import { eggRarity, throwQuality, ringRadius, runCatch, mintCaught, talkHref, breedHref, RING_MS } from './catch.js';
 import * as poi from './poi.js';
 import { mountNav } from './lib/nav.js';
 // GO-LIVE §C/§D/§E — onboarding, the starter ceremony, and the share layer
-import { maybeOnboard, onboarded, starterCeremony, shareCaught, receiveEgg, receivePanel, tip } from './onboard.js';
+import { maybeOnboard, onboarded, starterCeremony, shareCaught, receiveEgg, cancelReceiveEgg, receivePanel, tip } from './onboard.js';
 
 const $ = id => document.getElementById(id);
 const params = new URLSearchParams(location.search);
@@ -229,6 +257,12 @@ const TAU = Math.PI * 2;
 // ── ?demo=1 — deterministic offline demo: fake POIs + seeded sky + starter bag,
 //    zero network / zero GPS, so the whole gather↔catch loop is reviewable ────────
 const DEMO = params.get('demo') === '1';
+const DEMO_ECONOMY_STORAGE = {
+  values:new Map(),
+  getItem(key){ return this.values.has(key) ? this.values.get(key) : null; },
+  setItem(key,value){ this.values.set(key,String(value)); }
+};
+if (DEMO) poi.configure({ noNetwork:true, storageImpl:DEMO_ECONOMY_STORAGE });
 
 // ── time source: ?t pins the 30-min bucket so spawns are reproducible for review ──
 let FIXED_T = params.has('t') ? Number(params.get('t')) : null;
@@ -269,12 +303,12 @@ setFaunaClock(now());
 
 // ── first-run / demo bag (Pokémon-Go-style starter vessels so the loop is enterable;
 //    once you spin real places the economy takes over) ─────────────────────────────
-if (!LS.get('rapp-go.started')) { poi.seedInventory({ 'vessel.glass': 20, 'vessel.dew': 3, 'offering.salt': 3 }); LS.set('rapp-go.started', 1); }
+if (!DEMO && !LS.get('rapp-go.started')) { poi.seedInventory({ 'vessel.glass': 20, 'vessel.dew': 3, 'offering.salt': 3 }); LS.set('rapp-go.started', 1); }
 
 // ── demo setup: seed the weather cache (offline creature), inject fake POIs ───────
 const DEMO_POIS = [];
 if (DEMO) {
-  poi.configure({ noNetwork: true });
+  poi.configure({ noNetwork: true, storageImpl:DEMO_ECONOMY_STORAGE });
   const c = startCenter;
   // seed this bucket's sky for the player's ~5km region so fetchSky never hits network
   try {
@@ -296,24 +330,57 @@ let playerPos = null;                 // {lat,lng,accuracy}
 const spawns = new Map();             // key -> Spawn (also a map marker)
 const suppress = new Set();           // caught this session + fled-this-bucket (key embeds bucket)
 const cooldown = new Set();           // shown-and-closed until player leaves REARM_M
-let current = null;                   // { spawn, rarity, orbSel, aidSel, saltActive, resolved }
+let current = null;                   // active encounter; async throws are scoped to this object
 let lastCaught = null;                // { cart, place } — feeds the share door (§E.2)
 let lastRefresh = { bucket: null, lat: null, lng: null };
 let poiList = [];                     // known POIs near the player (spawn anchors)
 const poiMarkers = new Set();         // poi ids currently on the map
 let currentPoi = null;                // the POI open in the place sheet
+let locationRecoveryChip = null;      // persists across spawn/weather chip refreshes
+let roomNav = null, pendingNavOwner = null, updateReady = false;
+let liveFixAt = 0, locationEpoch = 0, bucketRefreshTimer = null, lureRefreshTimer = null;
+let surfaceOpener = null;
 
-const ENCOUNTER_M = 25, REARM_M = 40;
+const ENCOUNTER_M = 25, REARM_M = 40, FIX_LEASE_MS = 2 * 60 * 1000;
+function openDialogSurface(surface){
+  surfaceOpener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  surface.inert = false;
+  surface.classList.add('open');
+  surface.setAttribute('aria-hidden','false');
+  queueMicrotask(()=>surface.focus());
+  syncRoomNavSurface();
+}
+function closeDialogSurface(surface){
+  surface.classList.remove('open');
+  surface.setAttribute('aria-hidden','true');
+  surface.inert = true;
+  syncRoomNavSurface();
+  const opener=surfaceOpener;surfaceOpener=null;
+  const fallback=document.querySelector('#nearby summary');
+  const openerFocusable=opener&&opener.isConnected&&opener!==document.body&&opener.tabIndex>=0;
+  queueMicrotask(()=>{if(openerFocusable)opener.focus();else if(fallback)fallback.focus();});
+}
 
 // ── chips ────────────────────────────────────────────────────────────────────────
 function setChips(list){
   const c = $('chips'); c.innerHTML = '';
-  for (const it of list){
-    const d = document.createElement('div');
+  const items = updateReady
+    ? [{ text:'update ready · tap when safe', kind:'muted', onTap:applyReadyUpdate }, ...list.filter(item => !item.text.startsWith('update ready'))]
+    : list;
+  for (const it of items){
+    const d = document.createElement(it.onTap ? 'button' : 'div');
+    if (it.onTap) d.type = 'button';
     d.className = 'chip' + (it.kind ? ' ' + it.kind : '') + (it.onTap ? ' tap' : '');
     d.textContent = it.text;
     if (it.onTap) d.addEventListener('click', it.onTap);
     c.appendChild(d);
+  }
+  function applyReadyUpdate(){
+    if (current || pendingNavOwner) {
+      if (current) $('enc-note').textContent = 'finish or leave this encounter before updating.';
+      return;
+    }
+    location.reload();
   }
 }
 function skyChip(){
@@ -327,6 +394,7 @@ function bagChip(){ return { text: '\u25c7 bag \u00b7 ' + poi.bagCount(), kind: 
 function themeChip(){ return { text: theme() === 'dark' ? '\u263e' : '\u2600', kind: 'muted', onTap: () => setTheme(theme() === 'dark' ? 'light' : 'dark') }; }
 function refreshChips(extra){
   const chips = []; if (extra) for (const e of extra) chips.push(e);
+  if (locationRecoveryChip) chips.push(locationRecoveryChip);
   const sc = skyChip(); if (sc) chips.push(sc);
   chips.push(bagChip());
   chips.push(themeChip());
@@ -340,19 +408,71 @@ function haversineM(a, b){
   const s = Math.sin(dLat/2)**2 + Math.cos(toR(a.lat))*Math.cos(toR(b.lat))*Math.sin(dLng/2)**2;
   return 2*R*Math.asin(Math.sqrt(s));
 }
+function hasFreshFix(){
+  return !!playerPos && (DEMO || !!FIX || (liveFixAt > 0 && Date.now() - liveFixAt <= FIX_LEASE_MS));
+}
+function encounterGate(sp){
+  if (!playerPos) return { ok:false, reason:'find your location before approaching this creature.' };
+  if (!hasFreshFix()) return { ok:false, reason:'your location is stale — update it before approaching.' };
+  const distanceM = haversineM(playerPos, sp);
+  if (!DEMO && !FIX && distanceM > ENCOUNTER_M) {
+    return { ok:false, distanceM, reason:`walk ${Math.ceil(distanceM - ENCOUNTER_M)}m closer to meet it.` };
+  }
+  return { ok:true, distanceM };
+}
+function renderNearby(){
+  const host = $('nearby-list');
+  if (!host) return;
+  host.innerHTML = '';
+  if (!playerPos) {
+    const empty=document.createElement('div');empty.className='chip muted';empty.textContent='waiting for a location';host.appendChild(empty);return;
+  }
+  const actions = [];
+  for (const p of poiList) {
+    const distanceM = haversineM(playerPos,p);
+    if (distanceM > 800) continue;
+    const status = poi.poiStatus(p,playerPos);
+    actions.push({ distanceM, label:`${p.name || 'a place'} · ${Math.round(distanceM)}m · ${status.ready?'ready':'resting'}`, activate:()=>openPoi(p) });
+  }
+  for (const spawn of spawns.values()) {
+    const distanceM = haversineM(playerPos,spawn);
+    actions.push({ distanceM, label:`${spawn.species.family} creature · ${Math.round(distanceM)}m`, activate:()=>openEncounter(spawn) });
+  }
+  actions.sort((a,b)=>a.distanceM-b.distanceM).slice(0,10).forEach(action=>{
+    const button=document.createElement('button');button.type='button';button.textContent=action.label;button.addEventListener('click',action.activate);host.appendChild(button);
+  });
+  if (!host.children.length) { const empty=document.createElement('div');empty.className='chip muted';empty.textContent='nothing nearby yet';host.appendChild(empty); }
+}
 
 // ── POIs → anchors + map markers with a refill arc ───────────────────────────────
 const KIND_COLOR = { water:'#7fd4ff', nature:'#8fd39a', landmark:'#c9a6ff', worship:'#ffd27f', civic:'#9fb4d0', seat:'#b8bcc4' };
 function hexA(hex,a){ let h=String(hex).replace('#',''); if(h.length===3)h=h.split('').map(c=>c+c).join(''); const n=parseInt(h,16); return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`; }
 
-let refreshingPOI = false;
-async function refreshPOIs(force){
-  if (!playerPos || refreshingPOI) return;
-  refreshingPOI = true;
-  try { poiList = await poi.refreshPOIs(playerPos.lat, playerPos.lng); }
-  catch(e){ console.warn('poi refresh failed', e); poiList = poi.knownPOIs(); }
-  refreshingPOI = false;
-  syncPoiMarkers();
+let poiRefreshPending = null, poiRefreshPromise = null, poiRefreshVersion = 0, lastPoiAppliedPos = null;
+function refreshPOIs(force){
+  if (!playerPos || !hasFreshFix()) return Promise.resolve();
+  if (!force && lastPoiAppliedPos && haversineM(playerPos, lastPoiAppliedPos) < 60) return Promise.resolve();
+  poiRefreshPending = { version: ++poiRefreshVersion, epoch: locationEpoch, pos: { lat: playerPos.lat, lng: playerPos.lng } };
+  if (!poiRefreshPromise) {
+    poiRefreshPromise = drainPoiRefreshes().finally(() => {
+      poiRefreshPromise = null;
+      if (poiRefreshPending) refreshPOIs(true);
+    });
+  }
+  return poiRefreshPromise;
+}
+async function drainPoiRefreshes(){
+  while (poiRefreshPending) {
+    const req = poiRefreshPending;
+    poiRefreshPending = null;
+    let list;
+    try { list = await poi.refreshPOIs(req.pos.lat, req.pos.lng); }
+    catch(e){ console.warn('poi refresh failed', e); list = poi.knownPOIs(); }
+    if (req.version !== poiRefreshVersion || req.epoch !== locationEpoch || !hasFreshFix()) continue;
+    poiList = list;
+    lastPoiAppliedPos = req.pos;
+    syncPoiMarkers();
+  }
 }
 function syncPoiMarkers(){
   const near = poiList.filter(p => playerPos && haversineM(playerPos, p) < 800);
@@ -368,9 +488,11 @@ function syncPoiMarkers(){
   for (const id of [...poiMarkers]){
     if (!seen.has(id)){ poiMarkers.delete(id); map.removeMarker('poi:' + id); }
   }
+  renderNearby();
 }
 function drawPoiMarker(ctx, s, p){
   const st = poi.poiStatus(p, playerPos);
+  const playable = hasFreshFix();
   const col = KIND_COLOR[p.kind] || '#9fb4d0';
   const R = 13;
   // soft ground glow
@@ -387,26 +509,37 @@ function drawPoiMarker(ctx, s, p){
     ctx.lineWidth = 2.5; ctx.strokeStyle = hexA(col, 0.85); ctx.stroke();
   }
   // centre dot (brighter when in range + ready)
-  ctx.beginPath(); ctx.arc(s.x, s.y, st.inRange && st.ready ? 4.5 : 3, 0, TAU);
+  ctx.beginPath(); ctx.arc(s.x, s.y, playable && st.inRange && st.ready ? 4.5 : 3, 0, TAU);
   ctx.fillStyle = hexA(col, st.ready ? 0.95 : 0.5); ctx.fill();
   // lured sparkle
   if (st.lured){ ctx.beginPath(); ctx.arc(s.x, s.y, R + 4, 0, TAU); ctx.lineWidth = 1; ctx.strokeStyle = hexA('#ffffff', 0.5); ctx.stroke(); }
 }
 
 // ── spawn reconciliation (POI-anchored cells get +1 rarity + always spawn) ────────
-let refreshing = false, refreshQueuedForce = false;
+let refreshing = false, refreshQueuedForce = false, spawnRefreshEpoch = 0;
 async function refreshSpawns(force){
-  if (!playerPos) return;
-  if (refreshing){ if (force) refreshQueuedForce = true; return; } // re-run after the in-flight pass
+  if (!playerPos || !hasFreshFix()) return;
+  if (refreshing){ if (force || locationEpoch !== spawnRefreshEpoch) refreshQueuedForce = true; return; }
+  const epoch = locationEpoch;
+  spawnRefreshEpoch = epoch;
+  const pos = { lat: playerPos.lat, lng: playerPos.lng, accuracy: playerPos.accuracy };
   const bucket = Math.floor(now() / (30*60*1000));
-  const moved = lastRefresh.lat == null ? Infinity : haversineM(playerPos, { lat: lastRefresh.lat, lng: lastRefresh.lng });
+  const moved = lastRefresh.lat == null ? Infinity : haversineM(pos, { lat: lastRefresh.lat, lng: lastRefresh.lng });
   if (!force && bucket === lastRefresh.bucket && moved < 60 && spawns.size) return;
   refreshing = true;
   const anchors = poiList.map(p => ({ lat: p.lat, lng: p.lng }));
+  const lures = poi.activeLures().filter(lure => lure.poi);
+  const wildpool = DEMO ? [] : (LS.get('rapp-go.wildpool') || []);
+  scheduleLureExpiry(lures);
   let list = [];
-  try { list = await field.update(playerPos, { nowMs: now(), poiAnchors: anchors }); }
+  try { list = await field.update(pos, { nowMs: now(), poiAnchors: anchors, lures, wildpool }); }
   catch(e){ console.warn('spawn update failed', e); refreshing = false; return; }
-  lastRefresh = { bucket, lat: playerPos.lat, lng: playerPos.lng };
+  if (epoch !== locationEpoch || !hasFreshFix()) {
+    refreshing = false;
+    if (refreshQueuedForce){ refreshQueuedForce = false; return refreshSpawns(true); }
+    return;
+  }
+  lastRefresh = { bucket, lat: pos.lat, lng: pos.lng };
 
   const seen = new Set();
   for (const sp of list){
@@ -425,6 +558,7 @@ async function refreshSpawns(force){
     }
   }
   refreshChips();
+  renderNearby();
   refreshing = false;
   if (refreshQueuedForce){ refreshQueuedForce = false; return refreshSpawns(true); } // apply anchors that arrived mid-pass
   checkProximity();
@@ -432,7 +566,7 @@ async function refreshSpawns(force){
 
 // ── proximity → encounter (25m enter, 40m re-arm) ─────────────────────────────────
 function checkProximity(){
-  if (current || !playerPos) return;
+  if (current || document.querySelector('.sheet.open,#bag.open') || !playerPos || !hasFreshFix()) return;
   for (const k of [...cooldown]){ const sp = spawns.get(k); if (!sp || haversineM(playerPos, sp) > REARM_M) cooldown.delete(k); }
   let best = null, bd = Infinity;
   for (const sp of spawns.values()){
@@ -472,17 +606,26 @@ function startCreatureRender(cart){
 function stopCreatureRender(){ if (creatureCtrl){ creatureCtrl.stop(); creatureCtrl = null; } if (ringRAF){ cancelAnimationFrame(ringRAF); ringRAF = null; } }
 
 async function openEncounter(sp){
-  current = { spawn: sp, rarity: null, orbSel: null, aidSel: null, saltActive: false, resolved: false };
+  if (cooldown.has(sp.key)) { tip('encounter-resting','leave it a little space before meeting it again.'); return false; }
+  if (sp.lureExpiresAt && sp.lureExpiresAt <= Date.now()) { refreshSpawns(true); return false; }
+  const gate = encounterGate(sp);
+  if (!gate.ok) { tip('encounter-range', gate.reason); return false; }
+  current = { spawn: sp, rarity: null, orbSel: null, aidSel: null, saltActive: false, resolved: false, throwToken: null, pendingCatch: null };
   const rar = RARITY[sp.rarity] || RARITY.common;
   $('enc-title').textContent = (sp.cart.title || 'a sky').toLowerCase();
   $('enc-from').textContent = sp.cart.born.from;
   $('enc-note').textContent = '';
+  $('door-keep').href = '#';
+  $('door-keep').textContent = '◍ keep — it\u2019s in your basket';
+  $('enc-save-actions').classList.remove('show');
+  $('enc-retry-save').disabled = false;
   $('enc-doors').classList.remove('show');
   $('enc-kit').style.display = '';
   $('enc-hint').textContent = 'tap the creature to throw';
   sparkles = []; glowPulse = 0; ringOn = true; ringT0 = performance.now();
+  $('enc-grade').classList.remove('show');
   startCreatureRender(sp.cart);
-  const sh = $('sheet'); sh.classList.add('open'); sh.setAttribute('aria-hidden','false');
+  const sh = $('sheet'); openDialogSurface(sh);
   // the honest catch tier is a pure function of the genome content-hash (catch.js)
   const eg = await eggRarity(sp.cart);
   if (!current || current.spawn !== sp) return;
@@ -492,9 +635,23 @@ async function openEncounter(sp){
   renderPouch();
 }
 function closeEncounter(caught){
-  const sh = $('sheet'); sh.classList.remove('open'); sh.setAttribute('aria-hidden','true');
+  if (current && current.throwToken) {
+    $('enc-note').textContent = 'the throw is still settling…';
+    return;
+  }
+  if (current && current.pendingCatch && current.pendingCatch.saving) {
+    $('enc-note').textContent = 'still sealing this catch into your basket…';
+    return;
+  }
+  if (current && current.pendingCatch && current.pendingCatch.failed) {
+    $('enc-note').textContent = 'this catch is not saved — retry it or choose “let it go”.';
+    return;
+  }
+  const sh = $('sheet'); closeDialogSurface(sh);
+  setCatchNavigationBlocked(current, false);
   stopCreatureRender(); ringOn = false;
   if (current && !caught && !current.resolved) cooldown.add(current.spawn.key);
+  encDown = null;
   current = null;
 }
 
@@ -507,105 +664,219 @@ function renderPouch(){
   const o = $('enc-orbs'); o.innerHTML = '';
   if (!vessels.length){ const d = document.createElement('div'); d.className='orb off'; d.textContent='no vessels — spin a place'; o.appendChild(d); }
   for (const id of vessels){ const it = poi.ITEMS[id];
-    const d = document.createElement('div'); d.className = 'orb' + (id===current.orbSel?' sel':'');
+    const d = document.createElement('button'); d.type='button'; d.className = 'orb' + (id===current.orbSel?' sel':'');
+    d.setAttribute('aria-pressed', id===current.orbSel ? 'true' : 'false');
     d.innerHTML = `${it.glyph} ${it.name.replace(' vessel','')} ·<span class="n"> ${inv[id]}</span>`;
     d.onclick = () => { current.orbSel = id; renderPouch(); }; o.appendChild(d);
   }
   const offerings = ['offering.salt','offering.honey'].filter(id => (inv[id]|0) > 0);
   const a = $('enc-aids'); a.innerHTML = '';
-  const none = document.createElement('div'); none.className='orb'+(current.aidSel==null?' sel':''); none.textContent='none';
+  const none = document.createElement('button'); none.type='button'; none.className='orb'+(current.aidSel==null?' sel':''); none.textContent='none';
+  none.setAttribute('aria-pressed', current.aidSel==null?'true':'false');
   none.onclick = () => { current.aidSel = null; renderPouch(); }; a.appendChild(none);
   for (const id of offerings){ const it = poi.ITEMS[id];
-    const d = document.createElement('div'); d.className='orb'+(id===current.aidSel?' sel':'');
+    const d = document.createElement('button'); d.type='button'; d.className='orb'+(id===current.aidSel?' sel':'');
+    d.setAttribute('aria-pressed', id===current.aidSel?'true':'false');
     d.innerHTML = `${it.glyph} ${it.name} ·<span class="n"> ${inv[id]}</span>`;
     d.onclick = () => { current.aidSel = id; renderPouch(); }; a.appendChild(d);
   }
-  $('enc-hint').textContent = current.orbSel ? 'tap the creature to throw' : 'no vessels — spin a nearby place to gather';
+  $('enc-hint').textContent = current.orbSel ? 'tap the creature or use the throw button' : 'no vessels — spin a nearby place to gather';
+  $('enc-throw').disabled = !current.orbSel || !!current.throwToken || current.resolved;
 }
 
 // the throw gesture on the stage: tap = auto-true aim; flick must land in the creature
 let encDown = null;
-$('enc-stage').addEventListener('pointerdown', e => { if (!current || current.resolved || busyThrow) return; encDown = { x:e.offsetX, y:e.offsetY }; });
+$('enc-stage').addEventListener('pointerdown', e => { if (!current || current.resolved || current.throwToken) return; encDown = { x:e.offsetX, y:e.offsetY }; });
 $('enc-stage').addEventListener('pointerup', e => {
-  if (!current || current.resolved || busyThrow || !encDown) return;
+  if (!current || current.resolved || current.throwToken || !encDown) return;
   const dx = e.offsetX - encDown.x, dy = e.offsetY - encDown.y, dist = Math.hypot(dx,dy);
   const releaseMs = performance.now() - ringT0; encDown = null;
   let hit = true;
   if (dist >= 8){ const ex = e.offsetX - ENC_CX, ey = e.offsetY - ENC_CX; hit = Math.hypot(ex,ey) <= ENC_R*1.25; } // 1.25× forgiving
   attemptThrow(releaseMs, hit);
 });
+$('enc-throw').addEventListener('click', () => attemptThrow(RING_MS / 2, true));
 
-let busyThrow = false;
+function activeThrow(encounter, token){
+  return current === encounter && encounter.throwToken === token;
+}
+
 async function attemptThrow(releaseMs, hit){
-  if (!current || !current.rarity) return;
-  const orb = current.orbSel;
+  const encounter = current;
+  if (!encounter || !encounter.rarity || encounter.throwToken) return;
+  if (encounter.spawn.lureExpiresAt && encounter.spawn.lureExpiresAt <= Date.now()) {
+    tip('lure-expired', 'the lure faded before the throw.');
+    closeEncounter(true);
+    refreshSpawns(true);
+    return;
+  }
+  const gate = encounterGate(encounter.spawn);
+  if (!gate.ok) { $('enc-note').textContent = gate.reason; return; }
+  const orb = encounter.orbSel;
   if (!orb || (poi.getInventory()[orb]|0) <= 0){ $('enc-note').textContent = 'no vessel to throw — spin a nearby place.'; return; }
   const ratio = ringRadius(releaseMs, ENC_R*1.9) / ENC_R;
   const q = throwQuality(ratio, hit);
   if (!q.hit){ showGrade('wide'); $('enc-note').textContent = 'wide — the vessel bounced back (nothing spent).'; ringT0 = performance.now(); return; }
 
-  busyThrow = true; ringOn = false; showGrade(q.label);
-  // a HIT always consumes one vessel
-  poi.spendItem(orb, 1);
+  const token = {};
+  encounter.throwToken = token;
+  $('sheet').setAttribute('aria-busy','true');
+  ringOn = false; showGrade(q.label);
   const vessel = poi.ITEMS[orb];
   const orbHold = poi.VESSEL_HOLD[vessel.tier] != null ? poi.VESSEL_HOLD[vessel.tier] : 1.0;
-  let aidCatch = 1, aidFlee = 1, aidKey = 'none';
-  if (current.aidSel){ const off = poi.ITEMS[current.aidSel]; aidKey = current.aidSel; aidCatch = off.catchMult; aidFlee = off.fleeMult;
-    if (off.oneThrow){ poi.spendItem(current.aidSel, 1); if ((poi.getInventory()[current.aidSel]|0) <= 0) current.aidSel = null; }
-    else if (!current.saltActive){ poi.spendItem(current.aidSel, 1); current.saltActive = true; }
+  let aidCatch = 1, aidFlee = 1, aidKey = 'none', off = null;
+  if (encounter.aidSel){ off = poi.ITEMS[encounter.aidSel]; aidKey = encounter.aidSel; aidCatch = off.catchMult; aidFlee = off.fleeMult; }
+  const consumeAid = !!off && (off.oneThrow || !encounter.saltActive);
+  const payment = await poi.reserveThrow({ vessel:orb, aid:encounter.aidSel, consumeAid });
+  if (!activeThrow(encounter, token)) { if (encounter.throwToken === token) encounter.throwToken = null; return; }
+  if (!payment.ok) {
+    encounter.throwToken = null; ringOn = true; ringT0 = performance.now();
+    $('sheet').setAttribute('aria-busy','false');
+    $('enc-note').textContent = payment.error === 'storage unavailable' ? 'the pouch could not save that throw — try again.' : 'that vessel or offering is no longer available.';
+    renderPouch(); refreshChips();
+    return;
   }
+  if (off && off.oneThrow && (payment.inventory[encounter.aidSel]|0) <= 0) encounter.aidSel = null;
+  else if (off && !off.oneThrow && !encounter.saltActive) encounter.saltActive = true;
   renderPouch(); refreshChips();
 
-  const pal = (current.spawn.cart.genome.layers.find(l=>l.role==='surface')||{}).palette || ['#8fb3c9'];
-  const res = await runCatch(
-    { tier: current.rarity.tier, orbMult: vessel.catchMult, orbHold, aidCatch, aidFlee, throwMult: q.mult },
-    {
-      onWobble: (i) => { glowPulse = 1; setTimeout(()=>glowPulse=0.35,120); try{ navigator.vibrate && navigator.vibrate(40); }catch{} beep(520+i*90); },
-      onBreak: (shakes) => { glowPulse = 0; whiteBurst(); $('enc-note').textContent = shakes ? `it shook ${shakes}× — then broke free!` : 'it broke free instantly!'; },
-      onFlee: () => { greyPuff(pal); }
-    }
-  );
-  window.__lastRoll = res;
+  const pal = (encounter.spawn.cart.genome.layers.find(l=>l.role==='surface')||{}).palette || ['#8fb3c9'];
+  try {
+    const res = await runCatch(
+      { tier: encounter.rarity.tier, orbMult: vessel.catchMult, orbHold, aidCatch, aidFlee, throwMult: q.mult },
+      {
+        onWobble: (i) => {
+          if (!activeThrow(encounter, token)) return;
+          glowPulse = 1;
+          setTimeout(() => { if (activeThrow(encounter, token)) glowPulse = 0.35; }, 120);
+          try{ navigator.vibrate && navigator.vibrate(40); }catch{}
+          beep(520+i*90);
+        },
+        onBreak: (shakes) => {
+          if (!activeThrow(encounter, token)) return;
+          glowPulse = 0; whiteBurst();
+          $('enc-note').textContent = shakes ? `it shook ${shakes}× — then broke free!` : 'it broke free instantly!';
+        },
+        onFlee: () => { if (activeThrow(encounter, token)) greyPuff(pal); }
+      }
+    );
+    if (!activeThrow(encounter, token)) return;
+    window.__lastRoll = res;
 
-  if (res.caught){ await onCaught(orb, aidKey, q.label, res.shakes, pal); }
-  else if (res.fled){ onFled(); }
-  else { busyThrow = false; ringOn = true; ringT0 = performance.now(); if ((poi.getInventory()[orb]|0) <= 0) renderPouch(); }
+    if (res.caught){ await onCaught(encounter, orb, aidKey, q.label, res.shakes, pal); }
+    else if (res.fled){ onFled(encounter); }
+    else {
+      ringOn = true; ringT0 = performance.now();
+      if ((poi.getInventory()[orb]|0) <= 0) renderPouch();
+    }
+  } finally {
+    if (encounter.throwToken === token) encounter.throwToken = null;
+    if (current === encounter) { $('sheet').setAttribute('aria-busy','false'); if (!encounter.resolved) renderPouch(); }
+  }
 }
 
-async function onCaught(orb, aidKey, throwLabel, shakes, pal){
-  current.resolved = true; ringOn = false;
+async function onCaught(encounter, orb, aidKey, throwLabel, shakes, pal){
+  if (current !== encounter) return;
+  encounter.resolved = true; ringOn = false;
   catchSparkle(pal);
-  const sp = current.spawn;
+  const sp = encounter.spawn;
   // POI provenance if this sky was caught at/near a named place
   let near = null, nd = Infinity;
   for (const p of poiList){ const d = haversineM(sp, p); if (d < nd){ nd = d; near = p; } }
   const atPoi = near && nd <= 60 ? near : null;
   const geohash = (sp.cart.born.coord || '').split('\u00b7')[0];
-  let rec = null;
-  try { rec = await mintCaught(sp.cart, { geohash, poiId: atPoi ? atPoi.id : null, poiName: atPoi ? atPoi.name : null, tier: current.rarity.tier, orb, aid: aidKey, throwLabel, wobbles: shakes }); }
-  catch(e){ console.warn('mint failed (kept in memory only):', e); }
-
-  suppress.add(sp.key); spawns.delete(sp.key); map.removeMarker(sp.key);
-  lastCaught = { cart: (rec && rec.egg) || sp.cart, place: atPoi ? atPoi.name : null };
-  $('door-talk').href = talkHref(sp.cart);
-  $('door-breed').href = breedHref(sp.cart);
   $('enc-kit').style.display = 'none'; $('enc-hint').textContent = '';
-  $('enc-note').textContent = 'it\u2019s yours now — a real sky, pressed like a flower.' + (rec && rec.idVerified === false ? ' (id check failed!)' : '');
-  $('enc-doors').classList.add('show');
+  encounter.pendingCatch = {
+    saving: false,
+    place: atPoi ? atPoi.name : null,
+    meta: {
+      at: Date.now(), geohash,
+      demo: DEMO,
+      poiId: atPoi ? atPoi.id : null,
+      poiName: atPoi ? atPoi.name : null,
+      tier: encounter.rarity.tier, orb, aid: aidKey, throwLabel, wobbles: shakes
+    }
+  };
   beep(660,0.12); setTimeout(()=>beep(880,0.14),120); setTimeout(()=>beep(990,0.16),260);
-  busyThrow = false; refreshChips();
+  await saveCaught(encounter);
+}
+
+async function saveCaught(encounter){
+  const pending = encounter.pendingCatch;
+  if (!pending || pending.saving) return;
+  pending.saving = true; pending.failed = false;
+  $('sheet').setAttribute('aria-busy','true');
+  setCatchNavigationBlocked(encounter, true);
+  if (current === encounter) {
+    $('enc-save-actions').classList.remove('show');
+    $('enc-retry-save').disabled = true;
+    $('enc-note').textContent = 'caught — sealing it into your basket…';
+  }
+
+  let rec;
+  let lureFinalized = true;
+  try {
+    rec = await mintCaught(encounter.spawn.cart, pending.meta);
+    if (encounter.spawn.lurePoiId) {
+      const lureResult = await poi.consumeLure(encounter.spawn.lurePoiId, { expectedToken: encounter.spawn.lureToken });
+      if (lureResult.error) throw new Error(lureResult.error);
+      lureFinalized = lureResult.ok;
+    }
+  } catch (e) {
+    pending.saving = false; pending.failed = true;
+    console.error('caught creature could not be saved:', e);
+    if (current !== encounter) return;
+    $('enc-note').textContent = 'caught, but the basket could not save it. retry before you leave.';
+    $('enc-retry-save').disabled = false;
+    $('enc-save-actions').classList.add('show');
+    $('sheet').setAttribute('aria-busy','false');
+    $('enc-retry-save').focus();
+    return;
+  }
+
+  pending.saving = false;
+  const sp = encounter.spawn;
+  suppress.add(sp.key); spawns.delete(sp.key); map.removeMarker(sp.key);
+  renderNearby();
+  lastCaught = { cart: rec.egg, place: pending.place };
+  refreshChips();
+  setCatchNavigationBlocked(encounter, false);
+  if (current !== encounter) return;
+  $('door-talk').href = DEMO ? talkHref(rec.egg).replace('index.html#','index.html?demo=1#') : talkHref(rec.egg);
+  $('door-breed').href = DEMO ? breedHref(rec.egg).replace('index.html#','index.html?demo=1#') : breedHref(rec.egg);
+  $('door-keep').href = '../hologram/index.html' + (DEMO ? '?demo=1' : '') + '#kept=' + encodeURIComponent(rec.id);
+  $('door-keep').textContent = '◍ view this keepsake';
+  $('enc-save-actions').classList.remove('show');
+  $('enc-note').textContent = 'it\u2019s yours now — a real sky, pressed like a flower.' + (lureFinalized ? '' : ' the old lure had already moved on.');
+  $('enc-doors').classList.add('show');
+  $('sheet').setAttribute('aria-busy','false');
+  $('door-keep').focus();
+}
+
+function setCatchNavigationBlocked(encounter, blocked){
+  if (blocked) pendingNavOwner = encounter;
+  else if (pendingNavOwner !== encounter) return;
+  if (!blocked) pendingNavOwner = null;
+  $('sheet').classList.toggle('pending-save', blocked);
+  if (!roomNav) return;
+  roomNav.classList.toggle('pending-catch', blocked);
+  if (blocked) roomNav.setAttribute('aria-disabled', 'true');
+  else roomNav.removeAttribute('aria-disabled');
+  syncRoomNavSurface();
 }
 // flee suppresses THIS spawn for the current weather bucket (the key embeds the
 // bucket) — the creature/cart is NEVER mutated; a new bucket brings a new key.
-function onFled(){
-  current.resolved = true; ringOn = false;
-  const sp = current.spawn;
+function onFled(encounter){
+  if (current !== encounter) return;
+  encounter.resolved = true; ringOn = false;
+  const sp = encounter.spawn;
   suppress.add(sp.key); spawns.delete(sp.key); map.removeMarker(sp.key);
+  renderNearby();
   $('enc-kit').style.display = 'none'; $('enc-hint').textContent = '';
   $('enc-note').textContent = 'it fled — and took your vessel. that exact sky won\u2019t return this bucket.';
   tip('flee', 'when one flees, that exact sky is gone for this half-hour \u2014 a new sky brings new creatures.');
-  busyThrow = false; refreshChips();
-  setTimeout(() => { if (current && current.resolved && current.spawn === sp) closeEncounter(true); }, 1600);
+  refreshChips();
+  setTimeout(() => { if (current === encounter && current.resolved && current.spawn === sp) closeEncounter(true); }, 1600);
 }
 
 // ── little feedback flourishes (birth-palette tinted; no arcade juice) ─────────────
@@ -634,31 +905,38 @@ function openPoi(p){
   updatePoiSheet();
   const inv = poi.getInventory();
   const lureBtn = $('poi-lure'); lureBtn.style.display = (inv['lure']|0) > 0 ? '' : 'none';
-  const sh = $('poi-sheet'); sh.classList.add('open'); sh.setAttribute('aria-hidden','false');
+  const sh = $('poi-sheet'); openDialogSurface(sh);
 }
 function updatePoiSheet(){
   if (!currentPoi) return;
   const st = poi.poiStatus(currentPoi, playerPos);
   const btn = $('poi-spin');
-  if (!st.inRange){ btn.disabled = true; btn.textContent = 'walk closer to spin (' + Math.round(st.distanceM) + 'm)'; }
+  if (!hasFreshFix()){ btn.disabled = true; btn.textContent = 'update your location to spin'; }
+  else if (!st.inRange){ btn.disabled = true; btn.textContent = 'walk closer to spin (' + Math.round(st.distanceM) + 'm)'; }
   else if (!st.ready){ btn.disabled = true; btn.textContent = 'refilling · ' + Math.ceil(st.readyInMs/1000) + 's'; }
   else { btn.disabled = false; btn.textContent = 'spin this place'; }
 }
-$('poi-spin').addEventListener('click', () => {
+$('poi-spin').addEventListener('click', async () => {
   if (!currentPoi) return;
-  const r = poi.spinPOI(currentPoi, playerPos);
+  if (!hasFreshFix()){ $('poi-note').textContent = 'your location is stale — update it before spinning.'; updatePoiSheet(); return; }
+  const r = await poi.spinPOIAsync(currentPoi, playerPos);
   if (!r.ok){ $('poi-note').textContent = r.error === 'out of range' ? 'too far — walk closer.' : 'still refilling.'; updatePoiSheet(); return; }
   const d = $('poi-drops'); d.innerHTML = '';
   for (const drop of r.drops){ if (drop.granted <= 0) continue; const el = document.createElement('div'); el.className='drop'; el.innerHTML = `${drop.item.glyph} ${drop.item.name} ×${drop.granted}`; d.appendChild(el); }
   $('poi-note').textContent = (r.bagFull ? 'your bag is full — some spilled. ' : '') + 'the place gives, then rests a while.';
   updatePoiSheet(); refreshChips();
+  renderNearby();
   if (current) renderPouch();     // reflect new vessels in an open encounter
 });
-$('poi-lure').addEventListener('click', () => {
+$('poi-lure').addEventListener('click', async () => {
   if (!currentPoi) return;
-  if (poi.placeLure(currentPoi)){ $('poi-note').textContent = 'a lure quickens this place for 20 minutes.'; $('poi-lure').style.display = 'none'; refreshChips(); refreshSpawns(true); }
+  if (!hasFreshFix()){ $('poi-note').textContent = 'your location is stale — update it before placing a lure.'; return; }
+  const status = poi.poiStatus(currentPoi, playerPos);
+  if (!status.inRange){ $('poi-note').textContent = 'walk closer before placing a lure.'; return; }
+  if (await poi.placeLureAsync(currentPoi)){ $('poi-note').textContent = 'a lure called a creature to this place for 20 minutes.'; $('poi-lure').style.display = 'none'; refreshChips(); refreshSpawns(true); }
+  else $('poi-note').textContent = status.lured ? 'this place is already lured.' : 'no lure was available.';
 });
-$('poi-close').addEventListener('click', () => { const sh = $('poi-sheet'); sh.classList.remove('open'); sh.setAttribute('aria-hidden','true'); currentPoi = null; });
+$('poi-close').addEventListener('click', () => { closeDialogSurface($('poi-sheet')); currentPoi = null; });
 setInterval(() => { if (currentPoi && $('poi-sheet').classList.contains('open')) updatePoiSheet(); }, 1000);
 
 // ── bag drawer ────────────────────────────────────────────────────────────────────
@@ -674,16 +952,42 @@ function openBag(){
   }
   $('bag-cap').textContent = poi.bagCount() + ' / ' + poi.BAG + ' held';
   if (poi.bagCount() > poi.BAG * 0.9) tip('bag', 'your bag is nearly full — thrown vessels make room.');
-  const b = $('bag'); b.classList.add('open'); b.setAttribute('aria-hidden','false');
+  openDialogSurface($('bag'));
 }
-$('bag').addEventListener('click', e => { if (e.target === $('bag')) { const b=$('bag'); b.classList.remove('open'); b.setAttribute('aria-hidden','true'); } });
+function closeBag(){ closeDialogSurface($('bag')); }
+$('bag').addEventListener('click', e => { if (e.target === $('bag')) closeBag(); });
+$('bag-close').addEventListener('click', closeBag);
 
 // ── geolocation ────────────────────────────────────────────────────────────────
-let watchId = null, pollTimer = null, statHist = [];
+let watchId = null, pollTimer = null, statHist = [], geoGeneration = 0;
+let geoFailed = false;
+function showLocationRecovery(message){
+  $('invite-title').textContent = 'the sky is still here';
+  $('invite-copy').textContent = message || 'rapp·go could not feel your location. try again, or enter the offline demo sky.';
+  $('invite-btn').textContent = 'try location again';
+  $('invite-btn').style.display = navigator.geolocation ? '' : 'none';
+  $('invite').style.display = 'flex';
+}
+function requestLocation(){
+  if (!navigator.geolocation) {
+    showLocationRecovery('location is not available on this device. the offline demo still carries the whole gather and catch loop.');
+    return;
+  }
+  geoFailed = false;
+  locationRecoveryChip = null;
+  $('invite').style.display = 'none';
+  refreshChips([{ text: 'asking for your location…', kind: 'muted' }]);
+  startWatch();
+}
 function applyFix(p){
-  playerPos = { lat: p.lat, lng: p.lng, accuracy: p.accuracy };
+  geoFailed = false;
+  locationRecoveryChip = null;
+  const moved = playerPos ? haversineM(playerPos, { lat:p.lat, lng:p.lng }) : Infinity;
+  liveFixAt = Date.now();
+  if (!playerPos || moved > 10) locationEpoch++;
+  playerPos = { lat: p.lat, lng: p.lng, accuracy: p.accuracy, capturedAt: p.timestamp || liveFixAt };
   map.setPlayer({ lat: p.lat, lng: p.lng, accuracy: p.accuracy, heading: p.heading });
-  if (!DEMO) LS.set('rapp-go.lastFix', { lat: p.lat, lng: p.lng });
+  if (!DEMO) LS.set('rapp-go.lastFix', { lat: p.lat, lng: p.lng, accuracy: p.accuracy, capturedAt: playerPos.capturedAt });
   $('invite').style.display = 'none';
   const extra = (p.accuracy != null && p.accuracy > 50) ? [{ text: 'finding you…', kind: 'muted' }] : null;
   refreshChips(extra);
@@ -693,17 +997,25 @@ function applyFix(p){
   maybeDowngrade(p);
 }
 function onGeoError(err){
+  geoFailed = true;
+  liveFixAt = 0;
+  locationEpoch++;
+  stopGeo();
   const last = LS.get('rapp-go.lastFix');
   if (last){
-    playerPos = { lat: last.lat, lng: last.lng, accuracy: 120 };
-    map.setPlayer({ lat: last.lat, lng: last.lng, accuracy: 120 });
+    playerPos = { lat: last.lat, lng: last.lng, accuracy: last.accuracy || 120, capturedAt: last.capturedAt || 0 };
+    map.setPlayer({ lat: last.lat, lng: last.lng, accuracy: playerPos.accuracy });
     $('invite').style.display = 'none';
-    setChips([{ text: 'location is hazy — showing your last place', kind: 'warn' }, bagChip()]);
-    refreshSpawns(true);
-    refreshPOIs().then(() => refreshSpawns(true));
+    locationRecoveryChip = { text: 'location is hazy — tap to try again', kind: 'warn', onTap: requestLocation };
+    refreshChips();
   } else {
     setChips([{ text: 'location is hazy', kind: 'warn' }]);
-    if (onboarded()) $('invite').style.display = 'flex';   // onboarding owns the first ask
+    if (onboarded()) {
+      const denied = err && err.code === 1;
+      showLocationRecovery(denied
+        ? 'location permission is off. allow it in your browser settings and try again, or enter the offline demo sky.'
+        : 'rapp·go could not get a location fix. try again, or enter the offline demo sky.');
+    }
   }
 }
 function maybeDowngrade(p){
@@ -715,27 +1027,38 @@ function maybeDowngrade(p){
     const span = t - statHist[0].t;
     if (!far && span > 30000){
       navigator.geolocation.clearWatch(watchId); watchId = null;
+      geoGeneration++;
       pollTimer = setInterval(pollOnce, 20000);
     }
   }
 }
 function pollOnce(){
   if (document.hidden || !navigator.geolocation) return;
+  const generation = geoGeneration;
   navigator.geolocation.getCurrentPosition(pos => {
+    if (generation !== geoGeneration) return;
     const moved = playerPos ? haversineM(playerPos, { lat: pos.coords.latitude, lng: pos.coords.longitude }) : Infinity;
-    applyFix({ lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: pos.coords.accuracy, heading: pos.coords.heading });
+    applyFix({ lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: pos.coords.accuracy, heading: pos.coords.heading, timestamp: pos.timestamp });
     if (moved > 10){ clearInterval(pollTimer); pollTimer = null; statHist = []; startWatch(); }
-  }, () => {}, { enableHighAccuracy: false, maximumAge: 15000, timeout: 15000 });
+  }, err => { if (generation === geoGeneration) onGeoError(err); }, { enableHighAccuracy: false, maximumAge: 15000, timeout: 15000 });
 }
 function startWatch(){
   if (!navigator.geolocation || watchId != null) return;
+  const generation = ++geoGeneration;
   watchId = navigator.geolocation.watchPosition(
-    pos => applyFix({ lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: pos.coords.accuracy, heading: pos.coords.heading }),
-    onGeoError,
+    pos => {
+      if (generation !== geoGeneration) return;
+      applyFix({ lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: pos.coords.accuracy, heading: pos.coords.heading, timestamp: pos.timestamp });
+    },
+    err => { if (generation === geoGeneration) onGeoError(err); },
     { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 }
   );
 }
-function stopGeo(){ if (watchId != null){ navigator.geolocation.clearWatch(watchId); watchId = null; } if (pollTimer){ clearInterval(pollTimer); pollTimer = null; } }
+function stopGeo(){
+  geoGeneration++;
+  if (watchId != null){ navigator.geolocation.clearWatch(watchId); watchId = null; }
+  if (pollTimer){ clearInterval(pollTimer); pollTimer = null; }
+}
 
 // ── wiring ────────────────────────────────────────────────────────────────────────
 map.on('tap', (marker) => {
@@ -744,28 +1067,85 @@ map.on('tap', (marker) => {
   if (marker.data.poi){ openPoi(marker.data.poi); return; }
 });
 $('enc-close').addEventListener('click', () => closeEncounter(false));
-$('door-keep').addEventListener('click', e => { e.preventDefault(); closeEncounter(true); });
-$('invite-btn').addEventListener('click', startWatch);
+$('door-keep').addEventListener('click', e => {
+  if ($('door-keep').getAttribute('href') === '#') { e.preventDefault(); closeEncounter(true); }
+});
+$('enc-retry-save').addEventListener('click', () => { if (current) saveCaught(current); });
+$('enc-discard-save').addEventListener('click', () => {
+  if (!current || !current.pendingCatch || !current.pendingCatch.failed) return;
+  cooldown.add(current.spawn.key);
+  setCatchNavigationBlocked(current, false);
+  current.pendingCatch = null;
+  closeEncounter(false);
+});
+$('invite-btn').addEventListener('click', requestLocation);
 
 // ── the share layer (§E): bones-only deep link; native sheet when navigator.share
 //    exists, QR modal fallback lives in onboard.js ─────────────────────────────────
 $('door-share').addEventListener('click', e => {
   e.preventDefault();
-  if (lastCaught) shareCaught(lastCaught.cart, lastCaught.place);
+  if (lastCaught) shareCaught(lastCaught.cart, lastCaught.place, { demo:DEMO });
 });
 // receive: opening with #egg=<b64url> verifies the id from source and refuses disguises
 function checkEgg(){
   const h = location.hash || '';
   if (h.startsWith('#egg=')) receiveEgg(h.slice(5), { demo: DEMO });
+  else cancelReceiveEgg();
 }
 window.addEventListener('hashchange', checkEgg);
 
 // ── the one nav (§H.3): this page is the map room of the one app ──────────────────
-mountNav({ active: 'map', root: '..' });
+roomNav = mountNav({ active: 'map', root: '..' });
+if (roomNav) {
+  roomNav.addEventListener('click', e => {
+    if (!pendingNavOwner) return;
+    e.preventDefault();
+    $('enc-note').textContent = pendingNavOwner.pendingCatch && pendingNavOwner.pendingCatch.saving
+      ? 'still sealing this catch into your basket…'
+      : 'this catch is not saved — retry it or choose “let it go”.';
+  }, true);
+}
+function syncRoomNavSurface(){
+  if (!roomNav) return;
+  const open = !!document.querySelector('.sheet.open,#bag.open');
+  roomNav.classList.toggle('surface-open', open);
+  roomNav.inert = open || !!pendingNavOwner;
+  $('chips').inert = open;
+  $('nearby').inert = open;
+  $('map').inert = open;
+  if (map.controls) map.controls.inert = open;
+}
+document.addEventListener('keydown',e=>{
+  const surface=document.querySelector('.sheet.open,#bag.open');
+  if(!surface)return;
+  if(e.key==='Escape'){
+    e.preventDefault();
+    if(surface.id==='sheet')closeEncounter(false);
+    else if(surface.id==='poi-sheet')$('poi-close').click();
+    else closeBag();
+    return;
+  }
+  if(e.key!=='Tab')return;
+  const focusable=[...surface.querySelectorAll('button:not(:disabled),a[href],input:not(:disabled),[tabindex]:not([tabindex="-1"])')]
+    .filter(el=>!el.inert&&el.getClientRects().length>0&&getComputedStyle(el).visibility!=='hidden');
+  if(!focusable.length){e.preventDefault();surface.focus();return;}
+  const first=focusable[0],last=focusable[focusable.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+});
 
 // ── installable (§A): sw scoped to /rapp-go/ — §H.2's "root sw.js exists" premise
 //    was stale (there is none); the brief's documented fallback applies ────────────
-if ('serviceWorker' in navigator) { try { navigator.serviceWorker.register('./sw.js'); } catch {} }
+if ('serviceWorker' in navigator) {
+  try {
+    navigator.serviceWorker.register('./sw.js');
+    navigator.serviceWorker.addEventListener('message', e => {
+      if (!e.data || e.data.type !== 'rapp-update-ready') return;
+      updateReady = true;
+      refreshChips();
+    });
+  } catch {}
+}
 // iOS has no install prompt: a one-time quiet card, only when NOT standalone (§A.4)
 try {
   const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
@@ -777,32 +1157,79 @@ try {
 document.addEventListener('visibilitychange', () => {
   panelHidden = document.hidden;
   if (document.hidden){ stopGeo(); stopCreatureRender(); }
-  else { panelHidden = false; if (!FIX && !DEMO){ statHist = []; startWatch(); } if (current) startCreatureRender(current.spawn.cart); }
+  else {
+    panelHidden = false;
+    if (!FIX && !DEMO){ statHist = []; startWatch(); }
+    if (hasFreshFix()){ refreshSpawns(true); refreshPOIs(true).then(() => refreshSpawns(true)); }
+    if (current) startCreatureRender(current.spawn.cart);
+  }
 });
+window.addEventListener('online', () => {
+  if (hasFreshFix()){ refreshSpawns(true); refreshPOIs(true).then(() => refreshSpawns(true)); }
+});
+function scheduleBucketRefresh(){
+  if (FIXED_T != null) return;
+  if (bucketRefreshTimer) clearTimeout(bucketRefreshTimer);
+  const delay = BUCKET_MS - (Date.now() % BUCKET_MS) + 100;
+  bucketRefreshTimer = setTimeout(() => {
+    if (!document.hidden && hasFreshFix()) refreshSpawns(true);
+    scheduleBucketRefresh();
+  }, delay);
+}
+function scheduleLureExpiry(lures){
+  if (lureRefreshTimer) { clearTimeout(lureRefreshTimer); lureRefreshTimer = null; }
+  if (!lures.length || FIXED_T != null) return;
+  const next = Math.min(...lures.map(lure => lure.expiresAt));
+  lureRefreshTimer = setTimeout(() => {
+    if (current && current.spawn.lureExpiresAt && current.spawn.lureExpiresAt <= Date.now()) closeEncounter(true);
+    refreshSpawns(true);
+  }, Math.max(50, next - Date.now() + 50));
+}
 
 // ── boot ────────────────────────────────────────────────────────────────────────
 // first run: the onboarding overlay owns the location ask (§C.2 — the permission
 // prompt fires on ITS button tap, never automatically; #invite stays suppressed)
+async function beginOnboarding(options){
+  try {
+    const result = await maybeOnboard(options);
+    if (!result || playerPos) {
+      if (!DEMO && result && result.locationChoice !== 'requested' && playerPos) {
+        locationRecoveryChip = { text: 'using your last place · tap to update', kind: 'warn', onTap: requestLocation };
+        refreshChips();
+      }
+      return;
+    }
+    if (geoFailed || result.locationChoice !== 'requested') {
+      showLocationRecovery('rapp·go needs a location to grow the sky around you. try again, or enter the offline demo.');
+    }
+  } catch (e) {
+    console.error('onboarding failed:', e);
+    if (!playerPos) showLocationRecovery('onboarding could not finish, but you can retry location or enter the offline demo.');
+  }
+}
 if (DEMO){
-  applyFix({ lat: startCenter.lat, lng: startCenter.lng, accuracy: 6 });
+  applyFix({ lat: startCenter.lat, lng: startCenter.lng, accuracy: 6, timestamp: Date.now() });
   setChips([{ text: 'demo · offline', kind: 'muted' }, bagChip()]);
-  maybeOnboard({ demo: true, nowMs: now(), requestLocation: startWatch });
 } else if (FIX){
-  applyFix({ lat: FIX.lat, lng: FIX.lng, accuracy: 8 });
+  applyFix({ lat: FIX.lat, lng: FIX.lng, accuracy: 8, timestamp: Date.now() });
 } else if (navigator.geolocation){
   const last = LS.get('rapp-go.lastFix');
-  if (last){ playerPos = { lat: last.lat, lng: last.lng, accuracy: 90 }; map.setPlayer({ lat: last.lat, lng: last.lng, accuracy: 90 }); refreshSpawns(true); refreshPOIs().then(()=>refreshSpawns(true)); }
+  if (last){
+    playerPos = { lat: last.lat, lng: last.lng, accuracy: last.accuracy || 90, capturedAt: last.capturedAt || 0 };
+    map.setPlayer({ lat: last.lat, lng: last.lng, accuracy: playerPos.accuracy });
+  }
   if (!onboarded()){
-    maybeOnboard({ demo: false, nowMs: now(), requestLocation: startWatch });
+    beginOnboarding({ demo: false, nowMs: now(), requestLocation: requestLocation });
   } else {
-    if (!last) $('invite').style.display = 'flex';
+    if (!last) showLocationRecovery('share your location to grow the live sky, or enter the offline demo.');
     startWatch();
   }
 } else {
   setChips([{ text: 'no location on this device', kind: 'warn' }]);
-  if (onboarded()) $('invite').style.display = 'flex';
-  else maybeOnboard({ demo: false, nowMs: now(), requestLocation: startWatch });
+  if (onboarded()) showLocationRecovery('location is not available on this device. the offline demo still carries the whole gather and catch loop.');
+  else beginOnboarding({ demo: false, nowMs: now(), requestLocation: null });
 }
+scheduleBucketRefresh();
 checkEgg();
 
 // ── optional debug surface (?debug=1) — for desktop/automated verification only ──

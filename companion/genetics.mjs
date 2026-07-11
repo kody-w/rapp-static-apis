@@ -95,7 +95,7 @@ export async function spliceGenome(primaryGenome, variantGenome, roles, seed) {
   const pm = roleMap(primaryGenome.layers), vm = roleMap(variantGenome.layers);
   const order = ['form', 'surface', 'motion'];
   const want = order.filter(r => (roles && roles.length ? roles : order).includes(r));
-  const compose = primaryGenome.compose || { windows: [[0, 1, 2]], loop: true };
+  const compose = { windows: [[0, 1, 2]], loop: !primaryGenome.compose || primaryGenome.compose.loop !== false };
   const build = (attempt) => {
     const rng = mkRng((seed || 'splice') + (attempt ? '#' + attempt : ''));
     return order.map(role => {

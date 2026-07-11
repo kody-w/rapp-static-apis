@@ -40,10 +40,11 @@ export function mountNav({ active, root = '..' } = {}) {
   if (!nav) { nav = document.createElement('nav'); nav.className = 'rappgo-nav'; document.body.appendChild(nav); }
   nav.innerHTML = '';
   nav.setAttribute('aria-label', 'rooms');
+  const demoSuffix = new URLSearchParams(location.search).get('demo') === '1' ? '?demo=1' : '';
   for (const room of ROOMS) {
     const a = document.createElement('a');
     const href = room.href(root);
-    if (href) a.href = href; else a.className = 'off';
+    if (href) a.href = href + demoSuffix; else a.className = 'off';
     if (room.key === active) a.className = (a.className ? a.className + ' ' : '') + 'on';
     a.innerHTML = `<span class="g">${room.glyph}</span>${room.label}`;
     nav.appendChild(a);

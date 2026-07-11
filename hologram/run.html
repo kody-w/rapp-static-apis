@@ -31,6 +31,7 @@ function b64dec(s) {
   return new TextDecoder().decode(Uint8Array.from(atob(s), c => c.charCodeAt(0)));
 }
 function setStatus(html) { $('st').innerHTML = html; }
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
 /* ── resolve cartridge from URL params (host-side, outside sandbox) ── */
 const p = new URLSearchParams(location.search);
@@ -53,6 +54,7 @@ async function fetchCart() {
     if (!entry) throw new Error(`id "${p.get('id')}" not found in registry`);
     const res = await fetch(new URL(entry.pin_path, location.href).href, { cache: 'no-store' });
     if (!res.ok) throw new Error(`fetch cart → ${res.status}`);
+    expectedId = entry.id;
     return res.json();
   }
   return null; // no params — player shows its default cartridge
@@ -63,16 +65,16 @@ const iframe = $('player');
 let port = null;
 // cartP resolves once fetchCart() completes (success or failure)
 let cartReady; const cartP = new Promise(r => { cartReady = r; });
-let cartData = null;
+let cartData = null, expectedId = null;
 
 // Kick off cartridge fetch immediately (races with iframe load — whichever wins, ready handler waits)
 (async () => {
   try {
     cartData = await fetchCart();
-    if (cartData) setStatus(`<span class="dim">sandboxed · </span>loaded ${cartData.title || cartData.id || '?'}`);
+    if (cartData) setStatus(`<span class="dim">sandboxed · </span>loaded ${esc(cartData.title || cartData.id || '?')}`);
     else setStatus('<span class="dim">sandboxed · </span>no params — showing default cartridge');
   } catch(e) {
-    setStatus(`<span class="err">✗ ${e.message || e}</span>`);
+    setStatus(`<span class="err">✗ ${esc(e.message || e)}</span>`);
   }
   cartReady();
 })();
@@ -85,11 +87,13 @@ iframe.addEventListener('load', () => {
     if (d.type === 'ready') {
       // Wait for host-side fetch to finish, then deliver cartridge to cell
       await cartP;
-      if (cartData) port.postMessage({ type: 'load-cartridge', cart: cartData });
+      if (cartData) port.postMessage({ type: 'load-cartridge', cart: cartData, expectedId });
     } else if (d.type === 'hatched') {
       setStatus(`<span class="dim">sandboxed · </span><span class="ok">✓ ${d.id} hatched</span>`);
     } else if (d.type === 'hash-mismatch') {
       setStatus(`<span class="dim">sandboxed · </span><span class="warn">⚠ remix · ${d.got} ≠ ${String(d.declared || '').slice(0, 12)}</span>`);
+    } else if (d.type === 'quarantined') {
+      setStatus('<span class="dim">sandboxed · </span><span class="err">🧫 cartridge quarantined</span>');
     }
   };
   // Transfer port2 to the sandboxed player; it listens for 'hologram-init'

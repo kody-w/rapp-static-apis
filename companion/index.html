@@ -140,8 +140,15 @@ const b64urlToStr=t=>decodeURIComponent(escape(atob(t.replace(/-/g,'+').replace(
 const strToStdB64=s=>btoa(unescape(encodeURIComponent(s)));
 const b64url=s=>btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 const setStatus=(t,cls)=>{$('statusText').textContent=t;$('dot').className='dot'+(cls?' '+cls:'');};
+function showUpdateReady(){
+ let btn=document.getElementById('update-ready');
+ if(btn)return;
+ btn=document.createElement('button');btn.id='update-ready';btn.textContent='update ready · reload when safe';
+ btn.style.cssText='position:fixed;right:12px;top:12px;z-index:500;padding:8px 11px;border-radius:999px;border:1px solid #2f6bb0;background:#12365e;color:#eaf3ff;cursor:pointer';
+ btn.onclick=()=>location.reload();document.body.appendChild(btn);
+}
 
-const DEFAULT_CART={schema:'hologram-cartridge/1.0',id:'d45a79d29e99',title:'Lumina',author:'@kody-w',
+const DEFAULT_CART={schema:'hologram-cartridge/1.0',id:'9127c67354e3',title:'Lumina',author:'@kody-w',
  born:{coord:'gcpuvpk44kd8·1719772800000',from:'live 14°C · code 2 · wind 6 · night'},parents:[],
  genome:{layers:[{role:'form',k:30,shape:'ring',limbs:3,segments:7,symmetry:'radial',body_r:0.3,limb_len:0.35,spikes:2},
  {role:'surface',k:80,palette:['#7fd4ff','#b6e8ff','#4aa3e0','#e8f7ff'],pattern:'glow',glow:0.6,opacity:0.92},
@@ -187,24 +194,32 @@ async function ask(pyExprB64){ const r=await VBS.op({op:'eval',code:'import base
 
 async function send(spoken){
  if(thinking || (!VBS && !useLLM())) return; const text=(typeof spoken==='string'?spoken:$('say').value).trim(); if(!text) return;
+ const sendGeneration=inCall()?_callGeneration:null;
+ const sendActive=()=>sendGeneration==null||sendGeneration===_callGeneration;
  $('say').value=''; bubble('me',text);
  thinking=true; $('send').disabled=true; setPtt('thinking');
  if(useLLM()){
   // stream the reply live into a bubble; the sink types it out, captions it, and speaks per sentence
-  const bub=bubble('them','',CART.title); const sink=makeSink(bub);
-  try{ await llmReplyStream(text, sink); }
-  catch(e){ if(bub&&bub.lastChild)bub.lastChild.textContent='(its mind flickered — '+(e.message||e)+')'; if(inCall())showCaption('',false); }
+  const bub=bubble('them','',CART.title); const rawSink=makeSink(bub);
+  const sink={
+   reset:(...a)=>{if(sendActive())return rawSink.reset(...a);},
+   delta:(...a)=>{if(sendActive())return rawSink.delta(...a);},
+   done:(...a)=>sendActive()?rawSink.done(...a):''
+  };
+  try{ await llmReplyStream(text, sink, sendActive); }
+  catch(e){ if(sendActive()&&bub&&bub.lastChild)bub.lastChild.textContent='(its mind flickered — '+(e.message||e)+')'; if(sendActive()&&inCall())showCaption('',false); }
  } else {
   const t=document.createElement('div'); t.className='typing'; t.textContent=CART.title+' is thinking…'; $('log').appendChild(t); $('log').scrollTop=$('log').scrollHeight;
   let reply='';
-  try{ reply=await ask(strToStdB64(text)); t.remove(); bubble('them',reply||'…',CART.title); }
-  catch(e){ t.remove(); bubble('sys','(its mind flickered — '+(e.message||e)+')'); }
+  try{ reply=await ask(strToStdB64(text)); t.remove(); if(sendActive())bubble('them',reply||'…',CART.title); }
+  catch(e){ t.remove(); if(sendActive())bubble('sys','(its mind flickered — '+(e.message||e)+')'); }
+  if(!sendActive())reply='';
   if(inCall() && reply) showCaption(reply,true);
   if(voiceOn && reply) await speak(reply);
   if(inCall() && reply) showCaption(reply,false);
  }
  thinking=false; $('send').disabled=false; setPtt('idle');
- if(IS_PRIMARY && window.Twin){ try{ window.Twin.recordTalk(text); }catch(e){} }   // §3: a conversation appends a frame
+ if(sendActive()&&IS_PRIMARY && window.Twin){ try{ window.Twin.recordTalk(text); }catch(e){} }   // §3: a conversation appends a frame
  if(!voiceOn && !inCall()) $('say').focus();
 }
 
@@ -253,11 +268,12 @@ const AUTH_WORKER='https://rapp-auth.kwildfeuer.workers.dev';   // deployed, COR
 let chatToken=localStorage.getItem('vb_gh_token')||null;        // durable ghu_ token — SHARED with vBrainstem (sign in once)
 let copilotToken=null, copilotEndpoint=null, copilotExpiresAt=0, usingCopilot=false;
 let llmModel=localStorage.getItem('vb_model')||'gpt-4o';
-let llmHistory=[]; let _pollTimer=null;
+let llmHistory=[]; let _pollTimer=null,_signInGeneration=0,_signInAbort=null,_signInResolve=null;
 const useLLM=()=>!!(chatToken && usingCopilot);
-async function getCopilotToken(){ if(!chatToken)throw new Error('not signed in');
- const r=await fetch(AUTH_WORKER+'/api/copilot/token',{headers:{'Authorization':'Bearer '+chatToken}});
+async function getCopilotToken({signal=null,token=null,isActive=()=>true}={}){ const authToken=token||chatToken;if(!authToken)throw new Error('not signed in');
+ const r=await fetch(AUTH_WORKER+'/api/copilot/token',{headers:{'Authorization':'Bearer '+authToken},...(signal?{signal}:{})});
  if(!r.ok)throw new Error('copilot token '+r.status); const d=await r.json(); if(!d.token)throw new Error('no token');
+ if(!isActive())throw new DOMException('cancelled','AbortError');
  copilotToken=d.token; copilotEndpoint=(d.endpoints&&d.endpoints.api)||copilotEndpoint; copilotExpiresAt=d.expires_at||(Math.floor(Date.now()/1000)+1500); usingCopilot=true; return d; }
 async function ensureCopilotToken(){ if(!chatToken)throw new Error('not signed in'); const now=Math.floor(Date.now()/1000); if(!copilotToken||now>=copilotExpiresAt-60) await getCopilotToken(); return copilotToken; }
 
@@ -341,13 +357,16 @@ function makeSink(bub){ let spoken=0;
  };
 }
 // one chat turn that may call agent tools (memory / uploaded); runs them in Pyodide, feeds results back, then answers
-async function llmTurn(messages, sink){
+async function llmTurn(messages, sink, isActive=()=>true){
  for(let loop=0; loop<5; loop++){
+  if(!isActive())return '';
   sink.reset();
   const { content, toolCalls } = await llmStream(messages, sink.delta);
+  if(!isActive())return '';
   if(!toolCalls || !toolCalls.length) return sink.done(content);
   messages.push({ role:'assistant', content: content||null, tool_calls: toolCalls });
-  for(const tc of toolCalls){ const result = await runAgentTool(tc.function.name, tc.function.arguments||'{}');
+  for(const tc of toolCalls){ if(!isActive())return ''; const result = await runAgentTool(tc.function.name, tc.function.arguments||'{}');
+   if(!isActive())return '';
    messages.push({ role:'tool', tool_call_id: tc.id, content: JSON.stringify(result) }); }
   refreshAgents();   // a store may have changed memory — refresh the injected context for the next turn
  }
@@ -357,24 +376,22 @@ async function llmTurn(messages, sink){
 // the creature's birth becomes the system prompt — it speaks AS the creature, grounded in its moment
 const _WMO={0:'a clear sky',1:'a mostly clear sky',2:'a partly cloudy sky',3:'an overcast sky',45:'a cold fog',48:'a freezing fog',51:'a light drizzle',53:'a drizzle',55:'a heavy drizzle',61:'a light rain',63:'rain',65:'a hard rain',71:'a light snow',73:'snow',75:'a heavy snow',80:'passing showers',81:'showers',82:'violent showers',95:'a thunderstorm',96:'a thunderstorm',99:'a thunderstorm with hail'};
 function buildPersona(cart){
- const g={}; ((cart.genome&&cart.genome.layers)||[]).forEach(l=>g[l.role]=l);
+ const g=Object.create(null); ((cart.genome&&cart.genome.layers)||[]).forEach(l=>{ if(['form','surface','motion'].includes(l.role)) g[l.role]=l; });
  const from=(cart.born&&cart.born.from)||'', coord=(cart.born&&cart.born.coord)||'';
  const mc=from.match(/code\s*(\d+)/), mt=from.match(/(-?\d+)\s*°/), mw=from.match(/wind\s*(\d+)/);
  const sky=mc?_WMO[+mc[1]]:null, temp=mt?mt[1]+'°':null, tod=/night/.test(from)?'at night':/day/.test(from)?'by day':'';
  const wind=mw?(+mw[1]<3?'still air':+mw[1]<12?'a light breeze':+mw[1]<25?'a real wind':'a gale'):null;
- const ms=coord.match(/(\d{11,})/); let date=null; if(ms){ try{ date=new Date(+ms[1]).toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'}); }catch(e){} }
- const shape=(g.form&&g.form.shape)||'blob';
+ const ms=coord.startsWith('cross:')?null:coord.split('·').find(part=>/^\d{11,}$/.test(part)); let date=null; if(ms){ try{ date=new Date(+ms).toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'}); }catch(e){} }
+ const rawShape=(g.form&&g.form.shape)||'';
+ const shape=['star','ring','blob','segment'].includes(rawShape)?rawShape:'holographic form';
  const temperament={star:'bright and a little restless — all points, always reaching',ring:'calm and whole, with no edges to catch on',blob:'soft and unhurried',segment:'layered and thoughtful'}[shape]||'quietly yourself';
  const palette=((g.surface&&g.surface.palette)||[]).slice(0,3).join(', '), glow=(g.surface&&g.surface.glow)||0.4;
  const bits=[sky&&(sky+(tod?' '+tod:'')),temp,wind].filter(Boolean).join(' · ');
- const lin=(cart.lineage&&cart.lineage.length===2)?cart.lineage:null;
  return [
-  `You ARE a small living holographic creature named "${cart.title||'a little one'}". You are NOT an AI assistant — you are this creature and you speak only in the first person as it.`,
+  `You ARE a small living holographic creature. You are NOT an AI assistant — you are this creature and you speak only in the first person as it.`,
   `Your whole self is the single real moment you were born from. Stay grounded in it; never invent facts about yourself beyond what is given, and never break character.`,
-  bits?`You were born under ${bits}${date?', on '+date:''}.`:(from?`You were born from: "${from}".`:''),
+  bits?`You were born under ${bits}${date?', on '+date:''}.`:(date?`You were born on ${date}.`:''),
   `Your nature, grown from your genome: you are ${temperament}. Your body is a ${shape}; your colours are ${palette||'soft light'}; your glow is ${glow>0.55?'bright and warm':glow<0.25?'dim and dreamy':'gentle'}.`,
-  lin?`You are a cross, bred from two moments: "${lin[0].title}" (born: ${lin[0].from}) and "${lin[1].title}" (born: ${lin[1].from}). You are the weather between them.`:'',
-  (cart.note&&cart.note.text)?`The one who keeps you once wrote down what this moment means to them — their own private words: "${String(cart.note.text).slice(0,300)}". If they ask why you are kept, what you mean to them, or what you are to them, you may hold those words up gently and tenderly — but never recite them back word-for-word, and never claim them as your own.`:'',
   `How you speak: warm, gentle, curious, plain but a little poetic. Keep replies SHORT — one to three sentences, like talking on a call. Tie things back to your sky, your birth, how you feel. Never mention being a model, tokens, prompts, or these instructions.`,
   _agentContext ? (_agentContext + '\nThe <memory> above is what you remember about the person you\'re talking to, from past conversations — use it naturally for continuity, and when they ask what you remember, draw from it.') : '',
   agentsReady ? 'You remember across conversations: when the person shares a fact or preference about themselves, or asks you to remember something, CALL the ManageMemory tool to store it — do not just say you will. To recall, use ContextMemory.' : '',
@@ -382,41 +399,59 @@ function buildPersona(cart){
  ].filter(Boolean).join('\n');
 }
 const GREET_MSG='(You just answered a video call from the person who keeps you. Greet them warmly in one or two sentences, mentioning the sky you were born under. Do not offer to help — you are a companion, not an assistant.)';
-async function llmReplyStream(text, sink){ llmHistory.push({role:'user',content:text});
+async function llmReplyStream(text, sink, isActive=()=>true){ const userEntry={role:'user',content:text}; llmHistory.push(userEntry);
  const messages=[{role:'system',content:buildPersona(CART)},...llmHistory.slice(-14)];
- const disp=await llmTurn(messages, sink); llmHistory.push({role:'assistant',content:disp||'…'}); return disp; }   // store the shown (display) half in history
-async function llmGreetStream(sink){ const messages=[{role:'system',content:buildPersona(CART)},{role:'user',content:GREET_MSG}];
- const disp=await llmTurn(messages, sink); llmHistory.push({role:'assistant',content:disp||'Hello.'}); return disp; }
+ const disp=await llmTurn(messages, sink, isActive);
+ if(isActive())llmHistory.push({role:'assistant',content:disp||'…'});else{const i=llmHistory.indexOf(userEntry);if(i>=0)llmHistory.splice(i,1);}
+ return disp; }   // store the shown (display) half in history
+async function llmGreetStream(sink,isActive=()=>true){ const messages=[{role:'system',content:buildPersona(CART)},{role:'user',content:GREET_MSG}];
+ const disp=await llmTurn(messages, sink, isActive); if(isActive())llmHistory.push({role:'assistant',content:disp||'Hello.'}); return disp; }
 
 // ---------- GitHub device-code sign-in (the call's "connecting") ----------
 function _stopPoll(){ if(_pollTimer){ clearTimeout(_pollTimer); _pollTimer=null; } }
+function cancelSignIn(){
+ _signInGeneration++;_stopPoll();
+ if(_signInAbort){_signInAbort.abort();_signInAbort=null;}
+ if(_signInResolve){const done=_signInResolve;_signInResolve=null;done(false);}
+ const box=$('signin');if(box)box.classList.remove('show');
+ clearAuthTransition();
+}
 // returns true once signed in with Copilot; false if skipped/failed. Drives #signin UI.
 function signIn(){ return new Promise(async(resolve)=>{
+ cancelSignIn();const generation=_signInGeneration;_signInResolve=resolve;
+ _authorizing=true;
+ const ctrl=new AbortController();_signInAbort=ctrl;
+ const active=()=>generation===_signInGeneration&&!ctrl.signal.aborted;
+ const finish=value=>{if(!active())return;_stopPoll();_signInAbort=null;_signInResolve=null;_signInGeneration++;clearAuthTransition();resolve(value);};
  const box=$('signin'), code=$('signin-code'), status=$('signin-status'), link=$('signin-link');
- box.classList.add('show'); status.textContent='starting…'; code.textContent='····-····'; $('signin-skip').onclick=()=>{ _stopPoll(); box.classList.remove('show'); resolve(false); };
+ if(link)link.onclick=()=>{_resumeMediaOnVisible=true;suspendCallMedia();};
+ box.classList.add('show'); status.textContent='starting…'; code.textContent='····-····'; $('signin-skip').onclick=cancelSignIn;
  try{
-  const r=await fetch(AUTH_WORKER+'/api/auth/device',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+  const r=await fetch(AUTH_WORKER+'/api/auth/device',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}',signal:ctrl.signal});
+  if(!active())return;
   if(!r.ok)throw new Error('device '+r.status); const d=await r.json();
   code.textContent=d.user_code||'?';
   // open GitHub with the code already filled in (verification_uri_complete, or ?user_code=) so it's one tap
   if(link) link.href = d.verification_uri_complete || ((d.verification_uri||'https://github.com/login/device') + (d.user_code?('?user_code='+encodeURIComponent(d.user_code)):''));
   status.textContent='waiting for you to authorize…';
-  const poll=(deviceCode,iv,n)=>{ if(n>150){ status.textContent='timed out — tap Call to retry'; box.classList.remove('show'); resolve(false); return; }
+  const poll=(deviceCode,iv,n)=>{ if(!active())return;if(n>150){ status.textContent='timed out — tap Call to retry'; box.classList.remove('show'); finish(false); return; }
    _pollTimer=setTimeout(async()=>{ try{
-     const pr=await fetch(AUTH_WORKER+'/api/auth/device/poll',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({device_code:deviceCode})});
+     if(!active())return;
+     const pr=await fetch(AUTH_WORKER+'/api/auth/device/poll',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({device_code:deviceCode}),signal:ctrl.signal});
      const pd=await pr.json().catch(()=>({}));
-     if(pd.access_token){ chatToken=pd.access_token; try{localStorage.setItem('vb_gh_token',chatToken);}catch(_){}
+     if(!active())return;
+     if(pd.access_token){ const accessToken=pd.access_token;
        status.textContent='connecting your mind…';
-       try{ await getCopilotToken(); box.classList.remove('show'); resolve(true); }
-       catch(e){ status.textContent="signed in, but this account has no Copilot — using the on-device mind"; setTimeout(()=>{box.classList.remove('show');resolve(false);},2200); }
+       try{ await getCopilotToken({signal:ctrl.signal,token:accessToken,isActive:active}); if(active()){chatToken=accessToken;try{localStorage.setItem('vb_gh_token',chatToken);}catch(_){}box.classList.remove('show');clearAuthTransition();finish(true);} }
+       catch(e){ if(active()){chatToken=accessToken;try{localStorage.setItem('vb_gh_token',chatToken);}catch(_){}status.textContent="signed in, but this account has no Copilot — using the on-device mind"; setTimeout(()=>{if(active()){box.classList.remove('show');clearAuthTransition();finish(false);}},2200);} }
        return; }
      const err=pd.error||'authorization_pending';
      if(err==='slow_down') poll(deviceCode,iv+5,n+1);
-     else if(err==='expired_token'||err==='access_denied'){ status.textContent=(err==='access_denied'?'authorization denied':'code expired')+' — tap Call to retry'; box.classList.remove('show'); resolve(false); }
+     else if(err==='expired_token'||err==='access_denied'){ status.textContent=(err==='access_denied'?'authorization denied':'code expired')+' — tap Call to retry'; box.classList.remove('show'); finish(false); }
      else poll(deviceCode,iv,n+1);
-   }catch(e){ poll(deviceCode,iv,n+1); } }, iv*1000); };
+   }catch(e){ if(active())poll(deviceCode,iv,n+1); } }, iv*1000); };
   poll(d.device_code, Math.max(1,d.interval||5), 0);
- }catch(e){ status.textContent='could not start sign-in: '+e.message; setTimeout(()=>{box.classList.remove('show');resolve(false);},2500); }
+ }catch(e){ if(active()){status.textContent='could not start sign-in: '+e.message; setTimeout(()=>{if(active()){box.classList.remove('show');finish(false);}},2500);} }
 });}
 
 // ---------- boot: given a resolved CART, wake the whole companion ----------
@@ -424,7 +459,7 @@ async function bootWithCart(cart){
  CART=cart;
  $('name').textContent=CART.title||'a companion';
  $('born').textContent='· born under '+humanBorn(CART);
- $('creature').src='./player.html#'+b64url(JSON.stringify(CART));
+ $('creature').src='./player.html'+(isDemo()?'?demo=1':'')+'#'+b64url(JSON.stringify(CART));
  document.title=(CART.title||'Companion')+' — companion';
  $('go-call').disabled=false;   // the FaceTime-style call view is available as soon as the creature loads
  bootAgents();   // load the memory (+ any uploaded) agents into the Pyodide cell in the background
@@ -440,7 +475,7 @@ async function bootWithCart(cart){
 function rerenderCart(cart){ CART=cart;
  $('name').textContent=cart.title||'a companion';
  $('born').textContent='· born under '+humanBorn(cart);
- $('creature').src='./player.html#'+b64url(JSON.stringify(cart));
+ $('creature').src='./player.html'+(isDemo()?'?demo=1':'')+'#'+b64url(JSON.stringify(cart));
  document.title=(cart.title||'Companion')+' — companion';
 }
 // a GENUINE per-egg request (hash #token / #<b64cart> / ?cart=URL) — NOT twin/demo routing.
@@ -469,8 +504,12 @@ async function main(){
  let Twin=null;
  try{ Twin=(await import('./twin.mjs')).default; window.Twin=Twin; await Twin.init(CompanionBridge); }catch(e){ Twin=null; }
  if(req!==null){                                   // per-egg flow stays reachable + unbroken
-  IS_PRIMARY=false; const cart=await resolveCart(req); bootWithCart(cart).catch(()=>{});
-  if(Twin){ try{ await Twin.onExplicitCart(cart); }catch(e){} }   // offer "capture as variant"
+  IS_PRIMARY=false; const cart=await resolveCart(req);
+  if(!Twin){ setStatus('this egg could not be verified — it was not opened','err'); return; }
+  let rec=null;
+  try{ rec=await Twin.onExplicitCart(cart); }catch(e){ setStatus('this egg could not be verified — it was not opened','err'); return; }
+  if(!rec || rec.status!=='cleared'){ setStatus('this egg is held in quarantine — it was not opened','err'); return; }
+  await bootWithCart(cart);
   return;
  }
  if(Twin){ try{ await Twin.start(); return; }catch(e){ /* twin failed → classic default below */ } }
@@ -519,7 +558,12 @@ async function bootFallback(){
 $('send').onclick=()=>send();
 $('say').addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); send(); }});
 // PWA: register the service worker so it installs to the home screen and launches offline
-if('serviceWorker' in navigator) addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+if('serviceWorker' in navigator) {
+ addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+ navigator.serviceWorker.addEventListener('message',e=>{
+  if(e.data&&e.data.type==='rapp-update-ready') showUpdateReady();
+ });
+}
 // big hold-to-talk button: pointer events cover touch + mouse; capture so release is caught even if the finger slides off
 const _ptt=$('ptt');
 _ptt.addEventListener('pointerdown',e=>{ try{ _ptt.setPointerCapture(e.pointerId); }catch(_){} pttStart(e); });
@@ -529,25 +573,44 @@ _ptt.addEventListener('lostpointercapture',pttEnd);
 _ptt.addEventListener('contextmenu',e=>e.preventDefault());
 
 // ---------- FaceTime-style call view: full-screen creature, self-view, tray, hang up ----------
-let _callTimer=null,_callSecs=0,_selfStream=null;
-function _updTimer(){ const m=Math.floor(_callSecs/60),s=_callSecs%60; const el=$('call-sub'); if(el) el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0'); }
+let _callTimer=null,_callSecs=0,_selfStream=null,_callGeneration=0,_callMediaGeneration=0,_callStartedAt=0,_authorizing=false,_resumeMediaOnVisible=false;
+function suspendCallMedia(){_callMediaGeneration++;if(_selfStream){_selfStream.getTracks().forEach(t=>t.stop());_selfStream=null;}$('selfcam').srcObject=null;$('selfcam').classList.add('off');}
+function clearAuthTransition(){
+ const resume=_authorizing||_resumeMediaOnVisible;_authorizing=false;
+ if(resume&&document.body.classList.contains('in-call')){
+  if(document.hidden)_resumeMediaOnVisible=true;
+  else{_resumeMediaOnVisible=false;acquireCallMedia(_callGeneration);}
+ }else if(!document.body.classList.contains('in-call'))_resumeMediaOnVisible=false;
+}
+function acquireCallMedia(generation){
+ if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)){$('selfcam').classList.add('off');return;}
+ const mediaGeneration=++_callMediaGeneration;
+ navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false}).then(s=>{
+  if(generation!==_callGeneration||mediaGeneration!==_callMediaGeneration||_resumeMediaOnVisible||document.hidden||!document.body.classList.contains('in-call')){s.getTracks().forEach(t=>t.stop());return;}
+  if(_selfStream)_selfStream.getTracks().forEach(t=>t.stop());
+  _selfStream=s;$('selfcam').srcObject=s;$('selfcam').classList.remove('off');
+ }).catch(()=>{if(generation===_callGeneration)$('selfcam').classList.add('off');});
+}
+function _updTimer(){ _callSecs=_callStartedAt?Math.floor((Date.now()-_callStartedAt)/1000):0; const m=Math.floor(_callSecs/60),s=_callSecs%60; const el=$('call-sub'); if(el) el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0'); }
 function enterCall(){ if(!CART) return;
+ const generation=++_callGeneration;
  document.body.classList.add('in-call'); $('call').setAttribute('aria-hidden','false');
  $('call-name').textContent=CART.title||'Companion'; $('call-sub').textContent='connecting…';
- $('call-creature').src='./player.html#'+b64url(JSON.stringify(CART));
- voiceOn=true; _callSecs=0;
+ $('call-creature').src='./player.html'+(isDemo()?'?demo=1':'')+'#'+b64url(JSON.stringify(CART));
+ voiceOn=true; _callSecs=0; _callStartedAt=Date.now();
  if(_callTimer)clearInterval(_callTimer); _callTimer=setInterval(()=>{_callSecs++;_updTimer();},1000); setTimeout(_updTimer,900);
  // self-view: your front camera, shown locally only — never sent anywhere
- if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){
-  navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false}).then(s=>{ _selfStream=s; $('selfcam').srcObject=s; $('selfcam').classList.remove('off'); }).catch(()=>{ $('selfcam').classList.add('off'); });
- } else $('selfcam').classList.add('off');
+ acquireCallMedia(generation);
  // connect: the GitHub sign-in IS the call connecting; then greet via the real LLM (or the on-device line)
  (async()=>{
   if(!usingCopilot && !chatToken){ await signIn(); }                 // device-code login shown as "connecting…"
+  if(generation!==_callGeneration)return;
   if(chatToken && !usingCopilot){ try{ await ensureCopilotToken(); }catch(e){} }
+  if(generation!==_callGeneration)return;
   if(useLLM()){ $('say').disabled=false; $('send').disabled=false; $('ptt').disabled=false;
-   const bub=bubble('them','',CART.title); const sink=makeSink(bub);
-   try{ showCaption('…',true); await llmGreetStream(sink); return; }catch(e){} }
+   const bub=bubble('them','',CART.title); const rawSink=makeSink(bub);
+   const sink={reset:(...a)=>generation===_callGeneration?rawSink.reset(...a):undefined,delta:(...a)=>generation===_callGeneration?rawSink.delta(...a):undefined,done:(...a)=>generation===_callGeneration?rawSink.done(...a):''};
+   try{ showCaption('…',true); await llmGreetStream(sink,()=>generation===_callGeneration); return; }catch(e){} }
   _callSpeakLast();
  })();
 }
@@ -557,12 +620,20 @@ function _callSpeakLast(){
   if(txt){ showCaption(txt,true); Promise.resolve(speak(txt)).then(()=>{ if(inCall()) showCaption(txt,false); }); } }
 }
 function endCall(){ document.body.classList.remove('in-call'); $('call').setAttribute('aria-hidden','true');
+ cancelSignIn();
+ _callGeneration++;_callStartedAt=0;
+ voiceOn=false;
  if(_callTimer){clearInterval(_callTimer);_callTimer=null;}
- if(_selfStream){ _selfStream.getTracks().forEach(t=>t.stop()); _selfStream=null; }
+ suspendCallMedia();pttBuf='';
  $('call-creature').src='about:blank'; if(synth)synth.cancel(); holding=false; if(recog){try{recog.stop();}catch(e){}} showCaption('',false); }
 $('go-call').onclick=enterCall;
 $('call-end').onclick=endCall;
 $('call-self').onclick=()=>$('selfcam').classList.toggle('off');
+addEventListener('pagehide',()=>{if(document.body.classList.contains('in-call'))endCall();});
+document.addEventListener('visibilitychange',()=>{
+ if(document.hidden&&document.body.classList.contains('in-call')){if(_authorizing){_resumeMediaOnVisible=true;suspendCallMedia();}else endCall();}
+ else if(!document.hidden&&_resumeMediaOnVisible&&document.body.classList.contains('in-call')){_resumeMediaOnVisible=false;acquireCallMedia(_callGeneration);}
+});
 const _cmic=$('call-mic');
 _cmic.addEventListener('pointerdown',e=>{ try{_cmic.setPointerCapture(e.pointerId);}catch(_){} pttStart(e); });
 _cmic.addEventListener('pointerup',pttEnd);
@@ -582,15 +653,15 @@ $('signin-code').onclick=copyCode;
 // keep the creature you're talking to → the shared 'rapp-basket' store; two doors onward (Lantern / Cabinet)
 const LANTERN='https://kody-w.github.io/rapp-lantern/player.html';
 const CABINET='https://kody-w.github.io/rapp-static-apis/hologram/';
-function keepToBasket(cart){ return new Promise(res=>{ try{ const r=indexedDB.open('rapp-basket',1);
- r.onupgradeneeded=()=>{ const d=r.result; if(!d.objectStoreNames.contains('eggs')) d.createObjectStore('eggs',{keyPath:'id'}); };
- r.onsuccess=()=>{ try{ const tx=r.result.transaction('eggs','readwrite'); tx.objectStore('eggs').put({id:cart.id, egg:cart, title:cart.title||'organism', born:(cart.born&&cart.born.from)||'', addedAt:Date.now()}); tx.oncomplete=()=>res(true); tx.onerror=()=>res(false); }catch(e){ res(false); } };
- r.onerror=()=>res(false); }catch(e){ res(false); } }); }
+async function keepToBasket(cart){
+ try{const mod=await import('../rapp-go/lib/basket.js');await mod.keepToBasket(cart,{demo:isDemo()});return true;}
+ catch(e){return false;}
+}
 function keptFlash(btn,label){ if(!btn)return; const t=btn.textContent; btn.textContent=label; btn.classList.add('done'); setTimeout(()=>{ btn.textContent=t; btn.classList.remove('done'); },1700); }
 function keepCurrent(btn){ if(!CART||!CART.id)return; keepToBasket(CART).then(ok=>{ if(ok){ keptFlash(btn, btn&&btn.id==='call-keep'?'✓':'🧺 kept ✓'); if(IS_PRIMARY&&window.Twin){ try{ window.Twin.recordShare('basket'); }catch(e){} } } }); }
 $('act-keep').onclick=()=>keepCurrent($('act-keep'));
 $('act-lantern').onclick=()=>{ if(CART){ window.open(LANTERN+'#'+b64url(JSON.stringify(CART))); if(IS_PRIMARY&&window.Twin){ try{ window.Twin.recordShare('lantern'); }catch(e){} } } };
-$('act-cabinet').onclick=()=>{ if(CART){ window.open(CABINET+'#remix='+b64url(JSON.stringify(CART))); if(IS_PRIMARY&&window.Twin){ try{ window.Twin.recordShare('cabinet'); }catch(e){} } } };
+$('act-cabinet').onclick=()=>{ if(CART){ window.open(CABINET+(isDemo()?'?demo=1':'')+'#remix='+b64url(JSON.stringify(CART))); if(IS_PRIMARY&&window.Twin){ try{ window.Twin.recordShare('cabinet'); }catch(e){} } } };
 $('call-keep').onclick=()=>keepCurrent($('call-keep'));
 $('act-agent').onclick=()=>$('agent-file').click();
 $('agent-file').onchange=e=>{ const f=e.target.files[0]; e.target.value=''; if(f) uploadAgent(f); };

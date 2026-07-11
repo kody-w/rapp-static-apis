@@ -11,9 +11,10 @@
 // All storage is wrapped in try/catch — a full/blocked localStorage degrades to
 // memory + live network, never crashes.
 
-import { geohashEncode } from './genome.js';
+import { geohashDecode, geohashEncode } from './genome.js';
 
 export const BUCKET_MS = 30 * 60 * 1000; // 30 min — matches the weather-cache lifetime
+export const WEATHER_TIMEOUT_MS = 12000;
 
 const mem = new Map();       // key -> sky object
 const inflight = new Map();  // key -> Promise<sky>
@@ -38,7 +39,7 @@ function skyUrl(lat, lng) {
 
 // Returns { temp, weathercode, wind, isDay, key } — exactly the datum momentToGenome
 // consumes — or throws on a network failure so callers can fall back to the moon path.
-export async function fetchSky(lat, lng, nowMs = Date.now()) {
+export async function fetchSky(lat, lng, nowMs = Date.now(), opts = {}) {
   const key = skyCacheKey(lat, lng, nowMs);
 
   if (mem.has(key)) return mem.get(key);
@@ -49,10 +50,23 @@ export async function fetchSky(lat, lng, nowMs = Date.now()) {
   if (inflight.has(key)) return inflight.get(key); // coalesce concurrent callers
 
   const p = (async () => {
-    const res = await fetch(skyUrl(lat, lng), { mode: 'cors' });
-    if (!res.ok) throw new Error('open-meteo ' + res.status);
-    const data = await res.json();
+    const fetchImpl = opts.fetchImpl || fetch;
+    const timeoutMs = opts.timeoutMs == null ? WEATHER_TIMEOUT_MS : opts.timeoutMs;
+    const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    const timer = ctrl ? setTimeout(() => ctrl.abort(), timeoutMs) : null;
+    let res, data;
+    try {
+      const center = geohashDecode(geohashEncode(lat, lng, 5));
+      res = await fetchImpl(skyUrl(center.lat, center.lon), { mode: 'cors', ...(ctrl ? { signal: ctrl.signal } : {}) });
+      if (!res.ok) throw new Error('open-meteo ' + res.status);
+      data = await res.json();
+    } finally {
+      if (timer) clearTimeout(timer);
+    }
     const c = data.current || {};
+    if (![c.temperature_2m, c.weathercode, c.wind_speed_10m, c.is_day].every(Number.isFinite)) {
+      throw new Error('open-meteo malformed current weather');
+    }
     const sky = {
       temp: c.temperature_2m,
       weathercode: c.weathercode,

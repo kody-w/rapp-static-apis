@@ -18,10 +18,13 @@
 const TILE = 256;
 const MIN_Z = 2;
 const WALK_MAX_Z = 19;      // walking-scale cap regardless of provider.max
-const MEM_CAP = 220;        // in-memory decoded-tile LRU cap
+const MEM_BUDGET = 80 * 1024 * 1024; // decoded RGBA budget
 const IDB_CAP = 1400;       // IndexedDB tile cap (LRU-evicted by fetchedAt)
+const TILE_TIMEOUT_MS = 8000;
+const TILE_RETRY_MAX_MS = 30000;
 const FADE_MS = 180;        // fresh-tile fade-in
 const FOLLOW_MS = 600;      // ease toward a new fix
+const AMBIENT_FPS = 15;     // breathing/player/spawn motion; gestures still use native rAF
 const TAU = Math.PI * 2;
 
 // One PROVIDERS table — a one-line swap. CARTO's muted basemaps by default (the
@@ -79,7 +82,7 @@ class TileMap {
 
     const dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     this.providerName = opts.provider || (dark ? 'dark_matter' : 'positron');
-    this.dark = dark;
+    this.dark = this.providerName === 'dark_matter';
 
     // camera
     const c = opts.center || { lat: 40.7128, lng: -74.0060 };
@@ -103,6 +106,12 @@ class TileMap {
     this.inflight = 0;
     this.wantSet = new Set();    // visible tile keys this frame
     this._netFails = 0; this._netOk = 0;
+    this._providerGeneration = 0;
+    this._controllers = new Map();
+    this._intentionalAborts = new Set();
+    this._retryAt = new Map();
+    this._retryCount = new Map();
+    this._retryTimers = new Map();
     this._db = null; openTileDB().then(db => { this._db = db; this._markDirty(); });
 
     // markers + events
@@ -112,6 +121,9 @@ class TileMap {
     // render loop
     this._dirty = true;
     this._raf = null;
+    this._ambientTimer = null;
+    const ambientFps = clamp(Number(opts.ambientFps) || AMBIENT_FPS, 1, 30);
+    this._ambientDelay = 1000 / ambientFps;
     this._running = true;
     this._loop = this._loop.bind(this); // bind BEFORE any _markDirty() (e.g. via _resize)
 
@@ -120,8 +132,19 @@ class TileMap {
     this._resize();
     window.addEventListener('resize', () => this._resize());
     document.addEventListener('visibilitychange', () => {
-      if (document.hidden) { this._running = false; if (this._raf) cancelAnimationFrame(this._raf); this._raf = null; }
+      if (document.hidden) {
+        this._running = false;
+        if (this._raf) cancelAnimationFrame(this._raf);
+        if (this._ambientTimer) clearTimeout(this._ambientTimer);
+        this._raf = null; this._ambientTimer = null;
+      }
       else { this._running = true; this._markDirty(); }
+    });
+    window.addEventListener('online', () => {
+      this._retryAt.clear(); this._retryCount.clear();
+      for (const timer of this._retryTimers.values()) clearTimeout(timer);
+      this._retryTimers.clear();
+      this._markDirty();
     });
     this._markDirty();
   }
@@ -178,7 +201,12 @@ class TileMap {
     const w = projectWorld(ll.lat, ll.lng, this.z);
     // keep the anchor lat/lng under the same screen point
     this.center = { x: w.x - (anchor.x - this.cw / 2), y: w.y - (anchor.y - this.ch / 2) };
-    this._playerDisp = null; // recompute against new zoom
+    if (this.player) {
+      const pw = projectWorld(this.player.lat, this.player.lng, this.z);
+      this._playerDisp = { ...pw };
+      this._playerTarget = { ...pw };
+      this._playerT0 = performance.now();
+    } else this._playerDisp = null;
     this._markDirty();
   }
   zoomIn() { this._setZoom(this.z + 1); }
@@ -262,7 +290,12 @@ class TileMap {
           else if (this.scale < 0.6 && this.z > MIN_Z) { this.z--; this.scale *= 2; }
           const w = projectWorld(anchorLL.lat, anchorLL.lng, this.z);
           this.center = { x: w.x - (mid.x - this.cw / 2) / this.scale, y: w.y - (mid.y - this.ch / 2) / this.scale };
-          this._breakFollow(); this._playerDisp = null; this._markDirty();
+          this._breakFollow();
+          if (this.player) {
+            const pw = projectWorld(this.player.lat, this.player.lng, this.z);
+            this._playerDisp = { ...pw }; this._playerTarget = { ...pw }; this._playerT0 = performance.now();
+          }
+          this._markDirty();
         }
         pinchDist = d; pinchMid = mid;
       }
@@ -309,6 +342,7 @@ class TileMap {
     const zo = mk('−', 'zoom out'); zo.onclick = () => this.zoomOut();
     wrap.append(rc, zi, zo);
     host.appendChild(wrap);
+    this.controls = wrap;
     this._recenterBtn = rc;
   }
 
@@ -357,18 +391,61 @@ class TileMap {
 
   async _decode(blob) {
     if (typeof createImageBitmap === 'function') { try { return await createImageBitmap(blob); } catch {} }
-    return await new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = URL.createObjectURL(blob); });
+    return await new Promise((res, rej) => {
+      const im = new Image(), url = URL.createObjectURL(blob);
+      im.onload = () => { URL.revokeObjectURL(url); res(im); };
+      im.onerror = e => { URL.revokeObjectURL(url); rej(e); };
+      im.src = url;
+    });
+  }
+
+  _disposeTile(entry) {
+    if (!entry || !entry.img) return;
+    try { if (typeof entry.img.close === 'function') entry.img.close(); } catch {}
+  }
+  _setCache(key, img) {
+    const old = this.cache.get(key);
+    if (old) this._disposeTile(old);
+    const width = img.width || img.naturalWidth || TILE;
+    const height = img.height || img.naturalHeight || TILE;
+    this.cache.set(key, { img, bytes: width * height * 4, fetchedAt: Date.now(), fadeT0: performance.now(), drawnAt: performance.now() });
+    this._retryAt.delete(key); this._retryCount.delete(key);
+    const timer = this._retryTimers.get(key);
+    if (timer) clearTimeout(timer);
+    this._retryTimers.delete(key);
+    this._trimMem();
+  }
+  _clearDecodedTiles() {
+    for (const entry of this.cache.values()) this._disposeTile(entry);
+    this.cache.clear();
+  }
+  _scheduleRetry(key) {
+    const count = (this._retryCount.get(key) || 0) + 1;
+    this._retryCount.set(key, count);
+    const delay = Math.min(TILE_RETRY_MAX_MS, 1000 * Math.pow(2, count - 1)) + Math.floor(Math.random() * 250);
+    this._retryAt.set(key, Date.now() + delay);
+    if (!this._retryTimers.has(key)) {
+      this._retryTimers.set(key, setTimeout(() => {
+        this._retryTimers.delete(key);
+        this._markDirty();
+      }, delay));
+    }
   }
 
   _ensureTile(z, x, y) {
     const key = this._key(z, x, y);
     if (this.cache.has(key) || this.state.has(key)) return;
+    if ((this._retryAt.get(key) || 0) > Date.now()) return;
+    const generation = this._providerGeneration;
     this.state.set(key, 'queued');
     this._idbGet(key).then(blob => {
-      if (!this.wantSet.has(key)) { this.state.delete(key); return; } // scrolled away
+      if (generation !== this._providerGeneration || !this.wantSet.has(key)) { this.state.delete(key); return; } // scrolled away or provider changed
       if (blob) {
-        this._decode(blob).then(img => { this.cache.set(key, { img, fetchedAt: Date.now(), fadeT0: performance.now(), drawnAt: performance.now() }); this.state.delete(key); this._trimMem(); this._markDirty(); })
-          .catch(() => { this.state.delete(key); });
+        this._decode(blob).then(img => {
+          if (generation !== this._providerGeneration || !this.wantSet.has(key)) { this._disposeTile({ img }); this.state.delete(key); return; }
+          this._setCache(key, img); this.state.delete(key); this._markDirty();
+        })
+          .catch(() => { this.state.delete(key); this.state.set(key, 'queued'); this.queue.push({ key, z, x, y }); this._pump(); });
       } else { this.queue.push({ key, z, x, y }); this._pump(); }
     });
   }
@@ -380,12 +457,33 @@ class TileMap {
       this.state.set(job.key, 'inflight');
       this.inflight++;
       const url = this._tileUrl(job.z, job.x, job.y);
-      fetch(url, { mode: 'cors' })
+      const generation = this._providerGeneration;
+      const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+      const timeout = ctrl ? setTimeout(() => ctrl.abort(), TILE_TIMEOUT_MS) : null;
+      if (ctrl) this._controllers.set(job.key, ctrl);
+      fetch(url, { mode: 'cors', ...(ctrl ? { signal: ctrl.signal } : {}) })
         .then(r => { if (!r.ok) throw new Error('tile ' + r.status); return r.blob(); })
-        .then(blob => { this._netOk++; this._idbPut(job.key, blob, job.z); return this._decode(blob); })
-        .then(img => { this.cache.set(job.key, { img, fetchedAt: Date.now(), fadeT0: performance.now(), drawnAt: performance.now() }); this._trimMem(); })
-        .catch(() => { this._netFails++; this._maybeFailover(); })
-        .finally(() => { this.state.delete(job.key); this.inflight--; this._markDirty(); this._pump(); });
+        .then(blob => {
+          if (generation !== this._providerGeneration) throw new DOMException('stale provider', 'AbortError');
+          this._netOk++; this._netFails = 0; this._idbPut(job.key, blob, job.z); return this._decode(blob);
+        })
+        .then(img => {
+          if (generation !== this._providerGeneration || !this.wantSet.has(job.key)) { this._disposeTile({ img }); return; }
+          this._setCache(job.key, img);
+        })
+        .catch(e => {
+          if (this._intentionalAborts.delete(job.key)) return;
+          if (generation !== this._providerGeneration) return;
+          this._netFails++;
+          this._scheduleRetry(job.key);
+          this._maybeFailover();
+        })
+        .finally(() => {
+          if (timeout) clearTimeout(timeout);
+          this._intentionalAborts.delete(job.key);
+          this._controllers.delete(job.key);
+          this.state.delete(job.key); this.inflight--; this._markDirty(); this._pump();
+        });
     }
   }
 
@@ -393,39 +491,83 @@ class TileMap {
   // Safe: memory + IDB tile keys embed the provider name, so no cache poisoning.
   setProvider(name) {
     if (!PROVIDERS[name] || name === this.providerName) return;
+    this._providerGeneration++;
+    for (const ctrl of this._controllers.values()) ctrl.abort();
     this.providerName = name;
+    this.dark = name === 'dark_matter';
     this._netFails = 0; this._netOk = 0;
-    this.cache.clear(); this.state.clear(); this.queue.length = 0;
+    this._clearDecodedTiles(); this.state.clear(); this.queue.length = 0;
+    this._retryAt.clear(); this._retryCount.clear();
+    for (const timer of this._retryTimers.values()) clearTimeout(timer);
+    this._retryTimers.clear();
     this._markDirty();
   }
 
   // Guaranteed fallback: if the CARTO basemap won't load, swap to OSM standard.
   _maybeFailover() {
-    if (this.providerName !== 'osm' && this._netOk === 0 && this._netFails >= 3) {
+    if (this.providerName !== 'osm' && this._netFails >= 3) {
+      this._providerGeneration++;
+      for (const ctrl of this._controllers.values()) ctrl.abort();
       this.providerName = 'osm';
+      this.dark = false;
       this._netFails = 0;
-      this.cache.clear(); this.state.clear(); this.queue.length = 0;
+      this._clearDecodedTiles(); this.state.clear(); this.queue.length = 0;
+      this._retryAt.clear(); this._retryCount.clear();
+      for (const timer of this._retryTimers.values()) clearTimeout(timer);
+      this._retryTimers.clear();
       this._markDirty();
     }
   }
 
   _trimMem() {
-    if (this.cache.size <= MEM_CAP) return;
-    const entries = [...this.cache.entries()].filter(([k]) => !this.wantSet.has(k)).sort((a, b) => (a[1].drawnAt || 0) - (b[1].drawnAt || 0));
-    let over = this.cache.size - MEM_CAP;
-    for (const [k] of entries) { if (over <= 0) break; this.cache.delete(k); over--; }
+    let bytes = 0;
+    for (const entry of this.cache.values()) bytes += entry.bytes || 0;
+    if (bytes <= MEM_BUDGET) return;
+    const entries = [...this.cache.entries()].sort((a, b) => {
+      const av = this.wantSet.has(a[0]) ? 1 : 0, bv = this.wantSet.has(b[0]) ? 1 : 0;
+      return av - bv || (a[1].drawnAt || 0) - (b[1].drawnAt || 0);
+    });
+    for (const [key, entry] of entries) {
+      if (bytes <= MEM_BUDGET) break;
+      if (this.wantSet.has(key)) {
+        const delay = 5000;
+        this._retryAt.set(key, Date.now() + delay);
+        if (!this._retryTimers.has(key)) {
+          this._retryTimers.set(key, setTimeout(() => { this._retryTimers.delete(key); this._markDirty(); }, delay));
+        }
+      }
+      this._disposeTile(entry);
+      this.cache.delete(key);
+      bytes -= entry.bytes || 0;
+    }
   }
 
   // ── render ──────────────────────────────────────────────────────────────────
-  _markDirty() { this._dirty = true; if (this._running && !this._raf) this._raf = requestAnimationFrame(this._loop); }
+  _markDirty() {
+    this._dirty = true;
+    if (this._ambientTimer) { clearTimeout(this._ambientTimer); this._ambientTimer = null; }
+    if (this._running && !this._raf) this._raf = requestAnimationFrame(this._loop);
+  }
 
-  _needsFrame(now) {
-    if (this._dirty || this.following) return true;
+  _needsImmediateFrame(now) {
+    if (this._dirty) return true;
     if (this._centerTo) return true;
     if (this._playerTarget && this._playerDisp && (this._playerDisp.x !== this._playerTarget.x || this._playerDisp.y !== this._playerTarget.y)) return true;
-    for (const m of this.markers.values()) if (m.animated) return true;
     for (const t of this.cache.values()) if (now - t.fadeT0 < FADE_MS) return true;
     return false;
+  }
+  _hasAmbientMotion() {
+    if (this.player) return true;
+    for (const m of this.markers.values()) if (m.animated) return true;
+    return false;
+  }
+  _needsFrame(now) { return this._needsImmediateFrame(now) || this._hasAmbientMotion(); }
+  _queueAmbientFrame() {
+    if (!this._running || this._raf || this._ambientTimer) return;
+    this._ambientTimer = setTimeout(() => {
+      this._ambientTimer = null;
+      if (this._running && !this._raf) this._raf = requestAnimationFrame(this._loop);
+    }, this._ambientDelay);
   }
 
   _loop(now) {
@@ -433,7 +575,8 @@ class TileMap {
     if (!this._running) return;
     this._render(now);
     this._dirty = false;
-    if (this._needsFrame(now)) this._raf = requestAnimationFrame(this._loop);
+    if (this._needsImmediateFrame(now)) this._raf = requestAnimationFrame(this._loop);
+    else if (this._hasAmbientMotion()) this._queueAmbientFrame();
   }
 
   _render(now) {
@@ -513,6 +656,9 @@ class TileMap {
         const key = this._key(z, xx, y);
         want.add(key);
       }
+    }
+    for (const [key, ctrl] of this._controllers) {
+      if (!want.has(key)) { this._intentionalAborts.add(key); ctrl.abort(); }
     }
     // request + draw
     for (let x = x0; x <= x1; x++) {
@@ -604,5 +750,5 @@ class TileMap {
   }
 }
 
-export { TileMap, PROVIDERS, projectWorld, unprojectWorld };
+export { TileMap, PROVIDERS, projectWorld, unprojectWorld, AMBIENT_FPS };
 export default TileMap;

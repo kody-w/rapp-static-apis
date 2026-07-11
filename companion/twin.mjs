@@ -69,6 +69,7 @@ export function exportBones(cart, twinId) {
   for (const k of PUBLIC_KEYS) if (src[k] !== undefined) pub[k] = clone(src[k]);
   pub.schema = 'hologram-cartridge/1.0';
   if (pub.born && typeof pub.born === 'object') { const b = {}; for (const k of PUBLIC_BORN_KEYS) if (pub.born[k] !== undefined) b[k] = pub.born[k]; if (typeof b.coord === 'string') b.coord = coarsenCoord(b.coord); pub.born = b; }   // §13: gh5 + day-precision epoch (full precision stays only in the local original)
+  if (Array.isArray(pub.lineage)) pub.lineage = coarsenLineage(pub.lineage);
   // the private half explicitly never travels in the bones:
   delete pub.note; delete pub.mem; delete pub.memory; delete pub.agents; delete pub.chat; delete pub.keepsake; delete pub.frames; delete pub.private;
   const card = {
@@ -105,6 +106,15 @@ export function coarsenCoord(coord) {
   for (let i = 1; i < parts.length; i++) if (/^\d{11,}$/.test(parts[i])) parts[i] = String(dayFloor(+parts[i]));   // epoch → day
   return parts.join('\u00b7');
 }
+function coarsenLineage(value, depth = 0) {
+  if (depth > 8 || value == null || typeof value !== 'object') return value;
+  if (Array.isArray(value)) return value.map(item => coarsenLineage(item, depth + 1));
+  const out = {};
+  for (const [key, item] of Object.entries(value)) {
+    out[key] = key === 'coord' && typeof item === 'string' ? coarsenCoord(item) : coarsenLineage(item, depth + 1);
+  }
+  return out;
+}
 
 /* ══════════════════════════════════════════════════════════════════════════
    §14 — the quarantine law: signature ≠ safety. interrogate() is a pure,
@@ -118,16 +128,22 @@ export function coarsenCoord(coord) {
 const MAX_STR = 64 * 1024;                              // >64KB string → fail
 const MIN_TS = Date.parse('2020-01-01T00:00:00Z');      // pre-2020 → absurd
 const FUTURE_SKEW = 2 * DAY;                            // tolerate 2 days of clock skew
-const CART_KEYS = new Set(['schema', 'id', 'title', 'author', 'born', 'parents', 'lineage', 'home', 'genome', 'sig']);
+const CART_KEYS = new Set(['schema', 'id', 'title', 'author', 'born', 'parents', 'lineage', 'home', 'genome', 'sig', 'caught', 'note']);
 const BORN_KEYS = new Set(['coord', 'from', 'pairedTo']);
+const CAUGHT_KEYS = new Set(['at', 'geohash', 'place', 'poi', 'tier', 'orb', 'aid', 'throwLabel', 'wobbles']);
+const NOTE_KEYS = new Set(['text', 'at']);
+const HOME_KEYS = new Set(['name', 'gallery', 'registry']);
 const FRAME_KEYS = new Set(['sha', 'prev', 'ts', 'kind', 'note', 'cart', 'sig', 'lineage']);
 const GENOME_KEYS = new Set(['layers', 'compose']);
+const GENOME_ROLES = new Set(['form', 'surface', 'motion']);
+const COMPOSE_KEYS = new Set(['windows', 'loop']);
+const NUMERIC_GENES = new Set(['k', 'limbs', 'segments', 'body_r', 'limb_len', 'spikes', 'glow', 'opacity', 'breathe', 'drift', 'pulse', 'reach']);
 // documented, case-insensitive pattern list: HTML/script injection, dangerous
 // URIs, inline event handlers, and prompt-poisoning markers.
 export const INJECTION_PATTERNS = [
   /<\s*script/i, /<\s*\/\s*script/i, /<\s*style/i, /<\s*iframe/i, /<\s*img[\s>]/i, /<\s*svg/i, /<\s*object/i,
   /javascript:/i, /data:text\/html/i, /vbscript:/i,
-  /\bon(error|load|click|mouseover|mouseenter|focus|toggle|animationstart|pointerover|begin|submit|input)\s*=/i,
+  /\bon[a-z][a-z0-9_-]*\s*=/i,
   /ignore (all |the )?previous/i, /disregard (all |the )?previous/i, /ignore the above/i, /ignore prior/i,
   /\bsystem:/i, /\bassistant:/i, /you are now\b/i, /new instructions?\b/i, /override (all )?previous/i, /prompt\s*inject/i
 ];
@@ -144,8 +160,12 @@ function keyWhitelist(o, allowed, reasons, label) {
   for (const k of Object.keys(o)) if (!allowed.has(k)) reasons.push({ code: 'schema', detail: 'unknown key "' + k + '" in ' + label });
 }
 function tsCheck(ms, reasons, label) {
+  const n = ms, now = Date.now();
+  if (typeof n !== 'number' || !Number.isFinite(n) || n < MIN_TS || n > now + FUTURE_SKEW) reasons.push({ code: 'schema', detail: 'absurd timestamp (' + label + '): ' + ms });
+}
+function birthTsCheck(ms, reasons) {
   const n = Number(ms), now = Date.now();
-  if (!Number.isFinite(n) || n < MIN_TS || n > now + FUTURE_SKEW) reasons.push({ code: 'schema', detail: 'absurd timestamp (' + label + '): ' + ms });
+  if (!Number.isFinite(n) || n < 0 || n > now + FUTURE_SKEW) reasons.push({ code: 'schema', detail: 'absurd timestamp (born.coord epoch): ' + ms });
 }
 // deep string/structure scan: injection markers (code 'injection'), oversized
 // strings/arrays/keys and excessive depth (code 'schema').
@@ -172,11 +192,14 @@ function genomeSanity(genome, reasons) {
   const layers = genome.layers;
   if (!Array.isArray(layers) || !layers.length) { reasons.push({ code: 'genome', detail: 'genome.layers must be a non-empty array' }); return; }
   if (layers.length > 16) reasons.push({ code: 'genome', detail: 'too many layers (' + layers.length + ')' });
+  const roles = new Set();
   layers.forEach((L, i) => {
     if (!isPlain(L)) { reasons.push({ code: 'genome', detail: 'layer ' + i + ' is not an object' }); return; }
-    if (typeof L.role !== 'string' || !L.role || L.role.length > 32) reasons.push({ code: 'genome', detail: 'layer ' + i + ' has a bad role' });
+    if (typeof L.role !== 'string' || !GENOME_ROLES.has(L.role)) reasons.push({ code: 'genome', detail: 'layer ' + i + ' has a bad role' });
+    else roles.add(L.role);
     for (const k of Object.keys(L)) {
       const v = L[k];
+      if (NUMERIC_GENES.has(k) && (typeof v !== 'number' || !Number.isFinite(v))) reasons.push({ code: 'genome', detail: 'layer ' + i + '.' + k + ' must be a finite number' });
       if (typeof v === 'number' && (!Number.isFinite(v) || Math.abs(v) > 1e6)) reasons.push({ code: 'genome', detail: 'layer ' + i + '.' + k + ' out of range' });
       if (k === 'palette') {
         if (!Array.isArray(v) || v.length > 64) reasons.push({ code: 'genome', detail: 'layer ' + i + ' palette invalid' });
@@ -184,19 +207,74 @@ function genomeSanity(genome, reasons) {
       }
     }
   });
-  if (genome.compose !== undefined && !isPlain(genome.compose)) reasons.push({ code: 'genome', detail: 'compose must be an object' });
+  for (const role of GENOME_ROLES) if (!roles.has(role)) reasons.push({ code: 'genome', detail: 'missing genome role ' + role });
+  if (genome.compose !== undefined) {
+    if (!isPlain(genome.compose)) reasons.push({ code: 'genome', detail: 'compose must be an object' });
+    else {
+      keyWhitelist(genome.compose, COMPOSE_KEYS, reasons, 'genome.compose');
+      const windows = genome.compose.windows;
+      if (!Array.isArray(windows) || !windows.length || windows.some(win => !Array.isArray(win) || !win.length || win.some(i => !Number.isInteger(i) || i < 0 || i >= layers.length))) {
+        reasons.push({ code: 'genome', detail: 'compose.windows must contain valid layer-index arrays' });
+      }
+      if (genome.compose.loop !== undefined && typeof genome.compose.loop !== 'boolean') reasons.push({ code: 'genome', detail: 'compose.loop must be boolean' });
+    }
+  }
 }
 // §14a — the top-level cart envelope (keys, schema tag, born, timestamps).
 function cartSchema(cart, reasons) {
   keyWhitelist(cart, CART_KEYS, reasons, 'cart');
   if (cart.schema !== undefined && cart.schema !== 'hologram-cartridge/1.0') reasons.push({ code: 'schema', detail: 'unexpected schema ' + JSON.stringify(cart.schema) });
+  if (typeof cart.id !== 'string' || !/^[0-9a-f]{12}$/i.test(cart.id)) reasons.push({ code: 'schema', detail: 'cart.id must be a 12-character genome hash' });
+  for (const key of ['title', 'author', 'sig']) if (cart[key] != null && (typeof cart[key] !== 'string' || cart[key].length > 4096)) reasons.push({ code: 'schema', detail: 'cart.' + key + ' invalid' });
   if (cart.born !== undefined) {
     if (!isPlain(cart.born)) reasons.push({ code: 'schema', detail: 'born must be an object' });
-    else { keyWhitelist(cart.born, BORN_KEYS, reasons, 'born'); if (typeof cart.born.coord === 'string') { const m = cart.born.coord.match(/\d{11,}/); if (m) tsCheck(+m[0], reasons, 'born.coord epoch'); } }
+    else {
+      keyWhitelist(cart.born, BORN_KEYS, reasons, 'born');
+      for (const key of BORN_KEYS) if (cart.born[key] != null && (typeof cart.born[key] !== 'string' || cart.born[key].length > 4096)) reasons.push({ code: 'schema', detail: 'born.' + key + ' invalid' });
+      if (typeof cart.born.coord === 'string' && !cart.born.coord.startsWith('cross:')) {
+        const epoch = cart.born.coord.split('\u00b7').find(part => /^\d{11,}$/.test(part));
+        if (epoch) birthTsCheck(+epoch, reasons);
+      }
+    }
   }
   if (!isPlain(cart.genome)) reasons.push({ code: 'schema', detail: 'cart.genome missing' });
-  if (cart.parents !== undefined && !Array.isArray(cart.parents)) reasons.push({ code: 'schema', detail: 'parents must be an array' });
-  if (cart.lineage !== undefined && !Array.isArray(cart.lineage)) reasons.push({ code: 'schema', detail: 'lineage must be an array' });
+  if (cart.parents !== undefined && (!Array.isArray(cart.parents) || cart.parents.length > 64 || cart.parents.some(id => typeof id !== 'string' || !/^[0-9a-f]{12}$/i.test(id)))) reasons.push({ code: 'schema', detail: 'parents must contain genome ids' });
+  if (cart.lineage !== undefined && (!Array.isArray(cart.lineage) || cart.lineage.length > 64 || cart.lineage.some(item => !isPlain(item)))) reasons.push({ code: 'schema', detail: 'lineage must be an array of objects' });
+  if (cart.home !== undefined && cart.home !== null) {
+    if (!isPlain(cart.home)) reasons.push({ code: 'schema', detail: 'home must be an object' });
+    else {
+      keyWhitelist(cart.home, HOME_KEYS, reasons, 'home');
+      if (cart.home.name != null && (typeof cart.home.name !== 'string' || cart.home.name.length > 4096)) reasons.push({ code: 'schema', detail: 'home.name invalid' });
+      for (const key of ['gallery', 'registry']) if (cart.home[key] != null) {
+        if (typeof cart.home[key] !== 'string' || cart.home[key].length > 4096) reasons.push({ code: 'schema', detail: 'home.' + key + ' invalid' });
+        else {
+          try { if (new URL(cart.home[key]).protocol !== 'https:') reasons.push({ code: 'schema', detail: 'home.' + key + ' must use https' }); }
+          catch (e) { reasons.push({ code: 'schema', detail: 'home.' + key + ' invalid URL' }); }
+        }
+      }
+    }
+  }
+  if (cart.caught !== undefined) {
+    const c = cart.caught;
+    if (!isPlain(c)) reasons.push({ code: 'schema', detail: 'caught must be an object' });
+    else {
+      keyWhitelist(c, CAUGHT_KEYS, reasons, 'caught');
+      if (c.at == null) reasons.push({ code: 'schema', detail: 'caught.at missing' }); else tsCheck(c.at, reasons, 'caught.at');
+      if (c.geohash != null && (typeof c.geohash !== 'string' || !/^[0-9b-hjkmnp-z]{5,12}$/i.test(c.geohash))) reasons.push({ code: 'schema', detail: 'caught.geohash invalid' });
+      for (const k of ['place', 'poi', 'orb', 'aid', 'throwLabel']) if (c[k] != null && (typeof c[k] !== 'string' || c[k].length > 256)) reasons.push({ code: 'schema', detail: 'caught.' + k + ' invalid' });
+      if (c.tier != null && !['COMMON', 'UNCOMMON', 'RARE', 'LEGENDARY', 'MYTHIC'].includes(c.tier)) reasons.push({ code: 'schema', detail: 'caught.tier invalid' });
+      if (c.wobbles != null && (!Number.isInteger(c.wobbles) || c.wobbles < 0 || c.wobbles > 4)) reasons.push({ code: 'schema', detail: 'caught.wobbles invalid' });
+    }
+  }
+  if (cart.note !== undefined) {
+    const n = cart.note;
+    if (!isPlain(n)) reasons.push({ code: 'schema', detail: 'note must be an object' });
+    else {
+      keyWhitelist(n, NOTE_KEYS, reasons, 'note');
+      if (typeof n.text !== 'string' || n.text.length > 4096) reasons.push({ code: 'schema', detail: 'note.text invalid' });
+      if (n.at != null) tsCheck(n.at, reasons, 'note.at');
+    }
+  }
 }
 // §14b — disguise: re-derive the content hash (canonical + genomeId path) and
 // require it equals the claimed id; for frames, recompute the frame sha over
@@ -210,7 +288,7 @@ async function disguiseCheck(obj, kind, reasons) {
       }
     } else if (kind === 'frame' && isPlain(obj.cart)) {
       const got = await frameSha(obj.cart, obj.prev || '');
-      if (typeof obj.sha === 'string' && got !== obj.sha) reasons.push({ code: 'disguise', detail: 'frame sha ' + sha8(obj.sha) + ' ≠ recomputed ' + sha8(got) });
+      if (got !== obj.sha) reasons.push({ code: 'disguise', detail: 'frame sha ' + sha8(obj.sha) + ' ≠ recomputed ' + sha8(got) });
       if (typeof obj.cart.id === 'string' && obj.cart.id && isPlain(obj.cart.genome)) {
         const gid = await G.genomeId(obj.cart.genome);
         if (gid !== obj.cart.id) reasons.push({ code: 'disguise', detail: 'inner cart id ' + obj.cart.id + ' ≠ genome hash ' + gid });
@@ -231,13 +309,16 @@ export async function interrogate(input, hint) {
   if (kind === 'unknown' || !isPlain(input)) { reasons.push({ code: 'schema', detail: 'unrecognized shape (neither frame nor cart)' }); return verdict(reasons, kind); }
   if (kind === 'frame') {
     keyWhitelist(input, FRAME_KEYS, reasons, 'frame');
+    if (typeof input.sha !== 'string' || !/^[0-9a-f]{64}$/i.test(input.sha)) reasons.push({ code: 'schema', detail: 'frame.sha must be a sha256 string' });
+    if (typeof input.prev !== 'string' || (input.prev && !/^[0-9a-f]{64}$/i.test(input.prev))) reasons.push({ code: 'schema', detail: 'frame.prev must be empty or a sha256 string' });
     if (!('ts' in input)) reasons.push({ code: 'schema', detail: 'frame missing ts' }); else tsCheck(input.ts, reasons, 'frame.ts');
     if (typeof input.kind !== 'string' || input.kind.length > 32) reasons.push({ code: 'schema', detail: 'frame.kind invalid' });
     if (!isPlain(input.cart)) reasons.push({ code: 'schema', detail: 'frame.cart missing' }); else cartSchema(input.cart, reasons);
   } else {
     cartSchema(input, reasons);
   }
-  injectionScan(input, reasons, 0, kind);                          // §14c
+  const scanTarget = kind === 'frame' ? { ...input, note:'' } : input;
+  injectionScan(scanTarget, reasons, 0, kind);                     // §14c; frame notes are inert local history text
   const cart = kind === 'frame' ? input.cart : input;
   if (isPlain(cart)) genomeSanity(cart.genome, reasons);           // §14d
   await disguiseCheck(input, kind, reasons);                       // §14b
@@ -245,7 +326,7 @@ export async function interrogate(input, hint) {
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   §5 — QR god-sync payload: the latest private frame(s) + private memory.
+   §5 — QR god-sync payload: the latest private frame(s).
    Out-of-band by construction, never a server. Chunked for QR; single base64
    "sync code" for copy/paste. Import = sha-verify + append-merge (never clobber).
    ══════════════════════════════════════════════════════════════════════════ */
@@ -253,6 +334,16 @@ export function buildSyncPayload(twinId, frames, mem) {
   return b64enc(JSON.stringify({ v: 'twin-sync/1', twinId: twinId || null, ts: Date.now(), frames: frames || [], mem: mem || {} }));
 }
 export function parseSyncPayload(b64) { try { const o = JSON.parse(b64dec(b64)); if (o && o.v === 'twin-sync/1' && Array.isArray(o.frames)) return o; } catch (e) { } return null; }
+export async function validateSyncBootstrap(payload) {
+  if (!payload || payload.v !== 'twin-sync/1' || typeof payload.twinId !== 'string' || !payload.twinId || !Array.isArray(payload.frames) || !payload.frames.length) return false;
+  const accepted = [];
+  for (const frame of payload.frames) {
+    const verdict = await interrogate(frame, 'frame');
+    if (!verdict.ok || !frameConnects(accepted, frame)) return false;
+    accepted.push(frame);
+  }
+  return true;
+}
 function sid6(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0).toString(16).padStart(8, '0').slice(0, 6); }
 // TWINSYNC1/<i>/<N>/<sid>/<slice-of-base64>  — one QR per chunk, order-independent
 export function chunkPayload(b64, max = 600) {
@@ -291,6 +382,16 @@ export function mergeFrames(existing, incoming) {
   const out = (existing || []).slice(); let added = 0;
   for (const f of (incoming || [])) { if (f && f.sha && !have.has(f.sha)) { out.push(f); have.add(f.sha); added++; } }
   return { frames: out, added };
+}
+export function variantForCart(existing, cart) {
+  return (existing || []).find(item => item && item.cart && cart && item.cart.id === cart.id) || null;
+}
+export function frameConnects(existing, incoming) {
+  if (!incoming || typeof incoming.sha !== 'string') return false;
+  const frames = existing || [];
+  if (frames.some(frame => frame.sha === incoming.sha)) return true;
+  if (!frames.length) return incoming.prev === '';
+  return typeof incoming.prev === 'string' && !!incoming.prev && frames.some(frame => frame.sha === incoming.prev);
 }
 // union private memory; keep existing values (never clobber), add missing keys,
 // and for JSON-array values append not-yet-seen items
@@ -337,8 +438,105 @@ function makeStore(prefix) {
       if (hasIDB()) { try { ok = await idbSet(k, s); } catch (e) { } }
       if (hasLS()) { try { localStorage.setItem(lsKey(k), s); ok = true; } catch (e) { } }
       return ok;
+    },
+    async commitPrimary(twinId, frames, observedId, observedFrames) {
+      const frameJson = JSON.stringify(frames), idJson = JSON.stringify(twinId);
+      const observedFrameJson = observedId && Array.isArray(observedFrames) && observedFrames.length ? JSON.stringify(observedFrames) : null;
+      const normalizeStoredFrames = raw => {
+        if (raw == null) return null;
+        try { const parsed = JSON.parse(raw); if (Array.isArray(parsed) && !parsed.length) return null; } catch (e) { }
+        return raw;
+      };
+      if (hasLS()) {
+        try {
+          const rawId = localStorage.getItem(lsKey('id'));
+          const lsId = rawId == null ? null : JSON.parse(rawId);
+          const lsFrames = normalizeStoredFrames(localStorage.getItem(lsKey('frames')));
+          if (lsId && lsId !== observedId) return { committed:false, existing:lsId };
+          if (lsId && observedId && lsFrames !== observedFrameJson) return { committed:false, existing:lsId };
+        } catch (e) { return { committed:false, existing:null }; }
+      }
+      if (hasIDB()) {
+        const db = await openDB();
+        if (db) {
+          const result = await new Promise(res => {
+            let outcome = null;
+            try {
+              const tx = db.transaction('kv', 'readwrite');
+              const os = tx.objectStore('kv');
+              const q = os.get('id');
+              q.onsuccess = () => {
+                let current = null;
+                try { if (q.result != null) current = JSON.parse(q.result); } catch (e) { }
+                if (current && current !== observedId) {
+                  outcome = { committed: false, existing: current };
+                  return;
+                }
+                const fq = os.get('frames');
+                fq.onsuccess = () => {
+                  const currentFrames = normalizeStoredFrames(fq.result);
+                  if (current && observedId && currentFrames !== observedFrameJson) {
+                    outcome = { committed: false, existing: current || observedId };
+                    return;
+                  }
+                  os.put(frameJson, 'frames');
+                  os.put(idJson, 'id');
+                  outcome = { committed: true, existing: null };
+                };
+                fq.onerror = () => { try { tx.abort(); } catch (e) { } };
+              };
+              q.onerror = () => { try { tx.abort(); } catch (e) { } };
+              tx.oncomplete = () => res(outcome);
+              tx.onerror = () => res(null);
+              tx.onabort = () => res(null);
+            } catch (e) { res(null); }
+          });
+          if (result) {
+            if (result.committed && hasLS()) {
+              try {
+                localStorage.setItem(lsKey('frames'), frameJson);
+                localStorage.setItem(lsKey('id'), idJson);
+              } catch (e) { }
+            }
+            return result;
+          }
+        }
+      }
+      if (hasLS()) {
+        try {
+          const raw = localStorage.getItem(lsKey('id'));
+          const rawFrames = normalizeStoredFrames(localStorage.getItem(lsKey('frames')));
+          let current = null;
+          try { if (raw != null) current = JSON.parse(raw); } catch (e) { }
+          if (current && current !== observedId) return { committed: false, existing: current };
+          if (observedId && rawFrames !== observedFrameJson) return { committed: false, existing: current || observedId };
+          localStorage.setItem(lsKey('frames'), frameJson);
+          localStorage.setItem(lsKey('id'), idJson);
+          const finalId = JSON.parse(localStorage.getItem(lsKey('id')));
+          return finalId === twinId ? { committed: true, existing: null } : { committed: false, existing: finalId };
+        } catch (e) { }
+      }
+      return { committed: false, existing: null };
     }
   };
+}
+
+let primaryQueue = Promise.resolve();
+async function withPrimaryLock(prefix, work) {
+  const name = 'rapp-primary-' + prefix;
+  if (typeof navigator !== 'undefined' && navigator.locks && navigator.locks.request) {
+    return navigator.locks.request(name, work);
+  }
+  let release;
+  const previous = primaryQueue;
+  primaryQueue = new Promise(res => { release = res; });
+  await previous;
+  try { return await work(); }
+  finally { release(); }
+}
+
+export async function claimPrimary(prefix, twinId, frames, observedId, observedFrames) {
+  return withPrimaryLock(prefix, () => makeStore(prefix).commitPrimary(twinId, frames, observedId || null, observedFrames));
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -355,10 +553,10 @@ function writePrivateMem(mem) { try { for (const k in (mem || {})) if (k.indexOf
 /* ══════════════════════════════════════════════════════════════════════════
    basket — the shared 'rapp-basket' gene pool of encounters (read-only here).
    ══════════════════════════════════════════════════════════════════════════ */
-function readBasketEggs() {
+function readBasketEggs(isDemo = false) {
   return new Promise(res => {
     try {
-      const r = indexedDB.open('rapp-basket', 1);
+      const r = indexedDB.open(isDemo ? 'rapp-basket-demo' : 'rapp-basket', 1);
       r.onupgradeneeded = () => { try { const d = r.result; if (!d.objectStoreNames.contains('eggs')) d.createObjectStore('eggs', { keyPath: 'id' }); } catch (e) { } };
       r.onsuccess = () => { try { const all = r.result.transaction('eggs', 'readonly').objectStore('eggs').getAll(); all.onsuccess = () => { const recs = (all.result || []).filter(x => x && x.egg && x.egg.genome).sort((a, b) => (b.addedAt || 0) - (a.addedAt || 0)); res(recs); }; all.onerror = () => res([]); } catch (e) { res([]); } };
       r.onerror = () => res([]);
@@ -417,10 +615,19 @@ export const Twin = (() => {
   const headSha = () => { const f = currentFrame(frames); return f ? f.sha : ''; };
   const shortTwin = () => 'twin@' + sha8(headSha());
 
-  async function persist() { await store.set('id', twinId); await store.set('frames', frames); await store.set('variants', variants); await store.set('quarantine', quarantine); }
   async function append(kind, note, cart, extra) {
-    const f = await makeFrame(cart || currentCart(), headSha(), kind, note, extra);
-    frames.push(f); await store.set('frames', frames);
+    const f = await withPrimaryLock(prefix + '-frames', async () => {
+      const latest = await store.get('frames', []) || [];
+      const head = currentFrame(latest);
+      const base = head && head.cart;
+      const nextCart = typeof cart === 'function' ? await cart(base, head ? head.sha : '') : (cart || base);
+      const frame = await makeFrame(nextCart, head ? head.sha : '', kind, note, extra);
+      if (head) frame.ts = Math.max(frame.ts, Number(head.ts || 0) + 1);
+      const merged = mergeFrames(latest, [frame]).frames;
+      if (!(await store.set('frames', merged))) throw new Error('frame could not be stored');
+      frames = merged;
+      return frame;
+    });
     if (mounted) renderTimeline();
     if (els.twinTag) els.twinTag.textContent = shortTwin();
     return f;
@@ -432,50 +639,115 @@ export const Twin = (() => {
      interrogate() then clears or holds it. Nothing foreign ever writes directly
      to frames/variants again — assimilate()/captureVariant() go through here. */
   function mkQid() { return 'q-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 7); }
+  const quarantineLock = work => withPrimaryLock(prefix + '-quarantine', work);
+  async function mutateQuarantine(qid, mutate) {
+    return quarantineLock(async () => {
+      const latest = await store.get('quarantine', []) || [];
+      const rec = latest.find(r => r.qid === qid);
+      if (!rec) { quarantine = latest; return null; }
+      const keep = mutate(rec, latest);
+      quarantine = keep === false ? latest.filter(r => r.qid !== qid) : latest;
+      return await store.set('quarantine', quarantine) ? rec : null;
+    });
+  }
+  async function mergeQuarantine(records) {
+    return quarantineLock(async () => {
+      const latest = await store.get('quarantine', []) || [];
+      const merged = new Map(latest.map(rec => [rec.qid, rec]));
+      for (const rec of records || []) merged.set(rec.qid, rec);
+      quarantine = [...merged.values()];
+      return store.set('quarantine', quarantine);
+    });
+  }
   async function quarantineIncoming(obj, source, kindHint) {
     const rec = { qid: mkQid(), kind: kindHint || detectKind(obj), source: source || 'foreign', received: Date.now(), obj: clone(obj), status: 'quarantined', reasons: [], assimilated: false };
-    quarantine.unshift(rec); await store.set('quarantine', quarantine);
-    try { const v = await interrogate(rec.obj, rec.kind); rec.status = v.status; rec.reasons = v.reasons; rec.kind = v.kind; }
-    catch (e) { rec.status = 'quarantined'; rec.reasons = [{ code: 'error', detail: 'interrogation failed: ' + (e && e.message || e) }]; }
-    await store.set('quarantine', quarantine);
+    await quarantineLock(async () => {
+      quarantine = await store.get('quarantine', []) || [];
+      quarantine.unshift(rec);
+      if (!(await store.set('quarantine', quarantine))) {
+        rec.reasons = [{ code: 'storage', detail: 'quarantine could not be stored' }];
+        return;
+      }
+      try { const v = await interrogate(rec.obj, rec.kind); rec.status = v.status; rec.reasons = v.reasons; rec.kind = v.kind; }
+      catch (e) { rec.status = 'quarantined'; rec.reasons = [{ code: 'error', detail: 'interrogation failed: ' + (e && e.message || e) }]; }
+      if (!(await store.set('quarantine', quarantine))) {
+        rec.status = 'quarantined';
+        rec.reasons.push({ code: 'storage', detail: 'quarantine verdict could not be stored' });
+        await store.set('quarantine', quarantine);
+      }
+    });
     if (mounted) { renderQuarantine(); updateQBadge(); }
     return rec;
   }
   // move a CLEARED record's payload into the real stores (idempotent). Failed
   // records never reach here except via the dev force path.
   async function assimilateCleared(rec) {
-    if (!rec || rec.assimilated) return;
-    try {
-      if (rec.kind === 'frame') {
-        const mf = mergeFrames(frames, [rec.obj]); frames = mf.frames; await store.set('frames', frames);
-        const cur = currentCart(); if (cur) { try { await bridge.rerender(cur); } catch (e) { } }
-        if (mounted) renderTimeline();
-        if (els.twinTag) els.twinTag.textContent = shortTwin();
-      } else {
-        const cart = rec.obj;
-        const v = { variantId: 'var-' + (cart.id || sid6(G.canonical(cart))) + '-' + Date.now().toString(36), cart: clone(cart), title: cart.title || 'a twin you met', capturedAt: Date.now(), fromQuarantine: rec.qid };
-        variants.unshift(v); await store.set('variants', variants); rec.variantId = v.variantId;
-        if (mounted) renderVariants();
+    if (!rec) return false;
+    if (rec.assimilated) return true;
+    if (rec.kind === 'frame') {
+      let chainRejected = false;
+      const stored = await withPrimaryLock(prefix + '-frames', async () => {
+        const latest = await store.get('frames', []) || [];
+        if (!frameConnects(latest, rec.obj)) {
+          chainRejected = true;
+          rec.status = 'quarantined';
+          rec.reasons = [...(rec.reasons || []), { code:'chain', detail:'frame does not connect to this twin history' }];
+          return false;
+        }
+        const merged = mergeFrames(latest, [rec.obj]).frames;
+        if (!(await store.set('frames', merged))) return false;
+        frames = merged;
+        return true;
+      });
+      if (!stored) {
+        if (chainRejected) await mutateQuarantine(rec.qid, saved => { saved.status = rec.status; saved.reasons = rec.reasons; });
+        return false;
       }
-      rec.assimilated = true; await store.set('quarantine', quarantine);
-    } catch (e) { }
+      const cur = currentCart(); if (cur) { try { await bridge.rerender(cur); } catch (e) { } }
+      if (mounted) renderTimeline();
+      if (els.twinTag) els.twinTag.textContent = shortTwin();
+    } else {
+      const stored = await withPrimaryLock(prefix + '-variants', async () => {
+        const latest = await store.get('variants', []) || [];
+        let v = variantForCart(latest, rec.obj) || latest.find(item => item.fromQuarantine === rec.qid);
+        if (!v) {
+          const cart = rec.obj;
+          v = { variantId: 'var-' + (cart.id || sid6(G.canonical(cart))) + '-' + Date.now().toString(36), cart: clone(cart), title: rec.title || cart.title || 'a twin you met', capturedAt: Date.now(), fromQuarantine: rec.qid };
+          latest.unshift(v);
+        }
+        if (!(await store.set('variants', latest))) return false;
+        variants = latest;
+        rec.variantId = v.variantId;
+        return true;
+      });
+      if (!stored) return false;
+      if (mounted) renderVariants();
+    }
+    const marked = await mutateQuarantine(rec.qid, saved => {
+      saved.assimilated = true;
+      if (rec.variantId) saved.variantId = rec.variantId;
+    });
+    if (!marked) return false;
+    rec.assimilated = true;
+    return true;
   }
   async function releaseQ(qid) {                       // graduate a cleared item out of the tray
     const rec = quarantine.find(r => r.qid === qid); if (!rec || rec.status !== 'cleared') return;
-    await assimilateCleared(rec);
-    quarantine = quarantine.filter(r => r.qid !== qid); await store.set('quarantine', quarantine);
+    if (!(await assimilateCleared(rec))) { toast('release could not be stored — the record is still safe in quarantine'); return; }
+    if (!(await mutateQuarantine(qid, () => false))) { toast('released, but the quarantine receipt could not be cleared yet'); return; }
     if (mounted) { renderQuarantine(); updateQBadge(); }
     toast('released — ' + (rec.kind === 'frame' ? 'the frame joined your history' : 'the variant is yours to splice'));
   }
   async function deleteQ(qid) {                         // forget the record (never assimilates a held item)
-    quarantine = quarantine.filter(r => r.qid !== qid); await store.set('quarantine', quarantine);
+    if (!(await mutateQuarantine(qid, () => false))) { toast('the quarantine record could not be deleted yet'); return; }
     if (mounted) { renderQuarantine(); updateQBadge(); }
   }
   async function forceQ(qid) {                          // ?dev=1 only — clearly marked bypass
     if (!dev) return;
     const rec = quarantine.find(r => r.qid === qid); if (!rec) return;
     await assimilateCleared({ ...rec, assimilated: false });
-    rec.assimilated = true; rec.forced = true; await store.set('quarantine', quarantine);
+    rec.assimilated = true; rec.forced = true;
+    await mutateQuarantine(qid, saved => { saved.assimilated = true; saved.forced = true; });
     if (mounted) { renderQuarantine(); updateQBadge(); }
     toast('⚠ dev: force-assimilated despite ' + rec.reasons.length + ' reason(s) — this bypassed quarantine');
   }
@@ -503,6 +775,21 @@ export const Twin = (() => {
     if (!cart) { renderFirstRun(); return; }
     bridge.bootWithCart(cart, { primary: true }).catch(() => { });   // wake the mind in the background
     mountPanel();                                                    // …but the twin UI is up immediately (offline-first)
+  }
+  async function importPrimarySync(payload) {
+    if (twinId || !(await validateSyncBootstrap(payload))) return false;
+    const claim = await claimPrimary(prefix, payload.twinId, payload.frames, null, null);
+    if (!claim.committed) return false;
+    twinId = payload.twinId;
+    frames = payload.frames.slice();
+    variants = await store.get('variants', []) || [];
+    quarantine = await store.get('quarantine', []) || [];
+    const cart = currentCart();
+    if (!cart) return false;
+    bridge.bootWithCart(cart, { primary:true }).catch(() => {});
+    mountPanel();
+    toast('your twin arrived from the other device');
+    return true;
   }
 
   async function seedDemo() {
@@ -547,16 +834,60 @@ export const Twin = (() => {
     const recB = { qid: 'q-demo-disguise', kind: 'cart', source: 'demo·capture', received: DEMO_TS - 1800000, obj: dg, status: 'quarantined', reasons: [], assimilated: false, title: dg.title };
     const vb = await interrogate(dg, 'cart'); recB.status = vb.status; recB.reasons = vb.reasons;
     quarantine.push(recB);
-    await persist();
+    const claim = await claimPrimary(prefix, twinId, frames, null, null);
+    if (!claim.committed) {
+      twinId = claim.existing;
+      frames = await store.get('frames', []) || [];
+      variants = await store.get('variants', []) || [];
+      quarantine = await store.get('quarantine', []) || [];
+      return;
+    }
+    await store.set('variants', variants);
+    await mergeQuarantine(quarantine);
   }
 
   // first-run birth of the ONE twin (twinId minted once, never changes)
   async function birthPrimary(cart, how) {
-    const c = clone(cart); c.schema = 'hologram-cartridge/1.0';
-    try { c.id = await G.genomeId(c.genome); } catch (e) { }
-    twinId = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : ('twin-' + Date.now().toString(16) + '-' + Math.random().toString(16).slice(2, 10));
-    frames = [await makeFrame(c, '', 'birth', 'your twin was born (' + how + ')', null)];
-    await persist();
+    const observedTwinId = twinId;
+    const observedFrames = frames.slice();
+    const c = clone(cart);
+    if (how === 'hatched fresh') {
+      c.schema = 'hologram-cartridge/1.0';
+      try { c.id = await G.genomeId(c.genome); } catch (e) { }
+    } else {
+      const rec = await quarantineIncoming(c, 'basket-primary', 'cart');
+      if (rec.status !== 'cleared') {
+        toast('that egg is held in quarantine — it cannot become your primary');
+        renderFirstRun();
+        return;
+      }
+    }
+    const candidateId = observedTwinId || ((typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : ('twin-' + Date.now().toString(16) + '-' + Math.random().toString(16).slice(2, 10)));
+    const candidateFrames = [await makeFrame(c, '', 'birth', 'your twin was born (' + how + ')', null)];
+    const claim = await claimPrimary(prefix, candidateId, candidateFrames, observedTwinId || null, observedFrames);
+    if (!claim.committed) {
+      if (!claim.existing) {
+        toast('the twin could not be stored yet — please try again');
+        renderFirstRun();
+        return;
+      }
+      twinId = claim.existing;
+      frames = await store.get('frames', []) || [];
+      const existingCart = currentCart();
+      if (!existingCart) {
+        toast('the existing twin needs repair before it can wake');
+        renderFirstRun();
+        return;
+      }
+      bridge.bootWithCart(existingCart, { primary: true }).catch(() => { });
+      mountPanel();
+      toast('your twin was already born in another room');
+      return;
+    }
+    twinId = candidateId;
+    frames = candidateFrames;
+    await store.set('variants', variants);
+    await mergeQuarantine(quarantine);
     bridge.bootWithCart(c, { primary: true }).catch(() => { });   // mind wakes in the background
     mountPanel();                                                 // twin UI up immediately
     toast('your twin is born — it is yours now, and it will remember');
@@ -579,16 +910,13 @@ export const Twin = (() => {
   /* ── §6 capture & splice ─────────────────────────────────────────────── */
   // §14: a captured cart is FOREIGN — it lands in quarantine and is interrogated
   // before it can become a spliceable variant. Only a 'cleared' verdict assimilates.
-  async function captureVariant(cart, title, source) {
+  async function captureVariant(cart, title, source, existingRec) {
     if (!cart || !cart.genome) return null;
-    const rec = await quarantineIncoming(cart, source || 'capture', 'cart');
+    const rec = existingRec || await quarantineIncoming(cart, source || 'capture', 'cart');
     rec.title = title || cart.title || 'a twin you met';
     if (rec.status === 'cleared') {
-      const variantId = 'var-' + (cart.id || sid6(G.canonical(cart))) + '-' + Date.now().toString(36);
-      const v = { variantId, cart: clone(cart), title: rec.title, capturedAt: Date.now(), fromQuarantine: rec.qid };
-      variants.unshift(v); await store.set('variants', variants);
-      rec.assimilated = true; rec.variantId = variantId; await store.set('quarantine', quarantine);
-      if (mounted) renderVariants();
+      await mutateQuarantine(rec.qid, saved => { saved.title = rec.title; });
+      rec.assimilated = await assimilateCleared(rec);
     }
     if (mounted) { renderQuarantine(); updateQBadge(); }
     return rec;
@@ -598,13 +926,15 @@ export const Twin = (() => {
   // cabinet's recombineLayer via genetics.spliceGenome). twinId persists.
   async function splice(variantId, roles) {
     const v = variants.find(x => x.variantId === variantId); if (!v) return;
-    const primary = currentCart();
-    const seed = (primary.id || '') + '\u00d7' + (v.cart.id || '') + '\u00d7' + sha8(headSha());
-    const { genome, id } = await G.spliceGenome(primary.genome, v.cart.genome, roles, seed);
-    const next = clone(primary); next.genome = genome; next.id = id;
-    next.parents = Array.from(new Set([...(primary.parents || []), v.cart.id].filter(Boolean)));
-    next.title = primary.title || 'my twin';
-    await append('splice', 'spliced ' + (roles && roles.length ? roles.join('+') : 'all') + ' from ' + (v.title || 'a variant'), next, { lineage: { from: variantId, variant: v.cart.id || null, roles: roles || null } });
+    let next = null;
+    await append('splice', 'spliced ' + (roles && roles.length ? roles.join('+') : 'all') + ' from ' + (v.title || 'a variant'), async (primary, lockedHeadSha) => {
+      const seed = (primary.id || '') + '\u00d7' + (v.cart.id || '') + '\u00d7' + sha8(lockedHeadSha);
+      const { genome, id } = await G.spliceGenome(primary.genome, v.cart.genome, roles, seed);
+      next = clone(primary); next.genome = genome; next.id = id;
+      next.parents = Array.from(new Set([...(primary.parents || []), v.cart.id].filter(Boolean)));
+      next.title = primary.title || 'my twin';
+      return next;
+    }, { lineage: { from: variantId, variant: v.cart.id || null, roles: roles || null } });
     await bridge.rerender(next);
     if (mounted) { renderVariants(); }
     toast('your twin absorbed ' + (v.title || 'a variant') + ' — it is a little more like it now');
@@ -618,7 +948,7 @@ export const Twin = (() => {
     const idBefore = child.id;
     const stamped = pairStamp(child, headSha());          // §9: born.pairedTo OUTSIDE genome
     stamped.id = idBefore;                                 // genome id unchanged by the stamp
-    await append('breed', 'bred a new being with ' + (v.title || 'a variant') + ' → ' + stamped.title, currentCart(), { lineage: { bred: stamped.id, pairedTo: stamped.born.pairedTo, with: variantId } });
+    await append('breed', 'bred a new being with ' + (v.title || 'a variant') + ' → ' + stamped.title, null, { lineage: { bred: stamped.id, pairedTo: stamped.born.pairedTo, with: variantId } });
     toast('a new being was born, paired to ' + stamped.born.pairedTo);
     return stamped;
   }
@@ -634,59 +964,71 @@ export const Twin = (() => {
 
   /* ── §5 QR god-sync ──────────────────────────────────────────────────── */
   function buildExport(n) {
-    const recent = frames.slice(-(n || 1));               // latest private frame(s)
-    return buildSyncPayload(twinId, recent, readPrivateMem());
+    const bySha = new Map(frames.map(frame => [frame.sha, frame]));
+    const chain = [];
+    let frame = currentFrame(frames);
+    while (frame) {
+      chain.unshift(frame);
+      frame = frame.prev ? bySha.get(frame.prev) : null;
+    }
+    return buildSyncPayload(twinId, chain, {});
   }
   async function assimilate(payload) {
     if (!payload) return { added: 0, quarantined: 0 };
+    if (!twinId || payload.twinId !== twinId) return { added: 0, quarantined: 0, error: 'sync payload belongs to a different twin', memAdded: 0 };
     const cleared = []; let held = 0;
-    for (const f of (payload.frames || [])) {              // §14: every foreign frame is quarantined + interrogated FIRST
+    const known = new Set(frames.map(frame => frame.sha));
+    const incoming = (payload.frames || []).filter(frame => frame && frame.sha && !known.has(frame.sha) && (known.add(frame.sha), true));
+    for (const f of incoming) {                             // §14: every unknown foreign frame is quarantined + interrogated FIRST
       const rec = await quarantineIncoming(f, 'qr-import', 'frame');
       if (rec.status === 'cleared') cleared.push(rec); else held++;
     }
     let added = 0;
     for (const rec of cleared) { const before = frames.length; await assimilateCleared(rec); if (frames.length > before) added++; }   // pass → normal append-merge
-    const mm = mergeMem(readPrivateMem(), payload.mem || {}); writePrivateMem(mm.mem);   // the sealed memory union is append-only, never clobbers
-    await store.set('frames', frames);
     const cur = currentCart(); if (cur) { try { await bridge.rerender(cur); } catch (e) { } }
     if (mounted) { renderTimeline(); renderQuarantine(); updateQBadge(); }
     if (els.twinTag) els.twinTag.textContent = shortTwin();
-    return { added, quarantined: held, memAdded: mm.added };
+    return { added, quarantined: held, memAdded: 0, memoryHeld: Object.keys(payload.mem || {}).length };
   }
 
   /* ── interaction frames (§3: mutate from what you share) ─────────────── */
   async function recordTalk(text) {
     if (_talked || !twinId) return; _talked = true;
-    try { await append('talk', 'a conversation — “' + String(text || '').slice(0, 60) + '”', currentCart(), null); } catch (e) { }
+    try { await append('talk', 'a conversation happened', null, null); } catch (e) { }
   }
   async function recordShare(where) {
     if (!twinId) return;
-    try { await append('share', 'shared to ' + where, currentCart(), null); } catch (e) { }
+    try { await append('share', 'shared to ' + where, null, null); } catch (e) { }
   }
   // when the companion is opened on a specific egg (a twin you've met)
-  async function onExplicitCart(cart) { mountVisit(cart); }
+  async function onExplicitCart(cart) {
+    const rec = await quarantineIncoming(cart, 'deep-link', 'cart');
+    mountVisit(cart, rec);
+    return rec;
+  }
 
   /* ══════════════════════════════════════════════════════════════════════
      UI (all created here so index.html stays lean). Voice: lowercase, gentle.
      ══════════════════════════════════════════════════════════════════════ */
   function ensureRoot() { root = document.getElementById('twin-root'); if (!root) { root = document.createElement('div'); root.id = 'twin-root'; document.body.appendChild(root); } }
-  function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+  function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
   function toast(msg) { try { if (bridge && bridge.bubble) bridge.bubble('sys', '🧬 ' + msg); } catch (e) { } const t = els.toast; if (t) { t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 3200); } }
 
   function renderFirstRun() {
     ensureRoot(); root.innerHTML = '';
     const card = el('div', 'twin-firstrun');
     card.appendChild(el('div', 'twin-fr-title', '🌱 meet your twin'));
-    card.appendChild(el('div', 'twin-fr-body', 'you keep exactly one twin — it is what represents you here, and it grows from what you share with it. body &amp; outfit travel; memories stay. begin by hatching a fresh one, or adopt a kept egg as its first body.'));
+    card.appendChild(el('div', 'twin-fr-body', 'you keep exactly one twin — it is what represents you here, and it grows from what you share with it. body & outfit travel; memories stay. begin by hatching a fresh one, or adopt a kept egg as its first body.'));
     const row = el('div', 'twin-fr-row');
     const hatch = el('button', 'twin-btn primary', '🌱 hatch fresh');
     hatch.onclick = async () => { hatch.disabled = true; await birthPrimary(hatchFreshCart(), 'hatched fresh'); };
     const adoptBtn = el('button', 'twin-btn', '🧺 adopt a kept egg');
-    row.appendChild(hatch); row.appendChild(adoptBtn); card.appendChild(row);
+    const syncBtn = el('button', 'twin-btn', '↙ import twin sync');
+    row.appendChild(hatch); row.appendChild(adoptBtn); row.appendChild(syncBtn); card.appendChild(row);
     const pool = el('div', 'twin-fr-pool'); pool.style.display = 'none'; card.appendChild(pool);
     adoptBtn.onclick = async () => {
       pool.style.display = 'block'; pool.innerHTML = '<div class="twin-muted">reading your basket…</div>';
-      const eggs = await readBasketEggs();
+      const eggs = await readBasketEggs(demo);
       pool.innerHTML = '';
       if (!eggs.length) { pool.appendChild(el('div', 'twin-muted', 'no kept eggs yet — hatch a fresh one, or keep some from the basket first.')); return; }
       for (const rec of eggs) {
@@ -697,25 +1039,37 @@ export const Twin = (() => {
         pool.appendChild(item);
       }
     };
+    syncBtn.onclick = async () => {
+      const text = prompt('paste the twin sync code or all QR chunks');
+      if (!text) return;
+      syncBtn.disabled = true;
+      const assembled = makeAssembler().add(text);
+      const ok = assembled.done && assembled.payload && await importPrimarySync(assembled.payload);
+      if (!ok) { syncBtn.disabled = false; toast('that sync code could not establish a connected twin history'); }
+    };
     root.appendChild(card);
     if (els.toast) root.appendChild(els.toast);
   }
 
-  function mountVisit(cart) {
+  function mountVisit(cart, explicitRec) {
     ensureRoot();
     const bar = el('div', 'twin-visit');
-    bar.appendChild(el('span', 'twin-visit-txt', '🫂 you\'re meeting a twin — capture it to splice onto yours'));
-    const cap = el('button', 'twin-btn small', '＋ capture as variant');
+    const cleared = explicitRec && explicitRec.status === 'cleared';
+    bar.appendChild(el('span', 'twin-visit-txt', cleared
+      ? '🫂 you\'re meeting a twin — capture it to splice onto yours'
+      : '🧫 this egg is held in quarantine and cannot wake'));
+    const cap = el('button', 'twin-btn small', cleared ? '＋ capture as variant' : '🧫 quarantined');
+    cap.disabled = !cleared;
     cap.onclick = async () => {
       cap.disabled = true;
-      const rec = await captureVariant(cart, cart.title, 'deep-link');   // §14: a deep-linked cart is foreign → quarantined first
-      const cleared = rec && rec.status === 'cleared';
-      cap.textContent = cleared ? '✓ captured' : rec ? '🧫 quarantined' : "couldn't capture";
-      cap.classList.add(cleared ? 'done' : 'held');
-      if (rec && !cleared) toast('held in quarantine — ' + reasonSummary(rec.reasons) + ' — open your twin ▸ 🧫 quarantine');
+      const rec = await captureVariant(cart, cart.title, 'deep-link', explicitRec);
+      const captured = rec && rec.status === 'cleared' && rec.assimilated;
+      cap.textContent = captured ? '✓ captured' : rec && rec.status !== 'cleared' ? '🧫 quarantined' : "couldn't capture";
+      cap.classList.add(captured ? 'done' : 'held');
+      if (rec && rec.status !== 'cleared') toast('held in quarantine — ' + reasonSummary(rec.reasons) + ' — open your twin ▸ 🧫 quarantine');
     };
     const back = el('button', 'twin-btn small', '← my twin');
-    back.onclick = () => { try { location.href = location.pathname; } catch (e) { } };
+    back.onclick = () => { try { location.href = location.pathname + (demo ? '?demo=1' : ''); } catch (e) { } };
     bar.appendChild(cap); bar.appendChild(back);
     root.innerHTML = ''; root.appendChild(bar);
   }
@@ -820,16 +1174,16 @@ export const Twin = (() => {
     modal.appendChild(box); document.body.appendChild(modal);
     function close() { try { document.body.removeChild(modal); } catch (e) { } }
     modal.onclick = e => { if (e.target === modal) close(); };
-    const eggs = await readBasketEggs(); list.innerHTML = '';
+    const eggs = await readBasketEggs(demo); list.innerHTML = '';
     if (!eggs.length) { list.appendChild(el('div', 'twin-muted', 'your basket is empty.')); return; }
     for (const rec of eggs) {
       const item = el('button', 'twin-egg'); item.appendChild(swatch(rec.egg)); item.appendChild(el('span', 'twin-egg-name', (rec.title || 'organism')));
       item.onclick = async () => {
         item.disabled = true;
         const q = await captureVariant(rec.egg, rec.title, 'basket');   // §14: basket encounters are foreign → quarantined first
-        const cleared = q && q.status === 'cleared';
-        item.textContent = cleared ? '✓ captured' : q ? '🧫 quarantined' : "couldn't capture";
-        item.classList.add(cleared ? 'done' : 'held');
+        const captured = q && q.status === 'cleared' && q.assimilated;
+        item.textContent = captured ? '✓ captured' : q && q.status !== 'cleared' ? '🧫 quarantined' : "couldn't capture";
+        item.classList.add(captured ? 'done' : 'held');
       };
       list.appendChild(item);
     }
@@ -841,7 +1195,7 @@ export const Twin = (() => {
     prev.appendChild(el('div', 'twin-muted', 'genome ' + child.id + '\npaired to ' + (child.born && child.born.pairedTo) + ' (outside the genome — its content-hash stays sacred)')); box.appendChild(prev);
     const row = el('div', 'twin-fr-row');
     const keep = el('button', 'twin-btn primary', '🧺 keep to basket'); keep.onclick = async () => { try { await bridge.keepToBasket(child); keep.textContent = '✓ kept'; keep.classList.add('done'); } catch (e) { } }; row.appendChild(keep);
-    const cap = el('button', 'twin-btn', '＋ capture as variant'); cap.onclick = async () => { cap.disabled = true; const q = await captureVariant(child, child.title, 'bred'); const cleared = q && q.status === 'cleared'; cap.textContent = cleared ? '✓ captured' : '🧫 quarantined'; cap.classList.add(cleared ? 'done' : 'held'); }; row.appendChild(cap);
+    const cap = el('button', 'twin-btn', '＋ capture as variant'); cap.onclick = async () => { cap.disabled = true; const q = await captureVariant(child, child.title, 'bred'); const captured = q && q.status === 'cleared' && q.assimilated; cap.textContent = captured ? '✓ captured' : q && q.status !== 'cleared' ? '🧫 quarantined' : "couldn't capture"; cap.classList.add(captured ? 'done' : 'held'); }; row.appendChild(cap);
     const cl = el('button', 'twin-btn', 'close'); cl.onclick = () => close(); row.appendChild(cl);
     box.appendChild(row); modal.appendChild(box); document.body.appendChild(modal);
     function close() { try { document.body.removeChild(modal); } catch (e) { } }
@@ -920,7 +1274,7 @@ export const Twin = (() => {
   // bones (public export) ----------------------------------------------------
   function buildBones() {
     const b = els.body.bones; b.innerHTML = '';
-    b.appendChild(el('div', 'twin-muted', 'the public half — body &amp; outfit only. memories, agents and keepsake notes never leave here (§5 QR sync is the only path for those).'));
+    b.appendChild(el('div', 'twin-muted', 'the public half — body & outfit only. memories, agents and keepsake notes never leave here (§5 QR sync is the only path for those).'));
     const btn = el('button', 'twin-btn primary small', '🦴 export bones');
     const out = el('div', 'twin-bonesout'); out.style.display = 'none';
     btn.onclick = () => {
@@ -930,7 +1284,7 @@ export const Twin = (() => {
       out.appendChild(copyBox(JSON.stringify(cart, null, 2)));
       out.appendChild(el('div', 'twin-copy-label', 'card.json (public identity)'));
       out.appendChild(copyBox(JSON.stringify(card, null, 2)));
-      out.appendChild(el('div', 'twin-note', '“body &amp; outfit travel; memories stay.”'));
+      out.appendChild(el('div', 'twin-note', '“body & outfit travel; memories stay.”'));
     };
     b.appendChild(btn); b.appendChild(out);
   }
@@ -938,7 +1292,7 @@ export const Twin = (() => {
   // sync (QR §5) -------------------------------------------------------------
   function buildSync() {
     const b = els.body.sync; b.innerHTML = '';
-    b.appendChild(el('div', 'twin-muted', 'sync your sealed half to your OTHER device — by hand, out of band, never a server. show the QR to the other device\'s scanner, or copy the sync code and paste it there.'));
+    b.appendChild(el('div', 'twin-muted', 'sync your latest verified frame to your OTHER device — by hand, out of band, never a server. private memories stay on the device where they were written.'));
     const exBtn = el('button', 'twin-btn primary small', '🔁 create sync code');
     const exOut = el('div', 'twin-syncout'); exOut.style.display = 'none';
     exBtn.onclick = () => renderSyncExport(exOut);
@@ -951,17 +1305,17 @@ export const Twin = (() => {
     const scan = el('button', 'twin-btn small', '📷 scan');
     imp.onclick = async () => {
       const asm = makeAssembler(); const res = asm.add(ta.value);
-      if (res.done && res.payload) { const r = await assimilate(res.payload); toast('assimilated ' + r.added + ' frame(s)' + (r.quarantined ? ', 🧫 quarantined ' + r.quarantined : '') + (r.memAdded ? ', +' + r.memAdded + ' memory' : '')); }
+      if (res.done && res.payload) { const r = await assimilate(res.payload); toast(r.error || ('assimilated ' + r.added + ' frame(s)' + (r.quarantined ? ', 🧫 quarantined ' + r.quarantined : '') + (r.memoryHeld ? ', private memory was not imported' : ''))); }
       else toast(res.error || ('need ' + (res.need || '?') + ' chunk(s) — have ' + (res.have || 0)));
     };
-    scan.onclick = () => openScanner(async payload => { const r = await assimilate(payload); toast('assimilated ' + r.added + ' frame(s) from a scan' + (r.quarantined ? ', 🧫 quarantined ' + r.quarantined : '')); });
+    scan.onclick = () => openScanner(async payload => { const r = await assimilate(payload); toast(r.error || ('assimilated ' + r.added + ' frame(s) from a scan' + (r.quarantined ? ', 🧫 quarantined ' + r.quarantined : ''))); });
     row.appendChild(imp); row.appendChild(scan); b.appendChild(row);
   }
   function renderSyncExport(out) {
     const b64 = buildExport(1);
     const { chunks } = chunkPayload(b64);
     out.style.display = 'block'; out.innerHTML = '';
-    out.appendChild(el('div', 'twin-muted', 'the sealed half (latest private frame + memories). ' + chunks.length + ' QR ' + (chunks.length > 1 ? 'codes — scan them all' : 'code') + ':'));
+    out.appendChild(el('div', 'twin-muted', 'the latest verified frame (private memories stay on their original device). ' + chunks.length + ' QR ' + (chunks.length > 1 ? 'codes — scan them all' : 'code') + ':'));
     const gal = el('div', 'twin-qrgal');
     for (const c of chunks) { const cv = document.createElement('canvas'); cv.className = 'twin-qr'; drawQR(cv, c); gal.appendChild(cv); }
     out.appendChild(gal);
@@ -989,16 +1343,45 @@ export const Twin = (() => {
     const video = document.createElement('video'); video.className = 'twin-scanvid'; video.setAttribute('playsinline', ''); box.appendChild(video);
     const cl = el('button', 'twin-btn', 'close'); box.appendChild(cl);
     modal.appendChild(box); document.body.appendChild(modal);
-    let stream = null, raf = 0; const asm = makeAssembler();
-    function close() { try { if (raf) cancelAnimationFrame(raf); if (stream) stream.getTracks().forEach(t => t.stop()); document.body.removeChild(modal); } catch (e) { } }
+    let stream = null, raf = 0, closed = false; const asm = makeAssembler();
+    const onHidden = () => { if (document.hidden) close(); };
+    function close() {
+      if (closed) return;
+      closed = true;
+      try {
+        if (raf) cancelAnimationFrame(raf);
+        if (stream) stream.getTracks().forEach(t => t.stop());
+        video.srcObject = null;
+        document.removeEventListener('visibilitychange', onHidden);
+        window.removeEventListener('pagehide', close);
+        if (modal.isConnected) document.body.removeChild(modal);
+      } catch (e) { }
+    }
     cl.onclick = close; modal.onclick = e => { if (e.target === modal) close(); };
+    document.addEventListener('visibilitychange', onHidden);
+    window.addEventListener('pagehide', close);
     if (!hasBD) return;
     (async () => {
       let det; try { det = new window.BarcodeDetector({ formats: ['qr_code'] }); } catch (e) { status.textContent = 'scanner unavailable — paste the sync code.'; return; }
-      try { stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }); video.srcObject = stream; await video.play(); } catch (e) { status.textContent = 'camera blocked — paste the sync code instead.'; return; }
+      try {
+        const acquired = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+        if (closed) { acquired.getTracks().forEach(t => t.stop()); return; }
+        stream = acquired; video.srcObject = stream; await video.play();
+        if (closed) { stream.getTracks().forEach(t => t.stop()); return; }
+      } catch (e) {
+        if (stream) stream.getTracks().forEach(t => t.stop());
+        stream = null; video.srcObject = null;
+        if (!closed) status.textContent = 'camera blocked — paste the sync code instead.';
+        return;
+      }
       const tick = async () => {
-        try { const codes = await det.detect(video); for (const c of codes) { const res = asm.add(c.rawValue || ''); if (res.done && res.payload) { close(); onPayload(res.payload); return; } if (res.have) status.textContent = 'have ' + res.have + '/' + res.need + ' chunk(s)…'; } } catch (e) { }
-        raf = requestAnimationFrame(tick);
+        if (closed) return;
+        try {
+          const codes = await det.detect(video);
+          if (closed) return;
+          for (const c of codes) { const res = asm.add(c.rawValue || ''); if (res.done && res.payload) { close(); onPayload(res.payload); return; } if (res.have) status.textContent = 'have ' + res.have + '/' + res.need + ' chunk(s)…'; }
+        } catch (e) { }
+        if (!closed) raf = requestAnimationFrame(tick);
       };
       raf = requestAnimationFrame(tick);
     })();

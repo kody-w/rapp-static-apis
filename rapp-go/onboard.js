@@ -10,10 +10,11 @@ import { renderLoop } from './lib/fauna.js';
 import { mkRng, moonPhase, genomeId, b64enc, b64dec } from './lib/genome.js';
 import { keepToBasket } from './lib/basket.js';
 // pure frame functions from the canonical twin store (companion owns the schema)
-import { makeFrame, pairStamp, sha8 } from '../companion/twin.mjs';
+import { claimPrimary, currentFrame, exportBones, interrogate, makeFrame, pairStamp, sha8, validateChain } from '../companion/twin.mjs';
 import { qr } from '../track/qr.mjs';
 
 const PAGES_URL = 'https://kody-w.github.io/rapp-static-apis/rapp-go/';
+let receiveGeneration = 0;
 
 /* ── storage (house pattern: never crash) ─────────────────────────────────── */
 const LS = {
@@ -24,9 +25,10 @@ export function onboarded() { return !!LS.get('rapp-go.onboarded'); }
 
 /* one-time contextual tips (§C tail): first poi, first flee, first rare, bag cap */
 export function tip(key, text) {
-  const seen = LS.get('rapp-go.tips') || {};
+  const demo = typeof location !== 'undefined' && new URLSearchParams(location.search).get('demo') === '1';
+  const seen = demo ? (tip._demoSeen || (tip._demoSeen = {})) : (LS.get('rapp-go.tips') || {});
   if (seen[key]) return;
-  seen[key] = 1; LS.set('rapp-go.tips', seen);
+  seen[key] = 1; if (!demo) LS.set('rapp-go.tips', seen);
   const d = document.createElement('div');
   d.className = 'go-tip'; d.textContent = text;
   document.body.appendChild(d);
@@ -57,9 +59,34 @@ function twinStore(demo) {
       return null;
     },
     async set(k, v) {
-      const s = JSON.stringify(v); const db = await open();
-      if (db) { await new Promise(res => { try { const tx = db.transaction('kv', 'readwrite'); tx.objectStore('kv').put(s, k); tx.oncomplete = () => res(1); tx.onerror = () => res(0); } catch { res(0); } }); }
-      try { localStorage.setItem(prefix + '.' + k, s); } catch {}
+      return this.setMany([[k, v]]);
+    },
+    async setMany(entries) {
+      const rows = entries.map(([k, v]) => [k, JSON.stringify(v)]);
+      const db = await open();
+      if (db) {
+        const committed = await new Promise(res => {
+          try {
+            const tx = db.transaction('kv', 'readwrite');
+            const os = tx.objectStore('kv');
+            for (const [k, s] of rows) os.put(s, k);
+            tx.oncomplete = () => res(true);
+            tx.onerror = () => res(false);
+            tx.onabort = () => res(false);
+          } catch { res(false); }
+        });
+        if (committed) {
+          // Best-effort mirror, ordered so a partial fallback never gets id-only.
+          try { for (const [k, s] of rows) localStorage.setItem(prefix + '.' + k, s); } catch {}
+          return true;
+        }
+      }
+      try {
+        for (const [k, s] of rows) localStorage.setItem(prefix + '.' + k, s);
+        return true;
+      } catch {
+        return false;
+      }
     }
   };
 }
@@ -110,7 +137,8 @@ const r2 = v => Math.round(v * 100) / 100;
 function buildStarter(axis, inputs, nowMs) {
   const { pal, luma, dateMs, word, mood } = inputs;
   const m = MOODS[mood] || MOODS.calm;
-  const moon = moonPhase(dateMs);                       // 0..1
+  const moon = moonPhase(dateMs);
+  const moonAmount = moon.illuminated / 100;
   const seed = ['starter', axis, word, String(dateMs), mood, pal.join(''), r2(luma)].join('|');
   const rng = mkRng(seed);
   const w = { body: axis === 'body' ? 1 : 0.35, moment: axis === 'moment' ? 1 : 0.35, bond: axis === 'bond' ? 1 : 0.35 };
@@ -128,12 +156,12 @@ function buildStarter(axis, inputs, nowMs) {
       { role: 'surface',
         palette: axis === 'body' ? pal.slice(0, 4) : pal.map((h, i) => i < 2 ? h : DEFAULT_PAL[i]),
         pattern: stormy ? 'stripe' : (m.code >= 45 ? 'spot' : 'glow'),
-        glow: r2(lerp(0.25, 0.7, axis === 'moment' ? moon : luma)),
+        glow: r2(lerp(0.25, 0.7, axis === 'moment' ? moonAmount : luma)),
         opacity: r2(lerp(0.85, 0.95, rng())) },
       { role: 'motion',
         breathe: r2(lerp(0.18, 0.32, mood === 'calm' ? 0.2 : rng())),
         drift: r2(lerp(0.15, 0.45, m.wind / 22)),
-        pulse: r2(lerp(0.28, 0.6, axis === 'moment' ? moon : rng())),
+        pulse: r2(lerp(0.28, 0.6, axis === 'moment' ? moonAmount : rng())),
         reach: r2(lerp(0.2, 0.45, w.bond)) }
     ],
     compose: { windows: [[0, 1, 2]], loop: true }
@@ -143,7 +171,7 @@ function buildStarter(axis, inputs, nowMs) {
     schema: 'hologram-cartridge/1.0',
     title: pick(mkRng('name|' + seed), ['ashling', 'bramble', 'cirrus', 'dew', 'ember', 'fen', 'gale', 'lumen', 'moss', 'rill', 'sorrel', 'wisp']),
     author: '@you',
-    born: { coord: '·' + nowMs, from: `the ceremony · ${m.word} · moon ${Math.round(moon * 100)}` },
+    born: { coord: '·' + nowMs, from: `the ceremony · ${m.word} · moon ${Math.round(moonAmount * 100)}` },
     parents: [],
     genome,
     axis, axisNote: names[axis]
@@ -171,31 +199,49 @@ export async function starterCeremony(inputs, nowMs) {
 
 // the pick becomes the PRIMARY TWIN (§1/§9): birth frame kind:'starter',
 // born.pairedTo stamped OUTSIDE genome, cart into rapp-basket, twinId minted.
-export async function adoptStarter(cart, unchosen, { demo, nowMs }) {
+export async function adoptStarter(cart, unchosen, options) {
+  const { demo, nowMs, keep } = options;
+  const keepCart = keep || (value => keepToBasket(value, { demo:!!demo }));
   const store = twinStore(demo);
-  const existing = await store.get('id');
-  if (existing) return { twinId: existing, existed: true };   // ONE twin — never a second
+  const [existing, existingFrames] = await Promise.all([store.get('id'), store.get('frames')]);
+  let validExisting = false;
+  if (existing && Array.isArray(existingFrames) && existingFrames.length >= 1 && existingFrames[0].prev === '') {
+    try { validExisting = await validateChain(existingFrames); }
+    catch (e) { console.warn('stored starter frames need repair:', e); }
+  }
+  if (validExisting) {
+    const head = currentFrame(existingFrames);
+    const paired = head.cart;
+    await keepCart(paired);                                  // repair a missing basket record idempotently
+    return { twinId: existing, paired, headSha: head.sha, existed: true };
+  }
   const birth = await makeFrame(cart, '', 'starter', 'born of the starter ceremony');
   const paired = pairStamp(cart, birth.sha);
   const sealed = await makeFrame(paired, birth.sha, 'starter', 'the ceremony sealed the bond');
-  const twinId = demo ? 'twin-go-demo-4000-8000-000000000go1'
-    : ('twin-' + (crypto.randomUUID ? crypto.randomUUID() : String(nowMs)));
-  await store.set('id', twinId);
-  await store.set('frames', [birth, sealed]);
-  try { await keepToBasket(paired); } catch {}
+  const twinId = existing || (demo ? 'twin-go-demo-4000-8000-000000000go1'
+    : 'twin-' + (crypto.randomUUID ? crypto.randomUUID() : String(nowMs)));
+  const claim = await claimPrimary(demo ? 'my-twin.demo' : 'my-twin', twinId, [birth, sealed], existing || null, existingFrames);
+  if (!claim.committed) {
+    if (!claim.existing) throw new Error('starter bond could not be stored');
+    const winnerFrames = await store.get('frames');
+    if (!Array.isArray(winnerFrames) || !winnerFrames.length || !(await validateChain(winnerFrames))) {
+      throw new Error('another starter claim could not be verified');
+    }
+    const winner = currentFrame(winnerFrames);
+    await keepCart(winner.cart);
+    return { twinId: claim.existing, paired: winner.cart, headSha: winner.sha, existed: true };
+  }
   // the two unchosen return to the sky (wild encounters, later sessions)
   LS.set('rapp-go.wildpool', (unchosen || []).map(s => s.cart));
+  await keepCart(paired);                                    // retry repairs this idempotent keyed write
   return { twinId, paired, headSha: sealed.sha, existed: false };
 }
 
 /* ── share layer (§E) ─────────────────────────────────────────────────────── */
-const BONES_KEYS = ['schema', 'id', 'title', 'author', 'born', 'parents', 'lineage', 'home', 'genome', 'sig'];
 export function bonesOnly(cart) {                    // §13: bones only, never frames/private data
-  const out = {};
-  for (const k of BONES_KEYS) if (cart && cart[k] !== undefined) out[k] = cart[k];
-  return out;
+  return exportBones(cart).cart;
 }
-export function eggLink(cart) { return PAGES_URL + '#egg=' + b64enc(JSON.stringify(bonesOnly(cart))); }
+export function eggLink(cart, { demo = false } = {}) { return PAGES_URL + (demo ? '?demo=1' : '') + '#egg=' + b64enc(JSON.stringify(bonesOnly(cart))); }
 
 export function showQrModal(text, title) {
   closeOverlayById('go-qr');
@@ -226,18 +272,21 @@ export async function shareGame() {
   showQrModal(PAGES_URL, 'bring a friend');
 }
 
-export async function shareCaught(cart, placeWord) {
-  const url = eggLink(cart);
-  const text = `i caught the sky at ${placeWord || 'a real place'} — meet it`;
+export async function shareCaught(cart, placeWord, { demo = false } = {}) {
+  const url = eggLink(cart, { demo });
+  const text = 'i caught a real sky — meet it';
   if (navigator.share) { try { await navigator.share({ title: cart.title || 'a sky', text, url }); return; } catch {} }
   showQrModal(url, 'send this sky');
 }
 
 // receive (§E.3): verify from source — recompute the genome id; refuse disguises.
 export async function receiveEgg(b64, { demo } = {}) {
+  const generation = ++receiveGeneration;
   let cart = null;
   try { cart = JSON.parse(b64dec(b64)); } catch {}
+  closeOverlayById('go-meet');
   const bad = async () => {
+    if (generation !== receiveGeneration) return false;
     const wrap = el('div', 'go-modal'); wrap.id = 'go-meet';
     const card = el('div', 'go-card');
     card.appendChild(el('h1', '', 'this one is wearing a disguise'));
@@ -248,9 +297,12 @@ export async function receiveEgg(b64, { demo } = {}) {
   if (!cart || !cart.genome || !cart.id) return bad();
   let realId = null;
   try { realId = await genomeId(cart.genome); } catch {}
+  if (generation !== receiveGeneration) return false;
   if (realId !== cart.id) return bad();
+  const verdict = await interrogate(cart, 'cart');
+  if (generation !== receiveGeneration) return false;
+  if (!verdict.ok) return bad();
 
-  closeOverlayById('go-meet');
   const wrap = el('div', 'go-modal'); wrap.id = 'go-meet';
   const card = el('div', 'go-card');
   card.appendChild(el('h1', '', 'meet this sky'));
@@ -259,43 +311,57 @@ export async function receiveEgg(b64, { demo } = {}) {
   card.appendChild(cvs);
   let ctrl = null;
   try { ctrl = renderLoop(cart, cvs, { size: 180, background: false }); } catch {}
+  wrap._goCleanup = () => { if (ctrl) ctrl.stop(); };
   card.appendChild(el('p', 'go-dim', 'verified · ' + String(cart.id).slice(0, 8) + ' ✓'));
   const keep = el('button', 'go-btn primary', '◍ keep — into your basket');
-  keep.onclick = async () => { try { await keepToBasket(bonesOnly(cart)); keep.textContent = 'kept ✓'; keep.disabled = true; } catch { keep.textContent = 'the basket would not open'; } };
+  keep.onclick = async () => { try { await keepToBasket(bonesOnly(cart), { demo:!!demo }); keep.textContent = 'kept ✓'; keep.disabled = true; } catch { keep.textContent = 'the basket would not open'; } };
   card.appendChild(keep);
-  card.appendChild(dismissBtn(wrap, 'not now', () => { if (ctrl) ctrl.stop(); }));
+  card.appendChild(dismissBtn(wrap, 'not now'));
   wrap.appendChild(card); document.body.appendChild(wrap);
   return true;
+}
+export function cancelReceiveEgg() {
+  receiveGeneration++;
+  closeOverlayById('go-meet');
 }
 
 // scan side (§E.4): BarcodeDetector where it exists; paste-the-link always.
 export function receivePanel() {
   closeOverlayById('go-recv');
   const wrap = el('div', 'go-modal'); wrap.id = 'go-recv';
+  let scannerStop = null, scannerClosed = false;
+  wrap._goCleanup = () => { scannerClosed = true; if (scannerStop) scannerStop(); };
   const card = el('div', 'go-card');
   card.appendChild(el('h1', '', 'meet a sky someone sent'));
   const inp = document.createElement('input');
   inp.className = 'go-input'; inp.placeholder = 'paste the link here';
   card.appendChild(inp);
   const go = el('button', 'go-btn primary', 'open it');
-  go.onclick = () => { const m = String(inp.value).match(/#egg=([A-Za-z0-9\-_]+)/); if (m) { wrap.remove(); receiveEgg(m[1]); } else inp.placeholder = 'that link has no egg in it'; };
+  const demo = typeof location !== 'undefined' && new URLSearchParams(location.search).get('demo') === '1';
+  go.onclick = () => { const m = String(inp.value).match(/#egg=([A-Za-z0-9\-_]+)/); if (m) { removeOverlay(wrap); receiveEgg(m[1], { demo }); } else inp.placeholder = 'that link has no egg in it'; };
   card.appendChild(go);
   if ('BarcodeDetector' in window && navigator.mediaDevices) {
     const scan = el('button', 'go-btn', 'scan a code');
     scan.onclick = async () => {
+      if (scan.disabled || scannerStop) return;
+      scan.disabled = true;
+      let acquired = null;
       try {
         const det = new BarcodeDetector({ formats: ['qr_code'] });
-        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+        const stream = acquired = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+        if (scannerClosed) { stream.getTracks().forEach(t => t.stop()); return; }
         const video = document.createElement('video'); video.srcObject = stream; video.setAttribute('playsinline', ''); await video.play();
         card.appendChild(video); video.className = 'go-stage';
-        const stop = () => { try { stream.getTracks().forEach(t => t.stop()); } catch {} video.remove(); };
+        let stopped = false;
+        const stop = () => { if (stopped) return; stopped = true; try { stream.getTracks().forEach(t => t.stop()); } catch {} video.srcObject = null; video.remove(); scannerStop = null; if (scan.isConnected) scan.disabled = false; };
+        scannerStop = stop;
         const look = async () => {
-          if (!document.body.contains(wrap)) return stop();
-          try { const codes = await det.detect(video); const m = codes.length && String(codes[0].rawValue).match(/#egg=([A-Za-z0-9\-_]+)/); if (m) { stop(); wrap.remove(); return receiveEgg(m[1]); } } catch {}
+          if (scannerClosed || !document.body.contains(wrap)) return stop();
+          try { const codes = await det.detect(video); if (scannerClosed) return stop(); const m = codes.length && String(codes[0].rawValue).match(/#egg=([A-Za-z0-9\-_]+)/); if (m) { stop(); removeOverlay(wrap); return receiveEgg(m[1], { demo }); } } catch {}
           setTimeout(look, 400);
         };
         look();
-      } catch { scan.textContent = 'no camera — paste the link instead'; }
+      } catch { if (acquired) acquired.getTracks().forEach(t => t.stop()); scan.disabled = false; scan.textContent = 'no camera — paste the link instead'; }
     };
     card.appendChild(scan);
   }
@@ -315,8 +381,14 @@ const GUIDE_CART = {   // the professor's creature: one fixed genome, never rand
 };
 
 function el(tag, cls, text) { const d = document.createElement(tag); if (cls) d.className = cls; if (text != null) d.textContent = text; return d; }
-function dismissBtn(wrap, label, extra) { const b = el('button', 'go-btn ghost', label); b.onclick = () => { if (extra) extra(); wrap.remove(); }; return b; }
-function closeOverlayById(id) { const p = document.getElementById(id); if (p) p.remove(); }
+function removeOverlay(wrap) {
+  if (!wrap) return;
+  try { if (typeof wrap._goCleanup === 'function') wrap._goCleanup(); } catch {}
+  wrap._goCleanup = null;
+  wrap.remove();
+}
+function dismissBtn(wrap, label, extra) { const b = el('button', 'go-btn ghost', label); b.onclick = () => { if (extra) extra(); removeOverlay(wrap); }; return b; }
+function closeOverlayById(id) { removeOverlay(document.getElementById(id)); }
 
 const OB_CSS = `
 .go-modal{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;
@@ -351,7 +423,7 @@ const OB_CSS = `
 `;
 
 export async function maybeOnboard(ctx = {}) {
-  // ctx: { demo, nowMs, requestLocation() } — returns true if the overlay took over
+  // ctx: { demo, nowMs, requestLocation() } — returns how the location step ended
   if (onboarded()) return false;
   if (!document.querySelector('style[data-go-onboard]')) {
     const st = document.createElement('style'); st.setAttribute('data-go-onboard', ''); st.textContent = OB_CSS;
@@ -363,7 +435,13 @@ export async function maybeOnboard(ctx = {}) {
   const loops = [];
   const stopLoops = () => { for (const c of loops.splice(0)) { try { c.stop(); } catch {} } };
   const finish = () => { stopLoops(); LS.set('rapp-go.onboarded', { at: nowMs, v: 1 }); wrap.remove(); };
-  const screen = (build) => new Promise(res => { stopLoops(); card.innerHTML = ''; build(res); const s = el('button', 'go-btn ghost', 'skip'); s.onclick = () => res('skip'); card.appendChild(s); });
+  const screen = (build) => new Promise(res => {
+    stopLoops(); card.innerHTML = '';
+    const skip = el('button', 'go-btn ghost', 'skip');
+    skip.onclick = () => res('skip');
+    build(res, skip);
+    card.appendChild(skip);
+  });
 
   // 1 · welcome — the guide, live and breathing (§19: the model, never a drawing)
   await screen(res => {
@@ -375,15 +453,24 @@ export async function maybeOnboard(ctx = {}) {
   });
 
   // 2 · location, explained first — the §13 promise, then the tap that prompts
-  await screen(res => {
+  const canLocate = !demo && typeof ctx.requestLocation === 'function';
+  const locationChoice = await screen(res => {
     card.appendChild(el('h1', '', 'it needs to feel the sky above you'));
-    card.appendChild(el('p', '', 'your exact location never leaves this device — only the sky does.'));
-    card.appendChild(el('p', 'go-dim', demo ? 'the demo carries you — no location needed today.'
+    card.appendChild(el('p', '', 'your exact fix stays on this device. map, place, and weather providers receive only the nearby area needed to grow the sky.'));
+    card.appendChild(el('p', 'go-dim', demo ? 'the demo carries you — no location needed today.' : !canLocate
+      ? 'location is not available on this device. you can still enter, then open the demo sky.'
       : 'the weather of your place becomes the creature. that is all it asks.'));
-    const b = el('button', 'go-btn primary', demo ? 'walk on' : 'share my location');
-    b.onclick = () => { if (!demo && ctx.requestLocation) { try { ctx.requestLocation(); } catch {} } res('next'); };
+    const b = el('button', 'go-btn primary', demo ? 'walk on' : canLocate ? 'share my location' : 'continue');
+    b.onclick = () => {
+      if (canLocate) { try { ctx.requestLocation(); } catch {} }
+      res(demo ? 'demo' : canLocate ? 'requested' : 'deferred');
+    };
     card.appendChild(b);
-    if (!demo) { const alt = el('button', 'go-btn', 'not now — show me the moon’s creatures'); alt.onclick = () => res('next'); card.appendChild(alt); }
+    if (!demo && canLocate) {
+      const alt = el('button', 'go-btn', 'not now — show me the moon’s creatures');
+      alt.onclick = () => res('deferred');
+      card.appendChild(alt);
+    }
   });
 
   // 3 · the starter ceremony (§D) — four gentle prompts, all optional
@@ -412,7 +499,7 @@ export async function maybeOnboard(ctx = {}) {
   let adopted = null;
   if (sc !== 'skip') {
     const starters = await starterCeremony(inputs, nowMs);
-    await screen(async res => {
+    await screen(async (res, skipBtn) => {
       card.appendChild(el('h1', '', 'three came. one is yours.'));
       const row = el('div', 'go-pickrow'); let sel = null;
       const keepBtn = el('button', 'go-btn primary', 'choose'); keepBtn.disabled = true;
@@ -428,11 +515,21 @@ export async function maybeOnboard(ctx = {}) {
       card.appendChild(row);
       keepBtn.onclick = async () => {
         if (!sel) return;
-        keepBtn.disabled = true; keepBtn.textContent = 'sealing the bond…';
-        try { adopted = await adoptStarter(sel.cart, starters.filter(s => s !== sel), { demo, nowMs }); } catch {}
-        res('next');
+        keepBtn.disabled = true; skipBtn.disabled = true; keepBtn.textContent = 'sealing the bond…';
+        try {
+          adopted = await adoptStarter(sel.cart, starters.filter(s => s !== sel), { demo, nowMs });
+          res('next');
+        } catch (e) {
+          console.error('starter adoption failed:', e);
+          keepBtn.disabled = false;
+          skipBtn.disabled = false;
+          skipBtn.textContent = 'continue for now';
+          keepBtn.textContent = 'retry the bond';
+          error.textContent = 'the bond could not be stored yet. nothing was lost — please retry.';
+        }
       };
       card.appendChild(keepBtn);
+      const error = el('p', 'go-dim', ''); card.appendChild(error);
       card.appendChild(el('p', 'go-dim', 'the two you leave return to the sky — you may meet them again out there.'));
     });
   }
@@ -465,7 +562,7 @@ export async function maybeOnboard(ctx = {}) {
   });
 
   finish();
-  return { tookOver: true, adopted };
+  return { tookOver: true, adopted, locationChoice };
 }
 
 export default { maybeOnboard, onboarded, starterCeremony, adoptStarter, shareGame, shareCaught, receiveEgg, receivePanel, showQrModal, eggLink, bonesOnly, tip };

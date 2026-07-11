@@ -25,6 +25,8 @@
  .card-note-form button{padding:5px 10px;font-size:12px}
  .card-note-form.done{display:none}
  .card-note-label{font-size:11px;color:#6e7681;margin:0 0 6px}
+ .card-caught{font-size:11px;color:#7fd4ff;margin:5px 0;line-height:1.4}
+ .card.kept-focus{outline:2px solid #7fd4ff;outline-offset:3px}
  .load-box{border:1px solid #30363d;border-radius:12px;padding:16px;background:#161b22;margin-top:16px}
  .load-box label{display:block;font-size:12px;color:#8b949e;margin-bottom:6px}
  .row{display:flex;gap:8px;flex-wrap:wrap}
@@ -144,7 +146,7 @@
  <div class="row" style="margin-top:8px">
   <input type="file" id="file-in" accept=".json" style="display:none">
   <button class="alt" id="btn-file">open file…</button>
-  <a href="player.html"><button class="alt">blank player</button></a>
+  <a id="blank-player" href="player.html"><button class="alt">blank player</button></a>
  </div>
 </div>
 
@@ -173,6 +175,10 @@
 <script type="module">
 import { mountNav } from '../rapp-go/lib/nav.js';
 import { snap as faunaSnap } from '../rapp-go/lib/fauna.js';
+import { keepToBasket as writeBasketRecord } from '../rapp-go/lib/basket.js';
+import { interrogate } from '../companion/twin.mjs';
+const IS_DEMO_BASKET = new URLSearchParams(location.search).get('demo') === '1';
+if (IS_DEMO_BASKET) document.getElementById('blank-player').href = 'player.html?demo=1';
 // cohesion-brief §5 — the one room-switcher nav (rappgo-nav): import, don't fork.
 mountNav({ active: 'basket', root: '..' });
 // cohesion-brief §19 one body — cabinet raster creatures route through fauna's
@@ -432,37 +438,17 @@ function renderThumb(ctx, cartOrGenome, time = 0.85) {
 
 /* ── Breed state ──────────────────────────────────────────────────────────── */
 const loadedCarts = new Map(); // id → {cart, entry}
-let breedMode = false, breedA = null, breedB = null, breedChild = null, breedThumb = null;
+let breedMode = false, breedA = null, breedB = null, breedChild = null, breedChildVerified = false, breedThumb = null, breedGeneration = 0;
 let LANTERN = 'https://kody-w.github.io/rapp-lantern/player.html';
 
 /* ── IndexedDB basket helpers ────────────────────────────────────────────── */
 async function keepToBasket(cart) {
-  return new Promise((resolve, reject) => {
-    const req = indexedDB.open('rapp-basket', 1);
-    req.onupgradeneeded = e => {
-      const db = e.target.result;
-      if (!db.objectStoreNames.contains('eggs'))
-        db.createObjectStore('eggs', { keyPath: 'id' });
-    };
-    req.onsuccess = e => {
-      const db = e.target.result;
-      const tx = db.transaction('eggs', 'readwrite');
-      tx.objectStore('eggs').put({
-        id: cart.id,
-        egg: cart,
-        title: cart.title || 'organism',
-        born: (cart.born && cart.born.from) || '',
-        addedAt: Date.now()
-      });
-      tx.oncomplete = () => { db.close(); resolve(); };
-      tx.onerror = () => { db.close(); reject(tx.error); };
-    };
-    req.onerror = () => reject(req.error);
-  });
+  return writeBasketRecord(cart, { demo:IS_DEMO_BASKET });
 }
 async function loadKeptStrip() {
+  const generation = ++keptRefreshGeneration;
   return new Promise(resolve => {
-    const req = indexedDB.open('rapp-basket', 1);
+    const req = indexedDB.open(IS_DEMO_BASKET ? 'rapp-basket-demo' : 'rapp-basket', 1);
     req.onupgradeneeded = e => {
       const db = e.target.result;
       if (!db.objectStoreNames.contains('eggs'))
@@ -472,30 +458,46 @@ async function loadKeptStrip() {
       const db = e.target.result;
       const tx = db.transaction('eggs', 'readonly');
       const all = tx.objectStore('eggs').getAll();
-      all.onsuccess = () => {
+      all.onsuccess = async () => {
         db.close();
         const records = (all.result || []).sort((a, b) => b.addedAt - a.addedAt);
-        if (!records.length) { resolve(); return; }
         const strip = document.getElementById('kept-strip');
         const kgrid = document.getElementById('kept-grid');
-        kgrid.innerHTML = '';
+        const fragment = document.createDocumentFragment();
+        const nextThumbs = [];
+        let kept = 0;
         for (const rec of records) {
           const cart = rec.egg;
           if (!cart || !cart.genome) continue;
-          loadedCarts.set(rec.id, { cart, entry: { id: rec.id, name: rec.title || rec.id || 'kept', title: rec.title || rec.id || 'kept', adopted: true } });
+          const verdict = await interrogate(cart, 'cart');
+          if (!verdict.ok || rec.id !== cart.id) {
+            appendQuarantinedCard(fragment, cart, verdict.reasons[0]?.detail || 'basket id does not match the egg', rec.id);
+            kept++;
+            continue;
+          }
+          loadedCarts.set(rec.id, { cart, entry: { id: rec.id, name: rec.title || rec.id || 'kept', title: rec.title || rec.id || 'kept', adopted: true }, verified: true });
           const card = document.createElement('div');
           card.className = 'card';
           card.title = rec.title || 'organism';
           const href = cartPlayerHref(cart);
           const lineage = Array.isArray(cart.parents) && cart.parents.length ? `<div class="card-lineage">↳ ${(cart.parents || []).map(parentLink).join('<span class="sep">×</span>')} <span class="sep">·</span>${lineageAffordance(rec.id)}</div>` : '';
-          card.innerHTML = `<a class="card-main" href="${href}"><canvas width="200" height="200"></canvas><div class="card-title">${esc(rec.title||'organism')}</div></a><div class="card-body"><div class="card-born">${esc(rec.born||'')}</div>${lineage}${noteHtml(cart)}<div class="card-id">${esc(rec.id||'')}</div></div>`;
+          card.innerHTML = `<a class="card-main" href="${href}"><canvas width="200" height="200"></canvas><div class="card-title">${esc(rec.title||'organism')}</div></a><div class="card-body"><div class="card-born">${esc(rec.born||'')}</div>${caughtHtml(cart)}${lineage}${noteHtml(cart)}<div class="card-id">${esc(rec.id||'')}</div></div>`;
+          card.dataset.id = rec.id;
           wirePedigreeButton(card, rec.id);
-          kgrid.appendChild(card);
+          fragment.appendChild(card);
           const thumbCtx = card.querySelector('canvas').getContext('2d');
-          thumbs.push({ ctx: thumbCtx, cart });
+          nextThumbs.push({ ctx: thumbCtx, cart });
           faunaThumb(thumbCtx, cart);
+          kept++;
         }
-        strip.style.display = '';
+        if (generation !== keptRefreshGeneration) { resolve(); return; }
+        const old = new Set(keptThumbs);
+        for (let i = thumbs.length - 1; i >= 0; i--) if (old.has(thumbs[i])) thumbs.splice(i, 1);
+        keptThumbs = nextThumbs;
+        thumbs.push(...nextThumbs);
+        kgrid.replaceChildren(fragment);
+        strip.style.display = kept ? '' : 'none';
+        if (kept) focusKeptFromHash(kgrid);
         resolve();
       };
       all.onerror = () => { db.close(); resolve(); };
@@ -571,9 +573,29 @@ function buildWhyLine(cart) {
 function b64enc(s){return btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
 function b64dec(s){s=String(s).replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return decodeURIComponent(escape(atob(s)));}
 const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
-function cartPlayerHref(cart) { return 'player.html#' + b64enc(JSON.stringify(cart)); }
+function cartPlayerHref(cart) { return 'player.html' + (IS_DEMO_BASKET ? '?demo=1' : '') + '#' + b64enc(JSON.stringify(cart)); }
 function noteText(cart) { return String(cart && cart.note && cart.note.text || '').trim(); }
 function noteHtml(cart) { const text = noteText(cart); return `<div class="card-note${text ? '' : ' empty'}">${text ? esc(text) : ''}</div>`; }
+function caughtHtml(cart) {
+  const c = cart && cart.caught;
+  if (!c || typeof c !== 'object') return '';
+  const parts = [];
+  if (c.tier) parts.push(String(c.tier).toLowerCase());
+  if (c.place) parts.push('near ' + c.place);
+  if (Number.isFinite(c.at)) parts.push(new Date(c.at).toLocaleDateString());
+  if (c.throwLabel || c.orb) parts.push([c.throwLabel, c.orb && String(c.orb).replace(/^vessel\./, '')].filter(Boolean).join(' · '));
+  return parts.length ? `<div class="card-caught">caught · ${esc(parts.join(' · '))}</div>` : '';
+}
+function focusKeptFromHash(host) {
+  const id = new URLSearchParams((location.hash || '').slice(1)).get('kept');
+  if (!id) return;
+  const card = [...host.querySelectorAll('.card')].find(el => el.dataset.id === id);
+  if (!card) return;
+  card.classList.add('kept-focus');
+  card.tabIndex = -1;
+  card.focus({ preventScroll: true });
+  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
 function refreshCardNote(card, cart) {
   const main = card.querySelector('.card-main');
   if (main) main.href = cartPlayerHref(cart);
@@ -608,6 +630,7 @@ function mountNoteComposer(host, cart, onSave) {
 }
 const grid = document.getElementById('grid');
 const thumbs = [];
+let keptThumbs = [], keptRefreshGeneration = 0;
 let pedigreeThumbs = [];
 let thumbRenderQueued = false;
 function rerenderThumbs() {
@@ -624,14 +647,29 @@ window.addEventListener('resize', scheduleThumbRender);
 window.addEventListener('orientationchange', scheduleThumbRender);
 
 /* ── Adopted pool (from #adopt= / #remix= hash) ──────────────────────────── */
+function appendQuarantinedCard(host, cart, reason, expectedId) {
+  const card = document.createElement('div'); card.className = 'card card-adopted';
+  const link = document.createElement('a'); link.className = 'card-main';
+  link.href = 'player.html?' + (IS_DEMO_BASKET ? 'demo=1&' : '') + 'inspect=1' + (expectedId ? '&expected=' + encodeURIComponent(expectedId) : '') + '#' + b64enc(JSON.stringify(cart));
+  const title = document.createElement('div'); title.className = 'card-title'; title.textContent = 'held in quarantine';
+  const why = document.createElement('div'); why.className = 'card-born'; why.textContent = reason || 'this egg could not be verified';
+  link.appendChild(title); card.append(link, why); host.appendChild(card);
+  return card;
+}
+
 async function ingestAdopted(cart, opts = {}) {
-  const got = await genomeId(cart.genome);
-  const declared = cart.id || '';
-  const id = declared || got;
-  if (!declared) cart = Object.assign({}, cart, { id: got });
+  const verdict = await interrogate(cart, 'cart');
+  if (!verdict.ok) {
+    const adopted = document.getElementById('adopted-grid');
+    const strip = document.getElementById('adopted-strip');
+    appendQuarantinedCard(adopted, cart, verdict.reasons[0]?.detail);
+    strip.style.display = '';
+    return { cart: null, entry: null, verdict };
+  }
+  const id = cart.id;
   // synthetic entry for loadedCarts
   const entry = { id, name: cart.title || 'adopted', title: cart.title || 'adopted', adopted: true };
-  loadedCarts.set(id, { cart, entry });
+  loadedCarts.set(id, { cart, entry, verified: true });
   const adopted = document.getElementById('adopted-grid');
   const strip = document.getElementById('adopted-strip');
   const card = document.createElement('div');
@@ -640,11 +678,10 @@ async function ingestAdopted(cart, opts = {}) {
   const born = (cart.born && cart.born.from) || '';
   const bornText = momentPhrase(cart.born && cart.born.from, cart.born && cart.born.coord) || born;
   const openHref = cartPlayerHref(cart);
-  const hashMismatch = declared && got !== declared;
   const whyLine = buildWhyLine(cart);
   const whySuffix = whyLine ? `<div class="card-why">\u00b7 ${esc(whyLine)}</div>` : '';
   const lineage = Array.isArray(cart.parents) && cart.parents.length ? `<div class="card-lineage">↳ ${(cart.parents || []).map(parentLink).join('<span class="sep">×</span>')} <span class="sep">·</span>${lineageAffordance(id)}</div>` : '';
-  card.innerHTML = `<a class="card-main" href="${openHref}"><canvas width="200" height="200"></canvas><div class="card-title">${esc(cart.title||'adopted')}</div></a><div class="card-body"><div class="card-born">${esc(bornText)}${hashMismatch?' (remix)':''}</div>${lineage}${whySuffix}${noteHtml(cart)}<div class="card-id">${esc(id)}</div><div class="card-note-host"></div></div>`;
+  card.innerHTML = `<a class="card-main" href="${openHref}"><canvas width="200" height="200"></canvas><div class="card-title">${esc(cart.title||'adopted')}</div></a><div class="card-body"><div class="card-born">${esc(bornText)}</div>${lineage}${whySuffix}${noteHtml(cart)}<div class="card-id">${esc(id)}</div><div class="card-note-host"></div></div>`;
   card.dataset.id = id;
   card.addEventListener('click', e => { if (!breedMode) return; e.preventDefault(); selectBreedCreature(id); });
   wirePedigreeButton(card, id);
@@ -672,7 +709,7 @@ loadKeptStrip();
     // Enable breed mode and pre-select as parent A
     breedMode = true;
     updateBreedUI();
-    selectBreedCreature(item.entry.id);
+    if (item.entry) selectBreedCreature(item.entry.id);
     document.getElementById('adopted-strip').scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch(e) { console.warn('adopt/remix parse error:', e); }
 })();
@@ -685,17 +722,22 @@ loadKeptStrip();
   for(const entry of (reg.entries||[])){
     let cart;
     try{ cart = await (await fetch(new URL(entry.pin_path, location.href).href)).json(); }catch{ continue; }
+    const verdict = await interrogate(cart, 'cart');
+    if (!verdict.ok || entry.id !== cart.id) {
+      appendQuarantinedCard(grid, cart, verdict.reasons[0]?.detail || 'registry id does not match the egg', entry.id);
+      continue;
+    }
     const card = document.createElement('div');
     card.className = 'card';
     card.title = entry.title || entry.name;
     const born = (cart.born && cart.born.from) ? cart.born.from : '';
     const bornText = momentPhrase(cart.born && cart.born.from, cart.born && cart.born.coord) || born;
-    const openHref = `player.html?id=${encodeURIComponent(entry.name)}`;
+    const openHref = `player.html?${IS_DEMO_BASKET ? 'demo=1&' : ''}id=${encodeURIComponent(entry.name)}`;
     let lineage = '';
     if (Array.isArray(cart.parents) && cart.parents.length) {
       const chips = cart.parents.map(pid => {
         const pe = idToEntry[pid];
-        return pe ? `<a href="player.html?id=${encodeURIComponent(pe.name)}">${esc(pe.title||pe.name)}</a>` : `<span>${esc(String(pid).slice(0,8))}</span>`;
+        return pe ? `<a href="player.html?${IS_DEMO_BASKET ? 'demo=1&' : ''}id=${encodeURIComponent(pe.name)}">${esc(pe.title||pe.name)}</a>` : `<span>${esc(String(pid).slice(0,8))}</span>`;
       }).join('<span class="sep">×</span>');
       lineage = `<div class="card-lineage">↳ ${chips} <span class="sep">·</span>${lineageAffordance(entry.id)}</div>`;
     }
@@ -703,7 +745,7 @@ loadKeptStrip();
     const whySuffix = whyLine ? `<div class="card-why">\u00b7 ${esc(whyLine)}</div>` : '';
     card.innerHTML = `<a class="card-main" href="${openHref}"><canvas width="200" height="200"></canvas><div class="card-title">${esc(entry.title||entry.name)}</div></a><div class="card-body"><div class="card-born">${esc(bornText)}</div>${lineage}${whySuffix}${noteHtml(cart)}<div class="card-id">${esc(entry.id)}</div></div>`;
     card.dataset.id = entry.id;
-    loadedCarts.set(entry.id, { cart, entry });
+    loadedCarts.set(entry.id, { cart, entry, verified: true });
     card.addEventListener('click', e => { if (!breedMode) return; e.preventDefault(); selectBreedCreature(entry.id); });
     wirePedigreeButton(card, entry.id);
     grid.appendChild(card);
@@ -713,12 +755,12 @@ loadKeptStrip();
   }
   if(!reg.entries||!reg.entries.length) grid.innerHTML = '<p class="muted">No cartridges yet — run build.py to index them.</p>';
 })();
-document.getElementById('btn-open').onclick=()=>{const u=document.getElementById('cart-url').value.trim();if(u) location.href='player.html?cart='+encodeURIComponent(u);};
+document.getElementById('btn-open').onclick=()=>{const u=document.getElementById('cart-url').value.trim();if(u) location.href='player.html?'+(IS_DEMO_BASKET?'demo=1&':'')+'cart='+encodeURIComponent(u);};
 document.getElementById('cart-url').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('btn-open').click();});
 document.getElementById('btn-file').onclick=()=>document.getElementById('file-in').click();
 document.getElementById('file-in').onchange=async e=>{
   const f=e.target.files[0];if(!f)return;
-  try{const cart=JSON.parse(await f.text());location.href='player.html#'+b64enc(JSON.stringify(cart));}
+  try{const cart=JSON.parse(await f.text());location.href='player.html'+(IS_DEMO_BASKET?'?demo=1':'')+'#'+b64enc(JSON.stringify(cart));}
   catch(err){alert('Invalid JSON: '+err.message);}
 };
 
@@ -767,7 +809,7 @@ async function crossBreed(cartA, cartB) {
     genome, sig: ''
   };
 }
-function cartHref(item) { return item.entry.adopted ? cartPlayerHref(item.cart) : `player.html?id=${encodeURIComponent(item.entry.name)}`; }
+function cartHref(item) { return item.entry.adopted ? cartPlayerHref(item.cart) : `player.html?${IS_DEMO_BASKET ? 'demo=1&' : ''}id=${encodeURIComponent(item.entry.name)}`; }
 function parentLink(pid) { const it = loadedCarts.get(pid); if (!it) return `<span>${esc(String(pid).slice(0,8))}</span>`; return `<a href="${cartHref(it)}">${esc(it.cart.title || it.entry.name)}</a>`; }
 function lineageAffordance(id) { return `<button class="alt lineage-btn" data-pedigree="${esc(id)}" type="button">🌳 lineage</button>`; }
 function pedigreeCaption(cart) { const from = cart.born && cart.born.from || ''; const coord = cart.born && cart.born.coord || ''; return (!cart.parents || !cart.parents.length) ? (buildWhyLine(cart) || momentPhrase(from, coord) || from || 'a genesis creature') : (momentPhrase(from, coord) || buildWhyLine(cart) || from || 'bred creature'); }
@@ -911,9 +953,12 @@ function buildPedigree(id) {
   modal.classList.add('show');
   modal.setAttribute('aria-hidden', 'false');
 }
-function selectBreedCreature(id) {
+async function selectBreedCreature(id) {
+  const generation = ++breedGeneration;
   const item = loadedCarts.get(id);
-  if (!item) return;
+  if (!item || !item.verified) return;
+  const verdict = await interrogate(item.cart, 'cart');
+  if (!verdict.ok || generation !== breedGeneration) return;
   if (!breedA || breedB) {
     // Start a fresh cross: this becomes A
     breedA = item; breedB = null; breedChild = null; breedThumb = null;
@@ -923,15 +968,19 @@ function selectBreedCreature(id) {
     updateBreedUI();
   } else if (id !== breedA.entry.id) {
     // Select B and compute the cross
-    breedB = item;
+    const parentA = breedA, parentB = item;
+    breedB = parentB;
     document.querySelector(`.card[data-id="${item.entry.id}"]`)?.classList.add('sel-b');
     updateBreedUI();
-    crossBreed(breedA.cart, breedB.cart).then(child => { breedChild = child; renderBreedResult(); });
+    const child = await crossBreed(parentA.cart, parentB.cart);
+    const childVerdict = await interrogate(child, 'cart');
+    if (!childVerdict.ok || generation !== breedGeneration || breedA !== parentA || breedB !== parentB) return;
+    breedChild = child; breedChildVerified = true; renderBreedResult();
   }
 }
 function renderBreedResult() {
   if (!breedChild) return;
-  loadedCarts.set(breedChild.id, { cart: breedChild, entry: { id: breedChild.id, name: breedChild.title || breedChild.id, title: breedChild.title || breedChild.id, adopted: true } });
+  loadedCarts.set(breedChild.id, { cart: breedChild, entry: { id: breedChild.id, name: breedChild.title || breedChild.id, title: breedChild.title || breedChild.id, adopted: true }, verified: true });
   document.getElementById('breed-title').textContent = breedChild.title;
   const chips = breedChild.parents.map(parentLink).join('<span style="margin:0 4px;color:#6e7681">\u00d7</span>');
   document.getElementById('breed-lin').innerHTML = '\u21b3 ' + chips;
@@ -940,44 +989,62 @@ function renderBreedResult() {
   const canvas = document.getElementById('breed-canvas');
   breedThumb = { ctx: canvas.getContext('2d'), cart: breedChild };
   faunaThumb(breedThumb.ctx, breedThumb.cart);
-  mountNoteComposer(document.getElementById('breed-note'), breedChild, () => {});
+  mountNoteComposer(document.getElementById('breed-note'), breedChild, async () => {
+    breedGeneration++;
+    breedChildVerified = (await interrogate(breedChild, 'cart')).ok;
+  });
   const result = document.getElementById('breed-result');
   result.classList.add('show');
   result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 document.getElementById('btn-breed').onclick = () => {
+  breedGeneration++;
   breedMode = !breedMode;
-  if (!breedMode) { breedA = breedB = breedChild = breedThumb = null; document.getElementById('breed-result').classList.remove('show'); document.querySelectorAll('.card.sel-a,.card.sel-b').forEach(c => c.classList.remove('sel-a','sel-b')); }
+  if (!breedMode) { breedA = breedB = breedChild = breedThumb = null; breedChildVerified = false; document.getElementById('breed-result').classList.remove('show'); document.querySelectorAll('.card.sel-a,.card.sel-b').forEach(c => c.classList.remove('sel-a','sel-b')); }
   updateBreedUI();
 };
 document.getElementById('breed-reset').onclick = () => {
+  breedGeneration++;
   breedA = breedB = breedChild = breedThumb = null;
+  breedChildVerified = false;
   document.querySelectorAll('.card.sel-a,.card.sel-b').forEach(c => c.classList.remove('sel-a','sel-b'));
   document.getElementById('breed-result').classList.remove('show');
   updateBreedUI();
 };
-document.getElementById('breed-lantern').onclick = () => {
-  if (!breedChild) return;
-  window.open(LANTERN + (breedChild.parents.length ? '#' + b64enc(JSON.stringify(breedChild)) : '?cart=' + encodeURIComponent(breedChild.pin_url || '')));
+async function verifiedBreedChild() {
+  const child = breedChild, generation = breedGeneration;
+  if (!child) return null;
+  const verdict = await interrogate(child, 'cart');
+  if (generation !== breedGeneration || child !== breedChild) return null;
+  breedChildVerified = verdict.ok;
+  if (!breedChildVerified) alert('this keepsake is quarantined — remove the unsafe note before sharing or keeping it.');
+  return breedChildVerified ? child : null;
+}
+document.getElementById('breed-lantern').onclick = async () => {
+  const target = window.open('about:blank');
+  const child = await verifiedBreedChild();
+  if (!child) { if (target) target.close(); return; }
+  const href = LANTERN + (child.parents.length ? '#' + b64enc(JSON.stringify(child)) : '?cart=' + encodeURIComponent(child.pin_url || ''));
+  if (target) target.location = href; else window.open(href);
 };
-document.getElementById('breed-dl').onclick = () => {
-  if (!breedChild) return;
-  const blob = new Blob([JSON.stringify(breedChild, null, 2)], { type: 'application/json' });
-  const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: breedChild.title.replace(/[^\w\u00d7]+/g, '-').replace(/^-|-$/g,'') + '.egg' });
+document.getElementById('breed-dl').onclick = async () => {
+  const child = await verifiedBreedChild(); if (!child) return;
+  const blob = new Blob([JSON.stringify(child, null, 2)], { type: 'application/json' });
+  const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: child.title.replace(/[^\w\u00d7]+/g, '-').replace(/^-|-$/g,'') + '.egg' });
   a.click(); URL.revokeObjectURL(a.href);
 };
 document.getElementById('breed-copy').onclick = async () => {
-  if (!breedChild) return;
+  const child = await verifiedBreedChild(); if (!child) return;
   const base = location.href.replace(/[^/]*$/, '');
-  const url = base + 'player.html#' + b64enc(JSON.stringify(breedChild));
+  const url = base + 'player.html' + (IS_DEMO_BASKET ? '?demo=1' : '') + '#' + b64enc(JSON.stringify(child));
   const btn = document.getElementById('breed-copy');
   try { await navigator.clipboard.writeText(url); btn.textContent = 'copied!'; setTimeout(() => btn.textContent = 'copy keepsake link', 1800); }
   catch { alert(url); }
 };
 document.getElementById('breed-keep').onclick = async () => {
-  if (!breedChild) return;
+  const child = await verifiedBreedChild(); if (!child) return;
   try {
-    await keepToBasket(breedChild);
+    await keepToBasket(child);
     const btn = document.getElementById('breed-keep');
     btn.textContent = 'kept ✓';
     setTimeout(() => btn.textContent = '🧺 Keep', 1600);
@@ -1086,6 +1153,7 @@ document.getElementById('btn-moon').onclick = async () => {
       parents: [], genome, sig: ''
     };
     const item = await ingestAdopted(cart, { offerNote: true });
+    if (!item.entry) throw new Error('generated egg did not clear verification');
     breedMode = true; updateBreedUI(); selectBreedCreature(item.entry.id);
     document.getElementById('adopted-strip').scrollIntoView({ behavior: 'smooth', block: 'start' });
     document.getElementById('btn-catch-geo').style.display = '';
@@ -1101,8 +1169,9 @@ document.getElementById('btn-catch-geo').onclick = async () => {
   try {
     const pos = await new Promise((res, rej) => navigator.geolocation.getCurrentPosition(res, rej, { timeout: 10000 }));
     const { latitude: lat, longitude: lng } = pos.coords;
+    const coarse = geohashDecode(geohashEncode(lat, lng, 5));
     btn.textContent = '\uD83C\uDF24 fetching…';
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat.toFixed(4)}&longitude=${lng.toFixed(4)}&current=temperature_2m,weathercode,wind_speed_10m,is_day&timezone=auto`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${coarse.lat.toFixed(4)}&longitude=${coarse.lon.toFixed(4)}&current=temperature_2m,weathercode,wind_speed_10m,is_day&timezone=auto`;
     const data = await (await fetch(url)).json();
     const c = data.current;
     const temp = c.temperature_2m, weathercode = c.weathercode, wind = c.wind_speed_10m, isDay = c.is_day;
@@ -1120,6 +1189,7 @@ document.getElementById('btn-catch-geo').onclick = async () => {
       parents: [], genome, sig: ''
     };
     const item = await ingestAdopted(cart, { offerNote: true });
+    if (!item.entry) throw new Error('generated egg did not clear verification');
     breedMode = true; updateBreedUI(); selectBreedCreature(item.entry.id);
     document.getElementById('adopted-strip').scrollIntoView({ behavior: 'smooth', block: 'start' });
     btn.textContent = 'hatched \u2713';
@@ -1165,6 +1235,7 @@ document.getElementById('btn-catch-date').onclick = async () => {
       parents: [], genome, sig: ''
     };
     const item = await ingestAdopted(cart, { offerNote: true });
+    if (!item.entry) throw new Error('generated egg did not clear verification');
     breedMode = true; updateBreedUI(); selectBreedCreature(item.entry.id);
     document.getElementById('adopted-strip').scrollIntoView({ behavior: 'smooth', block: 'start' });
     _dateChosenWhen = when;
@@ -1178,15 +1249,18 @@ document.getElementById('btn-catch-date').onclick = async () => {
 document.getElementById('btn-date-geo').onclick = async () => {
   const btn = document.getElementById('btn-date-geo');
   if (!_dateChosenWhen) return;
+  const requestWhen = _dateChosenWhen;
   btn.disabled = true; btn.textContent = '\uD83D\uDCCD locating\u2026';
   try {
     const pos = await new Promise((res, rej) => navigator.geolocation.getCurrentPosition(res, rej, { timeout: 10000 }));
     const { latitude: lat, longitude: lng } = pos.coords;
     btn.textContent = '\uD83C\uDF24 fetching archive\u2026';
-    const d = new Date(_dateChosenWhen);
+    const d = new Date(requestWhen);
+    const coarse = geohashDecode(geohashEncode(lat, lng, 5));
     const dateStr = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
-    const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat.toFixed(4)}&longitude=${lng.toFixed(4)}&start_date=${dateStr}&end_date=${dateStr}&daily=temperature_2m_max,weathercode,wind_speed_10m_max&timezone=auto`;
+    const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${coarse.lat.toFixed(4)}&longitude=${coarse.lon.toFixed(4)}&start_date=${dateStr}&end_date=${dateStr}&daily=temperature_2m_max,weathercode,wind_speed_10m_max&timezone=auto`;
     const data = await (await fetch(url)).json();
+    if (_dateChosenWhen !== requestWhen) { btn.textContent = '\uD83D\uDCCD + weather'; btn.disabled = false; return; }
     const daily = data.daily || {};
     const temp = (daily.temperature_2m_max || [])[0] ?? null;
     const weathercode = (daily.weathercode || [])[0] ?? null;
@@ -1194,8 +1268,8 @@ document.getElementById('btn-date-geo').onclick = async () => {
     const genome = momentToGenome({ temp, weathercode, wind, isDay: 1 });
     const id = await genomeId(genome);
     const gh = geohashEncode(lat, lng);
-    const coord = gh + '\u00b7' + _dateChosenWhen;
-    const dd = new Date(_dateChosenWhen);
+    const coord = gh + '\u00b7' + requestWhen;
+    const dd = new Date(requestWhen);
     const dateLabel = dd.getDate() + ' ' + _MO_ABR[dd.getMonth()] + ' ' + dd.getFullYear();
     const sky = wmoWord(weathercode) || '';
     const fromStr = `live ${temp !== null ? temp : '?'}\u00b0C \u00b7 code ${weathercode ?? '?'} \u00b7 wind ${Math.round(wind)} \u00b7 day`;
@@ -1207,6 +1281,7 @@ document.getElementById('btn-date-geo').onclick = async () => {
       parents: [], genome, sig: ''
     };
     const item = await ingestAdopted(cart, { offerNote: true });
+    if (!item.entry) throw new Error('generated egg did not clear verification');
     breedMode = true; updateBreedUI(); selectBreedCreature(item.entry.id);
     document.getElementById('adopted-strip').scrollIntoView({ behavior: 'smooth', block: 'start' });
     btn.textContent = 'hatched \u2713';

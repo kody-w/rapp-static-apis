@@ -10,10 +10,11 @@
 // sleeping or patching Date.now.
 
 import poi, {
-  ITEMS, DROP_TABLES, SPIN_RADIUS, COOLDOWN_MS, BAG, LURE_MS, ENDPOINTS,
+  ITEMS, DROP_TABLES, SPIN_RADIUS, COOLDOWN_MS, BAG, LURE_MS, ENDPOINTS, LOG_CAP, KNOWN_POI_CAP,
   classify, weightedDraw, haversine,
-  getInventory, spendItem, grant, bagCount, seedInventory,
-  poiStatus, spinPOI, placeLure, activeLures,
+  getInventory, spendItem, reserveThrow, grant, bagCount, seedInventory,
+  poiStatus, spinPOI, spinPOIAsync, placeLure, placeLureAsync, activeLures,
+  consumeLure,
   refreshPOIs, poisInView, injectPOIs, knownPOIs, configure, getLog
 } from './poi.js';
 import { geohashEncode, geohashDecode, mkRng } from './lib/genome.js';
@@ -32,6 +33,12 @@ const realFetchTrap = async (...args) => {
 };
 realFetchTrap.calls = [];
 globalThis.fetch = realFetchTrap;
+const testStorage = {
+  values: new Map(),
+  getItem(key) { return this.values.has(key) ? this.values.get(key) : null; },
+  setItem(key, value) { this.values.set(key, String(value)); }
+};
+configure({ storageImpl: testStorage });
 
 const KINDS = ['water', 'nature', 'landmark', 'worship', 'civic', 'seat'];
 
@@ -99,12 +106,32 @@ const KINDS = ['water', 'nature', 'landmark', 'worship', 'civic', 'seat'];
 
   const seeded = seedInventory({ 'offering.salt': 2, 'bogus.item': 9 });
   ok('seedInventory: adds known ids, silently drops unknown', seeded['offering.salt'] === 2 && !('bogus.item' in seeded) && bagCount() === 5);
+  const payment = await reserveThrow({ vessel:'vessel.glass', aid:'offering.salt', consumeAid:true });
+  ok('throw payment: vessel and offering commit in one inventory write',
+    payment.ok && payment.inventory['vessel.glass'] === 2 && payment.inventory['offering.salt'] === 1);
+  grant('vessel.glass', 1); grant('offering.salt', 1);
+  grant('vessel.prism', 1);
+  const racedPayments = await Promise.all([
+    reserveThrow({ vessel:'vessel.prism' }),
+    reserveThrow({ vessel:'vessel.prism' })
+  ]);
+  ok('throw payment: concurrent one-vessel reservations commit exactly once',
+    racedPayments.filter(result => result.ok).length === 1 && !('vessel.prism' in getInventory()));
 
   // BAG soft cap: grant clamps to remaining room (never refuses partial, never exceeds)
   const clamped = grant('vessel.dew', 400);
   ok(`grant: clamps to bag room (BAG=${BAG}) — 400 requested, ${BAG - 5} credited`, clamped === BAG - 5 && bagCount() === BAG);
   ok('grant: at cap → 0 credited, bagCount stays at BAG', grant('offering.honey', 1) === 0 && bagCount() === BAG);
   ok('spendItem: drains back down and deletes zeroed keys', spendItem('vessel.dew', BAG - 5) === true && bagCount() === 5 && !('vessel.dew' in getInventory()));
+
+  const liveSnapshot = JSON.stringify([...testStorage.values.entries()].sort());
+  const demoStorage = { values:new Map(), getItem(key){return this.values.get(key)||null;}, setItem(key,value){this.values.set(key,String(value));} };
+  configure({ storageImpl:demoStorage });
+  seedInventory({ 'vessel.glass':8, 'lure':1 });
+  spendItem('vessel.glass', 2);
+  configure({ storageImpl:testStorage });
+  ok('demo economy context leaves live storage byte-identical',
+    JSON.stringify([...testStorage.values.entries()].sort()) === liveSnapshot && bagCount() === 5);
 }
 
 // ═══ Group 4 — spin determinism, cooldown, range gating ══════════════════════════
@@ -115,6 +142,7 @@ const ALPHA = { id: 'test/alpha', lat: 10, lng: 10, name: 'an old tree', kind: '
 const BETA  = { id: 'test/beta',  lat: 10.0001, lng: 10, name: 'a bench', kind: 'seat', tags: { amenity: 'bench' }, tileId: tile10 };
 const GAMMA = { id: 'test/gamma', lat: 10.001, lng: 10, name: 'far bench', kind: 'seat', tags: {}, tileId: tile10 };      // ~111 m away
 const DELTA = { id: 'test/delta', lat: 10.00045, lng: 10, name: 'odd one', kind: 'volcano', tags: {}, tileId: tile10 };   // ~50 m away, unknown kind
+ok('compatibility: legacy POI APIs remain synchronous', spinPOI(GAMMA,P).error === 'out of range' && placeLure(null) === false);
 {
   injectPOIs([ALPHA, BETA, GAMMA, DELTA], { tileId: tile10 });
   ok('injectPOIs: fixtures land in knownPOIs', ['test/alpha', 'test/beta', 'test/gamma', 'test/delta'].every(id => knownPOIs().some(p => p.id === id)));
@@ -123,29 +151,30 @@ const DELTA = { id: 'test/delta', lat: 10.00045, lng: 10, name: 'odd one', kind:
 
   // pinned 2026-07-06 — RNG contract: mkRng(poi.id + ':' + spinCount); first spin of
   // 'test/alpha' (nature, 4 draws, no bonus) MUST yield exactly this, in this order.
-  const r1 = spinPOI(ALPHA, P);
+  const [r1, racedSpin] = await Promise.all([spinPOIAsync(ALPHA, P), spinPOIAsync(ALPHA, P)]);
   const want1 = [['vessel.dew', 2], ['vessel.glass', 1], ['offering.salt', 1]];
   ok('spin: first spin of test/alpha ok with the pinned deterministic drops',
     r1.ok === true && r1.error === null && r1.drops.length === 3 &&
     want1.every(([id, n], i) => r1.drops[i].id === id && r1.drops[i].count === n && r1.drops[i].granted === n && r1.drops[i].item === ITEMS[id]),
     JSON.stringify(r1.drops.map(d => [d.id, d.count, d.granted])));
+  ok('spin: concurrent same-place attempts commit exactly once', racedSpin.ok === false && racedSpin.error === 'still refilling');
   ok('spin: reports bagFull=false and the running bagCount', r1.bagFull === false && r1.bagCount === 9 && bagCount() === 9, `bag=${r1.bagCount}`);
 
   const s1 = poiStatus(ALPHA, P);
   ok('cooldown: immediately after a spin → ready=false, 0 < readyInMs ≤ COOLDOWN_MS, spinCount=1',
     s1.ready === false && s1.readyInMs > 0 && s1.readyInMs <= COOLDOWN_MS && s1.spinCount === 1 && s1.inRange === true && s1.distanceM === 0);
-  const r2 = spinPOI(ALPHA, P);
+  const r2 = await spinPOIAsync(ALPHA, P);
   ok('cooldown: re-spin is blocked ("still refilling"), nothing granted', r2.ok === false && r2.error === 'still refilling' && r2.readyInMs > 0 && r2.drops.length === 0 && bagCount() === 9);
 
   // pinned 2026-07-06 — first spin of 'test/beta' (seat, 2 draws, no bonus)
-  const r3 = spinPOI(BETA, P);
+  const r3 = await spinPOIAsync(BETA, P);
   const want3 = [['offering.salt', 1], ['vessel.glass', 1]];
   ok('spin: cooldowns are per-POI — test/beta spins fine with its own pinned drops',
     r3.ok === true && want3.every(([id, n], i) => r3.drops[i] && r3.drops[i].id === id && r3.drops[i].count === n && r3.drops[i].granted === n) && bagCount() === 11,
     JSON.stringify(r3.drops.map(d => [d.id, d.count, d.granted])));
 
   const far = poiStatus(GAMMA, P);
-  const r4 = spinPOI(GAMMA, P);
+  const r4 = await spinPOIAsync(GAMMA, P);
   const farAfter = poiStatus(GAMMA, P);
   ok('range: ~111 m out → inRange=false, spin refused ("out of range"), NOT committed (still ready, spinCount 0)',
     far.inRange === false && r4.ok === false && r4.error === 'out of range' && farAfter.ready === true && farAfter.spinCount === 0);
@@ -158,7 +187,7 @@ const DELTA = { id: 'test/delta', lat: 10.00045, lng: 10, name: 'odd one', kind:
     `d=${noAcc.distanceM}`);
 
   // pinned 2026-07-06 — unknown kind falls back to the seat drop table
-  const r5 = spinPOI(DELTA, { ...P, accuracy: 100 });
+  const r5 = await spinPOIAsync(DELTA, { ...P, accuracy: 100 });
   ok('spin: unknown kind ("volcano") falls back to the seat table (pinned drops)',
     r5.ok === true && r5.drops.length === 2 && r5.drops[0].id === 'offering.salt' && r5.drops[1].id === 'vessel.glass' && r5.drops.every(d => d.id in DROP_TABLES.seat.w),
     JSON.stringify(r5.drops.map(d => d.id)));
@@ -166,18 +195,35 @@ const DELTA = { id: 'test/delta', lat: 10.00045, lng: 10, name: 'odd one', kind:
 
 // ═══ Group 5 — lures ═════════════════════════════════════════════════════════════
 {
-  ok('lure: placing without a lure item / with a null poi → false', placeLure(ALPHA) === false && placeLure(null) === false && activeLures().length === 0);
+  ok('lure: placing without a lure item / with a null poi → false', await placeLureAsync(ALPHA) === false && await placeLureAsync(null) === false && activeLures().length === 0);
   grant('lure', 2);
+  testStorage.setItem('rapp-go.wildpool', JSON.stringify([{ id:'wild-starter-1' }]));
   const before = Date.now();
-  const placed = placeLure(ALPHA);
+  const placed = await placeLureAsync(ALPHA);
   const lures = activeLures();
   const entry = lures.find(l => l.poiId === 'test/alpha');
   ok('lure: placeLure spends one lure and activeLures lists it (poi resolved, sane expiry)',
     placed === true && getInventory().lure === 1 && !!entry && entry.poi && entry.poi.id === 'test/alpha' &&
-    entry.expiresAt > before && entry.expiresAt <= Date.now() + LURE_MS);
+    entry.expiresAt > before && entry.expiresAt <= Date.now() + LURE_MS && entry.wildpoolId === 'wild-starter-1' && typeof entry.token === 'string');
   ok('lure: poiStatus.lured true only for the lured place', poiStatus(ALPHA, P).lured === true && poiStatus(BETA, P).lured === false);
+  const beforeDuplicate = getInventory().lure;
+  ok('lure: duplicate active placement spends nothing', await placeLureAsync(ALPHA) === false && getInventory().lure === beforeDuplicate);
   ok('lure: second lure ok, third refused once the bag runs dry (key deleted at 0)',
-    placeLure(BETA) === true && !('lure' in getInventory()) && placeLure(GAMMA) === false && activeLures().length === 2);
+    await placeLureAsync(BETA) === true && !('lure' in getInventory()) && await placeLureAsync(GAMMA) === false && activeLures().length === 2);
+  ok('lure: successful catch consumption removes lure and reservation',
+    (await consumeLure(ALPHA.id, { expectedToken: entry.token })).ok === true && !activeLures().some(l => l.poiId === ALPHA.id));
+  grant('lure', 1);
+  await placeLureAsync(ALPHA);
+  const replacement = activeLures().find(l => l.poiId === ALPHA.id);
+  ok('lure: stale catch cannot consume a replacement reservation',
+    (await consumeLure(ALPHA.id, { expectedToken: entry.token })).stale === true &&
+    activeLures().some(l => l.poiId === ALPHA.id && l.expiresAt === replacement.expiresAt));
+  configure({ storageImpl:{ getItem(){ throw new Error('blocked'); }, setItem(){ throw new Error('blocked'); } } });
+  grant('lure', 1);
+  const memoryLures = getInventory().lure;
+  ok('lure: blocked storage retains the in-memory economy fallback',
+    await placeLureAsync(GAMMA) === false && getInventory().lure === memoryLures);
+  configure({ storageImpl:testStorage });
 }
 
 // ═══ Group 6 — network path: Overpass happy path, privacy, failover, 429, noNetwork.
@@ -234,6 +280,67 @@ const okJson = obj => ({ ok: true, status: 200, json: async () => obj });
     fakeA.calls.length === afterFirst && again.length === 2 && again.some(p => p.id === 'node/101'));
 }
 
+// — atomic dispatch: duplicate foreground misses coalesce; every real request is
+//   single-flight and starts at least one throttle interval after the previous. —
+{
+  const starts = []; let active = 0, maxActive = 0;
+  const fakeQ = mkFake(async () => {
+    starts.push(Date.now()); active++; maxActive = Math.max(maxActive, active);
+    await sleep(8);
+    active--;
+    return okJson({ elements: [] });
+  });
+  configure({ fetchImpl: fakeQ, throttleMs: 30, noNetwork: false, failFirst: false });
+  await Promise.all([
+    refreshPOIs(-33.8688, 151.2093),
+    refreshPOIs(-33.8688, 151.2093)
+  ]);
+  await sleep(200);
+  const gaps = starts.slice(1).map((t, i) => t - starts[i]);
+  ok('overpass: dispatch is single-flight, deduped, and throttle-spaced',
+    starts.length === 5 && maxActive === 1 && gaps.every(ms => ms >= 25),
+    `calls=${starts.length} max=${maxActive} gaps=${gaps.join(',')}`);
+}
+
+// — foreground priority: a player entering a tile promotes an already queued
+//   neighbour prefetch and gets the next throttle slot. —
+{
+  const BASE = { lat: -23.5505, lng: -46.6333 };
+  const NEXT = { lat: BASE.lat + 0.0096, lng: BASE.lng };
+  const promotedTile = geohashEncode(NEXT.lat, NEXT.lng, 6);
+  const logStart = getLog().length;
+  const fakeP = mkFake(() => okJson({ elements: [] }));
+  configure({ fetchImpl: fakeP, throttleMs: 30, noNetwork: false, failFirst: false });
+  await refreshPOIs(BASE.lat, BASE.lng);
+  await sleep(1); // let neighbour tileGet() calls enter the low-priority queue
+  await refreshPOIs(NEXT.lat, NEXT.lng);
+  await sleep(320);
+  const dispatches = getLog().slice(logStart).filter(line => line.startsWith('fetch tile='));
+  ok('overpass: queued prefetch promotes when it becomes foreground',
+    dispatches.length >= 2 && dispatches[1].includes(`tile=${promotedTile}`),
+    dispatches.slice(0, 3).join(' | '));
+}
+
+// — body consumption stays inside the gate: fetch() resolving headers must not
+//   let another request start while the prior JSON body is still streaming. —
+{
+  let activeBodies = 0, maxBodies = 0;
+  const fakeBody = mkFake(() => ({
+    ok: true,
+    status: 200,
+    json: async () => {
+      activeBodies++; maxBodies = Math.max(maxBodies, activeBodies);
+      await sleep(12);
+      activeBodies--;
+      return { elements: [] };
+    }
+  }));
+  configure({ fetchImpl: fakeBody, throttleMs: 0, noNetwork: false, failFirst: false });
+  await refreshPOIs(40.4168, -3.7038);
+  await sleep(100);
+  ok('overpass: response bodies remain single-flight', maxBodies === 1, `maxBodies=${maxBodies}`);
+}
+
 // — failover: failFirst forces the primary to throw; kumi mirror serves (NYC; gh6 dr5reg).
 //   NOTE ~1-1.25 s wall time: the attempt-0 failure sleeps one exponential backoff. —
 {
@@ -286,6 +393,14 @@ const okJson = obj => ({ ok: true, status: 200, json: async () => obj });
   const leaks = REQ_BODIES.filter(b => b.includes('33.7490123') || b.includes('84.3879824'));
   ok('privacy (§13): no request body ever contains a raw player coordinate', REQ_BODIES.length > 0 && leaks.length === 0, `${leaks.length} leaky of ${REQ_BODIES.length}`);
   ok('zero real network: the global-fetch trap was never hit', realFetchTrap.calls.length === 0, realFetchTrap.calls.join(','));
+}
+
+{
+  const many = Array.from({length:KNOWN_POI_CAP+100},(_,i)=>({id:'stress/'+i,lat:0,lng:0,name:'stress',kind:'seat',tags:{}}));
+  injectPOIs(many);
+  ok('memory: known POI working set stays bounded', knownPOIs().length <= KNOWN_POI_CAP, `${knownPOIs().length}`);
+  ok('memory: diagnostic log stays bounded', getLog().length <= LOG_CAP, `${getLog().length}`);
+  ok('memory: active lure POI snapshots survive known-POI eviction', activeLures().every(lure => lure.poi && lure.poi.id === lure.poiId));
 }
 
 // ── summary (house grammar; scorecard.mjs matches /0 failed|ALL PASS/i + /passed/i) ──

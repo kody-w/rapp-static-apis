@@ -13,8 +13,10 @@
 //      deterministic (§19 one-body law), and the walk pos(t)=f(seed,t) is deterministic
 //      + bounded to ~20m.
 
-import { momentToGenome, genomeId, geohashEncode, geohashDecode, mkRng } from './lib/genome.js';
-import { speciesOf, FAMILIES, snapHash, faunaPath } from './lib/fauna.js';
+import { momentToGenome, genomeId, geohashEncode, geohashDecode, mkRng, moonPhase } from './lib/genome.js';
+import { speciesOf, FAMILIES, snapHash, faunaPath, spriteAtlas, atlasMemoryBytes, clearAtlasCache, ATLAS_BUDGET_BYTES } from './lib/fauna.js';
+import { SpawnField } from './spawn.js';
+import { exportBones } from '../companion/twin.mjs';
 import { readFileSync } from 'node:fs';
 
 let pass = 0, fail = 0;
@@ -106,17 +108,20 @@ const FIXTURE = { temp: 12.5, weathercode: 61, wind: 18, isDay: 0 }; // a fixed 
 
   // 4a. determinism: same cart → identical species/genes across two runs AND module reload
   const fauna2 = await import('./lib/fauna.js?reload=1');   // a fresh, independent module instance
-  let detOk = true, reloadOk = true;
+  let detOk = true, reloadOk = true, publicProjectionOk = true;
   const hist = {}; FAMILIES.forEach(f => hist[f] = 0);
   for (const c of carts) {
     const a = speciesOf(c), b = speciesOf(c);
     if (a.family !== b.family || JSON.stringify(a.genes) !== JSON.stringify(b.genes)) detOk = false;
     const r = fauna2.speciesOf(c);
     if (r.family !== a.family || JSON.stringify(r.genes) !== JSON.stringify(a.genes)) reloadOk = false;
+    const projected = speciesOf(exportBones(c).cart);
+    if (projected.family !== a.family || JSON.stringify(projected.genes) !== JSON.stringify(a.genes)) publicProjectionOk = false;
     hist[a.family]++;
   }
   ok(`species deterministic across two runs (${carts.length} carts)`, detOk);
   ok('species identical across module reload', reloadOk);
+  ok('species identical after public gh5/day projection', publicProjectionOk);
 
   // 4b. the sampled fixture reaches ALL 8 families
   const hit = FAMILIES.filter(f => hist[f] > 0);
@@ -157,6 +162,27 @@ const FIXTURE = { temp: 12.5, weathercode: 61, wind: 18, isDay: 0 }; // a fixed 
   ok('walk pos(t)=f(seed,t) deterministic', pa.lat === pb.lat && pa.lng === pb.lng);
   ok('walk moves along its deterministic path', moved);
   ok('walk stays within ~20m of anchor', maxR <= 20, `maxR=${maxR.toFixed(1)}m`);
+
+  // 4f. active lure reunion: exact stored cart, stable key/position, near its POI.
+  const lure = { poiId: 'test/fountain', poi: { id:'test/fountain', lat:40.7128, lng:-74.0060 }, expiresAt:1783141200000 };
+  const field = new SpawnField();
+  const moon = moonPhase(1783140000000);
+  const beforeWild = JSON.stringify(carts[0]);
+  const lureA = await field._lureSpawn(lure, carts[0], anchor, 990633, null, moon, null, 1783140000000);
+  const lureB = await field._lureSpawn(lure, carts[0], anchor, 990633, null, moon, null, 1783140000000);
+  const lureDistance = Math.hypot((lureA.lat-lure.poi.lat)*111320, (lureA.lng-lure.poi.lng)*111320*Math.cos(lure.poi.lat*Math.PI/180));
+  ok('lure reunion keeps the exact wildpool cart', lureA.cart === carts[0] && lureA.id === carts[0].id && JSON.stringify(carts[0]) === beforeWild);
+  ok('lure reunion key and position are deterministic', lureA.key === lureB.key && lureA.lat === lureB.lat && lureA.lng === lureB.lng);
+  ok('lure reunion stays within 20m of its POI', lureDistance <= 20, `${lureDistance.toFixed(1)}m`);
+
+  clearAtlasCache();
+  const firstAtlas = spriteAtlas({ ...carts[0], id:'000000000001' }, { frames:10, size:76 });
+  for (let i=2;i<=100;i++) spriteAtlas({ ...carts[i % carts.length], id:i.toString(16).padStart(12,'0') }, { frames:10, size:76 });
+  const rerenderedFirst = spriteAtlas({ ...carts[0], id:'000000000001' }, { frames:10, size:76 });
+  ok('atlas cache remains inside its byte budget', atlasMemoryBytes() <= ATLAS_BUDGET_BYTES, `${atlasMemoryBytes()} bytes`);
+  ok('atlas LRU evicts old entries while active references remain usable', rerenderedFirst !== firstAtlas && firstAtlas.frameAt(0) === null);
+  clearAtlasCache();
+  ok('atlas cache clear is idempotent', atlasMemoryBytes() === 0);
 }
 
 // ── summary ──────────────────────────────────────────────────────────────────────

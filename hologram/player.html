@@ -69,7 +69,7 @@
    <button id="btn-talk">💬 talk</button>
    <button id="btn-cabinet">raise at Cabinet ↗</button>
    <button id="btn-keep">🧺 Keep</button>
-   <a href="index.html"><button>gallery →</button></a>
+   <a id="gallery-link" href="index.html"><button>gallery →</button></a>
   </div>
   <div id="load-row">
    <input id="cart-url" placeholder="cartridge URL or paste JSON…">
@@ -102,6 +102,9 @@
 </div>
 
 <script type="module">
+import { interrogate } from '../companion/twin.mjs';
+import { keepToBasket as writeBasketRecord } from '../rapp-go/lib/basket.js';
+
 /* ── Software-3D renderer ─────────────────────────────────────────────────── */
 const TAU = Math.PI * 2;
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
@@ -811,35 +814,19 @@ function buildWhyLegend(cart) {
 
 /* ── IndexedDB basket helper ──────────────────────────────────────────────── */
 async function keepToBasket(cart) {
-  return new Promise((resolve, reject) => {
-    const req = indexedDB.open('rapp-basket', 1);
-    req.onupgradeneeded = e => {
-      const db = e.target.result;
-      if (!db.objectStoreNames.contains('eggs'))
-        db.createObjectStore('eggs', { keyPath: 'id' });
-    };
-    req.onsuccess = e => {
-      const db = e.target.result;
-      const tx = db.transaction('eggs', 'readwrite');
-      tx.objectStore('eggs').put({
-        id: cart.id,
-        egg: cart,
-        title: cart.title || 'organism',
-        born: (cart.born && cart.born.from) || '',
-        addedAt: Date.now()
-      });
-      tx.oncomplete = () => { db.close(); resolve(); };
-      tx.onerror = () => { db.close(); reject(tx.error); };
-    };
-    req.onerror = () => reject(req.error);
-  });
+  return writeBasketRecord(cart, { demo:IS_DEMO_PLAYER });
 }
 
 /* ── Default cartridge (Lumina) ────────────────────────────────────────────── */
 const DEFAULT_CART = {"schema":"hologram-cartridge/1.0","id":"d45a79d29e99","title":"Lumina","author":"@kody-w","born":{"coord":"0,0","from":"genesis"},"parents":[],"genome":{"layers":[{"role":"form","k":30,"shape":"blob","limbs":0,"segments":8,"symmetry":"radial","body_r":0.3,"limb_len":0},{"role":"surface","k":85,"palette":["#00ccff","#0088ff","#ffffff","#aaddff"],"pattern":"glow","glow":0.8,"opacity":0.85},{"role":"motion","k":60,"breathe":0.2,"drift":0.5,"pulse":0.8,"reach":0}],"compose":{"windows":[[0,1,2]],"loop":true}},"sig":""};
 
 /* ── State ────────────────────────────────────────────────────────────────── */
-let CART = null, RAF = null, T0 = null, _pmPort = null;
+const PLAYER_PARAMS = new URLSearchParams(location.search);
+const INSPECTION_ONLY = PLAYER_PARAMS.get('inspect') === '1';
+const IS_DEMO_PLAYER = PLAYER_PARAMS.get('demo') === '1';
+if (IS_DEMO_PLAYER) document.getElementById('gallery-link').href = 'index.html?demo=1';
+const CONTEXT_EXPECTED_ID = PLAYER_PARAMS.get('expected');
+let CART = null, CART_VERIFIED = false, LOAD_GENERATION = 0, RAF = null, ANIM_TICK = null, T0 = null, _pmPort = null;
 let LANTERN = 'https://kody-w.github.io/rapp-lantern/player.html';
 let CABINET = 'index.html';
 const stage = document.getElementById('stage');
@@ -863,19 +850,46 @@ if (typeof ResizeObserver === 'function') new ResizeObserver(() => sizeCanvas())
 window.addEventListener('resize', sizeCanvas);
 window.addEventListener('orientationchange', sizeCanvas);
 
-async function loadCart(cart) {
+async function loadCart(cart, generation = ++LOAD_GENERATION, expectedId = CONTEXT_EXPECTED_ID) {
+  if (generation !== LOAD_GENERATION) return;
+  const verdict = await interrogate(cart, 'cart');
+  const remixOnly = !verdict.ok && verdict.reasons.length > 0 && verdict.reasons.every(reason => reason.code === 'disguise');
+  let got = '';
+  try { got = await genomeId(cart.genome); } catch {}
+  if (generation !== LOAD_GENERATION) return;
   CART = cart;
-  // Verify genome id
-  const got = await genomeId(cart.genome);
-  const declared = cart.id || '';
-  const match = !declared || got === declared;
+  const contextualMismatch = !!expectedId && (!cart || cart.id !== expectedId);
+  CART_VERIFIED = verdict.ok && !INSPECTION_ONLY && !contextualMismatch;
+  const declared = cart && cart.id || '';
+  const match = !!got && got === declared;
   verEl.style.display = 'block';
-  if (match) {
+  if (CART_VERIFIED && match) {
     verEl.textContent = got + ' ✓';
     verEl.className = 'mono';
   } else {
-    verEl.textContent = got + ' ≠ ' + declared.slice(0,12) + ' (remix)';
+    verEl.textContent = (INSPECTION_ONLY ? 'inspection only · ' : 'quarantined · ') +
+      (contextualMismatch ? `expected record ${expectedId}, received ${cart && cart.id || 'no id'}` : verdict.reasons[0]?.detail || (got + ' ≠ ' + declared.slice(0,12)));
     verEl.className = 'mono mismatch';
+  }
+  for (const id of ['btn-dl','btn-lantern','btn-talk','btn-cabinet','btn-keep','btn-link','btn-qr']) {
+    document.getElementById(id).disabled = !CART_VERIFIED;
+  }
+  document.getElementById('qr-wrap').style.display = 'none';
+  document.getElementById('qr-link').textContent = '';
+  const qrCanvas = document.getElementById('qr');
+  qrCanvas.getContext('2d').clearRect(0, 0, qrCanvas.width, qrCanvas.height);
+  if (!verdict.ok && !remixOnly) {
+    if (RAF) cancelAnimationFrame(RAF);
+    RAF = null; ANIM_TICK = null;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    document.getElementById('i-title').textContent = cart && typeof cart.title === 'string' ? cart.title : 'unreadable egg';
+    document.getElementById('i-author').textContent = 'held for inspection — malformed metadata was not rendered';
+    document.getElementById('i-note').style.display = 'none';
+    document.getElementById('i-home').style.display = 'none';
+    document.getElementById('why-row').style.display = 'none';
+    document.getElementById('cart-json').value = JSON.stringify(cart, null, 2);
+    if (_pmPort) _pmPort.postMessage({ type: 'quarantined', reasons: verdict.reasons.map(r => r.code) });
+    return;
   }
   document.getElementById('i-title').textContent = cart.title || '';
   const phrase = momentPhrase(cart.born && cart.born.from, cart.born && cart.born.coord);
@@ -891,14 +905,16 @@ async function loadCart(cart) {
   }
   // Provenance breadcrumb (home field is outside genome, does not affect id)
   const homeEl = document.getElementById('i-home');
-  if (cart.home && cart.home.name) {
+  let galleryHref = null;
+  try { const u = new URL(cart.home && cart.home.gallery); if (u.protocol === 'https:') galleryHref = u.href; } catch {}
+  if (cart.home && cart.home.name && galleryHref) {
     homeEl.textContent = '';
-    const a1 = Object.assign(document.createElement('a'), { href: cart.home.gallery || '#', target: '_blank', rel: 'noopener' });
+    const a1 = Object.assign(document.createElement('a'), { href: galleryHref, target: '_blank', rel: 'noopener' });
     a1.textContent = '↗ from ' + cart.home.name;
     homeEl.appendChild(a1);
-    if (cart.parents && cart.parents.length && cart.home.gallery) {
+    if (cart.parents && cart.parents.length) {
       homeEl.appendChild(document.createTextNode(' · '));
-      const a2 = Object.assign(document.createElement('a'), { href: cart.home.gallery, target: '_blank', rel: 'noopener' });
+      const a2 = Object.assign(document.createElement('a'), { href: galleryHref, target: '_blank', rel: 'noopener' });
       a2.textContent = 'see its kin ↗';
       homeEl.appendChild(a2);
     }
@@ -924,13 +940,14 @@ async function loadCart(cart) {
   startAnim();
   // Notify sandboxed housing if present
   if (_pmPort) {
-    if (match) _pmPort.postMessage({ type: 'hatched', id: got });
+    if (CART_VERIFIED && match) _pmPort.postMessage({ type: 'hatched', id: got });
+    else if (!CART_VERIFIED) _pmPort.postMessage({ type: 'quarantined', reasons: verdict.reasons.map(r => r.code) });
     else _pmPort.postMessage({ type: 'hash-mismatch', got, declared });
   }
 }
 
 function startAnim() {
-  if (RAF) cancelAnimationFrame(RAF);
+  pauseAnim();
   T0 = null;
   VIEW.lastTs = null;
   function frame(ts) {
@@ -945,10 +962,16 @@ function startAnim() {
       VIEW.autoOrbit += 0.32 * dt * VIEW.spin;
     }
     if (CART) renderScene(ctx, CART, time, VIEW);
-    RAF = requestAnimationFrame(frame);
+    RAF = document.hidden ? null : requestAnimationFrame(frame);
   }
-  RAF = requestAnimationFrame(frame);
+  ANIM_TICK = frame;
+  resumeAnim();
 }
+function pauseAnim(){ if(RAF){cancelAnimationFrame(RAF);RAF=null;} }
+function resumeAnim(){ if(!RAF&&ANIM_TICK&&CART&&!document.hidden){T0=null;VIEW.lastTs=null;RAF=requestAnimationFrame(ANIM_TICK);} }
+document.addEventListener('visibilitychange',()=>document.hidden?pauseAnim():resumeAnim());
+addEventListener('pagehide',pauseAnim);
+addEventListener('pageshow',resumeAnim);
 
 /* ── Loader ───────────────────────────────────────────────────────────────── */
 async function loadFromUrl(url) {
@@ -960,6 +983,7 @@ async function loadFromUrl(url) {
 async function resolveAndLoad(input) {
   input = (input || '').trim();
   if (!input) return;
+  const generation = ++LOAD_GENERATION;
   let cart;
   try {
     if (input.startsWith('{')) { cart = JSON.parse(input); }
@@ -967,9 +991,12 @@ async function resolveAndLoad(input) {
       const u = new URL(input, location.href);
       cart = await loadFromUrl(u.href);
     }
-    await loadCart(cart);
+    if (generation !== LOAD_GENERATION) return;
+    await loadCart(cart, generation);
+    if (generation !== LOAD_GENERATION) return;
     document.getElementById('cart-json').value = JSON.stringify(cart, null, 2);
   } catch(e) {
+    if (generation !== LOAD_GENERATION) return;
     document.getElementById('i-title').textContent = '✗ ' + (e.message || e);
     document.getElementById('i-title').style.color = '#f85149';
   }
@@ -977,15 +1004,17 @@ async function resolveAndLoad(input) {
 
 /* ── Boot ─────────────────────────────────────────────────────────────────── */
 (async () => {
+  const generation = ++LOAD_GENERATION;
   const p = new URLSearchParams(location.search);
   const hash = (location.hash || '').slice(1);
-  let cart = null;
+  let cart = null, expectedId = CONTEXT_EXPECTED_ID;
 
   if (hash) {
     try { cart = JSON.parse(b64dec(hash)); } catch {}
   }
   if (!cart && p.has('cart')) {
     try { cart = await loadFromUrl(p.get('cart')); } catch(e) {
+      if (generation !== LOAD_GENERATION) return;
       document.getElementById('i-title').textContent = '✗ ' + (e.message || e);
     }
   }
@@ -993,12 +1022,11 @@ async function resolveAndLoad(input) {
     try {
       const reg = await (await fetch('registry.json', { cache: 'no-store' })).json();
       const entry = (reg.entries || []).find(e => e.name === p.get('id') || e.id === p.get('id'));
-      if (entry) cart = await loadFromUrl(new URL(entry.pin_path, location.href).href);
+      if (entry) { expectedId = entry.id; cart = await loadFromUrl(new URL(entry.pin_path, location.href).href); }
     } catch {}
   }
   if (!cart) cart = DEFAULT_CART;
-
-  await loadCart(cart);
+  if (generation === LOAD_GENERATION) await loadCart(cart, generation, expectedId);
 
   // Populate title bar + pull config from registry
   try {
@@ -1027,25 +1055,25 @@ document.getElementById('btn-apply').onclick = async () => {
 };
 
 document.getElementById('btn-dl').onclick = () => {
-  if (!CART) return;
+  if (!CART || !CART_VERIFIED) return;
   const blob = new Blob([JSON.stringify(CART, null, 2)], { type: 'application/json' });
   const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: (CART.title || 'cartridge') + '.egg' });
   a.click(); URL.revokeObjectURL(a.href);
 };
 
 document.getElementById('btn-lantern').onclick = () => {
-  if (!CART) return;
+  if (!CART || !CART_VERIFIED) return;
   window.open(LANTERN + '#' + b64enc(JSON.stringify(CART)));
 };
 
 document.getElementById('btn-talk').onclick = () => {
-  if (!CART) return;
-  window.open('../companion/index.html#' + b64enc(JSON.stringify(CART)));
+  if (!CART || !CART_VERIFIED) return;
+  window.open('../companion/index.html' + (IS_DEMO_PLAYER ? '?demo=1' : '') + '#' + b64enc(JSON.stringify(CART)));
 };
 
 document.getElementById('btn-cabinet').onclick = () => {
-  if (!CART) return;
-  window.open(CABINET + '#remix=' + b64enc(JSON.stringify(CART)));
+  if (!CART || !CART_VERIFIED) return;
+  window.open(CABINET + (IS_DEMO_PLAYER ? '?demo=1' : '') + '#remix=' + b64enc(JSON.stringify(CART)));
 };
 
 document.getElementById('why-toggle').onclick = () => {
@@ -1057,7 +1085,7 @@ document.getElementById('why-toggle').onclick = () => {
 };
 
 document.getElementById('btn-keep').onclick = async () => {
-  if (!CART) return;
+  if (!CART || !CART_VERIFIED) return;
   try {
     await keepToBasket(CART);
     const btn = document.getElementById('btn-keep');
@@ -1067,8 +1095,8 @@ document.getElementById('btn-keep').onclick = async () => {
 };
 
 document.getElementById('btn-link').onclick = async () => {
-  if (!CART) return;
-  const url = new URL('player.html#' + b64enc(JSON.stringify(CART)), location.href).href;
+  if (!CART || !CART_VERIFIED) return;
+  const url = new URL('player.html' + (IS_DEMO_PLAYER ? '?demo=1' : '') + '#' + b64enc(JSON.stringify(CART)), location.href).href;
   await navigator.clipboard?.writeText(url);
   const btn = document.getElementById('btn-link');
   btn.textContent = 'copied ✓'; setTimeout(() => btn.textContent = 'copy link', 1400);
@@ -1077,7 +1105,12 @@ document.getElementById('btn-link').onclick = async () => {
 document.getElementById('btn-file').onclick = () => document.getElementById('file-in').click();
 document.getElementById('file-in').onchange = async e => {
   const f = e.target.files[0]; if (!f) return;
-  try { await loadCart(JSON.parse(await f.text())); } catch(err) {
+  const generation = ++LOAD_GENERATION;
+  try {
+    const cart = JSON.parse(await f.text());
+    if (generation === LOAD_GENERATION) await loadCart(cart, generation);
+  } catch(err) {
+    if (generation !== LOAD_GENERATION) return;
     document.getElementById('i-title').textContent = '✗ ' + err.message;
   }
 };
@@ -1145,7 +1178,12 @@ canvas.addEventListener('dragover', e => e.preventDefault());
 document.getElementById('canvas').addEventListener('drop', async e => {
   e.preventDefault();
   const f = e.dataTransfer.files[0]; if (!f) return;
-  try { await loadCart(JSON.parse(await f.text())); } catch(err) {
+  const generation = ++LOAD_GENERATION;
+  try {
+    const cart = JSON.parse(await f.text());
+    if (generation === LOAD_GENERATION) await loadCart(cart, generation);
+  } catch(err) {
+    if (generation !== LOAD_GENERATION) return;
     document.getElementById('i-title').textContent = '✗ ' + err.message;
   }
 });
@@ -1153,7 +1191,8 @@ document.getElementById('canvas').addEventListener('drop', async e => {
 // QR
 let qrMod = null;
 document.getElementById('btn-qr').onclick = async () => {
-  if (!CART) return;
+  if (!CART || !CART_VERIFIED) return;
+  const cart = CART, generation = LOAD_GENERATION;
   const wrap = document.getElementById('qr-wrap');
   if (wrap.style.display === 'block') { wrap.style.display = 'none'; return; }
   if (!qrMod) {
@@ -1161,7 +1200,8 @@ document.getElementById('btn-qr').onclick = async () => {
       try { qrMod = await import('./qr.mjs'); } catch { alert('QR module unavailable'); return; }
     }
   }
-  const url = new URL('player.html#' + b64enc(JSON.stringify(CART)), location.href).href;
+  if (generation !== LOAD_GENERATION || CART !== cart || !CART_VERIFIED) return;
+  const url = new URL('player.html' + (IS_DEMO_PLAYER ? '?demo=1' : '') + '#' + b64enc(JSON.stringify(cart)), location.href).href;
   const { qr } = qrMod;
   const { size, modules } = qr(url, { ecl: 'M' });
   const q = 4, scale = Math.max(2, Math.floor(240 / (size + 2 * q))), dim = (size + 2 * q) * scale;
@@ -1186,7 +1226,7 @@ window.addEventListener('message', e => {
   if (!_pmPort) return;
   _pmPort.onmessage = async ev => {
     const d = ev.data;
-    if (d && d.type === 'load-cartridge' && d.cart) await loadCart(d.cart);
+    if (d && d.type === 'load-cartridge' && d.cart) await loadCart(d.cart, ++LOAD_GENERATION, d.expectedId || null);
   };
   _pmPort.postMessage({ type: 'ready' });
 });

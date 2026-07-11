@@ -204,9 +204,46 @@ export class SpawnField {
     return spawn;
   }
 
+  async _lureSpawn(lure, wildCart, player, bucket, weather, moon, tide, nowMs) {
+    if (!lure || !lure.poi) return null;
+    if (lure.wildpoolId && !wildCart) return null;
+    const seed = 'lure:' + lure.poiId + '@' + (lure.token || lure.expiresAt);
+    const rng = mkRng(seed);
+    const distance = 6 + rng() * 12, angle = rng() * TAU;
+    const lat = lure.poi.lat + Math.cos(angle) * distance / 111320;
+    const lng = lure.poi.lng + Math.sin(angle) * distance / (111320 * (Math.cos(lure.poi.lat * Math.PI / 180) || 1e-6));
+    let cart = wildCart || null;
+    let rarity = 'common';
+    if (!cart) {
+      const placedAt = lure.expiresAt - 20 * 60 * 1000;
+      const placedMoon = moonPhase(placedAt);
+      const placedTide = tideFromPhase(placedMoon.frac);
+      const genome = moonGenome(placedMoon, placedTide, seed);
+      const id = await genomeId(genome);
+      rarity = moonRarity(placedMoon, mkRng(seed + '#r'));
+      cart = {
+        schema: 'hologram-cartridge/1.0', id,
+        title: "a lured moon creature \u2014 " + placedMoon.illuminated + '%',
+        author: 'you',
+        born: { coord: geohashEncode(lat, lng, 9) + '\u00b7' + placedAt, from: moonFrom(placedMoon, tideCaption(placedTide)) },
+        parents: [], genome, sig: ''
+      };
+    }
+    return new Spawn({
+      key: seed, cell: geohashEncode(lat, lng, this.cellPrecision), bucket, lat, lng, rarity, source: 'lure',
+      weather: weather || null, moon, distanceM: haversineM(player, { lat, lng }),
+      cart, id: cart.id, lurePoiId: lure.poiId, lureExpiresAt: lure.expiresAt,
+      lureToken: lure.token || null, wildpoolId: wildCart ? wildCart.id : null
+    });
+  }
+
   async update(playerLatLng, opts = {}) {
     const nowMs = opts.nowMs || Date.now();
     const poiAnchors = opts.poiAnchors || [];
+    const lures = (opts.lures || []).filter(lure => lure && lure.poi && lure.expiresAt > nowMs)
+      .sort((a, b) => a.poiId.localeCompare(b.poiId));
+    const wildpool = Array.isArray(opts.wildpool) ? opts.wildpool : [];
+    const wildById = new Map(wildpool.filter(cart => cart && cart.id).map(cart => [cart.id, cart]));
     const bucket = this.bucketFor(nowMs);
     const moon = moonPhase(nowMs);
     const tide = tideFromPhase(moon.frac);
@@ -225,9 +262,14 @@ export class SpawnField {
       jobs.push(this._spawnForCell(cell, center, playerLatLng, bucket, weather, moon, tide, anchorCells.has(cell), nowMs));
     }
     let spawns = (await Promise.all(jobs)).filter(Boolean);
+    const lureSpawns = (await Promise.all(lures.map(lure =>
+      this._lureSpawn(lure, wildById.get(lure.wildpoolId) || null, playerLatLng, bucket, weather, moon, tide, nowMs)
+    ))).filter(Boolean);
+    spawns = [...lureSpawns, ...spawns];
     spawns = spawns.filter(s => s.distanceM <= this.radiusM + 60);
     spawns.sort((a, b) => a.distanceM - b.distanceM);
-    spawns = spawns.slice(0, this.maxVisible);
+    spawns = [...lureSpawns.filter(s => s.distanceM <= this.radiusM + 60), ...spawns.filter(s => s.source !== 'lure')]
+      .slice(0, this.maxVisible);
     return spawns;
   }
 
