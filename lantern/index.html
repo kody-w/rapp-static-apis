@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <link rel="icon" href="data:,">
+<link rel="manifest" href="../rapp-go/manifest.webmanifest">
+<link rel="apple-touch-icon" href="../rapp-go/icon-180.png">
+<meta name="theme-color" content="#e9ebe6">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>the lantern — bring any egg</title>
 <script>
 // Theme boot (cohesion-brief §1 key amendment): shared key `rapp.theme`, with a
@@ -120,12 +124,14 @@ module imports and the registry shelf cannot load from <span class="mono">file:/
 
 <script type="module">
 import { mountNav } from '../rapp-go/lib/nav.js';                     // the one room-switcher — import, don't fork (cohesion-brief §5)
+import { registerAppShell } from '../rapp-go/lib/app-shell.js';
 import { interrogate, INJECTION_PATTERNS, sha8 } from '../companion/twin.mjs';  // §14 doorman — pure functions only, never the Twin store
 import { renderLoop, snap } from '../rapp-go/lib/fauna.js';           // §19 one body (note: fauna has a SPECIES named 'lantern' — unrelated to this room)
 import { keepToBasket } from '../rapp-go/lib/basket.js';              // shared rapp-basket IndexedDB, byte-identical record shape
 import { b64enc, b64dec, genomeId } from '../rapp-go/lib/genome.js';  // landed base64url + content-hash
 
 mountNav({ active: 'lantern', root: '..' });
+registerAppShell();
 
 const stage = document.getElementById('stage');
 const wrap = document.getElementById('stage-wrap');

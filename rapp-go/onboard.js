@@ -19,9 +19,22 @@ let receiveGeneration = 0;
 /* ── storage (house pattern: never crash) ─────────────────────────────────── */
 const LS = {
   get(k) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : null; } catch { return null; } },
-  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch { return false; } },
+  remove(k) { try { localStorage.removeItem(k); } catch {} }
 };
 export function onboarded() { return !!LS.get('rapp-go.onboarded'); }
+
+const ONBOARDING_VERSION = 2;
+const ONBOARDING_LAST_STEP = 6;
+export function onboardingStep() {
+  const saved = LS.get('rapp-go.onboarding');
+  return saved && saved.v === ONBOARDING_VERSION && Number.isInteger(saved.next) &&
+    saved.next >= 0 && saved.next <= ONBOARDING_LAST_STEP ? saved.next : 0;
+}
+export function checkpointOnboarding(next, nowMs = Date.now()) {
+  const safe = Number.isInteger(next) ? Math.max(0, Math.min(ONBOARDING_LAST_STEP, next)) : 0;
+  return LS.set('rapp-go.onboarding', { v: ONBOARDING_VERSION, next: safe, at: nowMs });
+}
 
 /* one-time contextual tips (§C tail): first poi, first flee, first rare, bag cap */
 export function tip(key, text) {
@@ -35,6 +48,15 @@ export function tip(key, text) {
   requestAnimationFrame(() => d.classList.add('show'));
   setTimeout(() => { d.classList.remove('show'); setTimeout(() => d.remove(), 500); }, 5200);
   d.addEventListener('click', () => d.remove());
+}
+
+const CATCH_COACH = {
+  ring: '1 of 3 · watch the ring breathe. a smaller ring makes a truer throw.',
+  throw: '2 of 3 · tap as it closes. a wide throw returns the vessel; a true throw spends one.',
+  outcome: '3 of 3 · that was a real roll. each sky can hold, break free, or flee.'
+};
+export function coachCatch(stage) {
+  if (CATCH_COACH[stage]) tip('catch-coach-' + stage, CATCH_COACH[stage]);
 }
 
 /* ── minimal twin-store writer ────────────────────────────────────────────────
@@ -424,7 +446,7 @@ const OB_CSS = `
 
 export async function maybeOnboard(ctx = {}) {
   // ctx: { demo, nowMs, requestLocation() } — returns how the location step ended
-  if (onboarded()) return false;
+  if (onboarded()) { LS.remove('rapp-go.onboarding'); return false; }
   if (!document.querySelector('style[data-go-onboard]')) {
     const st = document.createElement('style'); st.setAttribute('data-go-onboard', ''); st.textContent = OB_CSS;
     document.head.appendChild(st);
@@ -434,9 +456,20 @@ export async function maybeOnboard(ctx = {}) {
   const card = el('div', 'go-card'); wrap.appendChild(card); document.body.appendChild(wrap);
   const loops = [];
   const stopLoops = () => { for (const c of loops.splice(0)) { try { c.stop(); } catch {} } };
-  const finish = () => { stopLoops(); LS.set('rapp-go.onboarded', { at: nowMs, v: 1 }); wrap.remove(); };
+  const firstStep = onboardingStep();
+  let nextStep = firstStep, announceResume = firstStep > 0;
+  checkpointOnboarding(nextStep, nowMs);
+  const finish = () => {
+    stopLoops();
+    if (LS.set('rapp-go.onboarded', { at: nowMs, v: 1 })) LS.remove('rapp-go.onboarding');
+    wrap.remove();
+  };
   const screen = (build) => new Promise(res => {
     stopLoops(); card.innerHTML = '';
+    if (announceResume) {
+      card.appendChild(el('p', 'go-dim', 'welcome back · continuing your first walk'));
+      announceResume = false;
+    }
     const skip = el('button', 'go-btn ghost', 'skip');
     skip.onclick = () => res('skip');
     build(res, skip);
@@ -444,125 +477,143 @@ export async function maybeOnboard(ctx = {}) {
   });
 
   // 1 · welcome — the guide, live and breathing (§19: the model, never a drawing)
-  await screen(res => {
-    card.appendChild(el('h1', '', 'the sky where you stand can become a being'));
-    const cvs = document.createElement('canvas'); cvs.className = 'go-stage'; card.appendChild(cvs);
-    try { loops.push(renderLoop(GUIDE_CART, cvs, { size: 180, background: false })); } catch {}
-    card.appendChild(el('p', 'go-dim', 'this is rapp·go. it grows creatures from the real weather of real places you walk to.'));
-    const b = el('button', 'go-btn primary', 'begin'); b.onclick = () => res('next'); card.appendChild(b);
-  });
+  if (nextStep <= 0) {
+    await screen(res => {
+      card.appendChild(el('h1', '', 'the sky where you stand can become a being'));
+      const cvs = document.createElement('canvas'); cvs.className = 'go-stage'; card.appendChild(cvs);
+      try { loops.push(renderLoop(GUIDE_CART, cvs, { size: 180, background: false })); } catch {}
+      card.appendChild(el('p', 'go-dim', 'this is rapp·go. it grows creatures from the real weather of real places you walk to.'));
+      const b = el('button', 'go-btn primary', 'begin'); b.onclick = () => res('next'); card.appendChild(b);
+    });
+    checkpointOnboarding(1, nowMs); nextStep = 1;
+  }
 
   // 2 · location, explained first — the §13 promise, then the tap that prompts
   const canLocate = !demo && typeof ctx.requestLocation === 'function';
-  const locationChoice = await screen(res => {
-    card.appendChild(el('h1', '', 'it needs to feel the sky above you'));
-    card.appendChild(el('p', '', 'your exact fix stays on this device. map, place, and weather providers receive only the nearby area needed to grow the sky.'));
-    card.appendChild(el('p', 'go-dim', demo ? 'the demo carries you — no location needed today.' : !canLocate
-      ? 'location is not available on this device. you can still enter, then open the demo sky.'
-      : 'the weather of your place becomes the creature. that is all it asks.'));
-    const b = el('button', 'go-btn primary', demo ? 'walk on' : canLocate ? 'share my location' : 'continue');
-    b.onclick = () => {
-      if (canLocate) { try { ctx.requestLocation(); } catch {} }
-      res(demo ? 'demo' : canLocate ? 'requested' : 'deferred');
-    };
-    card.appendChild(b);
-    if (!demo && canLocate) {
-      const alt = el('button', 'go-btn', 'not now — show me the moon’s creatures');
-      alt.onclick = () => res('deferred');
-      card.appendChild(alt);
-    }
-  });
+  let locationChoice = nextStep > 1 ? 'resumed' : null;
+  if (nextStep <= 1) {
+    locationChoice = await screen(res => {
+      card.appendChild(el('h1', '', 'it needs to feel the sky above you'));
+      card.appendChild(el('p', '', 'your exact fix stays on this device. map, place, and weather providers receive only the nearby area needed to grow the sky.'));
+      card.appendChild(el('p', 'go-dim', demo ? 'the demo carries you — no location needed today.' : !canLocate
+        ? 'location is not available on this device. you can still enter, then open the demo sky.'
+        : 'the weather of your place becomes the creature. that is all it asks.'));
+      const b = el('button', 'go-btn primary', demo ? 'walk on' : canLocate ? 'share my location' : 'continue');
+      b.onclick = () => {
+        if (canLocate) { try { ctx.requestLocation(); } catch {} }
+        res(demo ? 'demo' : canLocate ? 'requested' : 'deferred');
+      };
+      card.appendChild(b);
+      if (!demo && canLocate) {
+        const alt = el('button', 'go-btn', 'not now — show me the moon’s creatures');
+        alt.onclick = () => res('deferred');
+        card.appendChild(alt);
+      }
+    });
+    checkpointOnboarding(2, nowMs); nextStep = 2;
+  }
 
   // 3 · the starter ceremony (§D) — four gentle prompts, all optional
-  const inputs = {};
-  const sc = await screen(res => {
-    card.appendChild(el('h1', '', 'the starter ceremony'));
-    card.appendChild(el('p', 'go-dim', 'share a little of yourself — or nothing at all. it is read once, turned to numbers, and released.'));
-    const file = document.createElement('input'); file.type = 'file'; file.accept = 'image/*'; file.className = 'go-input';
-    file.onchange = async () => { if (file.files && file.files[0]) { try { const p = await paletteFromImage(file.files[0]); inputs.pal = p.pal; inputs.luma = p.luma; } catch {} } };
-    card.appendChild(el('p', '', 'an image that matters')); card.appendChild(file);
-    const date = document.createElement('input'); date.type = 'date'; date.className = 'go-input';
-    date.onchange = () => { const t = Date.parse(date.value); if (!isNaN(t)) inputs.dateMs = t; };
-    card.appendChild(el('p', '', 'a day that mattered')); card.appendChild(date);
-    const word = document.createElement('input'); word.className = 'go-input'; word.placeholder = 'someone who matters — one word';
-    word.onchange = () => { if (word.value.trim()) inputs.word = word.value.trim(); };
-    card.appendChild(word);
-    card.appendChild(el('p', '', 'state of mind, right now'));
-    const row = el('div', 'go-row');
-    for (const mood of Object.keys(MOODS)) { const b = el('button', 'go-btn', mood); b.style.width = 'auto';
-      b.onclick = () => { inputs.mood = mood; [...row.children].forEach(c => c.classList.remove('primary')); b.classList.add('primary'); };
-      row.appendChild(b); }
-    card.appendChild(row);
-    const go = el('button', 'go-btn primary', 'call them'); go.onclick = () => res('next'); card.appendChild(go);
-  });
-
   let adopted = null;
-  if (sc !== 'skip') {
-    const starters = await starterCeremony(inputs, nowMs);
-    await screen(async (res, skipBtn) => {
-      card.appendChild(el('h1', '', 'three came. one is yours.'));
-      const row = el('div', 'go-pickrow'); let sel = null;
-      const keepBtn = el('button', 'go-btn primary', 'choose'); keepBtn.disabled = true;
-      for (const s of starters) {
-        const p = el('div', 'go-pick');
-        const cvs = document.createElement('canvas'); p.appendChild(cvs);
-        try { loops.push(renderLoop(s.cart, cvs, { size: 88, background: false })); } catch {}
-        p.appendChild(el('div', 'nm', s.cart.title));
-        p.appendChild(el('div', 'ax', s.axisNote));
-        p.onclick = () => { sel = s; [...row.children].forEach(c => c.classList.remove('sel')); p.classList.add('sel'); keepBtn.disabled = false; };
-        row.appendChild(p);
-      }
+  if (nextStep <= 2) {
+    const inputs = {};
+    const sc = await screen(res => {
+      card.appendChild(el('h1', '', 'the starter ceremony'));
+      card.appendChild(el('p', 'go-dim', 'share a little of yourself — or nothing at all. it is read once, turned to numbers, and released.'));
+      const file = document.createElement('input'); file.type = 'file'; file.accept = 'image/*'; file.className = 'go-input';
+      file.onchange = async () => { if (file.files && file.files[0]) { try { const p = await paletteFromImage(file.files[0]); inputs.pal = p.pal; inputs.luma = p.luma; } catch {} } };
+      card.appendChild(el('p', '', 'an image that matters')); card.appendChild(file);
+      const date = document.createElement('input'); date.type = 'date'; date.className = 'go-input';
+      date.onchange = () => { const t = Date.parse(date.value); if (!isNaN(t)) inputs.dateMs = t; };
+      card.appendChild(el('p', '', 'a day that mattered')); card.appendChild(date);
+      const word = document.createElement('input'); word.className = 'go-input'; word.placeholder = 'someone who matters — one word';
+      word.onchange = () => { if (word.value.trim()) inputs.word = word.value.trim(); };
+      card.appendChild(word);
+      card.appendChild(el('p', '', 'state of mind, right now'));
+      const row = el('div', 'go-row');
+      for (const mood of Object.keys(MOODS)) { const b = el('button', 'go-btn', mood); b.style.width = 'auto';
+        b.onclick = () => { inputs.mood = mood; [...row.children].forEach(c => c.classList.remove('primary')); b.classList.add('primary'); };
+        row.appendChild(b); }
       card.appendChild(row);
-      keepBtn.onclick = async () => {
-        if (!sel) return;
-        keepBtn.disabled = true; skipBtn.disabled = true; keepBtn.textContent = 'sealing the bond…';
-        try {
-          adopted = await adoptStarter(sel.cart, starters.filter(s => s !== sel), { demo, nowMs });
-          res('next');
-        } catch (e) {
-          console.error('starter adoption failed:', e);
-          keepBtn.disabled = false;
-          skipBtn.disabled = false;
-          skipBtn.textContent = 'continue for now';
-          keepBtn.textContent = 'retry the bond';
-          error.textContent = 'the bond could not be stored yet. nothing was lost — please retry.';
-        }
-      };
-      card.appendChild(keepBtn);
-      const error = el('p', 'go-dim', ''); card.appendChild(error);
-      card.appendChild(el('p', 'go-dim', 'the two you leave return to the sky — you may meet them again out there.'));
+      const go = el('button', 'go-btn primary', 'call them'); go.onclick = () => res('next'); card.appendChild(go);
     });
+    if (sc !== 'skip') {
+      const starters = await starterCeremony(inputs, nowMs);
+      await screen(async (res, skipBtn) => {
+        card.appendChild(el('h1', '', 'three came. one is yours.'));
+        const row = el('div', 'go-pickrow'); let sel = null;
+        const keepBtn = el('button', 'go-btn primary', 'choose'); keepBtn.disabled = true;
+        for (const s of starters) {
+          const p = el('div', 'go-pick');
+          const cvs = document.createElement('canvas'); p.appendChild(cvs);
+          try { loops.push(renderLoop(s.cart, cvs, { size: 88, background: false })); } catch {}
+          p.appendChild(el('div', 'nm', s.cart.title));
+          p.appendChild(el('div', 'ax', s.axisNote));
+          p.onclick = () => { sel = s; [...row.children].forEach(c => c.classList.remove('sel')); p.classList.add('sel'); keepBtn.disabled = false; };
+          row.appendChild(p);
+        }
+        card.appendChild(row);
+        keepBtn.onclick = async () => {
+          if (!sel) return;
+          keepBtn.disabled = true; skipBtn.disabled = true; keepBtn.textContent = 'sealing the bond…';
+          try {
+            adopted = await adoptStarter(sel.cart, starters.filter(s => s !== sel), { demo, nowMs });
+            res('next');
+          } catch (e) {
+            console.error('starter adoption failed:', e);
+            keepBtn.disabled = false;
+            skipBtn.disabled = false;
+            skipBtn.textContent = 'continue for now';
+            keepBtn.textContent = 'retry the bond';
+            error.textContent = 'the bond could not be stored yet. nothing was lost — please retry.';
+          }
+        };
+        card.appendChild(keepBtn);
+        const error = el('p', 'go-dim', ''); card.appendChild(error);
+        card.appendChild(el('p', 'go-dim', 'the two you leave return to the sky — you may meet them again out there.'));
+      });
+    }
+    checkpointOnboarding(3, nowMs); nextStep = 3;
   }
 
   // 4 · the first catch — three captions that teach the ring (the throw is real)
-  await screen(res => {
-    card.appendChild(el('h1', '', 'the catch'));
-    card.appendChild(el('p', '', 'a ring breathes around every wild creature. tap to throw when the ring is small — a close ring is a true throw.'));
-    card.appendChild(el('p', '', 'a wide throw bounces back and costs nothing. a true throw spends one vessel, always.'));
-    card.appendChild(el('p', 'go-dim', 'vessels come from places — spin the marked spots as you walk.'));
-    const b = el('button', 'go-btn primary', 'i’m ready'); b.onclick = () => res('next'); card.appendChild(b);
-  });
+  if (nextStep <= 3) {
+    await screen(res => {
+      card.appendChild(el('h1', '', 'the catch'));
+      card.appendChild(el('p', '', 'your first wild meeting will coach you over the real ring — no practice creature and no fixed outcome.'));
+      card.appendChild(el('p', '', 'a wide throw bounces back and costs nothing. a true throw spends one vessel, always.'));
+      card.appendChild(el('p', 'go-dim', 'vessels come from places — spin the marked spots as you walk.'));
+      const b = el('button', 'go-btn primary', 'i’m ready'); b.onclick = () => res('next'); card.appendChild(b);
+    });
+    checkpointOnboarding(4, nowMs); nextStep = 4;
+  }
 
   // 5 · the doors
-  await screen(res => {
-    card.appendChild(el('h1', '', 'the doors'));
-    card.appendChild(el('p', '', '◍ keep — it rests in your basket.'));
-    card.appendChild(el('p', '', 'talk — it becomes someone to speak with.'));
-    card.appendChild(el('p', '', 'breed — two skies can make a third.'));
-    card.appendChild(el('p', 'go-dim', 'everything you do together becomes its memory — and, one day, your journal.'));
-    const b = el('button', 'go-btn primary', 'one more thing'); b.onclick = () => res('next'); card.appendChild(b);
-  });
+  if (nextStep <= 4) {
+    await screen(res => {
+      card.appendChild(el('h1', '', 'the doors'));
+      card.appendChild(el('p', '', '◍ keep — it rests in your basket.'));
+      card.appendChild(el('p', '', 'talk — it becomes someone to speak with.'));
+      card.appendChild(el('p', '', 'breed — two skies can make a third.'));
+      card.appendChild(el('p', 'go-dim', 'your walk stays the center; these doors only carry the keepsake onward.'));
+      const b = el('button', 'go-btn primary', 'one more thing'); b.onclick = () => res('next'); card.appendChild(b);
+    });
+    checkpointOnboarding(5, nowMs); nextStep = 5;
+  }
 
   // 6 · bring a friend — the share card (§E.1)
-  await screen(res => {
-    card.appendChild(el('h1', '', 'the sky is better shared'));
-    card.appendChild(el('p', 'go-dim', 'send rapp·go to someone who walks.'));
-    const b = el('button', 'go-btn primary', 'share the game'); b.onclick = () => { shareGame(); }; card.appendChild(b);
-    const d = el('button', 'go-btn', 'begin walking'); d.onclick = () => res('next'); card.appendChild(d);
-  });
+  if (nextStep <= 5) {
+    await screen(res => {
+      card.appendChild(el('h1', '', 'the sky is better shared'));
+      card.appendChild(el('p', 'go-dim', 'send rapp·go to someone who walks.'));
+      const b = el('button', 'go-btn primary', 'share the game'); b.onclick = () => { shareGame(); }; card.appendChild(b);
+      const d = el('button', 'go-btn', 'begin walking'); d.onclick = () => res('next'); card.appendChild(d);
+    });
+    checkpointOnboarding(6, nowMs);
+  }
 
   finish();
   return { tookOver: true, adopted, locationChoice };
 }
 
-export default { maybeOnboard, onboarded, starterCeremony, adoptStarter, shareGame, shareCaught, receiveEgg, receivePanel, showQrModal, eggLink, bonesOnly, tip };
+export default { maybeOnboard, onboarded, onboardingStep, checkpointOnboarding, starterCeremony, adoptStarter, shareGame, shareCaught, receiveEgg, receivePanel, showQrModal, eggLink, bonesOnly, tip, coachCatch };

@@ -21,6 +21,11 @@ player.html#<base64url(JSON.stringify(cartridge))>
 
 Scan a QR → opens `player.html#<hash>` → creature animates in ~2 s.
 
+When the primary twin opens Breed, the cabinet receives a verified
+`#twin-breed=` handoff, preselects that primary, and stamps the resulting child
+to the handed-off frame outside its genome. “return to my twin” sends public
+bones back for local verification, history continuity, and basket persistence.
+
 ---
 
 ## The cartridge — `hologram-cartridge/1.0`

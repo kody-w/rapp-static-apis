@@ -1,13 +1,13 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Companion — talk to a hologram organism</title>
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="manifest" href="../rapp-go/manifest.webmanifest">
 <meta name="theme-color" content="#080b11">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Companion">
-<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-title" content="rapp·go">
+<link rel="apple-touch-icon" href="../rapp-go/icon-180.png">
 <style>
  :root{--bg:#080b11;--panel:#111825;--line:#243044;--ink:#e9eef7;--muted:#8593a6;--accent:#6cb0ff;--warm:#ffb672;--good:#54d98c}
  *{box-sizing:border-box}
@@ -15,7 +15,7 @@
  body{background:radial-gradient(120% 90% at 50% -10%,#0e1626 0%,var(--bg) 60%);color:var(--ink);font-family:-apple-system,system-ui,Segoe UI,sans-serif;line-height:1.5}
  a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
  code{font-family:ui-monospace,Menlo,monospace;font-size:.85em}
- .wrap{max-width:1000px;margin:0 auto;padding:max(20px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(28px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));min-height:100%;display:flex;flex-direction:column}
+ .wrap{max-width:1000px;margin:0 auto;padding:max(20px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(100px,calc(env(safe-area-inset-bottom) + 82px)) max(16px,env(safe-area-inset-left));min-height:100%;display:flex;flex-direction:column}
  header{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px}
  header h1{font-size:20px;margin:0;letter-spacing:-.3px}
  header .born{color:var(--muted);font-size:13px}
@@ -135,6 +135,10 @@
 
 <script>
 const $=id=>document.getElementById(id);
+Promise.all([import('../rapp-go/lib/nav.js'),import('../rapp-go/lib/app-shell.js')]).then(([nav,shell])=>{
+ nav.mountNav({active:'twin',root:'..'});
+ shell.registerAppShell();
+}).catch(()=>{});
 // URL token uses base64url (player convention); Python injection uses standard base64.
 const b64urlToStr=t=>decodeURIComponent(escape(atob(t.replace(/-/g,'+').replace(/_/g,'/'))));
 const strToStdB64=s=>btoa(unescape(encodeURIComponent(s)));
@@ -483,11 +487,16 @@ function rerenderCart(cart){ CART=cart;
 function explicitCartRequest(){
  try{ const h=location.hash.slice(1);
   if(h.startsWith('token=')) return JSON.parse(b64urlToStr(h.slice(6)));
-  if(h && !/^(twin|demo)\b/.test(h)) return JSON.parse(b64urlToStr(h));
+  if(h && !/^(twin|demo|bred=)\b/.test(h)) return JSON.parse(b64urlToStr(h));
  }catch(e){}
  const u=new URLSearchParams(location.search).get('cart');
  if(u) return u;   // a URL to fetch
  return null;
+}
+function breedReturnRequest(){
+ const h=location.hash.slice(1);
+ if(!h.startsWith('bred='))return null;
+ try{return {payload:JSON.parse(b64urlToStr(h.slice(5)))};}catch(e){return {error:'the cabinet return could not be read'};}
 }
 const isDemo=()=>{ try{ return new URLSearchParams(location.search).get('demo')==='1'; }catch(e){ return false; } };
 
@@ -499,10 +508,25 @@ const CompanionBridge={
 };
 
 async function main(){
- const req=explicitCartRequest();
+ const bred=breedReturnRequest();
+ const req=bred?null:explicitCartRequest();
  // load the twin engine (same-origin, SW-cached for offline); classic fallback if it can't
  let Twin=null;
  try{ Twin=(await import('./twin.mjs')).default; window.Twin=Twin; await Twin.init(CompanionBridge); }catch(e){ Twin=null; }
+ if(bred){
+  if(!Twin){setStatus('the cabinet return could not be verified — nothing was recorded','err');return;}
+  let result;
+  try{result=bred.error?{ok:false,reasons:[{code:'parse',detail:bred.error}]}:await Twin.onBreedReturn(bred.payload);}
+  catch(e){result={ok:false,reasons:[{code:'storage',detail:'the return could not be recorded yet'}]};}
+  if(result.ok||!(result.reasons||[]).some(reason=>reason.code==='storage')){
+   try{history.replaceState(null,'',location.pathname+location.search);}catch(e){}
+  }
+  await Twin.start();
+  setTimeout(()=>bubble('sys',result.ok
+   ? '🥚 '+(result.child.title||'the new being')+' returned from the cabinet, joined your history, and is safe in the basket.'
+   : '🧫 the cabinet return was refused — '+((result.reasons&&result.reasons[0]&&result.reasons[0].detail)||'it did not match this twin.')),0);
+  return;
+ }
  if(req!==null){                                   // per-egg flow stays reachable + unbroken
   IS_PRIMARY=false; const cart=await resolveCart(req);
   if(!Twin){ setStatus('this egg could not be verified — it was not opened','err'); return; }
@@ -557,9 +581,8 @@ async function bootFallback(){
 
 $('send').onclick=()=>send();
 $('say').addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); send(); }});
-// PWA: register the service worker so it installs to the home screen and launches offline
+// The shared root worker is registered above; listen for its quiet update signal.
 if('serviceWorker' in navigator) {
- addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
  navigator.serviceWorker.addEventListener('message',e=>{
   if(e.data&&e.data.type==='rapp-update-ready') showUpdateReady();
  });
@@ -651,17 +674,28 @@ $('signin-copy').onclick=copyCode;
 $('signin-code').onclick=copyCode;
 
 // keep the creature you're talking to → the shared 'rapp-basket' store; two doors onward (Lantern / Cabinet)
-const LANTERN='https://kody-w.github.io/rapp-lantern/player.html';
-const CABINET='https://kody-w.github.io/rapp-static-apis/hologram/';
+const LANTERN='../lantern/index.html';
+const CABINET='../hologram/index.html';
 async function keepToBasket(cart){
  try{const mod=await import('../rapp-go/lib/basket.js');await mod.keepToBasket(cart,{demo:isDemo()});return true;}
  catch(e){return false;}
 }
 function keptFlash(btn,label){ if(!btn)return; const t=btn.textContent; btn.textContent=label; btn.classList.add('done'); setTimeout(()=>{ btn.textContent=t; btn.classList.remove('done'); },1700); }
 function keepCurrent(btn){ if(!CART||!CART.id)return; keepToBasket(CART).then(ok=>{ if(ok){ keptFlash(btn, btn&&btn.id==='call-keep'?'✓':'🧺 kept ✓'); if(IS_PRIMARY&&window.Twin){ try{ window.Twin.recordShare('basket'); }catch(e){} } } }); }
+function standaloneApp(){try{return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;}catch(e){return false;}}
+function recordDoor(where){if(IS_PRIMARY&&window.Twin){try{return window.Twin.recordShare(where);}catch(e){}}return Promise.resolve();}
+function visitRoom(url,where){
+ if(standaloneApp())Promise.resolve(recordDoor(where)).catch(()=>{}).finally(()=>{location.href=url;});
+ else{window.open(url,'_blank','noopener');recordDoor(where);}
+}
 $('act-keep').onclick=()=>keepCurrent($('act-keep'));
-$('act-lantern').onclick=()=>{ if(CART){ window.open(LANTERN+'#'+b64url(JSON.stringify(CART))); if(IS_PRIMARY&&window.Twin){ try{ window.Twin.recordShare('lantern'); }catch(e){} } } };
-$('act-cabinet').onclick=()=>{ if(CART){ window.open(CABINET+(isDemo()?'?demo=1':'')+'#remix='+b64url(JSON.stringify(CART))); if(IS_PRIMARY&&window.Twin){ try{ window.Twin.recordShare('cabinet'); }catch(e){} } } };
+$('act-lantern').onclick=()=>{if(CART)visitRoom(LANTERN+'#'+b64url(JSON.stringify(CART)),'lantern');};
+$('act-cabinet').onclick=()=>{
+ if(!CART)return;
+ const handoff=IS_PRIMARY&&window.Twin&&window.Twin.breedHandoff?window.Twin.breedHandoff():null;
+ const hash=handoff?'#twin-breed='+b64url(JSON.stringify(handoff)):'#remix='+b64url(JSON.stringify(CART));
+ visitRoom(CABINET+(isDemo()?'?demo=1':'')+hash,'cabinet');
+};
 $('call-keep').onclick=()=>keepCurrent($('call-keep'));
 $('act-agent').onclick=()=>$('agent-file').click();
 $('agent-file').onchange=e=>{ const f=e.target.files[0]; e.target.value=''; if(f) uploadAgent(f); };

@@ -1,6 +1,10 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="data:,">
+<link rel="manifest" href="../rapp-go/manifest.webmanifest">
+<link rel="apple-touch-icon" href="../rapp-go/icon-180.png">
+<meta name="theme-color" content="#0d1117">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>rapp-static-hologram — hologram organism gallery</title>
 <style>
  body{font-family:-apple-system,system-ui,Segoe UI,sans-serif;max-width:860px;margin:40px auto;padding:0 16px 96px;background:#0d1117;color:#e6edf3;line-height:1.5}
@@ -129,6 +133,7 @@
    <button id="breed-dl">↓ download .egg</button>
    <button id="breed-copy">copy keepsake link</button>
    <button id="breed-keep">🧺 Keep</button>
+   <button id="breed-return" style="display:none">↩ return to my twin</button>
    <button class="alt lineage-btn" id="breed-lineage" style="display:none" type="button">🌳 lineage</button>
    <button class="alt" id="breed-reset">× reset</button>
   </div>
@@ -174,13 +179,15 @@
 
 <script type="module">
 import { mountNav } from '../rapp-go/lib/nav.js';
+import { isInstalledApp, registerAppShell } from '../rapp-go/lib/app-shell.js';
 import { snap as faunaSnap } from '../rapp-go/lib/fauna.js';
 import { keepToBasket as writeBasketRecord } from '../rapp-go/lib/basket.js';
-import { interrogate } from '../companion/twin.mjs';
+import { buildBreedReturn, interrogate, stampBreedChild, validateBreedHandoff } from '../companion/twin.mjs';
 const IS_DEMO_BASKET = new URLSearchParams(location.search).get('demo') === '1';
 if (IS_DEMO_BASKET) document.getElementById('blank-player').href = 'player.html?demo=1';
 // cohesion-brief §5 — the one room-switcher nav (rappgo-nav): import, don't fork.
 mountNav({ active: 'basket', root: '..' });
+registerAppShell();
 // cohesion-brief §19 one body — cabinet raster creatures route through fauna's
 // snap() (background:false so the card's dark styling shows through). The legacy
 // renderThumb below stays DEFINED for reference/other paths, but every call site
@@ -439,7 +446,8 @@ function renderThumb(ctx, cartOrGenome, time = 0.85) {
 /* ── Breed state ──────────────────────────────────────────────────────────── */
 const loadedCarts = new Map(); // id → {cart, entry}
 let breedMode = false, breedA = null, breedB = null, breedChild = null, breedChildVerified = false, breedThumb = null, breedGeneration = 0;
-let LANTERN = 'https://kody-w.github.io/rapp-lantern/player.html';
+let primaryBreed = null;
+const LANTERN = '../lantern/index.html';
 
 /* ── IndexedDB basket helpers ────────────────────────────────────────────── */
 async function keepToBasket(cart) {
@@ -695,15 +703,30 @@ async function ingestAdopted(cart, opts = {}) {
 }
 
 loadKeptStrip();
-// Parse #adopt= / #remix= hash params — ingest any egg into the gene pool
+// Parse generic #adopt= / #remix= or a primary-anchored #twin-breed= handoff.
 (async () => {
   const hashStr = (location.hash || '').slice(1);
   if (!hashStr) return;
   const hashParams = new URLSearchParams(hashStr);
+  const twinBreedB64 = hashParams.get('twin-breed');
   const adoptB64 = hashParams.get('adopt') || hashParams.get('remix');
-  if (!adoptB64) return;
+  if (!twinBreedB64 && !adoptB64) return;
   try {
-    const cart = JSON.parse(b64dec(adoptB64));
+    let cart = null;
+    if (twinBreedB64) {
+      const handoff = JSON.parse(b64dec(twinBreedB64));
+      const verdict = await validateBreedHandoff(handoff);
+      if (!verdict.ok) {
+        document.getElementById('breed-hint').textContent = 'the primary handoff was refused · ' + (verdict.reasons[0]?.detail || 'verification failed');
+        return;
+      }
+      primaryBreed = handoff;
+      cart = handoff.parent;
+      try { history.replaceState(null, '', location.pathname + location.search); } catch {}
+      document.querySelector('#adopted-strip h2').textContent = '🌱 your primary twin came with you';
+    } else {
+      cart = JSON.parse(b64dec(adoptB64));
+    }
     if (!cart || !cart.genome) return;
     const item = await ingestAdopted(cart);
     // Enable breed mode and pre-select as parent A
@@ -716,7 +739,6 @@ loadKeptStrip();
 (async()=>{
   let reg;
   try{ reg = await (await fetch('registry.json',{cache:'no-store'})).json(); } catch{ grid.innerHTML='<p class="muted err">Could not load registry.json</p>'; return; }
-  if (reg.lantern_url) LANTERN = reg.lantern_url;
   document.getElementById('pin').textContent = `${reg.summary.cartridges} cartridges · ${reg.summary.versions} frames`;
   const idToEntry = {}; (reg.entries||[]).forEach(e => idToEntry[e.id] = e);
   for(const entry of (reg.entries||[])){
@@ -961,6 +983,7 @@ async function selectBreedCreature(id) {
   if (!verdict.ok || generation !== breedGeneration) return;
   if (!breedA || breedB) {
     // Start a fresh cross: this becomes A
+    if (primaryBreed && id !== primaryBreed.parentId) primaryBreed = null;
     breedA = item; breedB = null; breedChild = null; breedThumb = null;
     document.querySelectorAll('.card.sel-a,.card.sel-b').forEach(c => c.classList.remove('sel-a','sel-b'));
     document.querySelector(`.card[data-id="${item.entry.id}"]`)?.classList.add('sel-a');
@@ -972,7 +995,10 @@ async function selectBreedCreature(id) {
     breedB = parentB;
     document.querySelector(`.card[data-id="${item.entry.id}"]`)?.classList.add('sel-b');
     updateBreedUI();
-    const child = await crossBreed(parentA.cart, parentB.cart);
+    let child = await crossBreed(parentA.cart, parentB.cart);
+    if (primaryBreed && child.parents.includes(primaryBreed.parentId)) {
+      child = stampBreedChild(child, primaryBreed) || child;
+    }
     const childVerdict = await interrogate(child, 'cart');
     if (!childVerdict.ok || generation !== breedGeneration || breedA !== parentA || breedB !== parentB) return;
     breedChild = child; breedChildVerified = true; renderBreedResult();
@@ -986,6 +1012,8 @@ function renderBreedResult() {
   document.getElementById('breed-lin').innerHTML = '\u21b3 ' + chips;
   document.getElementById('breed-hash').textContent = breedChild.id;
   document.getElementById('breed-lineage').style.display = breedChild.parents.length ? '' : 'none';
+  document.getElementById('breed-return').style.display =
+    primaryBreed && breedChild.born && breedChild.born.pairedTo === 'twin@' + primaryBreed.parentFrame.slice(0, 8) ? '' : 'none';
   const canvas = document.getElementById('breed-canvas');
   breedThumb = { ctx: canvas.getContext('2d'), cart: breedChild };
   faunaThumb(breedThumb.ctx, breedThumb.cart);
@@ -1000,13 +1028,14 @@ function renderBreedResult() {
 document.getElementById('btn-breed').onclick = () => {
   breedGeneration++;
   breedMode = !breedMode;
-  if (!breedMode) { breedA = breedB = breedChild = breedThumb = null; breedChildVerified = false; document.getElementById('breed-result').classList.remove('show'); document.querySelectorAll('.card.sel-a,.card.sel-b').forEach(c => c.classList.remove('sel-a','sel-b')); }
+  if (!breedMode) { breedA = breedB = breedChild = breedThumb = null; breedChildVerified = false; document.getElementById('breed-return').style.display = 'none'; document.getElementById('breed-result').classList.remove('show'); document.querySelectorAll('.card.sel-a,.card.sel-b').forEach(c => c.classList.remove('sel-a','sel-b')); }
   updateBreedUI();
 };
 document.getElementById('breed-reset').onclick = () => {
   breedGeneration++;
   breedA = breedB = breedChild = breedThumb = null;
   breedChildVerified = false;
+  document.getElementById('breed-return').style.display = 'none';
   document.querySelectorAll('.card.sel-a,.card.sel-b').forEach(c => c.classList.remove('sel-a','sel-b'));
   document.getElementById('breed-result').classList.remove('show');
   updateBreedUI();
@@ -1021,11 +1050,13 @@ async function verifiedBreedChild() {
   return breedChildVerified ? child : null;
 }
 document.getElementById('breed-lantern').onclick = async () => {
-  const target = window.open('about:blank');
+  const target = isInstalledApp() ? null : window.open('about:blank');
   const child = await verifiedBreedChild();
   if (!child) { if (target) target.close(); return; }
   const href = LANTERN + (child.parents.length ? '#' + b64enc(JSON.stringify(child)) : '?cart=' + encodeURIComponent(child.pin_url || ''));
-  if (target) target.location = href; else window.open(href);
+  if (isInstalledApp()) location.href = href;
+  else if (target) target.location = href;
+  else window.open(href);
 };
 document.getElementById('breed-dl').onclick = async () => {
   const child = await verifiedBreedChild(); if (!child) return;
@@ -1050,6 +1081,13 @@ document.getElementById('breed-keep').onclick = async () => {
     setTimeout(() => btn.textContent = '🧺 Keep', 1600);
     loadKeptStrip();
   } catch(e) { console.error('keepToBasket:', e); }
+};
+document.getElementById('breed-return').onclick = async () => {
+  const child = await verifiedBreedChild();
+  if (!child || !primaryBreed) return;
+  const payload = buildBreedReturn(primaryBreed, child);
+  if (!payload) return;
+  location.href = '../companion/index.html' + (IS_DEMO_BASKET ? '?demo=1' : '') + '#bred=' + b64enc(JSON.stringify(payload));
 };
 document.getElementById('breed-lineage').onclick = () => { if (breedChild) buildPedigree(breedChild.id); };
 document.getElementById('pedigree-close').onclick = () => {
