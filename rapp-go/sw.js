@@ -4,9 +4,9 @@
 // Bump CACHE on EVERY shell change. Never cache cross-origin here: map tiles
 // (IndexedDB rapp-explorer), Overpass and open-meteo own their own caching.
 const CACHE_PREFIX = 'rappgo-';
-const CACHE = 'rappgo-shell-v2';
-const SHELL = ['./', 'index.html', 'catch.html', 'tilemap.js', 'spawn.js', 'catch.js', 'poi.js',
-  'onboard.js', 'lib/genome.js', 'lib/weather.js', 'lib/basket.js', 'lib/fauna.js', 'lib/nav.js',
+const CACHE = 'rappgo-shell-v3';
+const SHELL = ['./', 'index.html', 'forge.html', 'forge.js', 'catch.html', 'tilemap.js', 'spawn.js', 'catch.js', 'poi.js',
+  'onboard.js', 'lib/genome.js', 'lib/weather.js', 'lib/basket.js', 'lib/fauna.js', 'lib/forge.js', 'lib/nav.js',
   '../companion/twin.mjs', '../companion/genetics.mjs', '../track/qr.mjs',
   'manifest.webmanifest', 'icon-180.png', 'icon-192.png', 'icon-512.png'];
 let replacingPrevious = false;
