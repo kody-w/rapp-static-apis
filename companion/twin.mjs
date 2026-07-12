@@ -85,6 +85,80 @@ export function exportBones(cart, twinId) {
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
+   primary breed handoff — a fragment-only round trip through the cabinet.
+   Only public bones and a frame anchor travel; no frame body, memory, note,
+   caught sidecar, or precise location leaves the companion. The cabinet may
+   stamp the child to that anchor OUTSIDE its genome, then the companion verifies
+   the return against its own local history before recording it.
+   ══════════════════════════════════════════════════════════════════════════ */
+export const BREED_HANDOFF_VERSION = 'twin-breed/1';
+export const BREED_RETURN_VERSION = 'twin-breed-return/1';
+const FRAME_SHA_RE = /^[0-9a-f]{64}$/i;
+
+export function buildBreedHandoff(twinId, frame, cart) {
+  if (!twinId || !frame || !FRAME_SHA_RE.test(String(frame.sha || '')) || !cart || !cart.id) return null;
+  return {
+    v: BREED_HANDOFF_VERSION,
+    twinId: String(twinId),
+    parentFrame: String(frame.sha),
+    parentId: String(cart.id),
+    parent: exportBones(cart, twinId).cart
+  };
+}
+
+export async function validateBreedHandoff(handoff) {
+  const reasons = [];
+  const h = handoff && typeof handoff === 'object' ? handoff : {};
+  if (h.v !== BREED_HANDOFF_VERSION) reasons.push({ code: 'schema', detail: 'unknown breed handoff' });
+  if (typeof h.twinId !== 'string' || !h.twinId || h.twinId.length > 160) reasons.push({ code: 'shape', detail: 'invalid twin id' });
+  if (typeof h.parentFrame !== 'string' || !FRAME_SHA_RE.test(h.parentFrame)) reasons.push({ code: 'shape', detail: 'invalid parent frame' });
+  if (typeof h.parentId !== 'string' || !/^[0-9a-f]{12}$/i.test(h.parentId)) reasons.push({ code: 'shape', detail: 'invalid parent genome id' });
+  if (!h.parent || h.parent.id !== h.parentId) reasons.push({ code: 'parent', detail: 'parent identity does not match the handoff' });
+  if (h.parent) {
+    const verdict = await interrogate(h.parent, 'cart');
+    if (!verdict.ok) reasons.push(...verdict.reasons);
+  }
+  return { ok: reasons.length === 0, reasons, handoff: h };
+}
+
+export function stampBreedChild(child, handoff) {
+  if (!child || !child.id || !handoff || !FRAME_SHA_RE.test(String(handoff.parentFrame || ''))) return null;
+  const stamped = pairStamp(child, handoff.parentFrame);
+  stamped.id = child.id;
+  return stamped;
+}
+
+export function buildBreedReturn(handoff, child) {
+  if (!handoff || !child) return null;
+  return {
+    v: BREED_RETURN_VERSION,
+    twinId: handoff.twinId,
+    parentFrame: handoff.parentFrame,
+    parentId: handoff.parentId,
+    child: exportBones(child).cart
+  };
+}
+
+export async function validateBreedReturn(payload, expectedTwinId, localFrames) {
+  const reasons = [];
+  const p = payload && typeof payload === 'object' ? payload : {};
+  if (p.v !== BREED_RETURN_VERSION) reasons.push({ code: 'schema', detail: 'unknown breed return' });
+  if (typeof p.twinId !== 'string' || p.twinId !== expectedTwinId) reasons.push({ code: 'twin', detail: 'breed return belongs to another twin' });
+  if (typeof p.parentFrame !== 'string' || !FRAME_SHA_RE.test(p.parentFrame)) reasons.push({ code: 'shape', detail: 'invalid parent frame' });
+  if (typeof p.parentId !== 'string' || !/^[0-9a-f]{12}$/i.test(p.parentId)) reasons.push({ code: 'shape', detail: 'invalid parent genome id' });
+  const anchor = Array.isArray(localFrames) ? localFrames.find(frame => frame && frame.sha === p.parentFrame) : null;
+  if (!anchor || !anchor.cart || anchor.cart.id !== p.parentId) reasons.push({ code: 'anchor', detail: 'parent frame is not in this twin history' });
+  if (!p.child) reasons.push({ code: 'child', detail: 'breed return has no child' });
+  else {
+    const verdict = await interrogate(p.child, 'cart');
+    if (!verdict.ok) reasons.push(...verdict.reasons);
+    if (!Array.isArray(p.child.parents) || !p.child.parents.includes(p.parentId)) reasons.push({ code: 'lineage', detail: 'primary is not a direct parent' });
+    if (!p.child.born || p.child.born.pairedTo !== 'twin@' + sha8(p.parentFrame)) reasons.push({ code: 'pairing', detail: 'child is not paired to the handed-off frame' });
+  }
+  return { ok: reasons.length === 0, reasons, payload: p, child: p.child || null };
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
    §13 — bones coarsening (Apple-posture, heirloom-grade privacy body).
    The PUBLIC bones are coarse-grained: a geohash is quantized to 5 chars and
    every epoch (in born.coord and card.exportedAt) is floored to day precision,
@@ -945,12 +1019,63 @@ export const Twin = (() => {
     const v = variants.find(x => x.variantId === variantId); if (!v) return null;
     const primary = currentCart();
     const child = await G.crossBreed(primary, v.cart);   // NEW being (own content-hash id)
-    const idBefore = child.id;
-    const stamped = pairStamp(child, headSha());          // §9: born.pairedTo OUTSIDE genome
-    stamped.id = idBefore;                                 // genome id unchanged by the stamp
-    await append('breed', 'bred a new being with ' + (v.title || 'a variant') + ' → ' + stamped.title, null, { lineage: { bred: stamped.id, pairedTo: stamped.born.pairedTo, with: variantId } });
-    toast('a new being was born, paired to ' + stamped.born.pairedTo);
+    const stamped = stampBreedChild(child, { parentFrame: headSha() }); // pairing stays OUTSIDE genome
+    if (!stamped || !(await bridge.keepToBasket(stamped))) {
+      toast('the new being could not reach the basket — nothing was recorded; please try again');
+      return null;
+    }
+    try {
+      await append('breed', 'bred a new being with ' + (v.title || 'a variant') + ' → ' + stamped.title, null, { lineage: { bred: stamped.id, pairedTo: stamped.born.pairedTo, with: variantId } });
+    } catch (e) {
+      toast('the new being is safe in the basket, but its history receipt needs another try');
+      return stamped;
+    }
+    toast('a new being was born, paired to ' + stamped.born.pairedTo + ', and kept in your basket');
     return stamped;
+  }
+
+  function breedHandoff() {
+    const frame = currentFrame(frames);
+    return frame ? buildBreedHandoff(twinId, frame, frame.cart) : null;
+  }
+
+  async function onBreedReturn(payload) {
+    const verdict = await validateBreedReturn(payload, twinId, frames);
+    if (!verdict.ok) return verdict;
+    const child = verdict.child;
+    let kept = false;
+    try { kept = await bridge.keepToBasket(child); } catch (e) { kept = false; }
+    if (!kept) return { ok: false, reasons: [{ code: 'storage', detail: 'the child could not be kept in the basket' }], child };
+    let duplicate = false;
+    try {
+      await withPrimaryLock(prefix + '-frames', async () => {
+        const latest = await store.get('frames', []) || [];
+        duplicate = latest.some(frame => frame && frame.kind === 'breed' && frame.lineage &&
+          frame.lineage.bred === child.id && frame.lineage.parentFrame === payload.parentFrame);
+        if (duplicate) { frames = latest; return; }
+        const head = currentFrame(latest);
+        if (!head) throw new Error('primary history has no head');
+        const receipt = await makeFrame(head.cart, head.sha, 'breed',
+          'bred a new being in the cabinet → ' + (child.title || child.id), {
+            lineage: {
+              bred: child.id,
+              pairedTo: child.born.pairedTo,
+              parentFrame: payload.parentFrame,
+              with: (child.parents || []).find(id => id !== payload.parentId) || null,
+              via: 'cabinet'
+            }
+          });
+        receipt.ts = Math.max(receipt.ts, Number(head.ts || 0) + 1);
+        const merged = mergeFrames(latest, [receipt]).frames;
+        if (!(await store.set('frames', merged))) throw new Error('breed receipt could not be stored');
+        frames = merged;
+      });
+    } catch (e) {
+      return { ok: false, reasons: [{ code: 'storage', detail: 'the child is safe in the basket, but its history receipt could not be stored' }], child };
+    }
+    if (mounted) renderTimeline();
+    if (els.twinTag) els.twinTag.textContent = shortTwin();
+    return { ok: true, reasons: [], child, duplicate };
   }
 
   /* ── §3 revert ───────────────────────────────────────────────────────── */
@@ -1194,7 +1319,7 @@ export const Twin = (() => {
     const prev = el('div', 'twin-preview'); prev.appendChild(swatch(child, 96));
     prev.appendChild(el('div', 'twin-muted', 'genome ' + child.id + '\npaired to ' + (child.born && child.born.pairedTo) + ' (outside the genome — its content-hash stays sacred)')); box.appendChild(prev);
     const row = el('div', 'twin-fr-row');
-    const keep = el('button', 'twin-btn primary', '🧺 keep to basket'); keep.onclick = async () => { try { await bridge.keepToBasket(child); keep.textContent = '✓ kept'; keep.classList.add('done'); } catch (e) { } }; row.appendChild(keep);
+    const keep = el('button', 'twin-btn primary done', '✓ kept in basket'); keep.disabled = true; row.appendChild(keep);
     const cap = el('button', 'twin-btn', '＋ capture as variant'); cap.onclick = async () => { cap.disabled = true; const q = await captureVariant(child, child.title, 'bred'); const captured = q && q.status === 'cleared' && q.assimilated; cap.textContent = captured ? '✓ captured' : q && q.status !== 'cleared' ? '🧫 quarantined' : "couldn't capture"; cap.classList.add(captured ? 'done' : 'held'); }; row.appendChild(cap);
     const cl = el('button', 'twin-btn', 'close'); cl.onclick = () => close(); row.appendChild(cl);
     box.appendChild(row); modal.appendChild(box); document.body.appendChild(modal);
@@ -1473,12 +1598,12 @@ export const Twin = (() => {
   }
 
   return {
-    init, start, onExplicitCart, recordTalk, recordShare,
+    init, start, onExplicitCart, onBreedReturn, breedHandoff, recordTalk, recordShare,
     // exposed for tests / advanced use:
     _internals: {
       get frames() { return frames; }, get twinId() { return twinId; }, get variants() { return variants; }, get quarantine() { return quarantine; },
       currentCart, headSha, shortTwin, exportBones: () => exportBones(currentCart(), twinId),
-      splice, revert, breedWith, captureVariant, assimilate, buildExport,
+      splice, revert, breedWith, breedHandoff, onBreedReturn, captureVariant, assimilate, buildExport,
       interrogate, quarantineIncoming, releaseQ, deleteQ, forceQ
     }
   };

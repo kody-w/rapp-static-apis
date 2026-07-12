@@ -20,3 +20,9 @@ Styling: self-injected `<style data-rappgo-nav>`; colors read the host page's
 `--go-panel/--go-line/--go-fg/--go-dim/--go-accent` vars with fallbacks, and respect
 `html[data-theme]`. Bottom-fixed, thumb-reachable, safe-area aware. Idempotent:
 calling `mountNav` again re-renders the same element.
+
+Installed-app contract: every live room links `../rapp-go/manifest.webmanifest`
+and calls `registerAppShell()` from `rapp-go/lib/app-shell.js`. That module owns
+the root `sw.js` registration and retires the old `/rapp-go/` and `/companion/`
+worker scopes. Relative room links therefore stay inside one installed window
+and one offline shell; no room may substitute a deployed absolute URL.

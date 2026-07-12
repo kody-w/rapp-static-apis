@@ -1,7 +1,7 @@
 // Run: node companion/twin.test.mjs
 import { readFileSync } from 'node:fs';
-import { exportBones, frameConnects, frameSha, interrogate, validateSyncBootstrap, variantForCart } from './twin.mjs';
-import { genomeId, spliceGenome } from './genetics.mjs';
+import { buildBreedHandoff, buildBreedReturn, exportBones, frameConnects, frameSha, interrogate, stampBreedChild, validateBreedHandoff, validateBreedReturn, validateSyncBootstrap, variantForCart } from './twin.mjs';
+import { crossBreed, genomeId, spliceGenome } from './genetics.mjs';
 
 let pass = 0, fail = 0;
 function ok(name, condition, detail = '') {
@@ -149,6 +149,34 @@ ok('trust: splicing a multi-state cart rebuilds a valid compose window', cleanSp
 const variant = { variantId:'stable', cart:cross, fromQuarantine:'first' };
 ok('trust: variant dedupe keys on verified cart identity, not receipt id',
   variantForCart([variant], structuredClone(cross)) === variant && variantForCart([variant], vex) === null);
+
+const privateParent = structuredClone(cross);
+privateParent.note = { text:'only on this device', at:Date.now() };
+privateParent.caught = structuredClone(cart.caught);
+const breedHandoff = buildBreedHandoff('twin-test', validFrame, privateParent);
+const handoffVerdict = await validateBreedHandoff(breedHandoff);
+ok('breed: primary handoff carries verified public bones and a frame anchor',
+  handoffVerdict.ok && breedHandoff.parentFrame === validFrame.sha && breedHandoff.parentId === cross.id,
+  JSON.stringify(handoffVerdict.reasons));
+ok('breed: handoff excludes local note and caught sidecars',
+  !('note' in breedHandoff.parent) && !('caught' in breedHandoff.parent));
+
+const cabinetChild = await crossBreed(cross, vex);
+const pairedChild = stampBreedChild(cabinetChild, breedHandoff);
+pairedChild.note = { text:'cabinet-local', at:Date.now() };
+const breedReturn = buildBreedReturn(breedHandoff, pairedChild);
+const returnVerdict = await validateBreedReturn(breedReturn, 'twin-test', [validFrame]);
+ok('breed: a direct child paired outside the genome returns to its primary history',
+  returnVerdict.ok && breedReturn.child.id === cabinetChild.id &&
+  breedReturn.child.born.pairedTo === 'twin@' + validFrame.sha.slice(0, 8),
+  JSON.stringify(returnVerdict.reasons));
+ok('breed: return excludes cabinet-local notes', !('note' in breedReturn.child));
+
+const wrongReturn = structuredClone(breedReturn);
+wrongReturn.child.born.pairedTo = 'twin@deadbeef';
+const wrongReturnVerdict = await validateBreedReturn(wrongReturn, 'twin-test', [validFrame]);
+ok('breed: a return with the wrong primary anchor is refused',
+  !wrongReturnVerdict.ok && wrongReturnVerdict.reasons.some(reason => reason.code === 'pairing'));
 
 console.log(`\n${fail === 0 ? 'ALL PASS' : 'FAILURES'} — ${pass} passed, ${fail} failed`);
 process.exit(fail === 0 ? 0 : 1);

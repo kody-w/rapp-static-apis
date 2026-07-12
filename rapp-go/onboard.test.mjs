@@ -1,5 +1,5 @@
 // Run: node rapp-go/onboard.test.mjs
-import { adoptStarter, starterCeremony } from './onboard.js';
+import { adoptStarter, checkpointOnboarding, onboardingStep, starterCeremony } from './onboard.js';
 import { interrogate } from '../companion/twin.mjs';
 
 let pass = 0, fail = 0;
@@ -15,6 +15,7 @@ class MemoryStorage {
     if (key === this.failKey) throw new Error('forced storage failure');
     this.values.set(key, String(value));
   }
+  removeItem(key) { this.values.delete(key); }
 }
 
 globalThis.localStorage = new MemoryStorage();
@@ -96,6 +97,17 @@ localStorage.setItem('my-twin.id', JSON.stringify('id-only-twin'));
 const idOnly = await adoptStarter(starters[2].cart, starters.slice(0, 2), { demo: false, nowMs, keep: async () => {} });
 ok('starter: id-only twins are atomically repairable',
   idOnly.twinId === 'id-only-twin' && Array.isArray(JSON.parse(localStorage.getItem('my-twin.frames'))));
+
+globalThis.localStorage = new MemoryStorage();
+ok('onboarding: a fresh walk starts at welcome', onboardingStep() === 0);
+checkpointOnboarding(3, nowMs);
+const progress = JSON.parse(localStorage.getItem('rapp-go.onboarding'));
+ok('onboarding: checkpoint resumes at the next safe screen',
+  onboardingStep() === 3 && progress.v === 2 && progress.at === nowMs);
+ok('onboarding: checkpoint persists no ceremony inputs',
+  Object.keys(progress).sort().join(',') === 'at,next,v');
+localStorage.setItem('rapp-go.onboarding', JSON.stringify({ v: 1, next: 5, word: 'private' }));
+ok('onboarding: stale progress is ignored instead of reviving private fields', onboardingStep() === 0);
 
 console.log(`\n${fail === 0 ? 'ALL PASS' : 'FAILURES'} — ${pass} passed, ${fail} failed`);
 process.exit(fail === 0 ? 0 : 1);
