@@ -7,14 +7,14 @@ import { mountNav } from '<relative>/rapp-go/lib/nav.js';
 mountNav({ active: 'map', root: '..' });
 ```
 
-- `active` — which room this page is: `map | twin | basket | lantern | journal`.
+- `active` — which room this page is: `map | forge | twin | basket | lantern`.
 - `root` — the RELATIVE prefix from the consuming page to the repo root
   (`'..'` from `/rapp-go/`, `/hologram/`, `/companion/`, `/lantern/`). Never absolute:
   the site is a GitHub Pages project page.
 
-Rooms → targets: map → `rapp-go/index.html`, twin → `companion/index.html`,
-basket → `hologram/index.html`, lantern → `lantern/index.html`, journal → disabled
-placeholder until the JOURNAL brief lands.
+Rooms → targets: map → `rapp-go/index.html`, forge → `rapp-go/forge.html`,
+twin → `companion/index.html`, basket → `hologram/index.html`, lantern →
+`lantern/index.html`.
 
 Styling: self-injected `<style data-rappgo-nav>`; colors read the host page's
 `--go-panel/--go-line/--go-fg/--go-dim/--go-accent` vars with fallbacks, and respect
