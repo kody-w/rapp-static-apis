@@ -6,10 +6,10 @@
   "spec": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/SPEC.md",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main",
   "pages_base": "https://kody-w.github.io/rapp-static-apis",
-  "generated": "2026-08-02T19:12:36Z",
+  "generated": "2026-08-02T19:12:46Z",
   "summary": {
-    "apis": 20,
-    "with_status_endpoint": 20,
+    "apis": 19,
+    "with_status_endpoint": 19,
     "content_addressed": 4
   },
   "entries": [
@@ -49,18 +49,6 @@
       "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataverse/api/v1/status.json",
       "badge": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataverse/api/v1/badge.json",
       "dashboard": "https://kody-w.github.io/rapp-static-apis/dataverse/",
-      "capabilities": [
-        "versioned-endpoints"
-      ]
-    },
-    {
-      "name": "fabriciq",
-      "description": "rapp-static-fabriciq",
-      "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fabriciq",
-      "pages_base": "https://kody-w.github.io/rapp-static-apis/fabriciq/",
-      "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fabriciq/registry.json",
-      "api_schema": "rapp-static-fabriciq/1.0",
-      "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fabriciq/api/v1/status.json",
       "capabilities": [
         "versioned-endpoints"
       ]
