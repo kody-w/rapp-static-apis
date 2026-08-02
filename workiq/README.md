@@ -1,4 +1,4 @@
-# dataiq — synthetic Microsoft-Graph-flavored work-insights API (Project Phoenix)
+# workiq — synthetic Microsoft-Graph-flavored work-insights API (Project Phoenix)
 
 A read-only **work-insights / people-analytics service** served entirely from static files —
 no server, no database, no runtime. It simulates what a program office asks an insights
@@ -12,7 +12,7 @@ and [`sap/`](../sap/) sub-APIs ground. No real people, no real company, no real 
 and nothing sourced from any live tenant or Microsoft Graph.
 
 Conforms to [`rapp-static-api/1.0`](../SPEC.md): one hand-authored input (`seed/*.json`), one
-build step (`python3 dataiq/build.py`), byte-identical rebuilds. Responses are shaped like
+build step (`python3 workiq/build.py`), byte-identical rebuilds. Responses are shaped like
 Graph collections (`@odata.context` + `value[]`), so a Copilot connector, HTTP node, or RAG
 ingester treats them like a live call. Repoint at a real tenant by changing `GRAPH_BASE`.
 
@@ -68,7 +68,7 @@ curl -s $RAW/api/v1/status.json | jq '.summary, .signals'
 ## Rebuild
 
 ```bash
-python3 dataiq/build.py   # reads seed/*.json -> writes api/v1/*.json + registry.json
+python3 workiq/build.py   # reads seed/*.json -> writes api/v1/*.json + registry.json
 ```
 
 Stdlib only, no network, fixed timestamps, all variation from key-seeded `random.Random`
