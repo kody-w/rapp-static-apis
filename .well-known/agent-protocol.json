@@ -2,7 +2,7 @@
   "schema": "rapp-god-registry-agent-protocol/1.0",
   "name": "rapp-static-apis",
   "base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main",
-  "generated": "2026-08-02T19:12:46Z",
+  "generated": "2026-08-02T19:24:56Z",
   "actions": [
     {
       "name": "list_apis",
@@ -24,6 +24,7 @@
             "companion",
             "customer360",
             "dataverse",
+            "fabriciq",
             "fn",
             "hologram",
             "industry-templates",

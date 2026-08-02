@@ -20,6 +20,7 @@ Read the full convention: https://raw.githubusercontent.com/kody-w/rapp-static-a
 - [companion](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion/registry.json): companion — the twin companion: genetics, breeding, and bones — versioned-endpoints
 - [customer360](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/registry.json): rapp-static-customer360 — versioned-endpoints
 - [dataverse](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataverse/registry.json): RAPP static Dataverse — a digital twin on OOTB Dataverse — versioned-endpoints
+- [fabriciq](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fabriciq/registry.json): rapp-static-fabriciq — versioned-endpoints
 - [fn](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fn/registry.json): rapp-static-fn — a static file that *runs* — versioned-endpoints, content-addressed
 - [hologram](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/registry.json): rapp-static-hologram — versioned-endpoints, content-addressed
 - [industry-templates](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/registry.json): RAPP static industry-template APIs — versioned-endpoints
@@ -46,4 +47,4 @@ Read the full convention: https://raw.githubusercontent.com/kody-w/rapp-static-a
 - Agent protocol: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/agent-protocol.json
 - Sitemap: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sitemap.xml
 
-<!-- generated 2026-08-02T19:12:46Z by build.py — do not hand-edit -->
+<!-- generated 2026-08-02T19:24:56Z by build.py — do not hand-edit -->

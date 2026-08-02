@@ -3,7 +3,7 @@
   "name": "rapp-static-apis",
   "protocolVersion": "2024-11-05",
   "description": "Discovery manifest for the RAPP static-API commons. Each API is a read-only resource fetched from GitHub raw; no server.",
-  "generated": "2026-08-02T19:12:46Z",
+  "generated": "2026-08-02T19:24:56Z",
   "resources": [
     {
       "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion/registry.json",
@@ -21,6 +21,12 @@
       "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataverse/registry.json",
       "name": "dataverse",
       "description": "RAPP static Dataverse — a digital twin on OOTB Dataverse",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fabriciq/registry.json",
+      "name": "fabriciq",
+      "description": "rapp-static-fabriciq",
       "mimeType": "application/json"
     },
     {
