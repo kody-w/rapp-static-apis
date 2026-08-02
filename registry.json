@@ -6,10 +6,10 @@
   "spec": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/SPEC.md",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main",
   "pages_base": "https://kody-w.github.io/rapp-static-apis",
-  "generated": "2026-07-10T22:15:01Z",
+  "generated": "2026-08-02T14:03:52Z",
   "summary": {
-    "apis": 16,
-    "with_status_endpoint": 16,
+    "apis": 18,
+    "with_status_endpoint": 18,
     "content_addressed": 4
   },
   "entries": [
@@ -177,6 +177,30 @@
       "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/rapp-go/api/v1/status.json",
       "badge": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/rapp-go/api/v1/badge.json",
       "dashboard": "https://kody-w.github.io/rapp-static-apis/rapp-go/",
+      "capabilities": [
+        "versioned-endpoints"
+      ]
+    },
+    {
+      "name": "sap",
+      "description": "Synthetic S/4HANA gateway (OData v2 shape) for Meridian Manufacturing Group, a fictional global manufacturer mid-S/4HANA-transformation. Fully synthetic, no real data.",
+      "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sap",
+      "pages_base": "https://kody-w.github.io/rapp-static-apis/sap/",
+      "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sap/registry.json",
+      "api_schema": "rapp-static-api/1.0",
+      "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sap/api/v1/status.json",
+      "capabilities": [
+        "versioned-endpoints"
+      ]
+    },
+    {
+      "name": "sharepoint",
+      "description": "Synthetic SharePoint program-document library for Project Phoenix, the S/4HANA transformation of a fictional global manufacturer. Graph-flavored listing + raw markdown docs. Fully synthetic, no real data.",
+      "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint",
+      "pages_base": "https://kody-w.github.io/rapp-static-apis/sharepoint/",
+      "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/registry.json",
+      "api_schema": "rapp-static-api/1.0",
+      "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/status.json",
       "capabilities": [
         "versioned-endpoints"
       ]

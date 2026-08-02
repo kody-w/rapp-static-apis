@@ -1,0 +1,127 @@
+{
+  "d": {
+    "__count": "8",
+    "results": [
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_COMPANYCODE_SRV/A_CompanyCode('1000')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_COMPANYCODE_SRV/A_CompanyCode('1000')",
+          "type": "API_COMPANYCODE_SRV.A_CompanyCodeType"
+        },
+        "CompanyCode": "1000",
+        "CompanyCodeName": "Meridian Manufacturing Group AG",
+        "CityName": "Munich",
+        "Country": "DE",
+        "Currency": "EUR",
+        "Language": "DE",
+        "ChartOfAccounts": "MERI",
+        "FiscalYearVariant": "K4"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_COMPANYCODE_SRV/A_CompanyCode('1100')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_COMPANYCODE_SRV/A_CompanyCode('1100')",
+          "type": "API_COMPANYCODE_SRV.A_CompanyCodeType"
+        },
+        "CompanyCode": "1100",
+        "CompanyCodeName": "Meridian Manufacturing France SAS",
+        "CityName": "Lyon",
+        "Country": "FR",
+        "Currency": "EUR",
+        "Language": "FR",
+        "ChartOfAccounts": "MERI",
+        "FiscalYearVariant": "K4"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_COMPANYCODE_SRV/A_CompanyCode('2000')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_COMPANYCODE_SRV/A_CompanyCode('2000')",
+          "type": "API_COMPANYCODE_SRV.A_CompanyCodeType"
+        },
+        "CompanyCode": "2000",
+        "CompanyCodeName": "Meridian Manufacturing North America Inc.",
+        "CityName": "Chicago",
+        "Country": "US",
+        "Currency": "USD",
+        "Language": "EN",
+        "ChartOfAccounts": "MERI",
+        "FiscalYearVariant": "K4"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_COMPANYCODE_SRV/A_CompanyCode('2100')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_COMPANYCODE_SRV/A_CompanyCode('2100')",
+          "type": "API_COMPANYCODE_SRV.A_CompanyCodeType"
+        },
+        "CompanyCode": "2100",
+        "CompanyCodeName": "Meridian Manufacturing Mexico S.A.",
+        "CityName": "Monterrey",
+        "Country": "MX",
+        "Currency": "MXN",
+        "Language": "ES",
+        "ChartOfAccounts": "MERI",
+        "FiscalYearVariant": "K4"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_COMPANYCODE_SRV/A_CompanyCode('3000')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_COMPANYCODE_SRV/A_CompanyCode('3000')",
+          "type": "API_COMPANYCODE_SRV.A_CompanyCodeType"
+        },
+        "CompanyCode": "3000",
+        "CompanyCodeName": "Meridian Manufacturing China Ltd.",
+        "CityName": "Suzhou",
+        "Country": "CN",
+        "Currency": "CNY",
+        "Language": "ZH",
+        "ChartOfAccounts": "MERI",
+        "FiscalYearVariant": "K4"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_COMPANYCODE_SRV/A_CompanyCode('3100')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_COMPANYCODE_SRV/A_CompanyCode('3100')",
+          "type": "API_COMPANYCODE_SRV.A_CompanyCodeType"
+        },
+        "CompanyCode": "3100",
+        "CompanyCodeName": "Meridian Manufacturing India Pvt. Ltd.",
+        "CityName": "Pune",
+        "Country": "IN",
+        "Currency": "INR",
+        "Language": "EN",
+        "ChartOfAccounts": "MERI",
+        "FiscalYearVariant": "V3"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_COMPANYCODE_SRV/A_CompanyCode('4000')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_COMPANYCODE_SRV/A_CompanyCode('4000')",
+          "type": "API_COMPANYCODE_SRV.A_CompanyCodeType"
+        },
+        "CompanyCode": "4000",
+        "CompanyCodeName": "Meridian Manufacturing Brazil Ltda.",
+        "CityName": "Sao Paulo",
+        "Country": "BR",
+        "Currency": "BRL",
+        "Language": "PT",
+        "ChartOfAccounts": "MERI",
+        "FiscalYearVariant": "K4"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_COMPANYCODE_SRV/A_CompanyCode('5000')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_COMPANYCODE_SRV/A_CompanyCode('5000')",
+          "type": "API_COMPANYCODE_SRV.A_CompanyCodeType"
+        },
+        "CompanyCode": "5000",
+        "CompanyCodeName": "Meridian Manufacturing Japan K.K.",
+        "CityName": "Nagoya",
+        "Country": "JP",
+        "Currency": "JPY",
+        "Language": "JA",
+        "ChartOfAccounts": "MERI",
+        "FiscalYearVariant": "K4"
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+[
+  {"_seedkey": "1000", "CompanyCode": "1000", "CompanyCodeName": "Meridian Manufacturing Group AG", "CityName": "Munich", "Country": "DE", "Currency": "EUR", "Language": "DE", "ChartOfAccounts": "MERI", "FiscalYearVariant": "K4"},
+  {"_seedkey": "1100", "CompanyCode": "1100", "CompanyCodeName": "Meridian Manufacturing France SAS", "CityName": "Lyon", "Country": "FR", "Currency": "EUR", "Language": "FR", "ChartOfAccounts": "MERI", "FiscalYearVariant": "K4"},
+  {"_seedkey": "2000", "CompanyCode": "2000", "CompanyCodeName": "Meridian Manufacturing North America Inc.", "CityName": "Chicago", "Country": "US", "Currency": "USD", "Language": "EN", "ChartOfAccounts": "MERI", "FiscalYearVariant": "K4"},
+  {"_seedkey": "2100", "CompanyCode": "2100", "CompanyCodeName": "Meridian Manufacturing Mexico S.A.", "CityName": "Monterrey", "Country": "MX", "Currency": "MXN", "Language": "ES", "ChartOfAccounts": "MERI", "FiscalYearVariant": "K4"},
+  {"_seedkey": "3000", "CompanyCode": "3000", "CompanyCodeName": "Meridian Manufacturing China Ltd.", "CityName": "Suzhou", "Country": "CN", "Currency": "CNY", "Language": "ZH", "ChartOfAccounts": "MERI", "FiscalYearVariant": "K4"},
+  {"_seedkey": "3100", "CompanyCode": "3100", "CompanyCodeName": "Meridian Manufacturing India Pvt. Ltd.", "CityName": "Pune", "Country": "IN", "Currency": "INR", "Language": "EN", "ChartOfAccounts": "MERI", "FiscalYearVariant": "V3"},
+  {"_seedkey": "4000", "CompanyCode": "4000", "CompanyCodeName": "Meridian Manufacturing Brazil Ltda.", "CityName": "Sao Paulo", "Country": "BR", "Currency": "BRL", "Language": "PT", "ChartOfAccounts": "MERI", "FiscalYearVariant": "K4"},
+  {"_seedkey": "5000", "CompanyCode": "5000", "CompanyCodeName": "Meridian Manufacturing Japan K.K.", "CityName": "Nagoya", "Country": "JP", "Currency": "JPY", "Language": "JA", "ChartOfAccounts": "MERI", "FiscalYearVariant": "K4"}
+]

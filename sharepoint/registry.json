@@ -1,0 +1,25 @@
+{
+  "schema": "rapp-static-api/1.0",
+  "name": "rapp-static-sharepoint",
+  "description": "Synthetic SharePoint program-document library for Project Phoenix, the S/4HANA transformation of a fictional global manufacturer. Graph-flavored listing + raw markdown docs. Fully synthetic, no real data.",
+  "generated": "2026-08-01T00:00:00Z",
+  "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint",
+  "pages_base": "https://kody-w.github.io/rapp-static-apis/sharepoint",
+  "summary": {
+    "sites": 1,
+    "documents": 14,
+    "bytes": 22655
+  },
+  "entries": [
+    {
+      "name": "sites/phoenix/site",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/site.json"
+    },
+    {
+      "name": "sites/phoenix/documents",
+      "count": 14,
+      "sha8": "f2d1b07b1d97",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/documents.json"
+    }
+  ]
+}

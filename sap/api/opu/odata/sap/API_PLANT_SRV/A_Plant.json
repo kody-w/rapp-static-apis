@@ -1,0 +1,163 @@
+{
+  "d": {
+    "__count": "12",
+    "results": [
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('M001')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('M001')",
+          "type": "API_PLANT_SRV.A_PlantType"
+        },
+        "Plant": "M001",
+        "PlantName": "Munich Main Plant",
+        "CompanyCode": "1000",
+        "Country": "DE",
+        "CityName": "Munich",
+        "PlantCategory": "Production"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('M002')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('M002')",
+          "type": "API_PLANT_SRV.A_PlantType"
+        },
+        "Plant": "M002",
+        "PlantName": "Dresden Components Plant",
+        "CompanyCode": "1000",
+        "Country": "DE",
+        "CityName": "Dresden",
+        "PlantCategory": "Production"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('M003')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('M003')",
+          "type": "API_PLANT_SRV.A_PlantType"
+        },
+        "Plant": "M003",
+        "PlantName": "Munich Central Distribution Center",
+        "CompanyCode": "1000",
+        "Country": "DE",
+        "CityName": "Munich",
+        "PlantCategory": "Distribution"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('F001')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('F001')",
+          "type": "API_PLANT_SRV.A_PlantType"
+        },
+        "Plant": "F001",
+        "PlantName": "Lyon Systems Plant",
+        "CompanyCode": "1100",
+        "Country": "FR",
+        "CityName": "Lyon",
+        "PlantCategory": "Production"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('U001')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('U001')",
+          "type": "API_PLANT_SRV.A_PlantType"
+        },
+        "Plant": "U001",
+        "PlantName": "Chicago Assembly Plant",
+        "CompanyCode": "2000",
+        "Country": "US",
+        "CityName": "Chicago",
+        "PlantCategory": "Production"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('U002')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('U002')",
+          "type": "API_PLANT_SRV.A_PlantType"
+        },
+        "Plant": "U002",
+        "PlantName": "Detroit Service & Aftermarket Center",
+        "CompanyCode": "2000",
+        "Country": "US",
+        "CityName": "Detroit",
+        "PlantCategory": "Service"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('X001')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('X001')",
+          "type": "API_PLANT_SRV.A_PlantType"
+        },
+        "Plant": "X001",
+        "PlantName": "Monterrey Manufacturing Plant",
+        "CompanyCode": "2100",
+        "Country": "MX",
+        "CityName": "Monterrey",
+        "PlantCategory": "Production"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('C001')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('C001')",
+          "type": "API_PLANT_SRV.A_PlantType"
+        },
+        "Plant": "C001",
+        "PlantName": "Suzhou Production Campus",
+        "CompanyCode": "3000",
+        "Country": "CN",
+        "CityName": "Suzhou",
+        "PlantCategory": "Production"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('I001')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('I001')",
+          "type": "API_PLANT_SRV.A_PlantType"
+        },
+        "Plant": "I001",
+        "PlantName": "Pune Electronics Plant",
+        "CompanyCode": "3100",
+        "Country": "IN",
+        "CityName": "Pune",
+        "PlantCategory": "Production"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('B001')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('B001')",
+          "type": "API_PLANT_SRV.A_PlantType"
+        },
+        "Plant": "B001",
+        "PlantName": "Sao Paulo Assembly Plant",
+        "CompanyCode": "4000",
+        "Country": "BR",
+        "CityName": "Sao Paulo",
+        "PlantCategory": "Production"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('J001')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('J001')",
+          "type": "API_PLANT_SRV.A_PlantType"
+        },
+        "Plant": "J001",
+        "PlantName": "Nagoya Precision Plant",
+        "CompanyCode": "5000",
+        "Country": "JP",
+        "CityName": "Nagoya",
+        "PlantCategory": "Production"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('J002')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_PLANT_SRV/A_Plant('J002')",
+          "type": "API_PLANT_SRV.A_PlantType"
+        },
+        "Plant": "J002",
+        "PlantName": "Osaka Distribution Center",
+        "CompanyCode": "5000",
+        "Country": "JP",
+        "CityName": "Osaka",
+        "PlantCategory": "Distribution"
+      }
+    ]
+  }
+}

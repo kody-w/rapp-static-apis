@@ -1,0 +1,26 @@
+{
+  "schema": "rapp-static-sap-status/1.0",
+  "generated": "2026-08-01T00:00:00Z",
+  "summary": {
+    "services": 3,
+    "entity_sets": 3,
+    "rows": 28
+  },
+  "entity_sets": [
+    {
+      "name": "API_COMPANYCODE_SRV/A_CompanyCode",
+      "count": 8,
+      "sha8": "fc581af72bbf"
+    },
+    {
+      "name": "API_PLANT_SRV/A_Plant",
+      "count": 12,
+      "sha8": "8291fa561a0a"
+    },
+    {
+      "name": "API_BUSINESS_PARTNER/A_BusinessPartner",
+      "count": 8,
+      "sha8": "9cd3f371af21"
+    }
+  ]
+}

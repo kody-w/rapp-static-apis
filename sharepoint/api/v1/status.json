@@ -1,0 +1,81 @@
+{
+  "schema": "rapp-static-sharepoint-status/1.0",
+  "generated": "2026-08-01T00:00:00Z",
+  "summary": {
+    "sites": 1,
+    "documents": 14,
+    "bytes": 22655
+  },
+  "documents": [
+    {
+      "name": "program-charter.md",
+      "sha8": "957ab1f0ecb3",
+      "size": 1614
+    },
+    {
+      "name": "workstream-directory.md",
+      "sha8": "3fd3a366e85f",
+      "size": 2296
+    },
+    {
+      "name": "governance-escalation.md",
+      "sha8": "088444b64032",
+      "size": 1890
+    },
+    {
+      "name": "finance-workstream.md",
+      "sha8": "628d7ad589e4",
+      "size": 1357
+    },
+    {
+      "name": "procurement-workstream.md",
+      "sha8": "cb8820140e5a",
+      "size": 1294
+    },
+    {
+      "name": "logistics-workstream.md",
+      "sha8": "4047480bdd61",
+      "size": 1342
+    },
+    {
+      "name": "manufacturing-workstream.md",
+      "sha8": "a45d41455480",
+      "size": 1378
+    },
+    {
+      "name": "data-migration-playbook.md",
+      "sha8": "4bf4bcb51852",
+      "size": 1675
+    },
+    {
+      "name": "change-training.md",
+      "sha8": "3116d85106cc",
+      "size": 1581
+    },
+    {
+      "name": "testing-strategy.md",
+      "sha8": "95ed42e15095",
+      "size": 1342
+    },
+    {
+      "name": "cutover-plan-wave1.md",
+      "sha8": "25213acf37e3",
+      "size": 1587
+    },
+    {
+      "name": "technical-architecture.md",
+      "sha8": "e2081742da1f",
+      "size": 1425
+    },
+    {
+      "name": "resources-index.md",
+      "sha8": "a7a7970aee01",
+      "size": 1784
+    },
+    {
+      "name": "faq.md",
+      "sha8": "e5e614bdf7cb",
+      "size": 2090
+    }
+  ]
+}

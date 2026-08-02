@@ -1,0 +1,244 @@
+{
+  "@odata.context": "https://meridian-mfg.example/sites/phoenix/_api/v2.0/$metadata#driveItems",
+  "site": "phoenix",
+  "value": [
+    {
+      "id": "0d80afe623b9",
+      "name": "program-charter.md",
+      "title": "Program Charter",
+      "author": {
+        "displayName": "Katrin Vogel"
+      },
+      "workstream": "Program",
+      "lastModifiedDateTime": "2026-06-02T09:00:00Z",
+      "size": 1614,
+      "file": {
+        "mimeType": "text/markdown"
+      },
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/program-charter.md",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/program-charter.md",
+      "sha8": "957ab1f0ecb3"
+    },
+    {
+      "id": "f8df8aec0d2e",
+      "name": "workstream-directory.md",
+      "title": "Workstream Directory — Owners & Contacts",
+      "author": {
+        "displayName": "Oliver Brandt"
+      },
+      "workstream": "PMO",
+      "lastModifiedDateTime": "2026-07-21T14:30:00Z",
+      "size": 2296,
+      "file": {
+        "mimeType": "text/markdown"
+      },
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/workstream-directory.md",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/workstream-directory.md",
+      "sha8": "3fd3a366e85f"
+    },
+    {
+      "id": "b9cbc1150bcc",
+      "name": "governance-escalation.md",
+      "title": "Governance & Escalation",
+      "author": {
+        "displayName": "Oliver Brandt"
+      },
+      "workstream": "PMO",
+      "lastModifiedDateTime": "2026-07-07T10:15:00Z",
+      "size": 1890,
+      "file": {
+        "mimeType": "text/markdown"
+      },
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/governance-escalation.md",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/governance-escalation.md",
+      "sha8": "088444b64032"
+    },
+    {
+      "id": "779ddb992778",
+      "name": "finance-workstream.md",
+      "title": "Finance Workstream (FI/CO) One-Pager",
+      "author": {
+        "displayName": "Anna Keller"
+      },
+      "workstream": "Finance",
+      "lastModifiedDateTime": "2026-07-18T08:45:00Z",
+      "size": 1357,
+      "file": {
+        "mimeType": "text/markdown"
+      },
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/finance-workstream.md",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/finance-workstream.md",
+      "sha8": "628d7ad589e4"
+    },
+    {
+      "id": "9fea3a037588",
+      "name": "procurement-workstream.md",
+      "title": "Procurement Workstream (MM/Ariba) One-Pager",
+      "author": {
+        "displayName": "Priya Sharma"
+      },
+      "workstream": "Procurement",
+      "lastModifiedDateTime": "2026-07-15T11:20:00Z",
+      "size": 1294,
+      "file": {
+        "mimeType": "text/markdown"
+      },
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/procurement-workstream.md",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/procurement-workstream.md",
+      "sha8": "cb8820140e5a"
+    },
+    {
+      "id": "c3e1b0aef77d",
+      "name": "logistics-workstream.md",
+      "title": "Sales & Logistics Workstream (SD/LE) One-Pager",
+      "author": {
+        "displayName": "Marcus Webb"
+      },
+      "workstream": "Logistics",
+      "lastModifiedDateTime": "2026-07-16T16:05:00Z",
+      "size": 1342,
+      "file": {
+        "mimeType": "text/markdown"
+      },
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/logistics-workstream.md",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/logistics-workstream.md",
+      "sha8": "4047480bdd61"
+    },
+    {
+      "id": "65ea2c96b8b8",
+      "name": "manufacturing-workstream.md",
+      "title": "Manufacturing Workstream (PP/QM) One-Pager",
+      "author": {
+        "displayName": "Ingrid Bauer"
+      },
+      "workstream": "Manufacturing",
+      "lastModifiedDateTime": "2026-07-14T13:40:00Z",
+      "size": 1378,
+      "file": {
+        "mimeType": "text/markdown"
+      },
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/manufacturing-workstream.md",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/manufacturing-workstream.md",
+      "sha8": "a45d41455480"
+    },
+    {
+      "id": "ed361dc974c8",
+      "name": "data-migration-playbook.md",
+      "title": "Data Migration Playbook",
+      "author": {
+        "displayName": "David Okafor"
+      },
+      "workstream": "Data Migration",
+      "lastModifiedDateTime": "2026-07-24T09:55:00Z",
+      "size": 1675,
+      "file": {
+        "mimeType": "text/markdown"
+      },
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/data-migration-playbook.md",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/data-migration-playbook.md",
+      "sha8": "4bf4bcb51852"
+    },
+    {
+      "id": "672dc84c187f",
+      "name": "change-training.md",
+      "title": "Change Management & Training",
+      "author": {
+        "displayName": "Sofia Rossi"
+      },
+      "workstream": "Change & Training",
+      "lastModifiedDateTime": "2026-07-20T15:10:00Z",
+      "size": 1581,
+      "file": {
+        "mimeType": "text/markdown"
+      },
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/change-training.md",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/change-training.md",
+      "sha8": "3116d85106cc"
+    },
+    {
+      "id": "0a8bc1cfe13f",
+      "name": "testing-strategy.md",
+      "title": "Testing & Quality Strategy",
+      "author": {
+        "displayName": "Ahmed Hassan"
+      },
+      "workstream": "Testing",
+      "lastModifiedDateTime": "2026-07-22T12:25:00Z",
+      "size": 1342,
+      "file": {
+        "mimeType": "text/markdown"
+      },
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/testing-strategy.md",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/testing-strategy.md",
+      "sha8": "95ed42e15095"
+    },
+    {
+      "id": "174d72389d45",
+      "name": "cutover-plan-wave1.md",
+      "title": "Cutover Plan — Wave 1",
+      "author": {
+        "displayName": "David Okafor"
+      },
+      "workstream": "Data Migration",
+      "lastModifiedDateTime": "2026-07-28T17:00:00Z",
+      "size": 1587,
+      "file": {
+        "mimeType": "text/markdown"
+      },
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/cutover-plan-wave1.md",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/cutover-plan-wave1.md",
+      "sha8": "25213acf37e3"
+    },
+    {
+      "id": "8f36124b4911",
+      "name": "technical-architecture.md",
+      "title": "Technical Architecture & Basis One-Pager",
+      "author": {
+        "displayName": "Elena Petrova"
+      },
+      "workstream": "Architecture",
+      "lastModifiedDateTime": "2026-07-17T10:35:00Z",
+      "size": 1425,
+      "file": {
+        "mimeType": "text/markdown"
+      },
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/technical-architecture.md",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/technical-architecture.md",
+      "sha8": "e2081742da1f"
+    },
+    {
+      "id": "fd60c45b3276",
+      "name": "resources-index.md",
+      "title": "Resources Index",
+      "author": {
+        "displayName": "Oliver Brandt"
+      },
+      "workstream": "PMO",
+      "lastModifiedDateTime": "2026-07-25T09:30:00Z",
+      "size": 1784,
+      "file": {
+        "mimeType": "text/markdown"
+      },
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/resources-index.md",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/resources-index.md",
+      "sha8": "a7a7970aee01"
+    },
+    {
+      "id": "d5a900031af3",
+      "name": "faq.md",
+      "title": "Frequently Asked Questions",
+      "author": {
+        "displayName": "Oliver Brandt"
+      },
+      "workstream": "PMO",
+      "lastModifiedDateTime": "2026-07-31T16:45:00Z",
+      "size": 2090,
+      "file": {
+        "mimeType": "text/markdown"
+      },
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/faq.md",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/faq.md",
+      "sha8": "e5e614bdf7cb"
+    }
+  ]
+}

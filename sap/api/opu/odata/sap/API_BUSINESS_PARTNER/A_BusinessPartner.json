@@ -1,0 +1,111 @@
+{
+  "d": {
+    "__count": "8",
+    "results": [
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('9001')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('9001')",
+          "type": "API_BUSINESS_PARTNER.A_BusinessPartnerType"
+        },
+        "BusinessPartner": "9001",
+        "BusinessPartnerFullName": "Steelworks Bavaria GmbH",
+        "BusinessPartnerCategory": "2",
+        "BusinessPartnerGrouping": "SUPL",
+        "Country": "DE",
+        "CityName": "Ingolstadt"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('9002')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('9002')",
+          "type": "API_BUSINESS_PARTNER.A_BusinessPartnerType"
+        },
+        "BusinessPartner": "9002",
+        "BusinessPartnerFullName": "Nordic Casting AB",
+        "BusinessPartnerCategory": "2",
+        "BusinessPartnerGrouping": "SUPL",
+        "Country": "SE",
+        "CityName": "Gothenburg"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('9003')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('9003')",
+          "type": "API_BUSINESS_PARTNER.A_BusinessPartnerType"
+        },
+        "BusinessPartner": "9003",
+        "BusinessPartnerFullName": "Pacific Polymer Solutions Inc.",
+        "BusinessPartnerCategory": "2",
+        "BusinessPartnerGrouping": "SUPL",
+        "Country": "US",
+        "CityName": "Portland"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('9004')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('9004')",
+          "type": "API_BUSINESS_PARTNER.A_BusinessPartnerType"
+        },
+        "BusinessPartner": "9004",
+        "BusinessPartnerFullName": "Shenzhen Precision Electronics Co.",
+        "BusinessPartnerCategory": "2",
+        "BusinessPartnerGrouping": "SUPL",
+        "Country": "CN",
+        "CityName": "Shenzhen"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('5001')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('5001')",
+          "type": "API_BUSINESS_PARTNER.A_BusinessPartnerType"
+        },
+        "BusinessPartner": "5001",
+        "BusinessPartnerFullName": "TransEuropa Fleet Services SA",
+        "BusinessPartnerCategory": "2",
+        "BusinessPartnerGrouping": "CUST",
+        "Country": "BE",
+        "CityName": "Brussels"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('5002')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('5002')",
+          "type": "API_BUSINESS_PARTNER.A_BusinessPartnerType"
+        },
+        "BusinessPartner": "5002",
+        "BusinessPartnerFullName": "Great Lakes Industrial Corp.",
+        "BusinessPartnerCategory": "2",
+        "BusinessPartnerGrouping": "CUST",
+        "Country": "US",
+        "CityName": "Cleveland"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('5003')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('5003')",
+          "type": "API_BUSINESS_PARTNER.A_BusinessPartnerType"
+        },
+        "BusinessPartner": "5003",
+        "BusinessPartnerFullName": "Yamato Heavy Industries K.K.",
+        "BusinessPartnerCategory": "2",
+        "BusinessPartnerGrouping": "CUST",
+        "Country": "JP",
+        "CityName": "Kobe"
+      },
+      {
+        "__metadata": {
+          "id": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('5004')",
+          "uri": "https://s4h.meridian-mfg.example:443/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('5004')",
+          "type": "API_BUSINESS_PARTNER.A_BusinessPartnerType"
+        },
+        "BusinessPartner": "5004",
+        "BusinessPartnerFullName": "Andes Mining & Rail S.A.",
+        "BusinessPartnerCategory": "2",
+        "BusinessPartnerGrouping": "CUST",
+        "Country": "CL",
+        "CityName": "Santiago"
+      }
+    ]
+  }
+}

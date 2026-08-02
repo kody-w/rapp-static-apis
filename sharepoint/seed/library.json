@@ -1,0 +1,24 @@
+{
+  "site": {
+    "name": "phoenix",
+    "displayName": "Project Phoenix — S/4HANA Transformation Program",
+    "description": "Program site for Meridian Manufacturing Group's ECC-to-S/4HANA transformation (synthetic demo data — all persons and companies fictional).",
+    "webUrl": "https://meridian-mfg.example/sites/phoenix"
+  },
+  "documents": [
+    {"file": "program-charter.md", "title": "Program Charter", "author": "Katrin Vogel", "workstream": "Program", "modified": "2026-06-02T09:00:00Z"},
+    {"file": "workstream-directory.md", "title": "Workstream Directory — Owners & Contacts", "author": "Oliver Brandt", "workstream": "PMO", "modified": "2026-07-21T14:30:00Z"},
+    {"file": "governance-escalation.md", "title": "Governance & Escalation", "author": "Oliver Brandt", "workstream": "PMO", "modified": "2026-07-07T10:15:00Z"},
+    {"file": "finance-workstream.md", "title": "Finance Workstream (FI/CO) One-Pager", "author": "Anna Keller", "workstream": "Finance", "modified": "2026-07-18T08:45:00Z"},
+    {"file": "procurement-workstream.md", "title": "Procurement Workstream (MM/Ariba) One-Pager", "author": "Priya Sharma", "workstream": "Procurement", "modified": "2026-07-15T11:20:00Z"},
+    {"file": "logistics-workstream.md", "title": "Sales & Logistics Workstream (SD/LE) One-Pager", "author": "Marcus Webb", "workstream": "Logistics", "modified": "2026-07-16T16:05:00Z"},
+    {"file": "manufacturing-workstream.md", "title": "Manufacturing Workstream (PP/QM) One-Pager", "author": "Ingrid Bauer", "workstream": "Manufacturing", "modified": "2026-07-14T13:40:00Z"},
+    {"file": "data-migration-playbook.md", "title": "Data Migration Playbook", "author": "David Okafor", "workstream": "Data Migration", "modified": "2026-07-24T09:55:00Z"},
+    {"file": "change-training.md", "title": "Change Management & Training", "author": "Sofia Rossi", "workstream": "Change & Training", "modified": "2026-07-20T15:10:00Z"},
+    {"file": "testing-strategy.md", "title": "Testing & Quality Strategy", "author": "Ahmed Hassan", "workstream": "Testing", "modified": "2026-07-22T12:25:00Z"},
+    {"file": "cutover-plan-wave1.md", "title": "Cutover Plan — Wave 1", "author": "David Okafor", "workstream": "Data Migration", "modified": "2026-07-28T17:00:00Z"},
+    {"file": "technical-architecture.md", "title": "Technical Architecture & Basis One-Pager", "author": "Elena Petrova", "workstream": "Architecture", "modified": "2026-07-17T10:35:00Z"},
+    {"file": "resources-index.md", "title": "Resources Index", "author": "Oliver Brandt", "workstream": "PMO", "modified": "2026-07-25T09:30:00Z"},
+    {"file": "faq.md", "title": "Frequently Asked Questions", "author": "Oliver Brandt", "workstream": "PMO", "modified": "2026-07-31T16:45:00Z"}
+  ]
+}

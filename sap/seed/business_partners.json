@@ -1,0 +1,10 @@
+[
+  {"_seedkey": "SUP-9001", "BusinessPartner": "9001", "BusinessPartnerFullName": "Steelworks Bavaria GmbH", "BusinessPartnerCategory": "2", "BusinessPartnerGrouping": "SUPL", "Country": "DE", "CityName": "Ingolstadt"},
+  {"_seedkey": "SUP-9002", "BusinessPartner": "9002", "BusinessPartnerFullName": "Nordic Casting AB", "BusinessPartnerCategory": "2", "BusinessPartnerGrouping": "SUPL", "Country": "SE", "CityName": "Gothenburg"},
+  {"_seedkey": "SUP-9003", "BusinessPartner": "9003", "BusinessPartnerFullName": "Pacific Polymer Solutions Inc.", "BusinessPartnerCategory": "2", "BusinessPartnerGrouping": "SUPL", "Country": "US", "CityName": "Portland"},
+  {"_seedkey": "SUP-9004", "BusinessPartner": "9004", "BusinessPartnerFullName": "Shenzhen Precision Electronics Co.", "BusinessPartnerCategory": "2", "BusinessPartnerGrouping": "SUPL", "Country": "CN", "CityName": "Shenzhen"},
+  {"_seedkey": "CUS-5001", "BusinessPartner": "5001", "BusinessPartnerFullName": "TransEuropa Fleet Services SA", "BusinessPartnerCategory": "2", "BusinessPartnerGrouping": "CUST", "Country": "BE", "CityName": "Brussels"},
+  {"_seedkey": "CUS-5002", "BusinessPartner": "5002", "BusinessPartnerFullName": "Great Lakes Industrial Corp.", "BusinessPartnerCategory": "2", "BusinessPartnerGrouping": "CUST", "Country": "US", "CityName": "Cleveland"},
+  {"_seedkey": "CUS-5003", "BusinessPartner": "5003", "BusinessPartnerFullName": "Yamato Heavy Industries K.K.", "BusinessPartnerCategory": "2", "BusinessPartnerGrouping": "CUST", "Country": "JP", "CityName": "Kobe"},
+  {"_seedkey": "CUS-5004", "BusinessPartner": "5004", "BusinessPartnerFullName": "Andes Mining & Rail S.A.", "BusinessPartnerCategory": "2", "BusinessPartnerGrouping": "CUST", "Country": "CL", "CityName": "Santiago"}
+]

@@ -1,0 +1,8 @@
+{
+  "id": "a775507b325c",
+  "name": "phoenix",
+  "displayName": "Project Phoenix — S/4HANA Transformation Program",
+  "description": "Program site for Meridian Manufacturing Group's ECC-to-S/4HANA transformation (synthetic demo data — all persons and companies fictional).",
+  "webUrl": "https://meridian-mfg.example/sites/phoenix",
+  "documents_endpoint": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/documents.json"
+}

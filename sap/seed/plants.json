@@ -1,0 +1,14 @@
+[
+  {"_seedkey": "M001", "Plant": "M001", "PlantName": "Munich Main Plant", "CompanyCode": "1000", "Country": "DE", "CityName": "Munich", "PlantCategory": "Production"},
+  {"_seedkey": "M002", "Plant": "M002", "PlantName": "Dresden Components Plant", "CompanyCode": "1000", "Country": "DE", "CityName": "Dresden", "PlantCategory": "Production"},
+  {"_seedkey": "M003", "Plant": "M003", "PlantName": "Munich Central Distribution Center", "CompanyCode": "1000", "Country": "DE", "CityName": "Munich", "PlantCategory": "Distribution"},
+  {"_seedkey": "F001", "Plant": "F001", "PlantName": "Lyon Systems Plant", "CompanyCode": "1100", "Country": "FR", "CityName": "Lyon", "PlantCategory": "Production"},
+  {"_seedkey": "U001", "Plant": "U001", "PlantName": "Chicago Assembly Plant", "CompanyCode": "2000", "Country": "US", "CityName": "Chicago", "PlantCategory": "Production"},
+  {"_seedkey": "U002", "Plant": "U002", "PlantName": "Detroit Service & Aftermarket Center", "CompanyCode": "2000", "Country": "US", "CityName": "Detroit", "PlantCategory": "Service"},
+  {"_seedkey": "X001", "Plant": "X001", "PlantName": "Monterrey Manufacturing Plant", "CompanyCode": "2100", "Country": "MX", "CityName": "Monterrey", "PlantCategory": "Production"},
+  {"_seedkey": "C001", "Plant": "C001", "PlantName": "Suzhou Production Campus", "CompanyCode": "3000", "Country": "CN", "CityName": "Suzhou", "PlantCategory": "Production"},
+  {"_seedkey": "I001", "Plant": "I001", "PlantName": "Pune Electronics Plant", "CompanyCode": "3100", "Country": "IN", "CityName": "Pune", "PlantCategory": "Production"},
+  {"_seedkey": "B001", "Plant": "B001", "PlantName": "Sao Paulo Assembly Plant", "CompanyCode": "4000", "Country": "BR", "CityName": "Sao Paulo", "PlantCategory": "Production"},
+  {"_seedkey": "J001", "Plant": "J001", "PlantName": "Nagoya Precision Plant", "CompanyCode": "5000", "Country": "JP", "CityName": "Nagoya", "PlantCategory": "Production"},
+  {"_seedkey": "J002", "Plant": "J002", "PlantName": "Osaka Distribution Center", "CompanyCode": "5000", "Country": "JP", "CityName": "Osaka", "PlantCategory": "Distribution"}
+]

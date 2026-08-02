@@ -1,0 +1,41 @@
+{
+  "schema": "rapp-static-api/1.0",
+  "name": "rapp-static-sap",
+  "description": "Synthetic S/4HANA gateway (OData v2 shape) for Meridian Manufacturing Group, a fictional global manufacturer mid-S/4HANA-transformation. Fully synthetic, no real data.",
+  "generated": "2026-08-01T00:00:00Z",
+  "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sap",
+  "pages_base": "https://kody-w.github.io/rapp-static-apis/sap",
+  "gateway_url": "https://s4h.meridian-mfg.example:443",
+  "company": "Meridian Manufacturing Group (fictional)",
+  "summary": {
+    "services": 3,
+    "entity_sets": 3,
+    "rows": 28
+  },
+  "entries": [
+    {
+      "name": "API_COMPANYCODE_SRV/A_CompanyCode",
+      "service": "API_COMPANYCODE_SRV",
+      "entity_set": "A_CompanyCode",
+      "count": 8,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sap/api/opu/odata/sap/API_COMPANYCODE_SRV/A_CompanyCode.json",
+      "sha8": "fc581af72bbf"
+    },
+    {
+      "name": "API_PLANT_SRV/A_Plant",
+      "service": "API_PLANT_SRV",
+      "entity_set": "A_Plant",
+      "count": 12,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sap/api/opu/odata/sap/API_PLANT_SRV/A_Plant.json",
+      "sha8": "8291fa561a0a"
+    },
+    {
+      "name": "API_BUSINESS_PARTNER/A_BusinessPartner",
+      "service": "API_BUSINESS_PARTNER",
+      "entity_set": "A_BusinessPartner",
+      "count": 8,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sap/api/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner.json",
+      "sha8": "9cd3f371af21"
+    }
+  ]
+}
