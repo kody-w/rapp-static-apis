@@ -1,12 +1,13 @@
 {
   "schema": "rapp-god-registry-status/1.0",
   "name": "rapp-static-apis",
-  "generated": "2026-08-02T14:03:52Z",
+  "generated": "2026-08-02T18:31:22Z",
   "ok": true,
-  "apis": 18,
+  "apis": 19,
   "apis_list": [
     "companion",
     "customer360",
+    "dataiq",
     "dataverse",
     "fn",
     "hologram",

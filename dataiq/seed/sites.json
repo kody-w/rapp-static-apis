@@ -1,0 +1,15 @@
+[
+  { "code": "HQ01", "name": "Group HQ Munich", "city": "Munich", "country": "DE", "type": "headquarters" },
+  { "code": "M001", "name": "Munich Main Plant", "city": "Munich", "country": "DE", "type": "plant" },
+  { "code": "M002", "name": "Dresden Components Plant", "city": "Dresden", "country": "DE", "type": "plant" },
+  { "code": "M003", "name": "Munich Central Distribution Center", "city": "Munich", "country": "DE", "type": "distribution" },
+  { "code": "F001", "name": "Lyon Systems Plant", "city": "Lyon", "country": "FR", "type": "plant" },
+  { "code": "U001", "name": "Chicago Assembly Plant", "city": "Chicago", "country": "US", "type": "plant" },
+  { "code": "U002", "name": "Detroit Service & Aftermarket Center", "city": "Detroit", "country": "US", "type": "service" },
+  { "code": "X001", "name": "Monterrey Manufacturing Plant", "city": "Monterrey", "country": "MX", "type": "plant" },
+  { "code": "C001", "name": "Suzhou Production Campus", "city": "Suzhou", "country": "CN", "type": "plant" },
+  { "code": "I001", "name": "Pune Electronics Plant", "city": "Pune", "country": "IN", "type": "plant" },
+  { "code": "B001", "name": "Sao Paulo Assembly Plant", "city": "Sao Paulo", "country": "BR", "type": "plant" },
+  { "code": "J001", "name": "Nagoya Precision Plant", "city": "Nagoya", "country": "JP", "type": "plant" },
+  { "code": "J002", "name": "Osaka Distribution Center", "city": "Osaka", "country": "JP", "type": "distribution" }
+]

@@ -1,0 +1,39 @@
+{
+  "program": "Project Phoenix",
+  "company": "Meridian Manufacturing Group",
+  "company_note": "fictional global industrial manufacturer, 8 company codes / 12 plants, mid ECC -> S/4HANA transformation",
+  "description": "Synthetic work-insights (people analytics / collaboration insights) for the Project Phoenix program office. Same fictional program as the sharepoint/ and sap/ sub-APIs.",
+  "tenant": "meridian-mfg.example",
+  "graph_base": "https://graph.meridian-mfg.example/v1.0",
+  "go_live": "2026-12-15",
+  "go_live_label": "Wave 1 go-live, 15 December 2026 06:00 CET",
+  "wave2_go_live": "2027-06",
+  "as_of": "2026-08-01T00:00:00Z",
+  "window": {
+    "first_week_start": "2026-02-02",
+    "last_week_start": "2026-07-27",
+    "weeks": 26,
+    "cadence": "weekly, week-commencing Monday, UTC"
+  },
+  "skills_vocabulary": [
+    "FI",
+    "CO",
+    "MM",
+    "SD",
+    "PP",
+    "QM",
+    "BTP",
+    "LSMW",
+    "Migration Cockpit",
+    "security",
+    "training"
+  ],
+  "story": {
+    "arc": "Design/build in Feb-Apr, mock loads and SIT from May, cutover rehearsal planning ramps hard through July, training questions surge once the end-user curriculum drops in June. Wave 1 go-live is 15 December 2026.",
+    "watch_items": [
+      "Data Migration and Testing & Quality carry the highest unanswered-question rates in June-July.",
+      "Cutover-critical people (David Okafor, Sara Lindqvist, Ahmed Hassan) run above 90% utilization by July."
+    ]
+  },
+  "disclaimer": "100% synthetic. Every person, workstream, site, metric and topic below is invented for demo purposes. No real people, no real company, no real telemetry, no real Microsoft Graph data."
+}

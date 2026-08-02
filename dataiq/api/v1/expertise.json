@@ -1,0 +1,1570 @@
+{
+  "@odata.context": "https://graph.meridian-mfg.example/v1.0/$metadata#expertise",
+  "@rapp.schema": "rapp-static-dataiq-expertise/1.0",
+  "@odata.count": 16,
+  "value": [
+    {
+      "topicId": "finance-fico",
+      "topic": "Finance (FI/CO)",
+      "scope": "workstream",
+      "workstreamId": "WS-FI",
+      "skills": [
+        "FI",
+        "CO"
+      ],
+      "mentions_26w": 1832,
+      "expertCount": 6,
+      "experts": [
+        {
+          "rank": 1,
+          "personId": "3c9858f2-e7ee-6ebd-8e05-cefe8348be27",
+          "displayName": "Anna Keller",
+          "mail": "anna.keller@meridian-mfg.example",
+          "jobTitle": "Finance Workstream Lead",
+          "workstreamId": "WS-FI",
+          "score": 100.0,
+          "evidence": {
+            "answers_given": 202,
+            "docs_authored": 12,
+            "meetings_led": 10
+          }
+        },
+        {
+          "rank": 2,
+          "personId": "9a27342b-c494-f28b-6141-571079c7e151",
+          "displayName": "Tomas Novak",
+          "mail": "tomas.novak@meridian-mfg.example",
+          "jobTitle": "Deputy Finance Lead (FI/CO)",
+          "workstreamId": "WS-FI",
+          "score": 88.8,
+          "evidence": {
+            "answers_given": 182,
+            "docs_authored": 10,
+            "meetings_led": 9
+          }
+        },
+        {
+          "rank": 3,
+          "personId": "5494363f-2478-2acb-8ca1-d879b6972a21",
+          "displayName": "Gunnar Holm",
+          "mail": "gunnar.holm@meridian-mfg.example",
+          "jobTitle": "Asset Accounting Specialist",
+          "workstreamId": "WS-FI",
+          "score": 72.8,
+          "evidence": {
+            "answers_given": 152,
+            "docs_authored": 8,
+            "meetings_led": 7
+          }
+        },
+        {
+          "rank": 4,
+          "personId": "4ecb64af-69c9-4383-1d36-f074f2f95890",
+          "displayName": "Nadia Haddad",
+          "mail": "nadia.haddad@meridian-mfg.example",
+          "jobTitle": "Senior FI Consultant",
+          "workstreamId": "WS-FI",
+          "score": 69.8,
+          "evidence": {
+            "answers_given": 145,
+            "docs_authored": 10,
+            "meetings_led": 7
+          }
+        },
+        {
+          "rank": 5,
+          "personId": "82dc3446-96cb-1699-cab4-27da6ae1e56f",
+          "displayName": "Ravi Menon",
+          "mail": "ravi.menon@meridian-mfg.example",
+          "jobTitle": "Controlling (CO) Analyst",
+          "workstreamId": "WS-FI",
+          "score": 51.8,
+          "evidence": {
+            "answers_given": 106,
+            "docs_authored": 7,
+            "meetings_led": 4
+          }
+        },
+        {
+          "rank": 6,
+          "personId": "d78ec68d-4d2d-bf29-9fff-fc82841d506e",
+          "displayName": "Beatriz Alves",
+          "mail": "beatriz.alves@meridian-mfg.example",
+          "jobTitle": "Accounts Payable Process Specialist",
+          "workstreamId": "WS-FI",
+          "score": 47.9,
+          "evidence": {
+            "answers_given": 102,
+            "docs_authored": 7,
+            "meetings_led": 4
+          }
+        }
+      ]
+    },
+    {
+      "topicId": "procurement-mm",
+      "topic": "Procurement (MM/Ariba)",
+      "scope": "workstream",
+      "workstreamId": "WS-MM",
+      "skills": [
+        "MM"
+      ],
+      "mentions_26w": 1700,
+      "expertCount": 6,
+      "experts": [
+        {
+          "rank": 1,
+          "personId": "dcaef60d-c7b1-2654-6907-5de95835d8d9",
+          "displayName": "Priya Sharma",
+          "mail": "priya.sharma@meridian-mfg.example",
+          "jobTitle": "Procurement Workstream Lead",
+          "workstreamId": "WS-MM",
+          "score": 100.0,
+          "evidence": {
+            "answers_given": 186,
+            "docs_authored": 10,
+            "meetings_led": 7
+          }
+        },
+        {
+          "rank": 2,
+          "personId": "9f227f26-c3bd-c39a-ec73-c0c239320e5e",
+          "displayName": "Luis Ortega",
+          "mail": "luis.ortega@meridian-mfg.example",
+          "jobTitle": "Deputy Procurement Lead (MM/Ariba)",
+          "workstreamId": "WS-MM",
+          "score": 85.7,
+          "evidence": {
+            "answers_given": 163,
+            "docs_authored": 11,
+            "meetings_led": 6
+          }
+        },
+        {
+          "rank": 3,
+          "personId": "39999aa2-926e-3f8b-2b0c-9298e338fc92",
+          "displayName": "Piotr Zielinski",
+          "mail": "piotr.zielinski@meridian-mfg.example",
+          "jobTitle": "Purchasing Process Owner",
+          "workstreamId": "WS-MM",
+          "score": 73.5,
+          "evidence": {
+            "answers_given": 133,
+            "docs_authored": 8,
+            "meetings_led": 7
+          }
+        },
+        {
+          "rank": 4,
+          "personId": "854c3158-aac2-00c1-f286-08366bf6a649",
+          "displayName": "Isabel Moreno",
+          "mail": "isabel.moreno@meridian-mfg.example",
+          "jobTitle": "MM Solution Consultant",
+          "workstreamId": "WS-MM",
+          "score": 72.6,
+          "evidence": {
+            "answers_given": 134,
+            "docs_authored": 7,
+            "meetings_led": 7
+          }
+        },
+        {
+          "rank": 5,
+          "personId": "d0d7ac0b-6909-5c92-c887-1f9dacf16da7",
+          "displayName": "Hana Kobayashi",
+          "mail": "hana.kobayashi@meridian-mfg.example",
+          "jobTitle": "Ariba Integration Specialist",
+          "workstreamId": "WS-MM",
+          "score": 56.6,
+          "evidence": {
+            "answers_given": 108,
+            "docs_authored": 6,
+            "meetings_led": 5
+          }
+        },
+        {
+          "rank": 6,
+          "personId": "e09c25b0-0b1d-2832-0a28-af2a6372227d",
+          "displayName": "Kwame Mensah",
+          "mail": "kwame.mensah@meridian-mfg.example",
+          "jobTitle": "Inventory Management Analyst",
+          "workstreamId": "WS-MM",
+          "score": 51.1,
+          "evidence": {
+            "answers_given": 95,
+            "docs_authored": 5,
+            "meetings_led": 4
+          }
+        }
+      ]
+    },
+    {
+      "topicId": "sales-logistics-sd",
+      "topic": "Sales & Logistics (SD/LE)",
+      "scope": "workstream",
+      "workstreamId": "WS-SD",
+      "skills": [
+        "SD"
+      ],
+      "mentions_26w": 1622,
+      "expertCount": 6,
+      "experts": [
+        {
+          "rank": 1,
+          "personId": "855e07c5-f320-b40d-ccdd-319d7c9b1c4c",
+          "displayName": "Marcus Webb",
+          "mail": "marcus.webb@meridian-mfg.example",
+          "jobTitle": "Sales & Logistics Workstream Lead",
+          "workstreamId": "WS-SD",
+          "score": 100.0,
+          "evidence": {
+            "answers_given": 194,
+            "docs_authored": 10,
+            "meetings_led": 10
+          }
+        },
+        {
+          "rank": 2,
+          "personId": "3b07ba58-1092-2817-fc25-3a007e0a0284",
+          "displayName": "Yuki Tanaka",
+          "mail": "yuki.tanaka@meridian-mfg.example",
+          "jobTitle": "Deputy Sales & Logistics Lead (SD/LE)",
+          "workstreamId": "WS-SD",
+          "score": 88.2,
+          "evidence": {
+            "answers_given": 173,
+            "docs_authored": 11,
+            "meetings_led": 7
+          }
+        },
+        {
+          "rank": 3,
+          "personId": "6924dffc-16ca-d02b-ccdb-67f552e1c15a",
+          "displayName": "Camille Dubois",
+          "mail": "camille.dubois@meridian-mfg.example",
+          "jobTitle": "SD Solution Consultant",
+          "workstreamId": "WS-SD",
+          "score": 69.9,
+          "evidence": {
+            "answers_given": 138,
+            "docs_authored": 8,
+            "meetings_led": 6
+          }
+        },
+        {
+          "rank": 4,
+          "personId": "6e6a9f59-92af-a27f-a01e-6c2e0a959a88",
+          "displayName": "Robert Iversen",
+          "mail": "robert.iversen@meridian-mfg.example",
+          "jobTitle": "Transportation Management Lead",
+          "workstreamId": "WS-SD",
+          "score": 66.0,
+          "evidence": {
+            "answers_given": 131,
+            "docs_authored": 7,
+            "meetings_led": 5
+          }
+        },
+        {
+          "rank": 5,
+          "personId": "9930e005-cbf1-a715-bc27-562685a5c5a0",
+          "displayName": "Andre Silveira",
+          "mail": "andre.silveira@meridian-mfg.example",
+          "jobTitle": "Logistics Execution Analyst",
+          "workstreamId": "WS-SD",
+          "score": 49.5,
+          "evidence": {
+            "answers_given": 95,
+            "docs_authored": 7,
+            "meetings_led": 6
+          }
+        },
+        {
+          "rank": 6,
+          "personId": "7c5f09bd-a6f2-7998-0378-745026d6f8ef",
+          "displayName": "Mei Zhao",
+          "mail": "mei.zhao@meridian-mfg.example",
+          "jobTitle": "Pricing & Rebates Specialist",
+          "workstreamId": "WS-SD",
+          "score": 49.4,
+          "evidence": {
+            "answers_given": 93,
+            "docs_authored": 7,
+            "meetings_led": 6
+          }
+        }
+      ]
+    },
+    {
+      "topicId": "manufacturing-ppqm",
+      "topic": "Manufacturing (PP/QM)",
+      "scope": "workstream",
+      "workstreamId": "WS-PP",
+      "skills": [
+        "PP",
+        "QM"
+      ],
+      "mentions_26w": 1576,
+      "expertCount": 6,
+      "experts": [
+        {
+          "rank": 1,
+          "personId": "34774573-81c9-e436-1cc5-a44538d9b523",
+          "displayName": "Ingrid Bauer",
+          "mail": "ingrid.bauer@meridian-mfg.example",
+          "jobTitle": "Manufacturing Workstream Lead",
+          "workstreamId": "WS-PP",
+          "score": 100.0,
+          "evidence": {
+            "answers_given": 206,
+            "docs_authored": 12,
+            "meetings_led": 10
+          }
+        },
+        {
+          "rank": 2,
+          "personId": "f4c69481-6699-c1f8-c977-8b5710f8c009",
+          "displayName": "Chen Wei",
+          "mail": "chen.wei@meridian-mfg.example",
+          "jobTitle": "Deputy Manufacturing Lead (PP/QM)",
+          "workstreamId": "WS-PP",
+          "score": 87.0,
+          "evidence": {
+            "answers_given": 180,
+            "docs_authored": 12,
+            "meetings_led": 7
+          }
+        },
+        {
+          "rank": 3,
+          "personId": "221c95b9-68ac-1949-3c53-59788df36f83",
+          "displayName": "Kenji Yamamoto",
+          "mail": "kenji.yamamoto@meridian-mfg.example",
+          "jobTitle": "PP Solution Consultant",
+          "workstreamId": "WS-PP",
+          "score": 70.0,
+          "evidence": {
+            "answers_given": 146,
+            "docs_authored": 10,
+            "meetings_led": 6
+          }
+        },
+        {
+          "rank": 4,
+          "personId": "51ff9aaf-3f24-7b1e-f798-cdb6c0e82c3b",
+          "displayName": "Stefan Novotny",
+          "mail": "stefan.novotny@meridian-mfg.example",
+          "jobTitle": "Shop Floor Integration Analyst",
+          "workstreamId": "WS-PP",
+          "score": 63.5,
+          "evidence": {
+            "answers_given": 131,
+            "docs_authored": 9,
+            "meetings_led": 6
+          }
+        },
+        {
+          "rank": 5,
+          "personId": "85b88fec-3a2f-322f-7bef-5c6447770293",
+          "displayName": "Lucia Ferrari",
+          "mail": "lucia.ferrari@meridian-mfg.example",
+          "jobTitle": "Production Planner",
+          "workstreamId": "WS-PP",
+          "score": 52.9,
+          "evidence": {
+            "answers_given": 111,
+            "docs_authored": 8,
+            "meetings_led": 5
+          }
+        },
+        {
+          "rank": 6,
+          "personId": "7673bf4a-ac62-95a0-9f31-a73efdd2ce22",
+          "displayName": "Aisha Bello",
+          "mail": "aisha.bello@meridian-mfg.example",
+          "jobTitle": "Quality Management Specialist",
+          "workstreamId": "WS-PP",
+          "score": 52.0,
+          "evidence": {
+            "answers_given": 107,
+            "docs_authored": 7,
+            "meetings_led": 4
+          }
+        }
+      ]
+    },
+    {
+      "topicId": "data-migration",
+      "topic": "Data Migration",
+      "scope": "workstream",
+      "workstreamId": "WS-DM",
+      "skills": [
+        "LSMW",
+        "Migration Cockpit"
+      ],
+      "mentions_26w": 1980,
+      "expertCount": 6,
+      "experts": [
+        {
+          "rank": 1,
+          "personId": "f230d95d-ddb0-aac4-61b8-2d1fc384e182",
+          "displayName": "David Okafor",
+          "mail": "david.okafor@meridian-mfg.example",
+          "jobTitle": "Data Migration Workstream Lead",
+          "workstreamId": "WS-DM",
+          "score": 100.0,
+          "evidence": {
+            "answers_given": 205,
+            "docs_authored": 12,
+            "meetings_led": 10
+          }
+        },
+        {
+          "rank": 2,
+          "personId": "486f190e-8977-98ac-95ad-ec00ec778ad1",
+          "displayName": "Sara Lindqvist",
+          "mail": "sara.lindqvist@meridian-mfg.example",
+          "jobTitle": "Deputy Data Migration Lead",
+          "workstreamId": "WS-DM",
+          "score": 91.7,
+          "evidence": {
+            "answers_given": 189,
+            "docs_authored": 11,
+            "meetings_led": 7
+          }
+        },
+        {
+          "rank": 3,
+          "personId": "a527181c-6190-0c1f-99ed-86bfb3e5fcee",
+          "displayName": "Omar Farouk",
+          "mail": "omar.farouk@meridian-mfg.example",
+          "jobTitle": "Data Migration Engineer",
+          "workstreamId": "WS-DM",
+          "score": 79.9,
+          "evidence": {
+            "answers_given": 162,
+            "docs_authored": 11,
+            "meetings_led": 7
+          }
+        },
+        {
+          "rank": 4,
+          "personId": "d952b058-1e68-71d8-12ab-8599d3b8ba62",
+          "displayName": "Nina Kovacs",
+          "mail": "nina.kovacs@meridian-mfg.example",
+          "jobTitle": "Data Quality Analyst",
+          "workstreamId": "WS-DM",
+          "score": 62.8,
+          "evidence": {
+            "answers_given": 125,
+            "docs_authored": 7,
+            "meetings_led": 7
+          }
+        },
+        {
+          "rank": 5,
+          "personId": "4e326af6-5f0e-9385-59df-b9703e5f75be",
+          "displayName": "Ana Reyes",
+          "mail": "ana.reyes@meridian-mfg.example",
+          "jobTitle": "Master Data Steward",
+          "workstreamId": "WS-DM",
+          "score": 47.7,
+          "evidence": {
+            "answers_given": 94,
+            "docs_authored": 6,
+            "meetings_led": 6
+          }
+        },
+        {
+          "rank": 6,
+          "personId": "2cc87985-b9f3-8b64-136e-0fd25f68ad48",
+          "displayName": "Vikram Desai",
+          "mail": "vikram.desai@meridian-mfg.example",
+          "jobTitle": "Reconciliation Analyst",
+          "workstreamId": "WS-DM",
+          "score": 47.5,
+          "evidence": {
+            "answers_given": 95,
+            "docs_authored": 6,
+            "meetings_led": 4
+          }
+        }
+      ]
+    },
+    {
+      "topicId": "technical-architecture",
+      "topic": "Technical Architecture & Basis",
+      "scope": "workstream",
+      "workstreamId": "WS-TA",
+      "skills": [
+        "BTP",
+        "security"
+      ],
+      "mentions_26w": 1895,
+      "expertCount": 6,
+      "experts": [
+        {
+          "rank": 1,
+          "personId": "0b627b73-ac55-5da7-dec7-51bad0bc720e",
+          "displayName": "Elena Petrova",
+          "mail": "elena.petrova@meridian-mfg.example",
+          "jobTitle": "Technical Architecture & Basis Lead",
+          "workstreamId": "WS-TA",
+          "score": 100.0,
+          "evidence": {
+            "answers_given": 207,
+            "docs_authored": 11,
+            "meetings_led": 8
+          }
+        },
+        {
+          "rank": 2,
+          "personId": "88d1f651-c983-ddfe-aedc-aaca60318d9d",
+          "displayName": "James Carter",
+          "mail": "james.carter@meridian-mfg.example",
+          "jobTitle": "Deputy Technical Architecture Lead",
+          "workstreamId": "WS-TA",
+          "score": 91.0,
+          "evidence": {
+            "answers_given": 193,
+            "docs_authored": 11,
+            "meetings_led": 8
+          }
+        },
+        {
+          "rank": 3,
+          "personId": "ac5a0b65-5361-01f2-9d65-63a56083acf8",
+          "displayName": "Lukas Berger",
+          "mail": "lukas.berger@meridian-mfg.example",
+          "jobTitle": "Basis Administrator",
+          "workstreamId": "WS-TA",
+          "score": 72.5,
+          "evidence": {
+            "answers_given": 151,
+            "docs_authored": 9,
+            "meetings_led": 6
+          }
+        },
+        {
+          "rank": 4,
+          "personId": "c9cb95f0-9c00-7c0e-705a-19e9fb754d31",
+          "displayName": "Elin Sandberg",
+          "mail": "elin.sandberg@meridian-mfg.example",
+          "jobTitle": "Performance Engineer",
+          "workstreamId": "WS-TA",
+          "score": 72.1,
+          "evidence": {
+            "answers_given": 146,
+            "docs_authored": 9,
+            "meetings_led": 6
+          }
+        },
+        {
+          "rank": 5,
+          "personId": "e7c140be-e6d4-b51e-128a-9ea5ff2543ed",
+          "displayName": "Fatima Ndiaye",
+          "mail": "fatima.ndiaye@meridian-mfg.example",
+          "jobTitle": "Integration Architect (BTP)",
+          "workstreamId": "WS-TA",
+          "score": 51.5,
+          "evidence": {
+            "answers_given": 110,
+            "docs_authored": 7,
+            "meetings_led": 6
+          }
+        },
+        {
+          "rank": 6,
+          "personId": "2fa56d5d-9f9c-011f-2327-e992df22f8e6",
+          "displayName": "Daniel Okonkwo",
+          "mail": "daniel.okonkwo@meridian-mfg.example",
+          "jobTitle": "Security & Authorizations Lead",
+          "workstreamId": "WS-TA",
+          "score": 49.8,
+          "evidence": {
+            "answers_given": 104,
+            "docs_authored": 7,
+            "meetings_led": 5
+          }
+        }
+      ]
+    },
+    {
+      "topicId": "change-training",
+      "topic": "Change Management & Training",
+      "scope": "workstream",
+      "workstreamId": "WS-CM",
+      "skills": [
+        "training"
+      ],
+      "mentions_26w": 1369,
+      "expertCount": 6,
+      "experts": [
+        {
+          "rank": 1,
+          "personId": "ea18094a-8d11-3c28-0c40-a2090efbe12c",
+          "displayName": "Sofia Rossi",
+          "mail": "sofia.rossi@meridian-mfg.example",
+          "jobTitle": "Change Management & Training Lead",
+          "workstreamId": "WS-CM",
+          "score": 100.0,
+          "evidence": {
+            "answers_given": 189,
+            "docs_authored": 12,
+            "meetings_led": 8
+          }
+        },
+        {
+          "rank": 2,
+          "personId": "6277cf1e-a7c8-a674-7dc0-3e0583c09d74",
+          "displayName": "Mark Daniels",
+          "mail": "mark.daniels@meridian-mfg.example",
+          "jobTitle": "Deputy Change & Training Lead",
+          "workstreamId": "WS-CM",
+          "score": 88.6,
+          "evidence": {
+            "answers_given": 163,
+            "docs_authored": 10,
+            "meetings_led": 7
+          }
+        },
+        {
+          "rank": 3,
+          "personId": "9ae2fd66-b490-6e7c-0665-77a91561afed",
+          "displayName": "Grace Mwangi",
+          "mail": "grace.mwangi@meridian-mfg.example",
+          "jobTitle": "Training Content Lead",
+          "workstreamId": "WS-CM",
+          "score": 79.6,
+          "evidence": {
+            "answers_given": 143,
+            "docs_authored": 10,
+            "meetings_led": 6
+          }
+        },
+        {
+          "rank": 4,
+          "personId": "99cada04-9e04-0e31-ade5-e7a4a7e6941e",
+          "displayName": "Tomasz Wojcik",
+          "mail": "tomasz.wojcik@meridian-mfg.example",
+          "jobTitle": "Change Champion Coordinator",
+          "workstreamId": "WS-CM",
+          "score": 69.4,
+          "evidence": {
+            "answers_given": 133,
+            "docs_authored": 8,
+            "meetings_led": 7
+          }
+        },
+        {
+          "rank": 5,
+          "personId": "af62a6e7-96d2-72bb-0f0d-7fde4ca3cba5",
+          "displayName": "Paula Marchetti",
+          "mail": "paula.marchetti@meridian-mfg.example",
+          "jobTitle": "Program Communications Specialist",
+          "workstreamId": "WS-CM",
+          "score": 50.5,
+          "evidence": {
+            "answers_given": 100,
+            "docs_authored": 6,
+            "meetings_led": 5
+          }
+        },
+        {
+          "rank": 6,
+          "personId": "34774573-81c9-e436-1cc5-a44538d9b523",
+          "displayName": "Ingrid Bauer",
+          "mail": "ingrid.bauer@meridian-mfg.example",
+          "jobTitle": "Manufacturing Workstream Lead",
+          "workstreamId": "WS-PP",
+          "score": 28.2,
+          "evidence": {
+            "answers_given": 59,
+            "docs_authored": 4,
+            "meetings_led": 2
+          }
+        }
+      ]
+    },
+    {
+      "topicId": "testing-quality",
+      "topic": "Testing & Quality",
+      "scope": "workstream",
+      "workstreamId": "WS-TQ",
+      "skills": [
+        "QM"
+      ],
+      "mentions_26w": 1680,
+      "expertCount": 6,
+      "experts": [
+        {
+          "rank": 1,
+          "personId": "c82a5a03-9573-4af8-e945-eac9d814b70e",
+          "displayName": "Ahmed Hassan",
+          "mail": "ahmed.hassan@meridian-mfg.example",
+          "jobTitle": "Testing & Quality Lead",
+          "workstreamId": "WS-TQ",
+          "score": 100.0,
+          "evidence": {
+            "answers_given": 186,
+            "docs_authored": 10,
+            "meetings_led": 7
+          }
+        },
+        {
+          "rank": 2,
+          "personId": "243af1ab-1c3d-2139-1c56-32e57c6b7037",
+          "displayName": "Julia Meyer",
+          "mail": "julia.meyer@meridian-mfg.example",
+          "jobTitle": "Deputy Testing & Quality Lead",
+          "workstreamId": "WS-TQ",
+          "score": 91.1,
+          "evidence": {
+            "answers_given": 163,
+            "docs_authored": 9,
+            "meetings_led": 7
+          }
+        },
+        {
+          "rank": 3,
+          "personId": "fe8b7477-0593-4ddb-90af-6f4d0a56e5fe",
+          "displayName": "Hiroshi Sato",
+          "mail": "hiroshi.sato@meridian-mfg.example",
+          "jobTitle": "Test Automation Engineer",
+          "workstreamId": "WS-TQ",
+          "score": 79.1,
+          "evidence": {
+            "answers_given": 143,
+            "docs_authored": 9,
+            "meetings_led": 6
+          }
+        },
+        {
+          "rank": 4,
+          "personId": "c77a37f4-5276-4c13-5e28-d77df08c9941",
+          "displayName": "Leila Farsi",
+          "mail": "leila.farsi@meridian-mfg.example",
+          "jobTitle": "SIT Coordinator",
+          "workstreamId": "WS-TQ",
+          "score": 70.2,
+          "evidence": {
+            "answers_given": 131,
+            "docs_authored": 9,
+            "meetings_led": 6
+          }
+        },
+        {
+          "rank": 5,
+          "personId": "5eb3b100-551c-0454-9937-f0d1309691bf",
+          "displayName": "Bruno Costa",
+          "mail": "bruno.costa@meridian-mfg.example",
+          "jobTitle": "UAT Coordinator",
+          "workstreamId": "WS-TQ",
+          "score": 58.3,
+          "evidence": {
+            "answers_given": 106,
+            "docs_authored": 8,
+            "meetings_led": 6
+          }
+        },
+        {
+          "rank": 6,
+          "personId": "942426b1-3852-1285-aa1d-99af4be14255",
+          "displayName": "Karin Osei",
+          "mail": "karin.osei@meridian-mfg.example",
+          "jobTitle": "Defect Triage Analyst",
+          "workstreamId": "WS-TQ",
+          "score": 57.0,
+          "evidence": {
+            "answers_given": 102,
+            "docs_authored": 7,
+            "meetings_led": 5
+          }
+        }
+      ]
+    },
+    {
+      "topicId": "p2p",
+      "topic": "Procure-to-Pay (P2P)",
+      "scope": "cross-cutting",
+      "workstreamId": null,
+      "skills": [
+        "MM",
+        "FI"
+      ],
+      "mentions_26w": 1269,
+      "expertCount": 6,
+      "experts": [
+        {
+          "rank": 1,
+          "personId": "dcaef60d-c7b1-2654-6907-5de95835d8d9",
+          "displayName": "Priya Sharma",
+          "mail": "priya.sharma@meridian-mfg.example",
+          "jobTitle": "Procurement Workstream Lead",
+          "workstreamId": "WS-MM",
+          "score": 100.0,
+          "evidence": {
+            "answers_given": 125,
+            "docs_authored": 8,
+            "meetings_led": 6
+          }
+        },
+        {
+          "rank": 2,
+          "personId": "9f227f26-c3bd-c39a-ec73-c0c239320e5e",
+          "displayName": "Luis Ortega",
+          "mail": "luis.ortega@meridian-mfg.example",
+          "jobTitle": "Deputy Procurement Lead (MM/Ariba)",
+          "workstreamId": "WS-MM",
+          "score": 74.4,
+          "evidence": {
+            "answers_given": 97,
+            "docs_authored": 7,
+            "meetings_led": 5
+          }
+        },
+        {
+          "rank": 3,
+          "personId": "d78ec68d-4d2d-bf29-9fff-fc82841d506e",
+          "displayName": "Beatriz Alves",
+          "mail": "beatriz.alves@meridian-mfg.example",
+          "jobTitle": "Accounts Payable Process Specialist",
+          "workstreamId": "WS-FI",
+          "score": 70.1,
+          "evidence": {
+            "answers_given": 87,
+            "docs_authored": 5,
+            "meetings_led": 3
+          }
+        },
+        {
+          "rank": 4,
+          "personId": "f230d95d-ddb0-aac4-61b8-2d1fc384e182",
+          "displayName": "David Okafor",
+          "mail": "david.okafor@meridian-mfg.example",
+          "jobTitle": "Data Migration Workstream Lead",
+          "workstreamId": "WS-DM",
+          "score": 53.2,
+          "evidence": {
+            "answers_given": 73,
+            "docs_authored": 5,
+            "meetings_led": 3
+          }
+        },
+        {
+          "rank": 5,
+          "personId": "3c9858f2-e7ee-6ebd-8e05-cefe8348be27",
+          "displayName": "Anna Keller",
+          "mail": "anna.keller@meridian-mfg.example",
+          "jobTitle": "Finance Workstream Lead",
+          "workstreamId": "WS-FI",
+          "score": 52.9,
+          "evidence": {
+            "answers_given": 68,
+            "docs_authored": 5,
+            "meetings_led": 5
+          }
+        },
+        {
+          "rank": 6,
+          "personId": "c82a5a03-9573-4af8-e945-eac9d814b70e",
+          "displayName": "Ahmed Hassan",
+          "mail": "ahmed.hassan@meridian-mfg.example",
+          "jobTitle": "Testing & Quality Lead",
+          "workstreamId": "WS-TQ",
+          "score": 50.8,
+          "evidence": {
+            "answers_given": 70,
+            "docs_authored": 3,
+            "meetings_led": 2
+          }
+        }
+      ]
+    },
+    {
+      "topicId": "o2c",
+      "topic": "Order-to-Cash (O2C)",
+      "scope": "cross-cutting",
+      "workstreamId": null,
+      "skills": [
+        "SD",
+        "FI"
+      ],
+      "mentions_26w": 1246,
+      "expertCount": 6,
+      "experts": [
+        {
+          "rank": 1,
+          "personId": "855e07c5-f320-b40d-ccdd-319d7c9b1c4c",
+          "displayName": "Marcus Webb",
+          "mail": "marcus.webb@meridian-mfg.example",
+          "jobTitle": "Sales & Logistics Workstream Lead",
+          "workstreamId": "WS-SD",
+          "score": 100.0,
+          "evidence": {
+            "answers_given": 113,
+            "docs_authored": 7,
+            "meetings_led": 6
+          }
+        },
+        {
+          "rank": 2,
+          "personId": "3b07ba58-1092-2817-fc25-3a007e0a0284",
+          "displayName": "Yuki Tanaka",
+          "mail": "yuki.tanaka@meridian-mfg.example",
+          "jobTitle": "Deputy Sales & Logistics Lead (SD/LE)",
+          "workstreamId": "WS-SD",
+          "score": 91.2,
+          "evidence": {
+            "answers_given": 108,
+            "docs_authored": 6,
+            "meetings_led": 5
+          }
+        },
+        {
+          "rank": 3,
+          "personId": "7c5f09bd-a6f2-7998-0378-745026d6f8ef",
+          "displayName": "Mei Zhao",
+          "mail": "mei.zhao@meridian-mfg.example",
+          "jobTitle": "Pricing & Rebates Specialist",
+          "workstreamId": "WS-SD",
+          "score": 75.7,
+          "evidence": {
+            "answers_given": 87,
+            "docs_authored": 6,
+            "meetings_led": 4
+          }
+        },
+        {
+          "rank": 4,
+          "personId": "6924dffc-16ca-d02b-ccdb-67f552e1c15a",
+          "displayName": "Camille Dubois",
+          "mail": "camille.dubois@meridian-mfg.example",
+          "jobTitle": "SD Solution Consultant",
+          "workstreamId": "WS-SD",
+          "score": 67.9,
+          "evidence": {
+            "answers_given": 79,
+            "docs_authored": 4,
+            "meetings_led": 4
+          }
+        },
+        {
+          "rank": 5,
+          "personId": "c82a5a03-9573-4af8-e945-eac9d814b70e",
+          "displayName": "Ahmed Hassan",
+          "mail": "ahmed.hassan@meridian-mfg.example",
+          "jobTitle": "Testing & Quality Lead",
+          "workstreamId": "WS-TQ",
+          "score": 64.3,
+          "evidence": {
+            "answers_given": 78,
+            "docs_authored": 6,
+            "meetings_led": 3
+          }
+        },
+        {
+          "rank": 6,
+          "personId": "f230d95d-ddb0-aac4-61b8-2d1fc384e182",
+          "displayName": "David Okafor",
+          "mail": "david.okafor@meridian-mfg.example",
+          "jobTitle": "Data Migration Workstream Lead",
+          "workstreamId": "WS-DM",
+          "score": 58.1,
+          "evidence": {
+            "answers_given": 70,
+            "docs_authored": 3,
+            "meetings_led": 5
+          }
+        }
+      ]
+    },
+    {
+      "topicId": "r2r",
+      "topic": "Record-to-Report (R2R)",
+      "scope": "cross-cutting",
+      "workstreamId": null,
+      "skills": [
+        "FI",
+        "CO"
+      ],
+      "mentions_26w": 1209,
+      "expertCount": 6,
+      "experts": [
+        {
+          "rank": 1,
+          "personId": "3c9858f2-e7ee-6ebd-8e05-cefe8348be27",
+          "displayName": "Anna Keller",
+          "mail": "anna.keller@meridian-mfg.example",
+          "jobTitle": "Finance Workstream Lead",
+          "workstreamId": "WS-FI",
+          "score": 100.0,
+          "evidence": {
+            "answers_given": 132,
+            "docs_authored": 8,
+            "meetings_led": 5
+          }
+        },
+        {
+          "rank": 2,
+          "personId": "9a27342b-c494-f28b-6141-571079c7e151",
+          "displayName": "Tomas Novak",
+          "mail": "tomas.novak@meridian-mfg.example",
+          "jobTitle": "Deputy Finance Lead (FI/CO)",
+          "workstreamId": "WS-FI",
+          "score": 89.1,
+          "evidence": {
+            "answers_given": 113,
+            "docs_authored": 7,
+            "meetings_led": 6
+          }
+        },
+        {
+          "rank": 3,
+          "personId": "5494363f-2478-2acb-8ca1-d879b6972a21",
+          "displayName": "Gunnar Holm",
+          "mail": "gunnar.holm@meridian-mfg.example",
+          "jobTitle": "Asset Accounting Specialist",
+          "workstreamId": "WS-FI",
+          "score": 67.2,
+          "evidence": {
+            "answers_given": 89,
+            "docs_authored": 6,
+            "meetings_led": 3
+          }
+        },
+        {
+          "rank": 4,
+          "personId": "f230d95d-ddb0-aac4-61b8-2d1fc384e182",
+          "displayName": "David Okafor",
+          "mail": "david.okafor@meridian-mfg.example",
+          "jobTitle": "Data Migration Workstream Lead",
+          "workstreamId": "WS-DM",
+          "score": 46.0,
+          "evidence": {
+            "answers_given": 65,
+            "docs_authored": 4,
+            "meetings_led": 4
+          }
+        },
+        {
+          "rank": 5,
+          "personId": "82dc3446-96cb-1699-cab4-27da6ae1e56f",
+          "displayName": "Ravi Menon",
+          "mail": "ravi.menon@meridian-mfg.example",
+          "jobTitle": "Controlling (CO) Analyst",
+          "workstreamId": "WS-FI",
+          "score": 44.4,
+          "evidence": {
+            "answers_given": 60,
+            "docs_authored": 3,
+            "meetings_led": 2
+          }
+        },
+        {
+          "rank": 6,
+          "personId": "c82a5a03-9573-4af8-e945-eac9d814b70e",
+          "displayName": "Ahmed Hassan",
+          "mail": "ahmed.hassan@meridian-mfg.example",
+          "jobTitle": "Testing & Quality Lead",
+          "workstreamId": "WS-TQ",
+          "score": 41.2,
+          "evidence": {
+            "answers_given": 57,
+            "docs_authored": 3,
+            "meetings_led": 3
+          }
+        }
+      ]
+    },
+    {
+      "topicId": "cutover",
+      "topic": "Cutover",
+      "scope": "cross-cutting",
+      "workstreamId": null,
+      "skills": [
+        "Migration Cockpit",
+        "LSMW",
+        "QM"
+      ],
+      "mentions_26w": 1207,
+      "expertCount": 6,
+      "experts": [
+        {
+          "rank": 1,
+          "personId": "f230d95d-ddb0-aac4-61b8-2d1fc384e182",
+          "displayName": "David Okafor",
+          "mail": "david.okafor@meridian-mfg.example",
+          "jobTitle": "Data Migration Workstream Lead",
+          "workstreamId": "WS-DM",
+          "score": 100.0,
+          "evidence": {
+            "answers_given": 135,
+            "docs_authored": 7,
+            "meetings_led": 7
+          }
+        },
+        {
+          "rank": 2,
+          "personId": "c82a5a03-9573-4af8-e945-eac9d814b70e",
+          "displayName": "Ahmed Hassan",
+          "mail": "ahmed.hassan@meridian-mfg.example",
+          "jobTitle": "Testing & Quality Lead",
+          "workstreamId": "WS-TQ",
+          "score": 84.6,
+          "evidence": {
+            "answers_given": 111,
+            "docs_authored": 8,
+            "meetings_led": 5
+          }
+        },
+        {
+          "rank": 3,
+          "personId": "0b627b73-ac55-5da7-dec7-51bad0bc720e",
+          "displayName": "Elena Petrova",
+          "mail": "elena.petrova@meridian-mfg.example",
+          "jobTitle": "Technical Architecture & Basis Lead",
+          "workstreamId": "WS-TA",
+          "score": 55.9,
+          "evidence": {
+            "answers_given": 82,
+            "docs_authored": 5,
+            "meetings_led": 4
+          }
+        },
+        {
+          "rank": 4,
+          "personId": "34774573-81c9-e436-1cc5-a44538d9b523",
+          "displayName": "Ingrid Bauer",
+          "mail": "ingrid.bauer@meridian-mfg.example",
+          "jobTitle": "Manufacturing Workstream Lead",
+          "workstreamId": "WS-PP",
+          "score": 48.6,
+          "evidence": {
+            "answers_given": 68,
+            "docs_authored": 5,
+            "meetings_led": 4
+          }
+        },
+        {
+          "rank": 5,
+          "personId": "486f190e-8977-98ac-95ad-ec00ec778ad1",
+          "displayName": "Sara Lindqvist",
+          "mail": "sara.lindqvist@meridian-mfg.example",
+          "jobTitle": "Deputy Data Migration Lead",
+          "workstreamId": "WS-DM",
+          "score": 47.1,
+          "evidence": {
+            "answers_given": 70,
+            "docs_authored": 5,
+            "meetings_led": 4
+          }
+        },
+        {
+          "rank": 6,
+          "personId": "fb567cc6-6f12-4fab-96e7-645a86f9ace6",
+          "displayName": "Oliver Brandt",
+          "mail": "oliver.brandt@meridian-mfg.example",
+          "jobTitle": "PMO Lead",
+          "workstreamId": "WS-PL",
+          "score": 43.0,
+          "evidence": {
+            "answers_given": 64,
+            "docs_authored": 4,
+            "meetings_led": 3
+          }
+        }
+      ]
+    },
+    {
+      "topicId": "training",
+      "topic": "Training",
+      "scope": "cross-cutting",
+      "workstreamId": null,
+      "skills": [
+        "training"
+      ],
+      "mentions_26w": 1015,
+      "expertCount": 6,
+      "experts": [
+        {
+          "rank": 1,
+          "personId": "ea18094a-8d11-3c28-0c40-a2090efbe12c",
+          "displayName": "Sofia Rossi",
+          "mail": "sofia.rossi@meridian-mfg.example",
+          "jobTitle": "Change Management & Training Lead",
+          "workstreamId": "WS-CM",
+          "score": 100.0,
+          "evidence": {
+            "answers_given": 125,
+            "docs_authored": 7,
+            "meetings_led": 7
+          }
+        },
+        {
+          "rank": 2,
+          "personId": "6277cf1e-a7c8-a674-7dc0-3e0583c09d74",
+          "displayName": "Mark Daniels",
+          "mail": "mark.daniels@meridian-mfg.example",
+          "jobTitle": "Deputy Change & Training Lead",
+          "workstreamId": "WS-CM",
+          "score": 74.6,
+          "evidence": {
+            "answers_given": 98,
+            "docs_authored": 7,
+            "meetings_led": 6
+          }
+        },
+        {
+          "rank": 3,
+          "personId": "9ae2fd66-b490-6e7c-0665-77a91561afed",
+          "displayName": "Grace Mwangi",
+          "mail": "grace.mwangi@meridian-mfg.example",
+          "jobTitle": "Training Content Lead",
+          "workstreamId": "WS-CM",
+          "score": 64.3,
+          "evidence": {
+            "answers_given": 81,
+            "docs_authored": 6,
+            "meetings_led": 4
+          }
+        },
+        {
+          "rank": 4,
+          "personId": "af62a6e7-96d2-72bb-0f0d-7fde4ca3cba5",
+          "displayName": "Paula Marchetti",
+          "mail": "paula.marchetti@meridian-mfg.example",
+          "jobTitle": "Program Communications Specialist",
+          "workstreamId": "WS-CM",
+          "score": 44.6,
+          "evidence": {
+            "answers_given": 55,
+            "docs_authored": 4,
+            "meetings_led": 2
+          }
+        },
+        {
+          "rank": 5,
+          "personId": "dcaef60d-c7b1-2654-6907-5de95835d8d9",
+          "displayName": "Priya Sharma",
+          "mail": "priya.sharma@meridian-mfg.example",
+          "jobTitle": "Procurement Workstream Lead",
+          "workstreamId": "WS-MM",
+          "score": 38.6,
+          "evidence": {
+            "answers_given": 49,
+            "docs_authored": 4,
+            "meetings_led": 2
+          }
+        },
+        {
+          "rank": 6,
+          "personId": "f230d95d-ddb0-aac4-61b8-2d1fc384e182",
+          "displayName": "David Okafor",
+          "mail": "david.okafor@meridian-mfg.example",
+          "jobTitle": "Data Migration Workstream Lead",
+          "workstreamId": "WS-DM",
+          "score": 38.2,
+          "evidence": {
+            "answers_given": 46,
+            "docs_authored": 3,
+            "meetings_led": 4
+          }
+        }
+      ]
+    },
+    {
+      "topicId": "migration",
+      "topic": "Migration",
+      "scope": "cross-cutting",
+      "workstreamId": null,
+      "skills": [
+        "Migration Cockpit",
+        "LSMW"
+      ],
+      "mentions_26w": 1234,
+      "expertCount": 6,
+      "experts": [
+        {
+          "rank": 1,
+          "personId": "f230d95d-ddb0-aac4-61b8-2d1fc384e182",
+          "displayName": "David Okafor",
+          "mail": "david.okafor@meridian-mfg.example",
+          "jobTitle": "Data Migration Workstream Lead",
+          "workstreamId": "WS-DM",
+          "score": 100.0,
+          "evidence": {
+            "answers_given": 138,
+            "docs_authored": 8,
+            "meetings_led": 5
+          }
+        },
+        {
+          "rank": 2,
+          "personId": "486f190e-8977-98ac-95ad-ec00ec778ad1",
+          "displayName": "Sara Lindqvist",
+          "mail": "sara.lindqvist@meridian-mfg.example",
+          "jobTitle": "Deputy Data Migration Lead",
+          "workstreamId": "WS-DM",
+          "score": 86.4,
+          "evidence": {
+            "answers_given": 122,
+            "docs_authored": 8,
+            "meetings_led": 7
+          }
+        },
+        {
+          "rank": 3,
+          "personId": "41931569-c258-a733-a16b-183344a64d28",
+          "displayName": "Thabo Nkosi",
+          "mail": "thabo.nkosi@meridian-mfg.example",
+          "jobTitle": "Migration Cockpit Developer",
+          "workstreamId": "WS-DM",
+          "score": 54.5,
+          "evidence": {
+            "answers_given": 79,
+            "docs_authored": 6,
+            "meetings_led": 3
+          }
+        },
+        {
+          "rank": 4,
+          "personId": "4e326af6-5f0e-9385-59df-b9703e5f75be",
+          "displayName": "Ana Reyes",
+          "mail": "ana.reyes@meridian-mfg.example",
+          "jobTitle": "Master Data Steward",
+          "workstreamId": "WS-DM",
+          "score": 43.2,
+          "evidence": {
+            "answers_given": 62,
+            "docs_authored": 5,
+            "meetings_led": 2
+          }
+        },
+        {
+          "rank": 5,
+          "personId": "a527181c-6190-0c1f-99ed-86bfb3e5fcee",
+          "displayName": "Omar Farouk",
+          "mail": "omar.farouk@meridian-mfg.example",
+          "jobTitle": "Data Migration Engineer",
+          "workstreamId": "WS-DM",
+          "score": 39.4,
+          "evidence": {
+            "answers_given": 59,
+            "docs_authored": 5,
+            "meetings_led": 2
+          }
+        },
+        {
+          "rank": 6,
+          "personId": "34774573-81c9-e436-1cc5-a44538d9b523",
+          "displayName": "Ingrid Bauer",
+          "mail": "ingrid.bauer@meridian-mfg.example",
+          "jobTitle": "Manufacturing Workstream Lead",
+          "workstreamId": "WS-PP",
+          "score": 33.6,
+          "evidence": {
+            "answers_given": 47,
+            "docs_authored": 4,
+            "meetings_led": 3
+          }
+        }
+      ]
+    },
+    {
+      "topicId": "interfaces",
+      "topic": "Interfaces",
+      "scope": "cross-cutting",
+      "workstreamId": null,
+      "skills": [
+        "BTP"
+      ],
+      "mentions_26w": 1371,
+      "expertCount": 6,
+      "experts": [
+        {
+          "rank": 1,
+          "personId": "0b627b73-ac55-5da7-dec7-51bad0bc720e",
+          "displayName": "Elena Petrova",
+          "mail": "elena.petrova@meridian-mfg.example",
+          "jobTitle": "Technical Architecture & Basis Lead",
+          "workstreamId": "WS-TA",
+          "score": 100.0,
+          "evidence": {
+            "answers_given": 115,
+            "docs_authored": 7,
+            "meetings_led": 7
+          }
+        },
+        {
+          "rank": 2,
+          "personId": "de208f42-2a4a-9655-a7f1-ab6b9f27a57d",
+          "displayName": "Sanjay Iyer",
+          "mail": "sanjay.iyer@meridian-mfg.example",
+          "jobTitle": "Interface Developer",
+          "workstreamId": "WS-TA",
+          "score": 65.1,
+          "evidence": {
+            "answers_given": 77,
+            "docs_authored": 4,
+            "meetings_led": 3
+          }
+        },
+        {
+          "rank": 3,
+          "personId": "e7c140be-e6d4-b51e-128a-9ea5ff2543ed",
+          "displayName": "Fatima Ndiaye",
+          "mail": "fatima.ndiaye@meridian-mfg.example",
+          "jobTitle": "Integration Architect (BTP)",
+          "workstreamId": "WS-TA",
+          "score": 64.6,
+          "evidence": {
+            "answers_given": 78,
+            "docs_authored": 6,
+            "meetings_led": 3
+          }
+        },
+        {
+          "rank": 4,
+          "personId": "d0d7ac0b-6909-5c92-c887-1f9dacf16da7",
+          "displayName": "Hana Kobayashi",
+          "mail": "hana.kobayashi@meridian-mfg.example",
+          "jobTitle": "Ariba Integration Specialist",
+          "workstreamId": "WS-MM",
+          "score": 51.5,
+          "evidence": {
+            "answers_given": 61,
+            "docs_authored": 3,
+            "meetings_led": 3
+          }
+        },
+        {
+          "rank": 5,
+          "personId": "855e07c5-f320-b40d-ccdd-319d7c9b1c4c",
+          "displayName": "Marcus Webb",
+          "mail": "marcus.webb@meridian-mfg.example",
+          "jobTitle": "Sales & Logistics Workstream Lead",
+          "workstreamId": "WS-SD",
+          "score": 38.4,
+          "evidence": {
+            "answers_given": 48,
+            "docs_authored": 2,
+            "meetings_led": 4
+          }
+        },
+        {
+          "rank": 6,
+          "personId": "88d1f651-c983-ddfe-aedc-aaca60318d9d",
+          "displayName": "James Carter",
+          "mail": "james.carter@meridian-mfg.example",
+          "jobTitle": "Deputy Technical Architecture Lead",
+          "workstreamId": "WS-TA",
+          "score": 38.2,
+          "evidence": {
+            "answers_given": 45,
+            "docs_authored": 4,
+            "meetings_led": 2
+          }
+        }
+      ]
+    },
+    {
+      "topicId": "authorizations",
+      "topic": "Authorizations",
+      "scope": "cross-cutting",
+      "workstreamId": null,
+      "skills": [
+        "security",
+        "BTP"
+      ],
+      "mentions_26w": 867,
+      "expertCount": 6,
+      "experts": [
+        {
+          "rank": 1,
+          "personId": "0b627b73-ac55-5da7-dec7-51bad0bc720e",
+          "displayName": "Elena Petrova",
+          "mail": "elena.petrova@meridian-mfg.example",
+          "jobTitle": "Technical Architecture & Basis Lead",
+          "workstreamId": "WS-TA",
+          "score": 100.0,
+          "evidence": {
+            "answers_given": 124,
+            "docs_authored": 8,
+            "meetings_led": 7
+          }
+        },
+        {
+          "rank": 2,
+          "personId": "88d1f651-c983-ddfe-aedc-aaca60318d9d",
+          "displayName": "James Carter",
+          "mail": "james.carter@meridian-mfg.example",
+          "jobTitle": "Deputy Technical Architecture Lead",
+          "workstreamId": "WS-TA",
+          "score": 89.4,
+          "evidence": {
+            "answers_given": 109,
+            "docs_authored": 6,
+            "meetings_led": 6
+          }
+        },
+        {
+          "rank": 3,
+          "personId": "2fa56d5d-9f9c-011f-2327-e992df22f8e6",
+          "displayName": "Daniel Okonkwo",
+          "mail": "daniel.okonkwo@meridian-mfg.example",
+          "jobTitle": "Security & Authorizations Lead",
+          "workstreamId": "WS-TA",
+          "score": 71.2,
+          "evidence": {
+            "answers_given": 93,
+            "docs_authored": 5,
+            "meetings_led": 5
+          }
+        },
+        {
+          "rank": 4,
+          "personId": "ac5a0b65-5361-01f2-9d65-63a56083acf8",
+          "displayName": "Lukas Berger",
+          "mail": "lukas.berger@meridian-mfg.example",
+          "jobTitle": "Basis Administrator",
+          "workstreamId": "WS-TA",
+          "score": 61.3,
+          "evidence": {
+            "answers_given": 77,
+            "docs_authored": 6,
+            "meetings_led": 5
+          }
+        },
+        {
+          "rank": 5,
+          "personId": "3c9858f2-e7ee-6ebd-8e05-cefe8348be27",
+          "displayName": "Anna Keller",
+          "mail": "anna.keller@meridian-mfg.example",
+          "jobTitle": "Finance Workstream Lead",
+          "workstreamId": "WS-FI",
+          "score": 36.3,
+          "evidence": {
+            "answers_given": 47,
+            "docs_authored": 3,
+            "meetings_led": 3
+          }
+        },
+        {
+          "rank": 6,
+          "personId": "c9cb95f0-9c00-7c0e-705a-19e9fb754d31",
+          "displayName": "Elin Sandberg",
+          "mail": "elin.sandberg@meridian-mfg.example",
+          "jobTitle": "Performance Engineer",
+          "workstreamId": "WS-TA",
+          "score": 35.9,
+          "evidence": {
+            "answers_given": 52,
+            "docs_authored": 2,
+            "meetings_led": 2
+          }
+        }
+      ]
+    }
+  ]
+}
