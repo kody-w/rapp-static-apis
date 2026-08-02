@@ -3,79 +3,1805 @@
   "generated": "2026-08-01T00:00:00Z",
   "summary": {
     "sites": 1,
-    "documents": 14,
-    "bytes": 22655
+    "documents": 297,
+    "bytes": 1882011,
+    "core_documents": 14,
+    "generated_documents": 283,
+    "sections": 1864,
+    "families": {
+      "core": 14,
+      "decision-log": 6,
+      "interface-spec": 20,
+      "risk-register": 3,
+      "role-curriculum": 34,
+      "site-readiness": 12,
+      "weekly-minutes": 208
+    },
+    "graph_pages": 6,
+    "graph_page_size": 50
   },
   "documents": [
     {
       "name": "program-charter.md",
+      "family": "core",
       "sha8": "957ab1f0ecb3",
       "size": 1614
     },
     {
       "name": "workstream-directory.md",
+      "family": "core",
       "sha8": "3fd3a366e85f",
       "size": 2296
     },
     {
       "name": "governance-escalation.md",
+      "family": "core",
       "sha8": "088444b64032",
       "size": 1890
     },
     {
       "name": "finance-workstream.md",
+      "family": "core",
       "sha8": "628d7ad589e4",
       "size": 1357
     },
     {
       "name": "procurement-workstream.md",
+      "family": "core",
       "sha8": "cb8820140e5a",
       "size": 1294
     },
     {
       "name": "logistics-workstream.md",
+      "family": "core",
       "sha8": "4047480bdd61",
       "size": 1342
     },
     {
       "name": "manufacturing-workstream.md",
+      "family": "core",
       "sha8": "a45d41455480",
       "size": 1378
     },
     {
       "name": "data-migration-playbook.md",
+      "family": "core",
       "sha8": "4bf4bcb51852",
       "size": 1675
     },
     {
       "name": "change-training.md",
+      "family": "core",
       "sha8": "3116d85106cc",
       "size": 1581
     },
     {
       "name": "testing-strategy.md",
+      "family": "core",
       "sha8": "95ed42e15095",
       "size": 1342
     },
     {
       "name": "cutover-plan-wave1.md",
+      "family": "core",
       "sha8": "25213acf37e3",
       "size": 1587
     },
     {
       "name": "technical-architecture.md",
+      "family": "core",
       "sha8": "e2081742da1f",
       "size": 1425
     },
     {
       "name": "resources-index.md",
+      "family": "core",
       "sha8": "a7a7970aee01",
       "size": 1784
     },
     {
       "name": "faq.md",
+      "family": "core",
       "sha8": "e5e614bdf7cb",
       "size": 2090
+    },
+    {
+      "name": "minutes-2026-02-02-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "a4c3c4ea2d88",
+      "size": 6678
+    },
+    {
+      "name": "minutes-2026-02-02-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "1fab296d83c2",
+      "size": 6682
+    },
+    {
+      "name": "minutes-2026-02-02-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "f8d5745e483d",
+      "size": 5746
+    },
+    {
+      "name": "minutes-2026-02-02-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "128024949b57",
+      "size": 6593
+    },
+    {
+      "name": "minutes-2026-02-02-data.md",
+      "family": "weekly-minutes",
+      "sha8": "de86e827d885",
+      "size": 6723
+    },
+    {
+      "name": "minutes-2026-02-02-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "e1ac47c76604",
+      "size": 6476
+    },
+    {
+      "name": "minutes-2026-02-02-change.md",
+      "family": "weekly-minutes",
+      "sha8": "ba8a052e396c",
+      "size": 6539
+    },
+    {
+      "name": "minutes-2026-02-02-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "28e2a4bf7c7c",
+      "size": 6015
+    },
+    {
+      "name": "minutes-2026-02-09-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "92cc315dc7be",
+      "size": 6460
+    },
+    {
+      "name": "minutes-2026-02-09-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "2335d49211d7",
+      "size": 7039
+    },
+    {
+      "name": "minutes-2026-02-09-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "c9ee36dee742",
+      "size": 6838
+    },
+    {
+      "name": "minutes-2026-02-09-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "999195cfe5da",
+      "size": 6652
+    },
+    {
+      "name": "minutes-2026-02-09-data.md",
+      "family": "weekly-minutes",
+      "sha8": "8bb39d4b931f",
+      "size": 6493
+    },
+    {
+      "name": "minutes-2026-02-09-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "5226c5e720e5",
+      "size": 6748
+    },
+    {
+      "name": "minutes-2026-02-09-change.md",
+      "family": "weekly-minutes",
+      "sha8": "b9ff3a77592d",
+      "size": 6246
+    },
+    {
+      "name": "minutes-2026-02-09-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "a06761862d9c",
+      "size": 6022
+    },
+    {
+      "name": "minutes-2026-02-16-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "615a553635a6",
+      "size": 6497
+    },
+    {
+      "name": "minutes-2026-02-16-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "8771e3f27109",
+      "size": 5696
+    },
+    {
+      "name": "minutes-2026-02-16-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "f7c32ed3136f",
+      "size": 7119
+    },
+    {
+      "name": "minutes-2026-02-16-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "6ee10e5af5d2",
+      "size": 6596
+    },
+    {
+      "name": "minutes-2026-02-16-data.md",
+      "family": "weekly-minutes",
+      "sha8": "b0c687767395",
+      "size": 5485
+    },
+    {
+      "name": "minutes-2026-02-16-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "9d826f9fbead",
+      "size": 6947
+    },
+    {
+      "name": "minutes-2026-02-16-change.md",
+      "family": "weekly-minutes",
+      "sha8": "1895c7c97ffb",
+      "size": 5221
+    },
+    {
+      "name": "minutes-2026-02-16-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "b14a9573edbe",
+      "size": 6208
+    },
+    {
+      "name": "minutes-2026-02-23-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "2e1941f158b0",
+      "size": 6405
+    },
+    {
+      "name": "minutes-2026-02-23-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "4ad8f803c378",
+      "size": 6672
+    },
+    {
+      "name": "minutes-2026-02-23-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "ad0557ca9955",
+      "size": 6537
+    },
+    {
+      "name": "minutes-2026-02-23-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "63e5122b4f5a",
+      "size": 6617
+    },
+    {
+      "name": "minutes-2026-02-23-data.md",
+      "family": "weekly-minutes",
+      "sha8": "0299e983a75f",
+      "size": 6044
+    },
+    {
+      "name": "minutes-2026-02-23-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "49c5bc6ea123",
+      "size": 5750
+    },
+    {
+      "name": "minutes-2026-02-23-change.md",
+      "family": "weekly-minutes",
+      "sha8": "f8f0232c29d3",
+      "size": 5909
+    },
+    {
+      "name": "minutes-2026-02-23-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "fdc8ff433373",
+      "size": 5970
+    },
+    {
+      "name": "minutes-2026-03-02-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "b01811799537",
+      "size": 6718
+    },
+    {
+      "name": "minutes-2026-03-02-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "cc995bec82af",
+      "size": 6043
+    },
+    {
+      "name": "minutes-2026-03-02-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "27f15dfe3788",
+      "size": 7162
+    },
+    {
+      "name": "minutes-2026-03-02-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "c262d76fbbf9",
+      "size": 6682
+    },
+    {
+      "name": "minutes-2026-03-02-data.md",
+      "family": "weekly-minutes",
+      "sha8": "ff7d1ee6230d",
+      "size": 6033
+    },
+    {
+      "name": "minutes-2026-03-02-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "f2aba0d0d664",
+      "size": 6659
+    },
+    {
+      "name": "minutes-2026-03-02-change.md",
+      "family": "weekly-minutes",
+      "sha8": "d7ebbc4db406",
+      "size": 6364
+    },
+    {
+      "name": "minutes-2026-03-02-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "a21ff3e47827",
+      "size": 5886
+    },
+    {
+      "name": "minutes-2026-03-09-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "b407f7d1cfe9",
+      "size": 6588
+    },
+    {
+      "name": "minutes-2026-03-09-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "5d0a880b767c",
+      "size": 7060
+    },
+    {
+      "name": "minutes-2026-03-09-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "8aa91df84613",
+      "size": 6910
+    },
+    {
+      "name": "minutes-2026-03-09-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "4ab7f660a334",
+      "size": 6441
+    },
+    {
+      "name": "minutes-2026-03-09-data.md",
+      "family": "weekly-minutes",
+      "sha8": "e90f76f33a1a",
+      "size": 6115
+    },
+    {
+      "name": "minutes-2026-03-09-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "acd3aba0cf87",
+      "size": 6590
+    },
+    {
+      "name": "minutes-2026-03-09-change.md",
+      "family": "weekly-minutes",
+      "sha8": "c37edb7ffefa",
+      "size": 6468
+    },
+    {
+      "name": "minutes-2026-03-09-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "a36a31da56b9",
+      "size": 5282
+    },
+    {
+      "name": "minutes-2026-03-16-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "f05539a42c89",
+      "size": 5968
+    },
+    {
+      "name": "minutes-2026-03-16-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "dd1e63d7f2bc",
+      "size": 6955
+    },
+    {
+      "name": "minutes-2026-03-16-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "627e80fb40a4",
+      "size": 6998
+    },
+    {
+      "name": "minutes-2026-03-16-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "b7479fde7224",
+      "size": 6449
+    },
+    {
+      "name": "minutes-2026-03-16-data.md",
+      "family": "weekly-minutes",
+      "sha8": "0effe585c9c1",
+      "size": 6263
+    },
+    {
+      "name": "minutes-2026-03-16-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "5e18ec2ee876",
+      "size": 6801
+    },
+    {
+      "name": "minutes-2026-03-16-change.md",
+      "family": "weekly-minutes",
+      "sha8": "4c748b8c2cdd",
+      "size": 6165
+    },
+    {
+      "name": "minutes-2026-03-16-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "1d36703dd888",
+      "size": 5611
+    },
+    {
+      "name": "minutes-2026-03-23-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "7514f40c502f",
+      "size": 6577
+    },
+    {
+      "name": "minutes-2026-03-23-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "19ef9a4cd820",
+      "size": 6650
+    },
+    {
+      "name": "minutes-2026-03-23-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "5ac41ba8361e",
+      "size": 7177
+    },
+    {
+      "name": "minutes-2026-03-23-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "6e1483eb3876",
+      "size": 6705
+    },
+    {
+      "name": "minutes-2026-03-23-data.md",
+      "family": "weekly-minutes",
+      "sha8": "8dad6e80be9a",
+      "size": 6629
+    },
+    {
+      "name": "minutes-2026-03-23-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "7455f9bffd98",
+      "size": 6827
+    },
+    {
+      "name": "minutes-2026-03-23-change.md",
+      "family": "weekly-minutes",
+      "sha8": "5bf7171092f8",
+      "size": 6700
+    },
+    {
+      "name": "minutes-2026-03-23-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "6ac4c3ba92a9",
+      "size": 5654
+    },
+    {
+      "name": "minutes-2026-03-30-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "7042cbf580f6",
+      "size": 6846
+    },
+    {
+      "name": "minutes-2026-03-30-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "34d3b6ad0d2a",
+      "size": 6363
+    },
+    {
+      "name": "minutes-2026-03-30-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "161a133dba7f",
+      "size": 7124
+    },
+    {
+      "name": "minutes-2026-03-30-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "abd37951d1c3",
+      "size": 7097
+    },
+    {
+      "name": "minutes-2026-03-30-data.md",
+      "family": "weekly-minutes",
+      "sha8": "1fe63609dc0d",
+      "size": 6483
+    },
+    {
+      "name": "minutes-2026-03-30-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "2ac806f97849",
+      "size": 5974
+    },
+    {
+      "name": "minutes-2026-03-30-change.md",
+      "family": "weekly-minutes",
+      "sha8": "0591767181a1",
+      "size": 6123
+    },
+    {
+      "name": "minutes-2026-03-30-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "036f2521fa62",
+      "size": 5934
+    },
+    {
+      "name": "minutes-2026-04-06-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "8c18899dc94c",
+      "size": 6444
+    },
+    {
+      "name": "minutes-2026-04-06-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "8a6bcdfa5dd7",
+      "size": 6311
+    },
+    {
+      "name": "minutes-2026-04-06-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "bc1b6af6a485",
+      "size": 7100
+    },
+    {
+      "name": "minutes-2026-04-06-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "a73906c6bb4c",
+      "size": 6471
+    },
+    {
+      "name": "minutes-2026-04-06-data.md",
+      "family": "weekly-minutes",
+      "sha8": "f744949d6570",
+      "size": 6505
+    },
+    {
+      "name": "minutes-2026-04-06-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "44fdf92c6de9",
+      "size": 6540
+    },
+    {
+      "name": "minutes-2026-04-06-change.md",
+      "family": "weekly-minutes",
+      "sha8": "d313c89180f2",
+      "size": 6675
+    },
+    {
+      "name": "minutes-2026-04-06-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "93c79ffac315",
+      "size": 5850
+    },
+    {
+      "name": "minutes-2026-04-13-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "154d10271432",
+      "size": 6770
+    },
+    {
+      "name": "minutes-2026-04-13-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "5d27b7400469",
+      "size": 7062
+    },
+    {
+      "name": "minutes-2026-04-13-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "853e2e0e64c7",
+      "size": 6802
+    },
+    {
+      "name": "minutes-2026-04-13-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "6eab9869e721",
+      "size": 6617
+    },
+    {
+      "name": "minutes-2026-04-13-data.md",
+      "family": "weekly-minutes",
+      "sha8": "ff117317ed48",
+      "size": 6487
+    },
+    {
+      "name": "minutes-2026-04-13-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "a219cb13ce0d",
+      "size": 6569
+    },
+    {
+      "name": "minutes-2026-04-13-change.md",
+      "family": "weekly-minutes",
+      "sha8": "df00b57712b8",
+      "size": 6576
+    },
+    {
+      "name": "minutes-2026-04-13-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "1509bc949785",
+      "size": 6284
+    },
+    {
+      "name": "minutes-2026-04-20-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "c2f0402fdd9a",
+      "size": 6339
+    },
+    {
+      "name": "minutes-2026-04-20-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "f7f68707ffb9",
+      "size": 6829
+    },
+    {
+      "name": "minutes-2026-04-20-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "4716091795f2",
+      "size": 6849
+    },
+    {
+      "name": "minutes-2026-04-20-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "4f7d6097994a",
+      "size": 6961
+    },
+    {
+      "name": "minutes-2026-04-20-data.md",
+      "family": "weekly-minutes",
+      "sha8": "8d4eb6cb8205",
+      "size": 6650
+    },
+    {
+      "name": "minutes-2026-04-20-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "96b823e36a79",
+      "size": 6279
+    },
+    {
+      "name": "minutes-2026-04-20-change.md",
+      "family": "weekly-minutes",
+      "sha8": "a439c296809f",
+      "size": 6800
+    },
+    {
+      "name": "minutes-2026-04-20-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "d471a1792a94",
+      "size": 5531
+    },
+    {
+      "name": "minutes-2026-04-27-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "66098b3b7b38",
+      "size": 6455
+    },
+    {
+      "name": "minutes-2026-04-27-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "528103563734",
+      "size": 6643
+    },
+    {
+      "name": "minutes-2026-04-27-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "69f10a6add11",
+      "size": 6896
+    },
+    {
+      "name": "minutes-2026-04-27-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "ca0c3ca6ef5b",
+      "size": 6322
+    },
+    {
+      "name": "minutes-2026-04-27-data.md",
+      "family": "weekly-minutes",
+      "sha8": "9355874c5589",
+      "size": 6218
+    },
+    {
+      "name": "minutes-2026-04-27-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "20da9cc5fdfc",
+      "size": 6658
+    },
+    {
+      "name": "minutes-2026-04-27-change.md",
+      "family": "weekly-minutes",
+      "sha8": "91d8b8f176cd",
+      "size": 6030
+    },
+    {
+      "name": "minutes-2026-04-27-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "420b33f65442",
+      "size": 5952
+    },
+    {
+      "name": "minutes-2026-05-04-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "41654a1f8ebb",
+      "size": 6827
+    },
+    {
+      "name": "minutes-2026-05-04-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "d7e9cfda689e",
+      "size": 6818
+    },
+    {
+      "name": "minutes-2026-05-04-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "9d90bf750762",
+      "size": 6940
+    },
+    {
+      "name": "minutes-2026-05-04-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "7bba80187e50",
+      "size": 7210
+    },
+    {
+      "name": "minutes-2026-05-04-data.md",
+      "family": "weekly-minutes",
+      "sha8": "9506a8ca23f7",
+      "size": 6723
+    },
+    {
+      "name": "minutes-2026-05-04-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "73f013929431",
+      "size": 6691
+    },
+    {
+      "name": "minutes-2026-05-04-change.md",
+      "family": "weekly-minutes",
+      "sha8": "91b1db58da78",
+      "size": 6268
+    },
+    {
+      "name": "minutes-2026-05-04-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "b167df96e31f",
+      "size": 6191
+    },
+    {
+      "name": "minutes-2026-05-11-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "77c5655d8017",
+      "size": 7263
+    },
+    {
+      "name": "minutes-2026-05-11-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "b152cda978c9",
+      "size": 6636
+    },
+    {
+      "name": "minutes-2026-05-11-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "2e9bb064f7aa",
+      "size": 6146
+    },
+    {
+      "name": "minutes-2026-05-11-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "2c95159b2d6c",
+      "size": 7043
+    },
+    {
+      "name": "minutes-2026-05-11-data.md",
+      "family": "weekly-minutes",
+      "sha8": "25803a3b4ef7",
+      "size": 6796
+    },
+    {
+      "name": "minutes-2026-05-11-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "51a117f100c8",
+      "size": 6506
+    },
+    {
+      "name": "minutes-2026-05-11-change.md",
+      "family": "weekly-minutes",
+      "sha8": "96ca8a396dbc",
+      "size": 6709
+    },
+    {
+      "name": "minutes-2026-05-11-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "25972a738208",
+      "size": 6202
+    },
+    {
+      "name": "minutes-2026-05-18-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "f951c9e9ecf1",
+      "size": 7232
+    },
+    {
+      "name": "minutes-2026-05-18-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "4d47dcfc0280",
+      "size": 6603
+    },
+    {
+      "name": "minutes-2026-05-18-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "38efd6b3e24a",
+      "size": 6214
+    },
+    {
+      "name": "minutes-2026-05-18-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "f9b2a2953ea3",
+      "size": 6812
+    },
+    {
+      "name": "minutes-2026-05-18-data.md",
+      "family": "weekly-minutes",
+      "sha8": "5383503751b1",
+      "size": 6731
+    },
+    {
+      "name": "minutes-2026-05-18-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "fecbb99e348c",
+      "size": 6829
+    },
+    {
+      "name": "minutes-2026-05-18-change.md",
+      "family": "weekly-minutes",
+      "sha8": "7b30c5ee572c",
+      "size": 5917
+    },
+    {
+      "name": "minutes-2026-05-18-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "77e2da628caf",
+      "size": 6602
+    },
+    {
+      "name": "minutes-2026-05-25-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "8918cf46ba73",
+      "size": 7074
+    },
+    {
+      "name": "minutes-2026-05-25-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "52f4ed046e8e",
+      "size": 6143
+    },
+    {
+      "name": "minutes-2026-05-25-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "738538432773",
+      "size": 6893
+    },
+    {
+      "name": "minutes-2026-05-25-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "438dbb8a1a5e",
+      "size": 6413
+    },
+    {
+      "name": "minutes-2026-05-25-data.md",
+      "family": "weekly-minutes",
+      "sha8": "3af51f5c4149",
+      "size": 6375
+    },
+    {
+      "name": "minutes-2026-05-25-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "064512fdf925",
+      "size": 6502
+    },
+    {
+      "name": "minutes-2026-05-25-change.md",
+      "family": "weekly-minutes",
+      "sha8": "fc81aec2192a",
+      "size": 6557
+    },
+    {
+      "name": "minutes-2026-05-25-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "ee3ee485929e",
+      "size": 6108
+    },
+    {
+      "name": "minutes-2026-06-01-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "4bb6cc4ba72b",
+      "size": 6828
+    },
+    {
+      "name": "minutes-2026-06-01-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "a5ab39dd9632",
+      "size": 7063
+    },
+    {
+      "name": "minutes-2026-06-01-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "ed7d6e5cb82a",
+      "size": 6723
+    },
+    {
+      "name": "minutes-2026-06-01-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "d7225c3d928b",
+      "size": 6939
+    },
+    {
+      "name": "minutes-2026-06-01-data.md",
+      "family": "weekly-minutes",
+      "sha8": "f9431fceca3a",
+      "size": 6545
+    },
+    {
+      "name": "minutes-2026-06-01-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "652ef2f9fb3b",
+      "size": 6495
+    },
+    {
+      "name": "minutes-2026-06-01-change.md",
+      "family": "weekly-minutes",
+      "sha8": "cfefb9242d75",
+      "size": 6103
+    },
+    {
+      "name": "minutes-2026-06-01-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "1545f1dfe3d1",
+      "size": 5956
+    },
+    {
+      "name": "minutes-2026-06-08-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "de7b9c43e1f6",
+      "size": 7166
+    },
+    {
+      "name": "minutes-2026-06-08-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "a5c22115b9fe",
+      "size": 7087
+    },
+    {
+      "name": "minutes-2026-06-08-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "fa43f1dfe39c",
+      "size": 7102
+    },
+    {
+      "name": "minutes-2026-06-08-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "96492676e4dc",
+      "size": 7066
+    },
+    {
+      "name": "minutes-2026-06-08-data.md",
+      "family": "weekly-minutes",
+      "sha8": "abe229626c25",
+      "size": 6740
+    },
+    {
+      "name": "minutes-2026-06-08-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "18485e61e694",
+      "size": 6849
+    },
+    {
+      "name": "minutes-2026-06-08-change.md",
+      "family": "weekly-minutes",
+      "sha8": "d6b8dab20488",
+      "size": 6444
+    },
+    {
+      "name": "minutes-2026-06-08-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "4188f56e74f9",
+      "size": 6292
+    },
+    {
+      "name": "minutes-2026-06-15-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "bf64ad81337a",
+      "size": 7171
+    },
+    {
+      "name": "minutes-2026-06-15-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "bf9c3f419f06",
+      "size": 7042
+    },
+    {
+      "name": "minutes-2026-06-15-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "42413c0e3b38",
+      "size": 6509
+    },
+    {
+      "name": "minutes-2026-06-15-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "01caf6ad1526",
+      "size": 6510
+    },
+    {
+      "name": "minutes-2026-06-15-data.md",
+      "family": "weekly-minutes",
+      "sha8": "b0506f3b9c35",
+      "size": 6911
+    },
+    {
+      "name": "minutes-2026-06-15-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "6f88592aedbc",
+      "size": 6934
+    },
+    {
+      "name": "minutes-2026-06-15-change.md",
+      "family": "weekly-minutes",
+      "sha8": "bec6e30d3aec",
+      "size": 6545
+    },
+    {
+      "name": "minutes-2026-06-15-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "17ab9636b1bd",
+      "size": 6220
+    },
+    {
+      "name": "minutes-2026-06-22-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "7d38198661c0",
+      "size": 6888
+    },
+    {
+      "name": "minutes-2026-06-22-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "07428dea31d1",
+      "size": 7038
+    },
+    {
+      "name": "minutes-2026-06-22-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "92e35a2bd3eb",
+      "size": 7063
+    },
+    {
+      "name": "minutes-2026-06-22-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "e78eb28afb7d",
+      "size": 6537
+    },
+    {
+      "name": "minutes-2026-06-22-data.md",
+      "family": "weekly-minutes",
+      "sha8": "1eddafd3d1a8",
+      "size": 6158
+    },
+    {
+      "name": "minutes-2026-06-22-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "ee3934d1eb4c",
+      "size": 7206
+    },
+    {
+      "name": "minutes-2026-06-22-change.md",
+      "family": "weekly-minutes",
+      "sha8": "f7db5ce0d7d6",
+      "size": 6735
+    },
+    {
+      "name": "minutes-2026-06-22-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "906bc8dfef5a",
+      "size": 5617
+    },
+    {
+      "name": "minutes-2026-06-29-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "f038f72235bb",
+      "size": 7139
+    },
+    {
+      "name": "minutes-2026-06-29-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "e0c2fc904696",
+      "size": 6900
+    },
+    {
+      "name": "minutes-2026-06-29-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "d7db1a5e405b",
+      "size": 6549
+    },
+    {
+      "name": "minutes-2026-06-29-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "b457a6173c7a",
+      "size": 6939
+    },
+    {
+      "name": "minutes-2026-06-29-data.md",
+      "family": "weekly-minutes",
+      "sha8": "83de1eef84ad",
+      "size": 5749
+    },
+    {
+      "name": "minutes-2026-06-29-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "923e16da99a9",
+      "size": 6471
+    },
+    {
+      "name": "minutes-2026-06-29-change.md",
+      "family": "weekly-minutes",
+      "sha8": "88d945bccf28",
+      "size": 6006
+    },
+    {
+      "name": "minutes-2026-06-29-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "c8495514c328",
+      "size": 6583
+    },
+    {
+      "name": "minutes-2026-07-06-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "c012486f4665",
+      "size": 6889
+    },
+    {
+      "name": "minutes-2026-07-06-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "05cff781614d",
+      "size": 6397
+    },
+    {
+      "name": "minutes-2026-07-06-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "442786fa7b62",
+      "size": 7205
+    },
+    {
+      "name": "minutes-2026-07-06-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "c3a9eb0258ca",
+      "size": 6825
+    },
+    {
+      "name": "minutes-2026-07-06-data.md",
+      "family": "weekly-minutes",
+      "sha8": "3ff125b3e605",
+      "size": 6110
+    },
+    {
+      "name": "minutes-2026-07-06-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "6f3cb412ed0c",
+      "size": 6638
+    },
+    {
+      "name": "minutes-2026-07-06-change.md",
+      "family": "weekly-minutes",
+      "sha8": "e837c2af5ebe",
+      "size": 6356
+    },
+    {
+      "name": "minutes-2026-07-06-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "3c9d63ea3f4f",
+      "size": 6198
+    },
+    {
+      "name": "minutes-2026-07-13-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "f2239c741dc1",
+      "size": 7135
+    },
+    {
+      "name": "minutes-2026-07-13-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "f9286dc8ccfe",
+      "size": 7075
+    },
+    {
+      "name": "minutes-2026-07-13-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "c9b8723d11bf",
+      "size": 6301
+    },
+    {
+      "name": "minutes-2026-07-13-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "77f6595bce47",
+      "size": 5980
+    },
+    {
+      "name": "minutes-2026-07-13-data.md",
+      "family": "weekly-minutes",
+      "sha8": "00d6d622c60b",
+      "size": 6163
+    },
+    {
+      "name": "minutes-2026-07-13-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "adf65150fe2d",
+      "size": 6752
+    },
+    {
+      "name": "minutes-2026-07-13-change.md",
+      "family": "weekly-minutes",
+      "sha8": "ce9f73df8fed",
+      "size": 6654
+    },
+    {
+      "name": "minutes-2026-07-13-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "8d11df25032a",
+      "size": 6653
+    },
+    {
+      "name": "minutes-2026-07-20-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "22816feb8ff1",
+      "size": 6685
+    },
+    {
+      "name": "minutes-2026-07-20-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "f9b5c200e858",
+      "size": 6122
+    },
+    {
+      "name": "minutes-2026-07-20-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "cac21e7e082a",
+      "size": 6463
+    },
+    {
+      "name": "minutes-2026-07-20-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "b5e433012b98",
+      "size": 6999
+    },
+    {
+      "name": "minutes-2026-07-20-data.md",
+      "family": "weekly-minutes",
+      "sha8": "b41aeb684a5b",
+      "size": 6412
+    },
+    {
+      "name": "minutes-2026-07-20-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "ceac3e94bbfc",
+      "size": 6969
+    },
+    {
+      "name": "minutes-2026-07-20-change.md",
+      "family": "weekly-minutes",
+      "sha8": "cb16e306c858",
+      "size": 7124
+    },
+    {
+      "name": "minutes-2026-07-20-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "41d28eb4124e",
+      "size": 6450
+    },
+    {
+      "name": "minutes-2026-07-27-finance.md",
+      "family": "weekly-minutes",
+      "sha8": "2658d4f4b496",
+      "size": 7365
+    },
+    {
+      "name": "minutes-2026-07-27-procurement.md",
+      "family": "weekly-minutes",
+      "sha8": "634dfb917d80",
+      "size": 6793
+    },
+    {
+      "name": "minutes-2026-07-27-logistics.md",
+      "family": "weekly-minutes",
+      "sha8": "88eda8c13b8b",
+      "size": 7171
+    },
+    {
+      "name": "minutes-2026-07-27-manufacturing.md",
+      "family": "weekly-minutes",
+      "sha8": "39ebf52c7453",
+      "size": 6939
+    },
+    {
+      "name": "minutes-2026-07-27-data.md",
+      "family": "weekly-minutes",
+      "sha8": "dedc3c18b3de",
+      "size": 6292
+    },
+    {
+      "name": "minutes-2026-07-27-architecture.md",
+      "family": "weekly-minutes",
+      "sha8": "8349c861bf38",
+      "size": 6434
+    },
+    {
+      "name": "minutes-2026-07-27-change.md",
+      "family": "weekly-minutes",
+      "sha8": "37eb6438a8ce",
+      "size": 6940
+    },
+    {
+      "name": "minutes-2026-07-27-testing.md",
+      "family": "weekly-minutes",
+      "sha8": "94cc7c66410a",
+      "size": 6554
+    },
+    {
+      "name": "decision-log-2026-02.md",
+      "family": "decision-log",
+      "sha8": "88f74b7e1e18",
+      "size": 17503
+    },
+    {
+      "name": "decision-log-2026-03.md",
+      "family": "decision-log",
+      "sha8": "fd84cb7ff1d8",
+      "size": 18858
+    },
+    {
+      "name": "decision-log-2026-04.md",
+      "family": "decision-log",
+      "sha8": "d74692d654d1",
+      "size": 17367
+    },
+    {
+      "name": "decision-log-2026-05.md",
+      "family": "decision-log",
+      "sha8": "42df71fb1df8",
+      "size": 17925
+    },
+    {
+      "name": "decision-log-2026-06.md",
+      "family": "decision-log",
+      "sha8": "8a96f4f7b6cc",
+      "size": 17986
+    },
+    {
+      "name": "decision-log-2026-07.md",
+      "family": "decision-log",
+      "sha8": "0febc5232fc0",
+      "size": 15496
+    },
+    {
+      "name": "risk-register-2026-q1.md",
+      "family": "risk-register",
+      "sha8": "9085d92ea194",
+      "size": 28860
+    },
+    {
+      "name": "risk-register-2026-q2.md",
+      "family": "risk-register",
+      "sha8": "a9acf176598f",
+      "size": 30987
+    },
+    {
+      "name": "risk-register-2026-q3.md",
+      "family": "risk-register",
+      "sha8": "8f439884195a",
+      "size": 23178
+    },
+    {
+      "name": "curriculum-accounts-payable-clerk.md",
+      "family": "role-curriculum",
+      "sha8": "4a836a972f5b",
+      "size": 4769
+    },
+    {
+      "name": "curriculum-accounts-receivable-specialist.md",
+      "family": "role-curriculum",
+      "sha8": "57bdeec20190",
+      "size": 4839
+    },
+    {
+      "name": "curriculum-general-ledger-accountant.md",
+      "family": "role-curriculum",
+      "sha8": "63732c5b20a6",
+      "size": 4588
+    },
+    {
+      "name": "curriculum-asset-accountant.md",
+      "family": "role-curriculum",
+      "sha8": "e9434a3a7444",
+      "size": 4520
+    },
+    {
+      "name": "curriculum-cost-controller.md",
+      "family": "role-curriculum",
+      "sha8": "6b7a824f4f8c",
+      "size": 4661
+    },
+    {
+      "name": "curriculum-financial-close-coordinator.md",
+      "family": "role-curriculum",
+      "sha8": "ea37d063c9ce",
+      "size": 4629
+    },
+    {
+      "name": "curriculum-operational-buyer.md",
+      "family": "role-curriculum",
+      "sha8": "2d8ff2383fd0",
+      "size": 4849
+    },
+    {
+      "name": "curriculum-strategic-sourcing-manager.md",
+      "family": "role-curriculum",
+      "sha8": "ccde2ac0c451",
+      "size": 4566
+    },
+    {
+      "name": "curriculum-purchasing-group-lead.md",
+      "family": "role-curriculum",
+      "sha8": "c47d97e08fcf",
+      "size": 4613
+    },
+    {
+      "name": "curriculum-invoice-verification-clerk.md",
+      "family": "role-curriculum",
+      "sha8": "5448c4659ac8",
+      "size": 4563
+    },
+    {
+      "name": "curriculum-inventory-controller.md",
+      "family": "role-curriculum",
+      "sha8": "8f184921c63e",
+      "size": 4780
+    },
+    {
+      "name": "curriculum-order-desk-agent.md",
+      "family": "role-curriculum",
+      "sha8": "c9fac334fc32",
+      "size": 4615
+    },
+    {
+      "name": "curriculum-customer-service-representative.md",
+      "family": "role-curriculum",
+      "sha8": "46aa54d88eb7",
+      "size": 4722
+    },
+    {
+      "name": "curriculum-pricing-analyst.md",
+      "family": "role-curriculum",
+      "sha8": "2fbe79fe6c2e",
+      "size": 4763
+    },
+    {
+      "name": "curriculum-shipping-clerk.md",
+      "family": "role-curriculum",
+      "sha8": "5780c4c9ccea",
+      "size": 4829
+    },
+    {
+      "name": "curriculum-warehouse-supervisor.md",
+      "family": "role-curriculum",
+      "sha8": "665b7252625e",
+      "size": 4477
+    },
+    {
+      "name": "curriculum-transportation-planner.md",
+      "family": "role-curriculum",
+      "sha8": "c42cc7bdb3ed",
+      "size": 4512
+    },
+    {
+      "name": "curriculum-production-planner.md",
+      "family": "role-curriculum",
+      "sha8": "2cb7df851bc0",
+      "size": 4473
+    },
+    {
+      "name": "curriculum-shop-floor-supervisor.md",
+      "family": "role-curriculum",
+      "sha8": "d1045dcb309b",
+      "size": 4537
+    },
+    {
+      "name": "curriculum-machine-operator-confirmation.md",
+      "family": "role-curriculum",
+      "sha8": "55b6b4ea7d34",
+      "size": 4513
+    },
+    {
+      "name": "curriculum-quality-inspector.md",
+      "family": "role-curriculum",
+      "sha8": "cd13e25b642e",
+      "size": 4545
+    },
+    {
+      "name": "curriculum-quality-engineer.md",
+      "family": "role-curriculum",
+      "sha8": "4b546e80dc75",
+      "size": 4607
+    },
+    {
+      "name": "curriculum-maintenance-planner.md",
+      "family": "role-curriculum",
+      "sha8": "0adc19af0bda",
+      "size": 4406
+    },
+    {
+      "name": "curriculum-manufacturing-master-data-steward.md",
+      "family": "role-curriculum",
+      "sha8": "8533a54761c9",
+      "size": 4501
+    },
+    {
+      "name": "curriculum-data-cleansing-analyst.md",
+      "family": "role-curriculum",
+      "sha8": "0c06217c495c",
+      "size": 4574
+    },
+    {
+      "name": "curriculum-migration-object-owner.md",
+      "family": "role-curriculum",
+      "sha8": "cd96d93cca4c",
+      "size": 4560
+    },
+    {
+      "name": "curriculum-basis-administrator.md",
+      "family": "role-curriculum",
+      "sha8": "f9172ff15b8d",
+      "size": 4801
+    },
+    {
+      "name": "curriculum-integration-developer.md",
+      "family": "role-curriculum",
+      "sha8": "001243b877a7",
+      "size": 4576
+    },
+    {
+      "name": "curriculum-authorization-administrator.md",
+      "family": "role-curriculum",
+      "sha8": "6e8613c7af43",
+      "size": 4507
+    },
+    {
+      "name": "curriculum-fiori-launchpad-administrator.md",
+      "family": "role-curriculum",
+      "sha8": "0ff2a666c5c7",
+      "size": 4608
+    },
+    {
+      "name": "curriculum-site-champion.md",
+      "family": "role-curriculum",
+      "sha8": "cff0bc4c6658",
+      "size": 4669
+    },
+    {
+      "name": "curriculum-training-coordinator.md",
+      "family": "role-curriculum",
+      "sha8": "1ad790143b84",
+      "size": 4444
+    },
+    {
+      "name": "curriculum-test-coordinator.md",
+      "family": "role-curriculum",
+      "sha8": "1f5f7e8dbf78",
+      "size": 4568
+    },
+    {
+      "name": "curriculum-business-test-executor.md",
+      "family": "role-curriculum",
+      "sha8": "7043532959cb",
+      "size": 4531
+    },
+    {
+      "name": "site-readiness-m001.md",
+      "family": "site-readiness",
+      "sha8": "47a4e1f68dac",
+      "size": 5427
+    },
+    {
+      "name": "site-readiness-m002.md",
+      "family": "site-readiness",
+      "sha8": "d0121461554c",
+      "size": 5401
+    },
+    {
+      "name": "site-readiness-m003.md",
+      "family": "site-readiness",
+      "sha8": "7405271ed919",
+      "size": 5563
+    },
+    {
+      "name": "site-readiness-u001.md",
+      "family": "site-readiness",
+      "sha8": "0ea3d73480ab",
+      "size": 5573
+    },
+    {
+      "name": "site-readiness-u002.md",
+      "family": "site-readiness",
+      "sha8": "80aa67205663",
+      "size": 5478
+    },
+    {
+      "name": "site-readiness-f001.md",
+      "family": "site-readiness",
+      "sha8": "fe418e31e0d0",
+      "size": 5122
+    },
+    {
+      "name": "site-readiness-x001.md",
+      "family": "site-readiness",
+      "sha8": "68189c2192a9",
+      "size": 5126
+    },
+    {
+      "name": "site-readiness-c001.md",
+      "family": "site-readiness",
+      "sha8": "0aa8fcbc7d2b",
+      "size": 4964
+    },
+    {
+      "name": "site-readiness-i001.md",
+      "family": "site-readiness",
+      "sha8": "c98c57b409bb",
+      "size": 5010
+    },
+    {
+      "name": "site-readiness-b001.md",
+      "family": "site-readiness",
+      "sha8": "6074d4939be6",
+      "size": 5241
+    },
+    {
+      "name": "site-readiness-j001.md",
+      "family": "site-readiness",
+      "sha8": "1c88452f6714",
+      "size": 4976
+    },
+    {
+      "name": "site-readiness-j002.md",
+      "family": "site-readiness",
+      "sha8": "5da2fe079561",
+      "size": 5303
+    },
+    {
+      "name": "interface-int-004.md",
+      "family": "interface-spec",
+      "sha8": "3c4efa3b9724",
+      "size": 4449
+    },
+    {
+      "name": "interface-int-007.md",
+      "family": "interface-spec",
+      "sha8": "41c5e852d2e0",
+      "size": 4433
+    },
+    {
+      "name": "interface-int-011.md",
+      "family": "interface-spec",
+      "sha8": "8506297fec2f",
+      "size": 4439
+    },
+    {
+      "name": "interface-int-013.md",
+      "family": "interface-spec",
+      "sha8": "fc2c92fe079b",
+      "size": 4466
+    },
+    {
+      "name": "interface-int-016.md",
+      "family": "interface-spec",
+      "sha8": "1dee95774d43",
+      "size": 4317
+    },
+    {
+      "name": "interface-int-019.md",
+      "family": "interface-spec",
+      "sha8": "f30c14dc5577",
+      "size": 4466
+    },
+    {
+      "name": "interface-int-022.md",
+      "family": "interface-spec",
+      "sha8": "b1f88d4c0605",
+      "size": 4326
+    },
+    {
+      "name": "interface-int-024.md",
+      "family": "interface-spec",
+      "sha8": "7506e9952630",
+      "size": 4457
+    },
+    {
+      "name": "interface-int-027.md",
+      "family": "interface-spec",
+      "sha8": "5941f6feb836",
+      "size": 4442
+    },
+    {
+      "name": "interface-int-031.md",
+      "family": "interface-spec",
+      "sha8": "db97003f1a09",
+      "size": 4454
+    },
+    {
+      "name": "interface-int-034.md",
+      "family": "interface-spec",
+      "sha8": "8195d806f321",
+      "size": 4397
+    },
+    {
+      "name": "interface-int-038.md",
+      "family": "interface-spec",
+      "sha8": "6b88dd20a849",
+      "size": 4364
+    },
+    {
+      "name": "interface-int-041.md",
+      "family": "interface-spec",
+      "sha8": "e757508adda4",
+      "size": 4412
+    },
+    {
+      "name": "interface-int-045.md",
+      "family": "interface-spec",
+      "sha8": "7a8ebc8a4735",
+      "size": 4453
+    },
+    {
+      "name": "interface-int-049.md",
+      "family": "interface-spec",
+      "sha8": "61b9934ac52d",
+      "size": 4348
+    },
+    {
+      "name": "interface-int-052.md",
+      "family": "interface-spec",
+      "sha8": "a0e89d14b4cc",
+      "size": 4326
+    },
+    {
+      "name": "interface-int-056.md",
+      "family": "interface-spec",
+      "sha8": "7035bd57dfef",
+      "size": 4455
+    },
+    {
+      "name": "interface-int-061.md",
+      "family": "interface-spec",
+      "sha8": "035d128a578d",
+      "size": 4436
+    },
+    {
+      "name": "interface-int-068.md",
+      "family": "interface-spec",
+      "sha8": "590657eab661",
+      "size": 4422
+    },
+    {
+      "name": "interface-int-073.md",
+      "family": "interface-spec",
+      "sha8": "64cdd6ca031d",
+      "size": 4428
     }
   ]
 }

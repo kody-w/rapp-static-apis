@@ -1,0 +1,232 @@
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#microsoft.graph.searchResponse",
+  "value": [
+    {
+      "searchTerms": [
+        "who",
+        "owns",
+        "procure-to-pay"
+      ],
+      "hitsContainers": [
+        {
+          "total": 28,
+          "moreResultsAvailable": true,
+          "hits": [
+            {
+              "hitId": "01547C8E16FC77820B24F2D4645942DA2D",
+              "rank": 1,
+              "summary": "…ity from scope item to test case now covers the large majority of the Wave 1 scope. Ruth Kimani reported that procure-to-pay authoring is behind the SIT-1 entry requirement and has been reprioritised by risk rather than by sequence. Julia Meyer will publish th…",
+              "resource": {
+                "@odata.type": "#microsoft.graph.driveItem",
+                "id": "01547C8E16FC77820B24F2D4645942DA2D",
+                "name": "minutes-2026-07-27-testing.md",
+                "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-27-testing.md",
+                "size": 6554,
+                "lastModifiedDateTime": "2026-07-31T14:12:00Z",
+                "lastModifiedBy": {
+                  "user": {
+                    "displayName": "Ahmed Hassan"
+                  }
+                },
+                "file": {
+                  "mimeType": "text/markdown"
+                },
+                "parentReference": {
+                  "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+                  "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+                },
+                "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-27-testing.md"
+              }
+            },
+            {
+              "hitId": "01AECAF57B2CBF48BE7CDA502A7DF55164",
+              "rank": 2,
+              "summary": "…arma | Luis Ortega | priya.sharma@meridian-mfg.example | Purchasing, inventory management, Ariba integration, Procure-to-Pay | | Sales & Logistics (SD/LE) | Marcus Webb | Yuki Tanaka | marcus.webb@meridian-mfg.example | Sales orders, pricing, shipping, transpo…",
+              "resource": {
+                "@odata.type": "#microsoft.graph.driveItem",
+                "id": "01AECAF57B2CBF48BE7CDA502A7DF55164",
+                "name": "workstream-directory.md",
+                "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/workstream-directory.md",
+                "size": 2296,
+                "lastModifiedDateTime": "2026-07-21T14:30:00Z",
+                "lastModifiedBy": {
+                  "user": {
+                    "displayName": "Oliver Brandt"
+                  }
+                },
+                "file": {
+                  "mimeType": "text/markdown"
+                },
+                "parentReference": {
+                  "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+                  "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+                },
+                "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/workstream-directory.md"
+              }
+            },
+            {
+              "hitId": "0109B840E1F8804C7BAE8D9DA11E3E5EA5",
+              "rank": 3,
+              "summary": "…ity from scope item to test case now covers the large majority of the Wave 1 scope. Divya Menon reported that procure-to-pay authoring is behind the SIT-1 entry requirement and has been reprioritised by risk rather than by sequence. Julia Meyer will publish th…",
+              "resource": {
+                "@odata.type": "#microsoft.graph.driveItem",
+                "id": "0109B840E1F8804C7BAE8D9DA11E3E5EA5",
+                "name": "minutes-2026-02-02-testing.md",
+                "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-02-02-testing.md",
+                "size": 6015,
+                "lastModifiedDateTime": "2026-02-06T16:35:00Z",
+                "lastModifiedBy": {
+                  "user": {
+                    "displayName": "Julia Meyer"
+                  }
+                },
+                "file": {
+                  "mimeType": "text/markdown"
+                },
+                "parentReference": {
+                  "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+                  "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+                },
+                "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-02-02-testing.md"
+              }
+            },
+            {
+              "hitId": "01EA55437AE323642815D95341859CAA0D",
+              "rank": 4,
+              "summary": "…from scope item to test case now covers the large majority of the Wave 1 scope. Jonas Bergstrom reported that procure-to-pay authoring is behind the SIT-1 entry requirement and has been reprioritised by risk rather than by sequence. Julia Meyer will publish th…",
+              "resource": {
+                "@odata.type": "#microsoft.graph.driveItem",
+                "id": "01EA55437AE323642815D95341859CAA0D",
+                "name": "minutes-2026-03-02-testing.md",
+                "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-03-02-testing.md",
+                "size": 5886,
+                "lastModifiedDateTime": "2026-03-06T14:55:00Z",
+                "lastModifiedBy": {
+                  "user": {
+                    "displayName": "Ahmed Hassan"
+                  }
+                },
+                "file": {
+                  "mimeType": "text/markdown"
+                },
+                "parentReference": {
+                  "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+                  "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+                },
+                "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-03-02-testing.md"
+              }
+            },
+            {
+              "hitId": "01B59CEF78B5C89DB74EF97F5263543D2E",
+              "rank": 5,
+              "summary": "…ity from scope item to test case now covers the large majority of the Wave 1 scope. Ruth Kimani reported that procure-to-pay authoring is behind the SIT-1 entry requirement and has been reprioritised by risk rather than by sequence. Julia Meyer will publish th…",
+              "resource": {
+                "@odata.type": "#microsoft.graph.driveItem",
+                "id": "01B59CEF78B5C89DB74EF97F5263543D2E",
+                "name": "minutes-2026-06-01-testing.md",
+                "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-06-01-testing.md",
+                "size": 5956,
+                "lastModifiedDateTime": "2026-06-05T13:41:00Z",
+                "lastModifiedBy": {
+                  "user": {
+                    "displayName": "Ahmed Hassan"
+                  }
+                },
+                "file": {
+                  "mimeType": "text/markdown"
+                },
+                "parentReference": {
+                  "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+                  "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+                },
+                "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-06-01-testing.md"
+              }
+            },
+            {
+              "hitId": "015901720049FD5DB85480E285BB4ACF75",
+              "rank": 6,
+              "summary": "…r enablement remains the stream's tracked exposure under RSK-0051; onboarding is behind the plan the indirect procure-to-pay flow assumes. Luis Ortega confirmed the enablement sprint is scheduled for September 2026 and that suppliers are sequenced by spend so…",
+              "resource": {
+                "@odata.type": "#microsoft.graph.driveItem",
+                "id": "015901720049FD5DB85480E285BB4ACF75",
+                "name": "minutes-2026-06-15-procurement.md",
+                "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-06-15-procurement.md",
+                "size": 7042,
+                "lastModifiedDateTime": "2026-06-19T16:27:00Z",
+                "lastModifiedBy": {
+                  "user": {
+                    "displayName": "Luis Ortega"
+                  }
+                },
+                "file": {
+                  "mimeType": "text/markdown"
+                },
+                "parentReference": {
+                  "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+                  "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+                },
+                "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-06-15-procurement.md"
+              }
+            },
+            {
+              "hitId": "014B13A82E2389EBCC2169439C10A9F1A0",
+              "rank": 7,
+              "summary": "…r enablement remains the stream's tracked exposure under RSK-0051; onboarding is behind the plan the indirect procure-to-pay flow assumes. Luis Ortega confirmed the enablement sprint is scheduled for September 2026 and that suppliers are sequenced by spend so…",
+              "resource": {
+                "@odata.type": "#microsoft.graph.driveItem",
+                "id": "014B13A82E2389EBCC2169439C10A9F1A0",
+                "name": "minutes-2026-07-06-procurement.md",
+                "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-06-procurement.md",
+                "size": 6397,
+                "lastModifiedDateTime": "2026-07-10T13:41:00Z",
+                "lastModifiedBy": {
+                  "user": {
+                    "displayName": "Priya Sharma"
+                  }
+                },
+                "file": {
+                  "mimeType": "text/markdown"
+                },
+                "parentReference": {
+                  "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+                  "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+                },
+                "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-06-procurement.md"
+              }
+            },
+            {
+              "hitId": "01A76321B41A38062623A89DFB16BB5545",
+              "rank": 8,
+              "summary": "…r enablement remains the stream's tracked exposure under RSK-0051; onboarding is behind the plan the indirect procure-to-pay flow assumes. Luis Ortega confirmed the enablement sprint is scheduled for September 2026 and that suppliers are sequenced by spend so…",
+              "resource": {
+                "@odata.type": "#microsoft.graph.driveItem",
+                "id": "01A76321B41A38062623A89DFB16BB5545",
+                "name": "minutes-2026-07-27-procurement.md",
+                "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-27-procurement.md",
+                "size": 6793,
+                "lastModifiedDateTime": "2026-07-31T15:35:00Z",
+                "lastModifiedBy": {
+                  "user": {
+                    "displayName": "Priya Sharma"
+                  }
+                },
+                "file": {
+                  "mimeType": "text/markdown"
+                },
+                "parentReference": {
+                  "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+                  "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+                },
+                "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-27-procurement.md"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "query": {
+    "queryString": "who owns procure-to-pay"
+  },
+  "note": "Response-shaped sample for the Graph Search API, generated from the real Project Phoenix corpus in this repository. Fully synthetic."
+}

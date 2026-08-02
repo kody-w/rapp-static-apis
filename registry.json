@@ -6,10 +6,10 @@
   "spec": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/SPEC.md",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main",
   "pages_base": "https://kody-w.github.io/rapp-static-apis",
-  "generated": "2026-08-02T18:33:30Z",
+  "generated": "2026-08-02T19:12:36Z",
   "summary": {
-    "apis": 19,
-    "with_status_endpoint": 19,
+    "apis": 20,
+    "with_status_endpoint": 20,
     "content_addressed": 4
   },
   "entries": [
@@ -49,6 +49,18 @@
       "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataverse/api/v1/status.json",
       "badge": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataverse/api/v1/badge.json",
       "dashboard": "https://kody-w.github.io/rapp-static-apis/dataverse/",
+      "capabilities": [
+        "versioned-endpoints"
+      ]
+    },
+    {
+      "name": "fabriciq",
+      "description": "rapp-static-fabriciq",
+      "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fabriciq",
+      "pages_base": "https://kody-w.github.io/rapp-static-apis/fabriciq/",
+      "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fabriciq/registry.json",
+      "api_schema": "rapp-static-fabriciq/1.0",
+      "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fabriciq/api/v1/status.json",
       "capabilities": [
         "versioned-endpoints"
       ]
@@ -195,7 +207,7 @@
     },
     {
       "name": "sharepoint",
-      "description": "Synthetic SharePoint program-document library for Project Phoenix, the S/4HANA transformation of a fictional global manufacturer. Graph-flavored listing + raw markdown docs. Fully synthetic, no real data.",
+      "description": "Synthetic SharePoint program-document library for Project Phoenix, the S/4HANA transformation of a fictional global manufacturer. Graph-flavored listing + raw markdown docs, plus true Microsoft Graph wire shapes (site, paged driveItem children, search response). Fully synthetic, no real data.",
       "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint",
       "pages_base": "https://kody-w.github.io/rapp-static-apis/sharepoint/",
       "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/registry.json",
@@ -266,7 +278,7 @@
     },
     {
       "name": "workiq",
-      "description": "dataiq — synthetic Microsoft-Graph-flavored work-insights API (Project Phoenix)",
+      "description": "workiq — synthetic Microsoft-Graph-flavored work-insights API (Project Phoenix)",
       "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/workiq",
       "pages_base": "https://kody-w.github.io/rapp-static-apis/workiq/",
       "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/workiq/registry.json",

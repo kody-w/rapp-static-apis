@@ -1,0 +1,30 @@
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#sites/$entity",
+  "id": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646",
+  "name": "phoenix",
+  "displayName": "Project Phoenix — S/4HANA Transformation Program",
+  "description": "Program site for Meridian Manufacturing Group's ECC-to-S/4HANA transformation (synthetic demo data — all persons and companies fictional).",
+  "webUrl": "https://meridian-mfg.example/sites/phoenix",
+  "createdDateTime": "2025-09-01T08:00:00Z",
+  "lastModifiedDateTime": "2026-08-01T00:00:00Z",
+  "siteCollection": {
+    "hostname": "meridian-mfg.example",
+    "root": {}
+  },
+  "root": {},
+  "drive": {
+    "id": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+    "name": "Documents",
+    "driveType": "documentLibrary",
+    "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents",
+    "quota": {
+      "deleted": 0,
+      "remaining": 1099511627776,
+      "state": "normal",
+      "total": 1099511627776,
+      "used": 1882011
+    }
+  },
+  "documents_page_1": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/graph/v1.0/sites/phoenix/drives/documents/root/children-1.json",
+  "search_sample": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/graph/v1.0/search/query-sample.json"
+}

@@ -1,0 +1,2057 @@
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#sites('phoenix')/drives('documents')/root/children",
+  "@odata.count": 297,
+  "@odata.nextLink": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/graph/v1.0/sites/phoenix/drives/documents/root/children-6.json",
+  "value": [
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-13-logistics.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{44ea2f18-9ad5-519a-a39c-6dd9fc41496b},1\"",
+      "id": "01118AB1BD472E88E1F9C7E13942A3C019",
+      "lastModifiedDateTime": "2026-07-17T15:27:00Z",
+      "name": "minutes-2026-07-13-logistics.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-13-logistics.md",
+      "cTag": "\"c:{bb6714ad-453a-1d46-e795-e94e7ac689cd},1\"",
+      "size": 6301,
+      "createdBy": {
+        "user": {
+          "displayName": "Marcus Webb",
+          "email": "marcus.webb@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Marcus Webb",
+          "email": "marcus.webb@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "C9B8723D11BF"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-17T15:27:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-13-manufacturing.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{27b0d192-3844-40c4-905e-5c3f328b7404},1\"",
+      "id": "01BF579370E7504085938A88ED79E5D3ED",
+      "lastModifiedDateTime": "2026-07-17T16:55:00Z",
+      "name": "minutes-2026-07-13-manufacturing.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-13-manufacturing.md",
+      "cTag": "\"c:{7ab976b7-8ce3-7228-994a-a5c154f4e749},1\"",
+      "size": 5980,
+      "createdBy": {
+        "user": {
+          "displayName": "Chen Wei",
+          "email": "chen.wei@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Chen Wei",
+          "email": "chen.wei@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "77F6595BCE47"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-17T16:55:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-13-data.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{e9e83048-00b9-7a81-feed-1a65045a16c7},1\"",
+      "id": "01AED44DD2B90EA5F258572DC284FBE41A",
+      "lastModifiedDateTime": "2026-07-17T18:35:00Z",
+      "name": "minutes-2026-07-13-data.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-13-data.md",
+      "cTag": "\"c:{bcf032b0-9593-7b1f-27df-add67a62264b},1\"",
+      "size": 6163,
+      "createdBy": {
+        "user": {
+          "displayName": "David Okafor",
+          "email": "david.okafor@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "David Okafor",
+          "email": "david.okafor@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "00D6D622C60B"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-17T18:35:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-13-architecture.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{2899bfaa-7502-4b93-12de-b3781bc30069},1\"",
+      "id": "01F97F6D13269BAEF5A7C8DA488BB9558E",
+      "lastModifiedDateTime": "2026-07-17T18:12:00Z",
+      "name": "minutes-2026-07-13-architecture.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-13-architecture.md",
+      "cTag": "\"c:{317a04e9-26f1-c152-e787-682b593caad8},1\"",
+      "size": 6752,
+      "createdBy": {
+        "user": {
+          "displayName": "Elena Petrova",
+          "email": "elena.petrova@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Elena Petrova",
+          "email": "elena.petrova@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "ADF65150FE2D"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-17T18:12:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-13-change.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{83001a92-0064-5401-a286-17dc787aa7c2},1\"",
+      "id": "011E379A1089EA5985BD4F2F734D1DA6E8",
+      "lastModifiedDateTime": "2026-07-17T15:35:00Z",
+      "name": "minutes-2026-07-13-change.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-13-change.md",
+      "cTag": "\"c:{c1a5b876-6863-a2cd-f169-86f731334c5d},1\"",
+      "size": 6654,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "CE9F73DF8FED"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-17T15:35:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-13-testing.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{0cdf790d-cf13-2999-cbfd-23acc7baf7f5},1\"",
+      "id": "0147BA6621CA8314C83189F2DB256F94D7",
+      "lastModifiedDateTime": "2026-07-17T16:27:00Z",
+      "name": "minutes-2026-07-13-testing.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-13-testing.md",
+      "cTag": "\"c:{99d94d88-9588-9e73-92b7-04404a43b95a},1\"",
+      "size": 6653,
+      "createdBy": {
+        "user": {
+          "displayName": "Ahmed Hassan",
+          "email": "ahmed.hassan@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Ahmed Hassan",
+          "email": "ahmed.hassan@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "8D11DF25032A"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-17T16:27:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-20-finance.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{5461c4cf-0398-be07-8793-c59c0cc6979e},1\"",
+      "id": "0143DB7B16D11DA8A7C9570D630D02AD07",
+      "lastModifiedDateTime": "2026-07-24T14:35:00Z",
+      "name": "minutes-2026-07-20-finance.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-20-finance.md",
+      "cTag": "\"c:{87d0b86a-df9a-eea3-2750-bcfc14423dbe},1\"",
+      "size": 6685,
+      "createdBy": {
+        "user": {
+          "displayName": "Anna Keller",
+          "email": "anna.keller@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Anna Keller",
+          "email": "anna.keller@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "22816FEB8FF1"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-24T14:35:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-20-procurement.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{e1089d23-d3fe-3f2e-77ef-cf9d7cc3e538},1\"",
+      "id": "0186694843B6E0657E00B7B1CBD0D5BCBE",
+      "lastModifiedDateTime": "2026-07-24T18:35:00Z",
+      "name": "minutes-2026-07-20-procurement.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-20-procurement.md",
+      "cTag": "\"c:{482d3d11-a781-5379-af47-e5a125aa2c58},1\"",
+      "size": 6122,
+      "createdBy": {
+        "user": {
+          "displayName": "Luis Ortega",
+          "email": "luis.ortega@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Luis Ortega",
+          "email": "luis.ortega@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "F9B5C200E858"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-24T18:35:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-20-logistics.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{d3d2f04b-3253-a7ca-fbee-14c9754626ba},1\"",
+      "id": "01BADC54525741BE6AD7918B173A4762F2",
+      "lastModifiedDateTime": "2026-07-24T17:35:00Z",
+      "name": "minutes-2026-07-20-logistics.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-20-logistics.md",
+      "cTag": "\"c:{1b5dbcf9-be6b-54e2-e9fc-13a70a198aae},1\"",
+      "size": 6463,
+      "createdBy": {
+        "user": {
+          "displayName": "Marcus Webb",
+          "email": "marcus.webb@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Marcus Webb",
+          "email": "marcus.webb@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "CAC21E7E082A"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-24T17:35:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-20-manufacturing.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{4ff4f4d7-cf8c-706a-8411-fdd0e4550b8a},1\"",
+      "id": "01FF1E406AFBB20684D37E3343609DEBF8",
+      "lastModifiedDateTime": "2026-07-24T14:48:00Z",
+      "name": "minutes-2026-07-20-manufacturing.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-20-manufacturing.md",
+      "cTag": "\"c:{cb8f36b0-243a-d242-6c7e-74482223bb47},1\"",
+      "size": 6999,
+      "createdBy": {
+        "user": {
+          "displayName": "Ingrid Bauer",
+          "email": "ingrid.bauer@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Ingrid Bauer",
+          "email": "ingrid.bauer@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "B5E433012B98"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-24T14:48:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-20-data.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{d6fbb479-e61d-16b5-8e5a-e80f11b8c9db},1\"",
+      "id": "012F4FAD08DA94BE95947578208E7B3A58",
+      "lastModifiedDateTime": "2026-07-24T18:41:00Z",
+      "name": "minutes-2026-07-20-data.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-20-data.md",
+      "cTag": "\"c:{06ccd392-7628-6811-f157-a61bce4d093a},1\"",
+      "size": 6412,
+      "createdBy": {
+        "user": {
+          "displayName": "Sara Lindqvist",
+          "email": "sara.lindqvist@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sara Lindqvist",
+          "email": "sara.lindqvist@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "B41AEB684A5B"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-24T18:41:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-20-architecture.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{9d510e2c-1da2-80ea-3217-090c9bfe8ae5},1\"",
+      "id": "01CD3CD71818D4B05CD11C2989FF5A83FB",
+      "lastModifiedDateTime": "2026-07-24T16:20:00Z",
+      "name": "minutes-2026-07-20-architecture.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-20-architecture.md",
+      "cTag": "\"c:{0652bf41-39ff-a205-76f3-c3cebe23ed75},1\"",
+      "size": 6969,
+      "createdBy": {
+        "user": {
+          "displayName": "James Carter",
+          "email": "james.carter@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "James Carter",
+          "email": "james.carter@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "CEAC3E94BBFC"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-24T16:20:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-20-change.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{3c6bbe4d-0042-5768-2cc3-a418a6df2399},1\"",
+      "id": "013B5CC552EC252247D55379D7BE5CCA7B",
+      "lastModifiedDateTime": "2026-07-24T14:12:00Z",
+      "name": "minutes-2026-07-20-change.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-20-change.md",
+      "cTag": "\"c:{7179fbf4-6e1d-7971-7294-ffbaaeccded0},1\"",
+      "size": 7124,
+      "createdBy": {
+        "user": {
+          "displayName": "Mark Daniels",
+          "email": "mark.daniels@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Mark Daniels",
+          "email": "mark.daniels@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "CB16E306C858"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-24T14:12:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-20-testing.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{e32b54a1-f1c5-d659-5d3f-150b6366499d},1\"",
+      "id": "013311475B76003020A866AACCAEDC7A05",
+      "lastModifiedDateTime": "2026-07-24T13:55:00Z",
+      "name": "minutes-2026-07-20-testing.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-20-testing.md",
+      "cTag": "\"c:{98f165fd-8a1c-7aa1-e705-af51d1336d37},1\"",
+      "size": 6450,
+      "createdBy": {
+        "user": {
+          "displayName": "Ahmed Hassan",
+          "email": "ahmed.hassan@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Ahmed Hassan",
+          "email": "ahmed.hassan@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "41D28EB4124E"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-24T13:55:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-27-finance.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{a33b2380-321b-c05d-350a-a036ca49fb17},1\"",
+      "id": "01A7F2CFD403A7315DC439D15E8CF453D2",
+      "lastModifiedDateTime": "2026-07-31T13:35:00Z",
+      "name": "minutes-2026-07-27-finance.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-27-finance.md",
+      "cTag": "\"c:{8148fd2e-8092-ac97-65c6-b6f71c00ca51},1\"",
+      "size": 7365,
+      "createdBy": {
+        "user": {
+          "displayName": "Anna Keller",
+          "email": "anna.keller@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Anna Keller",
+          "email": "anna.keller@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "2658D4F4B496"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-31T13:35:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-27-procurement.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{b3510624-1e86-3ecf-98dc-0b241fec267f},1\"",
+      "id": "01A76321B41A38062623A89DFB16BB5545",
+      "lastModifiedDateTime": "2026-07-31T15:35:00Z",
+      "name": "minutes-2026-07-27-procurement.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-27-procurement.md",
+      "cTag": "\"c:{51f2936e-436a-faf7-0ed4-8f98a611b42a},1\"",
+      "size": 6793,
+      "createdBy": {
+        "user": {
+          "displayName": "Priya Sharma",
+          "email": "priya.sharma@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Priya Sharma",
+          "email": "priya.sharma@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "634DFB917D80"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-31T15:35:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-27-logistics.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{81611158-3b09-0376-42e3-876ee6d662e5},1\"",
+      "id": "016E9BD0E034F7FE23F5A520A829FBC54F",
+      "lastModifiedDateTime": "2026-07-31T17:12:00Z",
+      "name": "minutes-2026-07-27-logistics.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-27-logistics.md",
+      "cTag": "\"c:{88d0b543-d0b3-1fbb-3037-05d8e75db962},1\"",
+      "size": 7171,
+      "createdBy": {
+        "user": {
+          "displayName": "Marcus Webb",
+          "email": "marcus.webb@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Marcus Webb",
+          "email": "marcus.webb@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "88EDA8C13B8B"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-31T17:12:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-27-manufacturing.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{6ccc6552-5087-c7eb-c96a-e8c14d4ca1c3},1\"",
+      "id": "01B4BDC6EE570B9E54D3CFEC1C9BE7E1F5",
+      "lastModifiedDateTime": "2026-07-31T17:55:00Z",
+      "name": "minutes-2026-07-27-manufacturing.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-27-manufacturing.md",
+      "cTag": "\"c:{a3159b46-1782-e1fb-d393-62b1fee687dc},1\"",
+      "size": 6939,
+      "createdBy": {
+        "user": {
+          "displayName": "Ingrid Bauer",
+          "email": "ingrid.bauer@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Ingrid Bauer",
+          "email": "ingrid.bauer@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "39EBF52C7453"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-31T17:55:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-27-data.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{24285ca7-fb76-289f-7402-7db946ff1a66},1\"",
+      "id": "012A0546A1120625FE92CC38FC9910CBD1",
+      "lastModifiedDateTime": "2026-07-31T15:05:00Z",
+      "name": "minutes-2026-07-27-data.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-27-data.md",
+      "cTag": "\"c:{f0b2d192-0fd4-7797-b721-69c10e62fcb7},1\"",
+      "size": 6292,
+      "createdBy": {
+        "user": {
+          "displayName": "David Okafor",
+          "email": "david.okafor@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "David Okafor",
+          "email": "david.okafor@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "DEDC3C18B3DE"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-31T15:05:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-27-architecture.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{baa00009-1010-8f1b-0f9e-36f6fac2727d},1\"",
+      "id": "01EC91E4A178DEA0F4AE3DA7680AE0CF3E",
+      "lastModifiedDateTime": "2026-07-31T18:35:00Z",
+      "name": "minutes-2026-07-27-architecture.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-27-architecture.md",
+      "cTag": "\"c:{2c83b471-2a85-d954-f2fd-6a9fcecae8c8},1\"",
+      "size": 6434,
+      "createdBy": {
+        "user": {
+          "displayName": "Elena Petrova",
+          "email": "elena.petrova@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Elena Petrova",
+          "email": "elena.petrova@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "8349C861BF38"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-31T18:35:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-27-change.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{b0f97397-1a20-1876-5426-0c7b53f1f2c9},1\"",
+      "id": "01B914FEBA98D6A453E24670F98A67B054",
+      "lastModifiedDateTime": "2026-07-31T13:35:00Z",
+      "name": "minutes-2026-07-27-change.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-27-change.md",
+      "cTag": "\"c:{e7cdf00e-2c47-b746-d94a-a454d179a1f8},1\"",
+      "size": 6940,
+      "createdBy": {
+        "user": {
+          "displayName": "Mark Daniels",
+          "email": "mark.daniels@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Mark Daniels",
+          "email": "mark.daniels@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "37EB6438A8CE"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-31T13:35:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/minutes-2026-07-27-testing.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{e193ea7b-35d9-c4a7-e787-8d6afc1d46d6},1\"",
+      "id": "01547C8E16FC77820B24F2D4645942DA2D",
+      "lastModifiedDateTime": "2026-07-31T14:12:00Z",
+      "name": "minutes-2026-07-27-testing.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/minutes-2026-07-27-testing.md",
+      "cTag": "\"c:{1466cd5d-4f96-a8c2-1fda-ef5b1341e9f3},1\"",
+      "size": 6554,
+      "createdBy": {
+        "user": {
+          "displayName": "Ahmed Hassan",
+          "email": "ahmed.hassan@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Ahmed Hassan",
+          "email": "ahmed.hassan@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "94CC7C66410A"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-31T14:12:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/decision-log-2026-02.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{e68a0a9f-44d0-daac-6461-355c66c588b7},1\"",
+      "id": "017EB3A8C350F7DBA2F5F8AAFB2A96D976",
+      "lastModifiedDateTime": "2026-03-03T09:05:00Z",
+      "name": "decision-log-2026-02.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/decision-log-2026-02.md",
+      "cTag": "\"c:{0b74476f-7147-da17-e902-3bf9b16f0a3d},1\"",
+      "size": 17503,
+      "createdBy": {
+        "user": {
+          "displayName": "Oliver Brandt",
+          "email": "oliver.brandt@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Oliver Brandt",
+          "email": "oliver.brandt@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "88F74B7E1E18"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-03-03T09:05:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/decision-log-2026-03.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{3a212b95-194e-6450-e79f-0dea3331728d},1\"",
+      "id": "0100BCF9AB3859A269DC4CB055DF838BDB",
+      "lastModifiedDateTime": "2026-04-03T09:05:00Z",
+      "name": "decision-log-2026-03.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/decision-log-2026-03.md",
+      "cTag": "\"c:{5436db71-653f-25ba-79b7-8ebbf3b293b3},1\"",
+      "size": 18858,
+      "createdBy": {
+        "user": {
+          "displayName": "Oliver Brandt",
+          "email": "oliver.brandt@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Oliver Brandt",
+          "email": "oliver.brandt@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "FD84CB7FF1D8"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-04-03T09:05:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/decision-log-2026-04.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{362d89bf-31af-db4e-660f-e5bb5c6f4a8c},1\"",
+      "id": "012CEFB1E5CA910DA7A3BF6CC8E159A442",
+      "lastModifiedDateTime": "2026-05-03T09:15:00Z",
+      "name": "decision-log-2026-04.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/decision-log-2026-04.md",
+      "cTag": "\"c:{1c4abbd0-ecd3-53e1-abc0-0b7cb2d988ae},1\"",
+      "size": 17367,
+      "createdBy": {
+        "user": {
+          "displayName": "Oliver Brandt",
+          "email": "oliver.brandt@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Oliver Brandt",
+          "email": "oliver.brandt@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "D74692D654D1"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-05-03T09:15:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/decision-log-2026-05.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{93379ec5-7bae-7b9a-c326-4982f42d9a87},1\"",
+      "id": "017D75BC3D0F1A9649C5742FD656E1DE0E",
+      "lastModifiedDateTime": "2026-06-03T09:50:00Z",
+      "name": "decision-log-2026-05.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/decision-log-2026-05.md",
+      "cTag": "\"c:{d443a253-8faf-b434-7de2-f75e4f29d656},1\"",
+      "size": 17925,
+      "createdBy": {
+        "user": {
+          "displayName": "Oliver Brandt",
+          "email": "oliver.brandt@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Oliver Brandt",
+          "email": "oliver.brandt@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "42DF71FB1DF8"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-06-03T09:50:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/decision-log-2026-06.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{6f0b744f-7d32-cc0f-02b1-3b5b307b32a7},1\"",
+      "id": "01CC1F2E317569C89FE8A1BFE47C0760EA",
+      "lastModifiedDateTime": "2026-07-03T09:50:00Z",
+      "name": "decision-log-2026-06.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/decision-log-2026-06.md",
+      "cTag": "\"c:{b4aa0d1c-585f-f29e-890c-5db749cd25ba},1\"",
+      "size": 17986,
+      "createdBy": {
+        "user": {
+          "displayName": "Oliver Brandt",
+          "email": "oliver.brandt@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Oliver Brandt",
+          "email": "oliver.brandt@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "8A96F4F7B6CC"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-03T09:50:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/decision-log-2026-07.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{e7cd4f79-c620-6054-9216-7794d4b9aa3b},1\"",
+      "id": "0184861193701C0B5AE10943178E429D41",
+      "lastModifiedDateTime": "2026-08-03T09:40:00Z",
+      "name": "decision-log-2026-07.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/decision-log-2026-07.md",
+      "cTag": "\"c:{57563e34-fde9-9655-9ab5-d537ac101ccc},1\"",
+      "size": 15496,
+      "createdBy": {
+        "user": {
+          "displayName": "Oliver Brandt",
+          "email": "oliver.brandt@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Oliver Brandt",
+          "email": "oliver.brandt@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "0FEBC5232FC0"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-08-03T09:40:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/risk-register-2026-q1.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{cb10f721-afa0-d6f7-42ec-de6655cddca8},1\"",
+      "id": "01CEB841A94342B3A32877B5F301AC20BF",
+      "lastModifiedDateTime": "2026-04-04T10:15:00Z",
+      "name": "risk-register-2026-q1.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/risk-register-2026-q1.md",
+      "cTag": "\"c:{79611ff4-3b7b-352b-bb93-2a45bea2171e},1\"",
+      "size": 28860,
+      "createdBy": {
+        "user": {
+          "displayName": "Oliver Brandt",
+          "email": "oliver.brandt@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Oliver Brandt",
+          "email": "oliver.brandt@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "9085D92EA194"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-04-04T10:15:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/risk-register-2026-q2.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{9196a836-73b5-c7d7-e1a7-931ced82dfdf},1\"",
+      "id": "019BF55B15FF172FC0E21E3CC176FEF61E",
+      "lastModifiedDateTime": "2026-07-04T10:15:00Z",
+      "name": "risk-register-2026-q2.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/risk-register-2026-q2.md",
+      "cTag": "\"c:{621373c2-70c7-276f-ab42-7c73ea14a693},1\"",
+      "size": 30987,
+      "createdBy": {
+        "user": {
+          "displayName": "Oliver Brandt",
+          "email": "oliver.brandt@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Oliver Brandt",
+          "email": "oliver.brandt@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "A9ACF176598F"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-04T10:15:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/risk-register-2026-q3.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{3ec2cf90-f12b-2529-602d-0324ed7ef6ec},1\"",
+      "id": "01BF86883694E7C3B2A97E59493951A61E",
+      "lastModifiedDateTime": "2026-08-04T10:30:00Z",
+      "name": "risk-register-2026-q3.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/risk-register-2026-q3.md",
+      "cTag": "\"c:{559afc6e-f951-c8e1-b440-961c62c59ea8},1\"",
+      "size": 23178,
+      "createdBy": {
+        "user": {
+          "displayName": "Oliver Brandt",
+          "email": "oliver.brandt@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Oliver Brandt",
+          "email": "oliver.brandt@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "8F439884195A"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-08-04T10:30:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/curriculum-accounts-payable-clerk.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{bb8d96b2-a4bc-69bb-52fd-99271ffd3a98},1\"",
+      "id": "01528E5C0E0C619816C14965960C056C68",
+      "lastModifiedDateTime": "2026-05-13T11:00:00Z",
+      "name": "curriculum-accounts-payable-clerk.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/curriculum-accounts-payable-clerk.md",
+      "cTag": "\"c:{cc1458ce-4313-4893-14c2-39c1fb110eae},1\"",
+      "size": 4769,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "4A836A972F5B"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-05-13T11:00:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/curriculum-accounts-receivable-specialist.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{3df8de0a-9c44-fda0-3515-95719214e3b7},1\"",
+      "id": "018748C01C052B7AA4003021C0F03CF201",
+      "lastModifiedDateTime": "2026-05-02T13:10:00Z",
+      "name": "curriculum-accounts-receivable-specialist.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/curriculum-accounts-receivable-specialist.md",
+      "cTag": "\"c:{31189c1f-1330-e198-5fc2-a8a28e82ff55},1\"",
+      "size": 4839,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "57BDEEC20190"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-05-02T13:10:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/curriculum-general-ledger-accountant.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{8c7f5c6a-a486-7101-18ba-d7858b3bf9e9},1\"",
+      "id": "0130B3B5055C275539AA05C425686CC106",
+      "lastModifiedDateTime": "2026-05-20T17:20:00Z",
+      "name": "curriculum-general-ledger-accountant.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/curriculum-general-ledger-accountant.md",
+      "cTag": "\"c:{ea7f6e61-675f-eb89-c80d-4db4a151547d},1\"",
+      "size": 4588,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "63732C5B20A6"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-05-20T17:20:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/curriculum-asset-accountant.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{2d48bdc2-0848-6e2d-e266-67c25f7e542e},1\"",
+      "id": "01C007987308AC71906330F65C84EEB1E9",
+      "lastModifiedDateTime": "2026-06-22T11:20:00Z",
+      "name": "curriculum-asset-accountant.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/curriculum-asset-accountant.md",
+      "cTag": "\"c:{47c1c1ac-7f6b-3736-80c7-5202e3c5e537},1\"",
+      "size": 4520,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "E9434A3A7444"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-06-22T11:20:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/curriculum-cost-controller.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{0e7b1329-403b-cab0-62be-c05acc0b5b5d},1\"",
+      "id": "01CAC0B8007FDB590443A8EAC620D12B69",
+      "lastModifiedDateTime": "2026-06-09T12:50:00Z",
+      "name": "curriculum-cost-controller.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/curriculum-cost-controller.md",
+      "cTag": "\"c:{e85e3dcb-ffda-bd60-6335-ba68f4e2217a},1\"",
+      "size": 4661,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "6B7A824F4F8C"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-06-09T12:50:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/curriculum-financial-close-coordinator.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{26a98537-5a65-0acf-cf0e-3594f5187a2b},1\"",
+      "id": "01B1D3C6605561A1D0B2092C5A9B5F4FB0",
+      "lastModifiedDateTime": "2026-07-11T14:50:00Z",
+      "name": "curriculum-financial-close-coordinator.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/curriculum-financial-close-coordinator.md",
+      "cTag": "\"c:{13e37548-ef2c-8dd5-a09a-79d76b9c2896},1\"",
+      "size": 4629,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "EA37D063C9CE"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-11T14:50:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/curriculum-operational-buyer.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{650da206-ee4c-7bc2-bb4a-8e8be917f201},1\"",
+      "id": "014D6022EB5C7CC515BE097636C67700C9",
+      "lastModifiedDateTime": "2026-05-11T11:30:00Z",
+      "name": "curriculum-operational-buyer.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/curriculum-operational-buyer.md",
+      "cTag": "\"c:{cace729b-7398-d6c7-366e-93555e86cd80},1\"",
+      "size": 4849,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "2D8FF2383FD0"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-05-11T11:30:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/curriculum-strategic-sourcing-manager.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{ca466b34-3b20-df7f-ad23-9597740916f5},1\"",
+      "id": "01A4779D0BA043DE4E32EB2492BC8323F5",
+      "lastModifiedDateTime": "2026-06-26T17:50:00Z",
+      "name": "curriculum-strategic-sourcing-manager.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/curriculum-strategic-sourcing-manager.md",
+      "cTag": "\"c:{b358009f-fdee-3ae6-12da-dd0b6871befd},1\"",
+      "size": 4566,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "CCDE2AC0C451"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-06-26T17:50:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/curriculum-purchasing-group-lead.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{258caa3d-4406-53c8-1bc6-f06cf82e5f02},1\"",
+      "id": "01CF5C36F62D134AD8CAE030F140E0C8FB",
+      "lastModifiedDateTime": "2026-05-25T10:00:00Z",
+      "name": "curriculum-purchasing-group-lead.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/curriculum-purchasing-group-lead.md",
+      "cTag": "\"c:{8167b7d4-b066-c5c4-eac8-c2d89c3cb743},1\"",
+      "size": 4613,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "C47D97E08FCF"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-05-25T10:00:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/curriculum-invoice-verification-clerk.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{7972b32e-8f09-480e-7c98-d365860d2b0b},1\"",
+      "id": "01E42DE41C8FBB00D0DB2BB6FF26339498",
+      "lastModifiedDateTime": "2026-07-05T14:00:00Z",
+      "name": "curriculum-invoice-verification-clerk.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/curriculum-invoice-verification-clerk.md",
+      "cTag": "\"c:{092a4fec-d1c9-aa93-b07e-bda2b0a01eb7},1\"",
+      "size": 4563,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "5448C4659AC8"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-05T14:00:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/curriculum-inventory-controller.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{8dd2c95c-950d-b93d-257e-6fae7c5a39a6},1\"",
+      "id": "01D9E4ADB81F5DD6F72359B9938B3849C3",
+      "lastModifiedDateTime": "2026-05-12T17:40:00Z",
+      "name": "curriculum-inventory-controller.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/curriculum-inventory-controller.md",
+      "cTag": "\"c:{204dea8f-becb-b599-7552-33d23ef818e2},1\"",
+      "size": 4780,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "8F184921C63E"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-05-12T17:40:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/curriculum-order-desk-agent.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{a7b6af36-fa8a-aec6-848e-46b61370000d},1\"",
+      "id": "011985B2A570E55D55E731CF309EF6A919",
+      "lastModifiedDateTime": "2026-07-11T11:50:00Z",
+      "name": "curriculum-order-desk-agent.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/curriculum-order-desk-agent.md",
+      "cTag": "\"c:{948be3e1-ce23-2a3a-e239-640dbc8df22b},1\"",
+      "size": 4615,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "C9FAC334FC32"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-11T11:50:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/curriculum-customer-service-representative.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{7be0460c-db6b-4ddd-d1f7-1471bd69d273},1\"",
+      "id": "018CA382905106EBACA0A4CE577EC14AB1",
+      "lastModifiedDateTime": "2026-06-10T17:40:00Z",
+      "name": "curriculum-customer-service-representative.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/curriculum-customer-service-representative.md",
+      "cTag": "\"c:{d552ec14-255d-b7c0-afe0-81cb62d0bbe3},1\"",
+      "size": 4722,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "46AA54D88EB7"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-06-10T17:40:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/curriculum-pricing-analyst.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{31f67af7-0a0b-8b83-61e8-21a183b5f23a},1\"",
+      "id": "018C5CC66C72C1C5BDABD8634C7FFC8DA8",
+      "lastModifiedDateTime": "2026-06-15T11:00:00Z",
+      "name": "curriculum-pricing-analyst.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/curriculum-pricing-analyst.md",
+      "cTag": "\"c:{509e03e2-2daf-8476-c675-616840cc7bd1},1\"",
+      "size": 4763,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "2FBE79FE6C2E"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-06-15T11:00:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/curriculum-shipping-clerk.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{ebdffe49-e99b-e242-e89d-c6fbf3375076},1\"",
+      "id": "01250D0211F3D27AE2462AFE1DFB2E8CB0",
+      "lastModifiedDateTime": "2026-07-26T09:40:00Z",
+      "name": "curriculum-shipping-clerk.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/curriculum-shipping-clerk.md",
+      "cTag": "\"c:{465e4d59-4d51-6767-794f-ad5925f7d39f},1\"",
+      "size": 4829,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "5780C4C9CCEA"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-26T09:40:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/curriculum-warehouse-supervisor.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{6669cb65-3450-8b26-b90e-fe0d61f3a024},1\"",
+      "id": "013CA4CB3E364B048A9DAC419CECE17F25",
+      "lastModifiedDateTime": "2026-05-12T17:30:00Z",
+      "name": "curriculum-warehouse-supervisor.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/curriculum-warehouse-supervisor.md",
+      "cTag": "\"c:{2466da56-96da-0b56-38be-d129705e71d6},1\"",
+      "size": 4477,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "665B7252625E"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-05-12T17:30:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/curriculum-transportation-planner.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{bf6eb7d2-6ddc-fbad-e693-2e57b04875bf},1\"",
+      "id": "0185E094C0ACC910DCDC449301EC534253",
+      "lastModifiedDateTime": "2026-05-03T09:40:00Z",
+      "name": "curriculum-transportation-planner.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/curriculum-transportation-planner.md",
+      "cTag": "\"c:{affd37b4-cb98-9c58-55ac-8f5be2b60943},1\"",
+      "size": 4512,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "C42CC7BDB3ED"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-05-03T09:40:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/curriculum-production-planner.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{144ccf8c-b29b-7659-f2e3-ee164a50bea1},1\"",
+      "id": "0160D74063BC76207D51992BE2ABA63F5B",
+      "lastModifiedDateTime": "2026-07-27T08:50:00Z",
+      "name": "curriculum-production-planner.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/curriculum-production-planner.md",
+      "cTag": "\"c:{c408513f-6794-cf1f-b5b3-4d0a34b69522},1\"",
+      "size": 4473,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "2CB7DF851BC0"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-27T08:50:00Z"
+      }
+    },
+    {
+      "@microsoft.graph.downloadUrl": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/docs/generated/curriculum-shop-floor-supervisor.md",
+      "createdDateTime": "2025-09-01T08:00:00Z",
+      "eTag": "\"{640fa7b3-f7cc-551a-73b1-750224b2cc7b},1\"",
+      "id": "01D65C2D3E8772D5D7646745E97731F881",
+      "lastModifiedDateTime": "2026-07-24T11:30:00Z",
+      "name": "curriculum-shop-floor-supervisor.md",
+      "webUrl": "https://meridian-mfg.example/sites/phoenix/Documents/generated/curriculum-shop-floor-supervisor.md",
+      "cTag": "\"c:{073c1a5f-5d6c-6859-1e4d-1b44b0017b40},1\"",
+      "size": 4537,
+      "createdBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "lastModifiedBy": {
+        "user": {
+          "displayName": "Sofia Rossi",
+          "email": "sofia.rossi@meridian-mfg.example"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d",
+        "driveType": "documentLibrary",
+        "id": "01120F9B72D713EE2B36DD03CCF678F50B",
+        "name": "generated",
+        "path": "/drives/b!cbbc7a2fe3cc33347c4977e760a17edf8a9e067d/root:/Documents/generated",
+        "siteId": "meridian-mfg.example,d2e9d7ba-8182-6e8f-f0ac-f7b6369147f7,a775507b-325c-5f1c-afd8-be91134ab646"
+      },
+      "file": {
+        "mimeType": "text/markdown",
+        "hashes": {
+          "quickXorHash": "D1045DCB309B"
+        }
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2025-09-01T08:00:00Z",
+        "lastModifiedDateTime": "2026-07-24T11:30:00Z"
+      }
+    }
+  ]
+}

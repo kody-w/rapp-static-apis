@@ -1,14 +1,28 @@
 {
   "schema": "rapp-static-api/1.0",
   "name": "rapp-static-sharepoint",
-  "description": "Synthetic SharePoint program-document library for Project Phoenix, the S/4HANA transformation of a fictional global manufacturer. Graph-flavored listing + raw markdown docs. Fully synthetic, no real data.",
+  "description": "Synthetic SharePoint program-document library for Project Phoenix, the S/4HANA transformation of a fictional global manufacturer. Graph-flavored listing + raw markdown docs, plus true Microsoft Graph wire shapes (site, paged driveItem children, search response). Fully synthetic, no real data.",
   "generated": "2026-08-01T00:00:00Z",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint",
   "pages_base": "https://kody-w.github.io/rapp-static-apis/sharepoint",
   "summary": {
     "sites": 1,
-    "documents": 14,
-    "bytes": 22655
+    "documents": 297,
+    "bytes": 1882011,
+    "core_documents": 14,
+    "generated_documents": 283,
+    "sections": 1864,
+    "families": {
+      "core": 14,
+      "decision-log": 6,
+      "interface-spec": 20,
+      "risk-register": 3,
+      "role-curriculum": 34,
+      "site-readiness": 12,
+      "weekly-minutes": 208
+    },
+    "graph_pages": 6,
+    "graph_page_size": 50
   },
   "entries": [
     {
@@ -17,9 +31,29 @@
     },
     {
       "name": "sites/phoenix/documents",
-      "count": 14,
-      "sha8": "f2d1b07b1d97",
+      "count": 297,
+      "sha8": "f5a330c4ac7e",
       "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/v1/sites/phoenix/documents.json"
+    },
+    {
+      "name": "graph/sites/phoenix",
+      "shape": "microsoft.graph.site",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/graph/v1.0/sites/phoenix.json"
+    },
+    {
+      "name": "graph/sites/phoenix/drives/documents/root/children",
+      "shape": "collection(microsoft.graph.driveItem)",
+      "count": 297,
+      "pages": 6,
+      "page_size": 50,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/graph/v1.0/sites/phoenix/drives/documents/root/children-1.json",
+      "paging": "follow @odata.nextLink; each driveItem carries a download annotation pointing at the raw markdown"
+    },
+    {
+      "name": "graph/search/query-sample",
+      "shape": "microsoft.graph.searchResponse",
+      "query": "who owns procure-to-pay",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/api/graph/v1.0/search/query-sample.json"
     }
   ]
 }

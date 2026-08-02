@@ -20,6 +20,7 @@ Read the full convention: https://raw.githubusercontent.com/kody-w/rapp-static-a
 - [companion](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion/registry.json): companion — the twin companion: genetics, breeding, and bones — versioned-endpoints
 - [customer360](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/registry.json): rapp-static-customer360 — versioned-endpoints
 - [dataverse](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataverse/registry.json): RAPP static Dataverse — a digital twin on OOTB Dataverse — versioned-endpoints
+- [fabriciq](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fabriciq/registry.json): rapp-static-fabriciq — versioned-endpoints
 - [fn](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fn/registry.json): rapp-static-fn — a static file that *runs* — versioned-endpoints, content-addressed
 - [hologram](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/registry.json): rapp-static-hologram — versioned-endpoints, content-addressed
 - [industry-templates](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/industry-templates/registry.json): RAPP static industry-template APIs — versioned-endpoints
@@ -30,12 +31,12 @@ Read the full convention: https://raw.githubusercontent.com/kody-w/rapp-static-a
 - [proofs](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/proofs/registry.json): proofs — every claim is a button; your browser is the judge — versioned-endpoints
 - [rapp-go](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/rapp-go/registry.json): rapp-go — the explorer: a quiet, no-backend Pokémon-Go-like PWA — versioned-endpoints
 - [sap](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sap/registry.json): Synthetic S/4HANA gateway (OData v2 shape) for Meridian Manufacturing Group, a fictional global manufacturer mid-S/4HANA-transformation. Fully synthetic, no real data. — versioned-endpoints
-- [sharepoint](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/registry.json): Synthetic SharePoint program-document library for Project Phoenix, the S/4HANA transformation of a fictional global manufacturer. Graph-flavored listing + raw markdown docs. Fully synthetic, no real data. — versioned-endpoints
+- [sharepoint](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/registry.json): Synthetic SharePoint program-document library for Project Phoenix, the S/4HANA transformation of a fictional global manufacturer. Graph-flavored listing + raw markdown docs, plus true Microsoft Graph wire shapes (site, paged driveItem children, search response). Fully synthetic, no real data. — versioned-endpoints
 - [shortener](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/registry.json): rapp-static-shortener — versioned-endpoints, content-addressed
 - [showcase](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/catalog.json): The Library of Awesome — versioned-endpoints, llms.txt
 - [track](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/track/registry.json): rapp-static-track — a data tracker that runs in your friend's browser — versioned-endpoints, content-addressed
 - [vbrainstem-cell](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/vbrainstem-cell/registry.json): vbrainstem-cell — a headless agent runtime in a sandboxed iframe — versioned-endpoints
-- [workiq](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/workiq/registry.json): dataiq — synthetic Microsoft-Graph-flavored work-insights API (Project Phoenix) — versioned-endpoints
+- [workiq](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/workiq/registry.json): workiq — synthetic Microsoft-Graph-flavored work-insights API (Project Phoenix) — versioned-endpoints
 
 ## Discovery
 
@@ -46,4 +47,4 @@ Read the full convention: https://raw.githubusercontent.com/kody-w/rapp-static-a
 - Agent protocol: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/agent-protocol.json
 - Sitemap: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sitemap.xml
 
-<!-- generated 2026-08-02T18:33:30Z by build.py — do not hand-edit -->
+<!-- generated 2026-08-02T19:12:36Z by build.py — do not hand-edit -->
