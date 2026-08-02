@@ -1,0 +1,29 @@
+{
+  "@rapp.schema": "rapp-static-fabriciq-workspaces/1.0",
+  "@rapp.endpoint": "GET https://api.fabric.meridian-mfg.example/v1/workspaces",
+  "@rapp.generated": "2026-08-01T00:00:00Z",
+  "@rapp.asOf": "2026-08-01T00:00:00Z",
+  "@rapp.note": "Synthetic Fabric REST collection. Shape matches api.fabric.<tenant>/v1; every id, capacity and item is invented.",
+  "@rapp.disclaimer": "100% synthetic. Every workspace, item, metric, person, site and query result below is invented for demo purposes. No real company, no real program, no real analytics platform data, no real capacity.",
+  "value": [
+    {
+      "id": "680cdc92-e368-1cc9-5b6e-082125d36f23",
+      "displayName": "Phoenix Program Analytics",
+      "description": "Program-office analytics for Project Phoenix: data-migration quality, test execution, training readiness and cutover readiness for the Wave 1 S/4HANA go-live.",
+      "type": "Workspace",
+      "capacityId": "2853a833-6138-21d7-1bba-795bc2b95759",
+      "capacityAssignmentProgress": "Completed",
+      "capacityRegion": "West Europe",
+      "oneLakeEndpoints": {
+        "blobEndpoint": "https://onelake.meridian-mfg.example/phoenix-analytics",
+        "dfsEndpoint": "https://onelake-dfs.meridian-mfg.example/phoenix-analytics"
+      },
+      "@rapp.slug": "phoenix-analytics",
+      "@rapp.capacitySku": "F64",
+      "@rapp.capacityState": "Active",
+      "@rapp.portalUrl": "https://app.fabric.meridian-mfg.example/groups/680cdc92-e368-1cc9-5b6e-082125d36f23"
+    }
+  ],
+  "continuationToken": null,
+  "continuationUri": null
+}

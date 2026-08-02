@@ -1,0 +1,98 @@
+[
+  {
+    "key": "BP",
+    "object": "Business Partner (Customer/Vendor)",
+    "source": "ECC + MDM",
+    "owner": "David Okafor",
+    "workstream": "WS-DM",
+    "mock3_pass_pct": 97.2,
+    "scope_records": 48200,
+    "defect_cluster": 62,
+    "m1_factor": 3.0,
+    "m2_factor": 1.7
+  },
+  {
+    "key": "MATERIAL",
+    "object": "Material master",
+    "source": "ECC",
+    "owner": "Sara Lindqvist",
+    "workstream": "WS-DM",
+    "mock3_pass_pct": 94.8,
+    "scope_records": 126400,
+    "defect_cluster": 70,
+    "m1_factor": 3.1,
+    "m2_factor": 1.8
+  },
+  {
+    "key": "BOM",
+    "object": "Bills of material / routings",
+    "source": "ECC",
+    "owner": "Ingrid Bauer",
+    "workstream": "WS-PP",
+    "mock3_pass_pct": 91.5,
+    "scope_records": 88000,
+    "defect_cluster": 75,
+    "m1_factor": 2.9,
+    "m2_factor": 1.75
+  },
+  {
+    "key": "APAR",
+    "object": "Open AP/AR items",
+    "source": "ECC FI",
+    "owner": "Anna Keller",
+    "workstream": "WS-FI",
+    "mock3_pass_pct": 99.1,
+    "scope_records": 31500,
+    "defect_cluster": 48,
+    "m1_factor": 3.2,
+    "m2_factor": 1.6
+  },
+  {
+    "key": "GL",
+    "object": "GL balances (current year)",
+    "source": "ECC FI",
+    "owner": "Anna Keller",
+    "workstream": "WS-FI",
+    "mock3_pass_pct": 100.0,
+    "scope_records": 9800,
+    "defect_cluster": 40,
+    "m1_factor": 2.6,
+    "m2_factor": 1.5
+  },
+  {
+    "key": "PO",
+    "object": "Open purchase orders",
+    "source": "ECC MM",
+    "owner": "Priya Sharma",
+    "workstream": "WS-MM",
+    "mock3_pass_pct": 95.6,
+    "scope_records": 22400,
+    "defect_cluster": 55,
+    "m1_factor": 3.0,
+    "m2_factor": 1.65
+  },
+  {
+    "key": "SO",
+    "object": "Open sales orders",
+    "source": "ECC SD",
+    "owner": "Marcus Webb",
+    "workstream": "WS-SD",
+    "mock3_pass_pct": 96.3,
+    "scope_records": 18900,
+    "defect_cluster": 52,
+    "m1_factor": 3.0,
+    "m2_factor": 1.7
+  },
+  {
+    "key": "FA",
+    "object": "Fixed assets",
+    "source": "ECC AA",
+    "owner": "Tomas Novak",
+    "workstream": "WS-FI",
+    "mock3_pass_pct": 98.4,
+    "scope_records": 14200,
+    "defect_cluster": 45,
+    "m1_factor": 3.0,
+    "m2_factor": 1.7
+  }
+]

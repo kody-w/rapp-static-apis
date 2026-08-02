@@ -1,0 +1,39 @@
+{
+  "program": "Project Phoenix",
+  "company": "Meridian Manufacturing Group",
+  "tenant": "meridian-mfg.example",
+  "fabric_base": "https://api.fabric.meridian-mfg.example/v1",
+  "portal_base": "https://app.fabric.meridian-mfg.example/groups",
+  "go_live": "2026-12-15",
+  "as_of": "2026-08-01T00:00:00Z",
+  "actuals_through": "2026-07-31",
+  "program_director": "Katrin Vogel",
+  "pmo_lead": "Oliver Brandt",
+  "steering_chair": "Henrik Larsen",
+  "window": {
+    "actuals_from": "2026-02-02",
+    "actuals_through": "2026-07-31",
+    "forecast_through": "2026-12-15",
+    "cadence": "weekly, week-commencing Monday, UTC",
+    "note": "Rows dated at or before actuals_through are series=actual; later rows are series=forecast or series=target."
+  },
+  "gates": {
+    "migration_object_pass_pct": 98.0,
+    "sit1_pass_pct": 90.0,
+    "sit2_pass_pct": 95.0,
+    "uat_pass_pct": 98.0,
+    "training_completion_pct": 95.0,
+    "sandbox_pass_pct": 90.0
+  },
+  "waves": [
+    {"wave": 1, "scope": "Germany (company code 1000) and North America (company code 2000)", "go_live": "2026-12-15", "readiness_target_pct": 75.0},
+    {"wave": 2, "scope": "France (1100), Mexico (2100), China (3000), India (3100), Brazil (4000), Japan (5000)", "go_live": "2027-06-14", "readiness_target_pct": 25.0}
+  ],
+  "mock_loads": [
+    {"mock": "Mock 1", "load_date": "2026-04-13", "series": "actual", "coverage": 0.62, "open_ratio": 0.78},
+    {"mock": "Mock 2", "load_date": "2026-06-08", "series": "actual", "coverage": 0.84, "open_ratio": 0.52},
+    {"mock": "Mock 3", "load_date": "2026-07-13", "series": "actual", "coverage": 1.0, "open_ratio": 0.31},
+    {"mock": "Mock 4", "load_date": "2026-11-06", "series": "target", "coverage": 1.04, "open_ratio": 0.0}
+  ],
+  "disclaimer": "100% synthetic. Every workspace, item, metric, person, site and query result below is invented for demo purposes. No real company, no real program, no real analytics platform data, no real capacity."
+}

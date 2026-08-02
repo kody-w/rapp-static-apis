@@ -1,0 +1,122 @@
+{
+  "@rapp.schema": "rapp-static-fabriciq-items/1.0",
+  "@rapp.endpoint": "GET https://api.fabric.meridian-mfg.example/v1/workspaces/680cdc92-e368-1cc9-5b6e-082125d36f23/items",
+  "@rapp.workspaceId": "680cdc92-e368-1cc9-5b6e-082125d36f23",
+  "@rapp.workspaceSlug": "phoenix-analytics",
+  "@rapp.itemTypeCounts": {
+    "KQLDatabase": 1,
+    "Lakehouse": 1,
+    "Report": 3,
+    "SemanticModel": 4
+  },
+  "@rapp.generated": "2026-08-01T00:00:00Z",
+  "@rapp.asOf": "2026-08-01T00:00:00Z",
+  "@rapp.note": "Synthetic Fabric REST collection. Shape matches api.fabric.<tenant>/v1; every id, capacity and item is invented.",
+  "@rapp.disclaimer": "100% synthetic. Every workspace, item, metric, person, site and query result below is invented for demo purposes. No real company, no real program, no real analytics platform data, no real capacity.",
+  "value": [
+    {
+      "id": "3b0e8ad4-0a45-9dfb-218d-67e196b541e5",
+      "type": "Lakehouse",
+      "displayName": "PhoenixLakehouse",
+      "description": "Bronze/silver/gold lakehouse landing the ECC + S/4HANA extracts, the Migration Cockpit run logs, the test-management export and the learning-portal feed.",
+      "workspaceId": "680cdc92-e368-1cc9-5b6e-082125d36f23",
+      "folderId": null,
+      "@rapp.key": "lakehouse-phoenix",
+      "@rapp.createdDate": "2026-02-09T08:15:00Z",
+      "@rapp.lastRefresh": "2026-07-31T02:10:00Z"
+    },
+    {
+      "id": "c489e9ed-b463-d218-aff7-c4eb2e89f209",
+      "type": "SemanticModel",
+      "displayName": "Data Quality",
+      "description": "Migration-object pass rates per mock load, defect backlog and the >=98% Mock 4 gate. Sourced from the Migration Cockpit reconciliation tables in PhoenixLakehouse.",
+      "workspaceId": "680cdc92-e368-1cc9-5b6e-082125d36f23",
+      "folderId": null,
+      "@rapp.key": "model-data-quality",
+      "@rapp.createdDate": "2026-02-16T09:30:00Z",
+      "@rapp.lastRefresh": "2026-07-31T03:05:00Z"
+    },
+    {
+      "id": "b393fe70-a034-94ff-8789-27c685208b50",
+      "type": "SemanticModel",
+      "displayName": "Test Execution",
+      "description": "Planned vs executed vs passed test cases per workstream per week across SIT-1, SIT-2 and UAT, with open Sev-1/Sev-2 defects against each phase exit gate.",
+      "workspaceId": "680cdc92-e368-1cc9-5b6e-082125d36f23",
+      "folderId": null,
+      "@rapp.key": "model-test-execution",
+      "@rapp.createdDate": "2026-03-02T09:30:00Z",
+      "@rapp.lastRefresh": "2026-07-31T03:20:00Z"
+    },
+    {
+      "id": "42bf82f4-8c8c-4e1a-3c1b-bdab96cade84",
+      "type": "SemanticModel",
+      "displayName": "Training Readiness",
+      "description": "Role-based curriculum assignment and completion per Wave 1 site and role family, against the >=95% go/no-go gate and the >=90% sandbox pass rate for critical roles.",
+      "workspaceId": "680cdc92-e368-1cc9-5b6e-082125d36f23",
+      "folderId": null,
+      "@rapp.key": "model-training-readiness",
+      "@rapp.createdDate": "2026-03-16T09:30:00Z",
+      "@rapp.lastRefresh": "2026-07-31T03:35:00Z"
+    },
+    {
+      "id": "286bf020-aac4-9dfa-395a-dd93227992dc",
+      "type": "SemanticModel",
+      "displayName": "Cutover Readiness",
+      "description": "Per-plant cutover readiness score, open cutover-register actions, site lead and RAG status for both waves. The Steering go/no-go view.",
+      "workspaceId": "680cdc92-e368-1cc9-5b6e-082125d36f23",
+      "folderId": null,
+      "@rapp.key": "model-cutover-readiness",
+      "@rapp.createdDate": "2026-04-06T09:30:00Z",
+      "@rapp.lastRefresh": "2026-07-31T03:50:00Z"
+    },
+    {
+      "id": "b956e858-6d2b-0abd-1358-23ec13af8b17",
+      "type": "Report",
+      "displayName": "Phoenix Steering Scorecard",
+      "description": "One-page monthly Steering view: wave RAG, readiness by plant, gate status across all four models.",
+      "workspaceId": "680cdc92-e368-1cc9-5b6e-082125d36f23",
+      "folderId": null,
+      "@rapp.key": "report-steering-scorecard",
+      "@rapp.createdDate": "2026-04-13T11:00:00Z",
+      "@rapp.lastRefresh": "2026-07-31T03:52:00Z",
+      "@rapp.boundSemanticModelId": "286bf020-aac4-9dfa-395a-dd93227992dc"
+    },
+    {
+      "id": "60d3f26d-bfc7-ea06-5be0-03f2c62ebd88",
+      "type": "Report",
+      "displayName": "Data Quality Cockpit",
+      "description": "Mock-load drilldown per migration object and object owner: pass-rate trend, defect ageing and distance to the 98% rule.",
+      "workspaceId": "680cdc92-e368-1cc9-5b6e-082125d36f23",
+      "folderId": null,
+      "@rapp.key": "report-data-quality-cockpit",
+      "@rapp.createdDate": "2026-04-20T11:00:00Z",
+      "@rapp.lastRefresh": "2026-07-31T03:08:00Z",
+      "@rapp.boundSemanticModelId": "c489e9ed-b463-d218-aff7-c4eb2e89f209"
+    },
+    {
+      "id": "3311f814-e844-54ed-d5ca-008314c01674",
+      "type": "Report",
+      "displayName": "Test & Training Readiness Tracker",
+      "description": "Weekly PMO Sync view: SIT/UAT burn-up per workstream next to curriculum completion per site and role family.",
+      "workspaceId": "680cdc92-e368-1cc9-5b6e-082125d36f23",
+      "folderId": null,
+      "@rapp.key": "report-readiness-tracker",
+      "@rapp.createdDate": "2026-05-11T11:00:00Z",
+      "@rapp.lastRefresh": "2026-07-31T03:38:00Z",
+      "@rapp.boundSemanticModelId": "b393fe70-a034-94ff-8789-27c685208b50"
+    },
+    {
+      "id": "02b0dd82-96a6-92d3-c509-897355a0015c",
+      "type": "KQLDatabase",
+      "displayName": "PhoenixCutoverTelemetry",
+      "description": "Real-time eventhouse for the cutover weekend: Migration Cockpit job events, interface heartbeats and war-room task state. Idle until the December blackout.",
+      "workspaceId": "680cdc92-e368-1cc9-5b6e-082125d36f23",
+      "folderId": null,
+      "@rapp.key": "kql-cutover-telemetry",
+      "@rapp.createdDate": "2026-06-01T10:45:00Z",
+      "@rapp.lastRefresh": "2026-07-31T04:00:00Z"
+    }
+  ],
+  "continuationToken": null,
+  "continuationUri": null
+}

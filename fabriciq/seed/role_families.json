@@ -1,0 +1,65 @@
+{
+  "total_roles": 34,
+  "total_wave1_users": 2400,
+  "families": [
+    {
+      "key": "FIN",
+      "role_family": "Finance & Controlling",
+      "roles": 6,
+      "critical": true,
+      "offset_pct": 1.5,
+      "weights": {"Production": 0.06, "Distribution": 0.05, "Service": 0.08}
+    },
+    {
+      "key": "PROC",
+      "role_family": "Procurement & Inventory",
+      "roles": 5,
+      "critical": false,
+      "offset_pct": 0.4,
+      "weights": {"Production": 0.12, "Distribution": 0.10, "Service": 0.09}
+    },
+    {
+      "key": "ORDER",
+      "role_family": "Order Desk & Customer Service",
+      "roles": 4,
+      "critical": true,
+      "offset_pct": 1.5,
+      "weights": {"Production": 0.07, "Distribution": 0.22, "Service": 0.30}
+    },
+    {
+      "key": "WHSE",
+      "role_family": "Warehouse & Logistics",
+      "roles": 6,
+      "critical": true,
+      "offset_pct": 1.2,
+      "weights": {"Production": 0.17, "Distribution": 0.46, "Service": 0.18}
+    },
+    {
+      "key": "PROD",
+      "role_family": "Production & Shop Floor",
+      "roles": 7,
+      "critical": true,
+      "offset_pct": 0.5,
+      "weights": {"Production": 0.38, "Distribution": 0.04, "Service": 0.16}
+    },
+    {
+      "key": "QUAL",
+      "role_family": "Quality & Maintenance",
+      "roles": 3,
+      "critical": false,
+      "offset_pct": -1.4,
+      "weights": {"Production": 0.13, "Distribution": 0.06, "Service": 0.11}
+    },
+    {
+      "key": "RPT",
+      "role_family": "Reporting & Analytics",
+      "roles": 3,
+      "critical": false,
+      "offset_pct": -4.0,
+      "weights": {"Production": 0.07, "Distribution": 0.07, "Service": 0.08}
+    }
+  ],
+  "site_family_penalties": {
+    "M002": {"PROD": -6.0, "QUAL": -4.5}
+  }
+}

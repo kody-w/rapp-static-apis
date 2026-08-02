@@ -1,0 +1,47 @@
+[
+  {
+    "id": "SIT-1",
+    "name": "SIT cycle 1",
+    "first_week_start": "2026-08-03",
+    "weeks": 4,
+    "scope_mult": 1.0,
+    "gate_pct": 90.0,
+    "exit_criteria": ">=90% pass, no Sev-1 open",
+    "entry_criteria": "Mock 2 data loaded",
+    "start_gap": 13.0,
+    "end_margin": 1.6,
+    "sev1_start": 4,
+    "sev2_start": 11,
+    "sev2_end": 3
+  },
+  {
+    "id": "SIT-2",
+    "name": "SIT cycle 2",
+    "first_week_start": "2026-08-31",
+    "weeks": 8,
+    "scope_mult": 0.92,
+    "gate_pct": 95.0,
+    "exit_criteria": ">=95% pass, no Sev-1/Sev-2 open",
+    "entry_criteria": "SIT-1 defects closed",
+    "start_gap": 8.5,
+    "end_margin": 1.1,
+    "sev1_start": 3,
+    "sev2_start": 9,
+    "sev2_end": 0
+  },
+  {
+    "id": "UAT",
+    "name": "User acceptance test",
+    "first_week_start": "2026-10-26",
+    "weeks": 4,
+    "scope_mult": 0.55,
+    "gate_pct": 98.0,
+    "exit_criteria": ">=98% pass, business sign-off per stream",
+    "entry_criteria": "SIT-2 exit + Mock 3 data",
+    "start_gap": 4.5,
+    "end_margin": 0.6,
+    "sev1_start": 2,
+    "sev2_start": 4,
+    "sev2_end": 0
+  }
+]

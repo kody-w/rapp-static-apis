@@ -1,0 +1,10 @@
+[
+  {"id": "WS-FI", "name": "Finance (FI/CO)", "lead": "Anna Keller", "backup": "Tomas Novak", "test_cases": 480, "strained": false},
+  {"id": "WS-MM", "name": "Procurement (MM/Ariba)", "lead": "Priya Sharma", "backup": "Luis Ortega", "test_cases": 420, "strained": false},
+  {"id": "WS-SD", "name": "Sales & Logistics (SD/LE)", "lead": "Marcus Webb", "backup": "Yuki Tanaka", "test_cases": 460, "strained": false},
+  {"id": "WS-PP", "name": "Manufacturing (PP/QM)", "lead": "Ingrid Bauer", "backup": "Chen Wei", "test_cases": 400, "strained": false},
+  {"id": "WS-DM", "name": "Data Migration", "lead": "David Okafor", "backup": "Sara Lindqvist", "test_cases": 180, "strained": true},
+  {"id": "WS-TA", "name": "Technical Architecture & Basis", "lead": "Elena Petrova", "backup": "James Carter", "test_cases": 260, "strained": false},
+  {"id": "WS-CT", "name": "Change Management & Training", "lead": "Sofia Rossi", "backup": "Mark Daniels", "test_cases": 120, "strained": false},
+  {"id": "WS-TQ", "name": "Testing & Quality", "lead": "Ahmed Hassan", "backup": "Julia Meyer", "test_cases": 140, "strained": true}
+]

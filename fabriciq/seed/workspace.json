@@ -1,0 +1,88 @@
+{
+  "slug": "phoenix-analytics",
+  "displayName": "Phoenix Program Analytics",
+  "description": "Program-office analytics for Project Phoenix: data-migration quality, test execution, training readiness and cutover readiness for the Wave 1 S/4HANA go-live.",
+  "capacity": {
+    "displayName": "phoenix-capacity-weu",
+    "sku": "F64",
+    "region": "West Europe",
+    "state": "Active"
+  },
+  "items": [
+    {
+      "key": "lakehouse-phoenix",
+      "type": "Lakehouse",
+      "displayName": "PhoenixLakehouse",
+      "description": "Bronze/silver/gold lakehouse landing the ECC + S/4HANA extracts, the Migration Cockpit run logs, the test-management export and the learning-portal feed.",
+      "created": "2026-02-09T08:15:00Z",
+      "lastRefresh": "2026-07-31T02:10:00Z"
+    },
+    {
+      "key": "model-data-quality",
+      "type": "SemanticModel",
+      "displayName": "Data Quality",
+      "description": "Migration-object pass rates per mock load, defect backlog and the >=98% Mock 4 gate. Sourced from the Migration Cockpit reconciliation tables in PhoenixLakehouse.",
+      "created": "2026-02-16T09:30:00Z",
+      "lastRefresh": "2026-07-31T03:05:00Z"
+    },
+    {
+      "key": "model-test-execution",
+      "type": "SemanticModel",
+      "displayName": "Test Execution",
+      "description": "Planned vs executed vs passed test cases per workstream per week across SIT-1, SIT-2 and UAT, with open Sev-1/Sev-2 defects against each phase exit gate.",
+      "created": "2026-03-02T09:30:00Z",
+      "lastRefresh": "2026-07-31T03:20:00Z"
+    },
+    {
+      "key": "model-training-readiness",
+      "type": "SemanticModel",
+      "displayName": "Training Readiness",
+      "description": "Role-based curriculum assignment and completion per Wave 1 site and role family, against the >=95% go/no-go gate and the >=90% sandbox pass rate for critical roles.",
+      "created": "2026-03-16T09:30:00Z",
+      "lastRefresh": "2026-07-31T03:35:00Z"
+    },
+    {
+      "key": "model-cutover-readiness",
+      "type": "SemanticModel",
+      "displayName": "Cutover Readiness",
+      "description": "Per-plant cutover readiness score, open cutover-register actions, site lead and RAG status for both waves. The Steering go/no-go view.",
+      "created": "2026-04-06T09:30:00Z",
+      "lastRefresh": "2026-07-31T03:50:00Z"
+    },
+    {
+      "key": "report-steering-scorecard",
+      "type": "Report",
+      "displayName": "Phoenix Steering Scorecard",
+      "description": "One-page monthly Steering view: wave RAG, readiness by plant, gate status across all four models.",
+      "boundModel": "model-cutover-readiness",
+      "created": "2026-04-13T11:00:00Z",
+      "lastRefresh": "2026-07-31T03:52:00Z"
+    },
+    {
+      "key": "report-data-quality-cockpit",
+      "type": "Report",
+      "displayName": "Data Quality Cockpit",
+      "description": "Mock-load drilldown per migration object and object owner: pass-rate trend, defect ageing and distance to the 98% rule.",
+      "boundModel": "model-data-quality",
+      "created": "2026-04-20T11:00:00Z",
+      "lastRefresh": "2026-07-31T03:08:00Z"
+    },
+    {
+      "key": "report-readiness-tracker",
+      "type": "Report",
+      "displayName": "Test & Training Readiness Tracker",
+      "description": "Weekly PMO Sync view: SIT/UAT burn-up per workstream next to curriculum completion per site and role family.",
+      "boundModel": "model-test-execution",
+      "created": "2026-05-11T11:00:00Z",
+      "lastRefresh": "2026-07-31T03:38:00Z"
+    },
+    {
+      "key": "kql-cutover-telemetry",
+      "type": "KQLDatabase",
+      "displayName": "PhoenixCutoverTelemetry",
+      "description": "Real-time eventhouse for the cutover weekend: Migration Cockpit job events, interface heartbeats and war-room task state. Idle until the December blackout.",
+      "created": "2026-06-01T10:45:00Z",
+      "lastRefresh": "2026-07-31T04:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "schema": "rapp-static-fabriciq-status/1.0",
+  "generated": "2026-08-01T00:00:00Z",
+  "as_of": "2026-08-01T00:00:00Z",
+  "program": "Project Phoenix",
+  "go_live": "2026-12-15",
+  "workspace": "Phoenix Program Analytics",
+  "workspace_id": "680cdc92-e368-1cc9-5b6e-082125d36f23",
+  "summary": {
+    "workspaces": 1,
+    "items": 9,
+    "semantic_models": 4,
+    "reports": 3,
+    "migration_objects": 8,
+    "workstreams": 8,
+    "test_phases": 3,
+    "plants": 12,
+    "wave1_sites": 5,
+    "wave1_users": 2400,
+    "role_families": 7,
+    "rows": {
+      "data-quality": 32,
+      "test-execution": 128,
+      "training-readiness": 35,
+      "cutover-readiness": 12
+    },
+    "endpoints": 6
+  },
+  "endpoints": [
+    {
+      "name": "workspaces",
+      "count": 1,
+      "sha8": "d1f627cd1e20"
+    },
+    {
+      "name": "workspaces/phoenix-analytics/items",
+      "count": 9,
+      "sha8": "82de8d86a3be"
+    },
+    {
+      "name": "queries/data-quality",
+      "count": 32,
+      "sha8": "4d9fa46434d7"
+    },
+    {
+      "name": "queries/test-execution",
+      "count": 128,
+      "sha8": "decc2dd47f8a"
+    },
+    {
+      "name": "queries/training-readiness",
+      "count": 35,
+      "sha8": "5c67a2ba878c"
+    },
+    {
+      "name": "queries/cutover-readiness",
+      "count": 12,
+      "sha8": "5d705dcfb73e"
+    }
+  ],
+  "signals": {
+    "objects_below_98_at_mock3": [
+      "BOM",
+      "BP",
+      "MATERIAL",
+      "PO",
+      "SO"
+    ],
+    "worst_object_at_mock3": {
+      "object_id": "BOM",
+      "object": "Bills of material / routings",
+      "pass_pct": 91.5
+    },
+    "sites_below_training_gate": [
+      "M002",
+      "U001"
+    ],
+    "site_training_completion_pct": {
+      "M001": 96.3,
+      "M002": 83.7,
+      "M003": 96.6,
+      "U001": 94.8,
+      "U002": 96.3
+    },
+    "role_families_below_training_gate": 16,
+    "red_plants": [
+      "B001",
+      "M002"
+    ],
+    "amber_plants": [
+      "C001",
+      "J002",
+      "U001",
+      "U002"
+    ],
+    "strained_streams": [
+      "WS-DM",
+      "WS-TQ"
+    ]
+  }
+}

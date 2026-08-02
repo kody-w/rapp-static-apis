@@ -1,0 +1,140 @@
+{
+  "schema": "rapp-static-fabriciq/1.0",
+  "conforms_to": "rapp-static-api/1.0",
+  "name": "rapp-static-fabriciq",
+  "description": "Synthetic Microsoft-Fabric-shaped program-analytics API (workspace items + semantic-model query results) for Project Phoenix at Meridian Manufacturing Group, a fictional global manufacturer mid-S/4HANA-transformation. Fully synthetic, no real data.",
+  "generated": "2026-08-01T00:00:00Z",
+  "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fabriciq",
+  "pages_base": "https://kody-w.github.io/rapp-static-apis/fabriciq",
+  "fabric_base": "https://api.fabric.meridian-mfg.example/v1",
+  "tenant": "meridian-mfg.example",
+  "workspace": {
+    "id": "680cdc92-e368-1cc9-5b6e-082125d36f23",
+    "slug": "phoenix-analytics",
+    "displayName": "Phoenix Program Analytics",
+    "capacityId": "2853a833-6138-21d7-1bba-795bc2b95759",
+    "capacitySku": "F64"
+  },
+  "program": "Project Phoenix",
+  "company": "Meridian Manufacturing Group (fictional)",
+  "go_live": "2026-12-15",
+  "as_of": "2026-08-01T00:00:00Z",
+  "window": {
+    "actuals_from": "2026-02-02",
+    "actuals_through": "2026-07-31",
+    "forecast_through": "2026-12-15",
+    "cadence": "weekly, week-commencing Monday, UTC",
+    "note": "Rows dated at or before actuals_through are series=actual; later rows are series=forecast or series=target."
+  },
+  "gates": {
+    "migration_object_pass_pct": 98.0,
+    "sit1_pass_pct": 90.0,
+    "sit2_pass_pct": 95.0,
+    "uat_pass_pct": 98.0,
+    "training_completion_pct": 95.0,
+    "sandbox_pass_pct": 90.0
+  },
+  "summary": {
+    "workspaces": 1,
+    "items": 9,
+    "semantic_models": 4,
+    "reports": 3,
+    "migration_objects": 8,
+    "workstreams": 8,
+    "test_phases": 3,
+    "plants": 12,
+    "wave1_sites": 5,
+    "wave1_users": 2400,
+    "role_families": 7,
+    "rows": {
+      "data-quality": 32,
+      "test-execution": 128,
+      "training-readiness": 35,
+      "cutover-readiness": 12
+    },
+    "endpoints": 6
+  },
+  "entries": [
+    {
+      "name": "workspaces",
+      "description": "Fabric workspace collection: the Phoenix Program Analytics workspace, its capacity and OneLake endpoints.",
+      "count": 1,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fabriciq/api/v1/workspaces.json",
+      "pages_url": "https://kody-w.github.io/rapp-static-apis/fabriciq/api/v1/workspaces.json",
+      "sha8": "d1f627cd1e20"
+    },
+    {
+      "name": "workspaces/phoenix-analytics/items",
+      "description": "Fabric item collection for the Phoenix Program Analytics workspace: 1 lakehouse, 4 semantic models, 3 reports, 1 KQL database.",
+      "count": 9,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fabriciq/api/v1/workspaces/phoenix-analytics/items.json",
+      "pages_url": "https://kody-w.github.io/rapp-static-apis/fabriciq/api/v1/workspaces/phoenix-analytics/items.json",
+      "sha8": "82de8d86a3be"
+    },
+    {
+      "name": "queries/data-quality",
+      "description": "Migration-object pass rate, records tested and open defects per mock load. Mock 1-3 are actuals; Mock 4 is the >=98% final-rehearsal target.",
+      "count": 32,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fabriciq/api/v1/queries/data-quality.json",
+      "pages_url": "https://kody-w.github.io/rapp-static-apis/fabriciq/api/v1/queries/data-quality.json",
+      "sha8": "4d9fa46434d7"
+    },
+    {
+      "name": "queries/test-execution",
+      "description": "Planned / executed / passed test cases and open Sev-1 & Sev-2 defects per workstream per week across SIT-1, SIT-2 and UAT.",
+      "count": 128,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fabriciq/api/v1/queries/test-execution.json",
+      "pages_url": "https://kody-w.github.io/rapp-static-apis/fabriciq/api/v1/queries/test-execution.json",
+      "sha8": "decc2dd47f8a"
+    },
+    {
+      "name": "queries/training-readiness",
+      "description": "Role-based curriculum assignment and completion per Wave 1 site and role family, plus sandbox pass rate for critical role families.",
+      "count": 35,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fabriciq/api/v1/queries/training-readiness.json",
+      "pages_url": "https://kody-w.github.io/rapp-static-apis/fabriciq/api/v1/queries/training-readiness.json",
+      "sha8": "5c67a2ba878c"
+    },
+    {
+      "name": "queries/cutover-readiness",
+      "description": "Per-plant cutover readiness score, open cutover-register actions, site lead and RAG status for both waves.",
+      "count": 12,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fabriciq/api/v1/queries/cutover-readiness.json",
+      "pages_url": "https://kody-w.github.io/rapp-static-apis/fabriciq/api/v1/queries/cutover-readiness.json",
+      "sha8": "5d705dcfb73e"
+    }
+  ],
+  "canon": {
+    "source": "sharepoint/seed/docs (copied into fabriciq/seed at authoring time; not read at build time)",
+    "mock3_pass_pct": {
+      "BP": 97.2,
+      "MATERIAL": 94.8,
+      "BOM": 91.5,
+      "APAR": 99.1,
+      "GL": 100.0,
+      "PO": 95.6,
+      "SO": 96.3,
+      "FA": 98.4
+    },
+    "phase_gates": {
+      "SIT-1": 90.0,
+      "SIT-2": 95.0,
+      "UAT": 98.0
+    },
+    "phase_windows": {
+      "SIT-1": {
+        "first_week_start": "2026-08-03",
+        "weeks": 4
+      },
+      "SIT-2": {
+        "first_week_start": "2026-08-31",
+        "weeks": 8
+      },
+      "UAT": {
+        "first_week_start": "2026-10-26",
+        "weeks": 4
+      }
+    }
+  },
+  "disclaimer": "100% synthetic. Every workspace, item, metric, person, site and query result below is invented for demo purposes. No real company, no real program, no real analytics platform data, no real capacity."
+}
