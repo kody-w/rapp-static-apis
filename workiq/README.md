@@ -25,14 +25,14 @@ ingester treats them like a live call. Repoint at a real tenant by changing `GRA
 | `api/v1/collaboration.json` | 8 workstreams × 26 weeks = 208 | Weekly messages/questions, answered vs unanswered, median response hours, top askers/answerers |
 | `api/v1/topics-trending.json` | 26 weekly snapshots | Top-8 trending topics with mention deltas, rank movement, top voices |
 | `api/v1/status.json` | — | Counts, per-endpoint `sha8`, and the headline signals |
-| `registry.json` | — | Generated index (`rapp-static-dataiq/1.0`) |
+| `registry.json` | — | Generated index (`rapp-static-workiq/1.0`) |
 
 Window: 26 weeks, w/c **2026-02-02 → 2026-07-27**, `as_of` 2026-08-01.
 
 ## Try it
 
 ```bash
-RAW=https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataiq
+RAW=https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/workiq
 
 # who is overloaded?
 curl -s $RAW/api/v1/people.json | jq '.value[] | select(.utilization_pct > 90)

@@ -3,7 +3,7 @@
   "name": "rapp-static-apis",
   "protocolVersion": "2024-11-05",
   "description": "Discovery manifest for the RAPP static-API commons. Each API is a read-only resource fetched from GitHub raw; no server.",
-  "generated": "2026-08-02T18:31:22Z",
+  "generated": "2026-08-02T18:33:30Z",
   "resources": [
     {
       "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion/registry.json",
@@ -15,12 +15,6 @@
       "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/registry.json",
       "name": "customer360",
       "description": "rapp-static-customer360",
-      "mimeType": "application/json"
-    },
-    {
-      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataiq/registry.json",
-      "name": "dataiq",
-      "description": "dataiq — synthetic Microsoft-Graph-flavored work-insights API (Project Phoenix)",
       "mimeType": "application/json"
     },
     {
@@ -117,6 +111,12 @@
       "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/vbrainstem-cell/registry.json",
       "name": "vbrainstem-cell",
       "description": "vbrainstem-cell — a headless agent runtime in a sandboxed iframe",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/workiq/registry.json",
+      "name": "workiq",
+      "description": "dataiq — synthetic Microsoft-Graph-flavored work-insights API (Project Phoenix)",
       "mimeType": "application/json"
     }
   ],

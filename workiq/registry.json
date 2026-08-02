@@ -1,11 +1,11 @@
 {
-  "schema": "rapp-static-dataiq/1.0",
+  "schema": "rapp-static-workiq/1.0",
   "conforms_to": "rapp-static-api/1.0",
-  "name": "rapp-static-dataiq",
+  "name": "rapp-static-workiq",
   "description": "Synthetic Microsoft-Graph-flavored work-insights API (people analytics / collaboration insights) for Project Phoenix at Meridian Manufacturing Group, a fictional global manufacturer mid-S/4HANA-transformation. Fully synthetic, no real data.",
   "generated": "2026-08-01T00:00:00Z",
-  "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataiq",
-  "pages_base": "https://kody-w.github.io/rapp-static-apis/dataiq",
+  "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/workiq",
+  "pages_base": "https://kody-w.github.io/rapp-static-apis/workiq",
   "graph_base": "https://graph.meridian-mfg.example/v1.0",
   "tenant": "meridian-mfg.example",
   "program": "Project Phoenix",
@@ -33,33 +33,33 @@
       "name": "people",
       "description": "Person profiles with workstream, skills, site, utilization, open actions and average response time.",
       "count": 52,
-      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataiq/api/v1/people.json",
-      "pages_url": "https://kody-w.github.io/rapp-static-apis/dataiq/api/v1/people.json",
-      "sha8": "b8664ed98bdb"
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/workiq/api/v1/people.json",
+      "pages_url": "https://kody-w.github.io/rapp-static-apis/workiq/api/v1/people.json",
+      "sha8": "20489e3becfe"
     },
     {
       "name": "expertise",
       "description": "Topic -> ranked experts with evidence counts (answers given, docs authored, meetings led).",
       "count": 16,
-      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataiq/api/v1/expertise.json",
-      "pages_url": "https://kody-w.github.io/rapp-static-apis/dataiq/api/v1/expertise.json",
-      "sha8": "10d80a584188"
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/workiq/api/v1/expertise.json",
+      "pages_url": "https://kody-w.github.io/rapp-static-apis/workiq/api/v1/expertise.json",
+      "sha8": "5051a5fd485b"
     },
     {
       "name": "collaboration",
       "description": "Per-workstream weekly message/question volumes, answered vs unanswered, median response hours, top askers/answerers.",
       "count": 208,
-      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataiq/api/v1/collaboration.json",
-      "pages_url": "https://kody-w.github.io/rapp-static-apis/dataiq/api/v1/collaboration.json",
-      "sha8": "83f420d4d589"
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/workiq/api/v1/collaboration.json",
+      "pages_url": "https://kody-w.github.io/rapp-static-apis/workiq/api/v1/collaboration.json",
+      "sha8": "6ed58d0c9399"
     },
     {
       "name": "topics-trending",
       "description": "Weekly top-8 trending topics with mention deltas, rank movement and top voices.",
       "count": 26,
-      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataiq/api/v1/topics-trending.json",
-      "pages_url": "https://kody-w.github.io/rapp-static-apis/dataiq/api/v1/topics-trending.json",
-      "sha8": "d1d86e59e692"
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/workiq/api/v1/topics-trending.json",
+      "pages_url": "https://kody-w.github.io/rapp-static-apis/workiq/api/v1/topics-trending.json",
+      "sha8": "d24c4fe18b93"
     }
   ],
   "disclaimer": "100% synthetic. Every person, workstream, site, metric and topic below is invented for demo purposes. No real people, no real company, no real telemetry, no real Microsoft Graph data."

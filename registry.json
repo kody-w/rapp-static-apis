@@ -6,7 +6,7 @@
   "spec": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/SPEC.md",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main",
   "pages_base": "https://kody-w.github.io/rapp-static-apis",
-  "generated": "2026-08-02T18:31:22Z",
+  "generated": "2026-08-02T18:33:30Z",
   "summary": {
     "apis": 19,
     "with_status_endpoint": 19,
@@ -35,18 +35,6 @@
       "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/registry.json",
       "api_schema": "rapp-static-api/1.0",
       "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/v1/status.json",
-      "capabilities": [
-        "versioned-endpoints"
-      ]
-    },
-    {
-      "name": "dataiq",
-      "description": "dataiq — synthetic Microsoft-Graph-flavored work-insights API (Project Phoenix)",
-      "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataiq",
-      "pages_base": "https://kody-w.github.io/rapp-static-apis/dataiq/",
-      "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataiq/registry.json",
-      "api_schema": "rapp-static-dataiq/1.0",
-      "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataiq/api/v1/status.json",
       "capabilities": [
         "versioned-endpoints"
       ]
@@ -272,6 +260,18 @@
       "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/vbrainstem-cell/api/v1/status.json",
       "badge": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/vbrainstem-cell/api/v1/badge.json",
       "dashboard": "https://kody-w.github.io/rapp-static-apis/vbrainstem-cell/",
+      "capabilities": [
+        "versioned-endpoints"
+      ]
+    },
+    {
+      "name": "workiq",
+      "description": "dataiq — synthetic Microsoft-Graph-flavored work-insights API (Project Phoenix)",
+      "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/workiq",
+      "pages_base": "https://kody-w.github.io/rapp-static-apis/workiq/",
+      "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/workiq/registry.json",
+      "api_schema": "rapp-static-workiq/1.0",
+      "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/workiq/api/v1/status.json",
       "capabilities": [
         "versioned-endpoints"
       ]

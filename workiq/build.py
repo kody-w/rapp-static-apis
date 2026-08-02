@@ -30,7 +30,7 @@ NOW = "2026-08-01T00:00:00Z"  # fixed: deterministic, no timestamp churn
 BASE_SEED = 7                 # every RNG in this build is derived from this seed
 
 OWNER, REPO, BRANCH = "kody-w", "rapp-static-apis", "main"
-MOUNT = "dataiq"
+MOUNT = "workiq"
 RAW_BASE = f"https://raw.githubusercontent.com/{OWNER}/{REPO}/{BRANCH}/{MOUNT}"
 PAGES_BASE = f"https://{OWNER}.github.io/{REPO}/{MOUNT}"
 API = "api/v1"
@@ -400,19 +400,19 @@ def build():
     docs = [
         ("people", "people.json", "Person profiles with workstream, skills, site, utilization, open actions and average response time.", {
             "@odata.context": ctx("people"),
-            "@rapp.schema": "rapp-static-dataiq-people/1.0",
+            "@rapp.schema": "rapp-static-workiq-people/1.0",
             "@odata.count": len(person_rows),
             "value": person_rows,
         }),
         ("expertise", "expertise.json", "Topic -> ranked experts with evidence counts (answers given, docs authored, meetings led).", {
             "@odata.context": ctx("expertise"),
-            "@rapp.schema": "rapp-static-dataiq-expertise/1.0",
+            "@rapp.schema": "rapp-static-workiq-expertise/1.0",
             "@odata.count": len(expertise_rows),
             "value": expertise_rows,
         }),
         ("collaboration", "collaboration.json", "Per-workstream weekly message/question volumes, answered vs unanswered, median response hours, top askers/answerers.", {
             "@odata.context": ctx("collaboration"),
-            "@rapp.schema": "rapp-static-dataiq-collaboration/1.0",
+            "@rapp.schema": "rapp-static-workiq-collaboration/1.0",
             "@odata.count": len(collab_rows),
             "window": {"weeks": weeks, "workstreams": len(coll_ws),
                        "first_week_start": week_starts[0], "last_week_start": week_starts[-1]},
@@ -420,7 +420,7 @@ def build():
         }),
         ("topics-trending", "topics-trending.json", "Weekly top-8 trending topics with mention deltas, rank movement and top voices.", {
             "@odata.context": ctx("topicsTrending"),
-            "@rapp.schema": "rapp-static-dataiq-topics-trending/1.0",
+            "@rapp.schema": "rapp-static-workiq-topics-trending/1.0",
             "@odata.count": len(trending_rows),
             "window": {"weeks": weeks, "top_n": TRENDING_TOP_N, "topics_tracked": len(topics),
                        "first_week_start": week_starts[0], "last_week_start": week_starts[-1]},
@@ -449,9 +449,9 @@ def build():
         "endpoints": len(entries),
     }
     write("registry.json", {
-        "schema": "rapp-static-dataiq/1.0",
+        "schema": "rapp-static-workiq/1.0",
         "conforms_to": "rapp-static-api/1.0",
-        "name": "rapp-static-dataiq",
+        "name": "rapp-static-workiq",
         "description": "Synthetic Microsoft-Graph-flavored work-insights API (people analytics / collaboration insights) for Project Phoenix at Meridian Manufacturing Group, a fictional global manufacturer mid-S/4HANA-transformation. Fully synthetic, no real data.",
         "generated": NOW, "raw_base": RAW_BASE, "pages_base": PAGES_BASE,
         "graph_base": graph_base, "tenant": tenant,
@@ -461,7 +461,7 @@ def build():
         "disclaimer": program["disclaimer"],
     })
     write(f"{API}/status.json", {
-        "schema": "rapp-static-dataiq-status/1.0",
+        "schema": "rapp-static-workiq-status/1.0",
         "generated": NOW, "as_of": program["as_of"],
         "program": program["program"], "go_live": program["go_live"],
         "summary": summary,
@@ -473,7 +473,7 @@ def build():
             "fastest_rising_topic_last_week": trending_rows[-1]["topRisingTopicId"],
         },
     })
-    print(f"rapp-static-dataiq: {summary['people']} people · {summary['workstreams']} workstreams · "
+    print(f"rapp-static-workiq: {summary['people']} people · {summary['workstreams']} workstreams · "
           f"{summary['topics']} topics · {summary['weeks']} weeks · "
           f"{summary['collaboration_rows']} collaboration rows · {summary['endpoints']} endpoints")
 

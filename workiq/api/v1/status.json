@@ -1,5 +1,5 @@
 {
-  "schema": "rapp-static-dataiq-status/1.0",
+  "schema": "rapp-static-workiq-status/1.0",
   "generated": "2026-08-01T00:00:00Z",
   "as_of": "2026-08-01T00:00:00Z",
   "program": "Project Phoenix",
@@ -18,22 +18,22 @@
     {
       "name": "people",
       "count": 52,
-      "sha8": "b8664ed98bdb"
+      "sha8": "20489e3becfe"
     },
     {
       "name": "expertise",
       "count": 16,
-      "sha8": "10d80a584188"
+      "sha8": "5051a5fd485b"
     },
     {
       "name": "collaboration",
       "count": 208,
-      "sha8": "83f420d4d589"
+      "sha8": "6ed58d0c9399"
     },
     {
       "name": "topics-trending",
       "count": 26,
-      "sha8": "d1d86e59e692"
+      "sha8": "d24c4fe18b93"
     }
   ],
   "signals": {
@@ -42,9 +42,9 @@
       "WS-TQ"
     ],
     "cutover_critical_people": [
-      "f230d95d-ddb0-aac4-61b8-2d1fc384e182",
-      "486f190e-8977-98ac-95ad-ec00ec778ad1",
-      "c82a5a03-9573-4af8-e945-eac9d814b70e"
+      "3a567f08-613c-bceb-fb7a-8e4290168299",
+      "6d198989-3ec1-c1c4-2095-eaa9b7c7563b",
+      "e0b553c0-8904-384d-d491-aa1f820284ef"
     ],
     "top_topic_last_week": "data-migration",
     "fastest_rising_topic_last_week": "change-training"

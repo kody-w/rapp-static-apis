@@ -19,7 +19,6 @@ Read the full convention: https://raw.githubusercontent.com/kody-w/rapp-static-a
 
 - [companion](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion/registry.json): companion — the twin companion: genetics, breeding, and bones — versioned-endpoints
 - [customer360](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/registry.json): rapp-static-customer360 — versioned-endpoints
-- [dataiq](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataiq/registry.json): dataiq — synthetic Microsoft-Graph-flavored work-insights API (Project Phoenix) — versioned-endpoints
 - [dataverse](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/dataverse/registry.json): RAPP static Dataverse — a digital twin on OOTB Dataverse — versioned-endpoints
 - [fn](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/fn/registry.json): rapp-static-fn — a static file that *runs* — versioned-endpoints, content-addressed
 - [hologram](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/hologram/registry.json): rapp-static-hologram — versioned-endpoints, content-addressed
@@ -36,6 +35,7 @@ Read the full convention: https://raw.githubusercontent.com/kody-w/rapp-static-a
 - [showcase](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/catalog.json): The Library of Awesome — versioned-endpoints, llms.txt
 - [track](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/track/registry.json): rapp-static-track — a data tracker that runs in your friend's browser — versioned-endpoints, content-addressed
 - [vbrainstem-cell](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/vbrainstem-cell/registry.json): vbrainstem-cell — a headless agent runtime in a sandboxed iframe — versioned-endpoints
+- [workiq](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/workiq/registry.json): dataiq — synthetic Microsoft-Graph-flavored work-insights API (Project Phoenix) — versioned-endpoints
 
 ## Discovery
 
@@ -46,4 +46,4 @@ Read the full convention: https://raw.githubusercontent.com/kody-w/rapp-static-a
 - Agent protocol: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/agent-protocol.json
 - Sitemap: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sitemap.xml
 
-<!-- generated 2026-08-02T18:31:22Z by build.py — do not hand-edit -->
+<!-- generated 2026-08-02T18:33:30Z by build.py — do not hand-edit -->

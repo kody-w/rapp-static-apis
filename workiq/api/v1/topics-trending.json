@@ -1,0 +1,4824 @@
+{
+  "@odata.context": "https://graph.meridian-mfg.example/v1.0/$metadata#topicsTrending",
+  "@rapp.schema": "rapp-static-workiq-topics-trending/1.0",
+  "@odata.count": 26,
+  "window": {
+    "weeks": 26,
+    "top_n": 8,
+    "topics_tracked": 16,
+    "first_week_start": "2026-02-02",
+    "last_week_start": "2026-07-27"
+  },
+  "value": [
+    {
+      "weekStart": "2026-02-02",
+      "weekIndex": 0,
+      "topicCount": 8,
+      "totalMentions": 729,
+      "topRisingTopicId": null,
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 77,
+          "delta": null,
+          "delta_pct": null,
+          "rank_delta": null,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "a67d8b74-9103-2316-4262-6930bcd0fcfc",
+              "displayName": "Tomas Novak"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 72,
+          "delta": null,
+          "delta_pct": null,
+          "rank_delta": null,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "786bfad2-7a4f-9114-0e1d-7b5e36139630",
+              "displayName": "Luis Ortega"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "manufacturing-ppqm",
+          "topic": "Manufacturing (PP/QM)",
+          "scope": "workstream",
+          "workstreamId": "WS-PP",
+          "mentions": 71,
+          "delta": null,
+          "delta_pct": null,
+          "rank_delta": null,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "fc5a4980-aa47-20f3-1713-3cb24febafdc",
+              "displayName": "Ingrid Bauer"
+            },
+            {
+              "personId": "a4b11219-0634-fbc7-b18b-93cb4c283848",
+              "displayName": "Chen Wei"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "sales-logistics-sd",
+          "topic": "Sales & Logistics (SD/LE)",
+          "scope": "workstream",
+          "workstreamId": "WS-SD",
+          "mentions": 65,
+          "delta": null,
+          "delta_pct": null,
+          "rank_delta": null,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "9ec10e4a-0a18-5ebe-8e00-7efb24884dc5",
+              "displayName": "Yuki Tanaka"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "o2c",
+          "topic": "Order-to-Cash (O2C)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 58,
+          "delta": null,
+          "delta_pct": null,
+          "rank_delta": null,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "9ec10e4a-0a18-5ebe-8e00-7efb24884dc5",
+              "displayName": "Yuki Tanaka"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "p2p",
+          "topic": "Procure-to-Pay (P2P)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 57,
+          "delta": null,
+          "delta_pct": null,
+          "rank_delta": null,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "786bfad2-7a4f-9114-0e1d-7b5e36139630",
+              "displayName": "Luis Ortega"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "r2r",
+          "topic": "Record-to-Report (R2R)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 56,
+          "delta": null,
+          "delta_pct": null,
+          "rank_delta": null,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "a67d8b74-9103-2316-4262-6930bcd0fcfc",
+              "displayName": "Tomas Novak"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 53,
+          "delta": null,
+          "delta_pct": null,
+          "rank_delta": null,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "4e83175e-009e-ea35-c4a3-c45f5a363da2",
+              "displayName": "James Carter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-02-09",
+      "weekIndex": 1,
+      "topicCount": 8,
+      "totalMentions": 727,
+      "topRisingTopicId": "sales-logistics-sd",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 78,
+          "delta": 1,
+          "delta_pct": 1.3,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "b4ffa358-ed77-09ad-48fd-33fdbb52251a",
+              "displayName": "Nadia Haddad"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 71,
+          "delta": -1,
+          "delta_pct": -1.4,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "49c75f9e-9dbd-7a2e-004f-0f494096a261",
+              "displayName": "Isabel Moreno"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "sales-logistics-sd",
+          "topic": "Sales & Logistics (SD/LE)",
+          "scope": "workstream",
+          "workstreamId": "WS-SD",
+          "mentions": 70,
+          "delta": 5,
+          "delta_pct": 7.7,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "fb67c9b8-3dde-67e1-003a-d0ccc748c694",
+              "displayName": "Camille Dubois"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "manufacturing-ppqm",
+          "topic": "Manufacturing (PP/QM)",
+          "scope": "workstream",
+          "workstreamId": "WS-PP",
+          "mentions": 66,
+          "delta": -5,
+          "delta_pct": -7.0,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "fc5a4980-aa47-20f3-1713-3cb24febafdc",
+              "displayName": "Ingrid Bauer"
+            },
+            {
+              "personId": "8879a26b-9fc9-47da-47b5-5f05e7e768dd",
+              "displayName": "Kenji Yamamoto"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "o2c",
+          "topic": "Order-to-Cash (O2C)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 58,
+          "delta": 0,
+          "delta_pct": 0.0,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "fb67c9b8-3dde-67e1-003a-d0ccc748c694",
+              "displayName": "Camille Dubois"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 54,
+          "delta": 1,
+          "delta_pct": 1.9,
+          "rank_delta": 2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "12eb13c7-7b83-37e2-c09e-3427fedc9029",
+              "displayName": "Lukas Berger"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "p2p",
+          "topic": "Procure-to-Pay (P2P)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 53,
+          "delta": -4,
+          "delta_pct": -7.0,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "bc482a9d-cfbf-5d7c-3a73-8dee07f77ffe",
+              "displayName": "Beatriz Alves"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "r2r",
+          "topic": "Record-to-Report (R2R)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 53,
+          "delta": -3,
+          "delta_pct": -5.4,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "40420c35-0721-7425-4d6e-ba2def0eaf2e",
+              "displayName": "Gunnar Holm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-02-16",
+      "weekIndex": 2,
+      "topicCount": 8,
+      "totalMentions": 738,
+      "topRisingTopicId": "technical-architecture",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 76,
+          "delta": 5,
+          "delta_pct": 7.0,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "dc2e94f8-c645-8111-2ec8-7c1b85a76b3c",
+              "displayName": "Piotr Zielinski"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 71,
+          "delta": -7,
+          "delta_pct": -9.0,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "40420c35-0721-7425-4d6e-ba2def0eaf2e",
+              "displayName": "Gunnar Holm"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "sales-logistics-sd",
+          "topic": "Sales & Logistics (SD/LE)",
+          "scope": "workstream",
+          "workstreamId": "WS-SD",
+          "mentions": 68,
+          "delta": -2,
+          "delta_pct": -2.9,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "d26cfaa8-bb0a-1e4c-0108-3eb252bb1427",
+              "displayName": "Robert Iversen"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "manufacturing-ppqm",
+          "topic": "Manufacturing (PP/QM)",
+          "scope": "workstream",
+          "workstreamId": "WS-PP",
+          "mentions": 62,
+          "delta": -4,
+          "delta_pct": -6.1,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "fc5a4980-aa47-20f3-1713-3cb24febafdc",
+              "displayName": "Ingrid Bauer"
+            },
+            {
+              "personId": "3de64ca1-4909-06cc-d9fc-93b0a1786e22",
+              "displayName": "Stefan Novotny"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 62,
+          "delta": 8,
+          "delta_pct": 14.8,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "f709ef00-cb62-daa2-dea3-fb46a72538c2",
+              "displayName": "Elin Sandberg"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "o2c",
+          "topic": "Order-to-Cash (O2C)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 56,
+          "delta": -2,
+          "delta_pct": -3.4,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "7239608f-8ac7-0f8d-488d-a437689731f1",
+              "displayName": "Mei Zhao"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "p2p",
+          "topic": "Procure-to-Pay (P2P)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 55,
+          "delta": 2,
+          "delta_pct": 3.8,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "dc2e94f8-c645-8111-2ec8-7c1b85a76b3c",
+              "displayName": "Piotr Zielinski"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "r2r",
+          "topic": "Record-to-Report (R2R)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 50,
+          "delta": -3,
+          "delta_pct": -5.7,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "8e00d1cb-524f-61c8-9d1a-b352e5904dd6",
+              "displayName": "Ravi Menon"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-02-23",
+      "weekIndex": 3,
+      "topicCount": 8,
+      "totalMentions": 738,
+      "topRisingTopicId": "finance-fico",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 81,
+          "delta": 10,
+          "delta_pct": 14.1,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "a67d8b74-9103-2316-4262-6930bcd0fcfc",
+              "displayName": "Tomas Novak"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "sales-logistics-sd",
+          "topic": "Sales & Logistics (SD/LE)",
+          "scope": "workstream",
+          "workstreamId": "WS-SD",
+          "mentions": 68,
+          "delta": 0,
+          "delta_pct": 0.0,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "9ec10e4a-0a18-5ebe-8e00-7efb24884dc5",
+              "displayName": "Yuki Tanaka"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 67,
+          "delta": -9,
+          "delta_pct": -11.8,
+          "rank_delta": -2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "786bfad2-7a4f-9114-0e1d-7b5e36139630",
+              "displayName": "Luis Ortega"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "manufacturing-ppqm",
+          "topic": "Manufacturing (PP/QM)",
+          "scope": "workstream",
+          "workstreamId": "WS-PP",
+          "mentions": 64,
+          "delta": 2,
+          "delta_pct": 3.2,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "fc5a4980-aa47-20f3-1713-3cb24febafdc",
+              "displayName": "Ingrid Bauer"
+            },
+            {
+              "personId": "a4b11219-0634-fbc7-b18b-93cb4c283848",
+              "displayName": "Chen Wei"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 59,
+          "delta": -3,
+          "delta_pct": -4.8,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "4e83175e-009e-ea35-c4a3-c45f5a363da2",
+              "displayName": "James Carter"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "o2c",
+          "topic": "Order-to-Cash (O2C)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 57,
+          "delta": 1,
+          "delta_pct": 1.8,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "9ec10e4a-0a18-5ebe-8e00-7efb24884dc5",
+              "displayName": "Yuki Tanaka"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "p2p",
+          "topic": "Procure-to-Pay (P2P)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 56,
+          "delta": 1,
+          "delta_pct": 1.8,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "786bfad2-7a4f-9114-0e1d-7b5e36139630",
+              "displayName": "Luis Ortega"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "r2r",
+          "topic": "Record-to-Report (R2R)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 47,
+          "delta": -3,
+          "delta_pct": -6.0,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "a67d8b74-9103-2316-4262-6930bcd0fcfc",
+              "displayName": "Tomas Novak"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-03-02",
+      "weekIndex": 4,
+      "topicCount": 8,
+      "totalMentions": 732,
+      "topRisingTopicId": "technical-architecture",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 71,
+          "delta": -10,
+          "delta_pct": -12.3,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "b4ffa358-ed77-09ad-48fd-33fdbb52251a",
+              "displayName": "Nadia Haddad"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 69,
+          "delta": 2,
+          "delta_pct": 3.0,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "49c75f9e-9dbd-7a2e-004f-0f494096a261",
+              "displayName": "Isabel Moreno"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "sales-logistics-sd",
+          "topic": "Sales & Logistics (SD/LE)",
+          "scope": "workstream",
+          "workstreamId": "WS-SD",
+          "mentions": 66,
+          "delta": -2,
+          "delta_pct": -2.9,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "fb67c9b8-3dde-67e1-003a-d0ccc748c694",
+              "displayName": "Camille Dubois"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 65,
+          "delta": 6,
+          "delta_pct": 10.2,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "12eb13c7-7b83-37e2-c09e-3427fedc9029",
+              "displayName": "Lukas Berger"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "manufacturing-ppqm",
+          "topic": "Manufacturing (PP/QM)",
+          "scope": "workstream",
+          "workstreamId": "WS-PP",
+          "mentions": 62,
+          "delta": -2,
+          "delta_pct": -3.1,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "fc5a4980-aa47-20f3-1713-3cb24febafdc",
+              "displayName": "Ingrid Bauer"
+            },
+            {
+              "personId": "8879a26b-9fc9-47da-47b5-5f05e7e768dd",
+              "displayName": "Kenji Yamamoto"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "p2p",
+          "topic": "Procure-to-Pay (P2P)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 51,
+          "delta": -5,
+          "delta_pct": -8.9,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "bc482a9d-cfbf-5d7c-3a73-8dee07f77ffe",
+              "displayName": "Beatriz Alves"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "o2c",
+          "topic": "Order-to-Cash (O2C)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 50,
+          "delta": -7,
+          "delta_pct": -12.3,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "fb67c9b8-3dde-67e1-003a-d0ccc748c694",
+              "displayName": "Camille Dubois"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "r2r",
+          "topic": "Record-to-Report (R2R)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 49,
+          "delta": 2,
+          "delta_pct": 4.3,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "40420c35-0721-7425-4d6e-ba2def0eaf2e",
+              "displayName": "Gunnar Holm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-03-09",
+      "weekIndex": 5,
+      "topicCount": 8,
+      "totalMentions": 756,
+      "topRisingTopicId": "manufacturing-ppqm",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 73,
+          "delta": 2,
+          "delta_pct": 2.8,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "40420c35-0721-7425-4d6e-ba2def0eaf2e",
+              "displayName": "Gunnar Holm"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 71,
+          "delta": 2,
+          "delta_pct": 2.9,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "dc2e94f8-c645-8111-2ec8-7c1b85a76b3c",
+              "displayName": "Piotr Zielinski"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "manufacturing-ppqm",
+          "topic": "Manufacturing (PP/QM)",
+          "scope": "workstream",
+          "workstreamId": "WS-PP",
+          "mentions": 68,
+          "delta": 6,
+          "delta_pct": 9.7,
+          "rank_delta": 2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "fc5a4980-aa47-20f3-1713-3cb24febafdc",
+              "displayName": "Ingrid Bauer"
+            },
+            {
+              "personId": "3de64ca1-4909-06cc-d9fc-93b0a1786e22",
+              "displayName": "Stefan Novotny"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "sales-logistics-sd",
+          "topic": "Sales & Logistics (SD/LE)",
+          "scope": "workstream",
+          "workstreamId": "WS-SD",
+          "mentions": 65,
+          "delta": -1,
+          "delta_pct": -1.5,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "d26cfaa8-bb0a-1e4c-0108-3eb252bb1427",
+              "displayName": "Robert Iversen"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 65,
+          "delta": 0,
+          "delta_pct": 0.0,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "f709ef00-cb62-daa2-dea3-fb46a72538c2",
+              "displayName": "Elin Sandberg"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "o2c",
+          "topic": "Order-to-Cash (O2C)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 55,
+          "delta": 5,
+          "delta_pct": 10.0,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "7239608f-8ac7-0f8d-488d-a437689731f1",
+              "displayName": "Mei Zhao"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "p2p",
+          "topic": "Procure-to-Pay (P2P)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 54,
+          "delta": 3,
+          "delta_pct": 5.9,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "dc2e94f8-c645-8111-2ec8-7c1b85a76b3c",
+              "displayName": "Piotr Zielinski"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "r2r",
+          "topic": "Record-to-Report (R2R)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 50,
+          "delta": 1,
+          "delta_pct": 2.0,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "8e00d1cb-524f-61c8-9d1a-b352e5904dd6",
+              "displayName": "Ravi Menon"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-03-16",
+      "weekIndex": 6,
+      "topicCount": 8,
+      "totalMentions": 762,
+      "topRisingTopicId": "finance-fico",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 77,
+          "delta": 4,
+          "delta_pct": 5.5,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "a67d8b74-9103-2316-4262-6930bcd0fcfc",
+              "displayName": "Tomas Novak"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "sales-logistics-sd",
+          "topic": "Sales & Logistics (SD/LE)",
+          "scope": "workstream",
+          "workstreamId": "WS-SD",
+          "mentions": 66,
+          "delta": 1,
+          "delta_pct": 1.5,
+          "rank_delta": 2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "9ec10e4a-0a18-5ebe-8e00-7efb24884dc5",
+              "displayName": "Yuki Tanaka"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "manufacturing-ppqm",
+          "topic": "Manufacturing (PP/QM)",
+          "scope": "workstream",
+          "workstreamId": "WS-PP",
+          "mentions": 65,
+          "delta": -3,
+          "delta_pct": -4.4,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "fc5a4980-aa47-20f3-1713-3cb24febafdc",
+              "displayName": "Ingrid Bauer"
+            },
+            {
+              "personId": "a4b11219-0634-fbc7-b18b-93cb4c283848",
+              "displayName": "Chen Wei"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 65,
+          "delta": -6,
+          "delta_pct": -8.5,
+          "rank_delta": -2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "786bfad2-7a4f-9114-0e1d-7b5e36139630",
+              "displayName": "Luis Ortega"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 65,
+          "delta": 0,
+          "delta_pct": 0.0,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "4e83175e-009e-ea35-c4a3-c45f5a363da2",
+              "displayName": "James Carter"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "o2c",
+          "topic": "Order-to-Cash (O2C)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 53,
+          "delta": -2,
+          "delta_pct": -3.6,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "9ec10e4a-0a18-5ebe-8e00-7efb24884dc5",
+              "displayName": "Yuki Tanaka"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "p2p",
+          "topic": "Procure-to-Pay (P2P)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 51,
+          "delta": -3,
+          "delta_pct": -5.6,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "786bfad2-7a4f-9114-0e1d-7b5e36139630",
+              "displayName": "Luis Ortega"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "r2r",
+          "topic": "Record-to-Report (R2R)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 49,
+          "delta": -1,
+          "delta_pct": -2.0,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "a67d8b74-9103-2316-4262-6930bcd0fcfc",
+              "displayName": "Tomas Novak"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-03-23",
+      "weekIndex": 7,
+      "topicCount": 8,
+      "totalMentions": 765,
+      "topRisingTopicId": "procurement-mm",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 71,
+          "delta": 6,
+          "delta_pct": 9.2,
+          "rank_delta": 3,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "49c75f9e-9dbd-7a2e-004f-0f494096a261",
+              "displayName": "Isabel Moreno"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 70,
+          "delta": 5,
+          "delta_pct": 7.7,
+          "rank_delta": 3,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "12eb13c7-7b83-37e2-c09e-3427fedc9029",
+              "displayName": "Lukas Berger"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 68,
+          "delta": -9,
+          "delta_pct": -11.7,
+          "rank_delta": -2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "b4ffa358-ed77-09ad-48fd-33fdbb52251a",
+              "displayName": "Nadia Haddad"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "manufacturing-ppqm",
+          "topic": "Manufacturing (PP/QM)",
+          "scope": "workstream",
+          "workstreamId": "WS-PP",
+          "mentions": 68,
+          "delta": 3,
+          "delta_pct": 4.6,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "fc5a4980-aa47-20f3-1713-3cb24febafdc",
+              "displayName": "Ingrid Bauer"
+            },
+            {
+              "personId": "8879a26b-9fc9-47da-47b5-5f05e7e768dd",
+              "displayName": "Kenji Yamamoto"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "sales-logistics-sd",
+          "topic": "Sales & Logistics (SD/LE)",
+          "scope": "workstream",
+          "workstreamId": "WS-SD",
+          "mentions": 68,
+          "delta": 2,
+          "delta_pct": 3.0,
+          "rank_delta": -3,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "fb67c9b8-3dde-67e1-003a-d0ccc748c694",
+              "displayName": "Camille Dubois"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "p2p",
+          "topic": "Procure-to-Pay (P2P)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 52,
+          "delta": 1,
+          "delta_pct": 2.0,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "bc482a9d-cfbf-5d7c-3a73-8dee07f77ffe",
+              "displayName": "Beatriz Alves"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "interfaces",
+          "topic": "Interfaces",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 49,
+          "delta": 3,
+          "delta_pct": 6.5,
+          "rank_delta": null,
+          "new_entry": true,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "a1922b68-c2df-8bc8-c176-1fb04d71b27d",
+              "displayName": "Fatima Ndiaye"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "o2c",
+          "topic": "Order-to-Cash (O2C)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 48,
+          "delta": -5,
+          "delta_pct": -9.4,
+          "rank_delta": -2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "fb67c9b8-3dde-67e1-003a-d0ccc748c694",
+              "displayName": "Camille Dubois"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-03-30",
+      "weekIndex": 8,
+      "topicCount": 8,
+      "totalMentions": 757,
+      "topRisingTopicId": "finance-fico",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 74,
+          "delta": 6,
+          "delta_pct": 8.8,
+          "rank_delta": 2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "40420c35-0721-7425-4d6e-ba2def0eaf2e",
+              "displayName": "Gunnar Holm"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 65,
+          "delta": -5,
+          "delta_pct": -7.1,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "f709ef00-cb62-daa2-dea3-fb46a72538c2",
+              "displayName": "Elin Sandberg"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 63,
+          "delta": -8,
+          "delta_pct": -11.3,
+          "rank_delta": -2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "dc2e94f8-c645-8111-2ec8-7c1b85a76b3c",
+              "displayName": "Piotr Zielinski"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "sales-logistics-sd",
+          "topic": "Sales & Logistics (SD/LE)",
+          "scope": "workstream",
+          "workstreamId": "WS-SD",
+          "mentions": 62,
+          "delta": -6,
+          "delta_pct": -8.8,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "d26cfaa8-bb0a-1e4c-0108-3eb252bb1427",
+              "displayName": "Robert Iversen"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "manufacturing-ppqm",
+          "topic": "Manufacturing (PP/QM)",
+          "scope": "workstream",
+          "workstreamId": "WS-PP",
+          "mentions": 59,
+          "delta": -9,
+          "delta_pct": -13.2,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "fc5a4980-aa47-20f3-1713-3cb24febafdc",
+              "displayName": "Ingrid Bauer"
+            },
+            {
+              "personId": "3de64ca1-4909-06cc-d9fc-93b0a1786e22",
+              "displayName": "Stefan Novotny"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "p2p",
+          "topic": "Procure-to-Pay (P2P)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 52,
+          "delta": 0,
+          "delta_pct": 0.0,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "dc2e94f8-c645-8111-2ec8-7c1b85a76b3c",
+              "displayName": "Piotr Zielinski"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "r2r",
+          "topic": "Record-to-Report (R2R)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 52,
+          "delta": 4,
+          "delta_pct": 8.3,
+          "rank_delta": null,
+          "new_entry": true,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "8e00d1cb-524f-61c8-9d1a-b352e5904dd6",
+              "displayName": "Ravi Menon"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "o2c",
+          "topic": "Order-to-Cash (O2C)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 50,
+          "delta": 2,
+          "delta_pct": 4.2,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "7239608f-8ac7-0f8d-488d-a437689731f1",
+              "displayName": "Mei Zhao"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-04-06",
+      "weekIndex": 9,
+      "topicCount": 8,
+      "totalMentions": 768,
+      "topRisingTopicId": "technical-architecture",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 69,
+          "delta": 4,
+          "delta_pct": 6.2,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "4e83175e-009e-ea35-c4a3-c45f5a363da2",
+              "displayName": "James Carter"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 67,
+          "delta": -7,
+          "delta_pct": -9.5,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "a67d8b74-9103-2316-4262-6930bcd0fcfc",
+              "displayName": "Tomas Novak"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 66,
+          "delta": 3,
+          "delta_pct": 4.8,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "786bfad2-7a4f-9114-0e1d-7b5e36139630",
+              "displayName": "Luis Ortega"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "sales-logistics-sd",
+          "topic": "Sales & Logistics (SD/LE)",
+          "scope": "workstream",
+          "workstreamId": "WS-SD",
+          "mentions": 63,
+          "delta": 1,
+          "delta_pct": 1.6,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "9ec10e4a-0a18-5ebe-8e00-7efb24884dc5",
+              "displayName": "Yuki Tanaka"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "manufacturing-ppqm",
+          "topic": "Manufacturing (PP/QM)",
+          "scope": "workstream",
+          "workstreamId": "WS-PP",
+          "mentions": 60,
+          "delta": 1,
+          "delta_pct": 1.7,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "fc5a4980-aa47-20f3-1713-3cb24febafdc",
+              "displayName": "Ingrid Bauer"
+            },
+            {
+              "personId": "a4b11219-0634-fbc7-b18b-93cb4c283848",
+              "displayName": "Chen Wei"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "p2p",
+          "topic": "Procure-to-Pay (P2P)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 53,
+          "delta": 1,
+          "delta_pct": 1.9,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "786bfad2-7a4f-9114-0e1d-7b5e36139630",
+              "displayName": "Luis Ortega"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "o2c",
+          "topic": "Order-to-Cash (O2C)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 52,
+          "delta": 2,
+          "delta_pct": 4.0,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "9ec10e4a-0a18-5ebe-8e00-7efb24884dc5",
+              "displayName": "Yuki Tanaka"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "data-migration",
+          "topic": "Data Migration",
+          "scope": "workstream",
+          "workstreamId": "WS-DM",
+          "mentions": 49,
+          "delta": 2,
+          "delta_pct": 4.3,
+          "rank_delta": null,
+          "new_entry": true,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "6d198989-3ec1-c1c4-2095-eaa9b7c7563b",
+              "displayName": "Sara Lindqvist"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-04-13",
+      "weekIndex": 10,
+      "topicCount": 8,
+      "totalMentions": 780,
+      "topRisingTopicId": "finance-fico",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 75,
+          "delta": 8,
+          "delta_pct": 11.9,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "b4ffa358-ed77-09ad-48fd-33fdbb52251a",
+              "displayName": "Nadia Haddad"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 74,
+          "delta": 5,
+          "delta_pct": 7.2,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "12eb13c7-7b83-37e2-c09e-3427fedc9029",
+              "displayName": "Lukas Berger"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 62,
+          "delta": -4,
+          "delta_pct": -6.1,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "49c75f9e-9dbd-7a2e-004f-0f494096a261",
+              "displayName": "Isabel Moreno"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "manufacturing-ppqm",
+          "topic": "Manufacturing (PP/QM)",
+          "scope": "workstream",
+          "workstreamId": "WS-PP",
+          "mentions": 60,
+          "delta": 0,
+          "delta_pct": 0.0,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "fc5a4980-aa47-20f3-1713-3cb24febafdc",
+              "displayName": "Ingrid Bauer"
+            },
+            {
+              "personId": "8879a26b-9fc9-47da-47b5-5f05e7e768dd",
+              "displayName": "Kenji Yamamoto"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "sales-logistics-sd",
+          "topic": "Sales & Logistics (SD/LE)",
+          "scope": "workstream",
+          "workstreamId": "WS-SD",
+          "mentions": 60,
+          "delta": -3,
+          "delta_pct": -4.8,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "fb67c9b8-3dde-67e1-003a-d0ccc748c694",
+              "displayName": "Camille Dubois"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "interfaces",
+          "topic": "Interfaces",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 53,
+          "delta": 4,
+          "delta_pct": 8.2,
+          "rank_delta": null,
+          "new_entry": true,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "a1922b68-c2df-8bc8-c176-1fb04d71b27d",
+              "displayName": "Fatima Ndiaye"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "data-migration",
+          "topic": "Data Migration",
+          "scope": "workstream",
+          "workstreamId": "WS-DM",
+          "mentions": 52,
+          "delta": 3,
+          "delta_pct": 6.1,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "38e81ae7-a31e-e643-212b-49dee8a02557",
+              "displayName": "Omar Farouk"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "r2r",
+          "topic": "Record-to-Report (R2R)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 50,
+          "delta": 3,
+          "delta_pct": 6.4,
+          "rank_delta": null,
+          "new_entry": true,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "40420c35-0721-7425-4d6e-ba2def0eaf2e",
+              "displayName": "Gunnar Holm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-04-20",
+      "weekIndex": 11,
+      "topicCount": 8,
+      "totalMentions": 808,
+      "topRisingTopicId": "data-migration",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 74,
+          "delta": 0,
+          "delta_pct": 0.0,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "f709ef00-cb62-daa2-dea3-fb46a72538c2",
+              "displayName": "Elin Sandberg"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 72,
+          "delta": -3,
+          "delta_pct": -4.0,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "40420c35-0721-7425-4d6e-ba2def0eaf2e",
+              "displayName": "Gunnar Holm"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "sales-logistics-sd",
+          "topic": "Sales & Logistics (SD/LE)",
+          "scope": "workstream",
+          "workstreamId": "WS-SD",
+          "mentions": 65,
+          "delta": 5,
+          "delta_pct": 8.3,
+          "rank_delta": 2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "d26cfaa8-bb0a-1e4c-0108-3eb252bb1427",
+              "displayName": "Robert Iversen"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "data-migration",
+          "topic": "Data Migration",
+          "scope": "workstream",
+          "workstreamId": "WS-DM",
+          "mentions": 64,
+          "delta": 12,
+          "delta_pct": 23.1,
+          "rank_delta": 3,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "17ff17e8-07b4-bce1-39b0-6ebab1e76373",
+              "displayName": "Nina Kovacs"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 62,
+          "delta": 0,
+          "delta_pct": 0.0,
+          "rank_delta": -2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "dc2e94f8-c645-8111-2ec8-7c1b85a76b3c",
+              "displayName": "Piotr Zielinski"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "manufacturing-ppqm",
+          "topic": "Manufacturing (PP/QM)",
+          "scope": "workstream",
+          "workstreamId": "WS-PP",
+          "mentions": 61,
+          "delta": 1,
+          "delta_pct": 1.7,
+          "rank_delta": -2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "fc5a4980-aa47-20f3-1713-3cb24febafdc",
+              "displayName": "Ingrid Bauer"
+            },
+            {
+              "personId": "3de64ca1-4909-06cc-d9fc-93b0a1786e22",
+              "displayName": "Stefan Novotny"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "interfaces",
+          "topic": "Interfaces",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 57,
+          "delta": 4,
+          "delta_pct": 7.5,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "ddeb4cc8-e7af-00d2-d903-277dee8bd2ec",
+              "displayName": "Hana Kobayashi"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "p2p",
+          "topic": "Procure-to-Pay (P2P)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 52,
+          "delta": 5,
+          "delta_pct": 10.6,
+          "rank_delta": null,
+          "new_entry": true,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "dc2e94f8-c645-8111-2ec8-7c1b85a76b3c",
+              "displayName": "Piotr Zielinski"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-04-27",
+      "weekIndex": 12,
+      "topicCount": 8,
+      "totalMentions": 831,
+      "topRisingTopicId": "data-migration",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 74,
+          "delta": 0,
+          "delta_pct": 0.0,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "4e83175e-009e-ea35-c4a3-c45f5a363da2",
+              "displayName": "James Carter"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "data-migration",
+          "topic": "Data Migration",
+          "scope": "workstream",
+          "workstreamId": "WS-DM",
+          "mentions": 71,
+          "delta": 7,
+          "delta_pct": 10.9,
+          "rank_delta": 2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "6d198989-3ec1-c1c4-2095-eaa9b7c7563b",
+              "displayName": "Sara Lindqvist"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 71,
+          "delta": -1,
+          "delta_pct": -1.4,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "a67d8b74-9103-2316-4262-6930bcd0fcfc",
+              "displayName": "Tomas Novak"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "sales-logistics-sd",
+          "topic": "Sales & Logistics (SD/LE)",
+          "scope": "workstream",
+          "workstreamId": "WS-SD",
+          "mentions": 67,
+          "delta": 2,
+          "delta_pct": 3.1,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "9ec10e4a-0a18-5ebe-8e00-7efb24884dc5",
+              "displayName": "Yuki Tanaka"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "manufacturing-ppqm",
+          "topic": "Manufacturing (PP/QM)",
+          "scope": "workstream",
+          "workstreamId": "WS-PP",
+          "mentions": 65,
+          "delta": 4,
+          "delta_pct": 6.6,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "fc5a4980-aa47-20f3-1713-3cb24febafdc",
+              "displayName": "Ingrid Bauer"
+            },
+            {
+              "personId": "a4b11219-0634-fbc7-b18b-93cb4c283848",
+              "displayName": "Chen Wei"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 60,
+          "delta": -2,
+          "delta_pct": -3.2,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "786bfad2-7a4f-9114-0e1d-7b5e36139630",
+              "displayName": "Luis Ortega"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "interfaces",
+          "topic": "Interfaces",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 54,
+          "delta": -3,
+          "delta_pct": -5.3,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "eb039fda-ba54-fa7b-fa74-8ae6752a275c",
+              "displayName": "Sanjay Iyer"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "p2p",
+          "topic": "Procure-to-Pay (P2P)",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 53,
+          "delta": 1,
+          "delta_pct": 1.9,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "786bfad2-7a4f-9114-0e1d-7b5e36139630",
+              "displayName": "Luis Ortega"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-05-04",
+      "weekIndex": 13,
+      "topicCount": 8,
+      "totalMentions": 831,
+      "topRisingTopicId": "procurement-mm",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 73,
+          "delta": 2,
+          "delta_pct": 2.8,
+          "rank_delta": 2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "b4ffa358-ed77-09ad-48fd-33fdbb52251a",
+              "displayName": "Nadia Haddad"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 71,
+          "delta": -3,
+          "delta_pct": -4.1,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "12eb13c7-7b83-37e2-c09e-3427fedc9029",
+              "displayName": "Lukas Berger"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "data-migration",
+          "topic": "Data Migration",
+          "scope": "workstream",
+          "workstreamId": "WS-DM",
+          "mentions": 70,
+          "delta": -1,
+          "delta_pct": -1.4,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "38e81ae7-a31e-e643-212b-49dee8a02557",
+              "displayName": "Omar Farouk"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 69,
+          "delta": 9,
+          "delta_pct": 15.0,
+          "rank_delta": 2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "49c75f9e-9dbd-7a2e-004f-0f494096a261",
+              "displayName": "Isabel Moreno"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "manufacturing-ppqm",
+          "topic": "Manufacturing (PP/QM)",
+          "scope": "workstream",
+          "workstreamId": "WS-PP",
+          "mentions": 59,
+          "delta": -6,
+          "delta_pct": -9.2,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "fc5a4980-aa47-20f3-1713-3cb24febafdc",
+              "displayName": "Ingrid Bauer"
+            },
+            {
+              "personId": "8879a26b-9fc9-47da-47b5-5f05e7e768dd",
+              "displayName": "Kenji Yamamoto"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "sales-logistics-sd",
+          "topic": "Sales & Logistics (SD/LE)",
+          "scope": "workstream",
+          "workstreamId": "WS-SD",
+          "mentions": 59,
+          "delta": -8,
+          "delta_pct": -11.9,
+          "rank_delta": -2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "fb67c9b8-3dde-67e1-003a-d0ccc748c694",
+              "displayName": "Camille Dubois"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "interfaces",
+          "topic": "Interfaces",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 57,
+          "delta": 3,
+          "delta_pct": 5.6,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "a1922b68-c2df-8bc8-c176-1fb04d71b27d",
+              "displayName": "Fatima Ndiaye"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "testing-quality",
+          "topic": "Testing & Quality",
+          "scope": "workstream",
+          "workstreamId": "WS-TQ",
+          "mentions": 57,
+          "delta": 6,
+          "delta_pct": 11.8,
+          "rank_delta": null,
+          "new_entry": true,
+          "top_voices": [
+            {
+              "personId": "e0b553c0-8904-384d-d491-aa1f820284ef",
+              "displayName": "Ahmed Hassan"
+            },
+            {
+              "personId": "d88a0ec7-de06-e56b-4524-fb23170162c1",
+              "displayName": "Hiroshi Sato"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-05-11",
+      "weekIndex": 14,
+      "topicCount": 8,
+      "totalMentions": 862,
+      "topRisingTopicId": "data-migration",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "data-migration",
+          "topic": "Data Migration",
+          "scope": "workstream",
+          "workstreamId": "WS-DM",
+          "mentions": 78,
+          "delta": 8,
+          "delta_pct": 11.4,
+          "rank_delta": 2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "17ff17e8-07b4-bce1-39b0-6ebab1e76373",
+              "displayName": "Nina Kovacs"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 77,
+          "delta": 6,
+          "delta_pct": 8.5,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "f709ef00-cb62-daa2-dea3-fb46a72538c2",
+              "displayName": "Elin Sandberg"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 68,
+          "delta": -5,
+          "delta_pct": -6.8,
+          "rank_delta": -2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "40420c35-0721-7425-4d6e-ba2def0eaf2e",
+              "displayName": "Gunnar Holm"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 67,
+          "delta": -2,
+          "delta_pct": -2.9,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "dc2e94f8-c645-8111-2ec8-7c1b85a76b3c",
+              "displayName": "Piotr Zielinski"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "sales-logistics-sd",
+          "topic": "Sales & Logistics (SD/LE)",
+          "scope": "workstream",
+          "workstreamId": "WS-SD",
+          "mentions": 66,
+          "delta": 7,
+          "delta_pct": 11.9,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "d26cfaa8-bb0a-1e4c-0108-3eb252bb1427",
+              "displayName": "Robert Iversen"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "interfaces",
+          "topic": "Interfaces",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 60,
+          "delta": 3,
+          "delta_pct": 5.3,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "ddeb4cc8-e7af-00d2-d903-277dee8bd2ec",
+              "displayName": "Hana Kobayashi"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "manufacturing-ppqm",
+          "topic": "Manufacturing (PP/QM)",
+          "scope": "workstream",
+          "workstreamId": "WS-PP",
+          "mentions": 59,
+          "delta": 0,
+          "delta_pct": 0.0,
+          "rank_delta": -2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "fc5a4980-aa47-20f3-1713-3cb24febafdc",
+              "displayName": "Ingrid Bauer"
+            },
+            {
+              "personId": "3de64ca1-4909-06cc-d9fc-93b0a1786e22",
+              "displayName": "Stefan Novotny"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "testing-quality",
+          "topic": "Testing & Quality",
+          "scope": "workstream",
+          "workstreamId": "WS-TQ",
+          "mentions": 57,
+          "delta": 0,
+          "delta_pct": 0.0,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "e0b553c0-8904-384d-d491-aa1f820284ef",
+              "displayName": "Ahmed Hassan"
+            },
+            {
+              "personId": "30396af2-f4d4-4b10-78f9-91ff39aeefc0",
+              "displayName": "Leila Farsi"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-05-18",
+      "weekIndex": 15,
+      "topicCount": 8,
+      "totalMentions": 873,
+      "topRisingTopicId": "data-migration",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "data-migration",
+          "topic": "Data Migration",
+          "scope": "workstream",
+          "workstreamId": "WS-DM",
+          "mentions": 87,
+          "delta": 9,
+          "delta_pct": 11.5,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "6d198989-3ec1-c1c4-2095-eaa9b7c7563b",
+              "displayName": "Sara Lindqvist"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 74,
+          "delta": -3,
+          "delta_pct": -3.9,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "4e83175e-009e-ea35-c4a3-c45f5a363da2",
+              "displayName": "James Carter"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 68,
+          "delta": 0,
+          "delta_pct": 0.0,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "a67d8b74-9103-2316-4262-6930bcd0fcfc",
+              "displayName": "Tomas Novak"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 64,
+          "delta": -3,
+          "delta_pct": -4.5,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "786bfad2-7a4f-9114-0e1d-7b5e36139630",
+              "displayName": "Luis Ortega"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "sales-logistics-sd",
+          "topic": "Sales & Logistics (SD/LE)",
+          "scope": "workstream",
+          "workstreamId": "WS-SD",
+          "mentions": 63,
+          "delta": -3,
+          "delta_pct": -4.5,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "9ec10e4a-0a18-5ebe-8e00-7efb24884dc5",
+              "displayName": "Yuki Tanaka"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "testing-quality",
+          "topic": "Testing & Quality",
+          "scope": "workstream",
+          "workstreamId": "WS-TQ",
+          "mentions": 62,
+          "delta": 5,
+          "delta_pct": 8.8,
+          "rank_delta": 2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "e0b553c0-8904-384d-d491-aa1f820284ef",
+              "displayName": "Ahmed Hassan"
+            },
+            {
+              "personId": "0ca513e4-7a01-4c2a-75b1-fdd86619d15d",
+              "displayName": "Julia Meyer"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "interfaces",
+          "topic": "Interfaces",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 61,
+          "delta": 1,
+          "delta_pct": 1.7,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "eb039fda-ba54-fa7b-fa74-8ae6752a275c",
+              "displayName": "Sanjay Iyer"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "manufacturing-ppqm",
+          "topic": "Manufacturing (PP/QM)",
+          "scope": "workstream",
+          "workstreamId": "WS-PP",
+          "mentions": 59,
+          "delta": 0,
+          "delta_pct": 0.0,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "fc5a4980-aa47-20f3-1713-3cb24febafdc",
+              "displayName": "Ingrid Bauer"
+            },
+            {
+              "personId": "a4b11219-0634-fbc7-b18b-93cb4c283848",
+              "displayName": "Chen Wei"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-05-25",
+      "weekIndex": 16,
+      "topicCount": 8,
+      "totalMentions": 902,
+      "topRisingTopicId": "testing-quality",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "data-migration",
+          "topic": "Data Migration",
+          "scope": "workstream",
+          "workstreamId": "WS-DM",
+          "mentions": 95,
+          "delta": 8,
+          "delta_pct": 9.2,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "38e81ae7-a31e-e643-212b-49dee8a02557",
+              "displayName": "Omar Farouk"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 83,
+          "delta": 9,
+          "delta_pct": 12.2,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "12eb13c7-7b83-37e2-c09e-3427fedc9029",
+              "displayName": "Lukas Berger"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "testing-quality",
+          "topic": "Testing & Quality",
+          "scope": "workstream",
+          "workstreamId": "WS-TQ",
+          "mentions": 71,
+          "delta": 9,
+          "delta_pct": 14.5,
+          "rank_delta": 3,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "e0b553c0-8904-384d-d491-aa1f820284ef",
+              "displayName": "Ahmed Hassan"
+            },
+            {
+              "personId": "d88a0ec7-de06-e56b-4524-fb23170162c1",
+              "displayName": "Hiroshi Sato"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 66,
+          "delta": -2,
+          "delta_pct": -2.9,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "b4ffa358-ed77-09ad-48fd-33fdbb52251a",
+              "displayName": "Nadia Haddad"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "interfaces",
+          "topic": "Interfaces",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 65,
+          "delta": 4,
+          "delta_pct": 6.6,
+          "rank_delta": 2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "a1922b68-c2df-8bc8-c176-1fb04d71b27d",
+              "displayName": "Fatima Ndiaye"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "manufacturing-ppqm",
+          "topic": "Manufacturing (PP/QM)",
+          "scope": "workstream",
+          "workstreamId": "WS-PP",
+          "mentions": 62,
+          "delta": 3,
+          "delta_pct": 5.1,
+          "rank_delta": 2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "fc5a4980-aa47-20f3-1713-3cb24febafdc",
+              "displayName": "Ingrid Bauer"
+            },
+            {
+              "personId": "8879a26b-9fc9-47da-47b5-5f05e7e768dd",
+              "displayName": "Kenji Yamamoto"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 59,
+          "delta": -5,
+          "delta_pct": -7.8,
+          "rank_delta": -3,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "49c75f9e-9dbd-7a2e-004f-0f494096a261",
+              "displayName": "Isabel Moreno"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "migration",
+          "topic": "Migration",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 57,
+          "delta": 3,
+          "delta_pct": 5.6,
+          "rank_delta": null,
+          "new_entry": true,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "b26edefa-6931-b827-0120-8474d629d0b9",
+              "displayName": "Thabo Nkosi"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-06-01",
+      "weekIndex": 17,
+      "topicCount": 8,
+      "totalMentions": 926,
+      "topRisingTopicId": "migration",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "data-migration",
+          "topic": "Data Migration",
+          "scope": "workstream",
+          "workstreamId": "WS-DM",
+          "mentions": 87,
+          "delta": -8,
+          "delta_pct": -8.4,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "17ff17e8-07b4-bce1-39b0-6ebab1e76373",
+              "displayName": "Nina Kovacs"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 79,
+          "delta": -4,
+          "delta_pct": -4.8,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "f709ef00-cb62-daa2-dea3-fb46a72538c2",
+              "displayName": "Elin Sandberg"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "testing-quality",
+          "topic": "Testing & Quality",
+          "scope": "workstream",
+          "workstreamId": "WS-TQ",
+          "mentions": 72,
+          "delta": 1,
+          "delta_pct": 1.4,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "e0b553c0-8904-384d-d491-aa1f820284ef",
+              "displayName": "Ahmed Hassan"
+            },
+            {
+              "personId": "30396af2-f4d4-4b10-78f9-91ff39aeefc0",
+              "displayName": "Leila Farsi"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "interfaces",
+          "topic": "Interfaces",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 64,
+          "delta": -1,
+          "delta_pct": -1.5,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "ddeb4cc8-e7af-00d2-d903-277dee8bd2ec",
+              "displayName": "Hana Kobayashi"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 63,
+          "delta": -3,
+          "delta_pct": -4.5,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "40420c35-0721-7425-4d6e-ba2def0eaf2e",
+              "displayName": "Gunnar Holm"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "migration",
+          "topic": "Migration",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 63,
+          "delta": 6,
+          "delta_pct": 10.5,
+          "rank_delta": 2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "795e1c91-1ed1-f296-1aa2-0666d9504d2f",
+              "displayName": "Ana Reyes"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "sales-logistics-sd",
+          "topic": "Sales & Logistics (SD/LE)",
+          "scope": "workstream",
+          "workstreamId": "WS-SD",
+          "mentions": 61,
+          "delta": 5,
+          "delta_pct": 8.9,
+          "rank_delta": null,
+          "new_entry": true,
+          "top_voices": [
+            {
+              "personId": "edb2c8a8-af66-485f-ae5c-1036568da8c7",
+              "displayName": "Marcus Webb"
+            },
+            {
+              "personId": "d26cfaa8-bb0a-1e4c-0108-3eb252bb1427",
+              "displayName": "Robert Iversen"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "manufacturing-ppqm",
+          "topic": "Manufacturing (PP/QM)",
+          "scope": "workstream",
+          "workstreamId": "WS-PP",
+          "mentions": 60,
+          "delta": -2,
+          "delta_pct": -3.2,
+          "rank_delta": -2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "fc5a4980-aa47-20f3-1713-3cb24febafdc",
+              "displayName": "Ingrid Bauer"
+            },
+            {
+              "personId": "3de64ca1-4909-06cc-d9fc-93b0a1786e22",
+              "displayName": "Stefan Novotny"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-06-08",
+      "weekIndex": 18,
+      "topicCount": 8,
+      "totalMentions": 964,
+      "topRisingTopicId": "data-migration",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "data-migration",
+          "topic": "Data Migration",
+          "scope": "workstream",
+          "workstreamId": "WS-DM",
+          "mentions": 102,
+          "delta": 15,
+          "delta_pct": 17.2,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "6d198989-3ec1-c1c4-2095-eaa9b7c7563b",
+              "displayName": "Sara Lindqvist"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 80,
+          "delta": 1,
+          "delta_pct": 1.3,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "4e83175e-009e-ea35-c4a3-c45f5a363da2",
+              "displayName": "James Carter"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "testing-quality",
+          "topic": "Testing & Quality",
+          "scope": "workstream",
+          "workstreamId": "WS-TQ",
+          "mentions": 78,
+          "delta": 6,
+          "delta_pct": 8.3,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "e0b553c0-8904-384d-d491-aa1f820284ef",
+              "displayName": "Ahmed Hassan"
+            },
+            {
+              "personId": "0ca513e4-7a01-4c2a-75b1-fdd86619d15d",
+              "displayName": "Julia Meyer"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 69,
+          "delta": 6,
+          "delta_pct": 9.5,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "a67d8b74-9103-2316-4262-6930bcd0fcfc",
+              "displayName": "Tomas Novak"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "migration",
+          "topic": "Migration",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 67,
+          "delta": 4,
+          "delta_pct": 6.3,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "6d198989-3ec1-c1c4-2095-eaa9b7c7563b",
+              "displayName": "Sara Lindqvist"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 63,
+          "delta": 5,
+          "delta_pct": 8.6,
+          "rank_delta": null,
+          "new_entry": true,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "786bfad2-7a4f-9114-0e1d-7b5e36139630",
+              "displayName": "Luis Ortega"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "change-training",
+          "topic": "Change Management & Training",
+          "scope": "workstream",
+          "workstreamId": "WS-CM",
+          "mentions": 61,
+          "delta": 14,
+          "delta_pct": 29.8,
+          "rank_delta": null,
+          "new_entry": true,
+          "top_voices": [
+            {
+              "personId": "d64fbc68-adac-d320-2dba-79bb3498b460",
+              "displayName": "Sofia Rossi"
+            },
+            {
+              "personId": "981c6a56-b3f0-b859-aef9-aa8c2120222a",
+              "displayName": "Mark Daniels"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "cutover",
+          "topic": "Cutover",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 60,
+          "delta": 2,
+          "delta_pct": 3.4,
+          "rank_delta": null,
+          "new_entry": true,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "e0b553c0-8904-384d-d491-aa1f820284ef",
+              "displayName": "Ahmed Hassan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-06-15",
+      "weekIndex": 19,
+      "topicCount": 8,
+      "totalMentions": 995,
+      "topRisingTopicId": "testing-quality",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "data-migration",
+          "topic": "Data Migration",
+          "scope": "workstream",
+          "workstreamId": "WS-DM",
+          "mentions": 105,
+          "delta": 3,
+          "delta_pct": 2.9,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "38e81ae7-a31e-e643-212b-49dee8a02557",
+              "displayName": "Omar Farouk"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "testing-quality",
+          "topic": "Testing & Quality",
+          "scope": "workstream",
+          "workstreamId": "WS-TQ",
+          "mentions": 95,
+          "delta": 17,
+          "delta_pct": 21.8,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "e0b553c0-8904-384d-d491-aa1f820284ef",
+              "displayName": "Ahmed Hassan"
+            },
+            {
+              "personId": "d88a0ec7-de06-e56b-4524-fb23170162c1",
+              "displayName": "Hiroshi Sato"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 76,
+          "delta": -4,
+          "delta_pct": -5.0,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "12eb13c7-7b83-37e2-c09e-3427fedc9029",
+              "displayName": "Lukas Berger"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "cutover",
+          "topic": "Cutover",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 70,
+          "delta": 10,
+          "delta_pct": 16.7,
+          "rank_delta": 4,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 64,
+          "delta": -5,
+          "delta_pct": -7.2,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "b4ffa358-ed77-09ad-48fd-33fdbb52251a",
+              "displayName": "Nadia Haddad"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "interfaces",
+          "topic": "Interfaces",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 63,
+          "delta": 6,
+          "delta_pct": 10.5,
+          "rank_delta": null,
+          "new_entry": true,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "a1922b68-c2df-8bc8-c176-1fb04d71b27d",
+              "displayName": "Fatima Ndiaye"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "change-training",
+          "topic": "Change Management & Training",
+          "scope": "workstream",
+          "workstreamId": "WS-CM",
+          "mentions": 61,
+          "delta": 0,
+          "delta_pct": 0.0,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "d64fbc68-adac-d320-2dba-79bb3498b460",
+              "displayName": "Sofia Rossi"
+            },
+            {
+              "personId": "df91c1aa-a8f6-9535-749a-60d9f022325a",
+              "displayName": "Grace Mwangi"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "migration",
+          "topic": "Migration",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 61,
+          "delta": -6,
+          "delta_pct": -9.0,
+          "rank_delta": -3,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "b26edefa-6931-b827-0120-8474d629d0b9",
+              "displayName": "Thabo Nkosi"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-06-22",
+      "weekIndex": 20,
+      "topicCount": 8,
+      "totalMentions": 1040,
+      "topRisingTopicId": "change-training",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "data-migration",
+          "topic": "Data Migration",
+          "scope": "workstream",
+          "workstreamId": "WS-DM",
+          "mentions": 105,
+          "delta": 0,
+          "delta_pct": 0.0,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "17ff17e8-07b4-bce1-39b0-6ebab1e76373",
+              "displayName": "Nina Kovacs"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "testing-quality",
+          "topic": "Testing & Quality",
+          "scope": "workstream",
+          "workstreamId": "WS-TQ",
+          "mentions": 95,
+          "delta": 0,
+          "delta_pct": 0.0,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "e0b553c0-8904-384d-d491-aa1f820284ef",
+              "displayName": "Ahmed Hassan"
+            },
+            {
+              "personId": "30396af2-f4d4-4b10-78f9-91ff39aeefc0",
+              "displayName": "Leila Farsi"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 83,
+          "delta": 7,
+          "delta_pct": 9.2,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "f709ef00-cb62-daa2-dea3-fb46a72538c2",
+              "displayName": "Elin Sandberg"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "cutover",
+          "topic": "Cutover",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 80,
+          "delta": 10,
+          "delta_pct": 14.3,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "5a33f4b6-3020-e285-35ed-3099f5e05b46",
+              "displayName": "Oliver Brandt"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "change-training",
+          "topic": "Change Management & Training",
+          "scope": "workstream",
+          "workstreamId": "WS-CM",
+          "mentions": 73,
+          "delta": 12,
+          "delta_pct": 19.7,
+          "rank_delta": 2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "d64fbc68-adac-d320-2dba-79bb3498b460",
+              "displayName": "Sofia Rossi"
+            },
+            {
+              "personId": "5baa6a2d-693c-18d8-ff12-793cf870e114",
+              "displayName": "Tomasz Wojcik"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "migration",
+          "topic": "Migration",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 70,
+          "delta": 9,
+          "delta_pct": 14.8,
+          "rank_delta": 2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "795e1c91-1ed1-f296-1aa2-0666d9504d2f",
+              "displayName": "Ana Reyes"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 68,
+          "delta": 4,
+          "delta_pct": 6.2,
+          "rank_delta": -2,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "40420c35-0721-7425-4d6e-ba2def0eaf2e",
+              "displayName": "Gunnar Holm"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 61,
+          "delta": 0,
+          "delta_pct": 0.0,
+          "rank_delta": null,
+          "new_entry": true,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "dc2e94f8-c645-8111-2ec8-7c1b85a76b3c",
+              "displayName": "Piotr Zielinski"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-06-29",
+      "weekIndex": 21,
+      "topicCount": 8,
+      "totalMentions": 1084,
+      "topRisingTopicId": "data-migration",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "data-migration",
+          "topic": "Data Migration",
+          "scope": "workstream",
+          "workstreamId": "WS-DM",
+          "mentions": 116,
+          "delta": 11,
+          "delta_pct": 10.5,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "6d198989-3ec1-c1c4-2095-eaa9b7c7563b",
+              "displayName": "Sara Lindqvist"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "testing-quality",
+          "topic": "Testing & Quality",
+          "scope": "workstream",
+          "workstreamId": "WS-TQ",
+          "mentions": 96,
+          "delta": 1,
+          "delta_pct": 1.1,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "e0b553c0-8904-384d-d491-aa1f820284ef",
+              "displayName": "Ahmed Hassan"
+            },
+            {
+              "personId": "0ca513e4-7a01-4c2a-75b1-fdd86619d15d",
+              "displayName": "Julia Meyer"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "cutover",
+          "topic": "Cutover",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 91,
+          "delta": 11,
+          "delta_pct": 13.8,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "e0b553c0-8904-384d-d491-aa1f820284ef",
+              "displayName": "Ahmed Hassan"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 89,
+          "delta": 6,
+          "delta_pct": 7.2,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "4e83175e-009e-ea35-c4a3-c45f5a363da2",
+              "displayName": "James Carter"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "change-training",
+          "topic": "Change Management & Training",
+          "scope": "workstream",
+          "workstreamId": "WS-CM",
+          "mentions": 81,
+          "delta": 8,
+          "delta_pct": 11.0,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "d64fbc68-adac-d320-2dba-79bb3498b460",
+              "displayName": "Sofia Rossi"
+            },
+            {
+              "personId": "981c6a56-b3f0-b859-aef9-aa8c2120222a",
+              "displayName": "Mark Daniels"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "migration",
+          "topic": "Migration",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 73,
+          "delta": 3,
+          "delta_pct": 4.3,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "6d198989-3ec1-c1c4-2095-eaa9b7c7563b",
+              "displayName": "Sara Lindqvist"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 65,
+          "delta": -3,
+          "delta_pct": -4.4,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "a67d8b74-9103-2316-4262-6930bcd0fcfc",
+              "displayName": "Tomas Novak"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "interfaces",
+          "topic": "Interfaces",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 64,
+          "delta": 8,
+          "delta_pct": 14.3,
+          "rank_delta": null,
+          "new_entry": true,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "eb039fda-ba54-fa7b-fa74-8ae6752a275c",
+              "displayName": "Sanjay Iyer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-07-06",
+      "weekIndex": 22,
+      "topicCount": 8,
+      "totalMentions": 1133,
+      "topRisingTopicId": "data-migration",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "data-migration",
+          "topic": "Data Migration",
+          "scope": "workstream",
+          "workstreamId": "WS-DM",
+          "mentions": 132,
+          "delta": 16,
+          "delta_pct": 13.8,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "38e81ae7-a31e-e643-212b-49dee8a02557",
+              "displayName": "Omar Farouk"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "testing-quality",
+          "topic": "Testing & Quality",
+          "scope": "workstream",
+          "workstreamId": "WS-TQ",
+          "mentions": 109,
+          "delta": 13,
+          "delta_pct": 13.5,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "e0b553c0-8904-384d-d491-aa1f820284ef",
+              "displayName": "Ahmed Hassan"
+            },
+            {
+              "personId": "d88a0ec7-de06-e56b-4524-fb23170162c1",
+              "displayName": "Hiroshi Sato"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "cutover",
+          "topic": "Cutover",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 106,
+          "delta": 15,
+          "delta_pct": 16.5,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 92,
+          "delta": 3,
+          "delta_pct": 3.4,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "12eb13c7-7b83-37e2-c09e-3427fedc9029",
+              "displayName": "Lukas Berger"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "change-training",
+          "topic": "Change Management & Training",
+          "scope": "workstream",
+          "workstreamId": "WS-CM",
+          "mentions": 83,
+          "delta": 2,
+          "delta_pct": 2.5,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "d64fbc68-adac-d320-2dba-79bb3498b460",
+              "displayName": "Sofia Rossi"
+            },
+            {
+              "personId": "df91c1aa-a8f6-9535-749a-60d9f022325a",
+              "displayName": "Grace Mwangi"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "migration",
+          "topic": "Migration",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 73,
+          "delta": 0,
+          "delta_pct": 0.0,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "b26edefa-6931-b827-0120-8474d629d0b9",
+              "displayName": "Thabo Nkosi"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "training",
+          "topic": "Training",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 64,
+          "delta": 1,
+          "delta_pct": 1.6,
+          "rank_delta": null,
+          "new_entry": true,
+          "top_voices": [
+            {
+              "personId": "d64fbc68-adac-d320-2dba-79bb3498b460",
+              "displayName": "Sofia Rossi"
+            },
+            {
+              "personId": "981c6a56-b3f0-b859-aef9-aa8c2120222a",
+              "displayName": "Mark Daniels"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "interfaces",
+          "topic": "Interfaces",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 62,
+          "delta": -2,
+          "delta_pct": -3.1,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "a1922b68-c2df-8bc8-c176-1fb04d71b27d",
+              "displayName": "Fatima Ndiaye"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-07-13",
+      "weekIndex": 23,
+      "topicCount": 8,
+      "totalMentions": 1177,
+      "topRisingTopicId": "change-training",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "data-migration",
+          "topic": "Data Migration",
+          "scope": "workstream",
+          "workstreamId": "WS-DM",
+          "mentions": 130,
+          "delta": -2,
+          "delta_pct": -1.5,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "17ff17e8-07b4-bce1-39b0-6ebab1e76373",
+              "displayName": "Nina Kovacs"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "testing-quality",
+          "topic": "Testing & Quality",
+          "scope": "workstream",
+          "workstreamId": "WS-TQ",
+          "mentions": 117,
+          "delta": 8,
+          "delta_pct": 7.3,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "e0b553c0-8904-384d-d491-aa1f820284ef",
+              "displayName": "Ahmed Hassan"
+            },
+            {
+              "personId": "30396af2-f4d4-4b10-78f9-91ff39aeefc0",
+              "displayName": "Leila Farsi"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "cutover",
+          "topic": "Cutover",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 103,
+          "delta": -3,
+          "delta_pct": -2.8,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "5a33f4b6-3020-e285-35ed-3099f5e05b46",
+              "displayName": "Oliver Brandt"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "change-training",
+          "topic": "Change Management & Training",
+          "scope": "workstream",
+          "workstreamId": "WS-CM",
+          "mentions": 95,
+          "delta": 12,
+          "delta_pct": 14.5,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "d64fbc68-adac-d320-2dba-79bb3498b460",
+              "displayName": "Sofia Rossi"
+            },
+            {
+              "personId": "5baa6a2d-693c-18d8-ff12-793cf870e114",
+              "displayName": "Tomasz Wojcik"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 87,
+          "delta": -5,
+          "delta_pct": -5.4,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "f709ef00-cb62-daa2-dea3-fb46a72538c2",
+              "displayName": "Elin Sandberg"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "migration",
+          "topic": "Migration",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 84,
+          "delta": 11,
+          "delta_pct": 15.1,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "795e1c91-1ed1-f296-1aa2-0666d9504d2f",
+              "displayName": "Ana Reyes"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "training",
+          "topic": "Training",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 75,
+          "delta": 11,
+          "delta_pct": 17.2,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "d64fbc68-adac-d320-2dba-79bb3498b460",
+              "displayName": "Sofia Rossi"
+            },
+            {
+              "personId": "b012384d-1c23-6a77-c1a8-16f3cd4fdf5a",
+              "displayName": "Paula Marchetti"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "procurement-mm",
+          "topic": "Procurement (MM/Ariba)",
+          "scope": "workstream",
+          "workstreamId": "WS-MM",
+          "mentions": 63,
+          "delta": 7,
+          "delta_pct": 12.5,
+          "rank_delta": null,
+          "new_entry": true,
+          "top_voices": [
+            {
+              "personId": "a8316887-4f9e-c15f-a76e-1a01ac5568cd",
+              "displayName": "Priya Sharma"
+            },
+            {
+              "personId": "dc2e94f8-c645-8111-2ec8-7c1b85a76b3c",
+              "displayName": "Piotr Zielinski"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-07-20",
+      "weekIndex": 24,
+      "topicCount": 8,
+      "totalMentions": 1197,
+      "topRisingTopicId": "cutover",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "data-migration",
+          "topic": "Data Migration",
+          "scope": "workstream",
+          "workstreamId": "WS-DM",
+          "mentions": 138,
+          "delta": 8,
+          "delta_pct": 6.2,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "6d198989-3ec1-c1c4-2095-eaa9b7c7563b",
+              "displayName": "Sara Lindqvist"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "cutover",
+          "topic": "Cutover",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 117,
+          "delta": 14,
+          "delta_pct": 13.6,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "e0b553c0-8904-384d-d491-aa1f820284ef",
+              "displayName": "Ahmed Hassan"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "testing-quality",
+          "topic": "Testing & Quality",
+          "scope": "workstream",
+          "workstreamId": "WS-TQ",
+          "mentions": 114,
+          "delta": -3,
+          "delta_pct": -2.6,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "e0b553c0-8904-384d-d491-aa1f820284ef",
+              "displayName": "Ahmed Hassan"
+            },
+            {
+              "personId": "0ca513e4-7a01-4c2a-75b1-fdd86619d15d",
+              "displayName": "Julia Meyer"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "change-training",
+          "topic": "Change Management & Training",
+          "scope": "workstream",
+          "workstreamId": "WS-CM",
+          "mentions": 96,
+          "delta": 1,
+          "delta_pct": 1.1,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "d64fbc68-adac-d320-2dba-79bb3498b460",
+              "displayName": "Sofia Rossi"
+            },
+            {
+              "personId": "981c6a56-b3f0-b859-aef9-aa8c2120222a",
+              "displayName": "Mark Daniels"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 93,
+          "delta": 6,
+          "delta_pct": 6.9,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "4e83175e-009e-ea35-c4a3-c45f5a363da2",
+              "displayName": "James Carter"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "migration",
+          "topic": "Migration",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 83,
+          "delta": -1,
+          "delta_pct": -1.2,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "6d198989-3ec1-c1c4-2095-eaa9b7c7563b",
+              "displayName": "Sara Lindqvist"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "training",
+          "topic": "Training",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 78,
+          "delta": 3,
+          "delta_pct": 4.0,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "d64fbc68-adac-d320-2dba-79bb3498b460",
+              "displayName": "Sofia Rossi"
+            },
+            {
+              "personId": "df91c1aa-a8f6-9535-749a-60d9f022325a",
+              "displayName": "Grace Mwangi"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "finance-fico",
+          "topic": "Finance (FI/CO)",
+          "scope": "workstream",
+          "workstreamId": "WS-FI",
+          "mentions": 60,
+          "delta": -2,
+          "delta_pct": -3.2,
+          "rank_delta": null,
+          "new_entry": true,
+          "top_voices": [
+            {
+              "personId": "4bc3b9e8-709d-27e3-d911-e92f514e52ad",
+              "displayName": "Anna Keller"
+            },
+            {
+              "personId": "a67d8b74-9103-2316-4262-6930bcd0fcfc",
+              "displayName": "Tomas Novak"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "weekStart": "2026-07-27",
+      "weekIndex": 25,
+      "topicCount": 8,
+      "totalMentions": 1286,
+      "topRisingTopicId": "change-training",
+      "topics": [
+        {
+          "rank": 1,
+          "topicId": "data-migration",
+          "topic": "Data Migration",
+          "scope": "workstream",
+          "workstreamId": "WS-DM",
+          "mentions": 153,
+          "delta": 15,
+          "delta_pct": 10.9,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "38e81ae7-a31e-e643-212b-49dee8a02557",
+              "displayName": "Omar Farouk"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "topicId": "testing-quality",
+          "topic": "Testing & Quality",
+          "scope": "workstream",
+          "workstreamId": "WS-TQ",
+          "mentions": 134,
+          "delta": 20,
+          "delta_pct": 17.5,
+          "rank_delta": 1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "e0b553c0-8904-384d-d491-aa1f820284ef",
+              "displayName": "Ahmed Hassan"
+            },
+            {
+              "personId": "d88a0ec7-de06-e56b-4524-fb23170162c1",
+              "displayName": "Hiroshi Sato"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "topicId": "cutover",
+          "topic": "Cutover",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 126,
+          "delta": 9,
+          "delta_pct": 7.7,
+          "rank_delta": -1,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "topicId": "change-training",
+          "topic": "Change Management & Training",
+          "scope": "workstream",
+          "workstreamId": "WS-CM",
+          "mentions": 119,
+          "delta": 23,
+          "delta_pct": 24.0,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "d64fbc68-adac-d320-2dba-79bb3498b460",
+              "displayName": "Sofia Rossi"
+            },
+            {
+              "personId": "df91c1aa-a8f6-9535-749a-60d9f022325a",
+              "displayName": "Grace Mwangi"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "topicId": "technical-architecture",
+          "topic": "Technical Architecture & Basis",
+          "scope": "workstream",
+          "workstreamId": "WS-TA",
+          "mentions": 96,
+          "delta": 3,
+          "delta_pct": 3.2,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "dc84d255-2d15-1cd8-e81a-28c20c3b4180",
+              "displayName": "Elena Petrova"
+            },
+            {
+              "personId": "12eb13c7-7b83-37e2-c09e-3427fedc9029",
+              "displayName": "Lukas Berger"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "topicId": "migration",
+          "topic": "Migration",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 85,
+          "delta": 2,
+          "delta_pct": 2.4,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "3a567f08-613c-bceb-fb7a-8e4290168299",
+              "displayName": "David Okafor"
+            },
+            {
+              "personId": "b26edefa-6931-b827-0120-8474d629d0b9",
+              "displayName": "Thabo Nkosi"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "topicId": "training",
+          "topic": "Training",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 85,
+          "delta": 7,
+          "delta_pct": 9.0,
+          "rank_delta": 0,
+          "new_entry": false,
+          "top_voices": [
+            {
+              "personId": "d64fbc68-adac-d320-2dba-79bb3498b460",
+              "displayName": "Sofia Rossi"
+            },
+            {
+              "personId": "981c6a56-b3f0-b859-aef9-aa8c2120222a",
+              "displayName": "Mark Daniels"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "topicId": "authorizations",
+          "topic": "Authorizations",
+          "scope": "cross-cutting",
+          "workstreamId": null,
+          "mentions": 68,
+          "delta": 11,
+          "delta_pct": 19.3,
+          "rank_delta": null,
+          "new_entry": true,
+          "top_voices": [
+            {
+              "personId": "eddb45b5-47bc-72d8-1d13-de351499aae1",
+              "displayName": "Daniel Okonkwo"
+            },
+            {
+              "personId": "4e83175e-009e-ea35-c4a3-c45f5a363da2",
+              "displayName": "James Carter"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
