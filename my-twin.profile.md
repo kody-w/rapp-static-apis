@@ -190,8 +190,7 @@ module; all raster appearances route through it.
 Every other AI stack ships one half — the model. RAPP ships the **whole twin**: the sealed on-device
 being plus the signed, content-addressed, planet-syncable public bones, with fidelity autonomously
 polished against the source of truth. Until others adopt this exact pattern, they are one side of a
-twin. This is the spec; RAPP is not an AI — it is an **AI medium**. (Molly's R&D patent, made whole
-end to end.)
+twin. This is the spec; RAPP is not an AI — it is an **AI medium**.
 
 ---
 *Spec license: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — implement, copy, teach freely, with attribution. Code: MIT. Patents: see [PATENT-PLEDGE.md](./PATENT-PLEDGE.md). Licensing map: [LICENSING.md](./LICENSING.md).*

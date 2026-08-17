@@ -14,5 +14,5 @@ any of the above — identity is not software. It travels under the
 splice freely; never impersonate, never distribute modified bones as authentic, never clone the
 person.
 
-The name **RAPP** is a trademark of Kody Wildfeuer (registration in progress). Implement the
+The name **RAPP** is a trademark of Kody Wildfeuer; all rights reserved. Implement the
 protocol freely; call it "RAPP-compatible" only if it conforms.
