@@ -156,8 +156,6 @@ rapp·go is the WHOLE application; companion/hologram/lantern/proofs are its roo
    genuinely unsafe, document why and fall back to /rapp-go/ scope — but try properly first.
 3. **The room-switcher nav** — ship the component in rapp-go (a tiny shared module + CSS,
    importable by other rooms): map · twin (companion) · basket (hologram) · lantern · journal.
-   V2 replaces the never-landed journal placeholder with the lineage room; see
-   `v2-rappid-lineages.md` and `nav-contract.md`.
    Quiet, bottom, thumb-reachable, standalone-aware. Document its contract in the exit report so
    COHESION-1 can adopt it verbatim in hologram/**.
 4. Root `index.html` belongs to the discovery spine — do NOT touch it.

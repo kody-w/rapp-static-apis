@@ -3,7 +3,7 @@
   "name": "rapp-static-apis",
   "protocolVersion": "2024-11-05",
   "description": "Discovery manifest for the RAPP static-API commons. Each API is a read-only resource fetched from GitHub raw; no server.",
-  "generated": "2026-08-20T19:37:14Z",
+  "generated": "2026-08-02T19:24:56Z",
   "resources": [
     {
       "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion/registry.json",
@@ -80,7 +80,7 @@
     {
       "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/rapp-go/registry.json",
       "name": "rapp-go",
-      "description": "rapp-go v2 — catch RAPPID species and grow living parallel lineages",
+      "description": "rapp-go — the explorer: a quiet, no-backend Pokémon-Go-like PWA",
       "mimeType": "application/json"
     },
     {

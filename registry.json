@@ -6,7 +6,7 @@
   "spec": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/SPEC.md",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main",
   "pages_base": "https://kody-w.github.io/rapp-static-apis",
-  "generated": "2026-08-20T19:37:14Z",
+  "generated": "2026-08-02T19:24:56Z",
   "summary": {
     "apis": 20,
     "with_status_endpoint": 20,
@@ -181,11 +181,11 @@
     },
     {
       "name": "rapp-go",
-      "description": "rapp-go v2 — catch RAPPID species and grow living parallel lineages",
+      "description": "rapp-go — the explorer: a quiet, no-backend Pokémon-Go-like PWA",
       "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/rapp-go",
       "pages_base": "https://kody-w.github.io/rapp-static-apis/rapp-go/",
       "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/rapp-go/registry.json",
-      "api_schema": "rapp-go-index/2.0",
+      "api_schema": "rapp-go-index/1.0",
       "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/rapp-go/api/v1/status.json",
       "badge": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/rapp-go/api/v1/badge.json",
       "dashboard": "https://kody-w.github.io/rapp-static-apis/rapp-go/",
