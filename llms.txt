@@ -29,7 +29,7 @@ Read the full convention: https://raw.githubusercontent.com/kody-w/rapp-static-a
 - [mcp](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/mcp/registry.json): rapp-static-mcp — a static MCP catalog — versioned-endpoints
 - [poi-tiles](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/poi-tiles/registry.json): poi-tiles — the static, ODbL-clean global POI layer — versioned-endpoints
 - [proofs](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/proofs/registry.json): proofs — every claim is a button; your browser is the judge — versioned-endpoints
-- [rapp-go](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/rapp-go/registry.json): rapp-go — the explorer: a quiet, no-backend Pokémon-Go-like PWA — versioned-endpoints
+- [rapp-go](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/rapp-go/registry.json): rapp-go v2 — catch RAPPID species and grow living parallel lineages — versioned-endpoints
 - [sap](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sap/registry.json): Synthetic S/4HANA gateway (OData v2 shape) for Meridian Manufacturing Group, a fictional global manufacturer mid-S/4HANA-transformation. Fully synthetic, no real data. — versioned-endpoints
 - [sharepoint](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sharepoint/registry.json): Synthetic SharePoint program-document library for Project Phoenix, the S/4HANA transformation of a fictional global manufacturer. Graph-flavored listing + raw markdown docs, plus true Microsoft Graph wire shapes (site, paged driveItem children, search response). Fully synthetic, no real data. — versioned-endpoints
 - [shortener](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/shortener/registry.json): rapp-static-shortener — versioned-endpoints, content-addressed
@@ -47,4 +47,4 @@ Read the full convention: https://raw.githubusercontent.com/kody-w/rapp-static-a
 - Agent protocol: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/agent-protocol.json
 - Sitemap: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sitemap.xml
 
-<!-- generated 2026-08-02T19:24:56Z by build.py — do not hand-edit -->
+<!-- generated 2026-08-20T19:37:14Z by build.py — do not hand-edit -->

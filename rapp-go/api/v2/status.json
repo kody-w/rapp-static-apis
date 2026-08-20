@@ -1,0 +1,31 @@
+{
+  "schema": "rapp-go-status/2.0",
+  "generated": "2026-08-20T19:35:59Z",
+  "ok": true,
+  "application": "rapp-go",
+  "version": "2.0.0",
+  "rooms": [
+    "map",
+    "lineage",
+    "catch"
+  ],
+  "species_sources": [
+    "https://raw.githubusercontent.com/microsoft/aibast-agents-library/main/registry.json",
+    "https://raw.githubusercontent.com/kody-w/RAR/main/registry.json"
+  ],
+  "contracts": {
+    "identity_and_frames": "rapp/1",
+    "species": "rapp-agent/1.0",
+    "catalogs": "rapp-registry/1.x",
+    "body": "hologram-cartridge/1.0",
+    "local_record": "rapp-go-organism/2.0"
+  },
+  "authority": "not-established",
+  "capabilities": [
+    "registry-species-catalog",
+    "mint-once-rappid-wake",
+    "parallel-offspring",
+    "append-only-freeze-wake",
+    "local-calling-card-export"
+  ]
+}
