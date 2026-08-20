@@ -1,7 +1,7 @@
 {
-  "name": "rapp·go — catch the sky where you stand",
+  "name": "rapp·go v2 — living RAPPID lineages",
   "short_name": "rapp·go",
-  "description": "A quiet, no-backend explorer: the real weather of the real place you walk to becomes a creature.",
+  "description": "Catch registry-defined RAPPID species, wake living individuals, and grow parallel append-only lineages.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

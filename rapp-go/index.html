@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#e9ebe6">
-<title>rapp·go — catch the sky where you stand</title>
+<title>rapp·go v2 — catch the sky where you stand</title>
 <script>
 // theme boot (§B): LIGHT for everyone until a choice is made. Shared key
 // rapp.theme (cohesion §1), legacy fallback rapp-go.theme. Inline + first so
@@ -48,6 +48,8 @@ try {
     user-select:none; pointer-events:none;
   }
   #brand b{color:var(--go-fg); font-weight:600}
+  #brand .version{font-size:9px;color:var(--go-accent);border:1px solid var(--go-line);
+    border-radius:999px;padding:2px 5px;margin-left:4px;letter-spacing:.08em}
   #chips{
     position:fixed; top:calc(env(safe-area-inset-top,0) + 10px); right:12px; z-index:6;
     display:flex; flex-direction:column; gap:6px; align-items:flex-end;
@@ -163,16 +165,16 @@ try {
 </head>
 <body>
   <canvas id="map"></canvas>
-  <div id="brand"><b>rapp</b>·go</div>
+  <div id="brand"><b>rapp</b>·go <span class="version">v2</span></div>
   <div id="chips"></div>
   <details id="nearby">
-    <summary>nearby places and creatures</summary>
+    <summary>nearby places and RAPPID creatures</summary>
     <div id="nearby-list"></div>
   </details>
 
   <div id="invite"><div class="card">
-    <h1 id="invite-title">catch the sky where you stand</h1>
-    <p id="invite-copy">rapp·go grows a creature from the real weather of the exact place you walk to. share your location to begin.</p>
+    <h1 id="invite-title">catch a RAPPID where you stand</h1>
+    <p id="invite-copy">rapp·go grows a wild species from the real weather of the exact place you walk to. keep it, wake it, then let its lineage live in parallel.</p>
     <div class="actions">
       <button id="invite-btn">share my location</button>
       <a id="invite-demo" href="./?demo=1">open the offline demo sky</a>
@@ -208,6 +210,7 @@ try {
 
     <div class="doors" id="enc-doors">
       <a class="act" id="door-keep" href="#">◍ keep — it's in your basket</a>
+      <a class="act" id="door-drill" href="#">∞ wake into a living lineage</a>
       <div class="row">
         <a class="act" id="door-talk" target="_blank" rel="noopener">talk</a>
         <a class="act" id="door-breed" target="_blank" rel="noopener">breed</a>
@@ -616,6 +619,7 @@ async function openEncounter(sp){
   $('enc-from').textContent = sp.cart.born.from;
   $('enc-note').textContent = '';
   $('door-keep').href = '#';
+  $('door-drill').href = '#';
   $('door-keep').textContent = '◍ keep — it\u2019s in your basket';
   $('enc-save-actions').classList.remove('show');
   $('enc-retry-save').disabled = false;
@@ -844,6 +848,7 @@ async function saveCaught(encounter){
   if (current !== encounter) return;
   $('door-talk').href = DEMO ? talkHref(rec.egg).replace('index.html#','index.html?demo=1#') : talkHref(rec.egg);
   $('door-breed').href = DEMO ? breedHref(rec.egg).replace('index.html#','index.html?demo=1#') : breedHref(rec.egg);
+  $('door-drill').href = './lineage.html?' + (DEMO ? 'demo=1&' : '') + 'cart=' + encodeURIComponent(rec.id);
   $('door-keep').href = '../hologram/index.html' + (DEMO ? '?demo=1' : '') + '#kept=' + encodeURIComponent(rec.id);
   $('door-keep').textContent = '◍ view this keepsake';
   $('enc-save-actions').classList.remove('show');

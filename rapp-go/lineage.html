@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#e9ebe6">
+<link rel="icon" href="icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<title>rapp·go v2 — living RAPPID lineages</title>
+<script>
+try {
+  const saved = JSON.parse(localStorage.getItem('rapp.theme') || '"light"');
+  document.documentElement.dataset.theme = saved === 'dark' ? 'dark' : 'light';
+} catch { document.documentElement.dataset.theme = 'light'; }
+</script>
+<style>
+:root{
+  --bg:#e9ebe6;--fg:#343b44;--dim:#6b7280;--panel:#f8f9f5;--line:rgba(55,62,72,.16);
+  --accent:#4f87ef;--accent-soft:rgba(79,135,239,.12);--shadow:0 14px 44px rgba(40,48,60,.10);
+}
+:root[data-theme="dark"]{
+  --bg:#0b0d12;--fg:#d4d9e1;--dim:#8c96a6;--panel:#11151d;--line:rgba(170,182,204,.16);
+  --accent:#78a9ff;--accent-soft:rgba(120,169,255,.13);--shadow:0 18px 52px rgba(0,0,0,.32);
+}
+*{box-sizing:border-box}
+html{min-height:100%;background:var(--bg)}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--fg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.01em}
+button,input,select{font:inherit}
+button,a{touch-action:manipulation}
+.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;padding:12px max(16px,env(safe-area-inset-left));
+  background:color-mix(in srgb,var(--bg) 88%,transparent);border-bottom:1px solid var(--line);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.back,.quiet-button{border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--fg);
+  text-decoration:none;padding:8px 12px;cursor:pointer}
+.wordmark{flex:1;font-size:14px;letter-spacing:.14em}.wordmark b{font-weight:700}.wordmark span{font-size:10px;color:var(--accent);
+  border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));padding:2px 6px;border-radius:999px;margin-left:6px}
+main{width:min(1180px,100%);margin:0 auto;padding:32px 18px 110px}
+.hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,.75fr);gap:20px;align-items:end;margin-bottom:22px}
+.eyebrow,.section-label{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font-size:clamp(30px,6vw,64px);line-height:.98;letter-spacing:-.045em;margin:8px 0 14px;max-width:820px}
+.lede{font-size:clamp(15px,2vw,19px);line-height:1.55;color:var(--dim);max-width:760px;margin:0}
+.principle{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:16px;box-shadow:var(--shadow)}
+.principle strong{display:block;font-size:13px;margin-bottom:6px}.principle p{font-size:12.5px;line-height:1.55;color:var(--dim);margin:0}
+.controlbar{display:flex;gap:10px;align-items:end;flex-wrap:wrap;border:1px solid var(--line);border-radius:18px;
+  background:var(--panel);padding:13px;margin-bottom:12px}
+.field{display:flex;flex-direction:column;gap:5px;min-width:210px;flex:1}.field span{font-size:11px;color:var(--dim)}
+input,select{width:100%;border:1px solid var(--line);border-radius:11px;background:var(--bg);color:var(--fg);padding:10px 11px}
+input:focus,select:focus,button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.action{border:1px solid var(--line);border-radius:11px;background:transparent;color:var(--fg);padding:10px 13px;cursor:pointer}
+.action.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:650}
+.action:disabled{opacity:.45;cursor:default}
+#status{min-height:22px;color:var(--dim);font-size:12.5px;padding:0 4px 8px}
+#status.error{color:#b5524f}:root[data-theme="dark"] #status.error{color:#ff9d98}
+.switcher{display:inline-flex;gap:3px;padding:4px;border:1px solid var(--line);background:var(--panel);border-radius:999px;margin:4px 0 20px}
+.switcher button{border:0;background:transparent;color:var(--dim);padding:8px 16px;border-radius:999px;cursor:pointer}
+.switcher button[aria-selected="true"]{background:var(--accent-soft);color:var(--fg)}
+.catalog-head,.habitat-head{display:flex;align-items:end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+h2{font-size:24px;letter-spacing:-.025em;margin:4px 0}.subcopy{font-size:13px;color:var(--dim);margin:0;line-height:1.5}
+.catalog-head .field{max-width:380px}
+.registry-strip{display:flex;gap:8px;overflow-x:auto;padding:1px 1px 12px}
+.registry-pill{flex:0 0 auto;border:1px solid var(--line);background:var(--panel);border-radius:13px;padding:9px 11px;font-size:11px;color:var(--dim)}
+.registry-pill b{color:var(--fg);font-size:12px}
+.species-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:11px}
+.species-card{display:flex;flex-direction:column;min-height:218px;border:1px solid var(--line);background:var(--panel);
+  border-radius:17px;padding:15px;box-shadow:0 5px 16px rgba(30,40,50,.04)}
+.species-mark{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:var(--accent-soft);
+  color:var(--accent);font-weight:750;text-transform:uppercase;margin-bottom:13px}
+.species-card h3{font-size:16px;margin:0 0 4px}.meta{font-size:10.5px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
+.species-card p{font-size:12.5px;line-height:1.5;color:var(--dim);margin:9px 0 14px;display:-webkit-box;
+  -webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.species-card .action{margin-top:auto;width:100%}
+.empty{border:1px dashed var(--line);border-radius:18px;padding:32px;text-align:center;color:var(--dim);font-size:13px}
+.stats{display:flex;gap:8px;flex-wrap:wrap}.stat{border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:11px;color:var(--dim)}
+.habitat-grid{display:grid;grid-template-columns:minmax(280px,.75fr) minmax(0,1.25fr);gap:14px;margin-bottom:16px}
+.active-card,.drill-card{border:1px solid var(--line);background:var(--panel);border-radius:20px;padding:17px;box-shadow:var(--shadow)}
+.body-stage{display:grid;place-items:center;min-height:250px;border-radius:16px;background:radial-gradient(circle,var(--accent-soft),transparent 68%)}
+#active-body{display:block;width:240px;height:240px}
+.active-title{font-size:20px;font-weight:700;margin:8px 0 3px}.active-sub{font-size:12px;color:var(--dim);line-height:1.5}
+.rappid{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;color:var(--dim);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:9px 0}
+.active-actions{display:flex;gap:8px;flex-wrap:wrap}.active-actions .action{flex:1}
+.dimension-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
+.dimension{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:10px;cursor:pointer}
+.dimension input{width:auto;margin-top:2px}.dimension b{display:block;font-size:12.5px}.dimension span{display:block;font-size:10.5px;color:var(--dim);margin-top:2px}
+.drill-row{display:grid;grid-template-columns:1fr 110px;gap:9px;margin-bottom:9px}
+.drill-card .action.primary{width:100%;padding:12px}
+.lineage-wrap{border:1px solid var(--line);background:var(--panel);border-radius:20px;padding:16px;overflow:hidden}
+.lineage-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:13px}
+.lineage-scroll{overflow-x:auto;padding-bottom:8px}
+#lineage-graph{display:flex;gap:18px;min-width:max-content;align-items:flex-start}
+.generation{width:210px}.generation h3{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:0 0 8px}
+.generation-list{display:flex;flex-direction:column;gap:8px}
+.organism-card{width:100%;display:grid;grid-template-columns:64px 1fr;gap:10px;text-align:left;border:1px solid var(--line);
+  background:var(--bg);color:var(--fg);border-radius:14px;padding:8px;cursor:pointer}
+.organism-card.selected{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.organism-card canvas{width:64px;height:64px}.organism-card b{display:block;font-size:12px;margin-top:4px}
+.organism-card span{display:block;font-size:10px;color:var(--dim);margin-top:3px}.organism-card .awake{color:#37845f}
+:root[data-theme="dark"] .organism-card .awake{color:#79d7ac}.organism-card .frozen{color:#7b82a8}
+.privacy{font-size:11px;color:var(--dim);line-height:1.5;margin-top:14px}
+[hidden]{display:none!important}
+@media(max-width:760px){
+  main{padding-top:22px}.hero,.habitat-grid{grid-template-columns:1fr}.principle{display:none}
+  .dimension-grid{grid-template-columns:1fr}.drill-row{grid-template-columns:1fr}
+  h1{font-size:42px}.topbar{padding-left:10px;padding-right:10px}.back{font-size:0}.back::after{content:"←";font-size:16px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="back" href="./index.html">← map</a>
+  <div class="wordmark"><b>rapp</b>·go <span>v2</span></div>
+  <button class="quiet-button" id="theme" type="button" aria-label="toggle theme">☼</button>
+</header>
+
+<main>
+  <section class="hero">
+    <div>
+      <div class="eyebrow">the RAPPID habitat</div>
+      <h1>One ancestor.<br>Parallel living futures.</h1>
+      <p class="lede">Every registry agent is a species. Wake its latest frozen frame as a living RAPPID, drill selected dimensions, and let every offspring continue from its own latest head.</p>
+    </div>
+    <aside class="principle">
+      <strong>Nothing overwrites.</strong>
+      <p>The registry snapshot stays frozen. Parents and siblings stay alive. Every meaningful change is another immutable RAPP/1 frame; every offspring receives a fresh mint-once identity and honest alleles.</p>
+    </aside>
+  </section>
+
+  <div class="controlbar">
+    <label class="field">
+      <span>Your lowercase GitHub owner (used in the RAPPID address)</span>
+      <input id="owner" autocomplete="username" placeholder="kody-w" maxlength="39" pattern="[a-z0-9]+(?:-[a-z0-9]+)*">
+    </label>
+    <button class="action" id="sync" type="button">sync registry heads</button>
+    <button class="action" id="import" type="button">import JSON</button>
+    <input id="import-file" type="file" accept=".json,application/json" hidden>
+  </div>
+  <div id="status" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <div class="switcher" role="tablist" aria-label="rappGO v2 views">
+    <button id="species-tab" type="button" role="tab" aria-controls="species-view" aria-selected="true">species</button>
+    <button id="habitat-tab" type="button" role="tab" aria-controls="habitat-view" aria-selected="false">living lineages</button>
+  </div>
+
+  <section id="species-view" role="tabpanel" aria-labelledby="species-tab">
+    <div class="catalog-head">
+      <div>
+        <div class="section-label">dimension registries</div>
+        <h2>Species waiting to wake</h2>
+        <p class="subcopy">The latest snapshot is the active head. Older catalog snapshots remain frozen locally.</p>
+      </div>
+      <label class="field">
+        <span>Search species, mandate, vertical, or registry</span>
+        <input id="species-search" type="search" placeholder="Search the Pokédex">
+      </label>
+    </div>
+    <div class="registry-strip" id="registry-strip"></div>
+    <div class="species-grid" id="species-grid"></div>
+    <div class="empty" id="species-empty" hidden>No species match this view.</div>
+  </section>
+
+  <section id="habitat-view" role="tabpanel" aria-labelledby="habitat-tab" hidden>
+    <div class="habitat-head">
+      <div>
+        <div class="section-label">individual dimension registries</div>
+        <h2>Living RAPPID lineages</h2>
+        <p class="subcopy">Each creature owns an independent frame stream and latest-head pointer.</p>
+      </div>
+      <div class="stats" id="habitat-stats"></div>
+    </div>
+    <div id="habitat-empty" class="empty">Wake a species first. Its registry frame becomes generation zero.</div>
+    <div id="habitat-content" hidden>
+      <div class="habitat-grid">
+        <article class="active-card">
+          <div class="body-stage"><canvas id="active-body" width="240" height="240" aria-label="selected living RAPPID creature"></canvas></div>
+          <div class="active-title" id="active-title"></div>
+          <div class="active-sub" id="active-sub"></div>
+          <div class="rappid" id="active-rappid"></div>
+          <div class="active-actions">
+            <button class="action" id="freeze" type="button">freeze</button>
+            <button class="action" id="export" type="button">export calling card</button>
+          </div>
+          <p class="privacy">Private memory remains local. This public body stream proves byte continuity, not estate authority; no authenticated §13 owner registry or signing key is fabricated here.</p>
+        </article>
+
+        <form class="drill-card" id="drill-form">
+          <div class="section-label">quantum drill</div>
+          <h2>Hatch parallel offspring</h2>
+          <p class="subcopy">Each child starts from this exact head, receives a fresh RAPPID and alleles, and keeps the same ancestor species object.</p>
+          <div class="dimension-grid" id="dimension-grid"></div>
+          <div class="drill-row">
+            <label class="field">
+              <span>Branch intent</span>
+              <input id="intent" value="find another viable path without losing the spinning-top objective">
+            </label>
+            <label class="field">
+              <span>Offspring</span>
+              <select id="offspring-count">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+            </label>
+          </div>
+          <button class="action primary" type="submit">drill and hatch in parallel</button>
+        </form>
+      </div>
+
+      <section class="lineage-wrap">
+        <div class="lineage-top">
+          <div>
+            <div class="section-label">ancestor data object</div>
+            <div class="rappid" id="ancestor-id"></div>
+          </div>
+          <label class="field" style="max-width:310px">
+            <span>Lineage</span>
+            <select id="lineage-select"></select>
+          </label>
+        </div>
+        <div class="lineage-scroll"><div id="lineage-graph"></div></div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="./lineage.js"></script>
+</body>
+</html>
