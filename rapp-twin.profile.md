@@ -132,11 +132,13 @@ Line" collision; `immutable reference → the sha256 content-address pin`.)
       UTC-first + consent; lead-authority scoped to `memory.*` only.
 - [ ] The public twin has a `rapp-eternity/1.0` rappid and is content-addressed + hydra-mirrored.
 
-## 8. Registration debt (pay in the same change-set)
+## 8. Historical registration plan — retired
 
-Per the grail rule *"a change is canon only if it leaves no spec stale"* — register this profile's schemas
-as parts in `rapp-god`'s `ecosystem-spec.json` / `registry.json` and mirror **sha256-identically** to
-`rapp-map`. (Cross-repo; do this where those repos live.)
+The former instruction to register this profile in `rapp-god` and mirror it
+sha256-identically to `rapp-map` is retired. `rapp-god` is private and
+`rapp-map/ecosystem-spec.json` is a quarantine status document, not a mirror.
+Do not publish or invent content at either surface. Current protocol behavior
+resolves to the exact immutable `kody-w/rapp-1` rev-5 authority.
 
 ---
 

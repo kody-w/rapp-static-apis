@@ -70,7 +70,7 @@ Regenerate it all with the one build step: `python3 build.py` (idempotent). Scor
 
 | Repo | Variant |
 |------|---------|
-| [rapp-god](https://github.com/kody-w/rapp-god) | full — index **+ every version** as content-addressed fallback frames |
+| `rapp-god` | historical private implementation; not a public mirror or current authority |
 | [RAR](https://github.com/kody-w/RAR) | index only — agent files in, `registry.json` out |
 | [rapp-mcp](https://github.com/kody-w/rapp-mcp) | `rapp-static-mcp/1.0` — a static MCP catalog of content-addressed agent frames; pin a `sha8`, verify-before-exec. A profile *of* `rapp-static-api/1.0`. |
 
