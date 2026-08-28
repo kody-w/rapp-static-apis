@@ -261,7 +261,9 @@ $('goMenu').onclick = async () => {
   try {
     const probe = await runVerifiedCell({
       base: TRACK, cell: 'extract', fn: 'extract',
-      args: { src: `https://api.github.com/repos/${OWNER}/${REPO}`, path: 'open_issues_count' },
+      // Static Data Covenant (RAR CONSTITUTION.md Article XXIV): reads a CI-harvested static
+      // snapshot in the identical GitHub API response shape instead of calling api.github.com.
+      args: { src: new URL('../../data/github-repo.json', location.href).href, path: 'open_issues_count' },
       onStep: menuNarrate
     });
     menuNarrate('probe', 'ok', 'verified compute path', `repo open issues: ${probe.value}`);

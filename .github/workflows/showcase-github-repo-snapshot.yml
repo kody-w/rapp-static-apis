@@ -1,0 +1,39 @@
+name: Harvest showcase GitHub repo snapshot
+
+# Static Data Covenant (RAR CONSTITUTION.md Article XXIV): a visitor's browser must never call
+# api.github.com. CI harvests kody-w/rapp-static-apis's public repo metadata (stars, forks,
+# open issues, ...) from api.github.com once, server-side, and commits it as static JSON that
+# the showcase demos read from their own Pages origin instead.
+
+on:
+  schedule:
+    - cron: '17 6 * * *'   # daily
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/harvest-github-repo.mjs'
+      - '.github/workflows/showcase-github-repo-snapshot.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Harvest repo snapshot
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/harvest-github-repo.mjs
+      - name: Commit only real changes
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "RAPP Static Data Bot"
+          git config user.email "rapp-bot@users.noreply.github.com"
+          git add showcase/data/github-repo.json
+          git diff --cached --quiet || git commit -m "Refresh showcase GitHub repo snapshot [skip ci]"
+          git push

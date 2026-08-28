@@ -231,7 +231,10 @@ const TRACK = '../../../track';
 const SOLD_OUT_PREFIX = 'sold-out:';
 const RANKING = 'https://raw.githubusercontent.com/EvanLi/Github-Ranking/master/Top100/JavaScript.md';
 const FARM = 'https://api.open-meteo.com/v1/forecast?latitude=2.53&longitude=-75.53&current=temperature_2m,precipitation';
-const GH_REPO = `https://api.github.com/repos/${OWNER}/${REPO}`;
+// Static Data Covenant (RAR CONSTITUTION.md Article XXIV): CI harvests this repo's stargazers/
+// forks/open-issues counts into a committed snapshot in the identical GitHub API response shape;
+// the browser reads that instead of calling api.github.com directly.
+const GH_REPO = new URL('../../data/github-repo.json', location.href).href;
 const SRC = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd';
 const MENU = [
   { key: 'margherita-pizza',   name: 'Margherita Pizza',   note: 'wood-fired · basil · fior di latte', price: '$14' },
