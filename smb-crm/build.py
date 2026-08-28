@@ -17,8 +17,8 @@ Idempotent + deterministic: same seed -> byte-identical output.
 import json, os, hashlib, datetime
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-NOW = "2026-06-17T00:00:00Z"  # fixed: deterministic, no timestamp churn
-_BASE = datetime.datetime(2026, 1, 1, tzinfo=datetime.timezone.utc)
+NOW = "2026-08-28T00:00:00Z"  # fixed: deterministic, no timestamp churn (matches the starter pack as_of)
+_BASE = datetime.datetime(2026, 8, 1, tzinfo=datetime.timezone.utc)
 
 OWNER, REPO, BRANCH = "kody-w", "rapp-static-apis", "main"
 MOUNT = "smb-crm"  # a SMALL-BUSINESS tenant: Maple & Sons Plumbing (SYNTHETIC) — matches kody-w/rappter-prompts starter pack
@@ -68,7 +68,7 @@ def build():
 
     acc_rows = []
     for i, a in enumerate(accounts):
-        ts = seed_ts(i)
+        ts = a.get("on") or seed_ts(i)
         acc_rows.append({
             "@odata.etag": etag(a), "accountid": aid[a["_seedkey"]],
             "name": a.get("name"), "description": a.get("description"),
@@ -85,7 +85,7 @@ def build():
 
     con_rows = []
     for i, c in enumerate(contacts):
-        ts = seed_ts(100 + i); a = c["account"]
+        ts = c.get("on") or seed_ts(100 + i); a = c["account"]
         con_rows.append({
             "@odata.etag": etag(c), "contactid": guid("contact:" + c["_seedkey"]),
             "fullname": c.get("fullname"), "firstname": c.get("firstname"), "lastname": c.get("lastname"),
@@ -98,7 +98,7 @@ def build():
     STATE = {0: "Open", 1: "Won", 2: "Lost"}
     opp_rows = []
     for i, o in enumerate(opps):
-        ts = seed_ts(200 + i); a = o["account"]
+        ts = o.get("on") or seed_ts(200 + i); a = o["account"]
         opp_rows.append({
             "@odata.etag": etag(o), "opportunityid": guid("opportunity:" + o["_seedkey"]),
             "name": o.get("name"),
@@ -117,7 +117,7 @@ def build():
     CSTATE = {0: "Active", 1: "Resolved", 2: "Cancelled"}
     inc_rows = []
     for i, n in enumerate(incidents):
-        ts = seed_ts(300 + i); a = n["account"]
+        ts = n.get("on") or seed_ts(300 + i); a = n["account"]
         inc_rows.append({
             "@odata.etag": etag(n), "incidentid": guid("incident:" + n["_seedkey"]),
             "title": n.get("title"), "ticketnumber": n.get("ticketnumber"),

@@ -7,7 +7,8 @@
     "fullname": "Customer A (SYNTHETIC)",
     "jobtitle": "Homeowner",
     "emailaddress1": "customer-a@example.com",
-    "telephone1": "+1-770-555-0101"
+    "telephone1": "+1-770-555-0101",
+    "on": "2026-03-10T09:00:00Z"
   },
   {
     "_seedkey": "customer-b-contact",
@@ -17,7 +18,8 @@
     "fullname": "Customer B (SYNTHETIC)",
     "jobtitle": "Homeowner",
     "emailaddress1": "customer-b@example.com",
-    "telephone1": "+1-770-555-0102"
+    "telephone1": "+1-770-555-0102",
+    "on": "2026-03-11T09:00:00Z"
   },
   {
     "_seedkey": "customer-c-contact",
@@ -27,7 +29,8 @@
     "fullname": "Customer C (SYNTHETIC)",
     "jobtitle": "Homeowner",
     "emailaddress1": "customer-c@example.com",
-    "telephone1": "+1-770-555-0103"
+    "telephone1": "+1-770-555-0103",
+    "on": "2026-04-12T09:00:00Z"
   },
   {
     "_seedkey": "customer-d-contact",
@@ -37,7 +40,8 @@
     "fullname": "Customer D (SYNTHETIC)",
     "jobtitle": "Homeowner",
     "emailaddress1": "customer-d@example.com",
-    "telephone1": "+1-770-555-0104"
+    "telephone1": "+1-770-555-0104",
+    "on": "2026-04-13T09:00:00Z"
   },
   {
     "_seedkey": "customer-e-contact",
@@ -47,7 +51,8 @@
     "fullname": "Customer E (SYNTHETIC)",
     "jobtitle": "Homeowner",
     "emailaddress1": "customer-e@example.com",
-    "telephone1": "+1-770-555-0105"
+    "telephone1": "+1-770-555-0105",
+    "on": "2026-05-14T09:00:00Z"
   },
   {
     "_seedkey": "customer-f-contact",
@@ -57,6 +62,7 @@
     "fullname": "Customer F (SYNTHETIC)",
     "jobtitle": "Homeowner",
     "emailaddress1": "customer-f@example.com",
-    "telephone1": "+1-770-555-0106"
+    "telephone1": "+1-770-555-0106",
+    "on": "2026-05-15T09:00:00Z"
   }
 ]

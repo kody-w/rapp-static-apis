@@ -7,7 +7,8 @@
     "casetypecode": 2,
     "prioritycode": 2,
     "statecode": 1,
-    "statuscode": 5
+    "statuscode": 5,
+    "on": "2026-08-24T18:00:00Z"
   },
   {
     "_seedkey": "job-e",
@@ -17,7 +18,8 @@
     "casetypecode": 2,
     "prioritycode": 2,
     "statecode": 1,
-    "statuscode": 5
+    "statuscode": 5,
+    "on": "2026-08-25T19:30:00Z"
   },
   {
     "_seedkey": "job-f",
@@ -27,7 +29,8 @@
     "casetypecode": 2,
     "prioritycode": 3,
     "statecode": 1,
-    "statuscode": 5
+    "statuscode": 5,
+    "on": "2026-08-27T17:00:00Z"
   },
   {
     "_seedkey": "complaint-c",
@@ -37,6 +40,7 @@
     "casetypecode": 3,
     "prioritycode": 1,
     "statecode": 0,
-    "statuscode": 1
+    "statuscode": 1,
+    "on": "2026-08-26T12:00:00Z"
   }
 ]

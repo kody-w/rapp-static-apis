@@ -1,6 +1,6 @@
 {
   "schema": "rapp-static-smb-crm-status/1.0",
-  "generated": "2026-06-17T00:00:00Z",
+  "generated": "2026-08-28T00:00:00Z",
   "summary": {
     "entitysets": 4,
     "rows": 17
@@ -9,22 +9,22 @@
     {
       "name": "accounts",
       "count": 6,
-      "sha8": "303128b33c26"
+      "sha8": "67ac93f2b924"
     },
     {
       "name": "contacts",
       "count": 6,
-      "sha8": "f758ff7a4389"
+      "sha8": "c6a9154c2d93"
     },
     {
       "name": "opportunities",
       "count": 1,
-      "sha8": "4c8e50bfb012"
+      "sha8": "7a311db896b4"
     },
     {
       "name": "incidents",
       "count": 4,
-      "sha8": "80a6b2500736"
+      "sha8": "333c2268302c"
     }
   ]
 }
