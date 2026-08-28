@@ -1,0 +1,26 @@
+{
+  "@odata.context": "https://maple-and-sons.crm.dynamics.com/api/data/v9.2/$metadata#opportunities",
+  "value": [
+    {
+      "@odata.etag": "W/\"912231287\"",
+      "opportunityid": "83cc7ad7-139f-67b8-639d-27505f0060cf",
+      "name": "Northside repipe estimate",
+      "estimatedvalue": 18400,
+      "estimatedvalue@OData.Community.Display.V1.FormattedValue": "$18,400",
+      "salesstage@OData.Community.Display.V1.FormattedValue": 1,
+      "estimatedclosedate": "2026-09-15",
+      "statecode": 0,
+      "statecode@OData.Community.Display.V1.FormattedValue": "Open",
+      "statuscode": 1,
+      "_parentaccountid_value": "bbd618f5-6a7a-e251-247c-9c8207f05543",
+      "_parentaccountid_value@Microsoft.Dynamics.CRM.lookuplogicalname": "account",
+      "_parentaccountid_value@OData.Community.Display.V1.FormattedValue": "Customer A (SYNTHETIC)",
+      "createdon": "2026-01-01T03:20:00Z",
+      "modifiedon": "2026-01-01T03:20:00Z",
+      "versionnumber": 1200000,
+      "_ownerid_value": "5a659471-48f5-0d23-52b4-4ae271079cb3",
+      "_ownerid_value@Microsoft.Dynamics.CRM.lookuplogicalname": "systemuser",
+      "_ownerid_value@OData.Community.Display.V1.FormattedValue": "Maple & Sons (synthetic)"
+    }
+  ]
+}

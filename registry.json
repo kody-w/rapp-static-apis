@@ -6,10 +6,10 @@
   "spec": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/SPEC.md",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main",
   "pages_base": "https://kody-w.github.io/rapp-static-apis",
-  "generated": "2026-08-02T19:24:56Z",
+  "generated": "2026-08-28T16:52:09Z",
   "summary": {
-    "apis": 20,
-    "with_status_endpoint": 20,
+    "apis": 21,
+    "with_status_endpoint": 21,
     "content_addressed": 4
   },
   "entries": [
@@ -245,6 +245,18 @@
       "capabilities": [
         "versioned-endpoints",
         "llms.txt"
+      ]
+    },
+    {
+      "name": "smb-crm",
+      "description": "rapp-static-smb-crm",
+      "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm",
+      "pages_base": "https://kody-w.github.io/rapp-static-apis/smb-crm/",
+      "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm/registry.json",
+      "api_schema": "rapp-static-api/1.0",
+      "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm/api/v1/status.json",
+      "capabilities": [
+        "versioned-endpoints"
       ]
     },
     {

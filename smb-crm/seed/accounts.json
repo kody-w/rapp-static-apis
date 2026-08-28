@@ -1,0 +1,80 @@
+[
+  {
+    "_seedkey": "customer-a",
+    "name": "Customer A (SYNTHETIC)",
+    "industry": "Residential",
+    "revenue": 0,
+    "numberofemployees": 1,
+    "telephone1": "+1-770-555-0101",
+    "websiteurl": "",
+    "address1_city": "Marietta",
+    "address1_stateorprovince": "GA",
+    "accountcategorycode": 2,
+    "description": "Household customer of Maple & Sons Plumbing (a SYNTHETIC 9-person plumbing company in Marietta, GA). Demo record."
+  },
+  {
+    "_seedkey": "customer-b",
+    "name": "Customer B (SYNTHETIC)",
+    "industry": "Residential",
+    "revenue": 0,
+    "numberofemployees": 1,
+    "telephone1": "+1-770-555-0102",
+    "websiteurl": "",
+    "address1_city": "Marietta",
+    "address1_stateorprovince": "GA",
+    "accountcategorycode": 2,
+    "description": "Household customer of Maple & Sons Plumbing (a SYNTHETIC 9-person plumbing company in Marietta, GA). Demo record."
+  },
+  {
+    "_seedkey": "customer-c",
+    "name": "Customer C (SYNTHETIC)",
+    "industry": "Residential",
+    "revenue": 0,
+    "numberofemployees": 1,
+    "telephone1": "+1-770-555-0103",
+    "websiteurl": "",
+    "address1_city": "Kennesaw",
+    "address1_stateorprovince": "GA",
+    "accountcategorycode": 2,
+    "description": "Household customer of Maple & Sons Plumbing (a SYNTHETIC 9-person plumbing company in Marietta, GA). Demo record."
+  },
+  {
+    "_seedkey": "customer-d",
+    "name": "Customer D (SYNTHETIC)",
+    "industry": "Residential",
+    "revenue": 0,
+    "numberofemployees": 1,
+    "telephone1": "+1-770-555-0104",
+    "websiteurl": "",
+    "address1_city": "Marietta",
+    "address1_stateorprovince": "GA",
+    "accountcategorycode": 2,
+    "description": "Household customer of Maple & Sons Plumbing (a SYNTHETIC 9-person plumbing company in Marietta, GA). Demo record."
+  },
+  {
+    "_seedkey": "customer-e",
+    "name": "Customer E (SYNTHETIC)",
+    "industry": "Residential",
+    "revenue": 0,
+    "numberofemployees": 1,
+    "telephone1": "+1-770-555-0105",
+    "websiteurl": "",
+    "address1_city": "Smyrna",
+    "address1_stateorprovince": "GA",
+    "accountcategorycode": 2,
+    "description": "Household customer of Maple & Sons Plumbing (a SYNTHETIC 9-person plumbing company in Marietta, GA). Demo record."
+  },
+  {
+    "_seedkey": "customer-f",
+    "name": "Customer F (SYNTHETIC)",
+    "industry": "Residential",
+    "revenue": 0,
+    "numberofemployees": 1,
+    "telephone1": "+1-770-555-0106",
+    "websiteurl": "",
+    "address1_city": "Marietta",
+    "address1_stateorprovince": "GA",
+    "accountcategorycode": 2,
+    "description": "Household customer of Maple & Sons Plumbing (a SYNTHETIC 9-person plumbing company in Marietta, GA). Demo record."
+  }
+]

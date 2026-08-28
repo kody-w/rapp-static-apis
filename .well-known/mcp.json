@@ -3,7 +3,7 @@
   "name": "rapp-static-apis",
   "protocolVersion": "2024-11-05",
   "description": "Discovery manifest for the RAPP static-API commons. Each API is a read-only resource fetched from GitHub raw; no server.",
-  "generated": "2026-08-02T19:24:56Z",
+  "generated": "2026-08-28T16:52:09Z",
   "resources": [
     {
       "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion/registry.json",
@@ -105,6 +105,12 @@
       "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/showcase/catalog.json",
       "name": "showcase",
       "description": "The Library of Awesome",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm/registry.json",
+      "name": "smb-crm",
+      "description": "rapp-static-smb-crm",
       "mimeType": "application/json"
     },
     {

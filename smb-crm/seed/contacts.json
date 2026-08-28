@@ -1,0 +1,62 @@
+[
+  {
+    "_seedkey": "customer-a-contact",
+    "account": "customer-a",
+    "firstname": "Customer",
+    "lastname": "A",
+    "fullname": "Customer A (SYNTHETIC)",
+    "jobtitle": "Homeowner",
+    "emailaddress1": "customer-a@example.com",
+    "telephone1": "+1-770-555-0101"
+  },
+  {
+    "_seedkey": "customer-b-contact",
+    "account": "customer-b",
+    "firstname": "Customer",
+    "lastname": "B",
+    "fullname": "Customer B (SYNTHETIC)",
+    "jobtitle": "Homeowner",
+    "emailaddress1": "customer-b@example.com",
+    "telephone1": "+1-770-555-0102"
+  },
+  {
+    "_seedkey": "customer-c-contact",
+    "account": "customer-c",
+    "firstname": "Customer",
+    "lastname": "C",
+    "fullname": "Customer C (SYNTHETIC)",
+    "jobtitle": "Homeowner",
+    "emailaddress1": "customer-c@example.com",
+    "telephone1": "+1-770-555-0103"
+  },
+  {
+    "_seedkey": "customer-d-contact",
+    "account": "customer-d",
+    "firstname": "Customer",
+    "lastname": "D",
+    "fullname": "Customer D (SYNTHETIC)",
+    "jobtitle": "Homeowner",
+    "emailaddress1": "customer-d@example.com",
+    "telephone1": "+1-770-555-0104"
+  },
+  {
+    "_seedkey": "customer-e-contact",
+    "account": "customer-e",
+    "firstname": "Customer",
+    "lastname": "E",
+    "fullname": "Customer E (SYNTHETIC)",
+    "jobtitle": "Homeowner",
+    "emailaddress1": "customer-e@example.com",
+    "telephone1": "+1-770-555-0105"
+  },
+  {
+    "_seedkey": "customer-f-contact",
+    "account": "customer-f",
+    "firstname": "Customer",
+    "lastname": "F",
+    "fullname": "Customer F (SYNTHETIC)",
+    "jobtitle": "Homeowner",
+    "emailaddress1": "customer-f@example.com",
+    "telephone1": "+1-770-555-0106"
+  }
+]

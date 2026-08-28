@@ -1,0 +1,12 @@
+[
+  {
+    "_seedkey": "northside-repipe",
+    "account": "customer-a",
+    "name": "Northside repipe estimate",
+    "estimatedvalue": 18400,
+    "estimatedclosedate": "2026-09-15",
+    "salesstage": 1,
+    "statecode": 0,
+    "statuscode": 1
+  }
+]

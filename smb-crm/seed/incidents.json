@@ -1,0 +1,42 @@
+[
+  {
+    "_seedkey": "job-d",
+    "account": "customer-d",
+    "title": "Leak repair under sink \u2014 completed 2026-08-24, no issue",
+    "ticketnumber": "JOB-2026-0824-D",
+    "casetypecode": 2,
+    "prioritycode": 2,
+    "statecode": 1,
+    "statuscode": 5
+  },
+  {
+    "_seedkey": "job-e",
+    "account": "customer-e",
+    "title": "Water heater replacement \u2014 completed 2026-08-25, crew arrived late",
+    "ticketnumber": "JOB-2026-0825-E",
+    "casetypecode": 2,
+    "prioritycode": 2,
+    "statecode": 1,
+    "statuscode": 5
+  },
+  {
+    "_seedkey": "job-f",
+    "account": "customer-f",
+    "title": "Drain clearing \u2014 completed 2026-08-27, no issue",
+    "ticketnumber": "JOB-2026-0827-F",
+    "casetypecode": 2,
+    "prioritycode": 3,
+    "statecode": 1,
+    "statuscode": 5
+  },
+  {
+    "_seedkey": "complaint-c",
+    "account": "customer-c",
+    "title": "1-star review: quoted one price, charged another; still waiting on a call back",
+    "ticketnumber": "CASE-2026-0826-C",
+    "casetypecode": 3,
+    "prioritycode": 1,
+    "statecode": 0,
+    "statuscode": 1
+  }
+]

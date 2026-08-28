@@ -2,7 +2,7 @@
   "schema": "rapp-god-registry-agent-protocol/1.0",
   "name": "rapp-static-apis",
   "base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main",
-  "generated": "2026-08-02T19:24:56Z",
+  "generated": "2026-08-28T16:52:09Z",
   "actions": [
     {
       "name": "list_apis",
@@ -38,6 +38,7 @@
             "sharepoint",
             "shortener",
             "showcase",
+            "smb-crm",
             "track",
             "vbrainstem-cell",
             "workiq"

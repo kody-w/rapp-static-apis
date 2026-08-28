@@ -1,0 +1,43 @@
+{
+  "schema": "rapp-static-api/1.0",
+  "name": "rapp-static-smb-crm",
+  "generated": "2026-06-17T00:00:00Z",
+  "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm",
+  "pages_base": "https://kody-w.github.io/rapp-static-apis/smb-crm",
+  "org_url": "https://maple-and-sons.crm.dynamics.com",
+  "ootb_only": true,
+  "summary": {
+    "entitysets": 4,
+    "rows": 17
+  },
+  "entries": [
+    {
+      "name": "accounts",
+      "logicalname": "account",
+      "count": 6,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm/api/data/v9.2/accounts.json",
+      "sha8": "303128b33c26"
+    },
+    {
+      "name": "contacts",
+      "logicalname": "contact",
+      "count": 6,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm/api/data/v9.2/contacts.json",
+      "sha8": "f758ff7a4389"
+    },
+    {
+      "name": "opportunities",
+      "logicalname": "opportunity",
+      "count": 1,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm/api/data/v9.2/opportunities.json",
+      "sha8": "4c8e50bfb012"
+    },
+    {
+      "name": "incidents",
+      "logicalname": "incident",
+      "count": 4,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm/api/data/v9.2/incidents.json",
+      "sha8": "80a6b2500736"
+    }
+  ]
+}
