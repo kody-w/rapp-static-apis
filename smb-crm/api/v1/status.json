@@ -1,5 +1,5 @@
 {
-  "schema": "rapp-static-customer360-status/1.0",
+  "schema": "rapp-static-smb-crm-status/1.0",
   "generated": "2026-06-17T00:00:00Z",
   "summary": {
     "entitysets": 4,

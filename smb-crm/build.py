@@ -143,9 +143,9 @@ def build():
     write("registry.json", {"schema": "rapp-static-api/1.0", "name": "rapp-static-smb-crm",
                             "generated": NOW, "raw_base": RAW_BASE, "pages_base": PAGES_BASE,
                             "org_url": ORG_URL, "ootb_only": True, "summary": summary, "entries": entries})
-    write("api/v1/status.json", {"schema": "rapp-static-customer360-status/1.0", "generated": NOW,
+    write("api/v1/status.json", {"schema": "rapp-static-smb-crm-status/1.0", "generated": NOW,
                                  "summary": summary, "entitysets": [{"name": e["name"], "count": e["count"], "sha8": e["sha8"]} for e in entries]})
-    print(f"rapp-static-customer360: {summary['entitysets']} OOTB entity sets · {summary['rows']} rows")
+    print(f"rapp-static-smb-crm: {summary['entitysets']} OOTB entity sets · {summary['rows']} rows")
 
 if __name__ == "__main__":
     build()
