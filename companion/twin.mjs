@@ -41,15 +41,12 @@ const clone = v => JSON.parse(JSON.stringify(v));
    §3 — frames: a local sha-chain  {sha256(cartCanonical+prevSha),ts,kind,note,cart}
    Signatures come later (§2/§4): every frame carries a sig:null slot.
    ══════════════════════════════════════════════════════════════════════════ */
-export const canonicalCart = G.canonical;
 export async function frameSha(cart, prevSha) { return G.sha256hex(G.canonical(cart) + (prevSha || '')); }
 export async function makeFrame(cart, prevSha, kind, note, extra) {
   const sha = await frameSha(cart, prevSha);
   return Object.assign({ sha, prev: prevSha || '', ts: Date.now(), kind: kind || 'frame', note: note || '', cart, sig: null }, extra || {});
 }
 export async function validateFrame(f) { return (await frameSha(f.cart, f.prev)) === f.sha; }
-// each frame's sha is correct over cart+prevSha (works for grafted/imported frames too)
-export async function validateChain(frames) { for (const f of (frames || [])) { if (!(await validateFrame(f))) return false; } return true; }
 export const sha8 = s => String(s || '').slice(0, 8);
 // current state = the frame with the latest ts (revert appends a fresh-ts frame,
 // QR-import appends foreign frames; max-ts is the live head either way)

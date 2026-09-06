@@ -13,7 +13,18 @@ def _del(k): _MEM.pop(k, None)
 def seed_store(json_str):
     try:
         d = json.loads(json_str)
-        if isinstance(d, dict): _MEM.update(d)
+        if not isinstance(d, dict):
+            return {"error": "seed payload must be a JSON object"}
+        # index.html's _seedStore() re-reads the CURRENT localStorage snapshot
+        # and calls this before every single agent run (not just once at
+        # startup), so `_MEM.update(d)` merging into whatever `_MEM` already
+        # held meant a key removed from the browser's localStorage between
+        # runs -- or deleted BY an agent via _del() and (see dump_store())
+        # never actually cleared from localStorage -- stayed resident in
+        # `_MEM` forever and kept reappearing. `seed_store` means "this is
+        # the current state", so it must replace, not accumulate.
+        _MEM.clear()
+        _MEM.update(d)
         return {"seeded": len(_MEM)}
     except Exception as e:
         return {"error": str(e)}

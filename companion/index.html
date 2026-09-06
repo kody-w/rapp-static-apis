@@ -294,7 +294,11 @@ async function bootAgents(){
 // bridge storage across the opaque-origin cell boundary: seed from localStorage before a run, dump back after
 function _readFsStore(){ const store={}; try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k&&k.indexOf('vb_fs:')===0)store[k]=localStorage.getItem(k); } }catch(e){} return store; }
 async function _seedStore(){ if(!AGENT_OP)return; try{ await AGENT_OP({op:'eval', code:'import base64\nseed_store(base64.b64decode("'+strToStdB64(JSON.stringify(_readFsStore()))+'").decode("utf-8"))'}); }catch(e){} }
-async function _dumpStore(){ if(!AGENT_OP)return; try{ const d=await AGENT_OP({op:'eval', code:'import json\njson.dumps(dump_store())'}); const s=JSON.parse((d&&d.value)||'{}'); for(const k in s){ if(k.indexOf('vb_fs:')===0){ try{ localStorage.setItem(k, s[k]); }catch(e){} } } }catch(e){} }
+// Reconcile, don't just add: a key an agent deleted via _del() is absent from
+// dump_store()'s result, but writing only what's present never removed the
+// stale localStorage entry -- so the next _seedStore() read it right back in
+// and "deleted" files resurrected on the following agent run.
+async function _dumpStore(){ if(!AGENT_OP)return; try{ const d=await AGENT_OP({op:'eval', code:'import json\njson.dumps(dump_store())'}); const s=JSON.parse((d&&d.value)||'{}'); const before=_readFsStore(); for(const k in before){ if(!(k in s)){ try{ localStorage.removeItem(k); }catch(e){} } } for(const k in s){ if(k.indexOf('vb_fs:')===0){ try{ localStorage.setItem(k, s[k]); }catch(e){} } } }catch(e){} }
 async function refreshAgents(){ if(!AGENT_OP)return;
  try{ await _seedStore();   // so ContextMemory.system_context() sees the current stored memory
   const t=await AGENT_OP({op:'eval', code:'import json\njson.dumps(tools())'}); _agentTools=JSON.parse((t&&t.value)||'[]');
