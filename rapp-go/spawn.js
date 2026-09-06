@@ -238,7 +238,9 @@ export class SpawnField {
   }
 
   async update(playerLatLng, opts = {}) {
-    const nowMs = opts.nowMs || Date.now();
+    // `nowMs: 0` (the Unix epoch) is a valid deterministic moment; only
+    // fall back to wall-clock time when it's actually omitted (null/undefined).
+    const nowMs = opts.nowMs == null ? Date.now() : opts.nowMs;
     const poiAnchors = opts.poiAnchors || [];
     const lures = (opts.lures || []).filter(lure => lure && lure.poi && lure.expiresAt > nowMs)
       .sort((a, b) => a.poiId.localeCompare(b.poiId));

@@ -58,13 +58,17 @@ def main():
         if nm: indexed.add(nm)
     cov = len(indexed & set(subapis)) / n_sub if n_sub else 0
     score('indexes all sub-APIs (coverage)', 12, 12 * cov, f'{len(indexed & set(subapis))}/{n_sub}')
-    # entry completeness: each has description + raw_base/pages + registry + status
+    # entry completeness: each has description + raw_base + pages_base + registry + status
     if entries:
         good = 0
         for e in entries:
-            fields = [e.get('description'), e.get('raw_base') or e.get('base') or e.get('url'),
-                      e.get('registry') or e.get('index'), e.get('status')]
-            if all(fields): good += 1
+            # Require the exact fields build.py actually emits for every entry
+            # (previously accepted base/url/index as substitutes and never
+            # checked pages_base at all, so a malformed or missing pages_base
+            # -- or any endpoint's value being present-but-non-string --
+            # silently scored full credit).
+            required = ('description', 'raw_base', 'pages_base', 'registry', 'status')
+            if all(isinstance(e.get(k), str) and e.get(k) for k in required): good += 1
         score('entries carry desc/base/registry/status', 8, 8 * good / len(entries), f'{good}/{len(entries)}')
     else:
         score('entries carry desc/base/registry/status', 8, 0, 'no entries')
@@ -170,9 +174,15 @@ def _to_local(url):
     """Map a raw/pages URL that points into THIS repo back to a local path."""
     if not isinstance(url, str):
         return None
-    m = re.search(r'raw\.githubusercontent\.com/[^/]+/rapp-static-apis/[^/]+/(.+)$', url)
+    # Anchor to the exact owner/repo/pages-host build.py emits (kody-w/
+    # rapp-static-apis) -- a bare `[^/]+` owner (or an unanchored
+    # `github.io/rapp-static-apis/...` match with no host check) would
+    # treat another owner's identically-named repo/pages site as if it
+    # were a path inside this one, silently passing a registry entry that
+    # actually points at a different repository.
+    m = re.search(r'^https://raw\.githubusercontent\.com/kody-w/rapp-static-apis/[^/]+/(.+)$', url)
     if m: return m.group(1)
-    m = re.search(r'github\.io/rapp-static-apis/(.+)$', url)
+    m = re.search(r'^https://kody-w\.github\.io/rapp-static-apis/(.+)$', url)
     if m: return m.group(1)
     if url.startswith('./') or (not url.startswith('http')):
         return url.lstrip('./')

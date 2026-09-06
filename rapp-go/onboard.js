@@ -183,7 +183,9 @@ export async function starterCeremony(inputs, nowMs) {
   const full = {
     pal: inputs.pal || DEFAULT_PAL,
     luma: inputs.luma != null ? inputs.luma : 0.5,
-    dateMs: inputs.dateMs || nowMs,
+    // `dateMs: 0` (the Unix epoch) is a valid explicit moment, matching the
+    // `luma` field's convention above -- only default to nowMs when omitted.
+    dateMs: inputs.dateMs != null ? inputs.dateMs : nowMs,
     word: (inputs.word || 'the sky').slice(0, 40),
     mood: inputs.mood || 'calm'
   };

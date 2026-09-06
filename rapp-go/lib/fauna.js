@@ -814,7 +814,10 @@ export function clearAtlasCache() { _atlasCache.clear(); }
 export function atlasMemoryBytes() { let b = 0; for (const a of _atlasCache.values()) b += a.bytes; return b; }
 function trimAtlasCache() {
   let bytes = atlasMemoryBytes();
-  while (bytes > ATLAS_BUDGET_BYTES && _atlasCache.size > 1) {
+  // Allow evicting down to zero entries: a single oversized atlas (bigger
+  // than the whole budget) must not be able to permanently pin the cache
+  // over budget just because it's the only entry.
+  while (bytes > ATLAS_BUDGET_BYTES && _atlasCache.size > 0) {
     const oldest = _atlasCache.keys().next().value;
     const atlas = _atlasCache.get(oldest);
     _atlasCache.delete(oldest);
