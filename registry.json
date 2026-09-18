@@ -6,7 +6,7 @@
   "spec": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/SPEC.md",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main",
   "pages_base": "https://kody-w.github.io/rapp-static-apis",
-  "generated": "2026-09-18T15:07:47Z",
+  "generated": "2026-09-18T18:26:19Z",
   "summary": {
     "apis": 22,
     "with_status_endpoint": 22,
@@ -209,7 +209,7 @@
         "statement": "This generated static discovery surface is non-authoritative. Signed RAPP/1 frames and signed RAPP/1 registries remain the authority.",
         "verification_required": true
       },
-      "production_ready": false,
+      "production_ready": true,
       "endpoints": {
         "index": {
           "name": "index",

@@ -6,11 +6,45 @@
     "statement": "This generated static discovery surface is non-authoritative. Signed RAPP/1 frames and signed RAPP/1 registries remain the authority.",
     "verification_required": true
   },
-  "available": false,
-  "candidates": [],
+  "available": true,
+  "candidates": [
+    {
+      "artifact_path": "RAPP_WORK_PLUGIN_RELEASE.json",
+      "catalog": "plugins",
+      "commit": "1fb89ff2d6e47cc29ee09580278451e915da2577",
+      "id": "rapp-work-plugin-v1",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-brainstem-plugin/1fb89ff2d6e47cc29ee09580278451e915da2577/RAPP_WORK_PLUGIN_RELEASE.json",
+      "repository": "kody-w/rapp-brainstem-plugin",
+      "sha256": "5aabeb75970f8b30b135121589d877ebc4a06d6803629b8dc3eab49b9bb6c91c",
+      "state": "final",
+      "version": "0.2.0"
+    },
+    {
+      "artifact_path": "RELEASE-INVENTORY.json",
+      "catalog": "sdks",
+      "commit": "29ead23b21645f8d7682ee00414930ffa9ce0ca6",
+      "id": "rapp-work-sdk-v1",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-work/29ead23b21645f8d7682ee00414930ffa9ce0ca6/RELEASE-INVENTORY.json",
+      "repository": "kody-w/rapp-work",
+      "sha256": "3b52880b89532d7a6d0e3de78d699d73f200a69f17efe21305130d155bf90e48",
+      "state": "final",
+      "version": "1.0.0"
+    },
+    {
+      "artifact_path": "skills/rapp-work/agent.lock",
+      "catalog": "skills",
+      "commit": "db63836e2811838795ba75c182aee85c952a83a7",
+      "id": "rapp-work-skills-v1",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-skills/db63836e2811838795ba75c182aee85c952a83a7/skills/rapp-work/agent.lock",
+      "repository": "kody-w/rapp-skills",
+      "sha256": "aeef37d3e998c465a71158064bc01062a3169c5255cb6e50293afdb7cb2f4bdc",
+      "state": "final",
+      "version": "1.0.0"
+    }
+  ],
   "fixture_mode": false,
   "generated": "2026-09-18T14:59:20Z",
-  "reason": "No final commit-pinned downstream release exists yet. Do not treat pending discovery metadata as rollback authority.",
+  "reason": null,
   "receipt_index": {
     "name": "receipts-index",
     "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/receipts/index.json",

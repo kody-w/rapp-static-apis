@@ -120,12 +120,12 @@
   "fixture_mode": false,
   "generated": "2026-09-18T14:59:20Z",
   "manifest": {
-    "bytes": 3560,
+    "bytes": 4159,
     "name": "manifest",
     "path": "api/rapp-work/manifest.json",
-    "sha256": "fd1615ee12d54fd511be2cf5b84a1fbff714fb27fd60d68862a0a7a7f5be3006"
+    "sha256": "6c49a3049e86aa1eaafad2276eea1caa77de3cf6baee06995f2cfe6db5ac15fa"
   },
   "name": "rapp-work",
-  "production_ready": false,
+  "production_ready": true,
   "schema": "rapp-work-static-api-index/1.0"
 }

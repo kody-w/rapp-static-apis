@@ -14,8 +14,8 @@
     "manifest_valid": true
   },
   "counts": {
-    "final_releases": 0,
-    "pending_releases": 3,
+    "final_releases": 3,
+    "pending_releases": 0,
     "plugins": 1,
     "releases": 3,
     "sdks": 1,
@@ -24,42 +24,8 @@
   "fixture_mode": false,
   "generated": "2026-09-18T14:59:20Z",
   "ok": true,
-  "pending_finalization": [
-    {
-      "catalog": "sdks",
-      "id": "rapp-work-sdk-v1",
-      "manifest_path": "catalogs.sdks[0].release",
-      "required_fields": [
-        "catalogs.sdks[0].release.commit",
-        "catalogs.sdks[0].release.raw_url",
-        "catalogs.sdks[0].release.sha256"
-      ],
-      "set_state_to": "final"
-    },
-    {
-      "catalog": "plugins",
-      "id": "rapp-work-plugin-v1",
-      "manifest_path": "catalogs.plugins[0].release",
-      "required_fields": [
-        "catalogs.plugins[0].release.commit",
-        "catalogs.plugins[0].release.raw_url",
-        "catalogs.plugins[0].release.sha256"
-      ],
-      "set_state_to": "final"
-    },
-    {
-      "catalog": "skills",
-      "id": "rapp-work-skills-v1",
-      "manifest_path": "catalogs.skills[0].release",
-      "required_fields": [
-        "catalogs.skills[0].release.commit",
-        "catalogs.skills[0].release.raw_url",
-        "catalogs.skills[0].release.sha256"
-      ],
-      "set_state_to": "final"
-    }
-  ],
-  "production_ready": false,
+  "pending_finalization": [],
+  "production_ready": true,
   "schema": "rapp-work-static-api-status/1.0",
-  "state": "awaiting-downstream-commits"
+  "state": "ready"
 }

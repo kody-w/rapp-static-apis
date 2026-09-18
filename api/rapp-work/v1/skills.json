@@ -19,10 +19,10 @@
       "name": "RAPP Work skills v1",
       "release": {
         "channel": "stable",
-        "commit": null,
-        "raw_url": null,
-        "sha256": null,
-        "state": "awaiting-downstream-commit",
+        "commit": "db63836e2811838795ba75c182aee85c952a83a7",
+        "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-skills/db63836e2811838795ba75c182aee85c952a83a7/skills/rapp-work/agent.lock",
+        "sha256": "aeef37d3e998c465a71158064bc01062a3169c5255cb6e50293afdb7cb2f4bdc",
+        "state": "final",
         "version": "1.0.0"
       },
       "repository": "kody-w/rapp-skills"

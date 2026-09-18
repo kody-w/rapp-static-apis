@@ -61,6 +61,19 @@ class RappWorkStaticApiTests(unittest.TestCase):
         shutil.copytree(API_ROOT / "schemas", api_root / "schemas")
         return api_root / "manifest.json"
 
+    def make_pending(self, manifest_path: Path) -> None:
+        manifest = load(manifest_path)
+        for catalog in ("sdks", "plugins", "skills"):
+            manifest["catalogs"][catalog][0]["release"].update(
+                {
+                    "state": "awaiting-downstream-commit",
+                    "commit": None,
+                    "raw_url": None,
+                    "sha256": None,
+                }
+            )
+        manifest_path.write_bytes(generator.json_bytes(manifest))
+
     def finalize_test_manifest(
         self, manifest_path: Path
     ) -> tuple[dict[str, bytes], list[str]]:
@@ -118,24 +131,31 @@ class RappWorkStaticApiTests(unittest.TestCase):
             tree_hashes(second_root / "api/rapp-work/v1"),
         )
 
-    def test_production_manifest_does_not_fabricate_final_commits(self) -> None:
+    def test_production_manifest_uses_verified_final_commits(self) -> None:
         manifest = load(API_ROOT / "manifest.json")
         pending = generator.pending_finalization(manifest)
-        self.assertEqual(3, len(pending))
+        self.assertEqual([], pending)
         for catalog in ("sdks", "plugins", "skills"):
-            release = manifest["catalogs"][catalog][0]["release"]
-            self.assertEqual("awaiting-downstream-commit", release["state"])
-            self.assertIsNone(release["commit"])
-            self.assertIsNone(release["raw_url"])
-            self.assertIsNone(release["sha256"])
+            item = manifest["catalogs"][catalog][0]
+            release = item["release"]
+            self.assertEqual("final", release["state"])
+            self.assertRegex(release["commit"], r"^[0-9a-f]{40}$")
+            self.assertRegex(release["sha256"], r"^[0-9a-f]{64}$")
+            self.assertEqual(
+                generator.expected_commit_raw_url(
+                    item["repository"],
+                    release["commit"],
+                    item["artifact_path"],
+                ),
+                release["raw_url"],
+            )
         status = load(V1_DIR / "status.json")
-        self.assertFalse(status["production_ready"])
-        self.assertEqual(
-            "awaiting-downstream-commits", status["state"]
-        )
+        self.assertTrue(status["production_ready"])
+        self.assertEqual("ready", status["state"])
 
     def test_pending_only_bootstrap_performs_no_artifact_fetches(self) -> None:
         manifest_path = self.prepare_production()
+        self.make_pending(manifest_path)
         calls: list[str] = []
 
         def forbidden_fetch(url: str) -> bytes:
@@ -207,6 +227,14 @@ class RappWorkStaticApiTests(unittest.TestCase):
     def test_pending_release_requires_all_pin_fields_to_be_null(self) -> None:
         manifest = load(API_ROOT / "manifest.json")
         release = manifest["catalogs"]["sdks"][0]["release"]
+        release.update(
+            {
+                "state": "awaiting-downstream-commit",
+                "commit": None,
+                "raw_url": None,
+                "sha256": None,
+            }
+        )
         release["commit"] = "a" * 40
         with self.assertRaisesRegex(
             generator.ManifestError, "pending pins must remain null"
@@ -454,16 +482,17 @@ class RappWorkStaticApiTests(unittest.TestCase):
             "final", candidate["properties"]["state"]["const"]
         )
 
-    def test_initial_publication_has_one_replayable_receipt(self) -> None:
+    def test_published_receipts_are_replayable(self) -> None:
         receipt_paths = generator.verify_existing_receipts(
             V1_DIR / "receipts/sha256", ROOT
         )
-        self.assertEqual(1, len(receipt_paths))
-        receipt = load(receipt_paths[0])
-        self.assertEqual(
-            "content-addressed-artifact-snapshot",
-            receipt["binding"]["kind"],
-        )
+        self.assertGreaterEqual(len(receipt_paths), 1)
+        for path in receipt_paths:
+            receipt = load(path)
+            self.assertEqual(
+                "content-addressed-artifact-snapshot",
+                receipt["binding"]["kind"],
+            )
 
     def test_receipts_and_hash_catalog_use_full_sha256(self) -> None:
         receipt_index = load(V1_DIR / "receipts/index.json")
