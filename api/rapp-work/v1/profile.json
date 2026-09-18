@@ -20,6 +20,6 @@
     "protocol": "RAPP/1",
     "role": "non-authoritative-discovery"
   },
-  "release_state": "awaiting-downstream-commits",
+  "release_state": "ready",
   "schema": "rapp-work-static-api-profile/1.0"
 }

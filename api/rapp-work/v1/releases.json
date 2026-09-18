@@ -7,7 +7,7 @@
     "verification_required": true
   },
   "count": 3,
-  "final_count": 0,
+  "final_count": 3,
   "final_release_requirements": {
     "commit": "exactly 40 lowercase hexadecimal characters",
     "raw_url": "https://raw.githubusercontent.com/{owner}/{repo}/{40-hex-commit}/{artifact_path}",
@@ -15,84 +15,50 @@
   },
   "fixture_mode": false,
   "generated": "2026-09-18T14:59:20Z",
-  "pending_count": 3,
-  "pending_finalization": [
-    {
-      "catalog": "sdks",
-      "id": "rapp-work-sdk-v1",
-      "manifest_path": "catalogs.sdks[0].release",
-      "required_fields": [
-        "catalogs.sdks[0].release.commit",
-        "catalogs.sdks[0].release.raw_url",
-        "catalogs.sdks[0].release.sha256"
-      ],
-      "set_state_to": "final"
-    },
-    {
-      "catalog": "plugins",
-      "id": "rapp-work-plugin-v1",
-      "manifest_path": "catalogs.plugins[0].release",
-      "required_fields": [
-        "catalogs.plugins[0].release.commit",
-        "catalogs.plugins[0].release.raw_url",
-        "catalogs.plugins[0].release.sha256"
-      ],
-      "set_state_to": "final"
-    },
-    {
-      "catalog": "skills",
-      "id": "rapp-work-skills-v1",
-      "manifest_path": "catalogs.skills[0].release",
-      "required_fields": [
-        "catalogs.skills[0].release.commit",
-        "catalogs.skills[0].release.raw_url",
-        "catalogs.skills[0].release.sha256"
-      ],
-      "set_state_to": "final"
-    }
-  ],
-  "production_ready": false,
+  "pending_count": 0,
+  "pending_finalization": [],
+  "production_ready": true,
   "releases": [
     {
       "artifact_path": "RAPP_WORK_PLUGIN_RELEASE.json",
       "catalog": "plugins",
       "channel": "stable",
-      "commit": null,
+      "commit": "1fb89ff2d6e47cc29ee09580278451e915da2577",
       "id": "rapp-work-plugin-v1",
       "kind": "plugin",
       "name": "RAPP Work plugin v1",
-      "raw_url": null,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-brainstem-plugin/1fb89ff2d6e47cc29ee09580278451e915da2577/RAPP_WORK_PLUGIN_RELEASE.json",
       "repository": "kody-w/rapp-brainstem-plugin",
-      "sha256": null,
-      "state": "awaiting-downstream-commit",
+      "sha256": "5aabeb75970f8b30b135121589d877ebc4a06d6803629b8dc3eab49b9bb6c91c",
+      "state": "final",
       "version": "0.2.0"
     },
     {
       "artifact_path": "RELEASE-INVENTORY.json",
       "catalog": "sdks",
       "channel": "stable",
-      "commit": null,
+      "commit": "29ead23b21645f8d7682ee00414930ffa9ce0ca6",
       "id": "rapp-work-sdk-v1",
       "kind": "sdk",
       "name": "RAPP Work SDK v1",
-      "raw_url": null,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-work/29ead23b21645f8d7682ee00414930ffa9ce0ca6/RELEASE-INVENTORY.json",
       "repository": "kody-w/rapp-work",
-      "sha256": null,
-      "state": "awaiting-downstream-commit",
+      "sha256": "3b52880b89532d7a6d0e3de78d699d73f200a69f17efe21305130d155bf90e48",
+      "state": "final",
       "version": "1.0.0"
     },
     {
       "artifact_path": "skills/rapp-work/agent.lock",
       "catalog": "skills",
       "channel": "stable",
-      "commit": null,
+      "commit": "db63836e2811838795ba75c182aee85c952a83a7",
       "id": "rapp-work-skills-v1",
       "kind": "skill",
       "name": "RAPP Work skills v1",
-      "raw_url": null,
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-skills/db63836e2811838795ba75c182aee85c952a83a7/skills/rapp-work/agent.lock",
       "repository": "kody-w/rapp-skills",
-      "sha256": null,
-      "state": "awaiting-downstream-commit",
+      "sha256": "aeef37d3e998c465a71158064bc01062a3169c5255cb6e50293afdb7cb2f4bdc",
+      "state": "final",
       "version": "1.0.0"
     }
   ],

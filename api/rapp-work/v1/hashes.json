@@ -3,10 +3,10 @@
   "api_version": "v1",
   "artifacts": [
     {
-      "bytes": 7988,
+      "bytes": 7987,
       "name": "index",
       "path": "api/rapp-work/v1/index.json",
-      "sha256": "c1957907d684fc19af47d9954a24bcc0216c83507fb67f0ee1b585978b412121"
+      "sha256": "848530361ba10d469c336cba84f7a379b755ad03c21b3f0193d5b8187eaf6465"
     },
     {
       "bytes": 8303,
@@ -15,46 +15,46 @@
       "sha256": "b9c5a2bdabe8fbbbc9fe7f2bedc0fda0ab0fe07be4a504f4a7a9bc966ac50d30"
     },
     {
-      "bytes": 789,
+      "bytes": 767,
       "name": "profile",
       "path": "api/rapp-work/v1/profile.json",
-      "sha256": "b4c7fc7be19886c3a900512177d80ca622d1dd14028cfb9f350f7ca11499aa82"
+      "sha256": "bb0dd56560c1c1e459ca42a7ea8f6dd2e045aa1ee6a9acbc8bc9b7ec20db1d68"
     },
     {
-      "bytes": 901,
+      "bytes": 1092,
       "name": "sdks",
       "path": "api/rapp-work/v1/sdks.json",
-      "sha256": "1e0db89a39c5ba61144fbe6acba2e5fea48ced19cd48901430976d1050501c2d"
+      "sha256": "bb9fd47277a6215445afceed74f2bbdd2c31d34015d462a05534ee9e8940ac3d"
     },
     {
-      "bytes": 938,
+      "bytes": 1148,
       "name": "plugins",
       "path": "api/rapp-work/v1/plugins.json",
-      "sha256": "27c7bb462ad1eff8837ace170e1cb13b0c99667de3291a29180b4f10699ee5f5"
+      "sha256": "73fbce9a8d3834b62b204b5d13f0502ebe71633e4c75bc824c9af7542e4789c0"
     },
     {
-      "bytes": 933,
+      "bytes": 1131,
       "name": "skills",
       "path": "api/rapp-work/v1/skills.json",
-      "sha256": "9ddab471cf546ce915fbc58f508b41f973e0bc1a10fd0d5029d85cf2ba6f3f20"
+      "sha256": "3476197124136756de8419cb99e6b9c1f6fcdcacddcf07c6c5e2a65fbc6b7120"
     },
     {
-      "bytes": 2952,
+      "bytes": 2569,
       "name": "releases",
       "path": "api/rapp-work/v1/releases.json",
-      "sha256": "555169f2292b80d917f96fd5d2f61a6e512903a91488cf94369520076d225266"
+      "sha256": "07a0e19d521ace47ff3d90b6de178030cf2a5a1b4202e4a19d6dc59f66cca70a"
     },
     {
-      "bytes": 1580,
+      "bytes": 2991,
       "name": "rollback",
       "path": "api/rapp-work/v1/rollback.json",
-      "sha256": "11f914f96f5582e58ae375f8f7a20831fd6561e12651e939ebc56b96b103cb77"
+      "sha256": "fcaeb6c1644b7820c0355c049b438c3cd7f244cda351bffa8abef17b0e62186a"
     },
     {
-      "bytes": 1837,
+      "bytes": 833,
       "name": "status",
       "path": "api/rapp-work/v1/status.json",
-      "sha256": "328793a2cdf747e1c071e37a9def2e4ad9ada975c64617d70429caf159e6e655"
+      "sha256": "9cc476833935ab372f6a4f3b5e61dfc67cba2ddff61d8ef638d74ab3550849d0"
     }
   ],
   "authority": {
@@ -66,10 +66,10 @@
   "fixture_mode": false,
   "generated": "2026-09-18T14:59:20Z",
   "manifest": {
-    "bytes": 3560,
+    "bytes": 4159,
     "name": "manifest",
     "path": "api/rapp-work/manifest.json",
-    "sha256": "fd1615ee12d54fd511be2cf5b84a1fbff714fb27fd60d68862a0a7a7f5be3006"
+    "sha256": "6c49a3049e86aa1eaafad2276eea1caa77de3cf6baee06995f2cfe6db5ac15fa"
   },
   "schema": "rapp-work-static-api-hashes/1.0",
   "schemas": [

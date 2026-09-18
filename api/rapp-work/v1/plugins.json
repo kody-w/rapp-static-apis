@@ -18,10 +18,10 @@
       "name": "RAPP Work plugin v1",
       "release": {
         "channel": "stable",
-        "commit": null,
-        "raw_url": null,
-        "sha256": null,
-        "state": "awaiting-downstream-commit",
+        "commit": "1fb89ff2d6e47cc29ee09580278451e915da2577",
+        "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-brainstem-plugin/1fb89ff2d6e47cc29ee09580278451e915da2577/RAPP_WORK_PLUGIN_RELEASE.json",
+        "sha256": "5aabeb75970f8b30b135121589d877ebc4a06d6803629b8dc3eab49b9bb6c91c",
+        "state": "final",
         "version": "0.2.0"
       },
       "repository": "kody-w/rapp-brainstem-plugin"
