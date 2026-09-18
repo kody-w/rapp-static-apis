@@ -9,9 +9,14 @@ build system.
 from __future__ import annotations
 
 import argparse
+import base64
+import binascii
 import hashlib
 import json
 import re
+import urllib.error
+import urllib.request
+from collections.abc import Callable
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -20,6 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 API_ROOT_REL = Path("api/rapp-work")
 V1_REL = API_ROOT_REL / "v1"
 SCHEMAS_REL = API_ROOT_REL / "schemas"
+RECEIPT_SNAPSHOTS_REL = V1_REL / "receipts" / "artifacts" / "sha256"
 
 AUTHORITY_STATEMENT = (
     "This generated static discovery surface is non-authoritative. "
@@ -46,6 +52,7 @@ SCHEMA_TAGS = {
     "status": "rapp-work-static-api-status/1.0",
     "receipt": "rapp-work-static-api-receipt/1.0",
     "receipts-index": "rapp-work-static-api-receipts-index/1.0",
+    "artifact-snapshot": "rapp-work-static-api-artifact-snapshot/1.0",
 }
 
 ENDPOINT_FILES = {
@@ -83,6 +90,13 @@ class ManifestError(ValueError):
 
 class ImmutableReceiptError(RuntimeError):
     """Raised rather than overwriting or accepting a mutated receipt."""
+
+
+class ArtifactVerificationError(RuntimeError):
+    """Raised when a final commit-pinned artifact cannot be verified."""
+
+
+ArtifactFetcher = Callable[[str], bytes]
 
 
 def json_bytes(value: Any) -> bytes:
@@ -131,6 +145,36 @@ def expected_commit_raw_url(
         f"https://raw.githubusercontent.com/{repository}/{commit}/"
         f"{artifact_path}"
     )
+
+
+def fetch_https_artifact(url: str) -> bytes:
+    """Fetch one immutable raw artifact and require an HTTP 200 response."""
+
+    if not url.startswith("https://"):
+        raise ArtifactVerificationError(
+            f"final artifact URL must use HTTPS: {url}"
+        )
+    request = urllib.request.Request(
+        url,
+        headers={"User-Agent": "rapp-work-static-api/1.0"},
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            status = getattr(response, "status", None) or response.getcode()
+            if status != 200:
+                raise ArtifactVerificationError(
+                    f"final artifact fetch returned HTTP {status}: {url}"
+                )
+            payload = response.read()
+    except (OSError, urllib.error.URLError) as error:
+        raise ArtifactVerificationError(
+            f"final artifact fetch failed for {url}: {error}"
+        ) from error
+    if not payload:
+        raise ArtifactVerificationError(
+            f"final artifact fetch returned no bytes: {url}"
+        )
+    return payload
 
 
 def _require(
@@ -488,9 +532,228 @@ def validate_manifest(
         raise ManifestError("\n".join(f"- {error}" for error in errors))
 
 
-def verify_existing_receipts(receipt_dir: Path) -> list[Path]:
+def _receipt_snapshot_relative_path(snapshot_sha256: str) -> str:
+    return (
+        RECEIPT_SNAPSHOTS_REL / f"{snapshot_sha256}.json"
+    ).as_posix()
+
+
+def _receipt_snapshot_binding(
+    manifest: dict[str, Any], snapshot_sha256: str
+) -> dict[str, Any]:
+    relative = _receipt_snapshot_relative_path(snapshot_sha256)
+    relative_v1 = Path(relative).relative_to(V1_REL).as_posix()
+    return {
+        "kind": "content-addressed-artifact-snapshot",
+        "sha256": snapshot_sha256,
+        "path": relative,
+        "raw_url": (
+            f"{manifest['api']['raw_base'].rstrip('/')}/{relative_v1}"
+        ),
+        "pages_url": (
+            f"{manifest['api']['pages_base'].rstrip('/')}/{relative_v1}"
+        ),
+    }
+
+
+def read_receipt_snapshot(
+    receipt_path: Path, repo_root: Path
+) -> tuple[dict[str, Any], dict[str, bytes]]:
+    """Verify and decode the content-addressed artifact snapshot for a receipt."""
+
+    receipt = load_json(receipt_path)
+    binding = receipt.get("binding")
+    if not isinstance(binding, dict):
+        raise ImmutableReceiptError(
+            f"immutable receipt has no replay binding: {receipt_path}"
+        )
+    if binding.get("kind") != "content-addressed-artifact-snapshot":
+        raise ImmutableReceiptError(
+            f"immutable receipt has unsupported replay binding: {receipt_path}"
+        )
+    snapshot_sha256 = str(binding.get("sha256", ""))
+    if not SHA256_RE.fullmatch(snapshot_sha256):
+        raise ImmutableReceiptError(
+            f"immutable receipt snapshot hash is invalid: {receipt_path}"
+        )
+    expected_relative = _receipt_snapshot_relative_path(snapshot_sha256)
+    if binding.get("path") != expected_relative:
+        raise ImmutableReceiptError(
+            f"immutable receipt snapshot path is not content-addressed: "
+            f"{receipt_path}"
+        )
+    snapshot_path = repo_root / expected_relative
+    if not snapshot_path.is_file():
+        raise ImmutableReceiptError(
+            f"immutable receipt snapshot is missing: {snapshot_path}"
+        )
+    snapshot_data = snapshot_path.read_bytes()
+    if sha256_bytes(snapshot_data) != snapshot_sha256:
+        raise ImmutableReceiptError(
+            f"immutable receipt snapshot bytes do not match filename: "
+            f"{snapshot_path}"
+        )
+    try:
+        snapshot = load_json(snapshot_path)
+    except (json.JSONDecodeError, OSError, ManifestError) as error:
+        raise ImmutableReceiptError(
+            f"invalid immutable receipt snapshot {snapshot_path}: {error}"
+        ) from error
+    if snapshot.get("schema") != SCHEMA_TAGS["artifact-snapshot"]:
+        raise ImmutableReceiptError(
+            f"invalid immutable receipt snapshot schema: {snapshot_path}"
+        )
+    for field in (
+        "api_version",
+        "generated",
+        "fixture_mode",
+        "fixture_notice",
+        "authority",
+    ):
+        if snapshot.get(field) != receipt.get(field):
+            raise ImmutableReceiptError(
+                f"immutable receipt snapshot {field} differs from receipt: "
+                f"{snapshot_path}"
+            )
+
+    receipt_artifacts = receipt.get("artifacts")
+    snapshot_artifacts = snapshot.get("artifacts")
+    if not isinstance(receipt_artifacts, list) or not receipt_artifacts:
+        raise ImmutableReceiptError(
+            f"immutable receipt has no artifact hashes: {receipt_path}"
+        )
+    if not isinstance(snapshot_artifacts, list) or not snapshot_artifacts:
+        raise ImmutableReceiptError(
+            f"immutable receipt snapshot has no artifacts: {snapshot_path}"
+        )
+    if snapshot.get("artifact_count") != len(snapshot_artifacts):
+        raise ImmutableReceiptError(
+            f"immutable receipt snapshot artifact count is invalid: "
+            f"{snapshot_path}"
+        )
+
+    decoded: dict[str, bytes] = {}
+    snapshot_records: list[dict[str, Any]] = []
+    for index, record in enumerate(snapshot_artifacts):
+        if not isinstance(record, dict):
+            raise ImmutableReceiptError(
+                f"immutable receipt snapshot artifact {index} is invalid: "
+                f"{snapshot_path}"
+            )
+        encoded = record.get("content_base64")
+        if not isinstance(encoded, str):
+            raise ImmutableReceiptError(
+                f"immutable receipt snapshot artifact {index} has no bytes: "
+                f"{snapshot_path}"
+            )
+        try:
+            payload = base64.b64decode(encoded, validate=True)
+        except (binascii.Error, ValueError) as error:
+            raise ImmutableReceiptError(
+                f"immutable receipt snapshot artifact {index} has invalid "
+                f"base64: {snapshot_path}"
+            ) from error
+        path_value = record.get("path")
+        if (
+            not isinstance(path_value, str)
+            or not path_value
+            or Path(path_value).is_absolute()
+            or ".." in Path(path_value).parts
+        ):
+            raise ImmutableReceiptError(
+                f"immutable receipt snapshot artifact {index} has an invalid "
+                f"path: "
+                f"{snapshot_path}"
+            )
+        if path_value in decoded:
+            raise ImmutableReceiptError(
+                f"immutable receipt snapshot repeats artifact {path_value}: "
+                f"{snapshot_path}"
+            )
+        if record.get("bytes") != len(payload):
+            raise ImmutableReceiptError(
+                f"immutable receipt snapshot byte count mismatch for "
+                f"{path_value}: {snapshot_path}"
+            )
+        if record.get("sha256") != sha256_bytes(payload):
+            raise ImmutableReceiptError(
+                f"immutable receipt snapshot SHA-256 mismatch for "
+                f"{path_value}: {snapshot_path}"
+            )
+        decoded[path_value] = payload
+        snapshot_records.append(
+            {
+                key: record.get(key)
+                for key in ("name", "path", "sha256", "bytes")
+            }
+        )
+
+    if snapshot_records != receipt_artifacts:
+        raise ImmutableReceiptError(
+            f"immutable receipt artifacts differ from replay snapshot: "
+            f"{receipt_path}"
+        )
+    if receipt.get("artifact_count") != len(receipt_artifacts):
+        raise ImmutableReceiptError(
+            f"immutable receipt artifact count is invalid: {receipt_path}"
+        )
+    manifest_record = receipt.get("manifest")
+    if not isinstance(manifest_record, dict):
+        raise ImmutableReceiptError(
+            f"immutable receipt manifest record is invalid: {receipt_path}"
+        )
+    if manifest_record not in receipt_artifacts:
+        raise ImmutableReceiptError(
+            f"immutable receipt manifest is absent from artifact snapshot: "
+            f"{receipt_path}"
+        )
+    manifest_path = manifest_record.get("path")
+    manifest_bytes = decoded.get(manifest_path)
+    if manifest_bytes is None:
+        raise ImmutableReceiptError(
+            f"immutable receipt manifest bytes are unavailable: {receipt_path}"
+        )
+    try:
+        historical_manifest = json.loads(manifest_bytes.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise ImmutableReceiptError(
+            f"immutable receipt manifest snapshot is invalid JSON: "
+            f"{receipt_path}"
+        ) from error
+    if not isinstance(historical_manifest, dict):
+        raise ImmutableReceiptError(
+            f"immutable receipt manifest snapshot is not an object: "
+            f"{receipt_path}"
+        )
+    try:
+        expected_binding = _receipt_snapshot_binding(
+            historical_manifest, snapshot_sha256
+        )
+    except (KeyError, TypeError, AttributeError) as error:
+        raise ImmutableReceiptError(
+            f"immutable receipt manifest snapshot has invalid API bases: "
+            f"{receipt_path}"
+        ) from error
+    if binding != expected_binding:
+        raise ImmutableReceiptError(
+            f"immutable receipt snapshot binding is not exact: {receipt_path}"
+        )
+    return snapshot, decoded
+
+
+def verify_existing_receipts(
+    receipt_dir: Path, repo_root: Path | None = None
+) -> list[Path]:
     if not receipt_dir.exists():
         return []
+    if repo_root is None:
+        try:
+            repo_root = receipt_dir.resolve().parents[4]
+        except IndexError as error:
+            raise ImmutableReceiptError(
+                f"cannot infer repository root from {receipt_dir}"
+            ) from error
+    repo_root = repo_root.resolve()
     receipts: list[Path] = []
     for path in sorted(receipt_dir.glob("*.json")):
         if not SHA256_RE.fullmatch(path.stem):
@@ -538,6 +801,7 @@ def verify_existing_receipts(receipt_dir: Path) -> list[Path]:
             raise ImmutableReceiptError(
                 f"immutable receipt contains a non-SHA-256 artifact: {path}"
             )
+        read_receipt_snapshot(path, repo_root)
         receipts.append(path)
     return receipts
 
@@ -632,6 +896,93 @@ def _all_releases(manifest: dict[str, Any]) -> list[dict[str, Any]]:
     return sorted(releases, key=lambda value: (value["catalog"], value["id"]))
 
 
+def _fixture_artifact_fetcher(
+    manifest: dict[str, Any], manifest_path: Path
+) -> ArtifactFetcher:
+    local_artifacts: dict[str, Path] = {}
+    for catalog in CATALOG_KINDS:
+        for item in manifest["catalogs"][catalog]:
+            release = item["release"]
+            if release["state"] != "final":
+                continue
+            local_artifacts[release["raw_url"]] = (
+                manifest_path.parent / item["fixture_path"]
+            )
+
+    def fetch(url: str) -> bytes:
+        path = local_artifacts.get(url)
+        if path is None:
+            raise ArtifactVerificationError(
+                f"fixture has no local artifact for {url}"
+            )
+        return path.read_bytes()
+
+    return fetch
+
+
+def verify_final_release_artifacts(
+    manifest: dict[str, Any],
+    manifest_path: Path,
+    *,
+    artifact_fetcher: ArtifactFetcher | None = None,
+) -> list[dict[str, Any]]:
+    """Fetch every final raw URL and compare its exact bytes and SHA-256."""
+
+    final_releases = [
+        release
+        for release in _all_releases(manifest)
+        if release["state"] == "final"
+    ]
+    if not final_releases:
+        return []
+    fetcher = artifact_fetcher
+    if fetcher is None:
+        fetcher = (
+            _fixture_artifact_fetcher(manifest, manifest_path)
+            if manifest["mode"] == "local-development-fixture"
+            else fetch_https_artifact
+        )
+
+    verified: list[dict[str, Any]] = []
+    errors: list[str] = []
+    for release in final_releases:
+        label = f"{release['catalog']}/{release['id']}"
+        url = release["raw_url"]
+        try:
+            payload = fetcher(url)
+        except Exception as error:
+            errors.append(f"{label}: failed to fetch {url}: {error}")
+            continue
+        if not isinstance(payload, bytes):
+            errors.append(f"{label}: fetcher did not return exact bytes")
+            continue
+        if not payload:
+            errors.append(f"{label}: fetched artifact is empty")
+            continue
+        actual = sha256_bytes(payload)
+        if actual != release["sha256"]:
+            errors.append(
+                f"{label}: fetched artifact SHA-256 mismatch: "
+                f"{actual} != {release['sha256']}"
+            )
+            continue
+        verified.append(
+            {
+                "catalog": release["catalog"],
+                "id": release["id"],
+                "raw_url": url,
+                "sha256": actual,
+                "bytes": len(payload),
+            }
+        )
+    if errors:
+        raise ArtifactVerificationError(
+            "final release artifact verification failed:\n- "
+            + "\n- ".join(errors)
+        )
+    return verified
+
+
 def _artifact_records(
     names: Iterable[str], v1_dir: Path, repo_root: Path
 ) -> list[dict[str, Any]]:
@@ -646,6 +997,7 @@ def generate(
     *,
     manifest_path: Path | str | None = None,
     allow_fixture: bool = False,
+    artifact_fetcher: ArtifactFetcher | None = None,
 ) -> dict[str, Any]:
     """Generate all RAPP Work API documents and one immutable build receipt."""
 
@@ -687,7 +1039,9 @@ def generate(
 
     receipt_dir = v1_dir / "receipts" / "sha256"
     fixture = manifest["mode"] == "local-development-fixture"
-    for existing_receipt in verify_existing_receipts(receipt_dir):
+    for existing_receipt in verify_existing_receipts(
+        receipt_dir, repo_root
+    ):
         receipt = load_json(existing_receipt)
         if receipt.get("fixture_mode") is not fixture:
             raise ImmutableReceiptError(
@@ -700,7 +1054,19 @@ def generate(
         release for release in releases if release["state"] == "final"
     ]
     pending = pending_finalization(manifest)
-    production_ready = not fixture and not pending
+    verified_final_artifacts = verify_final_release_artifacts(
+        manifest,
+        manifest_path,
+        artifact_fetcher=artifact_fetcher,
+    )
+    all_final_artifacts_verified = (
+        len(verified_final_artifacts) == len(final_releases)
+    )
+    production_ready = (
+        not fixture
+        and not pending
+        and all_final_artifacts_verified
+    )
     counts = {
         "sdks": len(manifest["catalogs"]["sdks"]),
         "plugins": len(manifest["catalogs"]["plugins"]),
@@ -781,6 +1147,9 @@ def generate(
             {
                 "catalog": release["catalog"],
                 "id": release["id"],
+                "state": "final",
+                "repository": release["repository"],
+                "artifact_path": release["artifact_path"],
                 "version": release["version"],
                 "commit": release["commit"],
                 "raw_url": release["raw_url"],
@@ -830,6 +1199,9 @@ def generate(
             "full_sha256": all(
                 SHA256_RE.fullmatch(release["sha256"] or "") is not None
                 for release in final_releases
+            ),
+            "final_release_artifacts_verified": (
+                all_final_artifacts_verified
             ),
         },
     }
@@ -886,6 +1258,7 @@ def generate(
             "offline-seed.json",
             "receipts/index.json",
             "receipts/sha256/*.json",
+            "receipts/artifacts/sha256/*.json",
         ],
     }
     stable_write_json(v1_dir / ENDPOINT_FILES["hashes"], hashes_document)
@@ -954,8 +1327,32 @@ def generate(
         ),
     ]
     receipt_artifacts.sort(key=lambda value: value["path"])
+    snapshot_artifacts = []
+    for record in receipt_artifacts:
+        payload = (repo_root / record["path"]).read_bytes()
+        snapshot_artifacts.append(
+            {
+                **record,
+                "content_base64": base64.b64encode(payload).decode("ascii"),
+            }
+        )
+    snapshot_document = {
+        **_base_document(manifest, "artifact-snapshot"),
+        "artifact_count": len(snapshot_artifacts),
+        "artifacts": snapshot_artifacts,
+    }
+    snapshot_data = json_bytes(snapshot_document)
+    snapshot_sha256 = sha256_bytes(snapshot_data)
+    snapshot_path = (
+        repo_root / _receipt_snapshot_relative_path(snapshot_sha256)
+    )
+    immutable_write(snapshot_path, snapshot_data)
+
     receipt_document = {
         **_base_document(manifest, "receipt"),
+        "binding": _receipt_snapshot_binding(
+            manifest, snapshot_sha256
+        ),
         "manifest": manifest_record,
         "artifact_count": len(receipt_artifacts),
         "artifacts": receipt_artifacts,
@@ -965,7 +1362,7 @@ def generate(
     receipt_path = receipt_dir / f"{receipt_sha256}.json"
     immutable_write(receipt_path, receipt_data)
 
-    receipt_paths = verify_existing_receipts(receipt_dir)
+    receipt_paths = verify_existing_receipts(receipt_dir, repo_root)
     receipt_entries: list[dict[str, Any]] = []
     for path in receipt_paths:
         receipt = load_json(path)
@@ -985,6 +1382,7 @@ def generate(
                 ),
                 "generated": receipt["generated"],
                 "manifest_sha256": receipt["manifest"]["sha256"],
+                "binding": receipt["binding"],
             }
         )
     receipt_entries.sort(key=lambda value: value["sha256"])
@@ -1005,6 +1403,7 @@ def generate(
         "pending_finalization": pending,
         "counts": counts,
         "receipt_sha256": receipt_sha256,
+        "verified_final_artifacts": verified_final_artifacts,
         "index": index_document,
     }
 

@@ -7,26 +7,25 @@
     "statement": "This generated static discovery surface is non-authoritative. Signed RAPP/1 frames and signed RAPP/1 registries remain the authority.",
     "verification_required": true
   },
-  "count": 2,
-  "current": "0dc9117b235c04373823e0389d3ae27f264f5706068c54d12fe3d9ec438e54b6",
+  "count": 1,
+  "current": "ab208e8c6fcca29455ade5eab79155046e24c65ca02a9e16274f6343c8241f9d",
   "fixture_mode": false,
   "generated": "2026-09-18T14:59:20Z",
   "receipts": [
     {
+      "binding": {
+        "kind": "content-addressed-artifact-snapshot",
+        "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/receipts/artifacts/sha256/5ec867b802488ecb30d44d134b0dff714d51de29fa90936f6a8635cf524d90cd.json",
+        "path": "api/rapp-work/v1/receipts/artifacts/sha256/5ec867b802488ecb30d44d134b0dff714d51de29fa90936f6a8635cf524d90cd.json",
+        "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/receipts/artifacts/sha256/5ec867b802488ecb30d44d134b0dff714d51de29fa90936f6a8635cf524d90cd.json",
+        "sha256": "5ec867b802488ecb30d44d134b0dff714d51de29fa90936f6a8635cf524d90cd"
+      },
       "generated": "2026-09-18T14:59:20Z",
       "manifest_sha256": "fd1615ee12d54fd511be2cf5b84a1fbff714fb27fd60d68862a0a7a7f5be3006",
-      "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/receipts/sha256/0dc9117b235c04373823e0389d3ae27f264f5706068c54d12fe3d9ec438e54b6.json",
-      "path": "api/rapp-work/v1/receipts/sha256/0dc9117b235c04373823e0389d3ae27f264f5706068c54d12fe3d9ec438e54b6.json",
-      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/receipts/sha256/0dc9117b235c04373823e0389d3ae27f264f5706068c54d12fe3d9ec438e54b6.json",
-      "sha256": "0dc9117b235c04373823e0389d3ae27f264f5706068c54d12fe3d9ec438e54b6"
-    },
-    {
-      "generated": "2026-09-18T14:59:20Z",
-      "manifest_sha256": "5f75767bd8ba87f6fd9fa3539fd69d6cbb886e4c21c90986bf554a1a10a5c4cf",
-      "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/receipts/sha256/63abdec07221ec921bc1ac15fb9dfa0052b03b8a3e1b092300570c018cf93765.json",
-      "path": "api/rapp-work/v1/receipts/sha256/63abdec07221ec921bc1ac15fb9dfa0052b03b8a3e1b092300570c018cf93765.json",
-      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/receipts/sha256/63abdec07221ec921bc1ac15fb9dfa0052b03b8a3e1b092300570c018cf93765.json",
-      "sha256": "63abdec07221ec921bc1ac15fb9dfa0052b03b8a3e1b092300570c018cf93765"
+      "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/receipts/sha256/ab208e8c6fcca29455ade5eab79155046e24c65ca02a9e16274f6343c8241f9d.json",
+      "path": "api/rapp-work/v1/receipts/sha256/ab208e8c6fcca29455ade5eab79155046e24c65ca02a9e16274f6343c8241f9d.json",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/receipts/sha256/ab208e8c6fcca29455ade5eab79155046e24c65ca02a9e16274f6343c8241f9d.json",
+      "sha256": "ab208e8c6fcca29455ade5eab79155046e24c65ca02a9e16274f6343c8241f9d"
     }
   ],
   "schema": "rapp-work-static-api-receipts-index/1.0"

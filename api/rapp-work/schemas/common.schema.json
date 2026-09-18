@@ -27,6 +27,39 @@
       ],
       "type": "object"
     },
+    "artifactSnapshotRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "bytes": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "content_base64": {
+          "contentEncoding": "base64",
+          "minLength": 1,
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "path": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "required": [
+        "name",
+        "path",
+        "sha256",
+        "bytes",
+        "content_base64"
+      ],
+      "type": "object"
+    },
     "authority": {
       "additionalProperties": false,
       "properties": {
@@ -102,6 +135,10 @@
     },
     "commit": {
       "pattern": "^[0-9a-f]{40}$",
+      "type": "string"
+    },
+    "commitRawUrl": {
+      "pattern": "^https://raw\\.githubusercontent\\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/[0-9a-f]{40}/[^?#]+$",
       "type": "string"
     },
     "endpoint": {
@@ -227,34 +264,34 @@
       ],
       "type": "object"
     },
+    "finalReleasePin": {
+      "properties": {
+        "commit": {
+          "$ref": "#/$defs/commit"
+        },
+        "raw_url": {
+          "$ref": "#/$defs/commitRawUrl"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "state": {
+          "const": "final"
+        }
+      },
+      "required": [
+        "state",
+        "commit",
+        "raw_url",
+        "sha256"
+      ],
+      "type": "object"
+    },
     "release": {
       "additionalProperties": false,
       "allOf": [
         {
-          "if": {
-            "properties": {
-              "state": {
-                "const": "final"
-              }
-            },
-            "required": [
-              "state"
-            ]
-          },
-          "then": {
-            "properties": {
-              "commit": {
-                "$ref": "#/$defs/commit"
-              },
-              "raw_url": {
-                "pattern": "^https://raw\\.githubusercontent\\.com/[^/]+/[^/]+/[0-9a-f]{40}/.+$",
-                "type": "string"
-              },
-              "sha256": {
-                "$ref": "#/$defs/sha256"
-              }
-            }
-          }
+          "$ref": "#/$defs/releasePin"
         }
       ],
       "properties": {
@@ -300,6 +337,99 @@
         "commit",
         "raw_url",
         "sha256"
+      ],
+      "type": "object"
+    },
+    "releasePin": {
+      "oneOf": [
+        {
+          "properties": {
+            "commit": {
+              "type": "null"
+            },
+            "raw_url": {
+              "type": "null"
+            },
+            "sha256": {
+              "type": "null"
+            },
+            "state": {
+              "const": "awaiting-downstream-commit"
+            }
+          },
+          "required": [
+            "state",
+            "commit",
+            "raw_url",
+            "sha256"
+          ]
+        },
+        {
+          "$ref": "#/$defs/finalReleasePin"
+        }
+      ],
+      "properties": {
+        "commit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "raw_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sha256": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "state": {
+          "enum": [
+            "awaiting-downstream-commit",
+            "final"
+          ]
+        }
+      },
+      "required": [
+        "state",
+        "commit",
+        "raw_url",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "receiptBinding": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "content-addressed-artifact-snapshot"
+        },
+        "pages_url": {
+          "format": "uri",
+          "type": "string"
+        },
+        "path": {
+          "pattern": "^api/rapp-work/v1/receipts/artifacts/sha256/[0-9a-f]{64}\\.json$",
+          "type": "string"
+        },
+        "raw_url": {
+          "format": "uri",
+          "type": "string"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "required": [
+        "kind",
+        "sha256",
+        "path",
+        "raw_url",
+        "pages_url"
       ],
       "type": "object"
     },

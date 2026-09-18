@@ -8,6 +8,7 @@
   },
   "checks": {
     "authority_disclaimer_present": true,
+    "final_release_artifacts_verified": true,
     "final_releases_commit_pinned": true,
     "full_sha256": true,
     "manifest_valid": true

@@ -34,8 +34,23 @@ each entry:
    `raw.githubusercontent.com/<owner>/<repo>/<commit>/<artifact_path>` URL; and
 4. set `release.sha256` to the artifact's full 64-character SHA-256.
 
-Do not substitute a branch, tag, abbreviated SHA, or guessed commit.
+The build fetches every final raw URL, requires a successful non-empty
+response, and compares the exact response bytes with `release.sha256` before
+it can emit `production_ready: true`. Do not substitute a branch, tag,
+abbreviated SHA, guessed commit, or hash of reserialized content. A manifest
+whose entries are all pending performs no downstream network access.
 
 `tests/fixtures/rapp-work/` is a separately marked
 `local-development-fixture` mode. It is accepted only with the explicit
-fixture flag and its synthetic pins are never production releases.
+fixture flag and its synthetic pins are never production releases. Tests may
+resolve those exact URLs through deterministic injected or local fixture
+fetchers.
+
+## Receipt history
+
+Every immutable receipt binds to a content-addressed snapshot containing the
+exact bytes of every receipted artifact. This makes older receipts replayable
+after the working tree changes. Published receipts are append-only: the
+checker compares the local set byte-for-byte with `origin/main`, the merge
+base, and an explicit `--base-ref` when available, and rejects deletion or
+mutation.

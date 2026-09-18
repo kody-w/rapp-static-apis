@@ -32,6 +32,9 @@
       "items": {
         "additionalProperties": false,
         "properties": {
+          "binding": {
+            "$ref": "common.schema.json#/$defs/receiptBinding"
+          },
           "generated": {
             "$ref": "common.schema.json#/$defs/generated"
           },
@@ -59,7 +62,8 @@
           "raw_url",
           "pages_url",
           "generated",
-          "manifest_sha256"
+          "manifest_sha256",
+          "binding"
         ],
         "type": "object"
       },

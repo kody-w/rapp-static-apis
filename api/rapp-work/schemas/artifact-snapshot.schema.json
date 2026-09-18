@@ -1,5 +1,5 @@
 {
-  "$id": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/receipt.schema.json",
+  "$id": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/artifact-snapshot.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "properties": {
@@ -12,16 +12,13 @@
     },
     "artifacts": {
       "items": {
-        "$ref": "common.schema.json#/$defs/artifactHash"
+        "$ref": "common.schema.json#/$defs/artifactSnapshotRecord"
       },
       "minItems": 1,
       "type": "array"
     },
     "authority": {
       "$ref": "common.schema.json#/$defs/authority"
-    },
-    "binding": {
-      "$ref": "common.schema.json#/$defs/receiptBinding"
     },
     "fixture_mode": {
       "type": "boolean"
@@ -32,11 +29,8 @@
     "generated": {
       "$ref": "common.schema.json#/$defs/generated"
     },
-    "manifest": {
-      "$ref": "common.schema.json#/$defs/artifactHash"
-    },
     "schema": {
-      "const": "rapp-work-static-api-receipt/1.0"
+      "const": "rapp-work-static-api-artifact-snapshot/1.0"
     }
   },
   "required": [
@@ -45,11 +39,9 @@
     "api_version",
     "fixture_mode",
     "authority",
-    "binding",
-    "manifest",
     "artifact_count",
     "artifacts"
   ],
-  "title": "Immutable RAPP Work build receipt",
+  "title": "Content-addressed RAPP Work artifact snapshot",
   "type": "object"
 }

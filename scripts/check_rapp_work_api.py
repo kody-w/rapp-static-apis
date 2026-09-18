@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -177,15 +178,151 @@ def _snapshot(root: Path) -> dict[str, str]:
     }
 
 
+def _check_release_pin(
+    release: dict[str, Any],
+    label: str,
+    errors: list[str],
+    *,
+    require_final: bool = False,
+) -> None:
+    state = release.get("state")
+    if require_final and state != "final":
+        errors.append(f"{label}: rollback candidate is not final")
+        return
+    if state == "awaiting-downstream-commit":
+        if any(
+            release.get(field) is not None
+            for field in ("commit", "raw_url", "sha256")
+        ):
+            errors.append(f"{label}: pending pins must all be null")
+        return
+    if state != "final":
+        errors.append(f"{label}: invalid release state {state!r}")
+        return
+    commit = release.get("commit")
+    digest_value = release.get("sha256")
+    repository = release.get("repository")
+    artifact_path = release.get("artifact_path")
+    if not generator.COMMIT_RE.fullmatch(str(commit or "")):
+        errors.append(f"{label}: final commit is not exactly 40 lowercase hex")
+    if not generator.SHA256_RE.fullmatch(str(digest_value or "")):
+        errors.append(f"{label}: final SHA-256 is not 64 lowercase hex")
+    if not isinstance(repository, str) or not isinstance(artifact_path, str):
+        errors.append(
+            f"{label}: final pin lacks repository and artifact path"
+        )
+        return
+    expected_url = generator.expected_commit_raw_url(
+        repository, str(commit), artifact_path
+    )
+    if release.get("raw_url") != expected_url:
+        errors.append(
+            f"{label}: raw URL must exactly match owner/repo/commit/"
+            f"artifact path: {expected_url}"
+        )
+
+
+def _git_bytes(args: list[str]) -> bytes | None:
+    process = subprocess.run(
+        ["git", *args],
+        cwd=ROOT,
+        capture_output=True,
+        timeout=30,
+    )
+    return process.stdout if process.returncode == 0 else None
+
+
+def _available_baseline_refs(
+    base_ref: str | None, errors: list[str]
+) -> list[str]:
+    candidates: list[tuple[str, bool]] = []
+    if base_ref:
+        candidates.append((base_ref, True))
+    github_base = os.environ.get("GITHUB_BASE_REF")
+    if github_base:
+        candidates.append((f"origin/{github_base}", False))
+    candidates.append(("origin/main", False))
+
+    refs: list[str] = []
+    for candidate, required in candidates:
+        resolved = _git_bytes(
+            ["rev-parse", "--verify", f"{candidate}^{{commit}}"]
+        )
+        if resolved is None:
+            if required:
+                errors.append(
+                    f"receipt append-only base ref is unavailable: {candidate}"
+                )
+            continue
+        commit = resolved.decode("ascii").strip()
+        if commit and commit not in refs:
+            refs.append(commit)
+
+    origin_main = _git_bytes(
+        ["rev-parse", "--verify", "origin/main^{commit}"]
+    )
+    if origin_main is not None:
+        merge_base = _git_bytes(["merge-base", "HEAD", "origin/main"])
+        if merge_base is not None:
+            commit = merge_base.decode("ascii").strip()
+            if commit and commit not in refs:
+                refs.append(commit)
+    return refs
+
+
+def _receipt_bytes_at_ref(
+    ref: str, errors: list[str]
+) -> dict[str, bytes]:
+    relative_dir = (
+        generator.V1_REL / "receipts" / "sha256"
+    ).as_posix()
+    listing = _git_bytes(
+        ["ls-tree", "-r", "--name-only", ref, "--", relative_dir]
+    )
+    if listing is None:
+        errors.append(f"could not inspect receipt base {ref}")
+        return {}
+    receipts: dict[str, bytes] = {}
+    for raw_path in listing.decode("utf-8").splitlines():
+        if not raw_path.endswith(".json"):
+            continue
+        content = _git_bytes(["show", f"{ref}:{raw_path}"])
+        if content is None:
+            errors.append(
+                f"could not read baseline receipt {raw_path} at {ref}"
+            )
+            continue
+        receipts[raw_path] = content
+    return receipts
+
+
+def _check_append_only_receipts(
+    current: dict[str, bytes],
+    baseline: dict[str, bytes],
+    label: str,
+    errors: list[str],
+) -> None:
+    for path, baseline_bytes in sorted(baseline.items()):
+        current_bytes = current.get(path)
+        if current_bytes is None:
+            errors.append(
+                f"receipt history deleted {path} retained by {label}"
+            )
+        elif current_bytes != baseline_bytes:
+            errors.append(
+                f"receipt history mutated {path} retained by {label}"
+            )
+
+
 def _check_root_integration(
-    manifest: dict[str, Any], errors: list[str]
+    manifest: dict[str, Any],
+    production_ready: bool,
+    errors: list[str],
 ) -> list[tuple[str, dict[str, Any]]]:
     documents: list[tuple[str, dict[str, Any]]] = []
     index_raw = manifest["api"]["raw_base"].rstrip("/") + "/index.json"
     index_pages = manifest["api"]["pages_base"].rstrip("/") + "/index.json"
     status_raw = manifest["api"]["raw_base"].rstrip("/") + "/status.json"
-    production_ready = not generator.pending_finalization(manifest)
-
     registry_path = ROOT / "registry.json"
     if not registry_path.is_file():
         errors.append("root registry.json is missing")
@@ -298,7 +435,12 @@ def _check_root_integration(
     return documents
 
 
-def validate(*, check_idempotence: bool = True) -> list[str]:
+def validate(
+    *,
+    check_idempotence: bool = True,
+    artifact_fetcher: generator.ArtifactFetcher | None = None,
+    base_ref: str | None = None,
+) -> list[str]:
     errors: list[str] = []
     try:
         manifest = load(API_ROOT / "manifest.json")
@@ -307,6 +449,18 @@ def validate(*, check_idempotence: bool = True) -> list[str]:
         )
     except Exception as error:
         return [f"manifest validation failed: {error}"]
+
+    try:
+        verified_final_artifacts = (
+            generator.verify_final_release_artifacts(
+                manifest,
+                API_ROOT / "manifest.json",
+                artifact_fetcher=artifact_fetcher,
+            )
+        )
+    except generator.ArtifactVerificationError as error:
+        errors.append(str(error))
+        verified_final_artifacts = []
 
     schema_names = {
         "common",
@@ -359,7 +513,9 @@ def validate(*, check_idempotence: bool = True) -> list[str]:
 
     receipt_dir = V1_DIR / "receipts" / "sha256"
     try:
-        receipt_paths = generator.verify_existing_receipts(receipt_dir)
+        receipt_paths = generator.verify_existing_receipts(
+            receipt_dir, ROOT
+        )
     except generator.ImmutableReceiptError as error:
         errors.append(str(error))
         receipt_paths = []
@@ -368,10 +524,12 @@ def validate(*, check_idempotence: bool = True) -> list[str]:
     current_receipt = endpoint_documents.get("receipts-index", {}).get(
         "current"
     )
+    referenced_snapshots: set[Path] = set()
     for path in receipt_paths:
         receipt = load(path)
         label = path.relative_to(ROOT).as_posix()
-        documents.append((label, receipt))
+        if path.stem == current_receipt:
+            documents.append((label, receipt))
         _required_schema_check(
             receipt,
             load(SCHEMAS_DIR / "receipt.schema.json"),
@@ -382,6 +540,31 @@ def validate(*, check_idempotence: bool = True) -> list[str]:
             errors.append(f"{label}: exact non-authority statement missing")
         if receipt.get("fixture_mode") is not False:
             errors.append(f"{label}: production receipt is marked as fixture")
+        binding = receipt.get("binding", {})
+        binding_path = binding.get("path")
+        snapshot_path = (
+            ROOT / binding_path
+            if isinstance(binding_path, str) and binding_path
+            else ROOT / "__invalid_receipt_snapshot__"
+        )
+        if isinstance(binding_path, str) and binding_path:
+            referenced_snapshots.add(snapshot_path)
+        try:
+            snapshot, archived_artifacts = (
+                generator.read_receipt_snapshot(path, ROOT)
+            )
+        except generator.ImmutableReceiptError as error:
+            errors.append(str(error))
+            archived_artifacts = {}
+            snapshot = {}
+        if snapshot:
+            snapshot_label = snapshot_path.relative_to(ROOT).as_posix()
+            _required_schema_check(
+                snapshot,
+                load(SCHEMAS_DIR / "artifact-snapshot.schema.json"),
+                snapshot_label,
+                errors,
+            )
         artifacts = receipt.get("artifacts", [])
         if receipt.get("artifact_count") != len(artifacts):
             errors.append(f"{label}: artifact_count mismatch")
@@ -397,6 +580,53 @@ def validate(*, check_idempotence: bool = True) -> list[str]:
                 _check_hash_record(
                     record, f"{label}.artifacts[{index}]", errors
                 )
+                path_value = record.get("path")
+                local_path = (
+                    ROOT / path_value
+                    if isinstance(path_value, str)
+                    else None
+                )
+                archived = archived_artifacts.get(path_value)
+                if (
+                    local_path is not None
+                    and local_path.is_file()
+                    and archived is not None
+                    and local_path.read_bytes() != archived
+                ):
+                    errors.append(
+                        f"{label}.artifacts[{index}]: current bytes differ "
+                        "from the bound artifact snapshot"
+                    )
+
+    snapshot_dir = ROOT / generator.RECEIPT_SNAPSHOTS_REL
+    actual_snapshots = (
+        set(snapshot_dir.glob("*.json"))
+        if snapshot_dir.exists()
+        else set()
+    )
+    if actual_snapshots != referenced_snapshots:
+        for path in sorted(actual_snapshots - referenced_snapshots):
+            errors.append(
+                "unreferenced receipt artifact snapshot: "
+                + path.relative_to(ROOT).as_posix()
+            )
+        for path in sorted(referenced_snapshots - actual_snapshots):
+            errors.append(
+                "missing referenced receipt artifact snapshot: "
+                + path.relative_to(ROOT).as_posix()
+            )
+
+    current_receipt_bytes = {
+        path.relative_to(ROOT).as_posix(): path.read_bytes()
+        for path in receipt_paths
+    }
+    for ref in _available_baseline_refs(base_ref, errors):
+        _check_append_only_receipts(
+            current_receipt_bytes,
+            _receipt_bytes_at_ref(ref, errors),
+            ref,
+            errors,
+        )
 
     index = endpoint_documents.get("index", {})
     expected_endpoints = set(generator.ENDPOINT_FILES)
@@ -414,9 +644,12 @@ def validate(*, check_idempotence: bool = True) -> list[str]:
         for catalog in generator.CATALOG_KINDS
         for item in manifest["catalogs"][catalog]
     ]
-    expected_ready = not expected_pending
     expected_final_count = sum(
         item["release"]["state"] == "final" for item in manifest_releases
+    )
+    expected_ready = (
+        not expected_pending
+        and len(verified_final_artifacts) == expected_final_count
     )
     if releases.get("pending_finalization") != expected_pending:
         errors.append("releases.json pending finalization list is stale")
@@ -424,6 +657,15 @@ def validate(*, check_idempotence: bool = True) -> list[str]:
         errors.append("releases.json production readiness is stale")
     if releases.get("final_count") != expected_final_count:
         errors.append("releases.json final release count is stale")
+    expected_releases = generator._all_releases(manifest)
+    if releases.get("releases") != expected_releases:
+        errors.append("releases.json does not exactly mirror the manifest")
+    for index_number, release in enumerate(releases.get("releases", [])):
+        _check_release_pin(
+            release,
+            f"releases.json.releases[{index_number}]",
+            errors,
+        )
 
     status = endpoint_documents.get("status", {})
     if status.get("pending_finalization") != expected_pending:
@@ -433,6 +675,47 @@ def validate(*, check_idempotence: bool = True) -> list[str]:
     )
     if status.get("state") != expected_state:
         errors.append("status.json release state is stale")
+    if (
+        status.get("checks", {}).get(
+            "final_release_artifacts_verified"
+        )
+        is not (len(verified_final_artifacts) == expected_final_count)
+    ):
+        errors.append(
+            "status.json final artifact verification state is stale"
+        )
+
+    rollback = endpoint_documents.get("rollback", {})
+    expected_candidates = [
+        {
+            "catalog": release["catalog"],
+            "id": release["id"],
+            "state": "final",
+            "repository": release["repository"],
+            "artifact_path": release["artifact_path"],
+            "version": release["version"],
+            "commit": release["commit"],
+            "raw_url": release["raw_url"],
+            "sha256": release["sha256"],
+        }
+        for release in expected_releases
+        if release["state"] == "final"
+    ]
+    if rollback.get("candidates") != expected_candidates:
+        errors.append(
+            "rollback.json candidates are not the exact final immutable pins"
+        )
+    if rollback.get("available") is not bool(expected_candidates):
+        errors.append("rollback.json availability is stale")
+    for index_number, candidate in enumerate(
+        rollback.get("candidates", [])
+    ):
+        _check_release_pin(
+            candidate,
+            f"rollback.json.candidates[{index_number}]",
+            errors,
+            require_final=True,
+        )
 
     hashes = endpoint_documents.get("hashes", {})
     hash_records = [
@@ -468,13 +751,42 @@ def validate(*, check_idempotence: bool = True) -> list[str]:
         errors.append("receipts/index.json does not cover immutable receipts")
     if receipt_index.get("current") not in receipt_hashes:
         errors.append("receipts/index.json current receipt is missing")
+    expected_receipt_entries = []
+    for path in receipt_paths:
+        receipt = load(path)
+        relative = path.relative_to(ROOT).as_posix()
+        relative_v1 = path.relative_to(V1_DIR).as_posix()
+        expected_receipt_entries.append(
+            {
+                "sha256": path.stem,
+                "path": relative,
+                "raw_url": (
+                    f"{manifest['api']['raw_base'].rstrip('/')}/"
+                    f"{relative_v1}"
+                ),
+                "pages_url": (
+                    f"{manifest['api']['pages_base'].rstrip('/')}/"
+                    f"{relative_v1}"
+                ),
+                "generated": receipt["generated"],
+                "manifest_sha256": receipt["manifest"]["sha256"],
+                "binding": receipt["binding"],
+            }
+        )
+    expected_receipt_entries.sort(key=lambda value: value["sha256"])
+    if indexed_receipts != expected_receipt_entries:
+        errors.append(
+            "receipts/index.json does not exactly index retained receipts"
+        )
 
     for label, document in documents:
         for key, _ in _walk_pairs(document):
             if key == "sha8":
                 errors.append(f"{label}: short sha8 hashes are forbidden")
 
-    root_documents = _check_root_integration(manifest, errors)
+    root_documents = _check_root_integration(
+        manifest, expected_ready, errors
+    )
     documents.extend(root_documents)
     checked_links = _check_local_links(documents, manifest, errors)
     if checked_links == 0:
@@ -516,8 +828,18 @@ def main() -> int:
         action="store_true",
         help="skip the byte-identical root build rerun",
     )
+    parser.add_argument(
+        "--base-ref",
+        help=(
+            "additional Git base ref whose published receipt set must be "
+            "retained byte-for-byte"
+        ),
+    )
     args = parser.parse_args()
-    errors = validate(check_idempotence=not args.no_idempotence)
+    errors = validate(
+        check_idempotence=not args.no_idempotence,
+        base_ref=args.base_ref,
+    )
     manifest = load(API_ROOT / "manifest.json")
     pending = generator.pending_finalization(manifest)
     if errors:

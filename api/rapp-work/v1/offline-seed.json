@@ -25,12 +25,12 @@
       "sha256": "b9c5a2bdabe8fbbbc9fe7f2bedc0fda0ab0fe07be4a504f4a7a9bc966ac50d30"
     },
     {
-      "bytes": 5502,
+      "bytes": 5763,
       "name": "hashes",
       "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/hashes.json",
       "path": "api/rapp-work/v1/hashes.json",
       "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/hashes.json",
-      "sha256": "b5cdc35911b3d25dfbbb3841b362fbcb73442c3bda07d6292527536eb5062fc2"
+      "sha256": "e85b7afd182e4c931397425d9ba27ee07574faebb253c4d67034e76f77e304e1"
     },
     {
       "bytes": 7988,
@@ -89,12 +89,12 @@
       "sha256": "9ddab471cf546ce915fbc58f508b41f973e0bc1a10fd0d5029d85cf2ba6f3f20"
     },
     {
-      "bytes": 1791,
+      "bytes": 1837,
       "name": "status",
       "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/status.json",
       "path": "api/rapp-work/v1/status.json",
       "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/status.json",
-      "sha256": "b0fc48a43b4bf986e999125d592df0ef250918b3dc2f468c9bcfe05c2705be8f"
+      "sha256": "328793a2cdf747e1c071e37a9def2e4ad9ada975c64617d70429caf159e6e655"
     }
   ],
   "schema": "rapp-work-static-api-offline-seed/1.0",

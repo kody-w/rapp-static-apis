@@ -15,7 +15,16 @@
     "candidates": {
       "items": {
         "additionalProperties": false,
+        "allOf": [
+          {
+            "$ref": "common.schema.json#/$defs/finalReleasePin"
+          }
+        ],
         "properties": {
+          "artifact_path": {
+            "minLength": 1,
+            "type": "string"
+          },
           "catalog": {
             "enum": [
               "sdks",
@@ -30,11 +39,17 @@
             "type": "string"
           },
           "raw_url": {
-            "format": "uri",
+            "$ref": "common.schema.json#/$defs/commitRawUrl"
+          },
+          "repository": {
+            "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$",
             "type": "string"
           },
           "sha256": {
             "$ref": "common.schema.json#/$defs/sha256"
+          },
+          "state": {
+            "const": "final"
           },
           "version": {
             "type": "string"
@@ -43,6 +58,9 @@
         "required": [
           "catalog",
           "id",
+          "state",
+          "repository",
+          "artifact_path",
           "version",
           "commit",
           "raw_url",

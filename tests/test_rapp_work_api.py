@@ -53,6 +53,42 @@ class RappWorkStaticApiTests(unittest.TestCase):
         shutil.copytree(API_ROOT / "schemas", schema_target)
         return target / "api/rapp-work/manifest.json"
 
+    def prepare_production(self, target: Path | None = None) -> Path:
+        target = target or self.case_root
+        api_root = target / "api/rapp-work"
+        api_root.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(API_ROOT / "manifest.json", api_root / "manifest.json")
+        shutil.copytree(API_ROOT / "schemas", api_root / "schemas")
+        return api_root / "manifest.json"
+
+    def finalize_test_manifest(
+        self, manifest_path: Path
+    ) -> tuple[dict[str, bytes], list[str]]:
+        manifest = load(manifest_path)
+        payloads: dict[str, bytes] = {}
+        urls: list[str] = []
+        for number, catalog in enumerate(
+            ("sdks", "plugins", "skills"), start=1
+        ):
+            item = manifest["catalogs"][catalog][0]
+            commit = f"{number:040x}"
+            url = generator.expected_commit_raw_url(
+                item["repository"], commit, item["artifact_path"]
+            )
+            payload = f"{catalog}-release-artifact\n".encode()
+            item["release"].update(
+                {
+                    "state": "final",
+                    "commit": commit,
+                    "raw_url": url,
+                    "sha256": hashlib.sha256(payload).hexdigest(),
+                }
+            )
+            payloads[url] = payload
+            urls.append(url)
+        manifest_path.write_bytes(generator.json_bytes(manifest))
+        return payloads, urls
+
     def test_production_tree_passes_checker(self) -> None:
         self.assertEqual([], checker.validate(check_idempotence=False))
 
@@ -98,6 +134,87 @@ class RappWorkStaticApiTests(unittest.TestCase):
             "awaiting-downstream-commits", status["state"]
         )
 
+    def test_pending_only_bootstrap_performs_no_artifact_fetches(self) -> None:
+        manifest_path = self.prepare_production()
+        calls: list[str] = []
+
+        def forbidden_fetch(url: str) -> bytes:
+            calls.append(url)
+            raise AssertionError("pending-only bootstrap must stay offline")
+
+        result = generator.generate(
+            self.case_root,
+            manifest_path=manifest_path,
+            artifact_fetcher=forbidden_fetch,
+        )
+        self.assertEqual([], calls)
+        self.assertFalse(result["production_ready"])
+        self.assertEqual(3, len(result["pending_finalization"]))
+
+    def test_finalization_fetches_and_verifies_every_exact_artifact(self) -> None:
+        manifest_path = self.prepare_production()
+        payloads, expected_urls = self.finalize_test_manifest(manifest_path)
+        calls: list[str] = []
+
+        def fetch(url: str) -> bytes:
+            calls.append(url)
+            return payloads[url]
+
+        result = generator.generate(
+            self.case_root,
+            manifest_path=manifest_path,
+            artifact_fetcher=fetch,
+        )
+        self.assertTrue(result["production_ready"])
+        self.assertCountEqual(expected_urls, calls)
+        self.assertEqual(3, len(result["verified_final_artifacts"]))
+        rollback = load(
+            self.case_root / "api/rapp-work/v1/rollback.json"
+        )
+        self.assertEqual(3, len(rollback["candidates"]))
+        for candidate in rollback["candidates"]:
+            self.assertEqual("final", candidate["state"])
+            self.assertEqual(
+                generator.expected_commit_raw_url(
+                    candidate["repository"],
+                    candidate["commit"],
+                    candidate["artifact_path"],
+                ),
+                candidate["raw_url"],
+            )
+
+    def test_finalization_attempts_every_url_and_rejects_wrong_bytes(self) -> None:
+        manifest_path = self.prepare_production()
+        payloads, expected_urls = self.finalize_test_manifest(manifest_path)
+        payloads[expected_urls[0]] += b"tampered"
+        calls: list[str] = []
+
+        def fetch(url: str) -> bytes:
+            calls.append(url)
+            return payloads[url]
+
+        with self.assertRaisesRegex(
+            generator.ArtifactVerificationError,
+            "fetched artifact SHA-256 mismatch",
+        ):
+            generator.generate(
+                self.case_root,
+                manifest_path=manifest_path,
+                artifact_fetcher=fetch,
+            )
+        self.assertCountEqual(expected_urls, calls)
+
+    def test_pending_release_requires_all_pin_fields_to_be_null(self) -> None:
+        manifest = load(API_ROOT / "manifest.json")
+        release = manifest["catalogs"]["sdks"][0]["release"]
+        release["commit"] = "a" * 40
+        with self.assertRaisesRegex(
+            generator.ManifestError, "pending pins must remain null"
+        ):
+            generator.validate_manifest(
+                manifest, API_ROOT / "manifest.json"
+            )
+
     def test_final_release_requires_exact_40_hex_commit(self) -> None:
         manifest = load(API_ROOT / "manifest.json")
         release = manifest["catalogs"]["sdks"][0]["release"]
@@ -141,6 +258,26 @@ class RappWorkStaticApiTests(unittest.TestCase):
                 manifest, API_ROOT / "manifest.json"
             )
 
+    def test_checker_rejects_branch_raw_url_for_final_pin(self) -> None:
+        errors: list[str] = []
+        checker._check_release_pin(
+            {
+                "state": "final",
+                "repository": "kody-w/rapp-work",
+                "artifact_path": "RELEASE-INVENTORY.json",
+                "commit": "a" * 40,
+                "raw_url": (
+                    "https://raw.githubusercontent.com/kody-w/"
+                    "rapp-work/main/RELEASE-INVENTORY.json"
+                ),
+                "sha256": "b" * 64,
+            },
+            "release",
+            errors,
+        )
+        self.assertEqual(1, len(errors))
+        self.assertIn("raw URL must exactly match", errors[0])
+
     def test_fixture_mode_is_explicit_and_visibly_marked(self) -> None:
         with self.assertRaisesRegex(
             generator.ManifestError, "isolated repo-local scratch root"
@@ -166,6 +303,7 @@ class RappWorkStaticApiTests(unittest.TestCase):
         )
         self.assertFalse(result["production_ready"])
         self.assertEqual([], result["pending_finalization"])
+        self.assertEqual(3, len(result["verified_final_artifacts"]))
         status = load(
             self.case_root / "api/rapp-work/v1/status.json"
         )
@@ -222,6 +360,7 @@ class RappWorkStaticApiTests(unittest.TestCase):
 
     def test_changed_fixture_appends_without_rewriting_receipt(self) -> None:
         manifest_path = self.prepare_fixture()
+        first_manifest_bytes = manifest_path.read_bytes()
         first = generator.generate(
             self.case_root,
             manifest_path=manifest_path,
@@ -248,6 +387,83 @@ class RappWorkStaticApiTests(unittest.TestCase):
         )
         self.assertEqual(first_bytes, first_path.read_bytes())
         self.assertEqual(2, len(list(receipt_dir.glob("*.json"))))
+        paths = generator.verify_existing_receipts(
+            receipt_dir, self.case_root
+        )
+        self.assertEqual(2, len(paths))
+        _, archived = generator.read_receipt_snapshot(
+            first_path, self.case_root
+        )
+        self.assertEqual(
+            first_manifest_bytes,
+            archived["api/rapp-work/manifest.json"],
+        )
+
+    def test_mutated_receipt_artifact_snapshot_is_refused(self) -> None:
+        manifest_path = self.prepare_fixture()
+        result = generator.generate(
+            self.case_root,
+            manifest_path=manifest_path,
+            allow_fixture=True,
+        )
+        receipt_path = (
+            self.case_root
+            / "api/rapp-work/v1/receipts/sha256"
+            / f"{result['receipt_sha256']}.json"
+        )
+        receipt = load(receipt_path)
+        snapshot_path = self.case_root / receipt["binding"]["path"]
+        snapshot_path.write_bytes(snapshot_path.read_bytes() + b"\n")
+        with self.assertRaisesRegex(
+            generator.ImmutableReceiptError,
+            "snapshot bytes do not match filename",
+        ):
+            generator.verify_existing_receipts(
+                receipt_path.parent, self.case_root
+            )
+
+    def test_append_only_receipt_check_refuses_deletion(self) -> None:
+        errors: list[str] = []
+        checker._check_append_only_receipts(
+            {},
+            {
+                "api/rapp-work/v1/receipts/sha256/"
+                + "a" * 64
+                + ".json": b"receipt"
+            },
+            "origin/main",
+            errors,
+        )
+        self.assertEqual(1, len(errors))
+        self.assertIn("receipt history deleted", errors[0])
+
+    def test_release_schemas_encode_immutable_pin_states(self) -> None:
+        common = load(API_ROOT / "schemas/common.schema.json")
+        release_pin = common["$defs"]["releasePin"]
+        pending = release_pin["oneOf"][0]["properties"]
+        self.assertEqual("null", pending["commit"]["type"])
+        self.assertEqual("null", pending["raw_url"]["type"])
+        self.assertEqual("null", pending["sha256"]["type"])
+        self.assertIn(
+            "[0-9a-f]{40}",
+            common["$defs"]["commitRawUrl"]["pattern"],
+        )
+        rollback = load(API_ROOT / "schemas/rollback.schema.json")
+        candidate = rollback["properties"]["candidates"]["items"]
+        self.assertEqual(
+            "final", candidate["properties"]["state"]["const"]
+        )
+
+    def test_initial_publication_has_one_replayable_receipt(self) -> None:
+        receipt_paths = generator.verify_existing_receipts(
+            V1_DIR / "receipts/sha256", ROOT
+        )
+        self.assertEqual(1, len(receipt_paths))
+        receipt = load(receipt_paths[0])
+        self.assertEqual(
+            "content-addressed-artifact-snapshot",
+            receipt["binding"]["kind"],
+        )
 
     def test_receipts_and_hash_catalog_use_full_sha256(self) -> None:
         receipt_index = load(V1_DIR / "receipts/index.json")
