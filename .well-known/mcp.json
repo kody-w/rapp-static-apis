@@ -3,7 +3,7 @@
   "name": "rapp-static-apis",
   "protocolVersion": "2024-11-05",
   "description": "Discovery manifest for the RAPP static-API commons. Each API is a read-only resource fetched from GitHub raw; no server.",
-  "generated": "2026-09-18T21:06:43Z",
+  "generated": "2026-09-18T22:52:29Z",
   "resources": [
     {
       "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion/registry.json",
@@ -173,8 +173,8 @@
       "upstream": {
         "repository": "kody-w/hive-hub",
         "branch": "main",
-        "commit": "93c8979caf5a51017898996aadaa42dddcfb75b2",
-        "index_sha256": "366d62ee6e4cc3fa696c8562b1e083bf77603e497de2e55125927552950a610e"
+        "commit": "136369ce4e264d2da8faf8355bc9de244e47ee52",
+        "index_sha256": "08690ecea707c1b3b488e6d50a5a5194df3959476f2ddee2e818430ef7325253"
       }
     }
   ]
