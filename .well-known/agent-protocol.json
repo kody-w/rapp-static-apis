@@ -2,7 +2,7 @@
   "schema": "rapp-god-registry-agent-protocol/1.0",
   "name": "rapp-static-apis",
   "base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main",
-  "generated": "2026-09-18T15:07:47Z",
+  "generated": "2026-09-18T21:06:43Z",
   "actions": [
     {
       "name": "list_apis",
@@ -55,6 +55,16 @@
       "input": {},
       "auth": "none",
       "authoritative": false
+    },
+    {
+      "name": "get_hive_hub_bridge",
+      "method": "GET",
+      "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/bridges/hive-hub/v1/index.json",
+      "description": "Discovery-only pointer to the independently published, protocol-neutral Hive Hub static shard. Hive Hub is not copied or rebranded as RAPP.",
+      "input": {},
+      "auth": "none",
+      "authoritative": false,
+      "protocol_neutral": true
     },
     {
       "name": "get_status",

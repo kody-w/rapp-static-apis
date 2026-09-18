@@ -1,7 +1,7 @@
 {
   "schema": "rapp-god-registry-status/1.0",
   "name": "rapp-static-apis",
-  "generated": "2026-09-18T15:07:47Z",
+  "generated": "2026-09-18T21:06:43Z",
   "ok": true,
   "apis": 22,
   "apis_list": [
@@ -27,5 +27,9 @@
     "track",
     "vbrainstem-cell",
     "workiq"
+  ],
+  "bridges": 1,
+  "bridges_list": [
+    "hive-hub-upstream"
   ]
 }

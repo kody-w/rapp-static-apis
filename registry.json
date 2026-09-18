@@ -2,13 +2,14 @@
   "schema": "rapp-god-registry/1.0",
   "name": "rapp-static-apis",
   "title": "RAPP Static APIs — the index of indexes",
-  "description": "A server-free commons of read-only APIs served from GitHub raw. This root registry indexes every sub-API so agents and crawlers can discover the whole commons from one URL. Fetch, fork, pin, or self-host — all CORS-open and CDN-cached.",
+  "description": "A server-free commons of read-only APIs served from GitHub raw. This root registry indexes every sub-API so agents and crawlers can discover the whole commons from one URL. Fetch, fork, pin, or self-host — all CORS-open and CDN-cached. External bridges are pointers only; they do not copy, rename, or confer authority on their upstreams.",
   "spec": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/SPEC.md",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main",
   "pages_base": "https://kody-w.github.io/rapp-static-apis",
-  "generated": "2026-09-18T18:26:19Z",
+  "generated": "2026-09-18T21:06:43Z",
   "summary": {
     "apis": 22,
+    "bridges": 1,
     "with_status_endpoint": 22,
     "content_addressed": 5
   },
@@ -436,6 +437,25 @@
       "capabilities": [
         "versioned-endpoints"
       ]
+    }
+  ],
+  "bridges": [
+    {
+      "name": "hive-hub-upstream",
+      "kind": "external-discovery-bridge",
+      "description": "Discovery-only pointer to the independently published, protocol-neutral Hive Hub static shard. Hive Hub is not copied or rebranded as RAPP.",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/bridges/hive-hub/v1/index.json",
+      "pages_url": "https://kody-w.github.io/rapp-static-apis/api/bridges/hive-hub/v1/index.json",
+      "well_known_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/hive-hub-bridge.json",
+      "well_known_pages_url": "https://kody-w.github.io/rapp-static-apis/.well-known/hive-hub-bridge.json",
+      "protocol_neutral": true,
+      "authoritative": false,
+      "upstream": {
+        "repository": "kody-w/hive-hub",
+        "branch": "main",
+        "commit": "93c8979caf5a51017898996aadaa42dddcfb75b2",
+        "index_sha256": "366d62ee6e4cc3fa696c8562b1e083bf77603e497de2e55125927552950a610e"
+      }
     }
   ]
 }

@@ -42,6 +42,22 @@ Read the full convention: https://raw.githubusercontent.com/kody-w/rapp-static-a
 - [vbrainstem-cell](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/vbrainstem-cell/registry.json): vbrainstem-cell — a headless agent runtime in a sandboxed iframe — versioned-endpoints
 - [workiq](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/workiq/registry.json): workiq — synthetic Microsoft-Graph-flavored work-insights API (Project Phoenix) — versioned-endpoints
 
+## External protocol-neutral bridge
+
+- [Hive Hub bridge](https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/bridges/hive-hub/v1/index.json): Discovery-only pointer to the independently published, protocol-neutral Hive Hub static shard. Hive Hub is not copied or rebranded as RAPP.
+- Bridge Pages URL: https://kody-w.github.io/rapp-static-apis/api/bridges/hive-hub/v1/index.json
+- Hub raw base: https://raw.githubusercontent.com/kody-w/hive-hub/main
+- Hub Pages base: https://kody-w.github.io/hive-hub
+- Exact upstream index: https://raw.githubusercontent.com/kody-w/hive-hub/93c8979caf5a51017898996aadaa42dddcfb75b2/api/hive-hub/v1/index.json
+- Required upstream index SHA-256: `366d62ee6e4cc3fa696c8562b1e083bf77603e497de2e55125927552950a610e`
+- Optional RAPP Work adapter learning shard: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/index.json
+
+This bridge is a non-authoritative locator only. It neither copies nor rebrands Hive Hub as RAPP and grants no authority, membership, admission, compatibility, or trust. Verify the exact upstream bytes and each Hive's declared authority and policy.
+
+Optional learning metadata only. This bridge does not make RAPP Work required or authoritative for Hive Hub and does not assert compatibility with any Hive. Compatibility requires a separately declared, verified adapter and conformance contract.
+
+No Hub payload or dial record is embedded or enumerated here; follow the verified upstream index.
+
 ## Discovery
 
 - Root registry (index of indexes): https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/registry.json
@@ -50,6 +66,7 @@ Read the full convention: https://raw.githubusercontent.com/kody-w/rapp-static-a
 - AI plugin manifest: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/ai-plugin.json
 - Agent protocol: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/agent-protocol.json
 - RAPP Work discovery: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/rapp-work.json
+- Hive Hub bridge pointer: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/hive-hub-bridge.json
 - Sitemap: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sitemap.xml
 
-<!-- generated 2026-09-18T15:08:10Z by build.py — do not hand-edit -->
+<!-- generated 2026-09-18T21:06:43Z by build.py — do not hand-edit -->
