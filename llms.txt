@@ -48,8 +48,8 @@ Read the full convention: https://raw.githubusercontent.com/kody-w/rapp-static-a
 - Bridge Pages URL: https://kody-w.github.io/rapp-static-apis/api/bridges/hive-hub/v1/index.json
 - Hub raw base: https://raw.githubusercontent.com/kody-w/hive-hub/main
 - Hub Pages base: https://kody-w.github.io/hive-hub
-- Exact upstream index: https://raw.githubusercontent.com/kody-w/hive-hub/136369ce4e264d2da8faf8355bc9de244e47ee52/api/hive-hub/v1/index.json
-- Required upstream index SHA-256: `08690ecea707c1b3b488e6d50a5a5194df3959476f2ddee2e818430ef7325253`
+- Exact upstream index: https://raw.githubusercontent.com/kody-w/hive-hub/da2fddccbb079cb857a64180db4877a9da22d433/api/hive-hub/v1/index.json
+- Required upstream index SHA-256: `fb2c80b3da3e907952a28c1a5d274db64219e1cce8fadb8b704f43df348724c1`
 - Optional RAPP Work adapter learning shard: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/index.json
 
 This bridge is a non-authoritative locator only. It neither copies nor rebrands Hive Hub as RAPP and grants no authority, membership, admission, compatibility, or trust. Verify the exact upstream bytes and each Hive's declared authority and policy.
@@ -69,4 +69,4 @@ No Hub payload or dial record is embedded or enumerated here; follow the verifie
 - Hive Hub bridge pointer: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/hive-hub-bridge.json
 - Sitemap: https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sitemap.xml
 
-<!-- generated 2026-09-18T22:52:29Z by build.py — do not hand-edit -->
+<!-- generated 2026-09-18T23:16:12Z by build.py — do not hand-edit -->
