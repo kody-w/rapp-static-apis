@@ -1,0 +1,58 @@
+{
+  "$id": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/index.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "api_version": {
+      "const": "v1"
+    },
+    "authority": {
+      "$ref": "common.schema.json#/$defs/authority"
+    },
+    "description": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "endpoints": {
+      "additionalProperties": {
+        "$ref": "common.schema.json#/$defs/endpoint"
+      },
+      "type": "object"
+    },
+    "fixture_mode": {
+      "type": "boolean"
+    },
+    "fixture_notice": {
+      "type": "string"
+    },
+    "generated": {
+      "$ref": "common.schema.json#/$defs/generated"
+    },
+    "manifest": {
+      "$ref": "common.schema.json#/$defs/artifactHash"
+    },
+    "name": {
+      "const": "rapp-work"
+    },
+    "production_ready": {
+      "type": "boolean"
+    },
+    "schema": {
+      "const": "rapp-work-static-api-index/1.0"
+    }
+  },
+  "required": [
+    "schema",
+    "generated",
+    "api_version",
+    "fixture_mode",
+    "authority",
+    "name",
+    "description",
+    "manifest",
+    "production_ready",
+    "endpoints"
+  ],
+  "title": "RAPP Work static API index",
+  "type": "object"
+}

@@ -1,0 +1,22 @@
+{
+  "schema": "rapp-work-static-api-well-known/1.0",
+  "generated": "2026-09-18T15:07:47Z",
+  "authority": {
+    "authoritative": false,
+    "protocol": "RAPP/1",
+    "statement": "This generated static discovery surface is non-authoritative. Signed RAPP/1 frames and signed RAPP/1 registries remain the authority.",
+    "verification_required": true
+  },
+  "index": {
+    "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/index.json",
+    "pages": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/index.json"
+  },
+  "discovery": {
+    "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/discovery.json",
+    "pages": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/discovery.json"
+  },
+  "status": {
+    "raw": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/status.json",
+    "pages": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/status.json"
+  }
+}

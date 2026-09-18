@@ -2,7 +2,7 @@
   "schema": "rapp-god-registry-agent-protocol/1.0",
   "name": "rapp-static-apis",
   "base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main",
-  "generated": "2026-08-28T16:52:09Z",
+  "generated": "2026-09-18T15:07:47Z",
   "actions": [
     {
       "name": "list_apis",
@@ -46,6 +46,15 @@
         }
       },
       "auth": "none"
+    },
+    {
+      "name": "get_rapp_work_discovery",
+      "method": "GET",
+      "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/index.json",
+      "description": "Return generated, non-authoritative RAPP Work discovery metadata. Signed RAPP/1 frames and registries remain the authority.",
+      "input": {},
+      "auth": "none",
+      "authoritative": false
     },
     {
       "name": "get_status",

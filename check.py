@@ -144,10 +144,17 @@ def main():
     return 0
 
 def _tracked_generated():
-    return ['registry.json', 'sitemap.xml', 'llms.txt',
-            os.path.join('api', 'v1', 'status.json'), os.path.join('api', 'v1', 'badge.json'),
-            os.path.join('.well-known', 'mcp.json'), os.path.join('.well-known', 'ai-plugin.json'),
-            os.path.join('.well-known', 'agent-protocol.json')]
+    files = ['registry.json', 'sitemap.xml', 'llms.txt',
+             os.path.join('api', 'v1', 'status.json'), os.path.join('api', 'v1', 'badge.json'),
+             os.path.join('.well-known', 'mcp.json'), os.path.join('.well-known', 'ai-plugin.json'),
+             os.path.join('.well-known', 'agent-protocol.json'),
+             os.path.join('.well-known', 'rapp-work.json')]
+    rapp_work = os.path.join(ROOT, 'api', 'rapp-work', 'v1')
+    if os.path.isdir(rapp_work):
+        for base, _, names in os.walk(rapp_work):
+            for name in sorted(names):
+                files.append(os.path.relpath(os.path.join(base, name), ROOT))
+    return files
 
 def idempotence_check():
     build = os.path.join(ROOT, 'build.py')
@@ -193,8 +200,11 @@ def local_link_integrity(reg):
     ok = tot = 0
     urls = []
     for e in reg.get('entries', []):
-        for k in ('raw_base', 'base', 'url', 'registry', 'index', 'status', 'badge'):
+        for k in ('raw_base', 'base', 'url', 'registry', 'index', 'status', 'badge', 'dashboard'):
             if e.get(k): urls.append(e[k])
+        for endpoint in e.get('endpoints', {}).values():
+            for k in ('raw_url', 'pages_url', 'schema_url', 'schema_pages_url'):
+                if endpoint.get(k): urls.append(endpoint[k])
     for u in urls:
         lp = _to_local(u)
         if lp is None:

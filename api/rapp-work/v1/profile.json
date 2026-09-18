@@ -1,0 +1,25 @@
+{
+  "api_version": "v1",
+  "authority": {
+    "authoritative": false,
+    "protocol": "RAPP/1",
+    "statement": "This generated static discovery surface is non-authoritative. Signed RAPP/1 frames and signed RAPP/1 registries remain the authority.",
+    "verification_required": true
+  },
+  "catalog_counts": {
+    "plugins": 1,
+    "sdks": 1,
+    "skills": 1
+  },
+  "fixture_mode": false,
+  "generated": "2026-09-18T14:59:20Z",
+  "profile": {
+    "description": "Generated discovery profile for RAPP Work SDK, plugin, skill, release, offline, and rollback metadata.",
+    "id": "rapp-work",
+    "name": "RAPP Work",
+    "protocol": "RAPP/1",
+    "role": "non-authoritative-discovery"
+  },
+  "release_state": "awaiting-downstream-commits",
+  "schema": "rapp-work-static-api-profile/1.0"
+}

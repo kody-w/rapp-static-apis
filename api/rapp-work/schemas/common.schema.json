@@ -1,0 +1,444 @@
+{
+  "$defs": {
+    "artifactHash": {
+      "additionalProperties": false,
+      "properties": {
+        "bytes": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "path": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "required": [
+        "name",
+        "path",
+        "sha256",
+        "bytes"
+      ],
+      "type": "object"
+    },
+    "artifactSnapshotRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "bytes": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "content_base64": {
+          "contentEncoding": "base64",
+          "minLength": 1,
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "path": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "required": [
+        "name",
+        "path",
+        "sha256",
+        "bytes",
+        "content_base64"
+      ],
+      "type": "object"
+    },
+    "authority": {
+      "additionalProperties": false,
+      "properties": {
+        "authoritative": {
+          "const": false
+        },
+        "protocol": {
+          "const": "RAPP/1"
+        },
+        "statement": {
+          "const": "This generated static discovery surface is non-authoritative. Signed RAPP/1 frames and signed RAPP/1 registries remain the authority."
+        },
+        "verification_required": {
+          "const": true
+        }
+      },
+      "required": [
+        "authoritative",
+        "protocol",
+        "statement",
+        "verification_required"
+      ],
+      "type": "object"
+    },
+    "catalogItem": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_path": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "fixture_path": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "sdk",
+            "plugin",
+            "skill"
+          ]
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "release": {
+          "$ref": "#/$defs/release"
+        },
+        "repository": {
+          "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "name",
+        "description",
+        "repository",
+        "artifact_path",
+        "release"
+      ],
+      "type": "object"
+    },
+    "commit": {
+      "pattern": "^[0-9a-f]{40}$",
+      "type": "string"
+    },
+    "commitRawUrl": {
+      "pattern": "^https://raw\\.githubusercontent\\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/[0-9a-f]{40}/[^?#]+$",
+      "type": "string"
+    },
+    "endpoint": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "pages_url": {
+          "format": "uri",
+          "type": "string"
+        },
+        "path": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "raw_url": {
+          "format": "uri",
+          "type": "string"
+        },
+        "schema": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "schema_pages_url": {
+          "format": "uri",
+          "type": "string"
+        },
+        "schema_url": {
+          "format": "uri",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "schema",
+        "schema_url",
+        "schema_pages_url",
+        "path",
+        "raw_url",
+        "pages_url"
+      ],
+      "type": "object"
+    },
+    "generated": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "hashLocation": {
+      "additionalProperties": false,
+      "properties": {
+        "bytes": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "pages_url": {
+          "format": "uri",
+          "type": "string"
+        },
+        "path": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "raw_url": {
+          "format": "uri",
+          "type": "string"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "required": [
+        "name",
+        "path",
+        "sha256",
+        "bytes",
+        "raw_url",
+        "pages_url"
+      ],
+      "type": "object"
+    },
+    "pendingFinalization": {
+      "additionalProperties": false,
+      "properties": {
+        "catalog": {
+          "enum": [
+            "sdks",
+            "plugins",
+            "skills"
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "manifest_path": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "required_fields": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 3,
+          "type": "array"
+        },
+        "set_state_to": {
+          "const": "final"
+        }
+      },
+      "required": [
+        "catalog",
+        "id",
+        "manifest_path",
+        "set_state_to",
+        "required_fields"
+      ],
+      "type": "object"
+    },
+    "finalReleasePin": {
+      "properties": {
+        "commit": {
+          "$ref": "#/$defs/commit"
+        },
+        "raw_url": {
+          "$ref": "#/$defs/commitRawUrl"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "state": {
+          "const": "final"
+        }
+      },
+      "required": [
+        "state",
+        "commit",
+        "raw_url",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "release": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "$ref": "#/$defs/releasePin"
+        }
+      ],
+      "properties": {
+        "channel": {
+          "enum": [
+            "stable",
+            "preview"
+          ]
+        },
+        "commit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "raw_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sha256": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "state": {
+          "enum": [
+            "awaiting-downstream-commit",
+            "final"
+          ]
+        },
+        "version": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "version",
+        "channel",
+        "state",
+        "commit",
+        "raw_url",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "releasePin": {
+      "oneOf": [
+        {
+          "properties": {
+            "commit": {
+              "type": "null"
+            },
+            "raw_url": {
+              "type": "null"
+            },
+            "sha256": {
+              "type": "null"
+            },
+            "state": {
+              "const": "awaiting-downstream-commit"
+            }
+          },
+          "required": [
+            "state",
+            "commit",
+            "raw_url",
+            "sha256"
+          ]
+        },
+        {
+          "$ref": "#/$defs/finalReleasePin"
+        }
+      ],
+      "properties": {
+        "commit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "raw_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sha256": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "state": {
+          "enum": [
+            "awaiting-downstream-commit",
+            "final"
+          ]
+        }
+      },
+      "required": [
+        "state",
+        "commit",
+        "raw_url",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "receiptBinding": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "content-addressed-artifact-snapshot"
+        },
+        "pages_url": {
+          "format": "uri",
+          "type": "string"
+        },
+        "path": {
+          "pattern": "^api/rapp-work/v1/receipts/artifacts/sha256/[0-9a-f]{64}\\.json$",
+          "type": "string"
+        },
+        "raw_url": {
+          "format": "uri",
+          "type": "string"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "required": [
+        "kind",
+        "sha256",
+        "path",
+        "raw_url",
+        "pages_url"
+      ],
+      "type": "object"
+    },
+    "sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "$id": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/common.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RAPP Work static API common definitions"
+}

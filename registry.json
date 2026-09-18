@@ -6,11 +6,11 @@
   "spec": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/SPEC.md",
   "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main",
   "pages_base": "https://kody-w.github.io/rapp-static-apis",
-  "generated": "2026-08-28T17:48:19Z",
+  "generated": "2026-09-18T15:07:47Z",
   "summary": {
-    "apis": 21,
-    "with_status_endpoint": 21,
-    "content_addressed": 4
+    "apis": 22,
+    "with_status_endpoint": 22,
+    "content_addressed": 5
   },
   "entries": [
     {
@@ -191,6 +191,142 @@
       "dashboard": "https://kody-w.github.io/rapp-static-apis/rapp-go/",
       "capabilities": [
         "versioned-endpoints"
+      ]
+    },
+    {
+      "name": "rapp-work",
+      "description": "Generated, versioned, non-authoritative RAPP Work discovery. Signed RAPP/1 frames and signed RAPP/1 registries remain the authority.",
+      "raw_base": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1",
+      "pages_base": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/",
+      "registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/index.json",
+      "index": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/index.json",
+      "api_schema": "rapp-work-static-api-index/1.0",
+      "status": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/status.json",
+      "dashboard": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/index.json",
+      "authority": {
+        "authoritative": false,
+        "protocol": "RAPP/1",
+        "statement": "This generated static discovery surface is non-authoritative. Signed RAPP/1 frames and signed RAPP/1 registries remain the authority.",
+        "verification_required": true
+      },
+      "production_ready": false,
+      "endpoints": {
+        "index": {
+          "name": "index",
+          "schema": "rapp-work-static-api-index/1.0",
+          "schema_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/index.schema.json",
+          "schema_pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/schemas/index.schema.json",
+          "path": "api/rapp-work/v1/index.json",
+          "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/index.json",
+          "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/index.json"
+        },
+        "discovery": {
+          "name": "discovery",
+          "schema": "rapp-work-static-api-discovery/1.0",
+          "schema_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/discovery.schema.json",
+          "schema_pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/schemas/discovery.schema.json",
+          "path": "api/rapp-work/v1/discovery.json",
+          "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/discovery.json",
+          "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/discovery.json"
+        },
+        "profile": {
+          "name": "profile",
+          "schema": "rapp-work-static-api-profile/1.0",
+          "schema_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/profile.schema.json",
+          "schema_pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/schemas/profile.schema.json",
+          "path": "api/rapp-work/v1/profile.json",
+          "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/profile.json",
+          "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/profile.json"
+        },
+        "sdks": {
+          "name": "sdks",
+          "schema": "rapp-work-static-api-sdks/1.0",
+          "schema_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/sdks.schema.json",
+          "schema_pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/schemas/sdks.schema.json",
+          "path": "api/rapp-work/v1/sdks.json",
+          "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/sdks.json",
+          "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/sdks.json"
+        },
+        "plugins": {
+          "name": "plugins",
+          "schema": "rapp-work-static-api-plugins/1.0",
+          "schema_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/plugins.schema.json",
+          "schema_pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/schemas/plugins.schema.json",
+          "path": "api/rapp-work/v1/plugins.json",
+          "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/plugins.json",
+          "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/plugins.json"
+        },
+        "skills": {
+          "name": "skills",
+          "schema": "rapp-work-static-api-skills/1.0",
+          "schema_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/skills.schema.json",
+          "schema_pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/schemas/skills.schema.json",
+          "path": "api/rapp-work/v1/skills.json",
+          "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/skills.json",
+          "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/skills.json"
+        },
+        "releases": {
+          "name": "releases",
+          "schema": "rapp-work-static-api-releases/1.0",
+          "schema_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/releases.schema.json",
+          "schema_pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/schemas/releases.schema.json",
+          "path": "api/rapp-work/v1/releases.json",
+          "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/releases.json",
+          "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/releases.json"
+        },
+        "hashes": {
+          "name": "hashes",
+          "schema": "rapp-work-static-api-hashes/1.0",
+          "schema_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/hashes.schema.json",
+          "schema_pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/schemas/hashes.schema.json",
+          "path": "api/rapp-work/v1/hashes.json",
+          "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/hashes.json",
+          "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/hashes.json"
+        },
+        "offline-seed": {
+          "name": "offline-seed",
+          "schema": "rapp-work-static-api-offline-seed/1.0",
+          "schema_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/offline-seed.schema.json",
+          "schema_pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/schemas/offline-seed.schema.json",
+          "path": "api/rapp-work/v1/offline-seed.json",
+          "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/offline-seed.json",
+          "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/offline-seed.json"
+        },
+        "rollback": {
+          "name": "rollback",
+          "schema": "rapp-work-static-api-rollback/1.0",
+          "schema_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/rollback.schema.json",
+          "schema_pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/schemas/rollback.schema.json",
+          "path": "api/rapp-work/v1/rollback.json",
+          "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/rollback.json",
+          "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/rollback.json"
+        },
+        "status": {
+          "name": "status",
+          "schema": "rapp-work-static-api-status/1.0",
+          "schema_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/status.schema.json",
+          "schema_pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/schemas/status.schema.json",
+          "path": "api/rapp-work/v1/status.json",
+          "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/status.json",
+          "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/status.json"
+        },
+        "receipts-index": {
+          "name": "receipts-index",
+          "schema": "rapp-work-static-api-receipts-index/1.0",
+          "schema_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/receipts-index.schema.json",
+          "schema_pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/schemas/receipts-index.schema.json",
+          "path": "api/rapp-work/v1/receipts/index.json",
+          "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/receipts/index.json",
+          "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/receipts/index.json"
+        }
+      },
+      "capabilities": [
+        "versioned-endpoints",
+        "content-addressed",
+        "full-sha256",
+        "offline-seed",
+        "rollback",
+        "non-authoritative-discovery"
       ]
     },
     {

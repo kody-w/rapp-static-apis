@@ -1,0 +1,93 @@
+{
+  "$id": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/discovery.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "api_version": {
+      "const": "v1"
+    },
+    "authority": {
+      "$ref": "common.schema.json#/$defs/authority"
+    },
+    "description": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "entrypoints": {
+      "additionalProperties": {
+        "$ref": "common.schema.json#/$defs/endpoint"
+      },
+      "type": "object"
+    },
+    "fixture_mode": {
+      "type": "boolean"
+    },
+    "fixture_notice": {
+      "type": "string"
+    },
+    "generated": {
+      "$ref": "common.schema.json#/$defs/generated"
+    },
+    "name": {
+      "const": "rapp-work"
+    },
+    "schema": {
+      "const": "rapp-work-static-api-discovery/1.0"
+    },
+    "surface": {
+      "additionalProperties": false,
+      "properties": {
+        "authoritative": {
+          "const": false
+        },
+        "protocol": {
+          "const": "RAPP/1"
+        },
+        "role": {
+          "const": "discovery-only"
+        }
+      },
+      "required": [
+        "role",
+        "authoritative",
+        "protocol"
+      ],
+      "type": "object"
+    },
+    "transports": {
+      "additionalProperties": {
+        "additionalProperties": false,
+        "properties": {
+          "base": {
+            "format": "uri",
+            "type": "string"
+          },
+          "index": {
+            "format": "uri",
+            "type": "string"
+          }
+        },
+        "required": [
+          "base",
+          "index"
+        ],
+        "type": "object"
+      },
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema",
+    "generated",
+    "api_version",
+    "fixture_mode",
+    "authority",
+    "name",
+    "description",
+    "surface",
+    "transports",
+    "entrypoints"
+  ],
+  "title": "RAPP Work static API discovery document",
+  "type": "object"
+}

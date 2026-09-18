@@ -1,0 +1,113 @@
+{
+  "$schema": "schemas/manifest.schema.json",
+  "api": {
+    "pages_base": "https://fixture-owner.github.io/rapp-static-api-fixture/api/rapp-work/v1",
+    "raw_base": "https://raw.githubusercontent.com/fixture-owner/rapp-static-api-fixture/main/api/rapp-work/v1",
+    "version": "v1"
+  },
+  "authority": {
+    "authoritative": false,
+    "protocol": "RAPP/1",
+    "statement": "This generated static discovery surface is non-authoritative. Signed RAPP/1 frames and signed RAPP/1 registries remain the authority.",
+    "verification_required": true
+  },
+  "boundary": {
+    "generated": [
+      "api/rapp-work/v1/"
+    ],
+    "inputs": [
+      "api/rapp-work/manifest.json",
+      "api/rapp-work/schemas/"
+    ],
+    "root_build": "build.py"
+  },
+  "catalogs": {
+    "plugins": [
+      {
+        "artifact_path": "release/plugin.json",
+        "description": "Synthetic plugin release used only by local tests.",
+        "fixture_path": "fixtures/artifacts/plugin.json",
+        "id": "fixture-plugin",
+        "kind": "plugin",
+        "name": "Fixture plugin",
+        "release": {
+          "channel": "stable",
+          "commit": "2222222222222222222222222222222222222222",
+          "raw_url": "https://raw.githubusercontent.com/fixture-owner/rapp-work-plugin/2222222222222222222222222222222222222222/release/plugin.json",
+          "sha256": "a0b067cf3726ace108905742238eeb81860ecc6b19ffadafa4871bd1d443e307",
+          "state": "final",
+          "version": "1.0.0-fixture"
+        },
+        "repository": "fixture-owner/rapp-work-plugin"
+      }
+    ],
+    "sdks": [
+      {
+        "artifact_path": "release/sdk.json",
+        "description": "Synthetic SDK release used only by local tests.",
+        "fixture_path": "fixtures/artifacts/sdk.json",
+        "id": "fixture-sdk",
+        "kind": "sdk",
+        "name": "Fixture SDK",
+        "release": {
+          "channel": "stable",
+          "commit": "1111111111111111111111111111111111111111",
+          "raw_url": "https://raw.githubusercontent.com/fixture-owner/rapp-work-sdk/1111111111111111111111111111111111111111/release/sdk.json",
+          "sha256": "8a54b20b9c4092150e2aac96bb5ad766082b9bb840b62ae2b497bf5ff7551791",
+          "state": "final",
+          "version": "1.0.0-fixture"
+        },
+        "repository": "fixture-owner/rapp-work-sdk"
+      }
+    ],
+    "skills": [
+      {
+        "artifact_path": "release/skills.json",
+        "description": "Synthetic skill release used only by local tests.",
+        "fixture_path": "fixtures/artifacts/skills.json",
+        "id": "fixture-skills",
+        "kind": "skill",
+        "name": "Fixture skills",
+        "release": {
+          "channel": "stable",
+          "commit": "3333333333333333333333333333333333333333",
+          "raw_url": "https://raw.githubusercontent.com/fixture-owner/rapp-work-skills/3333333333333333333333333333333333333333/release/skills.json",
+          "sha256": "04eafc2b7c40149d248848b01facdf5571ecf5340567e3983521990a03838abc",
+          "state": "final",
+          "version": "1.0.0-fixture"
+        },
+        "repository": "fixture-owner/rapp-work-skills"
+      }
+    ]
+  },
+  "fixture_notice": "LOCAL DEVELOPMENT FIXTURE ONLY. These pins and URLs are synthetic test data and are not releases.",
+  "generated": "2000-01-01T00:00:00Z",
+  "mode": "local-development-fixture",
+  "offline_seed": {
+    "format": "json",
+    "verification": "sha256-required"
+  },
+  "profile": {
+    "description": "Synthetic local-development RAPP Work fixture.",
+    "id": "rapp-work",
+    "name": "RAPP Work fixture",
+    "protocol": "RAPP/1",
+    "role": "non-authoritative-discovery"
+  },
+  "release_policy": {
+    "commit_pattern": "^[0-9a-f]{40}$",
+    "final_state": "final",
+    "hash_algorithm": "sha256",
+    "pending_state": "awaiting-downstream-commit",
+    "raw_url_template": "https://raw.githubusercontent.com/{owner}/{repo}/{commit}/{artifact_path}",
+    "require_commit_pinned_raw_url": true
+  },
+  "rollback": {
+    "rules": [
+      "Fixture-only rollback rule.",
+      "Signed RAPP/1 frames and signed RAPP/1 registries remain the authority."
+    ],
+    "strategy": "receipt-plus-commit-pin"
+  },
+  "schema": "rapp-work-static-api-manifest/1.0"
+}

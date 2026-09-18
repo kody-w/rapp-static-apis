@@ -1,0 +1,31 @@
+{
+  "api_version": "v1",
+  "authority": {
+    "authoritative": false,
+    "protocol": "RAPP/1",
+    "statement": "This generated static discovery surface is non-authoritative. Signed RAPP/1 frames and signed RAPP/1 registries remain the authority.",
+    "verification_required": true
+  },
+  "available": false,
+  "candidates": [],
+  "fixture_mode": false,
+  "generated": "2026-09-18T14:59:20Z",
+  "reason": "No final commit-pinned downstream release exists yet. Do not treat pending discovery metadata as rollback authority.",
+  "receipt_index": {
+    "name": "receipts-index",
+    "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/receipts/index.json",
+    "path": "api/rapp-work/v1/receipts/index.json",
+    "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/receipts/index.json",
+    "schema": "rapp-work-static-api-receipts-index/1.0",
+    "schema_pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/schemas/receipts-index.schema.json",
+    "schema_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/receipts-index.schema.json"
+  },
+  "rules": [
+    "Verify the immutable receipt by its full SHA-256 before use.",
+    "Select only a final release with a 40-hex commit pin and matching commit-pinned raw URL.",
+    "Verify the downstream artifact full SHA-256 before loading it.",
+    "Signed RAPP/1 frames and signed RAPP/1 registries remain the authority."
+  ],
+  "schema": "rapp-work-static-api-rollback/1.0",
+  "strategy": "receipt-plus-commit-pin"
+}

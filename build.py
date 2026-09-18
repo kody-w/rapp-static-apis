@@ -6,13 +6,20 @@ Scans every sub-API in this repo and regenerates the machine-readable
 crawlers over raw.githubusercontent.com — with zero server.
 
 Generated (never hand-edit): registry.json, api/v1/{status,badge}.json,
-llms.txt, sitemap.xml, .well-known/{mcp,ai-plugin,agent-protocol}.json.
+api/rapp-work/v1/**, llms.txt, sitemap.xml, and
+.well-known/{mcp,ai-plugin,agent-protocol,rapp-work}.json.
 
 Conforms to rapp-static-api/1.0: idempotent + stable-write (re-running with no
 source change is byte-identical), ISO-8601 Z timestamps, schema-tagged docs.
 Stdlib only.
 """
 import json, os, re, datetime
+
+from scripts.generate_rapp_work_api import (
+    AUTHORITY as RAPP_WORK_AUTHORITY,
+    AUTHORITY_STATEMENT as RAPP_WORK_AUTHORITY_STATEMENT,
+    generate as generate_rapp_work_api,
+)
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OWNER, REPO, BRANCH = 'kody-w', 'rapp-static-apis', 'main'
@@ -98,6 +105,35 @@ def api_entry(api):
     return e
 
 
+def rapp_work_entry(result):
+    """Root-spine entry for the generated API mounted below /api/."""
+    index = result['index']
+    endpoints = index['endpoints']
+    return {
+        'name': 'rapp-work',
+        'description': ('Generated, versioned, non-authoritative RAPP Work discovery. '
+                        'Signed RAPP/1 frames and signed RAPP/1 registries remain the authority.'),
+        'raw_base': f'{RAW}/api/rapp-work/v1',
+        'pages_base': f'{PAGES}/api/rapp-work/v1/',
+        'registry': endpoints['index']['raw_url'],
+        'index': endpoints['index']['raw_url'],
+        'api_schema': index['schema'],
+        'status': endpoints['status']['raw_url'],
+        'dashboard': endpoints['index']['pages_url'],
+        'authority': RAPP_WORK_AUTHORITY,
+        'production_ready': result['production_ready'],
+        'endpoints': endpoints,
+        'capabilities': [
+            'versioned-endpoints',
+            'content-addressed',
+            'full-sha256',
+            'offline-seed',
+            'rollback',
+            'non-authoritative-discovery',
+        ],
+    }
+
+
 def stable_write(rel_path, new_doc, ts_keys=('generated',)):
     """Write JSON; if the only diff vs the existing file is a timestamp key,
     preserve the old timestamp so git sees no change (idempotent stable-write)."""
@@ -131,8 +167,11 @@ def stable_write_text(rel_path, new_text, stamp_re=None):
 
 
 def build():
+    rapp_work = generate_rapp_work_api(ROOT)
     apis = discover()
     entries = [api_entry(a) for a in apis]
+    entries.append(rapp_work_entry(rapp_work))
+    entries.sort(key=lambda entry: entry['name'])
 
     registry = {
         'schema': 'rapp-god-registry/1.0',
@@ -177,11 +216,23 @@ def generate_sitemap(entries):
     day = NOW[:10]
     urls = [f'{PAGES}/', f'{RAW}/registry.json', f'{RAW}/llms.txt', f'{RAW}/SPEC.md',
             f'{RAW}/.well-known/mcp.json', f'{RAW}/.well-known/ai-plugin.json',
-            f'{RAW}/.well-known/agent-protocol.json']
+            f'{RAW}/.well-known/agent-protocol.json',
+            f'{RAW}/.well-known/rapp-work.json',
+            f'{PAGES}/.well-known/rapp-work.json']
     for e in entries:
         urls.append(e['pages_base'])
         if e.get('registry'):
             urls.append(e['registry'])
+        for endpoint in e.get('endpoints', {}).values():
+            if endpoint.get('raw_url'):
+                urls.append(endpoint['raw_url'])
+            if endpoint.get('pages_url'):
+                urls.append(endpoint['pages_url'])
+            if endpoint.get('schema_url'):
+                urls.append(endpoint['schema_url'])
+            if endpoint.get('schema_pages_url'):
+                urls.append(endpoint['schema_pages_url'])
+    urls = list(dict.fromkeys(urls))
     body = ['<?xml version="1.0" encoding="UTF-8"?>',
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for u in urls:
@@ -214,6 +265,12 @@ def generate_well_known(entries):
             'shim': f'{RAW}/mcp/shim.mjs',
         }],
         'root_registry': f'{RAW}/registry.json',
+        'rapp_work_discovery': {
+            'authoritative': False,
+            'authority': RAPP_WORK_AUTHORITY_STATEMENT,
+            'index': f'{RAW}/api/rapp-work/v1/index.json',
+            'pages_index': f'{PAGES}/api/rapp-work/v1/index.json',
+        },
     }
     stable_write(os.path.join('.well-known', 'mcp.json'), mcp)
 
@@ -230,6 +287,12 @@ def generate_well_known(entries):
                                   '`capabilities`. Drill into any API by fetching its registry. All '
                                   'responses are JSON; no writes.'),
         'api': {'type': 'registry', 'url': f'{RAW}/registry.json', 'is_user_authenticated': False},
+        'rapp_work_discovery': {
+            'authoritative': False,
+            'authority': RAPP_WORK_AUTHORITY_STATEMENT,
+            'url': f'{RAW}/api/rapp-work/v1/index.json',
+            'pages_url': f'{PAGES}/api/rapp-work/v1/index.json',
+        },
         'logo_url': f'{PAGES}/favicon.svg',
         'contact_email': 'kody-w@users.noreply.github.com',
         'legal_info_url': f'{RAW}/LICENSE',
@@ -248,12 +311,38 @@ def generate_well_known(entries):
              'description': 'Return the index of every API in the commons.', 'input': {}, 'auth': 'none'},
             {'name': 'get_api', 'method': 'GET', 'url': f'{RAW}/{{api}}/registry.json',
              'description': 'Return one API\'s own registry/index.',
-             'input': {'api': {'type': 'string', 'enum': [e['name'] for e in entries]}}, 'auth': 'none'},
+             'input': {'api': {'type': 'string',
+                               'enum': [e['name'] for e in entries if e['name'] != 'rapp-work']}},
+             'auth': 'none'},
+            {'name': 'get_rapp_work_discovery', 'method': 'GET',
+             'url': f'{RAW}/api/rapp-work/v1/index.json',
+             'description': ('Return generated, non-authoritative RAPP Work discovery metadata. '
+                             'Signed RAPP/1 frames and registries remain the authority.'),
+             'input': {}, 'auth': 'none', 'authoritative': False},
             {'name': 'get_status', 'method': 'GET', 'url': f'{RAW}/api/v1/status.json',
              'description': 'Return commons-wide status and API count.', 'input': {}, 'auth': 'none'},
         ],
     }
     stable_write(os.path.join('.well-known', 'agent-protocol.json'), proto)
+
+    rapp_work = {
+        'schema': 'rapp-work-static-api-well-known/1.0',
+        'generated': NOW,
+        'authority': RAPP_WORK_AUTHORITY,
+        'index': {
+            'raw': f'{RAW}/api/rapp-work/v1/index.json',
+            'pages': f'{PAGES}/api/rapp-work/v1/index.json',
+        },
+        'discovery': {
+            'raw': f'{RAW}/api/rapp-work/v1/discovery.json',
+            'pages': f'{PAGES}/api/rapp-work/v1/discovery.json',
+        },
+        'status': {
+            'raw': f'{RAW}/api/rapp-work/v1/status.json',
+            'pages': f'{PAGES}/api/rapp-work/v1/status.json',
+        },
+    }
+    stable_write(os.path.join('.well-known', 'rapp-work.json'), rapp_work)
 
 
 def generate_llms(entries):
@@ -270,6 +359,8 @@ def generate_llms(entries):
     lines.append('')
     lines.append('The machine-readable index of everything here is the root registry '
                  f'(`rapp-god-registry/1.0`): {RAW}/registry.json')
+    lines.append('')
+    lines.append(RAPP_WORK_AUTHORITY_STATEMENT)
     lines.append('')
     lines.append('## How to consume (any agent, any language)')
     lines.append('')
@@ -296,6 +387,7 @@ def generate_llms(entries):
     lines.append(f'- MCP manifest: {RAW}/.well-known/mcp.json')
     lines.append(f'- AI plugin manifest: {RAW}/.well-known/ai-plugin.json')
     lines.append(f'- Agent protocol: {RAW}/.well-known/agent-protocol.json')
+    lines.append(f'- RAPP Work discovery: {RAW}/.well-known/rapp-work.json')
     lines.append(f'- Sitemap: {RAW}/sitemap.xml')
     lines.append('')
     lines.append(f'<!-- generated {NOW} by build.py — do not hand-edit -->')

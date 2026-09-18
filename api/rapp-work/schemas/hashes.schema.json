@@ -1,0 +1,63 @@
+{
+  "$id": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/hashes.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "algorithm": {
+      "const": "sha256"
+    },
+    "api_version": {
+      "const": "v1"
+    },
+    "artifacts": {
+      "items": {
+        "$ref": "common.schema.json#/$defs/artifactHash"
+      },
+      "type": "array"
+    },
+    "authority": {
+      "$ref": "common.schema.json#/$defs/authority"
+    },
+    "fixture_mode": {
+      "type": "boolean"
+    },
+    "fixture_notice": {
+      "type": "string"
+    },
+    "generated": {
+      "$ref": "common.schema.json#/$defs/generated"
+    },
+    "manifest": {
+      "$ref": "common.schema.json#/$defs/artifactHash"
+    },
+    "schema": {
+      "const": "rapp-work-static-api-hashes/1.0"
+    },
+    "schemas": {
+      "items": {
+        "$ref": "common.schema.json#/$defs/artifactHash"
+      },
+      "type": "array"
+    },
+    "scope_excludes": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema",
+    "generated",
+    "api_version",
+    "fixture_mode",
+    "authority",
+    "algorithm",
+    "manifest",
+    "schemas",
+    "artifacts",
+    "scope_excludes"
+  ],
+  "title": "RAPP Work full SHA-256 catalog",
+  "type": "object"
+}
