@@ -3,7 +3,7 @@
   "name": "hive-hub-upstream",
   "kind": "external-static-shard",
   "description": "Discovery-only pointer to the independently published, protocol-neutral Hive Hub static shard. Hive Hub is not copied or rebranded as RAPP.",
-  "generated": "2026-09-18T22:52:29Z",
+  "generated": "2026-09-18T23:16:12Z",
   "generated_by": "build.py",
   "authority": {
     "authoritative": false,
@@ -18,7 +18,7 @@
     "name": "Hive Hub",
     "repository": "kody-w/hive-hub",
     "branch": "main",
-    "commit": "136369ce4e264d2da8faf8355bc9de244e47ee52",
+    "commit": "da2fddccbb079cb857a64180db4877a9da22d433",
     "protocol": {
       "neutral": true,
       "statement": "Hive Hub does not assume one Hive protocol; each Hive declares its exact protocol, learning bundle, adapter, and conformance contract."
@@ -26,7 +26,7 @@
     "transports": {
       "github_raw": {
         "base": "https://raw.githubusercontent.com/kody-w/hive-hub/main",
-        "commit_base": "https://raw.githubusercontent.com/kody-w/hive-hub/136369ce4e264d2da8faf8355bc9de244e47ee52"
+        "commit_base": "https://raw.githubusercontent.com/kody-w/hive-hub/da2fddccbb079cb857a64180db4877a9da22d433"
       },
       "github_pages": {
         "base": "https://kody-w.github.io/hive-hub"
@@ -34,10 +34,10 @@
     },
     "index": {
       "repository_path": "api/hive-hub/v1/index.json",
-      "raw_url": "https://raw.githubusercontent.com/kody-w/hive-hub/136369ce4e264d2da8faf8355bc9de244e47ee52/api/hive-hub/v1/index.json",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/hive-hub/da2fddccbb079cb857a64180db4877a9da22d433/api/hive-hub/v1/index.json",
       "main_raw_url": "https://raw.githubusercontent.com/kody-w/hive-hub/main/api/hive-hub/v1/index.json",
       "pages_url": "https://kody-w.github.io/hive-hub/api/hive-hub/v1/index.json",
-      "sha256": "08690ecea707c1b3b488e6d50a5a5194df3959476f2ddee2e818430ef7325253",
+      "sha256": "fb2c80b3da3e907952a28c1a5d274db64219e1cce8fadb8b704f43df348724c1",
       "verification": {
         "algorithm": "sha256",
         "required": true,
