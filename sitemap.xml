@@ -9,6 +9,13 @@
   <url><loc>https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/agent-protocol.json</loc><lastmod>2026-09-18</lastmod></url>
   <url><loc>https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/rapp-work.json</loc><lastmod>2026-09-18</lastmod></url>
   <url><loc>https://kody-w.github.io/rapp-static-apis/.well-known/rapp-work.json</loc><lastmod>2026-09-18</lastmod></url>
+  <url><loc>https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/hive-hub-bridge.json</loc><lastmod>2026-09-18</lastmod></url>
+  <url><loc>https://kody-w.github.io/rapp-static-apis/.well-known/hive-hub-bridge.json</loc><lastmod>2026-09-18</lastmod></url>
+  <url><loc>https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/bridges/hive-hub/v1/index.json</loc><lastmod>2026-09-18</lastmod></url>
+  <url><loc>https://kody-w.github.io/rapp-static-apis/api/bridges/hive-hub/v1/index.json</loc><lastmod>2026-09-18</lastmod></url>
+  <url><loc>https://raw.githubusercontent.com/kody-w/hive-hub/93c8979caf5a51017898996aadaa42dddcfb75b2/api/hive-hub/v1/index.json</loc><lastmod>2026-09-18</lastmod></url>
+  <url><loc>https://raw.githubusercontent.com/kody-w/hive-hub/main/api/hive-hub/v1/index.json</loc><lastmod>2026-09-18</lastmod></url>
+  <url><loc>https://kody-w.github.io/hive-hub/api/hive-hub/v1/index.json</loc><lastmod>2026-09-18</lastmod></url>
   <url><loc>https://kody-w.github.io/rapp-static-apis/companion/</loc><lastmod>2026-09-18</lastmod></url>
   <url><loc>https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion/registry.json</loc><lastmod>2026-09-18</lastmod></url>
   <url><loc>https://kody-w.github.io/rapp-static-apis/customer360/</loc><lastmod>2026-09-18</lastmod></url>

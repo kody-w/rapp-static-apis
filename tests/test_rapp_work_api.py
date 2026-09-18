@@ -10,6 +10,8 @@ import shutil
 import unittest
 from pathlib import Path
 
+import build as root_builder
+import check as root_checker
 from scripts import check_rapp_work_api as checker
 from scripts import generate_rapp_work_api as generator
 
@@ -543,6 +545,151 @@ class RappWorkStaticApiTests(unittest.TestCase):
             self.assertIn("signed rapp/1 frames", statement)
             self.assertIn("signed rapp/1 registries", statement)
             self.assertIn("remain the authority", statement)
+
+
+class HiveHubBridgeTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.bridge_path = ROOT / root_builder.HIVE_HUB_BRIDGE_REL
+        self.bridge = load(self.bridge_path)
+
+    def test_bridge_is_generated_by_the_root_contract(self) -> None:
+        expected = root_builder.hive_hub_bridge_document()
+        expected["generated"] = self.bridge["generated"]
+        self.assertEqual(expected, self.bridge)
+        self.assertEqual(
+            [], root_checker.hive_hub_bridge_errors(self.bridge)
+        )
+
+    def test_bridge_pins_exact_neutral_hive_hub_index(self) -> None:
+        upstream = self.bridge["upstream"]
+        self.assertEqual("Hive Hub", upstream["name"])
+        self.assertEqual("kody-w/hive-hub", upstream["repository"])
+        self.assertEqual("main", upstream["branch"])
+        self.assertEqual(
+            "93c8979caf5a51017898996aadaa42dddcfb75b2",
+            upstream["commit"],
+        )
+        self.assertTrue(upstream["protocol"]["neutral"])
+        self.assertEqual(
+            root_builder.HIVE_HUB_RAW_BASE,
+            upstream["transports"]["github_raw"]["base"],
+        )
+        self.assertEqual(
+            root_builder.HIVE_HUB_PAGES_BASE,
+            upstream["transports"]["github_pages"]["base"],
+        )
+        index = upstream["index"]
+        self.assertEqual(
+            "366d62ee6e4cc3fa696c8562b1e083bf77603e497de2e55125927552950a610e",
+            index["sha256"],
+        )
+        self.assertEqual(
+            "https://raw.githubusercontent.com/kody-w/hive-hub/"
+            "93c8979caf5a51017898996aadaa42dddcfb75b2/"
+            "api/hive-hub/v1/index.json",
+            index["raw_url"],
+        )
+        self.assertEqual(
+            {
+                "algorithm": "sha256",
+                "required": True,
+                "on_mismatch": "reject",
+            },
+            index["verification"],
+        )
+
+    def test_bridge_has_one_optional_rapp_work_learning_shard(self) -> None:
+        shard = self.bridge["optional_adapter_learning_shard"]
+        self.assertEqual("rapp-work", shard["id"])
+        self.assertEqual("adapter-learning-only", shard["role"])
+        self.assertTrue(shard["optional"])
+        self.assertFalse(shard["compatibility"]["asserted"])
+        self.assertEqual(generator.AUTHORITY, shard["authority"])
+        self.assertEqual(
+            (
+                "https://raw.githubusercontent.com/kody-w/"
+                "rapp-static-apis/main/api/rapp-work/v1/index.json"
+            ),
+            shard["raw_url"],
+        )
+
+    def test_bridge_copies_no_records_and_names_no_private_target(self) -> None:
+        self.assertEqual(
+            {
+                "hub_payloads_copied": False,
+                "dial_records_copied": False,
+                "statement": root_builder.HIVE_HUB_CONTENT_STATEMENT,
+            },
+            self.bridge["contents"],
+        )
+        keys = {
+            key for key, _ in root_checker._walk_pairs(self.bridge)
+        }
+        self.assertTrue(
+            {
+                "dialbook",
+                "records",
+                "chants",
+                "targets",
+                "private_target",
+                "private_url",
+                "credentials",
+                "token",
+                "secret",
+            }.isdisjoint(keys)
+        )
+        registry = load(ROOT / "registry.json")
+        api_names = {entry["name"] for entry in registry["entries"]}
+        self.assertTrue(
+            {"hive-hub", "hive-hub-upstream", "hive-hub-bridge"}.isdisjoint(
+                api_names
+            )
+        )
+
+    def test_every_root_discovery_surface_links_the_bridge(self) -> None:
+        errors = root_checker.hive_hub_surface_errors(
+            load(ROOT / "registry.json"),
+            load(ROOT / "api/v1/status.json"),
+            (ROOT / "llms.txt").read_text(encoding="utf-8"),
+            (ROOT / "sitemap.xml").read_text(encoding="utf-8"),
+            load(ROOT / ".well-known/mcp.json"),
+            load(ROOT / ".well-known/ai-plugin.json"),
+            load(ROOT / ".well-known/agent-protocol.json"),
+            load(ROOT / root_builder.HIVE_HUB_WELL_KNOWN_REL),
+        )
+        self.assertEqual([], errors)
+
+    def test_checker_refuses_pin_boundary_mutations(self) -> None:
+        mutations = {
+            "commit": lambda value: value["upstream"].update(
+                {"commit": "0" * 40}
+            ),
+            "hash": lambda value: value["upstream"]["index"].update(
+                {"sha256": "0" * 64}
+            ),
+            "branch-url": lambda value: value["upstream"]["index"].update(
+                {
+                    "raw_url": (
+                        f"{root_builder.HIVE_HUB_RAW_BASE}/"
+                        f"{root_builder.HIVE_HUB_INDEX_PATH}"
+                    )
+                }
+            ),
+            "protocol": lambda value: value["upstream"]["protocol"].update(
+                {"neutral": False}
+            ),
+            "record-copy": lambda value: value.update({"records": []}),
+            "private-target": lambda value: value.update(
+                {"private_target": "https://example.invalid"}
+            ),
+        }
+        for label, mutate in mutations.items():
+            with self.subTest(label=label):
+                candidate = copy.deepcopy(self.bridge)
+                mutate(candidate)
+                self.assertTrue(
+                    root_checker.hive_hub_bridge_errors(candidate)
+                )
 
 
 if __name__ == "__main__":

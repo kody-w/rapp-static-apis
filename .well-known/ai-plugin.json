@@ -3,7 +3,7 @@
   "name_for_human": "RAPP Static APIs",
   "name_for_model": "rapp_static_apis",
   "description_for_human": "A server-free commons of read-only APIs served from GitHub raw.",
-  "description_for_model": "Read-only data commons served entirely as static JSON over raw.githubusercontent.com (CORS-open, no auth). To use: GET the root registry at registry.json for the index of all APIs; each entry has a `registry` URL (its own index), a `status` URL, `raw_base`, and `capabilities`. Drill into any API by fetching its registry. All responses are JSON; no writes.",
+  "description_for_model": "Read-only data commons served entirely as static JSON over raw.githubusercontent.com (CORS-open, no auth). To use: GET the root registry at registry.json for the index of all APIs; each entry has a `registry` URL (its own index), a `status` URL, `raw_base`, and `capabilities`. Drill into any API by fetching its registry. All responses are JSON; no writes. External bridges are separate protocol-neutral pointers, not RAPP APIs or authority.",
   "api": {
     "type": "registry",
     "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/registry.json",
@@ -15,8 +15,27 @@
     "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/index.json",
     "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/index.json"
   },
+  "external_bridges": [
+    {
+      "name": "hive-hub-upstream",
+      "kind": "external-discovery-bridge",
+      "description": "Discovery-only pointer to the independently published, protocol-neutral Hive Hub static shard. Hive Hub is not copied or rebranded as RAPP.",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/bridges/hive-hub/v1/index.json",
+      "pages_url": "https://kody-w.github.io/rapp-static-apis/api/bridges/hive-hub/v1/index.json",
+      "well_known_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/hive-hub-bridge.json",
+      "well_known_pages_url": "https://kody-w.github.io/rapp-static-apis/.well-known/hive-hub-bridge.json",
+      "protocol_neutral": true,
+      "authoritative": false,
+      "upstream": {
+        "repository": "kody-w/hive-hub",
+        "branch": "main",
+        "commit": "93c8979caf5a51017898996aadaa42dddcfb75b2",
+        "index_sha256": "366d62ee6e4cc3fa696c8562b1e083bf77603e497de2e55125927552950a610e"
+      }
+    }
+  ],
   "logo_url": "https://kody-w.github.io/rapp-static-apis/favicon.svg",
   "contact_email": "kody-w@users.noreply.github.com",
   "legal_info_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/LICENSE",
-  "generated": "2026-09-18T15:07:47Z"
+  "generated": "2026-09-18T21:06:43Z"
 }

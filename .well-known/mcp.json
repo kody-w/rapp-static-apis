@@ -3,7 +3,7 @@
   "name": "rapp-static-apis",
   "protocolVersion": "2024-11-05",
   "description": "Discovery manifest for the RAPP static-API commons. Each API is a read-only resource fetched from GitHub raw; no server.",
-  "generated": "2026-09-18T15:07:47Z",
+  "generated": "2026-09-18T21:06:43Z",
   "resources": [
     {
       "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion/registry.json",
@@ -136,6 +136,12 @@
       "name": "workiq",
       "description": "workiq — synthetic Microsoft-Graph-flavored work-insights API (Project Phoenix)",
       "mimeType": "application/json"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/bridges/hive-hub/v1/index.json",
+      "name": "hive-hub-upstream",
+      "description": "Discovery-only pointer to the independently published, protocol-neutral Hive Hub static shard. Hive Hub is not copied or rebranded as RAPP.",
+      "mimeType": "application/json"
     }
   ],
   "servers": [
@@ -152,5 +158,24 @@
     "authority": "This generated static discovery surface is non-authoritative. Signed RAPP/1 frames and signed RAPP/1 registries remain the authority.",
     "index": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/index.json",
     "pages_index": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/index.json"
-  }
+  },
+  "external_bridges": [
+    {
+      "name": "hive-hub-upstream",
+      "kind": "external-discovery-bridge",
+      "description": "Discovery-only pointer to the independently published, protocol-neutral Hive Hub static shard. Hive Hub is not copied or rebranded as RAPP.",
+      "raw_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/bridges/hive-hub/v1/index.json",
+      "pages_url": "https://kody-w.github.io/rapp-static-apis/api/bridges/hive-hub/v1/index.json",
+      "well_known_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/.well-known/hive-hub-bridge.json",
+      "well_known_pages_url": "https://kody-w.github.io/rapp-static-apis/.well-known/hive-hub-bridge.json",
+      "protocol_neutral": true,
+      "authoritative": false,
+      "upstream": {
+        "repository": "kody-w/hive-hub",
+        "branch": "main",
+        "commit": "93c8979caf5a51017898996aadaa42dddcfb75b2",
+        "index_sha256": "366d62ee6e4cc3fa696c8562b1e083bf77603e497de2e55125927552950a610e"
+      }
+    }
+  ]
 }

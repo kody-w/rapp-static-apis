@@ -6,8 +6,9 @@ Scans every sub-API in this repo and regenerates the machine-readable
 crawlers over raw.githubusercontent.com — with zero server.
 
 Generated (never hand-edit): registry.json, api/v1/{status,badge}.json,
-api/rapp-work/v1/**, llms.txt, sitemap.xml, and
-.well-known/{mcp,ai-plugin,agent-protocol,rapp-work}.json.
+api/rapp-work/v1/**, api/bridges/hive-hub/v1/index.json, llms.txt,
+sitemap.xml, and
+.well-known/{mcp,ai-plugin,agent-protocol,rapp-work,hive-hub-bridge}.json.
 
 Conforms to rapp-static-api/1.0: idempotent + stable-write (re-running with no
 source change is byte-identical), ISO-8601 Z timestamps, schema-tagged docs.
@@ -27,6 +28,45 @@ RAW = f'https://raw.githubusercontent.com/{OWNER}/{REPO}/{BRANCH}'
 PAGES = f'https://{OWNER}.github.io/{REPO}'
 SKIP = {'.git', '.github', '.well-known', 'template', 'node_modules', 'api'}
 NOW = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+
+HIVE_HUB_REPOSITORY = 'kody-w/hive-hub'
+HIVE_HUB_BRANCH = 'main'
+HIVE_HUB_COMMIT = '93c8979caf5a51017898996aadaa42dddcfb75b2'
+HIVE_HUB_INDEX_PATH = 'api/hive-hub/v1/index.json'
+HIVE_HUB_INDEX_SHA256 = '366d62ee6e4cc3fa696c8562b1e083bf77603e497de2e55125927552950a610e'
+HIVE_HUB_RAW_BASE = f'https://raw.githubusercontent.com/{HIVE_HUB_REPOSITORY}/{HIVE_HUB_BRANCH}'
+HIVE_HUB_PINNED_RAW_BASE = f'https://raw.githubusercontent.com/{HIVE_HUB_REPOSITORY}/{HIVE_HUB_COMMIT}'
+HIVE_HUB_PAGES_BASE = 'https://kody-w.github.io/hive-hub'
+HIVE_HUB_BRIDGE_REL = 'api/bridges/hive-hub/v1/index.json'
+HIVE_HUB_BRIDGE_RAW = f'{RAW}/{HIVE_HUB_BRIDGE_REL}'
+HIVE_HUB_BRIDGE_PAGES = f'{PAGES}/{HIVE_HUB_BRIDGE_REL}'
+HIVE_HUB_WELL_KNOWN_REL = '.well-known/hive-hub-bridge.json'
+HIVE_HUB_WELL_KNOWN_RAW = f'{RAW}/{HIVE_HUB_WELL_KNOWN_REL}'
+HIVE_HUB_WELL_KNOWN_PAGES = f'{PAGES}/{HIVE_HUB_WELL_KNOWN_REL}'
+HIVE_HUB_DESCRIPTION = (
+    'Discovery-only pointer to the independently published, protocol-neutral '
+    'Hive Hub static shard. Hive Hub is not copied or rebranded as RAPP.'
+)
+HIVE_HUB_AUTHORITY_STATEMENT = (
+    'This bridge is a non-authoritative locator only. It neither copies nor '
+    'rebrands Hive Hub as RAPP and grants no authority, membership, admission, '
+    'compatibility, or trust. Verify the exact upstream bytes and each Hive\'s '
+    'declared authority and policy.'
+)
+HIVE_HUB_PROTOCOL_STATEMENT = (
+    'Hive Hub does not assume one Hive protocol; each Hive declares its exact '
+    'protocol, learning bundle, adapter, and conformance contract.'
+)
+HIVE_HUB_ADAPTER_STATEMENT = (
+    'Optional learning metadata only. This bridge does not make RAPP Work '
+    'required or authoritative for Hive Hub and does not assert compatibility '
+    'with any Hive. Compatibility requires a separately declared, verified '
+    'adapter and conformance contract.'
+)
+HIVE_HUB_CONTENT_STATEMENT = (
+    'No Hub payload or dial record is embedded or enumerated here; follow the '
+    'verified upstream index.'
+)
 
 
 def discover():
@@ -134,6 +174,124 @@ def rapp_work_entry(result):
     }
 
 
+def hive_hub_bridge_document():
+    return {
+        'schema': 'static-discovery-bridge/1.0',
+        'name': 'hive-hub-upstream',
+        'kind': 'external-static-shard',
+        'description': HIVE_HUB_DESCRIPTION,
+        'generated': NOW,
+        'generated_by': 'build.py',
+        'authority': {
+            'authoritative': False,
+            'statement': HIVE_HUB_AUTHORITY_STATEMENT,
+            'verification_required': True,
+        },
+        'self': {
+            'raw_url': HIVE_HUB_BRIDGE_RAW,
+            'pages_url': HIVE_HUB_BRIDGE_PAGES,
+        },
+        'upstream': {
+            'name': 'Hive Hub',
+            'repository': HIVE_HUB_REPOSITORY,
+            'branch': HIVE_HUB_BRANCH,
+            'commit': HIVE_HUB_COMMIT,
+            'protocol': {
+                'neutral': True,
+                'statement': HIVE_HUB_PROTOCOL_STATEMENT,
+            },
+            'transports': {
+                'github_raw': {
+                    'base': HIVE_HUB_RAW_BASE,
+                    'commit_base': HIVE_HUB_PINNED_RAW_BASE,
+                },
+                'github_pages': {
+                    'base': HIVE_HUB_PAGES_BASE,
+                },
+            },
+            'index': {
+                'repository_path': HIVE_HUB_INDEX_PATH,
+                'raw_url': f'{HIVE_HUB_PINNED_RAW_BASE}/{HIVE_HUB_INDEX_PATH}',
+                'main_raw_url': f'{HIVE_HUB_RAW_BASE}/{HIVE_HUB_INDEX_PATH}',
+                'pages_url': f'{HIVE_HUB_PAGES_BASE}/{HIVE_HUB_INDEX_PATH}',
+                'sha256': HIVE_HUB_INDEX_SHA256,
+                'verification': {
+                    'algorithm': 'sha256',
+                    'required': True,
+                    'on_mismatch': 'reject',
+                },
+            },
+        },
+        'optional_adapter_learning_shard': {
+            'id': 'rapp-work',
+            'name': 'RAPP Work',
+            'role': 'adapter-learning-only',
+            'optional': True,
+            'index_schema': 'rapp-work-static-api-index/1.0',
+            'raw_url': f'{RAW}/api/rapp-work/v1/index.json',
+            'pages_url': f'{PAGES}/api/rapp-work/v1/index.json',
+            'authority': RAPP_WORK_AUTHORITY,
+            'compatibility': {
+                'asserted': False,
+                'statement': HIVE_HUB_ADAPTER_STATEMENT,
+            },
+        },
+        'contents': {
+            'hub_payloads_copied': False,
+            'dial_records_copied': False,
+            'statement': HIVE_HUB_CONTENT_STATEMENT,
+        },
+    }
+
+
+def hive_hub_registry_entry():
+    return {
+        'name': 'hive-hub-upstream',
+        'kind': 'external-discovery-bridge',
+        'description': HIVE_HUB_DESCRIPTION,
+        'raw_url': HIVE_HUB_BRIDGE_RAW,
+        'pages_url': HIVE_HUB_BRIDGE_PAGES,
+        'well_known_url': HIVE_HUB_WELL_KNOWN_RAW,
+        'well_known_pages_url': HIVE_HUB_WELL_KNOWN_PAGES,
+        'protocol_neutral': True,
+        'authoritative': False,
+        'upstream': {
+            'repository': HIVE_HUB_REPOSITORY,
+            'branch': HIVE_HUB_BRANCH,
+            'commit': HIVE_HUB_COMMIT,
+            'index_sha256': HIVE_HUB_INDEX_SHA256,
+        },
+    }
+
+
+def hive_hub_well_known_document():
+    return {
+        'schema': 'static-discovery-bridge-pointer/1.0',
+        'name': 'hive-hub-upstream',
+        'description': HIVE_HUB_DESCRIPTION,
+        'generated': NOW,
+        'authority': {
+            'authoritative': False,
+            'statement': HIVE_HUB_AUTHORITY_STATEMENT,
+            'verification_required': True,
+        },
+        'protocol_neutral': True,
+        'bridge': {
+            'raw': HIVE_HUB_BRIDGE_RAW,
+            'pages': HIVE_HUB_BRIDGE_PAGES,
+        },
+        'upstream': {
+            'repository': HIVE_HUB_REPOSITORY,
+            'branch': HIVE_HUB_BRANCH,
+            'commit': HIVE_HUB_COMMIT,
+            'index': {
+                'raw': f'{HIVE_HUB_PINNED_RAW_BASE}/{HIVE_HUB_INDEX_PATH}',
+                'sha256': HIVE_HUB_INDEX_SHA256,
+            },
+        },
+    }
+
+
 def stable_write(rel_path, new_doc, ts_keys=('generated',)):
     """Write JSON; if the only diff vs the existing file is a timestamp key,
     preserve the old timestamp so git sees no change (idempotent stable-write)."""
@@ -168,6 +326,9 @@ def stable_write_text(rel_path, new_text, stamp_re=None):
 
 def build():
     rapp_work = generate_rapp_work_api(ROOT)
+    hive_hub_bridge = hive_hub_bridge_document()
+    stable_write(HIVE_HUB_BRIDGE_REL, hive_hub_bridge)
+    bridges = [hive_hub_registry_entry()]
     apis = discover()
     entries = [api_entry(a) for a in apis]
     entries.append(rapp_work_entry(rapp_work))
@@ -179,15 +340,19 @@ def build():
         'title': 'RAPP Static APIs — the index of indexes',
         'description': ('A server-free commons of read-only APIs served from GitHub raw. This root '
                         'registry indexes every sub-API so agents and crawlers can discover the whole '
-                        'commons from one URL. Fetch, fork, pin, or self-host — all CORS-open and CDN-cached.'),
+                        'commons from one URL. Fetch, fork, pin, or self-host — all CORS-open and '
+                        'CDN-cached. External bridges are pointers only; they do not copy, rename, '
+                        'or confer authority on their upstreams.'),
         'spec': f'{RAW}/SPEC.md',
         'raw_base': RAW,
         'pages_base': PAGES,
         'generated': NOW,
         'summary': {'apis': len(entries),
+                    'bridges': len(bridges),
                     'with_status_endpoint': sum(1 for e in entries if e.get('status')),
                     'content_addressed': sum(1 for e in entries if 'content-addressed' in e.get('capabilities', []))},
         'entries': entries,
+        'bridges': bridges,
     }
     stable_write('registry.json', registry)
 
@@ -198,27 +363,35 @@ def build():
         'ok': True,
         'apis': len(entries),
         'apis_list': [e['name'] for e in entries],
+        'bridges': len(bridges),
+        'bridges_list': [bridge['name'] for bridge in bridges],
     }
     stable_write(os.path.join('api', 'v1', 'status.json'), status)
 
     badge = {'schemaVersion': 1, 'label': 'static APIs', 'message': str(len(entries)), 'color': 'blueviolet'}
     stable_write(os.path.join('api', 'v1', 'badge.json'), badge)
 
-    generate_llms(entries)
-    generate_well_known(entries)
-    generate_sitemap(entries)
+    generate_llms(entries, hive_hub_bridge)
+    generate_well_known(entries, hive_hub_bridge)
+    generate_sitemap(entries, hive_hub_bridge)
 
-    print(f'built root spine: {len(entries)} APIs indexed -> registry.json, api/v1/*, llms.txt, .well-known/*, sitemap.xml')
+    print(f'built root spine: {len(entries)} APIs + {len(bridges)} external bridge indexed -> '
+          'registry.json, api/v1/*, api/bridges/*, llms.txt, .well-known/*, sitemap.xml')
     return registry
 
 
-def generate_sitemap(entries):
+def generate_sitemap(entries, hive_hub_bridge):
     day = NOW[:10]
     urls = [f'{PAGES}/', f'{RAW}/registry.json', f'{RAW}/llms.txt', f'{RAW}/SPEC.md',
             f'{RAW}/.well-known/mcp.json', f'{RAW}/.well-known/ai-plugin.json',
             f'{RAW}/.well-known/agent-protocol.json',
             f'{RAW}/.well-known/rapp-work.json',
-            f'{PAGES}/.well-known/rapp-work.json']
+            f'{PAGES}/.well-known/rapp-work.json',
+            HIVE_HUB_WELL_KNOWN_RAW, HIVE_HUB_WELL_KNOWN_PAGES,
+            hive_hub_bridge['self']['raw_url'], hive_hub_bridge['self']['pages_url'],
+            hive_hub_bridge['upstream']['index']['raw_url'],
+            hive_hub_bridge['upstream']['index']['main_raw_url'],
+            hive_hub_bridge['upstream']['index']['pages_url']]
     for e in entries:
         urls.append(e['pages_base'])
         if e.get('registry'):
@@ -242,7 +415,7 @@ def generate_sitemap(entries):
     stable_write_text('sitemap.xml', '\n'.join(body), stamp_re=r'<lastmod>[^<]*</lastmod>')
 
 
-def generate_well_known(entries):
+def generate_well_known(entries, hive_hub_bridge):
     """Standard agent-discovery manifests under /.well-known/."""
     # MCP — expose each API as a resource + point at the static MCP sub-catalog.
     mcp = {
@@ -257,7 +430,12 @@ def generate_well_known(entries):
             'name': e['name'],
             'description': e['description'],
             'mimeType': 'application/json',
-        } for e in entries],
+        } for e in entries] + [{
+            'uri': hive_hub_bridge['self']['raw_url'],
+            'name': hive_hub_bridge['name'],
+            'description': hive_hub_bridge['description'],
+            'mimeType': 'application/json',
+        }],
         'servers': [{
             'name': 'rapp-static-mcp',
             'description': 'A static MCP catalog served from this repo (tools as content-addressed cells).',
@@ -271,6 +449,7 @@ def generate_well_known(entries):
             'index': f'{RAW}/api/rapp-work/v1/index.json',
             'pages_index': f'{PAGES}/api/rapp-work/v1/index.json',
         },
+        'external_bridges': [hive_hub_registry_entry()],
     }
     stable_write(os.path.join('.well-known', 'mcp.json'), mcp)
 
@@ -285,7 +464,8 @@ def generate_well_known(entries):
                                   'registry at registry.json for the index of all APIs; each entry has a '
                                   '`registry` URL (its own index), a `status` URL, `raw_base`, and '
                                   '`capabilities`. Drill into any API by fetching its registry. All '
-                                  'responses are JSON; no writes.'),
+                                  'responses are JSON; no writes. External bridges are separate '
+                                  'protocol-neutral pointers, not RAPP APIs or authority.'),
         'api': {'type': 'registry', 'url': f'{RAW}/registry.json', 'is_user_authenticated': False},
         'rapp_work_discovery': {
             'authoritative': False,
@@ -293,6 +473,7 @@ def generate_well_known(entries):
             'url': f'{RAW}/api/rapp-work/v1/index.json',
             'pages_url': f'{PAGES}/api/rapp-work/v1/index.json',
         },
+        'external_bridges': [hive_hub_registry_entry()],
         'logo_url': f'{PAGES}/favicon.svg',
         'contact_email': 'kody-w@users.noreply.github.com',
         'legal_info_url': f'{RAW}/LICENSE',
@@ -319,6 +500,11 @@ def generate_well_known(entries):
              'description': ('Return generated, non-authoritative RAPP Work discovery metadata. '
                              'Signed RAPP/1 frames and registries remain the authority.'),
              'input': {}, 'auth': 'none', 'authoritative': False},
+            {'name': 'get_hive_hub_bridge', 'method': 'GET',
+             'url': hive_hub_bridge['self']['raw_url'],
+             'description': HIVE_HUB_DESCRIPTION,
+             'input': {}, 'auth': 'none', 'authoritative': False,
+             'protocol_neutral': True},
             {'name': 'get_status', 'method': 'GET', 'url': f'{RAW}/api/v1/status.json',
              'description': 'Return commons-wide status and API count.', 'input': {}, 'auth': 'none'},
         ],
@@ -343,9 +529,10 @@ def generate_well_known(entries):
         },
     }
     stable_write(os.path.join('.well-known', 'rapp-work.json'), rapp_work)
+    stable_write(HIVE_HUB_WELL_KNOWN_REL, hive_hub_well_known_document())
 
 
-def generate_llms(entries):
+def generate_llms(entries, hive_hub_bridge):
     """llms.txt — the machine + human entry point (llmstxt.org convention).
     One fetch tells an agent the whole commons: what it is, how to consume it,
     and every sub-API with its registry URL."""
@@ -380,6 +567,24 @@ def generate_llms(entries):
         idx = e.get('registry', e['raw_base'])
         lines.append(f'- [{e["name"]}]({idx}): {e["description"]}{caps}')
     lines.append('')
+    lines.append('## External protocol-neutral bridge')
+    lines.append('')
+    lines.append(f'- [Hive Hub bridge]({hive_hub_bridge["self"]["raw_url"]}): '
+                 f'{HIVE_HUB_DESCRIPTION}')
+    lines.append(f'- Bridge Pages URL: {hive_hub_bridge["self"]["pages_url"]}')
+    lines.append(f'- Hub raw base: {hive_hub_bridge["upstream"]["transports"]["github_raw"]["base"]}')
+    lines.append(f'- Hub Pages base: {hive_hub_bridge["upstream"]["transports"]["github_pages"]["base"]}')
+    lines.append(f'- Exact upstream index: {hive_hub_bridge["upstream"]["index"]["raw_url"]}')
+    lines.append(f'- Required upstream index SHA-256: `{HIVE_HUB_INDEX_SHA256}`')
+    lines.append(f'- Optional RAPP Work adapter learning shard: '
+                 f'{hive_hub_bridge["optional_adapter_learning_shard"]["raw_url"]}')
+    lines.append('')
+    lines.append(HIVE_HUB_AUTHORITY_STATEMENT)
+    lines.append('')
+    lines.append(HIVE_HUB_ADAPTER_STATEMENT)
+    lines.append('')
+    lines.append(HIVE_HUB_CONTENT_STATEMENT)
+    lines.append('')
     lines.append('## Discovery')
     lines.append('')
     lines.append(f'- Root registry (index of indexes): {RAW}/registry.json')
@@ -388,6 +593,7 @@ def generate_llms(entries):
     lines.append(f'- AI plugin manifest: {RAW}/.well-known/ai-plugin.json')
     lines.append(f'- Agent protocol: {RAW}/.well-known/agent-protocol.json')
     lines.append(f'- RAPP Work discovery: {RAW}/.well-known/rapp-work.json')
+    lines.append(f'- Hive Hub bridge pointer: {HIVE_HUB_WELL_KNOWN_RAW}')
     lines.append(f'- Sitemap: {RAW}/sitemap.xml')
     lines.append('')
     lines.append(f'<!-- generated {NOW} by build.py — do not hand-edit -->')

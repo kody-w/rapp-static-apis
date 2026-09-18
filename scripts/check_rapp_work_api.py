@@ -23,16 +23,27 @@ API_ROOT = ROOT / generator.API_ROOT_REL
 V1_DIR = ROOT / generator.V1_REL
 SCHEMAS_DIR = ROOT / generator.SCHEMAS_REL
 
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+root_checker = __import__("check")
+
+HIVE_HUB_BRIDGE_REL = Path(root_checker.HIVE_HUB_BRIDGE_REL)
+HIVE_HUB_WELL_KNOWN_REL = Path(
+    root_checker.HIVE_HUB_WELL_KNOWN_REL
+)
+
 ROOT_GENERATED = (
     Path("registry.json"),
     Path("api/v1/status.json"),
     Path("api/v1/badge.json"),
+    HIVE_HUB_BRIDGE_REL,
     Path("llms.txt"),
     Path("sitemap.xml"),
     Path(".well-known/mcp.json"),
     Path(".well-known/ai-plugin.json"),
     Path(".well-known/agent-protocol.json"),
     Path(".well-known/rapp-work.json"),
+    HIVE_HUB_WELL_KNOWN_REL,
 )
 
 
@@ -86,6 +97,50 @@ def _walk_pairs(value: Any) -> Iterable[tuple[str, Any]]:
             yield from _walk_pairs(child)
 
 
+def _check_hive_hub_root_integration(
+    registry: dict[str, Any],
+    status: dict[str, Any],
+    llms: str,
+    sitemap: str,
+    mcp: dict[str, Any],
+    plugin: dict[str, Any],
+    protocol: dict[str, Any],
+    documents: list[tuple[str, dict[str, Any]]],
+    errors: list[str],
+) -> None:
+    bridge_path = ROOT / HIVE_HUB_BRIDGE_REL
+    if not bridge_path.is_file():
+        errors.append(f"missing generated bridge: {HIVE_HUB_BRIDGE_REL}")
+        bridge: dict[str, Any] | None = None
+    else:
+        bridge = load(bridge_path)
+        documents.append((HIVE_HUB_BRIDGE_REL.as_posix(), bridge))
+
+    well_known_path = ROOT / HIVE_HUB_WELL_KNOWN_REL
+    if not well_known_path.is_file():
+        errors.append(f"missing {HIVE_HUB_WELL_KNOWN_REL}")
+        well_known: dict[str, Any] | None = None
+    else:
+        well_known = load(well_known_path)
+        documents.append(
+            (HIVE_HUB_WELL_KNOWN_REL.as_posix(), well_known)
+        )
+
+    for error in root_checker.hive_hub_bridge_errors(bridge):
+        errors.append(f"Hive Hub bridge: {error}")
+    for error in root_checker.hive_hub_surface_errors(
+        registry,
+        status,
+        llms,
+        sitemap,
+        mcp,
+        plugin,
+        protocol,
+        well_known,
+    ):
+        errors.append(f"Hive Hub surfaces: {error}")
+
+
 def _local_from_url(url: str, manifest: dict[str, Any]) -> Path | None:
     raw_api = manifest["api"]["raw_base"].rstrip("/")
     pages_api = manifest["api"]["pages_base"].rstrip("/")
@@ -127,7 +182,11 @@ def _check_local_links(
                     continue
                 if (
                     "/api/rapp-work/" not in value
+                    and "/api/bridges/hive-hub/" not in value
                     and not value.endswith("/.well-known/rapp-work.json")
+                    and not value.endswith(
+                        "/.well-known/hive-hub-bridge.json"
+                    )
                 ):
                     continue
                 checked += 1
@@ -320,6 +379,11 @@ def _check_root_integration(
     errors: list[str],
 ) -> list[tuple[str, dict[str, Any]]]:
     documents: list[tuple[str, dict[str, Any]]] = []
+    registry: dict[str, Any] = {}
+    root_status: dict[str, Any] = {}
+    mcp: dict[str, Any] = {}
+    plugin: dict[str, Any] = {}
+    protocol: dict[str, Any] = {}
     index_raw = manifest["api"]["raw_base"].rstrip("/") + "/index.json"
     index_pages = manifest["api"]["pages_base"].rstrip("/") + "/index.json"
     status_raw = manifest["api"]["raw_base"].rstrip("/") + "/status.json"
@@ -352,6 +416,13 @@ def _check_root_integration(
                 errors.append(
                     "root rapp-work entry lacks non-authoritative capability"
                 )
+
+    root_status_path = ROOT / "api/v1/status.json"
+    if root_status_path.is_file():
+        root_status = load(root_status_path)
+        documents.append(("api/v1/status.json", root_status))
+    else:
+        errors.append("root api/v1/status.json is missing")
 
     llms_path = ROOT / "llms.txt"
     llms = llms_path.read_text(encoding="utf-8") if llms_path.exists() else ""
@@ -431,6 +502,18 @@ def _check_root_integration(
             )
     else:
         errors.append(".well-known/agent-protocol.json is missing")
+
+    _check_hive_hub_root_integration(
+        registry,
+        root_status,
+        llms,
+        sitemap,
+        mcp,
+        plugin,
+        protocol,
+        documents,
+        errors,
+    )
 
     return documents
 
