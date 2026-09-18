@@ -12,6 +12,8 @@ on:
       - '**/registry.json'
       - '**/manifest.json'
       - '**/catalog.json'
+      - 'api/rapp-work/schemas/**'
+      - 'scripts/generate_rapp_work_api.py'
       - 'build.py'
       - '.github/workflows/spine.yml'
   schedule:

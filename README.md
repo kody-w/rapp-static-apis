@@ -60,11 +60,19 @@ curl -s $RAW/registry.json          # rapp-god-registry/1.0 — index of every s
 | MCP manifest | [`/.well-known/mcp.json`](./.well-known/mcp.json) |
 | AI-plugin manifest | [`/.well-known/ai-plugin.json`](./.well-known/ai-plugin.json) |
 | Agent protocol | [`/.well-known/agent-protocol.json`](./.well-known/agent-protocol.json) |
+| RAPP Work discovery | [`/api/rapp-work/v1/index.json`](./api/rapp-work/v1/index.json) |
+| RAPP Work well-known pointer | [`/.well-known/rapp-work.json`](./.well-known/rapp-work.json) |
 | Sitemap | [`/sitemap.xml`](./sitemap.xml) |
 | Live dashboard | [`index.html`](https://kody-w.github.io/rapp-static-apis/) |
 
 Regenerate it all with the one build step: `python3 build.py` (idempotent). Score conformance with
 `python3 check.py`.
+
+The RAPP Work surface is generated discovery metadata only. It is
+**non-authoritative**: signed RAPP/1 frames and signed RAPP/1 registries remain
+the authority. Its production manifest intentionally leaves downstream commit,
+commit-pinned raw URL, and full SHA-256 fields null until real releases exist;
+see [`api/rapp-work/README.md`](api/rapp-work/README.md).
 
 ## Reference implementations
 

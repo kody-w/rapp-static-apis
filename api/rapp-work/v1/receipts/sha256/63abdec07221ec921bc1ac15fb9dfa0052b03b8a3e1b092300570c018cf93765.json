@@ -1,0 +1,183 @@
+{
+  "api_version": "v1",
+  "artifact_count": 27,
+  "artifacts": [
+    {
+      "bytes": 3579,
+      "name": "manifest",
+      "path": "api/rapp-work/manifest.json",
+      "sha256": "5f75767bd8ba87f6fd9fa3539fd69d6cbb886e4c21c90986bf554a1a10a5c4cf"
+    },
+    {
+      "bytes": 6657,
+      "name": "common",
+      "path": "api/rapp-work/schemas/common.schema.json",
+      "sha256": "78d5c9a10ccafa94c074c8fa43584040fb4ab88db2228f770ce23f2e6be1c62c"
+    },
+    {
+      "bytes": 1987,
+      "name": "discovery",
+      "path": "api/rapp-work/schemas/discovery.schema.json",
+      "sha256": "93bc5823ec7c564ef26d044a2bcea95a317101c282da1a81e2b8ed018f2c6cbc"
+    },
+    {
+      "bytes": 1371,
+      "name": "hashes",
+      "path": "api/rapp-work/schemas/hashes.schema.json",
+      "sha256": "eda16099b94390affd63cb3b845a36fb96e3d91835f75b7f2a5edef640c6ba7c"
+    },
+    {
+      "bytes": 1273,
+      "name": "index",
+      "path": "api/rapp-work/schemas/index.schema.json",
+      "sha256": "5926f2ed0a785060ebdbc53acfdb591129f956515aba6889ac6436755c59f76a"
+    },
+    {
+      "bytes": 4712,
+      "name": "manifest",
+      "path": "api/rapp-work/schemas/manifest.schema.json",
+      "sha256": "69f819fe8582e8f0c93944b21663042aeeda4699022553f24326bfe15ab8440a"
+    },
+    {
+      "bytes": 1946,
+      "name": "offline-seed",
+      "path": "api/rapp-work/schemas/offline-seed.schema.json",
+      "sha256": "f7b5ca0b5f2ecd7625158978675025aeafd7dbfe7f2b40b2ff1925caa00ad8ab"
+    },
+    {
+      "bytes": 1008,
+      "name": "plugins",
+      "path": "api/rapp-work/schemas/plugins.schema.json",
+      "sha256": "1915d5ce62fdabbf908c5bc238cc23ca66d401ad478fee135f06a546b2ef0306"
+    },
+    {
+      "bytes": 2006,
+      "name": "profile",
+      "path": "api/rapp-work/schemas/profile.schema.json",
+      "sha256": "217f9316b6d334a80876aa07ceb94d6fcf81cfff8cb6e43d633ec1480e193336"
+    },
+    {
+      "bytes": 1157,
+      "name": "receipt",
+      "path": "api/rapp-work/schemas/receipt.schema.json",
+      "sha256": "c4836f762d0fcf0e4fbaa5af8079d0f9b8982f01bd52e3e286016ee4e5c3a956"
+    },
+    {
+      "bytes": 1954,
+      "name": "receipts-index",
+      "path": "api/rapp-work/schemas/receipts-index.schema.json",
+      "sha256": "8363d41ebb74a66350af7cce71e4debfa6393a8ea734b11a683511d0e53416b9"
+    },
+    {
+      "bytes": 3411,
+      "name": "releases",
+      "path": "api/rapp-work/schemas/releases.schema.json",
+      "sha256": "78395334de8ad93459732995bdb7ea700761d2c3f61dcc07364fb65f694e740a"
+    },
+    {
+      "bytes": 2126,
+      "name": "rollback",
+      "path": "api/rapp-work/schemas/rollback.schema.json",
+      "sha256": "320d1e0cdfdb6cd72573f073f780e94ec6fbc20c0886c40c0fe8ea965f086811"
+    },
+    {
+      "bytes": 993,
+      "name": "sdks",
+      "path": "api/rapp-work/schemas/sdks.schema.json",
+      "sha256": "297d9ccd713808b0046b6eff8f600bfe33220539b4f6f50ac05ec0fccc3627f2"
+    },
+    {
+      "bytes": 1003,
+      "name": "skills",
+      "path": "api/rapp-work/schemas/skills.schema.json",
+      "sha256": "b6f80e79a0d5738f4fc286666a9fa9c314ce3310958fc90da4ae08bf7d03880e"
+    },
+    {
+      "bytes": 1503,
+      "name": "status",
+      "path": "api/rapp-work/schemas/status.schema.json",
+      "sha256": "c437303496cf39fe29997f28942e90edc80fab01f6cd0ae962a9bd01104b77fb"
+    },
+    {
+      "bytes": 8303,
+      "name": "discovery",
+      "path": "api/rapp-work/v1/discovery.json",
+      "sha256": "b9c5a2bdabe8fbbbc9fe7f2bedc0fda0ab0fe07be4a504f4a7a9bc966ac50d30"
+    },
+    {
+      "bytes": 5502,
+      "name": "hashes",
+      "path": "api/rapp-work/v1/hashes.json",
+      "sha256": "60dfacb778498704b129d076533ad9157b3121bbc60fc343b920bfbcb95289bf"
+    },
+    {
+      "bytes": 7988,
+      "name": "index",
+      "path": "api/rapp-work/v1/index.json",
+      "sha256": "b35552f72dbc13d0fc6f4b1644b70dfd98b585a03a0097d1dd5839699d84db05"
+    },
+    {
+      "bytes": 4836,
+      "name": "offline-seed",
+      "path": "api/rapp-work/v1/offline-seed.json",
+      "sha256": "d4c547df8af5dbf2b65818f71887a5e8c7b8910c4f55a964b2017986dccec82c"
+    },
+    {
+      "bytes": 936,
+      "name": "plugins",
+      "path": "api/rapp-work/v1/plugins.json",
+      "sha256": "9e5832b5831312bce1a78c13b4a6509ea624d81e28861de502e9fc0452312dfa"
+    },
+    {
+      "bytes": 789,
+      "name": "profile",
+      "path": "api/rapp-work/v1/profile.json",
+      "sha256": "b4c7fc7be19886c3a900512177d80ca622d1dd14028cfb9f350f7ca11499aa82"
+    },
+    {
+      "bytes": 2971,
+      "name": "releases",
+      "path": "api/rapp-work/v1/releases.json",
+      "sha256": "5483a74ebb04a3ce5aa8c02e45299d26992c7f582a44ee142731f95d8c431cb7"
+    },
+    {
+      "bytes": 1580,
+      "name": "rollback",
+      "path": "api/rapp-work/v1/rollback.json",
+      "sha256": "11f914f96f5582e58ae375f8f7a20831fd6561e12651e939ebc56b96b103cb77"
+    },
+    {
+      "bytes": 912,
+      "name": "sdks",
+      "path": "api/rapp-work/v1/sdks.json",
+      "sha256": "50e0948024a3d9ebcb98688d827eb67e4df30f70d6df026dcbf73e3328ceb8c2"
+    },
+    {
+      "bytes": 943,
+      "name": "skills",
+      "path": "api/rapp-work/v1/skills.json",
+      "sha256": "afa9993ccce3483e6011de68b1c721a19d3e78aba306f6e6e86f0ab2e3f89650"
+    },
+    {
+      "bytes": 1791,
+      "name": "status",
+      "path": "api/rapp-work/v1/status.json",
+      "sha256": "b0fc48a43b4bf986e999125d592df0ef250918b3dc2f468c9bcfe05c2705be8f"
+    }
+  ],
+  "authority": {
+    "authoritative": false,
+    "protocol": "RAPP/1",
+    "statement": "This generated static discovery surface is non-authoritative. Signed RAPP/1 frames and signed RAPP/1 registries remain the authority.",
+    "verification_required": true
+  },
+  "fixture_mode": false,
+  "generated": "2026-09-18T14:59:20Z",
+  "manifest": {
+    "bytes": 3579,
+    "name": "manifest",
+    "path": "api/rapp-work/manifest.json",
+    "sha256": "5f75767bd8ba87f6fd9fa3539fd69d6cbb886e4c21c90986bf554a1a10a5c4cf"
+  },
+  "schema": "rapp-work-static-api-receipt/1.0"
+}

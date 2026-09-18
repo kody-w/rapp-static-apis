@@ -9,8 +9,14 @@
     "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/registry.json",
     "is_user_authenticated": false
   },
+  "rapp_work_discovery": {
+    "authoritative": false,
+    "authority": "This generated static discovery surface is non-authoritative. Signed RAPP/1 frames and signed RAPP/1 registries remain the authority.",
+    "url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/index.json",
+    "pages_url": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/index.json"
+  },
   "logo_url": "https://kody-w.github.io/rapp-static-apis/favicon.svg",
   "contact_email": "kody-w@users.noreply.github.com",
   "legal_info_url": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/LICENSE",
-  "generated": "2026-07-06T00:03:27Z"
+  "generated": "2026-09-18T15:07:47Z"
 }

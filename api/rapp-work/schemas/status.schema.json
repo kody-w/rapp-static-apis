@@ -1,0 +1,72 @@
+{
+  "$id": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/status.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "api_version": {
+      "const": "v1"
+    },
+    "authority": {
+      "$ref": "common.schema.json#/$defs/authority"
+    },
+    "checks": {
+      "additionalProperties": {
+        "type": "boolean"
+      },
+      "type": "object"
+    },
+    "counts": {
+      "additionalProperties": {
+        "minimum": 0,
+        "type": "integer"
+      },
+      "type": "object"
+    },
+    "fixture_mode": {
+      "type": "boolean"
+    },
+    "fixture_notice": {
+      "type": "string"
+    },
+    "generated": {
+      "$ref": "common.schema.json#/$defs/generated"
+    },
+    "ok": {
+      "const": true
+    },
+    "pending_finalization": {
+      "items": {
+        "$ref": "common.schema.json#/$defs/pendingFinalization"
+      },
+      "type": "array"
+    },
+    "production_ready": {
+      "type": "boolean"
+    },
+    "schema": {
+      "const": "rapp-work-static-api-status/1.0"
+    },
+    "state": {
+      "enum": [
+        "ready",
+        "awaiting-downstream-commits",
+        "fixture"
+      ]
+    }
+  },
+  "required": [
+    "schema",
+    "generated",
+    "api_version",
+    "fixture_mode",
+    "authority",
+    "ok",
+    "state",
+    "production_ready",
+    "counts",
+    "pending_finalization",
+    "checks"
+  ],
+  "title": "RAPP Work static API status",
+  "type": "object"
+}

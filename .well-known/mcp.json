@@ -3,7 +3,7 @@
   "name": "rapp-static-apis",
   "protocolVersion": "2024-11-05",
   "description": "Discovery manifest for the RAPP static-API commons. Each API is a read-only resource fetched from GitHub raw; no server.",
-  "generated": "2026-08-28T16:52:09Z",
+  "generated": "2026-09-18T15:07:47Z",
   "resources": [
     {
       "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/companion/registry.json",
@@ -84,6 +84,12 @@
       "mimeType": "application/json"
     },
     {
+      "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/index.json",
+      "name": "rapp-work",
+      "description": "Generated, versioned, non-authoritative RAPP Work discovery. Signed RAPP/1 frames and signed RAPP/1 registries remain the authority.",
+      "mimeType": "application/json"
+    },
+    {
       "uri": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/sap/registry.json",
       "name": "sap",
       "description": "Synthetic S/4HANA gateway (OData v2 shape) for Meridian Manufacturing Group, a fictional global manufacturer mid-S/4HANA-transformation. Fully synthetic, no real data.",
@@ -140,5 +146,11 @@
       "shim": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/mcp/shim.mjs"
     }
   ],
-  "root_registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/registry.json"
+  "root_registry": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/registry.json",
+  "rapp_work_discovery": {
+    "authoritative": false,
+    "authority": "This generated static discovery surface is non-authoritative. Signed RAPP/1 frames and signed RAPP/1 registries remain the authority.",
+    "index": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/v1/index.json",
+    "pages_index": "https://kody-w.github.io/rapp-static-apis/api/rapp-work/v1/index.json"
+  }
 }

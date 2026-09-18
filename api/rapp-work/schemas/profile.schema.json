@@ -1,0 +1,96 @@
+{
+  "$id": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/profile.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "api_version": {
+      "const": "v1"
+    },
+    "authority": {
+      "$ref": "common.schema.json#/$defs/authority"
+    },
+    "catalog_counts": {
+      "additionalProperties": false,
+      "properties": {
+        "plugins": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "sdks": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "skills": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "sdks",
+        "plugins",
+        "skills"
+      ],
+      "type": "object"
+    },
+    "fixture_mode": {
+      "type": "boolean"
+    },
+    "fixture_notice": {
+      "type": "string"
+    },
+    "generated": {
+      "$ref": "common.schema.json#/$defs/generated"
+    },
+    "profile": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "id": {
+          "const": "rapp-work"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "protocol": {
+          "const": "RAPP/1"
+        },
+        "role": {
+          "const": "non-authoritative-discovery"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "protocol",
+        "role"
+      ],
+      "type": "object"
+    },
+    "release_state": {
+      "enum": [
+        "ready",
+        "awaiting-downstream-commits"
+      ]
+    },
+    "schema": {
+      "const": "rapp-work-static-api-profile/1.0"
+    }
+  },
+  "required": [
+    "schema",
+    "generated",
+    "api_version",
+    "fixture_mode",
+    "authority",
+    "profile",
+    "catalog_counts",
+    "release_state"
+  ],
+  "title": "RAPP Work static API profile",
+  "type": "object"
+}

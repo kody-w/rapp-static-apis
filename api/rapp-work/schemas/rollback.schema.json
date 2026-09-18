@@ -1,0 +1,101 @@
+{
+  "$id": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/rollback.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "api_version": {
+      "const": "v1"
+    },
+    "authority": {
+      "$ref": "common.schema.json#/$defs/authority"
+    },
+    "available": {
+      "type": "boolean"
+    },
+    "candidates": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "catalog": {
+            "enum": [
+              "sdks",
+              "plugins",
+              "skills"
+            ]
+          },
+          "commit": {
+            "$ref": "common.schema.json#/$defs/commit"
+          },
+          "id": {
+            "type": "string"
+          },
+          "raw_url": {
+            "format": "uri",
+            "type": "string"
+          },
+          "sha256": {
+            "$ref": "common.schema.json#/$defs/sha256"
+          },
+          "version": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "catalog",
+          "id",
+          "version",
+          "commit",
+          "raw_url",
+          "sha256"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "fixture_mode": {
+      "type": "boolean"
+    },
+    "fixture_notice": {
+      "type": "string"
+    },
+    "generated": {
+      "$ref": "common.schema.json#/$defs/generated"
+    },
+    "reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "receipt_index": {
+      "$ref": "common.schema.json#/$defs/endpoint"
+    },
+    "rules": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "const": "rapp-work-static-api-rollback/1.0"
+    },
+    "strategy": {
+      "const": "receipt-plus-commit-pin"
+    }
+  },
+  "required": [
+    "schema",
+    "generated",
+    "api_version",
+    "fixture_mode",
+    "authority",
+    "strategy",
+    "available",
+    "candidates",
+    "reason",
+    "receipt_index",
+    "rules"
+  ],
+  "title": "RAPP Work rollback catalog",
+  "type": "object"
+}

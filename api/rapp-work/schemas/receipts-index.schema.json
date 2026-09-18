@@ -1,0 +1,86 @@
+{
+  "$id": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/receipts-index.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "algorithm": {
+      "const": "sha256"
+    },
+    "api_version": {
+      "const": "v1"
+    },
+    "authority": {
+      "$ref": "common.schema.json#/$defs/authority"
+    },
+    "count": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "current": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "fixture_mode": {
+      "type": "boolean"
+    },
+    "fixture_notice": {
+      "type": "string"
+    },
+    "generated": {
+      "$ref": "common.schema.json#/$defs/generated"
+    },
+    "receipts": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "generated": {
+            "$ref": "common.schema.json#/$defs/generated"
+          },
+          "manifest_sha256": {
+            "$ref": "common.schema.json#/$defs/sha256"
+          },
+          "pages_url": {
+            "format": "uri",
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "raw_url": {
+            "format": "uri",
+            "type": "string"
+          },
+          "sha256": {
+            "$ref": "common.schema.json#/$defs/sha256"
+          }
+        },
+        "required": [
+          "sha256",
+          "path",
+          "raw_url",
+          "pages_url",
+          "generated",
+          "manifest_sha256"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "schema": {
+      "const": "rapp-work-static-api-receipts-index/1.0"
+    }
+  },
+  "required": [
+    "schema",
+    "generated",
+    "api_version",
+    "fixture_mode",
+    "authority",
+    "algorithm",
+    "count",
+    "current",
+    "receipts"
+  ],
+  "title": "RAPP Work immutable receipt index",
+  "type": "object"
+}

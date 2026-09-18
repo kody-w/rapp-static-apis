@@ -1,0 +1,46 @@
+{
+  "$id": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/sdks.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "api_version": {
+      "const": "v1"
+    },
+    "authority": {
+      "$ref": "common.schema.json#/$defs/authority"
+    },
+    "count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "fixture_mode": {
+      "type": "boolean"
+    },
+    "fixture_notice": {
+      "type": "string"
+    },
+    "generated": {
+      "$ref": "common.schema.json#/$defs/generated"
+    },
+    "schema": {
+      "const": "rapp-work-static-api-sdks/1.0"
+    },
+    "sdks": {
+      "items": {
+        "$ref": "common.schema.json#/$defs/catalogItem"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema",
+    "generated",
+    "api_version",
+    "fixture_mode",
+    "authority",
+    "count",
+    "sdks"
+  ],
+  "title": "RAPP Work SDK catalog",
+  "type": "object"
+}

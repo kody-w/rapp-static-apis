@@ -1,0 +1,31 @@
+{
+  "api_version": "v1",
+  "authority": {
+    "authoritative": false,
+    "protocol": "RAPP/1",
+    "statement": "This generated static discovery surface is non-authoritative. Signed RAPP/1 frames and signed RAPP/1 registries remain the authority.",
+    "verification_required": true
+  },
+  "count": 1,
+  "fixture_mode": false,
+  "generated": "2026-09-18T14:59:20Z",
+  "schema": "rapp-work-static-api-skills/1.0",
+  "skills": [
+    {
+      "artifact_path": "skills/rapp-work/agent.lock",
+      "description": "Commit-pinned release descriptor for the RAPP Work skill collection.",
+      "id": "rapp-work-skills-v1",
+      "kind": "skill",
+      "name": "RAPP Work skills v1",
+      "release": {
+        "channel": "stable",
+        "commit": null,
+        "raw_url": null,
+        "sha256": null,
+        "state": "awaiting-downstream-commit",
+        "version": "1.0.0"
+      },
+      "repository": "kody-w/rapp-skills"
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "$id": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/offline-seed.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "api_version": {
+      "const": "v1"
+    },
+    "authority": {
+      "$ref": "common.schema.json#/$defs/authority"
+    },
+    "bootstrap": {
+      "additionalProperties": false,
+      "properties": {
+        "note": {
+          "type": "string"
+        },
+        "pages_url": {
+          "format": "uri",
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "raw_url": {
+          "format": "uri",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "raw_url",
+        "pages_url",
+        "note"
+      ],
+      "type": "object"
+    },
+    "count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "fixture_mode": {
+      "type": "boolean"
+    },
+    "fixture_notice": {
+      "type": "string"
+    },
+    "generated": {
+      "$ref": "common.schema.json#/$defs/generated"
+    },
+    "items": {
+      "items": {
+        "$ref": "common.schema.json#/$defs/hashLocation"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "const": "rapp-work-static-api-offline-seed/1.0"
+    },
+    "verification": {
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": {
+          "const": "sha256"
+        },
+        "on_mismatch": {
+          "const": "reject"
+        },
+        "required": {
+          "const": true
+        }
+      },
+      "required": [
+        "algorithm",
+        "required",
+        "on_mismatch"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema",
+    "generated",
+    "api_version",
+    "fixture_mode",
+    "authority",
+    "bootstrap",
+    "count",
+    "items",
+    "verification"
+  ],
+  "title": "RAPP Work offline seed",
+  "type": "object"
+}

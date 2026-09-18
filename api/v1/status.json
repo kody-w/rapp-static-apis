@@ -1,9 +1,9 @@
 {
   "schema": "rapp-god-registry-status/1.0",
   "name": "rapp-static-apis",
-  "generated": "2026-08-28T16:52:09Z",
+  "generated": "2026-09-18T15:07:47Z",
   "ok": true,
-  "apis": 21,
+  "apis": 22,
   "apis_list": [
     "companion",
     "customer360",
@@ -18,6 +18,7 @@
     "poi-tiles",
     "proofs",
     "rapp-go",
+    "rapp-work",
     "sap",
     "sharepoint",
     "shortener",

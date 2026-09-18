@@ -1,0 +1,164 @@
+{
+  "$id": "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/api/rapp-work/schemas/releases.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "api_version": {
+      "const": "v1"
+    },
+    "authority": {
+      "$ref": "common.schema.json#/$defs/authority"
+    },
+    "count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "final_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "final_release_requirements": {
+      "additionalProperties": false,
+      "properties": {
+        "commit": {
+          "type": "string"
+        },
+        "raw_url": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "commit",
+        "raw_url",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "fixture_mode": {
+      "type": "boolean"
+    },
+    "fixture_notice": {
+      "type": "string"
+    },
+    "generated": {
+      "$ref": "common.schema.json#/$defs/generated"
+    },
+    "pending_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "pending_finalization": {
+      "items": {
+        "$ref": "common.schema.json#/$defs/pendingFinalization"
+      },
+      "type": "array"
+    },
+    "production_ready": {
+      "type": "boolean"
+    },
+    "releases": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "artifact_path": {
+            "type": "string"
+          },
+          "catalog": {
+            "enum": [
+              "sdks",
+              "plugins",
+              "skills"
+            ]
+          },
+          "channel": {
+            "enum": [
+              "stable",
+              "preview"
+            ]
+          },
+          "commit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "sdk",
+              "plugin",
+              "skill"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "raw_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "repository": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "state": {
+            "enum": [
+              "awaiting-downstream-commit",
+              "final"
+            ]
+          },
+          "version": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "catalog",
+          "id",
+          "kind",
+          "name",
+          "repository",
+          "artifact_path",
+          "version",
+          "channel",
+          "state",
+          "commit",
+          "raw_url",
+          "sha256"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "const": "rapp-work-static-api-releases/1.0"
+    }
+  },
+  "required": [
+    "schema",
+    "generated",
+    "api_version",
+    "fixture_mode",
+    "authority",
+    "count",
+    "final_count",
+    "pending_count",
+    "production_ready",
+    "releases",
+    "pending_finalization",
+    "final_release_requirements"
+  ],
+  "title": "RAPP Work release catalog",
+  "type": "object"
+}
