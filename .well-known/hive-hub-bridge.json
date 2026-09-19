@@ -2,7 +2,7 @@
   "schema": "static-discovery-bridge-pointer/1.0",
   "name": "hive-hub-upstream",
   "description": "Discovery-only pointer to the independently published, protocol-neutral Hive Hub static shard. Hive Hub is not copied or rebranded as RAPP.",
-  "generated": "2026-09-18T23:16:12Z",
+  "generated": "2026-09-19T00:36:54Z",
   "authority": {
     "authoritative": false,
     "statement": "This bridge is a non-authoritative locator only. It neither copies nor rebrands Hive Hub as RAPP and grants no authority, membership, admission, compatibility, or trust. Verify the exact upstream bytes and each Hive's declared authority and policy.",
@@ -16,10 +16,10 @@
   "upstream": {
     "repository": "kody-w/hive-hub",
     "branch": "main",
-    "commit": "da2fddccbb079cb857a64180db4877a9da22d433",
+    "commit": "68203b0c6940ee88b6246021a24f62dfd235dee7",
     "index": {
-      "raw": "https://raw.githubusercontent.com/kody-w/hive-hub/da2fddccbb079cb857a64180db4877a9da22d433/api/hive-hub/v1/index.json",
-      "sha256": "fb2c80b3da3e907952a28c1a5d274db64219e1cce8fadb8b704f43df348724c1"
+      "raw": "https://raw.githubusercontent.com/kody-w/hive-hub/68203b0c6940ee88b6246021a24f62dfd235dee7/api/hive-hub/v1/index.json",
+      "sha256": "735470491b84f759fa2a85190a7e7108fb41a1171200f6b522c69d3a869288c2"
     }
   }
 }

@@ -566,7 +566,7 @@ class HiveHubBridgeTests(unittest.TestCase):
         self.assertEqual("kody-w/hive-hub", upstream["repository"])
         self.assertEqual("main", upstream["branch"])
         self.assertEqual(
-            "da2fddccbb079cb857a64180db4877a9da22d433",
+            "68203b0c6940ee88b6246021a24f62dfd235dee7",
             upstream["commit"],
         )
         self.assertTrue(upstream["protocol"]["neutral"])
@@ -580,12 +580,12 @@ class HiveHubBridgeTests(unittest.TestCase):
         )
         index = upstream["index"]
         self.assertEqual(
-            "fb2c80b3da3e907952a28c1a5d274db64219e1cce8fadb8b704f43df348724c1",
+            "735470491b84f759fa2a85190a7e7108fb41a1171200f6b522c69d3a869288c2",
             index["sha256"],
         )
         self.assertEqual(
             "https://raw.githubusercontent.com/kody-w/hive-hub/"
-            "da2fddccbb079cb857a64180db4877a9da22d433/"
+            "68203b0c6940ee88b6246021a24f62dfd235dee7/"
             "api/hive-hub/v1/index.json",
             index["raw_url"],
         )
