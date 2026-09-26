@@ -112,7 +112,7 @@ Line" collision; `immutable reference → the sha256 content-address pin`.)
 - `/u`, `/api` cells → `rapp-static-api/1.0` profiles (schema string on every doc) + `rapp-frame/2.0`
   verify-before-act. **Strictly static — no executing route** (avoid the forbidden `/api/agent` RCE shape,
   `rapp-kernel-boundary R7`). Rename "verify-before-exec" → verify-before-act.
-- `/mcp` catalog + Node shim → `rapp-static-mcp/1.0` within `rapp-mcp-spec/1.0`, terminating on `/chat`.
+- `/mcp` catalog + Node shim → `rapp-static-mcp/1.0` within `rapp-mcp-spec/2.0`, terminating on `/chat`.
 - id resolver → `rapp-eternity/1.0` rappid (`rappid:@owner/slug:64hex`) + `rapp-estate/1.1` /
   `rapp-network-beacon/1.1`; READ legacy forms, EMIT canonical, JOIN on the hash, never rewrite in place.
 - `/twin` Dataverse rows → `rapp-dataverse/1.0` static vTwin (parity tier `core`).
