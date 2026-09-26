@@ -71,8 +71,9 @@ prev_hash, hash, sig?}`, full 64-hex sha256, **never mutated** (new state = new 
 Private life rides `memory.*` (`stream_id = <rappid>:<instance>`); the shared word rides `swarm.*`
 (`net:<name>`). Messages travel as the **`rapp-twin-chat/1.0` §6 envelope** wrapped in a signed
 **`rapp-commons-event/1.0`** over **`POST /chat`**, or as a signed append-only event — **never a bespoke
-channel**. A drop-in **`twin_agent.py`** (frozen ABI, auto-discovered from `agents/**/*_agent.py`) lets any
-brainstem fetch+verify the twin over the wire.
+channel**. A drop-in **`twin_agent.py`** (frozen ABI; it sits at the top of `agents/`, as
+`agents/twin_agent.py`, because under RAPP proposal 0001 only top-level agents are live and a file in a
+subfolder is parked) lets any brainstem fetch+verify the twin over the wire.
 
 - **verify-before-act** (was "verify-before-assimilate"): recompute `sha256(canonical(frame)) == pointer
   hash AND filename`. Always; PKI-free. A `sig_suite` signature is **optional L2 authenticity**, verified
