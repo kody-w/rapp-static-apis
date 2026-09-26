@@ -1,5 +1,9 @@
 # 🗿 rapp-static-apis
 
+<!-- rapp1:network-header:start -->
+[![RAPP/1](https://kody-w.github.io/rapp-hive-public/portfolio/badges/rapp-static-apis.svg)](https://github.com/kody-w/rapp-hive-public/blob/main/portfolio/repos/rapp-static-apis.md) · **New to RAPP?** [Start here: get your Brainstem →](https://github.com/kody-w/rapp-installer#start-here)
+<!-- rapp1:network-header:end -->
+
 **The spec for static APIs built entirely on GitHub raw user data — no server.** Reference this
 anywhere in the RAPP ecosystem (or anywhere at all) that needs an API built the same way.
 
