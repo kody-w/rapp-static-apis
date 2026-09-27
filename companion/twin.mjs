@@ -47,6 +47,8 @@ export async function makeFrame(cart, prevSha, kind, note, extra) {
   return Object.assign({ sha, prev: prevSha || '', ts: Date.now(), kind: kind || 'frame', note: note || '', cart, sig: null }, extra || {});
 }
 export async function validateFrame(f) { return (await frameSha(f.cart, f.prev)) === f.sha; }
+// each frame's sha is correct over cart+prevSha (works for grafted/imported frames too)
+export async function validateChain(frames) { for (const f of (frames || [])) { if (!(await validateFrame(f))) return false; } return true; }
 export const sha8 = s => String(s || '').slice(0, 8);
 // current state = the frame with the latest ts (revert appends a fresh-ts frame,
 // QR-import appends foreign frames; max-ts is the live head either way)
