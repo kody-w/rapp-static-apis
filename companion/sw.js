@@ -2,10 +2,11 @@
 // Caches the app shell so it launches instantly (and works offline); the mind (Pyodide, fetched
 // inside the separate vbrainstem sandbox) needs a connection the first time, then the browser caches it.
 const CACHE_PREFIX = 'companion-';
-const CACHE = 'companion-shell-v13';
+const CACHE = 'companion-shell-v14';
 const SHELL = ['./', 'index.html', 'player.html', 'brain.py', 'manifest.webmanifest', 'icon-180.png', 'icon-192.png', 'icon-512.png',
   'agent_runtime.py', 'agents/basic_agent.py', 'agents/manage_memory_agent.py', 'agents/context_memory_agent.py',
-  'twin.mjs', 'genetics.mjs', '../track/qr.mjs', '../rapp-go/lib/basket.js'];
+  'twin.mjs', 'genetics.mjs', '../track/qr.mjs', '../rapp-go/lib/basket.js',
+  '../rapp-go/lib/nav.js', '../rapp-go/lib/app-shell.js'];
 let replacingPrevious = false;
 
 self.addEventListener('install', e => {

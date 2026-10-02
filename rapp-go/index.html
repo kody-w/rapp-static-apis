@@ -247,8 +247,9 @@ import { BUCKET_MS, skyCacheKey } from './lib/weather.js';
 import { eggRarity, throwQuality, ringRadius, runCatch, mintCaught, talkHref, breedHref, RING_MS } from './catch.js';
 import * as poi from './poi.js';
 import { mountNav } from './lib/nav.js';
+import { registerAppShell } from './lib/app-shell.js';
 // GO-LIVE §C/§D/§E — onboarding, the starter ceremony, and the share layer
-import { maybeOnboard, onboarded, starterCeremony, shareCaught, receiveEgg, cancelReceiveEgg, receivePanel, tip } from './onboard.js';
+import { maybeOnboard, onboarded, starterCeremony, shareCaught, receiveEgg, cancelReceiveEgg, receivePanel, tip, coachCatch } from './onboard.js';
 
 const $ = id => document.getElementById(id);
 const params = new URLSearchParams(location.search);
@@ -626,6 +627,7 @@ async function openEncounter(sp){
   $('enc-grade').classList.remove('show');
   startCreatureRender(sp.cart);
   const sh = $('sheet'); openDialogSurface(sh);
+  coachCatch('ring');
   // the honest catch tier is a pure function of the genome content-hash (catch.js)
   const eg = await eggRarity(sp.cart);
   if (!current || current.spawn !== sp) return;
@@ -717,6 +719,7 @@ async function attemptThrow(releaseMs, hit){
   const ratio = ringRadius(releaseMs, ENC_R*1.9) / ENC_R;
   const q = throwQuality(ratio, hit);
   if (!q.hit){ showGrade('wide'); $('enc-note').textContent = 'wide — the vessel bounced back (nothing spent).'; ringT0 = performance.now(); return; }
+  coachCatch('throw');
 
   const token = {};
   encounter.throwToken = token;
@@ -762,6 +765,7 @@ async function attemptThrow(releaseMs, hit){
     );
     if (!activeThrow(encounter, token)) return;
     window.__lastRoll = res;
+    coachCatch('outcome');
 
     if (res.caught){ await onCaught(encounter, orb, aidKey, q.label, res.shakes, pal); }
     else if (res.fled){ onFled(encounter); }
@@ -1134,11 +1138,11 @@ document.addEventListener('keydown',e=>{
   else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
 });
 
-// ── installable (§A): sw scoped to /rapp-go/ — §H.2's "root sw.js exists" premise
-//    was stale (there is none); the brief's documented fallback applies ────────────
+// ── installed as one app: registerAppShell wraps navigator.serviceWorker.register
+//    for the root worker, so every room stays in scope and available offline. ──────
 if ('serviceWorker' in navigator) {
   try {
-    navigator.serviceWorker.register('./sw.js');
+    registerAppShell();
     navigator.serviceWorker.addEventListener('message', e => {
       if (!e.data || e.data.type !== 'rapp-update-ready') return;
       updateReady = true;
