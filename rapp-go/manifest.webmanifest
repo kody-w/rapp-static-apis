@@ -1,7 +1,7 @@
 {
   "name": "rapp·go — catch the sky where you stand",
   "short_name": "rapp·go",
-  "description": "A quiet, no-backend explorer: the real weather of the real place you walk to becomes a creature.",
+  "description": "A quiet, no-backend explorer and forge: weather, photos, voices, codes, objects, and places become living artifacts.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -9,6 +9,14 @@
   "background_color": "#e9ebe6",
   "theme_color": "#e9ebe6",
   "categories": ["games", "lifestyle"],
+  "shortcuts": [
+    {
+      "name": "Anything Alive forge",
+      "short_name": "Forge",
+      "description": "Turn physical signals into a private, portable hologram organism.",
+      "url": "forge.html"
+    }
+  ],
   "icons": [
     { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },

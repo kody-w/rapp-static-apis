@@ -15,8 +15,9 @@
 
 import { momentToGenome, genomeId, geohashEncode, geohashDecode, mkRng, moonPhase } from './lib/genome.js';
 import { speciesOf, FAMILIES, snapHash, faunaPath, spriteAtlas, atlasMemoryBytes, clearAtlasCache, ATLAS_BUDGET_BYTES } from './lib/fauna.js';
+import { forgeCartridge, projectArtifact, reduceAudioMetadata, reduceIdentity, reducePlace, reduceWeather } from './lib/forge.js';
 import { SpawnField } from './spawn.js';
-import { exportBones } from '../companion/twin.mjs';
+import { exportBones, interrogate } from '../companion/twin.mjs';
 import { readFileSync } from 'node:fs';
 
 let pass = 0, fail = 0;
@@ -183,6 +184,32 @@ const FIXTURE = { temp: 12.5, weathercode: 61, wind: 18, isDay: 0 }; // a fixed 
   ok('atlas LRU evicts old entries while active references remain usable', rerenderedFirst !== firstAtlas && firstAtlas.frameAt(0) === null);
   clearAtlasCache();
   ok('atlas cache clear is idempotent', atlasMemoryBytes() === 0);
+}
+
+// ── 5. ANYTHING ALIVE — six physical families share one existing artifact law. ──
+{
+  const codeRaw = 'QR:private-selftest-4938';
+  const objectRaw = 'NFC:private-selftest-a91e';
+  const signals = {
+    image: { kind:'image', palette:['#224466','#88aacc','#d8ecf5','#4a7691'], luma:.52, contrast:.41, edge:.36, aspect:'wide' },
+    voice: reduceAudioMetadata({ duration:3.25, energy:.63, brightness:.34, pulse:.71 }),
+    code: await reduceIdentity('code', codeRaw, { format:'qr_code' }),
+    object: await reduceIdentity('object', objectRaw, { source:'nfc' }),
+    weather: reduceWeather({ temp:17.5, weathercode:61, wind:14, isDay:1 }),
+    place: await reducePlace({ lat:40.7128, lng:-74.006, label:'private selftest place' })
+  };
+  const at = Date.now() - 1000;
+  const artifact = await forgeCartridge(signals, { nowMs:at, lat:40.7128, lng:-74.006, note:'private selftest memory' });
+  const rebuilt = await forgeCartridge(Object.fromEntries(Object.entries(signals).reverse()), { nowMs:at, lat:40.7128, lng:-74.006, note:'private selftest memory' });
+  ok('anything-alive fixed traits produce a deterministic cartridge', JSON.stringify(artifact) === JSON.stringify(rebuilt));
+  ok('anything-alive identity is the existing genomeId', artifact.id === await genomeId(artifact.genome), artifact.id);
+  const verdict = await interrogate(artifact, 'cart');
+  ok('anything-alive cartridge clears Companion interrogation', verdict.ok, JSON.stringify(verdict.reasons));
+  const publicArtifact = projectArtifact(artifact);
+  const publicJson = JSON.stringify(publicArtifact);
+  ok('anything-alive public bones strip raw identity, exact place, note, and memory',
+    !publicJson.includes(codeRaw) && !publicJson.includes(objectRaw) && !('note' in publicArtifact) &&
+    publicArtifact.born.coord.split('·')[0].length === 5 && speciesOf(publicArtifact).family === speciesOf(artifact).family);
 }
 
 // ── summary ──────────────────────────────────────────────────────────────────────

@@ -1,15 +1,15 @@
 // nav.js — the rapp·go room-switcher (golive-brief §H.3). One app, many rooms:
-// map · twin · basket · lantern · journal. Import, don't fork (cohesion-brief §5).
+// map · forge · twin · basket · lantern. Import, don't fork (cohesion-brief §5).
 // Contract: mountNav({ active, root }) — see rapp-go/design/nav-contract.md.
 // Quiet, bottom, thumb-reachable, standalone-aware. Zero deps; relative links only
 // (the site is a project page — root-absolute paths would 404).
 
 const ROOMS = [
   { key: 'map',     glyph: '◈', label: 'map',     href: r => `${r}/rapp-go/index.html` },
+  { key: 'forge',   glyph: '✦', label: 'forge',   href: r => `${r}/rapp-go/forge.html` },
   { key: 'twin',    glyph: '◍', label: 'twin',    href: r => `${r}/companion/index.html` },
   { key: 'basket',  glyph: '●', label: 'basket',  href: r => `${r}/hologram/index.html` },
   { key: 'lantern', glyph: '○', label: 'lantern', href: r => `${r}/lantern/index.html` },
-  { key: 'journal', glyph: '□', label: 'journal', href: () => null },  // room not landed yet
 ];
 
 const CSS = `

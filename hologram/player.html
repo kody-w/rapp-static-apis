@@ -63,8 +63,8 @@
  <div style="display:flex;flex-direction:column;gap:0;flex:1;min-width:240px">
   <div id="controls">
    <button id="btn-dl">↓ download .egg</button>
-   <button id="btn-link">copy link</button>
-   <button id="btn-qr">QR</button>
+   <button id="btn-link">copy public link</button>
+   <button id="btn-qr">public QR</button>
    <button id="btn-lantern">Lantern ↗</button>
    <button id="btn-talk">💬 talk</button>
    <button id="btn-cabinet">raise at Cabinet ↗</button>
@@ -102,7 +102,7 @@
 </div>
 
 <script type="module">
-import { interrogate } from '../companion/twin.mjs';
+import { exportBones, interrogate } from '../companion/twin.mjs';
 import { keepToBasket as writeBasketRecord } from '../rapp-go/lib/basket.js';
 
 /* ── Software-3D renderer ─────────────────────────────────────────────────── */
@@ -1096,10 +1096,10 @@ document.getElementById('btn-keep').onclick = async () => {
 
 document.getElementById('btn-link').onclick = async () => {
   if (!CART || !CART_VERIFIED) return;
-  const url = new URL('player.html' + (IS_DEMO_PLAYER ? '?demo=1' : '') + '#' + b64enc(JSON.stringify(CART)), location.href).href;
+  const url = new URL('player.html' + (IS_DEMO_PLAYER ? '?demo=1' : '') + '#' + b64enc(JSON.stringify(exportBones(CART).cart)), location.href).href;
   await navigator.clipboard?.writeText(url);
   const btn = document.getElementById('btn-link');
-  btn.textContent = 'copied ✓'; setTimeout(() => btn.textContent = 'copy link', 1400);
+  btn.textContent = 'public link copied ✓'; setTimeout(() => btn.textContent = 'copy public link', 1400);
 };
 
 document.getElementById('btn-file').onclick = () => document.getElementById('file-in').click();
@@ -1201,7 +1201,7 @@ document.getElementById('btn-qr').onclick = async () => {
     }
   }
   if (generation !== LOAD_GENERATION || CART !== cart || !CART_VERIFIED) return;
-  const url = new URL('player.html' + (IS_DEMO_PLAYER ? '?demo=1' : '') + '#' + b64enc(JSON.stringify(cart)), location.href).href;
+  const url = new URL('player.html' + (IS_DEMO_PLAYER ? '?demo=1' : '') + '#' + b64enc(JSON.stringify(exportBones(cart).cart)), location.href).href;
   const { qr } = qrMod;
   const { size, modules } = qr(url, { ecl: 'M' });
   const q = 4, scale = Math.max(2, Math.floor(240 / (size + 2 * q))), dim = (size + 2 * q) * scale;
