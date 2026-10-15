@@ -1,0 +1,32 @@
+{
+  "github": {
+    "owner": "kody-w",
+    "repo": "rapp-static-apis",
+    "snapshots": [
+      {
+        "path": "repos/{owner}/{repo}",
+        "out": "showcase/data/github-repo.json",
+        "fields": ["id", "name", "full_name", "owner.login", "html_url", "description", "language",
+                   "default_branch", "license.key", "license.name", "stargazers_count", "watchers_count",
+                   "forks_count", "open_issues_count", "created_at", "updated_at", "pushed_at"]
+      },
+      {
+        "path": "repos/{owner}/{repo}/issues?state=open&per_page=100",
+        "out": "showcase/data/github-issues.json",
+        "max_pages": 5,
+        "fields": ["number", "title", "state", "labels.name", "user.login", "created_at", "html_url",
+                   "reactions.total_count", "body", "pull_request.url"]
+      },
+      {
+        "path": "repos/kody-w/twin/contents/keys",
+        "out": "legal/data/twin-keys.json",
+        "fields": ["name", "path", "type", "size", "sha"]
+      },
+      {
+        "path": "repos/kody-w/twin/git/trees/main?recursive=1",
+        "out": "legal/data/twin-tree.json",
+        "fields": ["sha", "truncated", "tree.path", "tree.type"]
+      }
+    ]
+  }
+}

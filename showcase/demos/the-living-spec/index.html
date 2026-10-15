@@ -134,7 +134,7 @@ async function bootedRuntime() {
 
 async function attestSelf() {
   narrate('self-fetch', 'active', 'fetch this page\'s own index.html bytes…', location.pathname);
-  const res = await fetch('index.html', { cache: 'no-store' });
+  const res = await fetch('index.html');
   if (!res.ok) throw new Error(`fetch index.html → ${res.status} ${res.statusText}`);
   const bytes = await res.arrayBuffer();
   narrate('self-fetch', 'ok', 'fetched own source', `${bytes.byteLength} bytes`);

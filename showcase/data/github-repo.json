@@ -1,4 +1,7 @@
 {
+  "schema": "rapp-static-api-github-snapshot/1.1",
+  "generated_at": "2026-10-15T17:28:46Z",
+  "source": "https://api.github.com/repos/kody-w/rapp-static-apis",
   "id": 1249719721,
   "name": "rapp-static-apis",
   "full_name": "kody-w/rapp-static-apis",
@@ -7,18 +10,17 @@
   },
   "html_url": "https://github.com/kody-w/rapp-static-apis",
   "description": "🗿 rapp-static-api/1.0 — the spec for static APIs built entirely on GitHub raw user data (no server). Reference impl: rapp-god.",
+  "created_at": "2026-05-26T01:32:53Z",
+  "updated_at": "2026-10-06T13:19:52Z",
+  "pushed_at": "2026-10-06T13:19:47Z",
+  "stargazers_count": 0,
+  "watchers_count": 0,
   "language": "HTML",
-  "default_branch": "main",
+  "forks_count": 0,
+  "open_issues_count": 4,
   "license": {
     "key": "mit",
     "name": "MIT License"
   },
-  "stargazers_count": 0,
-  "watchers_count": 0,
-  "forks_count": 0,
-  "open_issues_count": 4,
-  "created_at": "2026-05-26T01:32:53Z",
-  "updated_at": "2026-10-05T14:42:13Z",
-  "pushed_at": "2026-10-05T14:42:08Z",
-  "harvested_at": "2026-10-06T13:19:46.951Z"
+  "default_branch": "main"
 }

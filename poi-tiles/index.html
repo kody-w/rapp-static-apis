@@ -153,7 +153,7 @@ async function loadIndexLive() {
   const out = $('idxOut');
   out.innerHTML = '<span class="muted">fetching data/index.json …</span>';
   try {
-    const res = await fetch(REL + 'index.json', { cache: 'no-store' });
+    const res = await fetch(REL + 'index.json');
     if (!res.ok) throw new Error('index.json HTTP ' + res.status);
     const idx = out.__idx = await res.json();
     const atl = idx.regions && idx.regions.atlanta;

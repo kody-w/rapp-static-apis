@@ -284,7 +284,7 @@
   async function fetchJson(url) {
     const started = performance.now();
     try {
-      const response = await fetch(url, { headers: { "Accept": "application/json" }, cache: "no-store" });
+      const response = await fetch(url, { headers: { "Accept": "application/json" } });
       const text = await response.text();
       let body;
       try { body = JSON.parse(text); } catch { body = text; }
@@ -338,8 +338,8 @@
   }
   async function load() {
     const [registryResponse, routesResponse] = await Promise.all([
-      fetch("registry.json", { cache: "no-store" }),
-      fetch("api/v1/capability-routes.json", { cache: "no-store" })
+      fetch("registry.json"),
+      fetch("api/v1/capability-routes.json")
     ]);
     state.registry = await registryResponse.json();
     const routeDoc = await routesResponse.json();

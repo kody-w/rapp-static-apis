@@ -91,7 +91,7 @@ document.getElementById('go').onclick = async () => {
 
   try {
     narrate('live-fetch', 'active', 'fetch live response bytes', SRC);
-    const res = await fetch(SRC, { cache: 'no-store' });
+    const res = await fetch(SRC);
     if (!res.ok) throw new Error(`fetch ${SRC} -> ${res.status}`);
     const fetchedAt = new Date().toISOString();
     const bytes = await res.arrayBuffer();

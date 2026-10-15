@@ -1,0 +1,27 @@
+[
+  {
+    "id": 31,
+    "tag_name": "v1.1.0",
+    "name": "One point one",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-03-01T00:00:00Z",
+    "html_url": "https://github.com/example-owner/example-repo/releases/tag/v1.1.0",
+    "author": { "login": "example-owner" },
+    "assets": [
+      { "id": 501, "name": "site.zip", "size": 2048, "download_count": 9,
+        "browser_download_url": "https://github.com/example-owner/example-repo/releases/download/v1.1.0/site.zip" }
+    ]
+  },
+  {
+    "id": 30,
+    "tag_name": "v1.0.0",
+    "name": "One point oh",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-02-01T00:00:00Z",
+    "html_url": "https://github.com/example-owner/example-repo/releases/tag/v1.0.0",
+    "author": { "login": "example-owner" },
+    "assets": []
+  }
+]

@@ -164,7 +164,7 @@ document.getElementById('go').onclick = async () => {
 
     // ── DONOR 2: proof-of-freshness — fetch ranking bytes + SHA-256 stamp ──
     narrate('board-fetch', 'active', 'fetch live ranking bytes for freshness proof', RANKING);
-    const res = await fetch(RANKING, { cache: 'no-store' });
+    const res = await fetch(RANKING);
     if (!res.ok) throw new Error(`fetch ${RANKING} → ${res.status}`);
     const fetchedAt = new Date().toISOString();
     const bytes = await res.arrayBuffer();

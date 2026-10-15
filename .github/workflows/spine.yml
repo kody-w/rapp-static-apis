@@ -23,8 +23,11 @@ on:
 permissions:
   contents: write
 
+# rapp-static-api/1.1: every workflow that pushes to main shares ONE concurrency group so pushes never
+# race. GitHub keeps at most one pending run per group (a newer one replaces it); each run rebuilds from
+# scratch and rebases onto the live tip before pushing, so a replaced run loses nothing.
 concurrency:
-  group: spine-build
+  group: push-main
   cancel-in-progress: false
 
 jobs:
@@ -45,5 +48,11 @@ jobs:
           git config user.name "RAPP Spine Bot"
           git config user.email "rapp-bot@users.noreply.github.com"
           git add registry.json api llms.txt sitemap.xml .well-known
-          git diff --cached --quiet || git commit -m "Rebuild root discovery spine [skip ci]"
-          git push
+          git diff --cached --quiet && exit 0
+          git commit -m "Rebuild root discovery spine [skip ci]"
+          # checkout pins the triggering SHA; rebase onto the live tip before pushing (retry on a race).
+          for i in 1 2 3; do
+            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

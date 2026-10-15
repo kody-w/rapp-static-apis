@@ -1,0 +1,73 @@
+{
+  "schema": "rapp-static-api-github-snapshot/1.1",
+  "generated_at": "2026-10-15T17:28:46Z",
+  "source": "https://api.github.com/repos/kody-w/rapp-static-apis/issues?state=open&per_page=100",
+  "items": [
+    {
+      "html_url": "https://github.com/kody-w/rapp-static-apis/issues/129",
+      "number": 129,
+      "title": "drift(live-agents-twin-profile): rapp-twin.profile.md says twin_agent.py is auto-discovered from agents/**/*_agent.py",
+      "user": {
+        "login": "kody-w"
+      },
+      "labels": [],
+      "state": "open",
+      "created_at": "2026-09-26T05:34:56Z",
+      "body": "## Why\nRAPP proposal 0001, *Only top-level agents are live* ([kody-w/RAPP#119](https://github.com/kody-w/RAPP/pull/119), squash-merged as `a879530`), was implemented by the constitutional amendment [kody-w/RAPP#124](https://github.com/kody-w/RAPP/pull/124) (`e045fc3`). The governing rule: in the local Brainstem, live agents come only from the top-level `agents/*_agent.py` files, hot-loaded on every `/chat` request; every folder under `agents/` is organization only and never loads, whatever its name (`experimental_agents/`, `disabled_agents/` and `workspace_agents/` included); loading or unloading an agent is a plain file move, meaning drag and drop. The grail's loader (`kody-w/rapp-installer@brainstem-v0.6.9`, `rapp_brainstem/brainstem.py` lines 1202-1205) globs one level only.\n\nRAPP Constitution Article LIII.1 (\"Ratify → sweep → file, same session\") says an amendment is not \"done\" until the retired form has been hunted ecosystem-wide and every hit carries a `drift()` issue. This issue is this repository's hit from that sweep. (RAPP's own hits are kody-w/RAPP#126 to #130.)\n\nA `twin_agent.py` placed in a folder under `agents/` would not load.\n\n## Severity\nLow — a profile document; nothing changes at runtime.\n\n## Where\n`kody-w/rapp-static-apis@6d0d094696187816f80cb7449528ac5cec373fdb`, `rapp-twin.profile.md` lines 74-75: \"A drop-in **`twin_agent.py`** (frozen ABI, auto-discovered from `agents/**/*_agent.py`) lets any brainstem fetch+verify the twin over the wire.\"\n\n## Suggested fix\nSay \"auto-discovered from the top level of `agents/` (`agents/*_agent.py`)\".\n\n---\nFiled by an AI agent (the RAPP proposal 0001 workstream) during the ecosystem-wide Article LIII.1 sweep after kody-w/RAPP#124 merged. Per LIII.1, \"fixed\" is a re-sweep verdict — this issue stays open until a re-sweep confirms resolution.\n",
+      "reactions": {
+        "total_count": 0
+      }
+    },
+    {
+      "html_url": "https://github.com/kody-w/rapp-static-apis/issues/119",
+      "number": 119,
+      "title": "[standing-guard] Confirm rapp/1 conformance — deep self-sweep (Playbook + pre-scan inside)",
+      "user": {
+        "login": "kody-w"
+      },
+      "labels": [],
+      "state": "open",
+      "created_at": "2026-07-16T02:27:50Z",
+      "body": "## Standing guard: confirm this repo is `rapp/1`-conformant\n\nThe kody-w RAPP estate is converging to the **RAPP/1** standard (reference: [`kody-w/rapp-1 · rapp.py`](https://github.com/kody-w/rapp-1)) via alternating **top-down** (estate→repo) and **bottom-up** (repo→estate) sweeps, iterated until neither finds drift. This is your repo's bottom-up checkpoint.\n\n### 📖 Your complete instructions (self-contained)\n**[STANDING-GUARD-PLAYBOOK.md](https://github.com/kody-w/rapp-1/blob/main/STANDING-GUARD-PLAYBOOK.md)** · raw: https://raw.githubusercontent.com/kody-w/rapp-1/main/STANDING-GUARD-PLAYBOOK.md\nIdentity law (§6), frame (§7), egg (§9), Article LIV schema-name ratification, the judgment taxonomy, the deep self-sweep procedure, and the report protocol. Everything you need is there.\n\n### 🔎 Automated pre-scan of THIS repo (2026-07-15, reference `rapp_check.py`)\n**Floor verdict:** ✅ CLEAN (no committed RAPP artifacts to check)\n\n<details><summary>rapp_check.py output (tail)</summary>\n\n```\n○ rapp-static-apis: CLEAN\n```\n</details>\n\n**Residue strings found (1+)** — judge EACH by the Playbook §5 taxonomy (declaration→fix; history/legacy-test/observation/immutable→keep):\n```\ncompanion/brain.py:66: self.seed = int(hashlib.sha256((self.cid or self.name).encode()).hexdigest()[:8], 16)\n```\n> The floor check + grep above are the **shallow** pass. They are necessary, not sufficient — a repo can pass them while a runtime producer still mints an invalid rappid. The **deep** pass is yours.\n\n\n### The core law (visible without clicking)\n- rappid = `rappid:@<owner>/<slug>:<64hex>`; tail = `Hb(\"rapp/1:rappid\", uuid4_bytes)` — keyless, 64-hex, mint-once.\n- **Cardinal sin:** `sha256(\"owner/slug\")`/`sha256(name)` tails · 32-hex `uuid4().hex` tails · emitting `rappid:v2:`.\n- `rappid.json` `schema` is **`rapp/1`** (Art. LIV); `rapp-rappid/2.0` & `/1.1` are read-forever, never emitted.\n- Committed frames, sealed `frames/legacy/`, packed `.egg` = **immutable** (re-pack/re-genesis, never hand-edit).\n\n### Do this (Playbook §8)\n```bash\ngit clone --depth 1 https://github.com/kody-w/rapp-1 /tmp/rapp-1\npython3 /tmp/rapp-1/rapp_check.py .        # reproduce the floor verdict above\n```\nThen **soak this repo's full context**, **exercise its real producers** (mint/frame/egg) and validate live output vs `rapp.py` (`rappid_valid`, `verify_frame`), and judge each residue hit by the §5 taxonomy. Fix producers at their real layer; re-run to green.\n\n### Report back (Playbook §9)\nComment: **`SWEEP CLEAN`** / **`SWEEP DIRTY`**, the final verdict, which live pipes you ran, every fix (file + before→after) with commit SHAs. Then **close** any open `drift(...)` issue this resolves and **open** `drift(<code>): <summary>` (label `drift`) for anything unfixed.\n\n---\n*Filed by the top-down standing-guard pass, 2026-07-15. Durable checkpoint — the Playbook + `rapp-1` are public, so this continues regardless of who picks it up.*\n",
+      "reactions": {
+        "total_count": 0
+      }
+    },
+    {
+      "html_url": "https://github.com/kody-w/rapp-static-apis/pull/118",
+      "number": 118,
+      "title": "feat: autonomous evolution engine",
+      "user": {
+        "login": "kody-w"
+      },
+      "labels": [],
+      "state": "open",
+      "created_at": "2026-07-12T01:50:17Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/kody-w/rapp-static-apis/pulls/118"
+      },
+      "body": "## Stream 1 — Autonomous Evolution Engine\n\nImplements one complete eight-strategy evolution cycle with three consensus outcomes:\n\n- resumable onboarding with real catch coaching\n- verified primary-twin Breed round trips\n- one root-scoped, offline-capable installed app across rooms\n\nAll repository release gates, scorecard checks, syntax checks, HTTP smoke checks, and blocker review passed.\n\nCommit: `4a2ddc2`",
+      "reactions": {
+        "total_count": 0
+      }
+    },
+    {
+      "html_url": "https://github.com/kody-w/rapp-static-apis/pull/117",
+      "number": 117,
+      "title": "feat(rapp-go): forge anything alive",
+      "user": {
+        "login": "kody-w"
+      },
+      "labels": [],
+      "state": "open",
+      "created_at": "2026-07-12T01:50:17Z",
+      "pull_request": {
+        "url": "https://api.github.com/repos/kody-w/rapp-static-apis/pulls/117"
+      },
+      "body": "## Stream 2 — Anything Alive Forge\n\nAdds an end-to-end physical-signal forge for:\n\n- photos\n- voice/audio\n- QR and barcodes\n- NFC and typed objects\n- weather\n- GPS and typed places\n\nSignals are reduced locally into deterministic verified `.egg` artifacts, then flow through the existing basket, Hologram, Companion interrogation, and privacy-safe sharing contracts. Forge tests pass 61/61 and the full repository release gate is green.\n\nCommit: `2f5b232`",
+      "reactions": {
+        "total_count": 0
+      }
+    }
+  ]
+}

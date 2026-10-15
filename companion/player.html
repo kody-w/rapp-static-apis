@@ -1024,7 +1024,7 @@ async function resolveAndLoad(input) {
   }
   if (!cart && p.has('id')) {
     try {
-      const reg = await (await fetch('registry.json', { cache: 'no-store' })).json();
+      const reg = await (await fetch('registry.json')).json();
       const entry = (reg.entries || []).find(e => e.name === p.get('id') || e.id === p.get('id'));
       if (entry) cart = await loadFromUrl(new URL(entry.pin_path, location.href).href);
     } catch {}
@@ -1035,7 +1035,7 @@ async function resolveAndLoad(input) {
 
   // Populate title bar + pull config from registry
   try {
-    const reg = await (await fetch('registry.json', { cache: 'no-store' })).json();
+    const reg = await (await fetch('registry.json')).json();
     document.getElementById('meta').innerHTML =
       `${reg.summary.cartridges} cartridges · <a href="registry.json">registry.json</a>`;
     if (reg.lantern_url) LANTERN = reg.lantern_url;

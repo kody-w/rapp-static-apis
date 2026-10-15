@@ -15,6 +15,12 @@ on:
       - 'sitemap.xml'
       - '.well-known/**'
       - '.github/workflows/rapp-work-static-api.yml'
+      - 'template/**'
+      - 'tests/test_static_api_11.py'
+      - 'tests/fixtures/github/**'
+      - '**/*.html'
+      - '**/*.js'
+      - '**/*.mjs'
   push:
     branches: [main]
     paths:
@@ -30,6 +36,12 @@ on:
       - 'sitemap.xml'
       - '.well-known/**'
       - '.github/workflows/rapp-work-static-api.yml'
+      - 'template/**'
+      - 'tests/test_static_api_11.py'
+      - 'tests/fixtures/github/**'
+      - '**/*.html'
+      - '**/*.js'
+      - '**/*.mjs'
   workflow_dispatch:
 
 permissions:
@@ -64,5 +76,7 @@ jobs:
         run: python3 -B scripts/check_rapp_work_api.py
       - name: Run RAPP Work tests
         run: python3 -B -m unittest discover -s tests -p 'test_rapp_work_api.py'
-      - name: Run root conformance checker
+      - name: Run rapp-static-api/1.1 tests (harvester, browser lint, client)
+        run: python3 -B -m unittest discover -s tests -p 'test_static_api_11.py'
+      - name: Run root conformance checker (ends with the 1.1 browser lint; fails on a lint error)
         run: python3 -B check.py

@@ -74,7 +74,7 @@ curl -s $RAW/&lt;api&gt;/registry.json      # drill into one</pre>
 <footer>Generated live from <a href="./registry.json">registry.json</a> · rapp-static-api/1.0 · no server, no build to view this page.</footer>
 
 <script>
-const RAW = 'https://raw.githubusercontent.com/kody-w/rapp-static-apis/main';
+const RAW = 'https://raw.githubusercontent.com/kody-w/rapp-static-apis/main';  // fallback only, same-origin first (static-api-lint: allow)
 const esc = s => String(s==null?'':s).replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 
 async function main(){

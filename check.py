@@ -5,9 +5,13 @@ Scores the "index of indexes" + agent-discovery layer out of 132. This is the
 objective signal for the improvement loop: run it every pass, keep changes only
 if the number goes up and nothing regresses.
 
-Usage:  python3 check.py            # score against the repo root (cwd)
+Usage:  python3 check.py            # score against the repo root (cwd), then the 1.1 browser lint
         python3 check.py --live     # additionally verify live raw URLs resolve
-Stdlib only. Prints a per-check breakdown and TOTAL / 132.
+        python3 check.py --lint     # only the rapp-static-api/1.1 browser lint (fast)
+        python3 check.py --lint <path> <owner>/<repo>   # lint another tree
+Stdlib only. Prints a per-check breakdown and TOTAL / 132, then the 1.1 browser lint. Exit code 1
+when the lint finds an error (a live api.github.com call or a cache-defeating fetch in a served file);
+the score itself never fails the run.
 """
 import hashlib, json, os, re, sys, subprocess, datetime, urllib.request
 
@@ -173,8 +177,181 @@ def discover_subapis(root):
             apis.append(name)
     return apis
 
+# ── rapp-static-api/1.1 browser lint ──────────────────────────────────────────
+# Spec §3 (1.1): a file served to a browser MUST NOT call api.github.com (visitors share GitHub's 60
+# requests/hour per-IP unauthenticated limit), MUST NOT defeat CDN/browser caching (cache:'no-store',
+# time/random cache-busting query strings), and SHOULD NOT read same-site data from
+# raw.githubusercontent.com (it has its own anonymous rate limits; serve it same-origin).
+# Heuristic, by design: it reads executable script only (comments and HTML text are ignored), skips a
+# URL inside a shell command string (`curl ...`), and honours an explicit per-line escape hatch:
+#   // static-api-lint: allow   — for a documented, non-fetch mention.
+# Scripts that run in CI (scripts/, tests/, *.test.*, .github/) are exempt. A content-addressed
+# versions/ blob is immutable (append-only), so a violation there is a warning: publish a fixed version.
+LINT_EXT = ('.html', '.htm', '.js', '.mjs')
+LINT_SKIP_DIRS = {'.git', '.github', 'scripts', 'tests', 'test', 'node_modules', '__pycache__'}
+LINT_PRAGMA = 'static-api-lint: allow'
+LINT_JS_TYPES = {'', 'module', 'text/javascript', 'application/javascript', 'javascript'}
+RE_GH_API = re.compile(r'api\.github\.com')
+RE_NO_STORE = re.compile(r"""\bcache\s*:\s*(['"`])no-store\1""")
+RE_CACHE_BUST = re.compile(
+    r"""[?&][\w.-]*=\s*(?:['"`]\s*\+\s*|\$\{\s*)\+?\s*(?:Date\.now\s*\(|Math\.random\s*\(|new\s+Date\s*\(|performance\.now\s*\()""")
+RE_SCRIPT = re.compile(r'<script\b([^>]*)>(.*?)</script\s*>', re.I | re.S)
+RE_TYPE = re.compile(r"""\btype\s*=\s*["']?([^"'\s>]+)""", re.I)
+
+
+def lint_served_files(root):
+    """Every browser-served .html/.js/.mjs under root, minus CI scripts and tests (relative paths)."""
+    try:
+        out = subprocess.run(['git', '-C', root, 'ls-files', '-z', '--cached', '--others',
+                              '--exclude-standard'], capture_output=True, check=True, timeout=60).stdout
+        rels = sorted({p for p in out.decode('utf-8').split('\0') if p})
+    except Exception:
+        rels = []
+        for base, dirs, names in os.walk(root):
+            dirs[:] = [d for d in dirs if d not in LINT_SKIP_DIRS]
+            rels += [os.path.relpath(os.path.join(base, n), root) for n in names]
+    keep = []
+    for rel in rels:
+        parts = rel.replace(os.sep, '/').split('/')
+        name = parts[-1]
+        if not name.endswith(LINT_EXT) or set(parts[:-1]) & LINT_SKIP_DIRS:
+            continue
+        if '.test.' in name or '.spec.' in name or not os.path.isfile(os.path.join(root, rel)):
+            continue
+        keep.append(rel)
+    return keep
+
+
+def _blank(text):
+    return re.sub(r'[^\n]', ' ', text)
+
+
+def js_code_view(src):
+    """src with JS comments blanked (newlines kept, so line numbers survive). Strings stay."""
+    out, i, n = list(src), 0, len(src)
+    state, quote, prev, tpl_depths = 'code', '', '', []
+    while i < n:
+        c = src[i]
+        if state == 'code':
+            nxt = src[i + 1] if i + 1 < n else ''
+            if c in '"\'':
+                state, quote = 'str', c
+            elif c == '`':
+                state = 'tpl'
+            elif c == '/' and nxt == '/':
+                j = src.find('\n', i)
+                j = n if j < 0 else j
+                out[i:j] = _blank(src[i:j]); i = j; continue
+            elif c == '/' and nxt == '*':
+                j = src.find('*/', i + 2)
+                j = n if j < 0 else j + 2
+                out[i:j] = _blank(src[i:j]); i = j; continue
+            elif c == '/' and (prev == '' or prev in '(,=:[!&|?{};+-*%<>~^'):
+                j, in_class = i + 1, False          # a regex literal: skip it whole
+                while j < n and src[j] != '\n':
+                    if src[j] == '\\': j += 2; continue
+                    if src[j] == '[': in_class = True
+                    elif src[j] == ']': in_class = False
+                    elif src[j] == '/' and not in_class: break
+                    j += 1
+                if j < n and src[j] == '/':
+                    prev = '/'; i = j + 1; continue
+            elif c == '{' and tpl_depths:
+                tpl_depths[-1] += 1
+            elif c == '}' and tpl_depths:
+                if tpl_depths[-1] == 0:
+                    tpl_depths.pop(); state = 'tpl'; i += 1; continue
+                tpl_depths[-1] -= 1
+            if not c.isspace():
+                prev = c
+            i += 1
+        elif state == 'str':
+            if c == '\\': i += 2; continue
+            if c == quote or c == '\n':
+                state, prev = 'code', quote
+            i += 1
+        else:  # template literal
+            if c == '\\': i += 2; continue
+            if c == '`':
+                state, prev = 'code', '`'
+            elif c == '$' and i + 1 < n and src[i + 1] == '{':
+                tpl_depths.append(0); state = 'code'; prev = '{'; i += 2; continue
+            i += 1
+    return ''.join(out)
+
+
+def browser_code_view(rel, src):
+    """The executable script of a served file, comment-free, aligned line-for-line with the file."""
+    if not rel.lower().endswith(('.html', '.htm')):
+        return js_code_view(src)
+    view, last = [], 0
+    for m in RE_SCRIPT.finditer(src):
+        t = RE_TYPE.search(m.group(1))
+        is_js = (t.group(1).lower() if t else '') in LINT_JS_TYPES
+        view.append(_blank(src[last:m.start(2)]))
+        view.append(js_code_view(m.group(2)) if is_js else _blank(m.group(2)))
+        last = m.end(2)
+    view.append(_blank(src[last:]))
+    return ''.join(view)
+
+
+def lint_browser_files(root, owner=None, repo=None):
+    """Returns (files_scanned, errors, warnings); each finding is 'path:line: message'."""
+    owner = owner or root_builder.OWNER
+    repo = repo or root_builder.REPO
+    re_raw_same = re.compile(r'raw\.githubusercontent\.com/' + re.escape(owner) + '/' + re.escape(repo) + r'(?:/|\b)')
+    files = lint_served_files(root)
+    errors, warnings = [], []
+    for rel in files:
+        try:
+            with open(os.path.join(root, rel), encoding='utf-8', errors='replace') as fh:
+                src = fh.read()
+        except OSError:
+            continue
+        immutable = '/versions/' in '/' + rel.replace(os.sep, '/')
+        lines = src.split('\n')
+        for no, code in enumerate(browser_code_view(rel, src).split('\n'), 1):
+            if LINT_PRAGMA in lines[no - 1]:
+                continue
+            found = []
+            for m in RE_GH_API.finditer(code):
+                if not re.search(r'\bcurl\s', code[:m.start()]):
+                    found.append(('error', 'live api.github.com call from a browser (harvest it in CI: snapshot profile)'))
+                    break
+            if RE_NO_STORE.search(code):
+                found.append(('error', "cache:'no-store' defeats the CDN and browser cache"))
+            if RE_CACHE_BUST.search(code):
+                found.append(('error', 'time/random cache-busting query string defeats the CDN'))
+            if re_raw_same.search(code):
+                found.append(('warn', 'same-repo data read from raw.githubusercontent.com (SHOULD be same-origin)'))
+            for level, msg in found:
+                line = f'{rel}:{no}: {msg}'
+                if level == 'error' and immutable:
+                    warnings.append(line + ' [immutable versions/ blob: publish a fixed version]')
+                else:
+                    (errors if level == 'error' else warnings).append(line)
+    return len(files), errors, warnings
+
+
+def print_lint(root, owner=None, repo=None):
+    n, errors, warnings = lint_browser_files(root, owner, repo)
+    print('\n──────── rapp-static-api/1.1 BROWSER LINT ────────')
+    print(f'browser-served files scanned: {n}')
+    for e in errors:
+        print(f'❌ {e}')
+    for w in warnings:
+        print(f'⚠  {w}')
+    print(f'LINT: {"FAIL" if errors else "PASS"} ({len(errors)} errors, {len(warnings)} warnings)')
+    return 1 if errors else 0
+
+
 def main():
     live = '--live' in sys.argv
+    if '--lint' in sys.argv:
+        # python3 check.py --lint [<path> [<owner>/<repo>]] — lint this repo, or any other tree.
+        pos = [a for a in sys.argv[1:] if not a.startswith('--')]
+        owner, _, repo = (pos[1] if len(pos) > 1 else '').partition('/')
+        return print_lint(os.path.abspath(pos[0]) if pos else ROOT, owner or None, repo or None)
     subapis = discover_subapis(ROOT)
     n_sub = len(subapis)
 
@@ -304,7 +481,7 @@ def main():
         print(f'{mark} {got:>4}/{pts:<3} {name}' + (f'  [{note}]' if note else ''))
     print('────────────────────────────────────────')
     print(f'TOTAL: {round(total,1)} / {mx}')
-    return 0
+    return print_lint(ROOT)
 
 def _tracked_generated():
     files = ['registry.json', 'sitemap.xml', 'llms.txt',

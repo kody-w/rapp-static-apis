@@ -117,7 +117,7 @@ async function grab(url, as = 'text') {
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), 9000);
   try {
-    const r = await fetch(url, { cache: 'no-store', signal: ctrl.signal });
+    const r = await fetch(url, { signal: ctrl.signal });
     if (!r.ok) throw new Error('HTTP ' + r.status);
     if (as === 'json') return r.json();
     if (as === 'bytes') return new Uint8Array(await r.arrayBuffer());

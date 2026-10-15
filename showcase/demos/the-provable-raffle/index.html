@@ -185,7 +185,7 @@ document.getElementById('go').onclick = async () => {
   try {
     // ── STEP 1: Freshness proof (transplanted from proof-of-freshness) ──────────────
     narrate('fresh-fetch', 'active', 'fetch live entropy source (proof-of-freshness)', ENTROPY_SRC);
-    const res = await fetch(ENTROPY_SRC, { cache: 'no-store' });
+    const res = await fetch(ENTROPY_SRC);
     if (!res.ok) throw new Error(`fetch ${ENTROPY_SRC} → ${res.status}`);
     const fetchedAt = new Date().toISOString();
     const bytes = await res.arrayBuffer();

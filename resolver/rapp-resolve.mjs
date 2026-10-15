@@ -56,7 +56,7 @@ export function expand(id, opts = {}) {
 
 export async function resolve(id, opts = {}) {
   const e = expand(id, opts);
-  const res = await fetch(e.registry_url, { cache: "no-store" });
+  const res = await fetch(e.registry_url);
   if (!res.ok) throw new Error(`registry ${e.registry_url} -> ${res.status}`);
   return { ...e, registry: await res.json() };
 }

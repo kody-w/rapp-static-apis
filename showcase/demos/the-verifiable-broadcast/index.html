@@ -171,7 +171,7 @@ function renderFeed(items, staleIdx = -1) {
 
 async function emitBroadcast(spec, prefix) {
   narrate(`${prefix}-fetch`, 'active', `broadcast: fetch ${spec.label}`, spec.source);
-  const res = await fetch(spec.source, { cache: 'no-store' });
+  const res = await fetch(spec.source);
   if (!res.ok) throw new Error(`fetch ${spec.source} → ${res.status}`);
   const fetchedAt = new Date().toISOString();
   const bytes = await res.arrayBuffer();

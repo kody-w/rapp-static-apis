@@ -15,7 +15,7 @@
 
   <div class="panel">
     <h2>Live — run it right now</h2>
-    <p style="margin:0 0 12px;color:var(--muted)">This page stores no inventory. Press the button: your browser re-verifies a pinned <code>extract</code> cell, then reads this repo's live GitHub Issues through <code>showcase/lib/issues-db.mjs</code>. Any open issue labeled <code>sold-out:&lt;item-key&gt;</code> marks that dish sold out instantly.</p>
+    <p style="margin:0 0 12px;color:var(--muted)">This page stores no inventory. Press the button: your browser re-verifies a pinned <code>extract</code> cell, then reads a CI snapshot of this repo's GitHub Issues through <code>showcase/lib/issues-db.mjs</code>. Any open issue labeled <code>sold-out:&lt;item-key&gt;</code> marks that dish sold out within minutes (the snapshot refreshes on every issue event).</p>
     <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap">
       <button class="run" id="go">🍳 Check kitchen availability</button>
       <span class="mono" style="font-size:12px;color:var(--faint)">repo: kody-w/rapp-static-apis</span>

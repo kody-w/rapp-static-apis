@@ -11,10 +11,19 @@ on:
       - 'shortener/manifest.json'
       - 'shortener/build.py'
       - '.github/workflows/shortener.yml'
+  schedule:
+    - cron: '37 5 * * *'   # daily self-heal (staggered; push-main runs one at a time)
   workflow_dispatch:
 
 permissions:
   contents: write
+
+# rapp-static-api/1.1: every workflow that pushes to main shares ONE concurrency group so pushes never
+# race. GitHub keeps at most one pending run per group (a newer one replaces it); each run rebuilds from
+# scratch and rebases onto the live tip before pushing, so a replaced run loses nothing.
+concurrency:
+  group: push-main
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -27,10 +36,16 @@ jobs:
       - name: Build the shortener
         run: python shortener/build.py
       - name: Commit only real changes
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: (github.event_name == 'push' || github.event_name == 'schedule') && github.ref == 'refs/heads/main'
         run: |
           git config user.name "RAPP Shortener Bot"
           git config user.email "rapp-bot@users.noreply.github.com"
           git add shortener/u shortener/versions shortener/api shortener/registry.json
-          git diff --cached --quiet || git commit -m "Rebuild static shortener [skip ci]"
-          git push
+          git diff --cached --quiet && exit 0
+          git commit -m "Rebuild static shortener [skip ci]"
+          # checkout pins the triggering SHA; rebase onto the live tip before pushing (retry on a race).
+          for i in 1 2 3; do
+            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

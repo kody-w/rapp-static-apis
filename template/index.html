@@ -14,14 +14,18 @@
 <p id="sum">loading…</p>
 <div id="entries"></div>
 <p style="color:#8b949e;font-size:13px;margin-top:30px;border-top:1px solid #30363d;padding-top:14px">
- A <a href="https://github.com/kody-w/rapp-static-apis"><code>rapp-static-api/1.0</code></a> — served
- entirely off raw.githubusercontent.com. Pin any version forever via its <code>versions/&lt;name&gt;/&lt;sha8&gt;</code> URL.</p>
+ A <a href="https://github.com/kody-w/rapp-static-apis"><code>rapp-static-api/1.1</code></a> — static files
+ served same-origin from GitHub Pages (or any CDN), no live GitHub API calls. Pin any version forever via its
+ <code>versions/&lt;name&gt;/&lt;sha8&gt;</code> path.</p>
+<script src="static-api-client.js"></script>
 <script>
 (async()=>{
-  const r = await (await fetch('registry.json',{cache:'no-store'})).json();
+  const api = StaticApi.create();                         // same origin first; add { raw: '...' } for a fallback
+  const r = await api.getJSON('registry.json');
   document.getElementById('name').textContent = r.name;
   document.getElementById('sum').innerHTML =
     `${r.summary.entries} entries · ${r.summary.versions} versions held · ${r.summary.drift} forked ·
+     as of ${StaticApi.asOf(r) || '—'} ·
      <a href="api/v1/status.json">status.json</a> · <a href="api/v1/badge.json">badge.json</a>`;
   document.getElementById('entries').innerHTML = r.entries.map(e=>
     `<div class="e"><b class="mono">${e.name}</b>
@@ -29,7 +33,7 @@
        <div style="margin-top:6px">`+
        e.sources.map(s=>`<div class="mono">${s.label}: ${s.sha8||'—'} ${s.on_primary?'<span class="ok">✓</span>':'<span class="drift">▲ other</span>'}</div>`).join('')+
        `</div><details><summary>versions — pinnable fallbacks</summary>`+
-       e.versions.map(v=>`<div class="mono"><a href="${v.url}">${v.sha8}</a> · ${v.bytes}b · ${v.first_captured.slice(0,10)}</div>`).join('')+
+       e.versions.map(v=>`<div class="mono"><a href="${v.path}">${v.sha8}</a> · ${v.bytes}b · ${v.first_captured.slice(0,10)}</div>`).join('')+
        `</details></div>`).join('');
 })();
 </script></body></html>

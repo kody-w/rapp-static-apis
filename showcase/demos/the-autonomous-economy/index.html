@@ -186,7 +186,7 @@
   <div class="panel">
     <h2>Run it yourself</h2>
     <ol style="margin:0 0 10px;padding-left:20px;color:var(--muted)">
-      <li>Press <b>Check what's available</b> to load live sold-out labels from GitHub Issues via <code>IssuesDB</code> + a pinned <code>extract</code> verified cell.</li>
+      <li>Press <b>Check what's available</b> to load sold-out labels from the CI snapshot of GitHub Issues via <code>IssuesDB</code> + a pinned <code>extract</code> verified cell.</li>
       <li>Select item(s), optionally edit the buyer note and seller passphrase, then press <b>Seal &amp; run full economy</b>.</li>
       <li>Watch: RSL1 envelope → SHA-256 custody link → ECDSA receipt → signed reputation update. Each stage is narrated in <code>.steps</code>.</li>
       <li>At the 🧬 weld point, the entire economic packet is packaged into a content-addressed genesis frame.</li>
@@ -422,7 +422,7 @@ async function buildReputationReceipt(receipt, seller, narrate) {
   if (!verified) throw new Error('reputation signature self-verification failed');
   narrate('sign', 'ok', 'seller reputation signed + verified', `${sig.byteLength} bytes`);
   narrate('board-fetch', 'active', 'fetch live ranking bytes for freshness proof', RANKING);
-  const res = await fetch(RANKING, { cache: 'no-store' });
+  const res = await fetch(RANKING);
   if (!res.ok) throw new Error(`fetch ranking → ${res.status}`);
   const fetchedAt = new Date().toISOString();
   const bytes = await res.arrayBuffer();
@@ -472,7 +472,7 @@ async function verifyFrame(frame, key, narrate) {
 }
 async function attestSelf(prefix, narrate) {
   narrate(`${prefix}-self-fetch`, 'active', 'fetch own index.html bytes…', location.pathname);
-  const res = await fetch('index.html', { cache: 'no-store' });
+  const res = await fetch('index.html');
   if (!res.ok) throw new Error(`fetch index.html → ${res.status} ${res.statusText}`);
   const bytes = await res.arrayBuffer();
   narrate(`${prefix}-self-fetch`, 'ok', 'fetched own source', `${bytes.byteLength} bytes`);

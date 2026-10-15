@@ -715,7 +715,7 @@ loadKeptStrip();
 })();
 (async()=>{
   let reg;
-  try{ reg = await (await fetch('registry.json',{cache:'no-store'})).json(); } catch{ grid.innerHTML='<p class="muted err">Could not load registry.json</p>'; return; }
+  try{ reg = await (await fetch('registry.json')).json(); } catch{ grid.innerHTML='<p class="muted err">Could not load registry.json</p>'; return; }
   if (reg.lantern_url) LANTERN = reg.lantern_url;
   document.getElementById('pin').textContent = `${reg.summary.cartridges} cartridges · ${reg.summary.versions} frames`;
   const idToEntry = {}; (reg.entries||[]).forEach(e => idToEntry[e.id] = e);

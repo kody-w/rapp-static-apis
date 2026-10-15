@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Minimal rapp-static-api/1.0 build step — the ONLY build. Idempotent, stable-write, append-only.
+"""Minimal rapp-static-api/1.1 build step — the ONLY build. Idempotent, stable-write, append-only.
 
 Reads manifest.json, captures every distinct version of each entry's sources as content-addressed
 frames under versions/<name>/<sha8><ext>, and regenerates registry.json + api/v1/{status,badge}.json.
+GitHub API data is harvested separately by harvest_github.py (the snapshot profile).
 Spec: https://github.com/kody-w/rapp-static-apis  (SPEC.md)
 """
 import json, os, hashlib, datetime, urllib.request
@@ -38,6 +39,7 @@ def write_json_stable(path, obj, ts_keys=("generated",)):
 def main():
     m = json.load(open(os.path.join(ROOT, "manifest.json")))
     raw_base = m["raw_base"].rstrip("/")
+    pages_base = (m.get("pages_base") or "").rstrip("/") or None   # 1.1: Pages is the primary transport
     prev = {}
     rp = os.path.join(ROOT, "registry.json")
     if os.path.exists(rp):
@@ -58,6 +60,7 @@ def main():
                     os.makedirs(os.path.dirname(fp), exist_ok=True); open(fp, "wb").write(content)
                 versions[h] = {"sha": h, "sha8": short, "bytes": len(content), "path": rel,
                                "url": f"{raw_base}/{rel}",
+                               **({"pages_url": f"{pages_base}/{rel}"} if pages_base else {}),
                                "first_captured": prev_versions.get(h, {}).get("first_captured", NOW),
                                "carried_by": []}
             if label and label not in versions[h]["carried_by"]:
@@ -81,10 +84,11 @@ def main():
                         "versions": sorted(versions.values(), key=lambda v: (v["first_captured"], v["sha8"]))})
 
     summary = {"entries": len(entries), "drift": n_drift, "versions": sum(e["version_count"] for e in entries)}
-    write_json_stable(rp, {"schema": "rapp-static-api/1.0", "name": m["name"], "generated": NOW,
+    write_json_stable(rp, {"schema": "rapp-static-api/1.1", "name": m["name"], "generated": NOW,
+                           **({"pages_base": pages_base} if pages_base else {}),
                            "raw_base": raw_base, "summary": summary, "entries": entries})
     write_json_stable(os.path.join(ROOT, "api", "v1", "status.json"),
-                      {"schema": "rapp-static-api-status/1.0", "generated": NOW, "summary": summary,
+                      {"schema": "rapp-static-api-status/1.1", "generated": NOW, "summary": summary,
                        "entries": [{"name": e["name"], "drift": e["drift"], "primary_sha8": e["primary_sha8"],
                                     "versions": e["version_count"]} for e in entries]})
     write_json_stable(os.path.join(ROOT, "api", "v1", "badge.json"),

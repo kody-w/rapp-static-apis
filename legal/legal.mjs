@@ -3,8 +3,11 @@
 //
 // Welds working organs from the showcase engine (no reinvention, per showcase/AGENTS.md):
 //   ../showcase/lib/showcase.js — sha256hex(bytes), mkNarrator (the live step narrator), initTheme
-// Network is restricted to the three doors the brief allows:
-//   api.github.com · kody-w.github.io · raw.githubusercontent.com
+// Network is restricted to three doors:
+//   this site (CI snapshots of the GitHub API) · kody-w.github.io · raw.githubusercontent.com
+// rapp-static-api/1.1: the browser never calls api.github.com (60 requests/hour per IP, shared by a
+// whole office NAT). CI harvests the two GitHub API responses below with a token and this page reads
+// them same-origin, same field names; the "run it yourself" commands still check the live API.
 // Everything else proves offline; any fetch failure degrades to an honest
 // "the door is closed — run it yourself" verdict. No secrets, no backend, no CDN.
 
@@ -13,7 +16,8 @@ import { sha256hex, mkNarrator, initTheme } from '../showcase/lib/showcase.js';
 initTheme();
 
 /* ── the doors this page is ever allowed to knock on ──────────────────────── */
-const TWIN_API   = 'https://api.github.com/repos/kody-w/twin';
+const TWIN_KEYS  = new URL('./data/twin-keys.json', import.meta.url).href;   // GET /repos/kody-w/twin/contents/keys
+const TWIN_TREE  = new URL('./data/twin-tree.json', import.meta.url).href;   // GET /repos/kody-w/twin/git/trees/main?recursive=1
 const PAGES_TWIN = 'https://kody-w.github.io/twin';
 const RAW_TWIN   = 'https://raw.githubusercontent.com/kody-w/twin/main';
 const RAW_BLOG   = 'https://raw.githubusercontent.com/kody-w/kody-w.github.io/master/_posts';
@@ -37,22 +41,20 @@ function offline(el, note, runYourself) {
 async function proveSoulStaysHome() {
   const el = $('v-a'), btn = $('b-a'), narrate = mkNarrator($('s-a'));
   $('s-a').innerHTML = ''; btn.disabled = true;
-  setVerdict(el, '', '', '<span class="dim">querying the live GitHub API…</span>');
+  setVerdict(el, '', '', '<span class="dim">reading the GitHub API snapshot…</span>');
   try {
-    narrate('keys', 'active', 'GET /repos/kody-w/twin/contents/keys (live GitHub API)…', '');
-    const kres = await fetch(`${TWIN_API}/contents/keys`, { headers: { Accept: 'application/vnd.github+json' } });
-    if (kres.status === 403 || kres.status === 429) throw Object.assign(new Error('rate limit'), { rl: true });
-    if (!kres.ok) throw new Error(`contents/keys → ${kres.status}`);
+    narrate('keys', 'active', 'read /repos/kody-w/twin/contents/keys (CI snapshot of the GitHub API)…', '');
+    const kres = await fetch(TWIN_KEYS, { headers: { Accept: 'application/json' } });
+    if (!kres.ok) throw new Error(`contents/keys snapshot → ${kres.status}`);
     const listing = await kres.json();
-    const names = Array.isArray(listing) ? listing.map(x => x.name) : [];
+    const names = Array.isArray(listing.items) ? listing.items.map(x => x.name) : [];
     const hasPub = names.includes('twin.pub');
     const keyInDir = names.includes('twin.key');
-    narrate('keys', 'ok', `keys/ directory listed`, names.join(', ') || '(empty)');
+    narrate('keys', 'ok', `keys/ directory listed · as of ${listing.generated_at || '?'}`, names.join(', ') || '(empty)');
 
     narrate('tree', 'active', 'GET the FULL recursive git tree — scan every path for a private key…', '');
-    const tres = await fetch(`${TWIN_API}/git/trees/main?recursive=1`, { headers: { Accept: 'application/vnd.github+json' } });
-    if (tres.status === 403 || tres.status === 429) throw Object.assign(new Error('rate limit'), { rl: true });
-    if (!tres.ok) throw new Error(`git/trees → ${tres.status}`);
+    const tres = await fetch(TWIN_TREE, { headers: { Accept: 'application/json' } });
+    if (!tres.ok) throw new Error(`git/trees snapshot → ${tres.status}`);
     const tree = await tres.json();
     const paths = (tree.tree || []).map(t => t.path);
     const keyFiles = paths.filter(p => p === 'keys/twin.key' || p.endsWith('.key') || /(^|\/)twin\.key$/.test(p));
@@ -63,11 +65,11 @@ async function proveSoulStaysHome() {
 
     setVerdict(el, soulHome ? 'ok' : 'bad', soulHome ? 'THE SOUL STAYS HOME' : 'CHECK THE REPO',
       `<div class="row"><span class="yes">✓ twin.pub</span><span class="dim">the public half — safe to publish, semantically inert without the key</span></div>` +
-      `<div class="row"><span class="${keyInDir ? 'no' : 'yes'}">${keyInDir ? '✗' : '✓'} twin.key ${keyInDir ? 'PRESENT' : 'absent'}</span><span class="dim">from keys/ (live contents API)</span></div>` +
+      `<div class="row"><span class="${keyInDir ? 'no' : 'yes'}">${keyInDir ? '✗' : '✓'} twin.key ${keyInDir ? 'PRESENT' : 'absent'}</span><span class="dim">from keys/ (contents API snapshot, ${esc(listing.generated_at || '?')})</span></div>` +
       `<div class="row"><span class="${keyFiles.length ? 'no' : 'yes'}">${keyFiles.length ? '✗' : '✓'} ${keyFiles.length} private-key files</span><span class="dim">across the entire recursive tree (${paths.length} paths)</span></div>` +
       `<div class="row dim" style="margin-top:6px">§13 the privacy body: the sealed soul is <b class="yes">absent from the network entirely</b>, not encrypted-in-a-cloud. It moves only by QR, human-carried.</div>`);
   } catch (e) {
-    offline(el, e.rl ? 'GitHub API rate limit for your IP (unauthenticated: 60/hr).' : (e.message || String(e)),
+    offline(el, e.message || String(e),
       'curl -s https://api.github.com/repos/kody-w/twin/contents/keys | grep name\n' +
       '#   → only "twin.pub"\n' +
       'curl -s "https://api.github.com/repos/kody-w/twin/git/trees/main?recursive=1" | grep -c "\\.key"\n' +
@@ -89,7 +91,7 @@ async function proveLicenseTravels() {
     const results = [];
     for (const d of doors) {
       narrate(d.name, 'active', `fetch TWIN-LICENSE.md from ${d.name}…`, '');
-      const res = await fetch(d.url, { cache: 'no-store' });
+      const res = await fetch(d.url);
       if (!res.ok) throw new Error(`${d.name} → ${res.status}`);
       const bytes = await res.arrayBuffer();
       const hash = await sha256hex(bytes);
@@ -141,7 +143,7 @@ async function provePaperTrail() {
     for (const e of ESSAYS) {
       narrate(e.slug, 'active', `fetch _posts/2026-07-05-${e.slug}.md (raw github mirror)…`, '');
       // kodyw.com is CORS-blocked to this origin; the brief's fallback is the github.io mirror.
-      const res = await fetch(`${RAW_BLOG}/2026-07-05-${e.slug}.md`, { cache: 'no-store' });
+      const res = await fetch(`${RAW_BLOG}/2026-07-05-${e.slug}.md`);
       if (!res.ok) throw new Error(`${e.slug} → ${res.status}`);
       const md = await res.text();
       const fm = frontMatter(md);

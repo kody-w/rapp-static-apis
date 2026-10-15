@@ -223,16 +223,16 @@ Owner: Kody Wildfeuer · Twin address: kody-w/twin · Version: TWIN-LICENSE-1.0
 
   <!-- ── §17 PROOF DOORS ──────────────────────────────────────────────── -->
   <div class="sec"><h2>§17 · the three things that matter — proven, not promised</h2>
-    <p>the proof rule: no public claim without a runnable proof. these buttons run the actual verification live, in <em>your</em> browser — fetching only from <code>api.github.com</code>, <code>kody-w.github.io</code>, and <code>raw.githubusercontent.com</code>. trust is never requested, only made unnecessary.</p>
+    <p>the proof rule: no public claim without a runnable proof. these buttons run the actual verification in <em>your</em> browser — fetching only from this site (a CI snapshot of the GitHub API, same field names), <code>kody-w.github.io</code>, and <code>raw.githubusercontent.com</code>; your browser never calls <code>api.github.com</code>, so a crowded office network can't hit its per-IP rate limit. trust is never requested, only made unnecessary.</p>
   </div>
   <div class="proofs">
 
     <!-- proof a -->
     <div class="proof">
       <h3>🔒 the private key is <em>not</em> in the repo</h3>
-      <p class="claim">the giveaway is total — except the soul. the twin's public bones are published; its private signing key is <b>absent from the network entirely</b>. this button queries the live GitHub API for <code>kody-w/twin</code> and scans the whole tree for it.</p>
+      <p class="claim">the giveaway is total — except the soul. the twin's public bones are published; its private signing key is <b>absent from the network entirely</b>. this button reads a CI-harvested snapshot of the GitHub API for <code>kody-w/twin</code> (dated, same field names) and scans the whole tree for it; the commands below check the live API yourself.</p>
       <div class="ctl">
-        <button class="run" id="b-a">🔒 check the live GitHub API</button>
+        <button class="run" id="b-a">🔒 check the GitHub API snapshot</button>
         <span class="hint">contents/keys + the full recursive git tree</span>
       </div>
       <div class="verdict" id="v-a"><span class="mono dim">— press the button — the verdict shows here —</span></div>

@@ -1,34 +1,47 @@
 // issues-db.mjs — a CRUD layer over GitHub Issues. This is the "static full-stack" backend:
-// there is no server. READS are token-free (public REST). WRITES go through the user's OWN GitHub
-// session via a prefilled new-issue URL (one click, no token) — or a token for programmatic agents.
+// there is no server. READS come from a CI-harvested static snapshot served same-origin
+// (showcase/data/github-issues.json, rapp-static-api/1.1 snapshot profile: the SAME field names as the
+// GitHub REST issues response) — the visitor's browser never calls api.github.com, so a room full of
+// people on one office IP can't exhaust GitHub's 60 requests/hour unauthenticated limit.
+// The snapshot is refreshed by .github/workflows/showcase-github-repo-snapshot.yml on every issue
+// event and daily. WRITES go through the user's OWN GitHub session via a prefilled new-issue URL
+// (one click, no token). Agents with a token write with the gh CLI or the REST API from their own
+// runtime, never from a page.
 // A record = an issue. A record's "type"/channel = a label. Fields = a fenced JSON block in the body.
-const API = 'https://api.github.com';
+const SNAPSHOT = new URL('../data/github-issues.json', import.meta.url).href;
 const MARK = 'rapp-record';
 
 export class IssuesDB {
-  constructor({ owner, repo, token = null } = {}) { this.owner = owner; this.repo = repo; this.token = token; }
-  get _h() { const h = { Accept: 'application/vnd.github+json' }; if (this.token) h.Authorization = `Bearer ${this.token}`; return h; }
+  constructor({ owner, repo, snapshot = SNAPSHOT } = {}) { this.owner = owner; this.repo = repo; this.snapshot = snapshot; }
 
-  // READ — list records (issues) by label(s), newest first. No auth required for a public repo.
+  // The snapshot document (cached per instance). Its generated_at says how fresh the reads are.
+  async _load() {
+    if (!this._doc) {
+      const r = await fetch(this.snapshot, { headers: { Accept: 'application/json' } });
+      if (!r.ok) throw new Error(`issues snapshot ${r.status}`);
+      this._doc = await r.json();
+    }
+    return this._doc;
+  }
+  async asOf() { return (await this._load()).generated_at || null; }
+
+  // READ — list records (issues) by label(s), newest first. The snapshot holds OPEN issues only.
   async list({ labels = '', state = 'open', per_page = 30 } = {}) {
-    const u = new URL(`${API}/repos/${this.owner}/${this.repo}/issues`);
-    if (labels) u.searchParams.set('labels', labels);
-    u.searchParams.set('state', state);
-    u.searchParams.set('per_page', String(per_page));
-    u.searchParams.set('sort', 'created'); u.searchParams.set('direction', 'desc');
-    const r = await fetch(u, { headers: this._h });
-    if (!r.ok) throw new Error(`list ${r.status}`);
-    return (await r.json())
+    if (state !== 'open') throw new Error(`list: the static snapshot holds open issues only (asked for "${state}")`);
+    const want = String(labels || '').split(',').map(l => l.trim()).filter(Boolean);
+    const doc = await this._load();
+    return (doc.items || [])
       .filter(i => !i.pull_request)
-      .map(i => ({ number: i.number, title: i.title, labels: i.labels.map(l => l.name), user: i.user.login, created_at: i.created_at, url: i.html_url, reactions: i.reactions?.total_count || 0, record: decodeRecord(i.body), body: i.body }));
+      .filter(i => (i.state || 'open') === 'open')
+      .filter(i => want.every(w => (i.labels || []).some(l => l.name === w)))
+      .sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)))
+      .slice(0, per_page)
+      .map(i => ({ number: i.number, title: i.title, labels: (i.labels || []).map(l => l.name), user: i.user?.login, created_at: i.created_at, url: i.html_url, reactions: i.reactions?.total_count || 0, record: decodeRecord(i.body), body: i.body }));
   }
   async get(number) {
-    const i = await (await fetch(`${API}/repos/${this.owner}/${this.repo}/issues/${number}`, { headers: this._h })).json();
-    return { number: i.number, title: i.title, labels: i.labels.map(l => l.name), record: decodeRecord(i.body), body: i.body, url: i.html_url };
-  }
-  async comments(number) {
-    const r = await fetch(`${API}/repos/${this.owner}/${this.repo}/issues/${number}/comments`, { headers: this._h });
-    return (await r.json()).map(c => ({ user: c.user.login, body: c.body, at: c.created_at }));
+    const i = ((await this._load()).items || []).find(x => x.number === Number(number));
+    if (!i) throw new Error(`get: issue #${number} is not in the open-issues snapshot`);
+    return { number: i.number, title: i.title, labels: (i.labels || []).map(l => l.name), record: decodeRecord(i.body), body: i.body, url: i.html_url };
   }
 
   // CREATE with no token — returns a prefilled "new issue" URL to open. The user submits it under
@@ -40,18 +53,6 @@ export class IssuesDB {
     u.searchParams.set('body', (record ? encodeRecord(record) + (body ? '\n\n' + body : '') : body));
     return u.toString();
   }
-
-  // CREATE / UPDATE with a token (autonomous agents & power users).
-  async create({ title, labels = [], record = null, body = '' }) {
-    this._need();
-    const r = await fetch(`${API}/repos/${this.owner}/${this.repo}/issues`, { method: 'POST', headers: this._h,
-      body: JSON.stringify({ title, labels, body: record ? encodeRecord(record) + (body ? '\n\n' + body : '') : body }) });
-    if (!r.ok) throw new Error(`create ${r.status}`);
-    return (await r.json()).number;
-  }
-  async comment(number, body) { this._need(); return (await fetch(`${API}/repos/${this.owner}/${this.repo}/issues/${number}/comments`, { method: 'POST', headers: this._h, body: JSON.stringify({ body }) })).ok; }
-  async close(number) { this._need(); return (await fetch(`${API}/repos/${this.owner}/${this.repo}/issues/${number}`, { method: 'PATCH', headers: this._h, body: JSON.stringify({ state: 'closed' }) })).ok; }
-  _need() { if (!this.token) throw new Error('write needs a token — or use newIssueUrl() for a zero-token submit'); }
 }
 
 export function encodeRecord(obj) { return '```' + MARK + '\n' + JSON.stringify(obj, null, 2) + '\n```'; }

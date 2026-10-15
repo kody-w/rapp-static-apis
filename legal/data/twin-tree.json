@@ -1,0 +1,1253 @@
+{
+  "schema": "rapp-static-api-github-snapshot/1.1",
+  "generated_at": "2026-10-15T17:28:47Z",
+  "source": "https://api.github.com/repos/kody-w/twin/git/trees/main?recursive=1",
+  "sha": "fdc2c7196194b5a8bd7e9440a63f6eb24cd4fe87",
+  "tree": [
+    {
+      "path": ".github",
+      "type": "tree"
+    },
+    {
+      "path": ".github/workflows",
+      "type": "tree"
+    },
+    {
+      "path": ".github/workflows/agents-index.yml",
+      "type": "blob"
+    },
+    {
+      "path": ".gitignore",
+      "type": "blob"
+    },
+    {
+      "path": ".nojekyll",
+      "type": "blob"
+    },
+    {
+      "path": "ESTATE.md",
+      "type": "blob"
+    },
+    {
+      "path": "LICENSE",
+      "type": "blob"
+    },
+    {
+      "path": "MANIFEST.md",
+      "type": "blob"
+    },
+    {
+      "path": "README.md",
+      "type": "blob"
+    },
+    {
+      "path": "SUMMON.md",
+      "type": "blob"
+    },
+    {
+      "path": "TEMPLATE.md",
+      "type": "blob"
+    },
+    {
+      "path": "TWIN-LICENSE.md",
+      "type": "blob"
+    },
+    {
+      "path": "agents",
+      "type": "tree"
+    },
+    {
+      "path": "agents/basic_agent.py",
+      "type": "blob"
+    },
+    {
+      "path": "agents/customer_inquiry_agent.py",
+      "type": "blob"
+    },
+    {
+      "path": "agents/founder_voice_agent.py",
+      "type": "blob"
+    },
+    {
+      "path": "agents/index.json",
+      "type": "blob"
+    },
+    {
+      "path": "agents/operations_agent.py",
+      "type": "blob"
+    },
+    {
+      "path": "agents/pitch_agent.py",
+      "type": "blob"
+    },
+    {
+      "path": "agents/private_context_agent.py",
+      "type": "blob"
+    },
+    {
+      "path": "app",
+      "type": "tree"
+    },
+    {
+      "path": "app/icon-192.svg",
+      "type": "blob"
+    },
+    {
+      "path": "app/icon-512.svg",
+      "type": "blob"
+    },
+    {
+      "path": "app/index.html",
+      "type": "blob"
+    },
+    {
+      "path": "app/manifest.webmanifest",
+      "type": "blob"
+    },
+    {
+      "path": "app/sw.js",
+      "type": "blob"
+    },
+    {
+      "path": "awaken.html",
+      "type": "blob"
+    },
+    {
+      "path": "bones",
+      "type": "tree"
+    },
+    {
+      "path": "bones/card.public.json",
+      "type": "blob"
+    },
+    {
+      "path": "bones/facets.json",
+      "type": "blob"
+    },
+    {
+      "path": "bones/public-notes.json",
+      "type": "blob"
+    },
+    {
+      "path": "bones/rappid.public.json",
+      "type": "blob"
+    },
+    {
+      "path": "bones/soul.md",
+      "type": "blob"
+    },
+    {
+      "path": "brainstem.py",
+      "type": "blob"
+    },
+    {
+      "path": "build_objects.py",
+      "type": "blob"
+    },
+    {
+      "path": "card.json",
+      "type": "blob"
+    },
+    {
+      "path": "design",
+      "type": "tree"
+    },
+    {
+      "path": "design/estate-brief.md",
+      "type": "blob"
+    },
+    {
+      "path": "design/pulse-brief.md",
+      "type": "blob"
+    },
+    {
+      "path": "facets.json",
+      "type": "blob"
+    },
+    {
+      "path": "feed.json",
+      "type": "blob"
+    },
+    {
+      "path": "feed.xml",
+      "type": "blob"
+    },
+    {
+      "path": "frames",
+      "type": "tree"
+    },
+    {
+      "path": "frames/0.json",
+      "type": "blob"
+    },
+    {
+      "path": "frames/1.json",
+      "type": "blob"
+    },
+    {
+      "path": "frames/2.json",
+      "type": "blob"
+    },
+    {
+      "path": "frames/attic",
+      "type": "tree"
+    },
+    {
+      "path": "frames/attic/README.md",
+      "type": "blob"
+    },
+    {
+      "path": "frames/legacy",
+      "type": "tree"
+    },
+    {
+      "path": "frames/legacy/0-d2fe9f2d.json",
+      "type": "blob"
+    },
+    {
+      "path": "frames/legacy/0.json",
+      "type": "blob"
+    },
+    {
+      "path": "frames/legacy/1.json",
+      "type": "blob"
+    },
+    {
+      "path": "frames/legacy/2.json",
+      "type": "blob"
+    },
+    {
+      "path": "frames/legacy/SEAL.json",
+      "type": "blob"
+    },
+    {
+      "path": "front.html",
+      "type": "blob"
+    },
+    {
+      "path": "gallery",
+      "type": "tree"
+    },
+    {
+      "path": "gallery/index.html",
+      "type": "blob"
+    },
+    {
+      "path": "holo-qr.svg",
+      "type": "blob"
+    },
+    {
+      "path": "holo.md",
+      "type": "blob"
+    },
+    {
+      "path": "holo.svg",
+      "type": "blob"
+    },
+    {
+      "path": "index.html",
+      "type": "blob"
+    },
+    {
+      "path": "installer",
+      "type": "tree"
+    },
+    {
+      "path": "installer/VERSION",
+      "type": "blob"
+    },
+    {
+      "path": "installer/hatch.sh",
+      "type": "blob"
+    },
+    {
+      "path": "installer/initialize-variant.sh",
+      "type": "blob"
+    },
+    {
+      "path": "installer/lay-egg.sh",
+      "type": "blob"
+    },
+    {
+      "path": "installer/requirements.txt",
+      "type": "blob"
+    },
+    {
+      "path": "installer/start.ps1",
+      "type": "blob"
+    },
+    {
+      "path": "installer/start.sh",
+      "type": "blob"
+    },
+    {
+      "path": "installer/summon-egg.sh",
+      "type": "blob"
+    },
+    {
+      "path": "keys",
+      "type": "tree"
+    },
+    {
+      "path": "keys/pulse.ed25519.pub",
+      "type": "blob"
+    },
+    {
+      "path": "keys/twin.pub",
+      "type": "blob"
+    },
+    {
+      "path": "lookup.html",
+      "type": "blob"
+    },
+    {
+      "path": "members.json",
+      "type": "blob"
+    },
+    {
+      "path": "namespace.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects",
+      "type": "tree"
+    },
+    {
+      "path": "objects/04",
+      "type": "tree"
+    },
+    {
+      "path": "objects/04/04ce246a7a8e6fdc367c6f9664780335.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/09",
+      "type": "tree"
+    },
+    {
+      "path": "objects/09/0925fe1fb60a3912a9f64fc8.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/09/09c96a1ced1b6d2441398f39.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/1a",
+      "type": "tree"
+    },
+    {
+      "path": "objects/1a/1af821fda1db1e4dc72f1a354a1070e1.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/1c",
+      "type": "tree"
+    },
+    {
+      "path": "objects/1c/1ce4c9b91b27f8eed2986264ea3c6a5d.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/1e",
+      "type": "tree"
+    },
+    {
+      "path": "objects/1e/1ea56e510be83b543dbc9fbb982fc861.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/23",
+      "type": "tree"
+    },
+    {
+      "path": "objects/23/232fa033ab8675f1b7206718.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/24",
+      "type": "tree"
+    },
+    {
+      "path": "objects/24/24bfbcfcc49cb6b0cfb2d4a05531db81.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/28",
+      "type": "tree"
+    },
+    {
+      "path": "objects/28/2873cc79b1a06487b915f31e.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/2f",
+      "type": "tree"
+    },
+    {
+      "path": "objects/2f/2f41b40f8fe8fbeaba1fcc82.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/31",
+      "type": "tree"
+    },
+    {
+      "path": "objects/31/314501736d68ea38d918a147fa0a2c6a.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/31/31a54effea99c78c850586950536c9c1.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/36",
+      "type": "tree"
+    },
+    {
+      "path": "objects/36/36b3eb388f4a6ccd76767cb15b8ac223.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/3c",
+      "type": "tree"
+    },
+    {
+      "path": "objects/3c/3c7b3693b0bca790ebb5f1097b11ca0c.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/40",
+      "type": "tree"
+    },
+    {
+      "path": "objects/40/4073d148db1e80a77ebb106606975a47.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/43",
+      "type": "tree"
+    },
+    {
+      "path": "objects/43/43e039d938e182652d9dffc1f498a19f.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/44",
+      "type": "tree"
+    },
+    {
+      "path": "objects/44/4446b0b0d938d25812c2f2fa1e75cada.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/50",
+      "type": "tree"
+    },
+    {
+      "path": "objects/50/508ed342d6e42664bf6ec73a9ea85eca.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/59",
+      "type": "tree"
+    },
+    {
+      "path": "objects/59/59666ed2c3cda5f18c245e7e66a530cc.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/62",
+      "type": "tree"
+    },
+    {
+      "path": "objects/62/6267b57f6d6c9e4e32c3878378c2fc89.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/63",
+      "type": "tree"
+    },
+    {
+      "path": "objects/63/631fa39bffd35f8b8f762b5e3ba8bc85.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/66",
+      "type": "tree"
+    },
+    {
+      "path": "objects/66/66b19a7d58c4c6dcdbd43d4be2e6cf0c.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/6d",
+      "type": "tree"
+    },
+    {
+      "path": "objects/6d/6d6096cd0b3328338e61b6579db9cc0d.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/83",
+      "type": "tree"
+    },
+    {
+      "path": "objects/83/837dd73615a3dc7003ccd86d.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/88",
+      "type": "tree"
+    },
+    {
+      "path": "objects/88/88764ef5c01ee76c259fa6f6955f4167.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/8b",
+      "type": "tree"
+    },
+    {
+      "path": "objects/8b/8ba64a11c3ec86caf086e3d31cdfa5cb.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/8d",
+      "type": "tree"
+    },
+    {
+      "path": "objects/8d/8df3a88359e5dde3603e89e64018f9db.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/9f",
+      "type": "tree"
+    },
+    {
+      "path": "objects/9f/9f77e7da2f299b00d92e38458663503f.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/a6",
+      "type": "tree"
+    },
+    {
+      "path": "objects/a6/a6062691a91fbf92badf6f2f28151aac.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/a9",
+      "type": "tree"
+    },
+    {
+      "path": "objects/a9/a94f08a8e8f990143438896955d8a449.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/ab",
+      "type": "tree"
+    },
+    {
+      "path": "objects/ab/ab20a44d69efeac8681887682dad1ef5.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/b9",
+      "type": "tree"
+    },
+    {
+      "path": "objects/b9/b9b57d8572d5d457d126f730319623f1.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/c6",
+      "type": "tree"
+    },
+    {
+      "path": "objects/c6/c6e8e0f844fe2f5983fe605f.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/d2",
+      "type": "tree"
+    },
+    {
+      "path": "objects/d2/d2bb6acb908f89c38d8d5e9c8cf8e6f9.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/d3",
+      "type": "tree"
+    },
+    {
+      "path": "objects/d3/d3aea5aa88ac5c1a677f45feb84a743e.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/da",
+      "type": "tree"
+    },
+    {
+      "path": "objects/da/da8a0b776eee99b813ee8afe50d28809.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/df",
+      "type": "tree"
+    },
+    {
+      "path": "objects/df/df8c8366e36e31a37991c89e0a959990.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/ea",
+      "type": "tree"
+    },
+    {
+      "path": "objects/ea/ea4cc3eac557ae2305314ab271d7721b.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/ef",
+      "type": "tree"
+    },
+    {
+      "path": "objects/ef/efb4b33ae59279ee85fdd592a79b2066.json",
+      "type": "blob"
+    },
+    {
+      "path": "objects/index.json",
+      "type": "blob"
+    },
+    {
+      "path": "public-notes.json",
+      "type": "blob"
+    },
+    {
+      "path": "rappid.json",
+      "type": "blob"
+    },
+    {
+      "path": "resolve.html",
+      "type": "blob"
+    },
+    {
+      "path": "scripts",
+      "type": "tree"
+    },
+    {
+      "path": "scripts/harvest-agents-index.mjs",
+      "type": "blob"
+    },
+    {
+      "path": "scripts/pulse_lib.py",
+      "type": "blob"
+    },
+    {
+      "path": "scripts/pulse_sign.py",
+      "type": "blob"
+    },
+    {
+      "path": "scripts/pulse_verify.py",
+      "type": "blob"
+    },
+    {
+      "path": "scripts/testdata",
+      "type": "tree"
+    },
+    {
+      "path": "scripts/testdata/jcs_golden_expected.jcs",
+      "type": "blob"
+    },
+    {
+      "path": "scripts/testdata/jcs_golden_input.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots",
+      "type": "tree"
+    },
+    {
+      "path": "snapshots/enders-game",
+      "type": "tree"
+    },
+    {
+      "path": "snapshots/enders-game/card.public.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/enders-game/frames.jsonl",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/enders-game/public-notes.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/enders-game/rappid.public.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/enders-game/snapshot.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/enders-game/soul.md",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/org-aims",
+      "type": "tree"
+    },
+    {
+      "path": "snapshots/org-aims/card.public.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/org-aims/frames.jsonl",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/org-aims/public-notes.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/org-aims/rappid.public.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/org-aims/snapshot.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/org-aims/soul.md",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/poke-speedrun",
+      "type": "tree"
+    },
+    {
+      "path": "snapshots/poke-speedrun/card.public.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/poke-speedrun/frames.jsonl",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/poke-speedrun/public-notes.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/poke-speedrun/rappid.public.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/poke-speedrun/snapshot.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/poke-speedrun/soul.md",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/self",
+      "type": "tree"
+    },
+    {
+      "path": "snapshots/self/card.public.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/self/frames.jsonl",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/self/public-notes.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/self/rappid.public.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/self/self_agent.py",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/self/snapshot.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/self/soul.md",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/twin",
+      "type": "tree"
+    },
+    {
+      "path": "snapshots/twin/card.public.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/twin/frames.jsonl",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/twin/public-notes.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/twin/rappid.public.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/twin/snapshot.json",
+      "type": "blob"
+    },
+    {
+      "path": "snapshots/twin/soul.md",
+      "type": "blob"
+    },
+    {
+      "path": "soul.md",
+      "type": "blob"
+    },
+    {
+      "path": "specs",
+      "type": "tree"
+    },
+    {
+      "path": "specs/ANTIPATTERNS.md",
+      "type": "blob"
+    },
+    {
+      "path": "specs/HOLOCARD_SPEC.md",
+      "type": "blob"
+    },
+    {
+      "path": "specs/PARTICIPATION.md",
+      "type": "blob"
+    },
+    {
+      "path": "specs/RAPPID_SPEC.md",
+      "type": "blob"
+    },
+    {
+      "path": "specs/README.md",
+      "type": "blob"
+    },
+    {
+      "path": "specs/SOUL_IDENTITY.md",
+      "type": "blob"
+    },
+    {
+      "path": "specs/TWIN_PROTOCOL.md",
+      "type": "blob"
+    },
+    {
+      "path": "summon.svg",
+      "type": "blob"
+    },
+    {
+      "path": "tests",
+      "type": "tree"
+    },
+    {
+      "path": "tests/run.sh",
+      "type": "blob"
+    },
+    {
+      "path": "tests/test_egg_roundtrip.py",
+      "type": "blob"
+    },
+    {
+      "path": "tests/test_estate_endpoints.py",
+      "type": "blob"
+    },
+    {
+      "path": "tests/test_estate_http.py",
+      "type": "blob"
+    },
+    {
+      "path": "tests/test_hatch_flow.py",
+      "type": "blob"
+    },
+    {
+      "path": "tests/test_lineage_check.py",
+      "type": "blob"
+    },
+    {
+      "path": "tests/test_peer_registry.py",
+      "type": "blob"
+    },
+    {
+      "path": "tests/test_pulse.py",
+      "type": "blob"
+    },
+    {
+      "path": "tests/test_rapp1_rev17.py",
+      "type": "blob"
+    },
+    {
+      "path": "tools",
+      "type": "tree"
+    },
+    {
+      "path": "tools/_chain.mjs",
+      "type": "blob"
+    },
+    {
+      "path": "tools/_frame.mjs",
+      "type": "blob"
+    },
+    {
+      "path": "tools/_qr.mjs",
+      "type": "blob"
+    },
+    {
+      "path": "tools/bones-lint.mjs",
+      "type": "blob"
+    },
+    {
+      "path": "tools/estate-selftest.mjs",
+      "type": "blob"
+    },
+    {
+      "path": "tools/keygen.mjs",
+      "type": "blob"
+    },
+    {
+      "path": "tools/pulse.mjs",
+      "type": "blob"
+    },
+    {
+      "path": "tools/seed-frame.mjs",
+      "type": "blob"
+    },
+    {
+      "path": "tools/shamir.mjs",
+      "type": "blob"
+    },
+    {
+      "path": "tools/sign-frame.mjs",
+      "type": "blob"
+    },
+    {
+      "path": "tools/succession.mjs",
+      "type": "blob"
+    },
+    {
+      "path": "tools/verify-chain.mjs",
+      "type": "blob"
+    },
+    {
+      "path": "tools/verify-frame.mjs",
+      "type": "blob"
+    },
+    {
+      "path": "utils",
+      "type": "tree"
+    },
+    {
+      "path": "utils/_basic_agent_shim.py",
+      "type": "blob"
+    },
+    {
+      "path": "utils/body_functions",
+      "type": "tree"
+    },
+    {
+      "path": "utils/body_functions/estate_body_function.py",
+      "type": "blob"
+    },
+    {
+      "path": "utils/body_functions/manifest_body_function.py",
+      "type": "blob"
+    },
+    {
+      "path": "utils/body_functions_loader.py",
+      "type": "blob"
+    },
+    {
+      "path": "utils/boot.py",
+      "type": "blob"
+    },
+    {
+      "path": "utils/egg.py",
+      "type": "blob"
+    },
+    {
+      "path": "utils/frames.py",
+      "type": "blob"
+    },
+    {
+      "path": "utils/index_card.py",
+      "type": "blob"
+    },
+    {
+      "path": "utils/lineage_check.py",
+      "type": "blob"
+    },
+    {
+      "path": "utils/llm.py",
+      "type": "blob"
+    },
+    {
+      "path": "utils/local_storage.py",
+      "type": "blob"
+    },
+    {
+      "path": "utils/peer_registry.py",
+      "type": "blob"
+    },
+    {
+      "path": "utils/private_layer.py",
+      "type": "blob"
+    },
+    {
+      "path": "utils/senses",
+      "type": "tree"
+    },
+    {
+      "path": "utils/senses/twin_sense.py",
+      "type": "blob"
+    },
+    {
+      "path": "utils/senses/voice_sense.py",
+      "type": "blob"
+    },
+    {
+      "path": "utils/senses_loader.py",
+      "type": "blob"
+    },
+    {
+      "path": "utils/twin.py",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web",
+      "type": "tree"
+    },
+    {
+      "path": "utils/web/binder.html",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/estate.html",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/icon-180.png",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/icon-192.png",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/icon-192.svg",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/icon-512.png",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/icon-512.svg",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/index.html",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/manage.html",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/manifest.webmanifest",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/mobile",
+      "type": "tree"
+    },
+    {
+      "path": "utils/web/mobile/icon-192.svg",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/mobile/icon-512.svg",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/mobile/index.html",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/mobile/manifest.webmanifest",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/mobile/rapp-mobile.js",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/mobile/service-worker.js",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/neighborhood.html",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/onboard",
+      "type": "tree"
+    },
+    {
+      "path": "utils/web/onboard/book-factory.html",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/onboard/index.html",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/onboard/registry.json",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/pair.html",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/rapp.js",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/rapplications.html",
+      "type": "blob"
+    },
+    {
+      "path": "utils/web/sw.js",
+      "type": "blob"
+    },
+    {
+      "path": "utils/workspace.py",
+      "type": "blob"
+    },
+    {
+      "path": "vault",
+      "type": "tree"
+    },
+    {
+      "path": "vault/00 Index",
+      "type": "tree"
+    },
+    {
+      "path": "vault/00 Index/Home.md",
+      "type": "blob"
+    },
+    {
+      "path": "vault/01 Projects",
+      "type": "tree"
+    },
+    {
+      "path": "vault/01 Projects/RAPP.md",
+      "type": "blob"
+    },
+    {
+      "path": "vault/01 Projects/RAR.md",
+      "type": "blob"
+    },
+    {
+      "path": "vault/01 Projects/Wildhaven AI Homes.md",
+      "type": "blob"
+    },
+    {
+      "path": "vault/01 Projects/rapp-egg-hub.md",
+      "type": "blob"
+    },
+    {
+      "path": "vault/01 Projects/rappterbox.md",
+      "type": "blob"
+    },
+    {
+      "path": "vault/02 Concepts",
+      "type": "tree"
+    },
+    {
+      "path": "vault/02 Concepts/Brainstem.md",
+      "type": "blob"
+    },
+    {
+      "path": "vault/02 Concepts/Constitution.md",
+      "type": "blob"
+    },
+    {
+      "path": "vault/02 Concepts/Egg.md",
+      "type": "blob"
+    },
+    {
+      "path": "vault/02 Concepts/Hatching.md",
+      "type": "blob"
+    },
+    {
+      "path": "vault/02 Concepts/Private Companion.md",
+      "type": "blob"
+    },
+    {
+      "path": "vault/02 Concepts/Rappid.md",
+      "type": "blob"
+    },
+    {
+      "path": "vault/02 Concepts/Soul.md",
+      "type": "blob"
+    },
+    {
+      "path": "vault/02 Concepts/Wire.md",
+      "type": "blob"
+    },
+    {
+      "path": "vault/03 Manifestos",
+      "type": "tree"
+    },
+    {
+      "path": "vault/03 Manifestos/Chat Is The Only Wire.md",
+      "type": "blob"
+    },
+    {
+      "path": "vault/03 Manifestos/Local-First-by-Design.md",
+      "type": "blob"
+    },
+    {
+      "path": "vault/03 Manifestos/The Engine Stays Small.md",
+      "type": "blob"
+    },
+    {
+      "path": "vault/04 Decisions",
+      "type": "tree"
+    },
+    {
+      "path": "vault/04 Decisions/2026-05-04 — Repurpose kody-w-twin as the brain repo.md",
+      "type": "blob"
+    },
+    {
+      "path": "vault/07 Inbox",
+      "type": "tree"
+    },
+    {
+      "path": "vault/07 Inbox/README.md",
+      "type": "blob"
+    },
+    {
+      "path": "vbrainstem.html",
+      "type": "blob"
+    }
+  ],
+  "truncated": false
+}

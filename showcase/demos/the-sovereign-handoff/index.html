@@ -268,7 +268,7 @@ async function verifyFrame(frame, key){
 
 async function attestSelf(prefix){
   narrate(`${prefix}-self-fetch`, 'active', 'fetch own index.html bytes…', location.pathname);
-  const res = await fetch('index.html', { cache:'no-store' });
+  const res = await fetch('index.html');
   if (!res.ok) throw new Error(`fetch index.html → ${res.status} ${res.statusText}`);
   const bytes = await res.arrayBuffer();
   narrate(`${prefix}-self-fetch`, 'ok', 'fetched own source', `${bytes.byteLength} bytes`);

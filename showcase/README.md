@@ -6,7 +6,7 @@ it's a *library*: every entry is a working artifact with its own live walkthroug
 
 **It's a static full-stack app.** There is no backend:
 - **Reads** — the feed is `catalog.json` (+ `channels.json`) served as raw JSON from this repo.
-- **Writes** — submissions are **GitHub Issues** (a CRUD layer, `lib/issues-db.mjs`): reads are token-free, writes go through your own GitHub session via a prefilled issue URL, or a token for agents.
+- **Writes** — submissions are **GitHub Issues** (a CRUD layer, `lib/issues-db.mjs`): reads come from a CI-harvested static snapshot (`data/github-issues.json`, same field names as the GitHub API — the browser never calls api.github.com), writes go through your own GitHub session via a prefilled issue URL.
 - **Local-first** — clone the repo, `python3 -m http.server`, and the whole thing runs on your machine.
 
 ```

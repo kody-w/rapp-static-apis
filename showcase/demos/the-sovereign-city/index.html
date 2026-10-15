@@ -407,7 +407,7 @@ async function loadLiveMarket() {
   } catch (e) {
     soldOut = new Map();
     fallbackNote = ' · live Issues API unavailable here, so this run assumes no sold-out labels';
-    centerNarrate('issues', 'bad', 'live IssuesDB read failed in this browser', String(e.message || e));
+    centerNarrate('issues', 'bad', 'IssuesDB snapshot read failed in this browser', String(e.message || e));
     centerNarrate('issues-fallback', 'ok', 'fallback: keep the market running with all items unsold', 'the primary donor path is still IssuesDB when reachable');
   }
 
@@ -715,7 +715,7 @@ async function emitReceipt(order, sealedEnvelope, stamp) {
 
 async function fetchFreshProof() {
   ledgerNarrate('fresh-fetch', 'active', `fetch ${FRESHNESS_SPEC.title} bytes`, FRESHNESS_SPEC.source);
-  const res = await fetch(FRESHNESS_SPEC.source, { cache: 'no-store' });
+  const res = await fetch(FRESHNESS_SPEC.source);
   if (!res.ok) throw new Error(`fetch ${FRESHNESS_SPEC.source} -> ${res.status}`);
   const fetchedAt = new Date().toISOString();
   const bytes = await res.arrayBuffer();

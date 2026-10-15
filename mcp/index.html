@@ -44,7 +44,7 @@
 <script>
 const esc = s => (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 (async () => {
-  const r = await (await fetch('registry.json', {cache:'no-store'})).json();
+  const r = await (await fetch('registry.json')).json();
   document.getElementById('name').textContent = r.name;
   document.getElementById('sum').innerHTML =
     `${r.summary.tools} tools · ${r.summary.cells} compute cell(s) · verify-before-exec · no server`;

@@ -1,0 +1,49 @@
+name: pages
+# rapp-static-api/1.1 — ARTIFACT MODE. Harvest + build straight into the GitHub Pages artifact and deploy
+# it with actions/deploy-pages. No bot commits, so it works on protected branches and in repos where bots
+# may not push. Settings -> Pages -> Source must be "GitHub Actions".
+# Note: anything built here lives only in the deployed artifact. A content-addressed versions/ store must
+# still be committed (commit mode, or by hand) — otherwise it cannot be append-only across runs.
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '41 */6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Harvest GitHub API snapshots (CI only — browsers never call api.github.com)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 harvest_github.py
+      - run: python3 build.py
+      - name: Assemble the site (the same files any static CDN could serve)
+        run: |
+          mkdir -p _site
+          tar --exclude=./.git --exclude=./.github --exclude=./_site -cf - . | tar -xf - -C _site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

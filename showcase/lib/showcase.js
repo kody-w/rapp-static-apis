@@ -22,7 +22,7 @@ export function mkNarrator(ul) {
 // or /fn-style dir (with registry.json). `onStep(key,state,text,detail)` drives the narrator.
 export async function runVerifiedCell({ base, cell, fn, args, onStep = () => {}, forceMismatch = false }) {
   onStep('reg', 'active', 'fetch registry.json', base);
-  const reg = await (await fetch(`${base}/registry.json`, { cache: 'no-store' })).json();
+  const reg = await (await fetch(`${base}/registry.json`)).json();
   const entries = reg.entries || reg.cells || [];
   const e = entries.find(x => x.name === cell) || entries.find(x => (x.exports || []).includes(fn)) || entries[0];
   if (!e) throw new Error('cell not found in registry');
@@ -30,7 +30,7 @@ export async function runVerifiedCell({ base, cell, fn, args, onStep = () => {},
   onStep('reg', 'ok', 'registry.json', `pins ${cell} @ ${e.sha8}`);
 
   onStep('fetch', 'active', 'fetch the cell bytes', e.pin_path);
-  const bytes = await (await fetch(pinUrl, { cache: 'no-store' })).arrayBuffer();
+  const bytes = await (await fetch(pinUrl)).arrayBuffer();
   onStep('fetch', 'ok', 'fetched cell bytes', `${bytes.byteLength} bytes`);
 
   onStep('hash', 'active', 'recompute SHA-256 in your browser (crypto.subtle)…', '');
@@ -57,8 +57,8 @@ export async function runVerifiedCell({ base, cell, fn, args, onStep = () => {},
 // ---- feed / channels (the Reddit-style front page) ----
 export async function loadCatalog(base = '.') {
   const [catalog, channels] = await Promise.all([
-    fetch(`${base}/catalog.json`, { cache: 'no-store' }).then(r => r.json()).catch(() => ({ posts: [] })),
-    fetch(`${base}/channels.json`, { cache: 'no-store' }).then(r => r.json()).catch(() => ({ channels: [] })),
+    fetch(`${base}/catalog.json`).then(r => r.json()).catch(() => ({ posts: [] })),
+    fetch(`${base}/channels.json`).then(r => r.json()).catch(() => ({ channels: [] })),
   ]);
   return { posts: catalog.posts || [], channels: channels.channels || [] };
 }

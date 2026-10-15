@@ -155,7 +155,7 @@ function renderMirrors(rows) {
 
 async function fetchProof(spec, prefix) {
   narrate(`${prefix}-fetch`, 'active', `fetch ${spec.title} bytes`, spec.source);
-  const res = await fetch(spec.source, { cache: 'no-store' });
+  const res = await fetch(spec.source);
   if (!res.ok) throw new Error(`fetch ${spec.source} -> ${res.status}`);
   const fetchedAt = new Date().toISOString();
   const bytes = await res.arrayBuffer();

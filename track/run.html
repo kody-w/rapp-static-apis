@@ -53,7 +53,7 @@ async function tick(){
 }
 (async()=>{
   if(!spec.src && !spec.url){ $('val').textContent='—'; $('meta').innerHTML='No tracker spec. <a href="./">Build one →</a>'; return; }
-  REG=await (await fetch('registry.json',{cache:'no-store'})).json();
+  REG=await (await fetch('registry.json')).json();
   await tick();
   if(spec.r && Number(spec.r)>=5) setInterval(tick, Number(spec.r)*1000);
 })();

@@ -1,26 +1,45 @@
 name: build
-# rapp-static-api/1.0 — the only build step. Rebuild on push + every 6h; commit ONLY real changes.
+# rapp-static-api/1.1 — COMMIT MODE. The only build step: harvest GitHub snapshots (token, once per run),
+# rebuild, and commit ONLY real changes. Pages then serves the committed files same-origin.
+# Use artifact mode (pages-artifact.yml) instead if bots may not push to main (protected branch).
 on:
   push:
     branches: [ main ]
-    paths: [ "manifest.json", "build.py", ".github/workflows/build.yml" ]
+    paths: [ "manifest.json", "build.py", "harvest_github.py", ".github/workflows/build.yml" ]
   schedule:
     - cron: '23 */6 * * *'
   workflow_dispatch:
 permissions:
   contents: write
+# Every workflow in this repo that pushes to main MUST share this one group, so pushes never race.
+# GitHub keeps at most ONE pending run per group (a newer one replaces it), which is fine here because
+# every run rebuilds the whole state from scratch.
 concurrency:
-  group: build
+  group: push-main
   cancel-in-progress: false
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Harvest GitHub API snapshots (CI only — browsers never call api.github.com)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 harvest_github.py
       - run: python3 build.py
       - name: Commit only real changes
         run: |
           git config user.name "static-api"
           git config user.email "actions@users.noreply.github.com"
           git add -A versions registry.json api
-          git diff --cached --quiet || { git commit -m "static-api: rebuild [skip ci]"; git push; }
+          git diff --cached --quiet && exit 0
+          git commit -m "static-api: rebuild [skip ci]"
+          # checkout pins the triggering SHA, so rebase onto the live tip before pushing.
+          for i in 1 2 3; do
+            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

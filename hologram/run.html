@@ -47,12 +47,12 @@ async function fetchCart() {
     return res.json();
   }
   if (p.has('id')) {
-    const regRes = await fetch('registry.json', { cache: 'no-store' });
+    const regRes = await fetch('registry.json');
     if (!regRes.ok) throw new Error(`fetch registry.json → ${regRes.status}`);
     const reg = await regRes.json();
     const entry = (reg.entries || []).find(e => e.name === p.get('id') || e.id === p.get('id'));
     if (!entry) throw new Error(`id "${p.get('id')}" not found in registry`);
-    const res = await fetch(new URL(entry.pin_path, location.href).href, { cache: 'no-store' });
+    const res = await fetch(new URL(entry.pin_path, location.href).href);
     if (!res.ok) throw new Error(`fetch cart → ${res.status}`);
     expectedId = entry.id;
     return res.json();

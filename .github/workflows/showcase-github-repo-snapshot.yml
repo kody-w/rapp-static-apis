@@ -1,39 +1,59 @@
 name: Harvest showcase GitHub repo snapshot
 
-# Static Data Covenant (RAR CONSTITUTION.md Article XXIV): a visitor's browser must never call
-# api.github.com. CI harvests kody-w/rapp-static-apis's public repo metadata (stars, forks,
-# open issues, ...) from api.github.com once, server-side, and commits it as static JSON that
-# the showcase demos read from their own Pages origin instead.
+# Static Data Covenant (RAR CONSTITUTION.md Article XXIV) = the rapp-static-api/1.1 snapshot profile:
+# a visitor's browser must never call api.github.com. CI harvests the GitHub API responses listed in
+# scripts/github-snapshots.json (this repo's metadata + open issues for the showcase demos, and the
+# kody-w/twin key listing + tree for the legal proof) once, server-side, with GITHUB_TOKEN, and commits
+# them as static JSON with the SAME field names. Pages serves them same-origin. Issue events refresh the
+# issues snapshot within minutes; the daily run is the self-heal.
 
 on:
   schedule:
-    - cron: '17 6 * * *'   # daily
+    - cron: '57 5 * * *'   # daily, staggered away from spine.yml (17 6)
+  issues:
+    types: [opened, edited, closed, reopened, labeled, unlabeled, deleted, transferred]
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
-      - 'scripts/harvest-github-repo.mjs'
+      - 'template/harvest_github.py'
+      - 'scripts/github-snapshots.json'
       - '.github/workflows/showcase-github-repo-snapshot.yml'
 
 permissions:
   contents: write
+  issues: read
+
+# rapp-static-api/1.1: every workflow that pushes to main shares ONE concurrency group so pushes never
+# race. GitHub keeps at most one pending run per group (a newer one replaces it); each run rebuilds from
+# scratch and rebases onto the live tip before pushing, so a replaced run loses nothing.
+concurrency:
+  group: push-main
+  cancel-in-progress: false
 
 jobs:
   harvest:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-python@v5
         with:
-          node-version: '20'
-      - name: Harvest repo snapshot
+          python-version: '3.11'
+      - name: Harvest GitHub API snapshots (same field names, stable-write)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: node scripts/harvest-github-repo.mjs
+        run: python3 template/harvest_github.py --manifest scripts/github-snapshots.json --root .
       - name: Commit only real changes
-        if: github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main'
         run: |
           git config user.name "RAPP Static Data Bot"
           git config user.email "rapp-bot@users.noreply.github.com"
-          git add showcase/data/github-repo.json
-          git diff --cached --quiet || git commit -m "Refresh showcase GitHub repo snapshot [skip ci]"
-          git push
+          git add showcase/data legal/data
+          git diff --cached --quiet && exit 0
+          git commit -m "Refresh GitHub API snapshots [skip ci]"
+          # checkout pins the triggering SHA; rebase onto the live tip before pushing (retry on a race).
+          for i in 1 2 3; do
+            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

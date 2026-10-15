@@ -306,7 +306,7 @@ document.getElementById('egg-url').addEventListener('keydown', e => { if (e.key 
   const empty = document.getElementById('shelf-empty');
   const regUrl = new URL('../hologram/registry.json', location.href);
   try {
-    const reg = await (await fetch(regUrl, { cache: 'no-store' })).json();
+    const reg = await (await fetch(regUrl)).json();
     const entries = (reg.entries || []).slice(0, 6);
     if (!entries.length) throw new Error('registry has no entries');
     empty.remove();

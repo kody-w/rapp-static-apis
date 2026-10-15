@@ -1,6 +1,7 @@
 {
-  "schema": "rapp-static-api/1.0",
+  "schema": "rapp-static-api/1.1",
   "name": "my-static-api",
+  "pages_base": "https://OWNER.github.io/REPO",
   "raw_base": "https://raw.githubusercontent.com/OWNER/REPO/main",
   "entries": [
     {
@@ -10,5 +11,19 @@
         { "label": "mirror",  "url": "https://raw.githubusercontent.com/OWNER/OTHER/main/example.md" }
       ]
     }
-  ]
+  ],
+  "github": {
+    "owner": "OWNER",
+    "repo": "REPO",
+    "out_dir": "api/v1/github",
+    "snapshots": [
+      "repos/{owner}/{repo}",
+      {
+        "path": "repos/{owner}/{repo}/releases?per_page=100",
+        "slug": "releases",
+        "fields": ["id", "tag_name", "name", "draft", "prerelease", "published_at", "html_url",
+                   "assets.name", "assets.size", "assets.browser_download_url"]
+      }
+    ]
+  }
 }

@@ -80,7 +80,7 @@ $('make').onclick=()=>{ const url=shareUrl(); const info=drawQR(url);
   window.__lastQR={url, size:info.size}; };
 
 (async()=>{
-  REG=await (await fetch('registry.json',{cache:'no-store'})).json();
+  REG=await (await fetch('registry.json')).json();
   const e=REG.entries[0]||{}; $('pin').textContent='cell '+(e.sha8||'?');
   const m=await (await fetch('manifest.json')).json();
   const sel=$('preset'); sel.innerHTML='<option value="">— custom —</option>'+(m.presets||[]).map((p,i)=>`<option value="${i}">${p.title}</option>`).join('');

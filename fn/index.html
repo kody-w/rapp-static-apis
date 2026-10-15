@@ -92,7 +92,7 @@ async function run(fn, args) {
 }
 
 (async () => {
-  REG = await (await fetch('registry.json', { cache: 'no-store' })).json();
+  REG = await (await fetch('registry.json')).json();
   document.getElementById('name').textContent = REG.name;
   const cell = REG.entries[0] || {};
   document.getElementById('sub').innerHTML =

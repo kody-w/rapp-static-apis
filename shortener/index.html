@@ -65,7 +65,7 @@ function render(q){
   document.querySelectorAll('[data-copy]').forEach(b => b.onclick = () => copy(b.dataset.copy, b));
 }
 (async () => {
-  const r = await (await fetch('registry.json', {cache:'no-store'})).json();
+  const r = await (await fetch('registry.json')).json();
   ALL = (r.entries||[]).slice().sort((a,b)=>a.slug.localeCompare(b.slug));
   document.getElementById('name').textContent = r.name;
   const s = r.summary||{};
